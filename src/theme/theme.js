@@ -1,5 +1,5 @@
 import {
-    createMuiTheme,
+    createMuiTheme as createTheme,
     responsiveFontSizes
 } from '@material-ui/core/styles';
 import teal from '@material-ui/core/colors/teal';
