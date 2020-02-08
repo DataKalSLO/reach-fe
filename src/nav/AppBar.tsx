@@ -4,7 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { styled } from '@material-ui/core/styles';
 import { Grid, Button } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
 import MenuButton from './MenuButton';
@@ -16,39 +16,35 @@ import {
     MY_STUFF, MY_STUFF_NAME
 } from './constants';
 
-const useStyles = makeStyles(theme => ({
-    appbar: {
-        background: 'linear-gradient(90deg, #586571 -3.4%, #65BDAF 101.98%);',
-    },
-    title: {
-        flexGrow: 1,
-        display: 'none',
-        color: 'white',
-        [theme.breakpoints.up('sm')]: {
-            display: 'block',
-        },
-    },
-    noHoverButton: {
-        textTransform: 'none',
-        "&:hover": {
-            backgroundColor: "transparent"
-        }
+const ButtonWithoutHover = styled(Button)({
+    textTransform: 'none',
+    "&:hover": {
+        backgroundColor: "transparent"
     }
-}));
+})
+
+const StyledMuiAppBar = styled(MuiAppBar)({
+    background: 'linear-gradient(90deg, #586571 -3.4%, #65BDAF 101.98%);',
+})
+
+const StyledTypography = styled(Typography)({
+    flexGrow: 1,
+    display: 'block',
+    color: 'white',
+})
 
 function AppBar() {
-    const classes = useStyles();
     let history = useHistory()
     const navigateTo = (route: string) => () => history.push(route)
 
     const menu = (
         <Grid container direction='row' justify='space-between' alignItems='center' spacing={3}>
             <Grid item>
-                <Button className={classes.noHoverButton} onClick={navigateTo(HOME)}>
-                    <Typography className={classes.title} variant="h6" noWrap>
+                <ButtonWithoutHover onClick={navigateTo(HOME)}>
+                    <StyledTypography variant="h6" noWrap>
                         {HOME_NAME}
-                    </Typography>
-                </Button>
+                    </StyledTypography>
+                </ButtonWithoutHover>
             </Grid>
             <Grid item container xs={10} direction='row' justify='center' alignItems='center' spacing={8} wrap='nowrap'>
                 <Grid item key={EXPLORE_NAME}>
@@ -71,11 +67,11 @@ function AppBar() {
     )
 
     return (
-        <MuiAppBar className={classes.appbar} position="static">
+        <StyledMuiAppBar position="static">
             <Toolbar>
                 {menu}
             </Toolbar>
-        </MuiAppBar>
+        </StyledMuiAppBar>
     );
 }
 
