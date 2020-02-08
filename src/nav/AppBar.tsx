@@ -59,7 +59,7 @@ function AppBar() {
             </Grid>
             <Grid item>
                 <MenuButton name={MY_STUFF_NAME} navigateToRoute={navigateTo(MY_STUFF)} />
-                <IconButton onClick={async () => history.push(MY_STUFF)}>
+                <IconButton onClick={navigateTo(MY_STUFF)}>
                     <AccountCircleIcon fontSize='large' />
                 </IconButton>
             </Grid>
