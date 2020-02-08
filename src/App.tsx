@@ -14,7 +14,8 @@ import {
 import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from './theme/theme';
 
-// Routing explained here: https://reacttraining.com/react-router/web/guides/quick-start
+// Routing
+//  https://reacttraining.com/react-router/web/guides/quick-start
 import {
   BrowserRouter as Router,
   Switch,
