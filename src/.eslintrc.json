@@ -1,0 +1,39 @@
+/*
+ * Initial resource for this file & linting:
+ * https://dev.to/benweiser/how-to-set-up-eslint-typescript-prettier-with-create-react-app-3675
+ * Further config resources
+ * https://eslint.org/docs/user-guide/configuring
+ */
+{
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier/@typescript-eslint",
+        "plugin:prettier/recommended"
+    ],
+    "plugins": ["react", "@typescript-eslint", "prettier"],
+    "env": {
+        "browser": true,
+        "jasmine": true,
+        "jest": true
+    },
+    "rules": {
+        "prettier/prettier": ["error",
+            { 
+                // allows imports to have single quote
+                "singleQuote": true 
+            }
+        ],
+        "@typescript-eslint/explicit-function-return-type": 
+            //return type not required
+            "off"
+    },
+    "settings": {
+        "react": {
+            "pragma": "React",
+            "version": "detect"
+        }
+    },
+    "parser": "@typescript-eslint/parser"
+}

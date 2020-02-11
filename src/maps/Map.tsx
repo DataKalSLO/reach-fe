@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
 function Map() {
-    return (
+  return (
     <div>
-            <h1>Map goes here</h1>
-    </div>)
+      <h1>Map goes here</h1>
+    </div>
+  );
 }
-export default Map
+export default Map;

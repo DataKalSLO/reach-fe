@@ -1,7 +1,7 @@
 import React from 'react';
 
 function MyStuff() {
-    return <div />
+  return <div />;
 }
 
 export default MyStuff;
