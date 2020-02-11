@@ -14,7 +14,7 @@ function VizBuilder() {
         <Grid item xs = {6}>
             <Map/>
         </Grid>
-        <Grid style = {{border:'1px solid yellow'}} item xs = {6}>
+        <Grid item xs = {6}>
             <Graph/>
         </Grid>
       </Grid>
