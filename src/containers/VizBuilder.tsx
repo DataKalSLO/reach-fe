@@ -10,7 +10,7 @@ import {makeStyles} from '@material-ui/core/styles'
 
 function VizBuilder() {
     return (
-      <Grid style = {{border:'1px solid red', height: '100%', width: '100%'}} item container xs={12} >
+      <Grid direction = "row" justify="center" alignItems='center' item container xs={12} >
         <Grid item xs = {6}>
             <Map/>
         </Grid>
