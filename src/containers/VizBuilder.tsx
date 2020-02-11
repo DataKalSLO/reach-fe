@@ -1,31 +1,23 @@
 import React, { useState } from 'react';
-import Highcharts from 'highcharts'
-import HighchartsReact from 'highcharts-react-official';
-
-
-const options : Highcharts.Options = {
-   
-    title: {
-      text: 'My chart'
-    },
-    series: [
-      {
-        type: 'spline',
-        data: [1, 2, 1, 4, 3, 6]
-      }
-    ]
-  };
+import Graph from '../graphs/Graph';
+import Map from '../maps/Map';
+import { Grid, Button } from '@material-ui/core';
+import MenuButton from '../nav/MenuButton';
+import { width } from '@material-ui/system';
+import { height } from '@material-ui/system';
+import {makeStyles} from '@material-ui/core/styles'
 
 
 function VizBuilder() {
     return (
-    <div>
-        <div>
-        <HighchartsReact
-            highcharts={Highcharts}
-            options={options}/>
-        </div>
-    </div>
+      <Grid style = {{border:'1px solid red', height: '100%', width: '100%'}} item container xs={12} >
+        <Grid item xs = {6}>
+            <Map/>
+        </Grid>
+        <Grid style = {{border:'1px solid yellow'}} item xs = {6}>
+            <Graph/>
+        </Grid>
+      </Grid>
     )
 }
 
