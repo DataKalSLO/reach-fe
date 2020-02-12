@@ -5,7 +5,7 @@ import {
   EXPLORE,
   VIZ_BUILDER,
   STORY_BUILDER,
-  MY_STUFF,
+  MY_STUFF
 } from './nav/constants';
 
 // Material UI's theming/styling solution
@@ -16,11 +16,7 @@ import { theme } from './theme/theme';
 
 // Routing
 //  https://reacttraining.com/react-router/web/guides/quick-start
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 // Containers
 import Home from './containers/Home';
@@ -34,27 +30,27 @@ function App() {
     <Route path={HOME} exact>
       <Home />
     </Route>
-  )
+  );
   const explore = (
     <Route path={EXPLORE}>
       <Explore />
     </Route>
-  )
+  );
   const vizBuilder = (
     <Route path={VIZ_BUILDER}>
       <VizBuilder />
     </Route>
-  )
+  );
   const storyBuilder = (
     <Route path={STORY_BUILDER}>
       <StoryBuilder />
     </Route>
-  )
+  );
   const myStuff = (
     <Route path={MY_STUFF}>
       <MyStuff />
     </Route>
-  )
+  );
 
   return (
     <Router>
@@ -69,7 +65,7 @@ function App() {
         </Switch>
       </ThemeProvider>
     </Router>
-  )
+  );
 }
 
 export default App;
