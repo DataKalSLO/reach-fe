@@ -11,6 +11,6 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 
 // pass the text you want to be displayed
-export function CreateTextButton(text: string){
-  <Button>{text}</Button>
+export function CreateTextButton(text: string) {
+  return <Button>{text}</Button>;
 }

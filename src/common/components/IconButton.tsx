@@ -18,59 +18,59 @@ import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import TableChartIcon from '@material-ui/icons/TableChart';
 
 // trash bin
-const DeleteButton = () => {
+const DeleteButton = () => (
   <IconButton aria-label="delete">
     <DeleteIcon />
   </IconButton>
-}
+);
 export { DeleteButton };
 
 // floppy disk
-const SaveButton = () => {
+const SaveButton = () => (
   <IconButton aria-label="save">
     <SaveIcon />
   </IconButton>
-}
+);
 export { SaveButton };
 
 // plus sign in black square
-const AddButton = () => {
+const AddButton = () => (
   <IconButton aria-label="add">
     <AddBoxIcon />
   </IconButton>
-}
+);
 export { AddButton };
 
 // looks like download - couldn't really find the right one
-const ExportButton = () => {
+const ExportButton = () => (
   <IconButton aria-label="export">
     <SaveAltIcon />
   </IconButton>
-}
+);
 export { ExportButton };
 
 // diagonal pen
-const EditButton = () => {
+const EditButton = () => (
   <IconButton aria-label="edit">
     <EditIcon />
   </IconButton>
-}
+);
 export { EditButton };
 
 // calendar
-const SelectDateButton = () => {
+const SelectDateButton = () => (
   <IconButton aria-label="select-date">
     <CalendarTodayIcon />
   </IconButton>
-}
+);
 export { SelectDateButton };
 
 // data table
-const ViewDataTableButton = () => {
+const ViewDataTableButton = () => (
   <IconButton aria-label="view-data-table">
     <TableChartIcon />
   </IconButton>
-}
+);
 export { ViewDataTableButton };
 
 // can't find the right button for duplicate

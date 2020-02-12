@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Graph from '../graphs/Graph';
 import Map from '../maps/Map';
-import { Grid, Button } from '@material-ui/core';
-import MenuButton from '../nav/MenuButton';
-import { width } from '@material-ui/system';
-import { height } from '@material-ui/system';
-import { makeStyles } from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
 
 function VizBuilder() {
   return (
