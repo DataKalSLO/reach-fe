@@ -4,6 +4,7 @@ export const EXPLORE = '/explore'
 export const VIZ_BUILDER = '/viz-builder'
 export const STORY_BUILDER = '/story-builder'
 export const MY_STUFF = '/my-stuff'
+export const LOGIN = '/login'
 
 // Names of routes in the navigation bar
 export const HOME_NAME = "Reach"
