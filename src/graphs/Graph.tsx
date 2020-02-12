@@ -1,61 +1,46 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
-import LocalData from '../common/assets/Local Data/dod_contracts_2018.json';
+export const DATA = {
+  dodContracts: require('../common/assets/Local Data/dod_contracts_2018.json')
+};
 
+const data = DATA.dodContracts.map((item: any) => {
+  return {
+    name: item.recipient_name,
+    y: item.$_total_award_value
+  };
+});
 const options: Highcharts.Options = {
-  xAxis: {
-    categories: [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec'
-    ]
+  tooltip: {
+    useHTML: true,
+    headerFormat: '<small>{point.key}</small><table>',
+    valueDecimals: 2,
+    valuePrefix: '$',
+    valueSuffix: ' USD'
+  },
+
+  yAxis: {
+    title: {
+      text: 'Award value',
+      y: -10
+    }
+  },
+
+  chart: {
+    height: '80%'
+  },
+
+  title: {
+    text: 'Department of Defense Contracts'
   },
 
   series: [
     {
-      type: 'bar',
-      data: [
-        29.9,
-        71.5,
-        106.4,
-        129.2,
-        144.0,
-        176.0,
-        135.6,
-        148.5,
-        216.4,
-        194.1,
-        95.6,
-        54.4
-      ]
-    },
-    {
-      type: 'bar',
-      data: [
-        216.4,
-        194.1,
-        95.6,
-        54.4,
-        29.9,
-        71.5,
-        106.4,
-        129.2,
-        144.0,
-        176.0,
-        135.6,
-        148.5
-      ]
+      name: 'Companies',
+      type: 'column',
+      data: data
     }
   ]
 };
