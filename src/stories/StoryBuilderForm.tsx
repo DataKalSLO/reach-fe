@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Button, LinearProgress } from '@material-ui/core';
+import SaveIcon from '@material-ui/icons/Save';
 import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
 import RichTextEditor, { contentToRaw } from './RichTextEditor';
@@ -45,6 +46,7 @@ function StoryBuilderForm() {
             color="primary"
             disabled={isSubmitting}
             onClick={submitForm}
+            startIcon={<SaveIcon />}
           >
             Save Story
           </Button>
