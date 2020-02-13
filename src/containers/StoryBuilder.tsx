@@ -1,6 +1,7 @@
 import { Container } from '@material-ui/core';
 import { Editor as TextEditor, EditorState as TextEditorState } from 'draft-js';
 import React from 'react';
+import StoryBuilderForm from '../stories/StoryBuilderForm';
 
 function StoryBuilder() {
   const [textEditorState, setTextEditorState] = React.useState(
@@ -15,6 +16,7 @@ function StoryBuilder() {
         onChange={setTextEditorState}
         placeholder="DRAFT.JS PLACEHOLDER TEXT EDITOR"
       />
+      <StoryBuilderForm />
     </Container>
   );
 }
