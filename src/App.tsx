@@ -5,7 +5,8 @@ import {
   EXPLORE,
   VIZ_BUILDER,
   STORY_BUILDER,
-  MY_STUFF
+  MY_STUFF,
+  LOGIN
 } from './nav/constants';
 
 // Material UI's theming/styling solution
@@ -24,6 +25,7 @@ import Explore from './containers/Explore';
 import VizBuilder from './containers/VizBuilder';
 import StoryBuilder from './containers/StoryBuilder';
 import MyStuff from './containers/MyStuff';
+import Login from './containers/Login';
 
 function App() {
   const home = (
@@ -51,6 +53,11 @@ function App() {
       <MyStuff />
     </Route>
   );
+  const login = (
+    <Route path={LOGIN}>
+      <Login />
+    </Route>
+  );
 
   return (
     <Router>
@@ -62,6 +69,7 @@ function App() {
           {vizBuilder}
           {storyBuilder}
           {myStuff}
+          {login}
         </Switch>
       </ThemeProvider>
     </Router>

@@ -18,7 +18,8 @@ import {
   STORY_BUILDER,
   STORY_BUILDER_NAME,
   MY_STUFF,
-  MY_STUFF_NAME
+  MY_STUFF_NAME,
+  LOGIN
 } from './constants';
 
 const ButtonWithoutHover = styled(Button)({
@@ -91,7 +92,7 @@ function AppBar() {
           name={MY_STUFF_NAME}
           navigateToRoute={navigateTo(MY_STUFF)}
         />
-        <IconButton onClick={navigateTo(MY_STUFF)}>
+        <IconButton onClick={navigateTo(LOGIN)}>
           <AccountCircleIcon fontSize="large" />
         </IconButton>
       </Grid>
