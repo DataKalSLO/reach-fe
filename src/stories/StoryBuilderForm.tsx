@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Button, LinearProgress } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
+import RichTextEditor, { contentToRaw } from './RichTextEditor';
 
 function StoryBuilderForm() {
+  const [textBlock, setTextBlock] = useState();
+
   return (
     // NOTE: validation isn't currently needed, but we'll use yup
     //   https://github.com/jquense/yup
@@ -14,8 +17,12 @@ function StoryBuilderForm() {
       }}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
+          const data = {
+            ...values,
+            textBlock: contentToRaw(textBlock)
+          };
           setSubmitting(false);
-          alert(JSON.stringify(values, null, 2));
+          alert(JSON.stringify(data, null, 2));
         }, 500);
       }}
     >
@@ -27,6 +34,11 @@ function StoryBuilderForm() {
             label="Title"
             variant="outlined"
           />
+          <br />
+          {/* FIXME: @tanner refactor into a custom field
+              https://hceris.com/custom-components-in-formik/
+          */}
+          <RichTextEditor sendData={(v: any) => setTextBlock(v)} />
           <br />
           <Button
             variant="contained"
