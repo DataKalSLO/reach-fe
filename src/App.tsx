@@ -6,7 +6,8 @@ import {
   VIZ_BUILDER,
   STORY_BUILDER,
   MY_STUFF,
-  LOGIN
+  LOGIN,
+  CREATE_ACCOUNT
 } from './nav/constants';
 
 // Material UI's theming/styling solution
@@ -26,39 +27,45 @@ import VizBuilder from './containers/VizBuilder';
 import StoryBuilder from './containers/StoryBuilder';
 import MyStuff from './containers/MyStuff';
 import Login from './containers/Login';
+import CreateAccount from './containers/CreateAccount';
+
+const home = (
+  <Route path={HOME} exact>
+    <Home />
+  </Route>
+);
+const explore = (
+  <Route path={EXPLORE}>
+    <Explore />
+  </Route>
+);
+const vizBuilder = (
+  <Route path={VIZ_BUILDER}>
+    <VizBuilder />
+  </Route>
+);
+const storyBuilder = (
+  <Route path={STORY_BUILDER}>
+    <StoryBuilder />
+  </Route>
+);
+const myStuff = (
+  <Route path={MY_STUFF}>
+    <MyStuff />
+  </Route>
+);
+const login = (
+  <Route path={LOGIN}>
+    <Login />
+  </Route>
+);
+const createAccount = (
+  <Route path={CREATE_ACCOUNT}>
+    <CreateAccount />
+  </Route>
+);
 
 function App() {
-  const home = (
-    <Route path={HOME} exact>
-      <Home />
-    </Route>
-  );
-  const explore = (
-    <Route path={EXPLORE}>
-      <Explore />
-    </Route>
-  );
-  const vizBuilder = (
-    <Route path={VIZ_BUILDER}>
-      <VizBuilder />
-    </Route>
-  );
-  const storyBuilder = (
-    <Route path={STORY_BUILDER}>
-      <StoryBuilder />
-    </Route>
-  );
-  const myStuff = (
-    <Route path={MY_STUFF}>
-      <MyStuff />
-    </Route>
-  );
-  const login = (
-    <Route path={LOGIN}>
-      <Login />
-    </Route>
-  );
-
   return (
     <Router>
       <ThemeProvider theme={theme}>
@@ -70,6 +77,7 @@ function App() {
           {storyBuilder}
           {myStuff}
           {login}
+          {createAccount}
         </Switch>
       </ThemeProvider>
     </Router>
