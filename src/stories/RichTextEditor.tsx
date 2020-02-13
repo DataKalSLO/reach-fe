@@ -1,31 +1,56 @@
 import { Box, IconButton, styled } from '@material-ui/core';
-import { Editor as TextEditor, EditorState as TextEditorState } from 'draft-js';
+import { Editor, EditorState, RichUtils } from 'draft-js';
 import React from 'react';
 
-function RichTextEditor() {
-  const [textEditorState, setTextEditorState] = React.useState(
-    TextEditorState.createEmpty()
+function RichEditor() {
+  const [editorState, setEditorState] = React.useState(
+    EditorState.createEmpty()
   );
+
+  // enable key binding shortcuts (e.g. ctrl+b for bold)
+  const handleKeyCommand = (command: string, editorState: EditorState) => {
+    const newState = RichUtils.handleKeyCommand(editorState, command);
+
+    // Magic strings from Draft.js that signal success/failure. If you change these strings, the overriding WILL BREAK
+    const successMsg = 'handled';
+    const failureMsg = 'not-handled';
+
+    if (newState) {
+      setEditorState(newState);
+      return successMsg;
+    } else {
+      return failureMsg;
+    }
+  };
+
+  // connect icon buttons in the toolbar to the state updates
+  function onClickFormatButton(buttonName: string) {
+    setEditorState(RichUtils.toggleInlineStyle(editorState, buttonName));
+  }
 
   return (
     <StyledBox>
       <EditorToolbar>
-        <IconButton>
+        <IconButton onClick={() => onClickFormatButton('BOLD')}>
           <b>B</b>
         </IconButton>
-        <IconButton>
+        <IconButton onClick={() => onClickFormatButton('ITALIC')}>
           <em>I</em>
         </IconButton>
-        <IconButton>
+        <IconButton onClick={() => onClickFormatButton('UNDERLINE')}>
           <u>U</u>
         </IconButton>
       </EditorToolbar>
-      <TextEditor editorState={textEditorState} onChange={setTextEditorState} />
+      <Editor
+        editorState={editorState}
+        onChange={setEditorState}
+        handleKeyCommand={handleKeyCommand}
+      />
     </StyledBox>
   );
 }
 
-export default RichTextEditor;
+export default RichEditor;
 
 const EditorToolbar = styled(Box)({
   borderBottom: '1px solid #cbcbcb',
