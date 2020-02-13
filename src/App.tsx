@@ -17,7 +17,15 @@ import { theme } from './theme/theme';
 
 // Routing
 //  https://reacttraining.com/react-router/web/guides/quick-start
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+
+import { ConnectedRouter } from 'connected-react-router';
+
+// Store
+//  https://react-redux.js.org/introduction/quick-start
+//  https://react-redux.js.org/next/api/hooks
+import store, { history } from './redux/store';
+import { Provider } from 'react-redux';
 
 // Containers
 import Home from './containers/Home';
@@ -60,19 +68,21 @@ function App() {
   );
 
   return (
-    <Router>
-      <ThemeProvider theme={theme}>
-        <AppBar />
-        <Switch>
-          {home}
-          {explore}
-          {vizBuilder}
-          {storyBuilder}
-          {myStuff}
-          {login}
-        </Switch>
-      </ThemeProvider>
-    </Router>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <ThemeProvider theme={theme}>
+          <AppBar />
+          <Switch>
+            {home}
+            {explore}
+            {vizBuilder}
+            {storyBuilder}
+            {myStuff}
+            {login}
+          </Switch>
+        </ThemeProvider>
+      </ConnectedRouter>
+    </Provider>
   );
 }
 
