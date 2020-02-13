@@ -29,43 +29,43 @@ import MyStuff from './containers/MyStuff';
 import Login from './containers/Login';
 import CreateAccount from './containers/CreateAccount';
 
-function App() {
-  const home = (
-    <Route path={HOME} exact>
-      <Home />
-    </Route>
-  );
-  const explore = (
-    <Route path={EXPLORE}>
-      <Explore />
-    </Route>
-  );
-  const vizBuilder = (
-    <Route path={VIZ_BUILDER}>
-      <VizBuilder />
-    </Route>
-  );
-  const storyBuilder = (
-    <Route path={STORY_BUILDER}>
-      <StoryBuilder />
-    </Route>
-  );
-  const myStuff = (
-    <Route path={MY_STUFF}>
-      <MyStuff />
-    </Route>
-  );
-  const login = (
-    <Route path={LOGIN}>
-      <Login />
-    </Route>
-  );
-  const createAccount = (
-    <Route path={CREATE_ACCOUNT}>
-      <CreateAccount />
-    </Route>
-  );
+const home = (
+  <Route path={HOME} exact>
+    <Home />
+  </Route>
+);
+const explore = (
+  <Route path={EXPLORE}>
+    <Explore />
+  </Route>
+);
+const vizBuilder = (
+  <Route path={VIZ_BUILDER}>
+    <VizBuilder />
+  </Route>
+);
+const storyBuilder = (
+  <Route path={STORY_BUILDER}>
+    <StoryBuilder />
+  </Route>
+);
+const myStuff = (
+  <Route path={MY_STUFF}>
+    <MyStuff />
+  </Route>
+);
+const login = (
+  <Route path={LOGIN}>
+    <Login />
+  </Route>
+);
+const createAccount = (
+  <Route path={CREATE_ACCOUNT}>
+    <CreateAccount />
+  </Route>
+);
 
+function App() {
   return (
     <Router>
       <ThemeProvider theme={theme}>
