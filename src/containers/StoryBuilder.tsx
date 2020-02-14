@@ -1,6 +1,7 @@
 import { Container } from '@material-ui/core';
 import React from 'react';
 import StoryBuilderForm from '../stories/StoryBuilderForm';
+import SortableList from '../stories/SortableList';
 
 function StoryBuilder() {
   return (
@@ -13,6 +14,7 @@ function StoryBuilder() {
         handles to the left of each component if you want to reorder them.
       </text>
       <StoryBuilderForm />
+      <SortableList />
     </Container>
   );
 }

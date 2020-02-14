@@ -9,6 +9,7 @@
     "@types/jest": "^24.0.0",
     "@types/node": "^12.0.0",
     "@types/react-dom": "^16.9.0",
+    "array-move": "^2.2.1",
     "core-js": "^3.6.4",
     "draft-js": "^0.11.4",
     "draft-js-plugins-editor": "^3.0.0",
@@ -19,6 +20,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.1",
+    "react-sortable-hoc": "^1.11.0",
     "typescript": "~3.7.2"
   },
   "scripts": {
