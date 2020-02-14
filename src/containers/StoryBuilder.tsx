@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import RichTextEditor from '../stories/RichTextEditor';
 import { SaveStory, Story, GenerateEmptyStory } from '../stories/StoryObjects';
 import SaveIcon from '@material-ui/icons/Save';
+import StoryBuilderForm from '../stories/StoryBuilderForm';
+import SortableList from '../stories/SortableList';
 import { Button } from '@material-ui/core';
 import uuidv4 from 'uuid/v4';
 
@@ -18,7 +20,7 @@ function StoryBuilder() {
         add text blocks, graphs, static images, and dataset snippets to help
         readers follow along with your findings and conclusions. Use the drag
         handles to the left of each component if you want to reorder them.
-      </p>
+      </text>
       <RichTextEditor />
       <Button
         variant="contained"
@@ -28,6 +30,8 @@ function StoryBuilder() {
       >
         Save
       </Button>
+      <StoryBuilderForm />
+      <SortableList />
     </Container>
   );
 }
