@@ -1,10 +1,19 @@
-import { Box, IconButton, styled, Button } from '@material-ui/core';
+import { Box, IconButton, styled } from '@material-ui/core';
+import FormatBoldIcon from '@material-ui/icons/FormatBold';
+import FormatItalicIcon from '@material-ui/icons/FormatItalic';
+import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
+import StrikethroughSIcon from '@material-ui/icons/StrikethroughS';
+import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
+import InsertLinkIcon from '@material-ui/icons/InsertLink';
+import LinkOffIcon from '@material-ui/icons/LinkOff';
+import CodeIcon from '@material-ui/icons/Code';
 import {
+  convertFromRaw,
+  convertToRaw,
   Editor,
   EditorState,
-  RichUtils,
-  convertToRaw,
-  convertFromRaw
+  RichUtils
 } from 'draft-js';
 import React, { useState } from 'react';
 
@@ -19,6 +28,16 @@ export function contentToRaw(editorState: EditorState) {
   }
   return '';
 }
+
+const DraftJSCommands = {
+  bold: 'BOLD',
+  bulletedList: 'unordered-list-item',
+  italic: 'ITALIC',
+  monospace: 'CODE',
+  numberedList: 'ordered-list-item',
+  underline: 'UNDERLINE',
+  strikethrough: 'STRIKETHROUGH'
+};
 
 interface Props {
   sendData: any;
@@ -43,24 +62,58 @@ const RichTextEditor = (props: Props) => {
     }
   };
 
-  // connect icon buttons in the toolbar to the state updates
-  function onClickFormatButton(buttonName: string) {
+  // connect icon buttons in the toolbar to the state updates for inline styles
+  function onClickInlineStyle(buttonName: string) {
     setEditorState(RichUtils.toggleInlineStyle(editorState, buttonName));
+  }
+
+  function onClickBlockType(buttonName: string) {
+    setEditorState(RichUtils.toggleBlockType(editorState, buttonName));
   }
 
   return (
     <div>
       <StyledBox>
         <EditorToolbar>
-          <IconButton onClick={() => onClickFormatButton('BOLD')}>
-            <b>B</b>
-          </IconButton>
-          <IconButton onClick={() => onClickFormatButton('ITALIC')}>
-            <em>I</em>
-          </IconButton>
-          <IconButton onClick={() => onClickFormatButton('UNDERLINE')}>
-            <u>U</u>
-          </IconButton>
+          <FormatButtonGroup>
+            <IconButton
+              onClick={() => onClickInlineStyle(DraftJSCommands.bold)}
+            >
+              <FormatBoldIcon />
+            </IconButton>
+            <IconButton
+              onClick={() => onClickInlineStyle(DraftJSCommands.italic)}
+            >
+              <FormatItalicIcon />
+            </IconButton>
+            <IconButton
+              onClick={() => onClickInlineStyle(DraftJSCommands.underline)}
+            >
+              <FormatUnderlinedIcon />
+            </IconButton>
+            <IconButton
+              onClick={() => onClickInlineStyle(DraftJSCommands.strikethrough)}
+            >
+              <StrikethroughSIcon />
+            </IconButton>
+            <IconButton
+              onClick={() => onClickInlineStyle(DraftJSCommands.monospace)}
+            >
+              <CodeIcon />
+            </IconButton>
+          </FormatButtonGroup>
+          <FormatButtonGroup>
+            <IconButton
+              onClick={() => onClickBlockType(DraftJSCommands.bulletedList)}
+            >
+              <FormatListBulletedIcon />
+            </IconButton>
+            <IconButton
+              onClick={() => onClickBlockType(DraftJSCommands.numberedList)}
+            >
+              <FormatListNumberedIcon />
+            </IconButton>
+          </FormatButtonGroup>
         </EditorToolbar>
         <Editor
           editorState={editorState}
@@ -79,7 +132,15 @@ export default RichTextEditor;
 
 const EditorToolbar = styled(Box)({
   borderBottom: '1px solid #cbcbcb',
-  marginBottom: '10px'
+  marginBottom: '10px',
+  display: 'flex',
+  flexDirection: 'row'
+});
+
+const FormatButtonGroup = styled(Box)({
+  paddingLeft: '10px',
+  paddingRight: '10px',
+  borderRight: '1px solid #cbcbcb'
 });
 
 const StyledBox = styled(Box)({
