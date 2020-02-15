@@ -1,10 +1,7 @@
 import React from 'react';
+import MapView from './MapView';
 
 function Map() {
-  return (
-    <div>
-      <h1>Map goes here</h1>
-    </div>
-  );
+  return <MapView />;
 }
 export default Map;
