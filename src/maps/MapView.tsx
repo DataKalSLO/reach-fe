@@ -114,9 +114,9 @@ function MapView() {
   );
 }
 
-function prepGeo(featureCollections: any) {
+function prepGeo(featureCollection: any) {
   const prepped: any = [];
-  featureCollections.forEach((feature: any) => {
+  featureCollection.forEach((feature: any) => {
     prepped.push({
       geometry: feature.geometry,
       ...feature.properties
