@@ -3,11 +3,11 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
 type DodContract = {
-  recipientName: string,
-  totalAwardValue: number,
-  awardType: string,
-  location: string
-}
+  recipientName: string;
+  totalAwardValue: number;
+  awardType: string;
+  location: string;
+};
 
 export const DATA = {
   dodContracts: require('../common/assets/Local Data/dod_contracts_2018.json')
