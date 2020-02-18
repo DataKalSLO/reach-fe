@@ -8,23 +8,34 @@ import {
   SortEnd,
   SortEvent
 } from 'react-sortable-hoc';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
 import arrayMove from 'array-move';
+import RichTextEditor from './RichTextEditor';
+import { Box } from '@material-ui/core';
 
 interface SortableElementProps {
-  value: string;
+  value: JSX.Element;
 }
 
 interface SortableContainerProps {
   children: any;
 }
 
-const DragHandle = SortableHandle(() => <span>::</span>);
+const DragHandle = SortableHandle(() => (
+  <span>
+    <DragHandleIcon />
+  </span>
+));
 
 const SortableItem = SortableElement((props: SortableElementProps) => (
-  <li>
-    <DragHandle />
-    {props.value}
-  </li>
+  <div>
+    <Box color="gray" bgcolor="white" p={1} border={1}>
+      <div>
+        <DragHandle />
+        {props.value}
+      </div>
+    </Box>
+  </div>
 ));
 
 const LocalSortableContainer = SortableContainer(
@@ -35,13 +46,25 @@ const LocalSortableContainer = SortableContainer(
 
 export const SortableList = () => {
   const [items, setItems] = useState([
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-    'Item 6'
-  ] as Array<string>);
+    <RichTextEditor
+      sendData={() => {
+        return;
+      }}
+      key={1}
+    />,
+    <RichTextEditor
+      sendData={() => {
+        return;
+      }}
+      key={1}
+    />,
+    <RichTextEditor
+      sendData={() => {
+        return;
+      }}
+      key={1}
+    />
+  ] as Array<JSX.Element>);
 
   const onSortEnd: SortEndHandler = (sort: SortEnd, event: SortEvent) => {
     setItems(arrayMove(items, sort.oldIndex, sort.newIndex));
