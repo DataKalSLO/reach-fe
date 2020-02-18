@@ -20,6 +20,7 @@
     "start": "npm run lint && react-scripts start",
     "no-lint-start": "react-scripts start",
     "build": "npm run lint && react-scripts build",
+
     "lint": "eslint . --ext .ts,.tsx",
     "lint-fix": "eslint . --fix --ext .ts,.tsx",
     "test": "react-scripts test",
