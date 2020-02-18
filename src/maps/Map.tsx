@@ -1,9 +1,10 @@
 import React from 'react';
+import DatePickers from './FiltersComponent';
 
 function Map() {
   return (
     <div>
-      <h1>Map goes here</h1>
+      <DatePickers />
     </div>
   );
 }
