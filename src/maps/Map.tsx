@@ -1,11 +1,12 @@
 import React from 'react';
-import DatePickers from './FiltersComponent';
+import MapView from './MapView';
+import FiltersComponent from './FiltersComponent';
 
 function Map() {
-  return (
-    <div>
-      <DatePickers />
-    </div>
-  );
+  return <MapView />;
+  // return (
+  //   <div>
+  //     <DatePickers />
+  //   </div>
 }
 export default Map;
