@@ -16,11 +16,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-type props = {
-  title: string,
-  paragraph: string
-}
-
 export default function BasicButtonGroup() {
   const classes = useStyles();
 
