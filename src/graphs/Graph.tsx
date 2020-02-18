@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import Toolbar from './Toolbar';
+require('highcharts/modules/exporting')(Highcharts);
 
 type DodContract = {
   recipientName: string;
@@ -49,14 +51,26 @@ const options: Highcharts.Options = {
       type: 'column',
       data: data
     }
-  ]
+  ],
+
+  exporting: {
+    enabled: false
+  }
 };
 
 function Graph() {
+  const chartRef: any = useRef(null);
+  const exportChart = () => chartRef.current.chart.exportChart();
+
   return (
     <div>
-      <div>
-        <HighchartsReact highcharts={Highcharts} options={options} />
+      <div style={{ position: 'relative' }}>
+        <HighchartsReact
+          highcharts={Highcharts}
+          options={options}
+          ref={chartRef}
+        />
+        <Toolbar exportChartHandler={exportChart} />
       </div>
     </div>
   );

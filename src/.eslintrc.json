@@ -28,6 +28,10 @@
         "@typescript-eslint/explicit-function-return-type": 
             //return type not required
             "off"
+        ,
+        "@typescript-eslint/no-var-requires":
+        // allows you to use requires without import 
+        0
     },
     "settings": {
         "react": {
