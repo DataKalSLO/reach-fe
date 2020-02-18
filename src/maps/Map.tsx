@@ -1,6 +1,6 @@
 import React from 'react';
 import MapView from './MapView';
-import FiltersComponent from './FiltersComponent';
+//import FiltersComponent from './FiltersComponent';
 
 function Map() {
   return <MapView />;
