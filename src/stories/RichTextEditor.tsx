@@ -1,25 +1,63 @@
-import { Box, IconButton, styled } from '@material-ui/core';
+import {
+  Box,
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  styled,
+  withStyles
+} from '@material-ui/core';
+import CodeIcon from '@material-ui/icons/Code';
 import FormatBoldIcon from '@material-ui/icons/FormatBold';
 import FormatItalicIcon from '@material-ui/icons/FormatItalic';
-import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
-import StrikethroughSIcon from '@material-ui/icons/StrikethroughS';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
-import InsertLinkIcon from '@material-ui/icons/InsertLink';
-import LinkOffIcon from '@material-ui/icons/LinkOff';
-import CodeIcon from '@material-ui/icons/Code';
-import { Editor, EditorState, RichUtils } from 'draft-js';
+import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
+import StrikethroughSIcon from '@material-ui/icons/StrikethroughS';
+import {
+  convertFromRaw,
+  convertToRaw,
+  Editor,
+  EditorState,
+  RichUtils
+} from 'draft-js';
 import { useField } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
+
+// utility functions
+export function rawToContent(raw: string) {
+  return EditorState.createWithContent(convertFromRaw(JSON.parse(raw)));
+}
+export function contentToRaw(editorState: EditorState) {
+  if (editorState) {
+    const contentState = editorState.getCurrentContent();
+    return JSON.stringify(convertToRaw(contentState));
+  }
+  return '';
+}
 
 const DraftJSCommands = {
+  // inline styles
   bold: 'BOLD',
-  bulletedList: 'unordered-list-item',
   italic: 'ITALIC',
   monospace: 'CODE',
-  numberedList: 'ordered-list-item',
   underline: 'UNDERLINE',
-  strikethrough: 'STRIKETHROUGH'
+  strikethrough: 'STRIKETHROUGH',
+
+  // block styles
+  blockquote: 'blockquote',
+  bulletedList: 'unordered-list-item',
+  headings: {
+    h1: 'header-one',
+    h2: 'header-two',
+    h3: 'header-three',
+    h4: 'header-four',
+    h5: 'header-five',
+    h6: 'header-six',
+    unstyled: 'unstyled'
+  },
+  numberedList: 'ordered-list-item'
 };
 
 interface Props {
@@ -30,6 +68,7 @@ interface Props {
 //   https://jaredpalmer.com/formik/docs/api/useField
 //
 const RichTextEditor = (props: Props) => {
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [field, meta, helpers] = useField(props.name);
   const { value } = meta;
   const { setValue } = helpers;
@@ -64,7 +103,47 @@ const RichTextEditor = (props: Props) => {
     <div>
       <StyledBox>
         <EditorToolbar>
+          {/* text styles */}
           <FormatButtonGroup>
+            <FormControl variant="outlined">
+              <InputLabel id="heading-style-select-label">
+                Heading Style
+              </InputLabel>
+
+              {/* TODO: label should animate into the select if nothing is selected */}
+              <StyledSelect
+                labelId="heading-style-select-label"
+                id="heading-style-select"
+                variant="outlined"
+                value={RichUtils.getCurrentBlockType(editorState)}
+                onChange={value =>
+                  onClickBlockType(value.target.value as string)
+                }
+                defaultValue={DraftJSCommands.headings.unstyled}
+              >
+                <MenuItem value={DraftJSCommands.headings.unstyled}>
+                  Normal text
+                </MenuItem>
+                <MenuItem value={DraftJSCommands.headings.h1}>
+                  Heading 1
+                </MenuItem>
+                <MenuItem value={DraftJSCommands.headings.h2}>
+                  Heading 2
+                </MenuItem>
+                <MenuItem value={DraftJSCommands.headings.h3}>
+                  Heading 3
+                </MenuItem>
+                <MenuItem value={DraftJSCommands.headings.h4}>
+                  Heading 4
+                </MenuItem>
+                <MenuItem value={DraftJSCommands.headings.h5}>
+                  Heading 5
+                </MenuItem>
+                <MenuItem value={DraftJSCommands.headings.h6}>
+                  Heading 6
+                </MenuItem>
+              </StyledSelect>
+            </FormControl>
             <IconButton
               onClick={() => onClickInlineStyle(DraftJSCommands.bold)}
             >
@@ -91,6 +170,8 @@ const RichTextEditor = (props: Props) => {
               <CodeIcon />
             </IconButton>
           </FormatButtonGroup>
+
+          {/* list styles */}
           <FormatButtonGroup>
             <IconButton
               onClick={() => onClickBlockType(DraftJSCommands.bulletedList)}
@@ -116,24 +197,38 @@ const RichTextEditor = (props: Props) => {
 
 export default RichTextEditor;
 
+const borderStyle = '1px solid #cbcbcb';
+const paddingDefault = '10px';
+
 const EditorToolbar = styled(Box)({
-  borderBottom: '1px solid #cbcbcb',
-  marginBottom: '10px',
   display: 'flex',
-  flexDirection: 'row'
+  flexDirection: 'row',
+  borderBottom: borderStyle,
+  marginBottom: '10px',
+  paddingTop: '5px',
+  paddingBottom: '5px'
 });
 
 const FormatButtonGroup = styled(Box)({
-  paddingLeft: '10px',
-  paddingRight: '10px',
-  borderRight: '1px solid #cbcbcb'
+  display: 'flex',
+  alignItems: 'center',
+  paddingLeft: paddingDefault,
+  paddingRight: paddingDefault,
+  borderRight: borderStyle
 });
 
+const StyledSelect = withStyles({
+  root: {
+    padding: paddingDefault,
+    width: '90px'
+  }
+})(Select);
+
 const StyledBox = styled(Box)({
-  border: '1px solid #cbcbcb',
+  border: borderStyle,
   borderRadius: '4px',
-  paddingLeft: '10px',
-  paddingBottom: '10px',
-  paddingRight: '10px',
+  paddingLeft: paddingDefault,
+  paddingBottom: paddingDefault,
+  paddingRight: paddingDefault,
   margin: '10px 0px'
 });
