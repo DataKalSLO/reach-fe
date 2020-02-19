@@ -6,7 +6,8 @@ import {
   VIZ_BUILDER,
   STORY_BUILDER,
   MY_STUFF,
-  LOGIN
+  LOGIN,
+  SAMPLE
 } from './nav/constants';
 
 // Material UI's theming/styling solution
@@ -19,6 +20,7 @@ import { theme } from './theme/theme';
 //  https://reacttraining.com/react-router/web/guides/quick-start
 import { Switch, Route } from 'react-router-dom';
 
+// Link routing and store
 import { ConnectedRouter } from 'connected-react-router';
 
 // Store
@@ -34,6 +36,7 @@ import VizBuilder from './containers/VizBuilder';
 import StoryBuilder from './containers/StoryBuilder';
 import MyStuff from './containers/MyStuff';
 import Login from './containers/Login';
+import Sample from './containers/Sample';
 
 function App() {
   const home = (
@@ -66,6 +69,11 @@ function App() {
       <Login />
     </Route>
   );
+  const sample = (
+    <Route path={SAMPLE}>
+      <Sample />
+    </Route>
+  );
 
   return (
     <Provider store={store}>
@@ -79,6 +87,7 @@ function App() {
             {storyBuilder}
             {myStuff}
             {login}
+            {sample}
           </Switch>
         </ThemeProvider>
       </ConnectedRouter>

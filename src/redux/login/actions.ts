@@ -16,11 +16,10 @@ export function loginUser(user: User) {
   };
 }
 
-
 export function logoutAction(): UserActionTypes {
-   return { type: LOGOUT };
- }
- 
+  return { type: LOGOUT };
+}
+
 export function logoutUser(user: User) {
   return async (dispatch: Dispatch) => {
     await logout();
