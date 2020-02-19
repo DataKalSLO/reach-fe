@@ -8,26 +8,9 @@ import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import InsertLinkIcon from '@material-ui/icons/InsertLink';
 import LinkOffIcon from '@material-ui/icons/LinkOff';
 import CodeIcon from '@material-ui/icons/Code';
-import {
-  convertFromRaw,
-  convertToRaw,
-  Editor,
-  EditorState,
-  RichUtils
-} from 'draft-js';
-import React, { useState } from 'react';
-
-// utility functions
-export function rawToContent(raw: string) {
-  return EditorState.createWithContent(convertFromRaw(JSON.parse(raw)));
-}
-export function contentToRaw(editorState: EditorState) {
-  if (editorState) {
-    const contentState = editorState.getCurrentContent();
-    return JSON.stringify(convertToRaw(contentState));
-  }
-  return '';
-}
+import { Editor, EditorState, RichUtils } from 'draft-js';
+import { useField } from 'formik';
+import React from 'react';
 
 const DraftJSCommands = {
   bold: 'BOLD',
@@ -40,35 +23,41 @@ const DraftJSCommands = {
 };
 
 interface Props {
-  sendData: any;
+  name: string;
 }
 
+// Custom Formik Field
+//   https://jaredpalmer.com/formik/docs/api/useField
+//
 const RichTextEditor = (props: Props) => {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [field, meta, helpers] = useField(props.name);
+  const { value } = meta;
+  const { setValue } = helpers;
 
   // enable key binding shortcuts (e.g. ctrl+b for bold)
-  const handleKeyCommand = (command: string, editorState: EditorState) => {
+  function handleKeyCommand(command: string, editorState: EditorState) {
     const newState = RichUtils.handleKeyCommand(editorState, command);
 
-    // Magic strings from Draft.js that signal success/failure. If you change these strings, the overriding WILL BREAK
+    // Magic strings from Draft.js that signal success/failure
+    //   NOTE: If you change these strings, the overriding WILL BREAK
     const successMsg = 'handled';
     const failureMsg = 'not-handled';
 
     if (newState) {
-      setEditorState(newState);
+      setValue(newState);
       return successMsg;
     } else {
       return failureMsg;
     }
-  };
+  }
 
   // connect icon buttons in the toolbar to the state updates for inline styles
   function onClickInlineStyle(buttonName: string) {
-    setEditorState(RichUtils.toggleInlineStyle(editorState, buttonName));
+    setValue(RichUtils.toggleInlineStyle(value, buttonName));
   }
-
+  // connect icon buttons in the toolbar to the state updates
   function onClickBlockType(buttonName: string) {
-    setEditorState(RichUtils.toggleBlockType(editorState, buttonName));
+    setValue(RichUtils.toggleBlockType(value, buttonName));
   }
 
   return (
@@ -116,11 +105,8 @@ const RichTextEditor = (props: Props) => {
           </FormatButtonGroup>
         </EditorToolbar>
         <Editor
-          editorState={editorState}
-          onChange={s => {
-            setEditorState(s);
-            props.sendData(s);
-          }}
+          editorState={value}
+          onChange={setValue}
           handleKeyCommand={handleKeyCommand}
         />
       </StyledBox>
