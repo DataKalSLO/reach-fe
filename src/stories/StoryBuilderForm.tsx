@@ -1,66 +1,60 @@
-import { LinearProgress } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+import React, { useRef, useState } from 'react';
+import { Button, LinearProgress } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
-import { Field, Form, FormikProps, withFormik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
-import React from 'react';
-import RichTextEditor from './RichTextEditor';
-import { contentToRaw } from './draftJsUtility';
-import { EditorState } from 'draft-js';
+import RichTextEditor, { contentToRaw } from './RichTextEditor';
 
-interface FormValues {
-  title: string;
-  textBlock: EditorState;
-}
+function StoryBuilderForm() {
+  const [textBlock, setTextBlock] = useState();
 
-const MyForm = (props: FormikProps<FormValues>) => {
-  const { handleSubmit, isSubmitting } = props;
   return (
-    <div>
-      <Form onSubmit={handleSubmit}>
-        <Field
-          component={TextField}
-          name="title"
-          label="Title"
-          variant="outlined"
-        />
-        <br />
-        <RichTextEditor name="textBlock" />
-        <Button
-          variant="contained"
-          color="primary"
-          disabled={isSubmitting}
-          type="submit"
-          startIcon={<SaveIcon />}
-        >
-          Save Story
-        </Button>
-        {isSubmitting && <LinearProgress />}
-      </Form>
-    </div>
+    // NOTE: validation isn't currently needed, but we'll use yup
+    //   https://github.com/jquense/yup
+
+    <Formik
+      initialValues={{
+        title: ''
+      }}
+      onSubmit={(values, { setSubmitting }) => {
+        setTimeout(() => {
+          const data = {
+            ...values,
+            textBlock: contentToRaw(textBlock)
+          };
+          setSubmitting(false);
+          alert(JSON.stringify(data, null, 2));
+        }, 500);
+      }}
+    >
+      {({ submitForm, isSubmitting }) => (
+        <Form>
+          <Field
+            component={TextField}
+            name="title"
+            label="Title"
+            variant="outlined"
+          />
+          <br />
+          {/* FIXME: @tanner refactor into a custom field
+              https://hceris.com/custom-components-in-formik/
+          */}
+          <RichTextEditor sendData={(v: any) => setTextBlock(v)} />
+          <br />
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={isSubmitting}
+            onClick={submitForm}
+            startIcon={<SaveIcon />}
+          >
+            Save Story
+          </Button>
+          {isSubmitting && <LinearProgress />}
+        </Form>
+      )}
+    </Formik>
   );
-};
-
-const MyEnhancedForm = withFormik<FormValues, FormValues>({
-  handleSubmit: (values, { setSubmitting }) => {
-    const data = {
-      title: values.title,
-      textBlock: contentToRaw(values.textBlock)
-    };
-    setTimeout(() => {
-      alert(JSON.stringify(data, null, 2));
-      setSubmitting(false);
-    }, 1000);
-  }
-})(MyForm);
-
-const StoryBuilderForm = () => {
-  const initialValues = {
-    title: '',
-    textBlock: EditorState.createEmpty()
-  };
-
-  return <MyEnhancedForm {...initialValues} />;
-};
+}
 
 export default StoryBuilderForm;

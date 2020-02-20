@@ -22,7 +22,6 @@ import {
   EditorState,
   RichUtils
 } from 'draft-js';
-import { useField } from 'formik';
 import React, { useState } from 'react';
 
 // utility functions
@@ -61,42 +60,35 @@ const DraftJSCommands = {
 };
 
 interface Props {
-  name: string;
+  sendData: any;
 }
 
-// Custom Formik Field
-//   https://jaredpalmer.com/formik/docs/api/useField
-//
 const RichTextEditor = (props: Props) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const [field, meta, helpers] = useField(props.name);
-  const { value } = meta;
-  const { setValue } = helpers;
 
   // enable key binding shortcuts (e.g. ctrl+b for bold)
-  function handleKeyCommand(command: string, editorState: EditorState) {
+  const handleKeyCommand = (command: string, editorState: EditorState) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
 
-    // Magic strings from Draft.js that signal success/failure
-    //   NOTE: If you change these strings, the overriding WILL BREAK
+    // Magic strings from Draft.js that signal success/failure. If you change these strings, the overriding WILL BREAK
     const successMsg = 'handled';
     const failureMsg = 'not-handled';
 
     if (newState) {
-      setValue(newState);
+      setEditorState(newState);
       return successMsg;
     } else {
       return failureMsg;
     }
-  }
+  };
 
   // connect icon buttons in the toolbar to the state updates for inline styles
   function onClickInlineStyle(buttonName: string) {
-    setValue(RichUtils.toggleInlineStyle(value, buttonName));
+    setEditorState(RichUtils.toggleInlineStyle(editorState, buttonName));
   }
-  // connect icon buttons in the toolbar to the state updates
+
   function onClickBlockType(buttonName: string) {
-    setValue(RichUtils.toggleBlockType(value, buttonName));
+    setEditorState(RichUtils.toggleBlockType(editorState, buttonName));
   }
 
   return (
@@ -186,8 +178,11 @@ const RichTextEditor = (props: Props) => {
           </FormatButtonGroup>
         </EditorToolbar>
         <Editor
-          editorState={value}
-          onChange={setValue}
+          editorState={editorState}
+          onChange={s => {
+            setEditorState(s);
+            props.sendData(s);
+          }}
           handleKeyCommand={handleKeyCommand}
         />
       </StyledBox>
