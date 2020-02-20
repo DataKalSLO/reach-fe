@@ -19,7 +19,8 @@ import {
   STORY_BUILDER_NAME,
   MY_STUFF,
   MY_STUFF_NAME,
-  LOGIN
+  LOGIN,
+  CREATE_ACCOUNT
 } from './constants';
 
 const ButtonWithoutHover = styled(Button)({
@@ -38,6 +39,20 @@ const StyledTypography = styled(Typography)({
   display: 'block',
   color: 'white'
 });
+
+const displayAppBar = (menu: JSX.Element) => {
+  const currentRoute = window.location.pathname;
+
+  if (currentRoute == LOGIN || currentRoute == CREATE_ACCOUNT) {
+    return <div />;
+  } else {
+    return (
+      <StyledMuiAppBar position="static">
+        <Toolbar>{menu}</Toolbar>
+      </StyledMuiAppBar>
+    );
+  }
+};
 
 function AppBar() {
   const history = useHistory();
@@ -99,11 +114,7 @@ function AppBar() {
     </Grid>
   );
 
-  return (
-    <StyledMuiAppBar position="static">
-      <Toolbar>{menu}</Toolbar>
-    </StyledMuiAppBar>
-  );
+  return displayAppBar(menu);
 }
 
 export default AppBar;
