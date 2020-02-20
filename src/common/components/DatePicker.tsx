@@ -1,5 +1,5 @@
-import 'date-fns';
 import React from 'react';
+
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -7,8 +7,16 @@ import {
   KeyboardDatePicker
 } from '@material-ui/pickers';
 
+import 'date-fns';
+
+interface PickerProps {
+  id: string;
+  label: string;
+}
+
 // add a props: Array<string> in parameters but I get some errors
-export function MaterialUIPickers() {
+export function MaterialUIPickers(props: PickerProps) {
+  const { id, label } = props;
   const [selectedDate, setSelectedDate] = React.useState<Date | null>(
     // no input defaults to today's date
     new Date()
@@ -26,10 +34,8 @@ export function MaterialUIPickers() {
           variant="inline"
           format="MM/dd/yyyy"
           margin="normal"
-          //id={props[0]}
-          //label={props[1]}
-          id="date-picker"
-          label="date-picker"
+          id={id}
+          label={label}
           value={selectedDate}
           onChange={handleDateChange}
           KeyboardButtonProps={{
