@@ -43,7 +43,8 @@ const StyledTypography = styled(Typography)({
 const displayAppBar = (menu: JSX.Element) => {
   const currentRoute = window.location.pathname;
 
-  if (currentRoute == LOGIN || currentRoute == CREATE_ACCOUNT) {
+  // Hide the AppBar if on the Login or Create Account Page
+  if (currentRoute === LOGIN || currentRoute === CREATE_ACCOUNT) {
     return <div />;
   } else {
     return (
