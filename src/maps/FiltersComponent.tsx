@@ -22,8 +22,8 @@ export function DatePickers() {
   const classes = useStyles();
   return (
     <form className={classes.root} noValidate>
-      <MaterialUIPickers id="test1" label="start-date-picker" />
-      <MaterialUIPickers id="test2" label="end-date-picker" />
+      <MaterialUIPickers id="start-picker" label="start-date-picker" />
+      <MaterialUIPickers id="end-picker" label="end-date-picker" />
     </form>
   );
 }
