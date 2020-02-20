@@ -28,7 +28,7 @@ export function DatePickers() {
   );
 }
 
-export default function BasicButtonGroup() {
+export function BasicButtonGroup() {
   const classes = useStyles();
 
   return (
