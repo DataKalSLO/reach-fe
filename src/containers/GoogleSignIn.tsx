@@ -1,42 +1,42 @@
-import React from "react";
-import { Button } from "@material-ui/core";
-import FacebookIcon from "@material-ui/icons/Facebook";
-import {
-  GoogleLogin,
-  GoogleLoginResponse,
-  GoogleLoginResponseOffline
-} from "react-google-login";
-import { GoogleLoginButton } from "ts-react-google-login-component";
+import React, { useState } from 'react';
+import { Button } from '@material-ui/core';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import { GoogleLoginButton } from 'ts-react-google-login-component';
 
-const responseGoogle = (googleUser: GoogleUser): void => {
-  const id_token = googleUser.getAuthResponse(true).id_token;
-  const googleId = googleUser.getId();
+const GoogleSignIn = () => {
+  const [googleId, setGoogleId] = useState('');
 
-  console.log({ googleId });
-  console.log({ accessToken: id_token });
-  // Make user login in your system
-  // login success tracking...
-};
+  const clientConfig = {
+    // eslint-disable-next-line
+    client_id:
+      '771819856575-fs38pckfuc7oipvt6fr0tnugr2dlbusl.apps.googleusercontent.com'
+  };
 
-function GoogleSignIn() {
+  const responseGoogle = (googleUser: gapi.auth2.GoogleUser): void => {
+    console.log(googleId);
+    // eslint-disable-next-line
+    const id_token = googleUser.getAuthResponse(true).id_token;
+    setGoogleId(googleUser.getId());
+
+    console.log(googleId);
+    // eslint-disable-next-line
+    console.log({ accessToken: id_token });
+  };
+
+  const errorHandler = (error: string): void => {
+    console.error(error);
+  };
+
   return (
-    <GoogleLogin
-      clientId="771819856575-fs38pckfuc7oipvt6fr0tnugr2dlbusl.apps.googleusercontent.com"
-      render={renderProps => (
-        <Button
-          endIcon={<FacebookIcon />}
-          onClick={renderProps.onClick}
-          disabled={renderProps.disabled}
-        >
-          Continue with Google
-        </Button>
-      )}
-      accessType="online"
-      onSuccess={responseGoogle}
-      onFailure={responseGoogle}
-      cookiePolicy={"single_host_origin"}
-    />
+    <GoogleLoginButton
+      classNames="custom_class center-block"
+      responseHandler={responseGoogle}
+      clientConfig={clientConfig}
+      failureHandler={errorHandler}
+    >
+      <Button endIcon={<FacebookIcon />}>Continue with Google</Button>
+    </GoogleLoginButton>
   );
-}
+};
 
 export default GoogleSignIn;
