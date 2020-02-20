@@ -15,26 +15,8 @@ import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
 import StrikethroughSIcon from '@material-ui/icons/StrikethroughS';
-import {
-  convertFromRaw,
-  convertToRaw,
-  Editor,
-  EditorState,
-  RichUtils
-} from 'draft-js';
+import { Editor, EditorState, RichUtils } from 'draft-js';
 import React, { useState } from 'react';
-
-// utility functions
-export function rawToContent(raw: string) {
-  return EditorState.createWithContent(convertFromRaw(JSON.parse(raw)));
-}
-export function contentToRaw(editorState: EditorState) {
-  if (editorState) {
-    const contentState = editorState.getCurrentContent();
-    return JSON.stringify(convertToRaw(contentState));
-  }
-  return '';
-}
 
 const DraftJSCommands = {
   // inline styles
@@ -59,11 +41,7 @@ const DraftJSCommands = {
   numberedList: 'ordered-list-item'
 };
 
-interface Props {
-  sendData: any;
-}
-
-const RichTextEditor = (props: Props) => {
+export default function RichTextEditor() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   // enable key binding shortcuts (e.g. ctrl+b for bold)
@@ -179,18 +157,13 @@ const RichTextEditor = (props: Props) => {
         </EditorToolbar>
         <Editor
           editorState={editorState}
-          onChange={s => {
-            setEditorState(s);
-            props.sendData(s);
-          }}
+          onChange={s => setEditorState(s)}
           handleKeyCommand={handleKeyCommand}
         />
       </StyledBox>
     </div>
   );
-};
-
-export default RichTextEditor;
+}
 
 const borderStyle = '1px solid #cbcbcb';
 const paddingDefault = '10px';

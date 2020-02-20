@@ -1,6 +1,6 @@
 import { Container } from '@material-ui/core';
 import React from 'react';
-import StoryBuilderForm from '../stories/StoryBuilderForm';
+import RichTextEditor from '../stories/RichTextEditor';
 
 function StoryBuilder() {
   return (
@@ -12,7 +12,7 @@ function StoryBuilder() {
         readers follow along with your findings and conclusions. Use the drag
         handles to the left of each component if you want to reorder them.
       </p>
-      <StoryBuilderForm />
+      <RichTextEditor />
     </Container>
   );
 }
