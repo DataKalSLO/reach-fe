@@ -6,6 +6,7 @@ export const STORY_BUILDER = '/story-builder'
 export const MY_STUFF = '/my-stuff'
 export const LOGIN = '/login'
 export const SAMPLE = '/sample'
+export const CREATE_ACCOUNT = '/create-account'
 
 // Names of routes in the navigation bar
 export const HOME_NAME = "Reach"
