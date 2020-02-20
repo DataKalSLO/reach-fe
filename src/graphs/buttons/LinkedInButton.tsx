@@ -2,8 +2,9 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import { LinkedinShareButton } from 'react-share';
+import ToolbarButtonProps from '../Toolbar';
 
-export default function LinkedInButton(props: any) {
+export default function LinkedInButton(props: ToolbarButtonProps) {
   return (
     <Button>
       <LinkedinShareButton title="Title" summary="Summary" url={props.graphUrl}>

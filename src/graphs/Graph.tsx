@@ -2,6 +2,9 @@ import React, { useRef } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import Toolbar from './Toolbar';
+
+// require is necessary to attach exportChart() to buttons
+// eslint-disable-next-line
 require('highcharts/modules/exporting')(Highcharts);
 
 type DodContract = {
@@ -59,7 +62,8 @@ const options: Highcharts.Options = {
 };
 
 function Graph() {
-  const chartRef: any = useRef(null);
+  // eslint-disable-next-line
+  const chartRef: any = useRef<HighchartsReact | null>(null);
   const exportChart = () => chartRef.current.chart.exportChart();
 
   return (
