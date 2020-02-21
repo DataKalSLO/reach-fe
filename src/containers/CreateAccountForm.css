@@ -1,0 +1,8 @@
+.field {
+    min-width: 270px;
+}
+.error {
+    max-width: 270px; 
+    font-size: 13px;
+    color: red;
+}
