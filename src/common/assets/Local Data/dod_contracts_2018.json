@@ -1,1772 +1,1772 @@
 [
     {
-      "recipient_name": "A&J Enterprise",
-      "$_total_award_value": 15702.03,
-      "award_type": "Purchase Order",
+      "recipientName": "A&J Enterprise",
+      "totalAwardValue": 15702.03,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Ace Technology Partners LLC",
-      "$_total_award_value": 32822.86,
-      "award_type": "Delivery Order",
+      "recipientName": "Ace Technology Partners LLC",
+      "totalAwardValue": 32822.86,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "ACF Technologies, INC.",
-      "$_total_award_value": 21627,
-      "award_type": "Purchase Order",
+      "recipientName": "ACF Technologies, INC.",
+      "totalAwardValue": 21627,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Adellsen Group, LLC, THE",
-      "$_total_award_value": 2176203.92,
-      "award_type": "Definitive Contract",
+      "recipientName": "Adellsen Group, LLC, THE",
+      "totalAwardValue": 2176203.92,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Aegir Systems",
-      "$_total_award_value": 623845.68,
-      "award_type": "Definitive Contract",
+      "recipientName": "Aegir Systems",
+      "totalAwardValue": 623845.68,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "AGS, INC.",
-      "$_total_award_value": 1598106.15,
-      "award_type": "Delivery Order",
+      "recipientName": "AGS, INC.",
+      "totalAwardValue": 1598106.15,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Air Dry CO Of America, LLC",
-      "$_total_award_value": 36040.91,
-      "award_type": "Purchase Order",
+      "recipientName": "Air Dry CO Of America, LLC",
+      "totalAwardValue": 36040.91,
+      "awardType": "Purchase Order",
       "location": "paso_robles"
     },
     {
-      "recipient_name": "Alan's Draperies",
-      "$_total_award_value": 7520,
-      "award_type": "Purchase Order",
+      "recipientName": "Alan's Draperies",
+      "totalAwardValue": 7520,
+      "awardType": "Purchase Order",
       "location": "san_luis_obispo"
     },
     {
-      "recipient_name": "ALEUT Aerospace Engineering, LLC",
-      "$_total_award_value": 3944118.85,
-      "award_type": "Definitive Contract",
+      "recipientName": "ALEUT Aerospace Engineering, LLC",
+      "totalAwardValue": 3944118.85,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Alexander's, INC",
-      "$_total_award_value": 30414,
-      "award_type": "Purchase Order",
+      "recipientName": "Alexander's, INC",
+      "totalAwardValue": 30414,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "All Valley Environmental, INC",
-      "$_total_award_value": 38257.5,
-      "award_type": "Purchase Order",
+      "recipientName": "All Valley Environmental, INC",
+      "totalAwardValue": 38257.5,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "AllCom Global Services, INC.",
-      "$_total_award_value": 750494.63,
-      "award_type": "Delivery Order",
+      "recipientName": "AllCom Global Services, INC.",
+      "totalAwardValue": 750494.63,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Alliance Technical Services, INC.",
-      "$_total_award_value": 4193103.6799999997,
-      "award_type": "Definitive Contract'",
+      "recipientName": "Alliance Technical Services, INC.",
+      "totalAwardValue": 4193103.6799999997,
+      "awardType": "Definitive Contract'",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Alturdyne International",
-      "$_total_award_value": 7470,
-      "award_type": "Purchase Order",
+      "recipientName": "Alturdyne International",
+      "totalAwardValue": 7470,
+      "awardType": "Purchase Order",
       "location": "morro_bay"
     },
     {
-      "recipient_name": "American Automation, INC.",
-      "$_total_award_value": 40910.64,
-      "award_type": "Purchase Order",
+      "recipientName": "American Automation, INC.",
+      "totalAwardValue": 40910.64,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "American Fire Protection INC",
-      "$_total_award_value": 22410,
-      "award_type": "Purchase Order",
+      "recipientName": "American Fire Protection INC",
+      "totalAwardValue": 22410,
+      "awardType": "Purchase Order",
       "location": "santa_maria"
     },
     {
-      "recipient_name": "American Floor Sanding INC",
-      "$_total_award_value": 8200,
-      "award_type": "Purchase Order",
+      "recipientName": "American Floor Sanding INC",
+      "totalAwardValue": 8200,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "American Medical Response West",
-      "$_total_award_value": 4034687.6,
-      "award_type": "Definitive Contract",
+      "recipientName": "American Medical Response West",
+      "totalAwardValue": 4034687.6,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "American Systems Corporation",
-      "$_total_award_value": 2611576.1100000003,
-      "award_type": "Delivery Order",
+      "recipientName": "American Systems Corporation",
+      "totalAwardValue": 2611576.1100000003,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "American Water Operations and Maintenance, INC.",
-      "$_total_award_value": 365514543.28,
-      "award_type": "Definitive Contract",
+      "recipientName": "American Water Operations and Maintenance, INC.",
+      "totalAwardValue": 365514543.28,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Analytical Graphics, INC.",
-      "$_total_award_value": 113170.04,
-      "award_type": "Delivery Order",
+      "recipientName": "Analytical Graphics, INC.",
+      "totalAwardValue": 113170.04,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Andersen Van & Storage, INC",
-      "$_total_award_value": 95000,
-      "award_type": "Delivery Order",
+      "recipientName": "Andersen Van & Storage, INC",
+      "totalAwardValue": 95000,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Anderson Burton Construction, INC.",
-      "$_total_award_value": 7017105.459999999,
-      "award_type": "Definitive Contract",
+      "recipientName": "Anderson Burton Construction, INC.",
+      "totalAwardValue": 7017105.459999999,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Anna Lisa Luna Construction, INC.",
-      "$_total_award_value": 7666.51,
-      "award_type": "Purchase Order",
+      "recipientName": "Anna Lisa Luna Construction, INC.",
+      "totalAwardValue": 7666.51,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "AOS Services INC",
-      "$_total_award_value": 196725.6,
-      "award_type": "Purchase Order",
+      "recipientName": "AOS Services INC",
+      "totalAwardValue": 196725.6,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Applied Earthworks INC",
-      "$_total_award_value": 7250.39,
-      "award_type": "Purchase Order",
+      "recipientName": "Applied Earthworks INC",
+      "totalAwardValue": 7250.39,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "APRO International, INC.",
-      "$_total_award_value": 4653541.87,
-      "award_type": "Delivery Order",
+      "recipientName": "APRO International, INC.",
+      "totalAwardValue": 4653541.87,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Arbiter Systems, Incorporated",
-      "$_total_award_value": 35000,
-      "award_type": "Purchase Order",
+      "recipientName": "Arbiter Systems, Incorporated",
+      "totalAwardValue": 35000,
+      "awardType": "Purchase Order",
       "location": "paso_robles"
     },
     {
-      "recipient_name": "Arroyo Instruments, LLC",
-      "$_total_award_value": 8440,
-      "award_type": "Purchase Order",
+      "recipientName": "Arroyo Instruments, LLC",
+      "totalAwardValue": 8440,
+      "awardType": "Purchase Order",
       "location": "san_luis_obispo"
     },
     {
-      "recipient_name": "ASRC Builders, LLC",
-      "$_total_award_value": 46618,
-      "award_type": "Delivery Order",
+      "recipientName": "ASRC Builders, LLC",
+      "totalAwardValue": 46618,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Asteres INC.",
-      "$_total_award_value": 35000,
-      "award_type": "Purchase Order",
+      "recipientName": "Asteres INC.",
+      "totalAwardValue": 35000,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Atlantic Diving Supply, INC.",
-      "$_total_award_value": 84054.64,
-      "award_type": "Purchase Order",
+      "recipientName": "Atlantic Diving Supply, INC.",
+      "totalAwardValue": 84054.64,
+      "awardType": "Purchase Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "Atlas Copco Mafi-Trench Company LLC",
-      "$_total_award_value": 2012969,
-      "award_type": "Purchase Order",
+      "recipientName": "Atlas Copco Mafi-Trench Company LLC",
+      "totalAwardValue": 2012969,
+      "awardType": "Purchase Order",
       "location": "santa_maria"
     },
     {
-      "recipient_name": "Atlas Performance Industries, INC.",
-      "$_total_award_value": 1959.83,
-      "award_type": "Purchase Order",
+      "recipientName": "Atlas Performance Industries, INC.",
+      "totalAwardValue": 1959.83,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Atlas Waste Management INC",
-      "$_total_award_value": 5425,
-      "award_type": "Purchase Order",
+      "recipientName": "Atlas Waste Management INC",
+      "totalAwardValue": 5425,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Avlite Aviation, INC",
-      "$_total_award_value": 1055563.5500000003,
-      "award_type": "Purchase Order",
+      "recipientName": "Avlite Aviation, INC",
+      "totalAwardValue": 1055563.5500000003,
+      "awardType": "Purchase Order",
       "location": "paso_robles"
     },
     {
-      "recipient_name": "Axxon International, LLC",
-      "$_total_award_value": 189630,
-      "award_type": "Purchase Order",
+      "recipientName": "Axxon International, LLC",
+      "totalAwardValue": 189630,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Baudville, INC.",
-      "$_total_award_value": 11458.82,
-      "award_type": "Purchase Order",
+      "recipientName": "Baudville, INC.",
+      "totalAwardValue": 11458.82,
+      "awardType": "Purchase Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "Beckman Coulter, INC.",
-      "$_total_award_value": 8950,
-      "award_type": "Purchase Order",
+      "recipientName": "Beckman Coulter, INC.",
+      "totalAwardValue": 8950,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Bengal Engineering, INC",
-      "$_total_award_value": 148538.7,
-      "award_type": "Purchase Order",
+      "recipientName": "Bengal Engineering, INC",
+      "totalAwardValue": 148538.7,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Big Red Crane Company, INC.",
-      "$_total_award_value": 68075.61,
-      "award_type": "Purchase Order",
+      "recipientName": "Big Red Crane Company, INC.",
+      "totalAwardValue": 68075.61,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Bishop, INC.",
-      "$_total_award_value": 184680,
-      "award_type": "Delivery Order",
+      "recipientName": "Bishop, INC.",
+      "totalAwardValue": 184680,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Black & Veatch Special Projects CORP.",
-      "$_total_award_value": 199773,
-      "award_type": "Delivery Order",
+      "recipientName": "Black & Veatch Special Projects CORP.",
+      "totalAwardValue": 199773,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Black Gold Industries",
-      "$_total_award_value": 223602.65,
-      "award_type": "Delivery Order",
+      "recipientName": "Black Gold Industries",
+      "totalAwardValue": 223602.65,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Blue Tech INC.",
-      "$_total_award_value": 85220.53,
-      "award_type": "Delivery Order",
+      "recipientName": "Blue Tech INC.",
+      "totalAwardValue": 85220.53,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Bohannon, Brittany",
-      "$_total_award_value": 13950,
-      "award_type": "Purchase Order",
+      "recipientName": "Bohannon, Brittany",
+      "totalAwardValue": 13950,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Bonneville Steel of Utah, INC.",
-      "$_total_award_value": 184209.74,
-      "award_type": "Purchase Order",
+      "recipientName": "Bonneville Steel of Utah, INC.",
+      "totalAwardValue": 184209.74,
+      "awardType": "Purchase Order",
       "location": "santa_maria"
     },
     {
-      "recipient_name": "Booz Allen Hamilton INC",
-      "$_total_award_value": 4878009.39,
-      "award_type": "Delivery Order",
+      "recipientName": "Booz Allen Hamilton INC",
+      "totalAwardValue": 4878009.39,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Boyd Industries, INC.",
-      "$_total_award_value": 9748,
-      "award_type": "Purchase Order",
+      "recipientName": "Boyd Industries, INC.",
+      "totalAwardValue": 9748,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Bragg Investment Company, INC.",
-      "$_total_award_value": 0,
-      "award_type": "Purchase Order",
+      "recipientName": "Bragg Investment Company, INC.",
+      "totalAwardValue": 0,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Brenner-Fiedler & Associates INC",
-      "$_total_award_value": 5331,
-      "award_type": "Purchase Order",
+      "recipientName": "Brenner-Fiedler & Associates INC",
+      "totalAwardValue": 5331,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Bristol Environmental Remediation Services LLC",
-      "$_total_award_value": 365420,
-      "award_type": "Delivery Order",
+      "recipientName": "Bristol Environmental Remediation Services LLC",
+      "totalAwardValue": 365420,
+      "awardType": "Delivery Order",
       "location": "san_luis_obispo"
     },
     {
-      "recipient_name": "Brodart CO.",
-      "$_total_award_value": 7818,
-      "award_type": "Purchase Order",
+      "recipientName": "Brodart CO.",
+      "totalAwardValue": 7818,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Brown, Curtis",
-      "$_total_award_value": 31400,
-      "award_type": "Definitive Contract",
+      "recipientName": "Brown, Curtis",
+      "totalAwardValue": 31400,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "BSE Performance LLC",
-      "$_total_award_value": 35568,
-      "award_type": "Purchase Order",
+      "recipientName": "BSE Performance LLC",
+      "totalAwardValue": 35568,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "BSH Management Services LLC",
-      "$_total_award_value": 1164499.68,
-      "award_type": "Definitive Contract",
+      "recipientName": "BSH Management Services LLC",
+      "totalAwardValue": 1164499.68,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "BTAS INC",
-      "$_total_award_value": 141109.8,
-      "award_type": "Delivery Order",
+      "recipientName": "BTAS INC",
+      "totalAwardValue": 141109.8,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Burgos Group LLC",
-      "$_total_award_value": 1650067.13,
-      "award_type": "Definitive Contract",
+      "recipientName": "Burgos Group LLC",
+      "totalAwardValue": 1650067.13,
+      "awardType": "Definitive Contract",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "C F W Research & Development CO.",
-      "$_total_award_value": 17086.6,
-      "award_type": "BPA Call",
+      "recipientName": "C F W Research & Development CO.",
+      "totalAwardValue": 17086.6,
+      "awardType": "BPA Call",
       "location": "grover_beach"
     },
     {
-      "recipient_name": "C U Enterprises LTD.",
-      "$_total_award_value": 1399972.17,
-      "award_type": "Purchase Order",
+      "recipientName": "C U Enterprises LTD.",
+      "totalAwardValue": 1399972.17,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Calibre Engineering, INC.",
-      "$_total_award_value": 630276.2899999999,
-      "award_type": "Delivery Order",
+      "recipientName": "Calibre Engineering, INC.",
+      "totalAwardValue": 630276.2899999999,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Calibre Systems, INC.",
-      "$_total_award_value": 1663407.68,
-      "award_type": "Delivery Order",
+      "recipientName": "Calibre Systems, INC.",
+      "totalAwardValue": 1663407.68,
+      "awardType": "Delivery Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "Call Henry, INC.",
-      "$_total_award_value": 93693676.50999999,
-      "award_type": "Definitive Contract",
+      "recipientName": "Call Henry, INC.",
+      "totalAwardValue": 93693676.50999999,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Cape Environmental Management",
-      "$_total_award_value": 10019084.52,
-      "award_type": "Delivery Order",
+      "recipientName": "Cape Environmental Management",
+      "totalAwardValue": 10019084.52,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "CAPP, INC.",
-      "$_total_award_value": 5309.97,
-      "award_type": "BPA Call",
+      "recipientName": "CAPP, INC.",
+      "totalAwardValue": 5309.97,
+      "awardType": "BPA Call",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Caprice Electronics, INC.",
-      "$_total_award_value": 936.54,
-      "award_type": "Delivery Order",
+      "recipientName": "Caprice Electronics, INC.",
+      "totalAwardValue": 936.54,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Carl Amber Brian Isaiah and Associates CO",
-      "$_total_award_value": 299086.18,
-      "award_type": "Delivery Order",
+      "recipientName": "Carl Amber Brian Isaiah and Associates CO",
+      "totalAwardValue": 299086.18,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Cartridge Technologies, INC.",
-      "$_total_award_value": 166299.39,
-      "award_type": "BPA Call",
+      "recipientName": "Cartridge Technologies, INC.",
+      "totalAwardValue": 166299.39,
+      "awardType": "BPA Call",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Castleblack Pismo Beach Owner, LLC",
-      "$_total_award_value": 14629.32,
-      "award_type": "Purchase Order",
+      "recipientName": "Castleblack Pismo Beach Owner, LLC",
+      "totalAwardValue": 14629.32,
+      "awardType": "Purchase Order",
       "location": "pismo_beach"
     },
     {
-      "recipient_name": "CDW Government LLC",
-      "$_total_award_value": 40100,
-      "award_type": "Delivery Order",
+      "recipientName": "CDW Government LLC",
+      "totalAwardValue": 40100,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Centech Group, INC., THE",
-      "$_total_award_value": 36228612.27,
-      "award_type": "Delivery Order",
+      "recipientName": "Centech Group, INC., THE",
+      "totalAwardValue": 36228612.27,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Centralcare, Incorporated",
-      "$_total_award_value": 311403.2,
-      "award_type": "Delivery Order",
+      "recipientName": "Centralcare, Incorporated",
+      "totalAwardValue": 311403.2,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "CH2M Hill Constructors, INC.",
-      "$_total_award_value": 3767383.08,
-      "award_type": "Delivery Order",
+      "recipientName": "CH2M Hill Constructors, INC.",
+      "totalAwardValue": 3767383.08,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Cherokee Nation Environmental Solutions, L.L.C.",
-      "$_total_award_value": 928.9,
-      "award_type": "Delivery Order",
+      "recipientName": "Cherokee Nation Environmental Solutions, L.L.C.",
+      "totalAwardValue": 928.9,
+      "awardType": "Delivery Order",
       "location": "morro_bay"
     },
     {
-      "recipient_name": "Chesapeake Strategies Group, INC.",
-      "$_total_award_value": 831070.44,
-      "award_type": "Purchase Order",
+      "recipientName": "Chesapeake Strategies Group, INC.",
+      "totalAwardValue": 831070.44,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Chigosi Company, THE",
-      "$_total_award_value": 228787,
-      "award_type": "Definitive Contract",
+      "recipientName": "Chigosi Company, THE",
+      "totalAwardValue": 228787,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Chloeta Fire, L.L.C.",
-      "$_total_award_value": 1806704.67,
-      "award_type": "Delivery Order",
+      "recipientName": "Chloeta Fire, L.L.C.",
+      "totalAwardValue": 1806704.67,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Chromal Plating Company",
-      "$_total_award_value": 253005,
-      "award_type": "Delivery Order",
+      "recipientName": "Chromal Plating Company",
+      "totalAwardValue": 253005,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "City Appliance Sales and Service",
-      "$_total_award_value": 483441.26,
-      "award_type": "Definitive Contract",
+      "recipientName": "City Appliance Sales and Service",
+      "totalAwardValue": 483441.26,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "CMCS - T. Simons JV",
-      "$_total_award_value": 11739353.82,
-      "award_type": "Delivery Order",
+      "recipientName": "CMCS - T. Simons JV",
+      "totalAwardValue": 11739353.82,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Coast to Coast Computer Products, INC",
-      "$_total_award_value": 40251.6,
-      "award_type": "BPA Call",
+      "recipientName": "Coast to Coast Computer Products, INC",
+      "totalAwardValue": 40251.6,
+      "awardType": "BPA Call",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Compass Medical Provider LLC",
-      "$_total_award_value": 251699,
-      "award_type": "Purchase Order",
+      "recipientName": "Compass Medical Provider LLC",
+      "totalAwardValue": 251699,
+      "awardType": "Purchase Order",
       "location": "san_luis_obispo"
     },
     {
-      "recipient_name": "Computer Sites, INC.",
-      "$_total_award_value": 413767.00999999995,
-      "award_type": "Delivery Order",
+      "recipientName": "Computer Sites, INC.",
+      "totalAwardValue": 413767.00999999995,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "CON Serve INC.",
-      "$_total_award_value": 2258949,
-      "award_type": "Definitive Contract",
+      "recipientName": "CON Serve INC.",
+      "totalAwardValue": 2258949,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Corporate Allocation SVCS, INC.",
-      "$_total_award_value": 3915078.35,
-      "award_type": "Definitive Contract",
+      "recipientName": "Corporate Allocation SVCS, INC.",
+      "totalAwardValue": 3915078.35,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Courts & Greens",
-      "$_total_award_value": 109056,
-      "award_type": "Purchase Order",
+      "recipientName": "Courts & Greens",
+      "totalAwardValue": 109056,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Credence Management Solutions Limited Liability Company",
-      "$_total_award_value": 1308199.5,
-      "award_type": "Delivery Order",
+      "recipientName": "Credence Management Solutions Limited Liability Company",
+      "totalAwardValue": 1308199.5,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Crystal Engineering Corporation",
-      "$_total_award_value": 2170,
-      "award_type": "Purchase Order",
+      "recipientName": "Crystal Engineering Corporation",
+      "totalAwardValue": 2170,
+      "awardType": "Purchase Order",
       "location": "san_luis_obispo"
     },
     {
-      "recipient_name": "Culligan Water Conditioning of Lompoc INC",
-      "$_total_award_value": 29100.96,
-      "award_type": "Purchase Order",
+      "recipientName": "Culligan Water Conditioning of Lompoc INC",
+      "totalAwardValue": 29100.96,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Cummins Pacific, LLC",
-      "$_total_award_value": 5670.25,
-      "award_type": "Purchase Order",
+      "recipientName": "Cummins Pacific, LLC",
+      "totalAwardValue": 5670.25,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "DC Scientific Glass, INC.",
-      "$_total_award_value": 32204.55,
-      "award_type": "Purchase Order",
+      "recipientName": "DC Scientific Glass, INC.",
+      "totalAwardValue": 32204.55,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Den-Mat Holdings, LLC",
-      "$_total_award_value": 60.9,
-      "award_type": "Purchase Order",
+      "recipientName": "Den-Mat Holdings, LLC",
+      "totalAwardValue": 60.9,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Diesel Forward, INC.",
-      "$_total_award_value": 5159,
-      "award_type": "Purchase Order",
+      "recipientName": "Diesel Forward, INC.",
+      "totalAwardValue": 5159,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Digital Plaza, LLC",
-      "$_total_award_value": 36445,
-      "award_type": "Delivery Order",
+      "recipientName": "Digital Plaza, LLC",
+      "totalAwardValue": 36445,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Direct Project INC.",
-      "$_total_award_value": 763563,
-      "award_type": "Definitive Contract",
+      "recipientName": "Direct Project INC.",
+      "totalAwardValue": 763563,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Diverse Pest Management",
-      "$_total_award_value": 142690.71,
-      "award_type": "BPA Call",
+      "recipientName": "Diverse Pest Management",
+      "totalAwardValue": 142690.71,
+      "awardType": "BPA Call",
       "location": "grover_beach"
     },
     {
-      "recipient_name": "Donald L Mooney Enterprises, LLC",
-      "$_total_award_value": 544392,
-      "award_type": "Delivery Order",
+      "recipientName": "Donald L Mooney Enterprises, LLC",
+      "totalAwardValue": 544392,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "EA Engineering, Science, and Technology, INC., PBC",
-      "$_total_award_value": 7144969.7,
-      "award_type": "Delivery Order",
+      "recipientName": "EA Engineering, Science, and Technology, INC., PBC",
+      "totalAwardValue": 7144969.7,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Ean Holdings, LLC",
-      "$_total_award_value": 10888.8,
-      "award_type": "Purchase Order",
+      "recipientName": "Ean Holdings, LLC",
+      "totalAwardValue": 10888.8,
+      "awardType": "Purchase Order",
       "location": "paso_robles"
     },
     {
-      "recipient_name": "Earth Systems Pacific",
-      "$_total_award_value": 11250,
-      "award_type": "Purchase Order",
+      "recipientName": "Earth Systems Pacific",
+      "totalAwardValue": 11250,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Eastern Rigging Supply Company, INC.",
-      "$_total_award_value": 5128,
-      "award_type": "Purchase Order",
+      "recipientName": "Eastern Rigging Supply Company, INC.",
+      "totalAwardValue": 5128,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Eaton Corporation",
-      "$_total_award_value": 1201127.94,
-      "award_type": "Delivery Order",
+      "recipientName": "Eaton Corporation",
+      "totalAwardValue": 1201127.94,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Eco & Associates INC",
-      "$_total_award_value": 0,
-      "award_type": "Delivery Order",
+      "recipientName": "Eco & Associates INC",
+      "totalAwardValue": 0,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Emie's RE",
-      "$_total_award_value": 11250,
-      "award_type": "Purchase Order",
+      "recipientName": "Emie's RE",
+      "totalAwardValue": 11250,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Emrick Machine Tool Rebuilding INC",
-      "$_total_award_value": 77585.04,
-      "award_type": "Purchase Order",
+      "recipientName": "Emrick Machine Tool Rebuilding INC",
+      "totalAwardValue": 77585.04,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "EnTech Associates/EnTech Signs - Alpha Led LLC",
-      "$_total_award_value": 3950.02,
-      "award_type": "Delivery Order",
+      "recipientName": "EnTech Associates/EnTech Signs - Alpha Led LLC",
+      "totalAwardValue": 3950.02,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Esi Acquisition Corp.",
-      "$_total_award_value": 17561.36,
-      "award_type": "Purchase Order",
+      "recipientName": "Esi Acquisition Corp.",
+      "totalAwardValue": 17561.36,
+      "awardType": "Purchase Order",
       "location": "los_osos"
     },
     {
-      "recipient_name": "Essnova Solutions, INC.",
-      "$_total_award_value": 633908.4199999999,
-      "award_type": "Delivery Order",
+      "recipientName": "Essnova Solutions, INC.",
+      "totalAwardValue": 633908.4199999999,
+      "awardType": "Delivery Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "Est Companies LLC",
-      "$_total_award_value": 15499.92,
-      "award_type": "Purchase Order",
+      "recipientName": "Est Companies LLC",
+      "totalAwardValue": 15499.92,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Estate Property Management, INC.",
-      "$_total_award_value": 28355,
-      "award_type": "Purchase Order",
+      "recipientName": "Estate Property Management, INC.",
+      "totalAwardValue": 28355,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Evergreen Fire Alarms, LLC",
-      "$_total_award_value": 3443082,
-      "award_type": "Delivery Order",
+      "recipientName": "Evergreen Fire Alarms, LLC",
+      "totalAwardValue": 3443082,
+      "awardType": "Delivery Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "Exbon Development, INC.",
-      "$_total_award_value": 6409653.49,
-      "award_type": "Delivery Order",
+      "recipientName": "Exbon Development, INC.",
+      "totalAwardValue": 6409653.49,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Executive Furniture Of washington DC INC",
-      "$_total_award_value": 7867.55,
-      "award_type": "BPA Call",
+      "recipientName": "Executive Furniture Of washington DC INC",
+      "totalAwardValue": 7867.55,
+      "awardType": "BPA Call",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Executive Suite Services INC",
-      "$_total_award_value": 171264,
-      "award_type": "Purchase Order",
+      "recipientName": "Executive Suite Services INC",
+      "totalAwardValue": 171264,
+      "awardType": "Purchase Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "Federal Key LLC",
-      "$_total_award_value": 47430.520000000004,
-      "award_type": "Purchase Order",
+      "recipientName": "Federal Key LLC",
+      "totalAwardValue": 47430.520000000004,
+      "awardType": "Purchase Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "Federal Prison Industries INC",
-      "$_total_award_value": 11011.07,
-      "award_type": "Delivery Order",
+      "recipientName": "Federal Prison Industries INC",
+      "totalAwardValue": 11011.07,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Federal Solutions Group",
-      "$_total_award_value": 1556593.92,
-      "award_type": "Definitive Contract",
+      "recipientName": "Federal Solutions Group",
+      "totalAwardValue": 1556593.92,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Filter Factory, INC., THE",
-      "$_total_award_value": 31003.870000000003,
-      "award_type": "Purchase Order",
+      "recipientName": "Filter Factory, INC., THE",
+      "totalAwardValue": 31003.870000000003,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Floor Connection, INC.",
-      "$_total_award_value": 53237.64000000001,
-      "award_type": "Purchase Order",
+      "recipientName": "Floor Connection, INC.",
+      "totalAwardValue": 53237.64000000001,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Flythissim Technologies, INC.",
-      "$_total_award_value": 11850,
-      "award_type": "Purchase Order",
+      "recipientName": "Flythissim Technologies, INC.",
+      "totalAwardValue": 11850,
+      "awardType": "Purchase Order",
       "location": "san_luis_obispo"
     },
     {
-      "recipient_name": "Force 3, INC.",
-      "$_total_award_value": 1226013.26,
-      "award_type": "Delivery Order",
+      "recipientName": "Force 3, INC.",
+      "totalAwardValue": 1226013.26,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Four Tribes Construction Services, LLC",
-      "$_total_award_value": 5342851,
-      "award_type": "Definitive Contract",
+      "recipientName": "Four Tribes Construction Services, LLC",
+      "totalAwardValue": 5342851,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Gannett Fleming, INC.",
-      "$_total_award_value": 58799.12,
-      "award_type": "Delivery Order",
+      "recipientName": "Gannett Fleming, INC.",
+      "totalAwardValue": 58799.12,
+      "awardType": "Delivery Order",
       "location": "san_luis_obispo"
     },
     {
-      "recipient_name": "Garda CL Northwest, INC.",
-      "$_total_award_value": 81407.77,
-      "award_type": "Purchase Order",
+      "recipientName": "Garda CL Northwest, INC.",
+      "totalAwardValue": 81407.77,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Gemtek Technology INC",
-      "$_total_award_value": 37550,
-      "award_type": "Purchase Order",
+      "recipientName": "Gemtek Technology INC",
+      "totalAwardValue": 37550,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Get It While Its Hot INC.",
-      "$_total_award_value": 44229.23,
-      "award_type": "Purchase Order",
+      "recipientName": "Get It While Its Hot INC.",
+      "totalAwardValue": 44229.23,
+      "awardType": "Purchase Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "Gibbs International, INC.",
-      "$_total_award_value": 27351.78,
-      "award_type": "Purchase Order",
+      "recipientName": "Gibbs International, INC.",
+      "totalAwardValue": 27351.78,
+      "awardType": "Purchase Order",
       "location": "santa_maria"
     },
     {
-      "recipient_name": "GLR Construction, INC.",
-      "$_total_award_value": 5060284.11,
-      "award_type": "Purchase Order",
+      "recipientName": "GLR Construction, INC.",
+      "totalAwardValue": 5060284.11,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Goodwill Industries of Southern California",
-      "$_total_award_value": 11544075.05,
-      "award_type": "Definitive Contract",
+      "recipientName": "Goodwill Industries of Southern California",
+      "totalAwardValue": 11544075.05,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Granite Construction Company",
-      "$_total_award_value": 27298275,
-      "award_type": "Definitive Contract",
+      "recipientName": "Granite Construction Company",
+      "totalAwardValue": 27298275,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Granite Telecommunications, LLC",
-      "$_total_award_value": 2241.24,
-      "award_type": "Purchase Order",
+      "recipientName": "Granite Telecommunications, LLC",
+      "totalAwardValue": 2241.24,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Great Western Installations, INC",
-      "$_total_award_value": 36949.62,
-      "award_type": "Purchase Order",
+      "recipientName": "Great Western Installations, INC",
+      "totalAwardValue": 36949.62,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Greater Central Coast Officials ASSN",
-      "$_total_award_value": 292691,
-      "award_type": "Purchase Order",
+      "recipientName": "Greater Central Coast Officials ASSN",
+      "totalAwardValue": 292691,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Ground Control Systems, INC.",
-      "$_total_award_value": 27578.8,
-      "award_type": "Purchase Order",
+      "recipientName": "Ground Control Systems, INC.",
+      "totalAwardValue": 27578.8,
+      "awardType": "Purchase Order",
       "location": "atascadero"
     },
     {
-      "recipient_name": "Grundy Government Services, LLC",
-      "$_total_award_value": 356379.73,
-      "award_type": "Delivery Order",
+      "recipientName": "Grundy Government Services, LLC",
+      "totalAwardValue": 356379.73,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "GSI North America INC.",
-      "$_total_award_value": 599485.97,
-      "award_type": "Delivery Order",
+      "recipientName": "GSI North America INC.",
+      "totalAwardValue": 599485.97,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "GSL Solutions INC",
-      "$_total_award_value": 27600,
-      "award_type": "Purchase Order",
+      "recipientName": "GSL Solutions INC",
+      "totalAwardValue": 27600,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Gulf Holdings, LLC",
-      "$_total_award_value": 10708.78,
-      "award_type": "Purchase Order",
+      "recipientName": "Gulf Holdings, LLC",
+      "totalAwardValue": 10708.78,
+      "awardType": "Purchase Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "Hardy Diagnostics",
-      "$_total_award_value": 3147.57,
-      "award_type": "Purchase Order",
+      "recipientName": "Hardy Diagnostics",
+      "totalAwardValue": 3147.57,
+      "awardType": "Purchase Order",
       "location": "santa_maria"
     },
     {
-      "recipient_name": "Hardy Media",
-      "$_total_award_value": 155014.00000000003,
-      "award_type": "Purchase Order",
+      "recipientName": "Hardy Media",
+      "totalAwardValue": 155014.00000000003,
+      "awardType": "Purchase Order",
       "location": "santa_maria"
     },
     {
-      "recipient_name": "Harvey, Jill M.",
-      "$_total_award_value": 42000,
-      "award_type": "Purchase Order",
+      "recipientName": "Harvey, Jill M.",
+      "totalAwardValue": 42000,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Herman Construction Group, INC.",
-      "$_total_award_value": 30235974.85,
-      "award_type": "Definitive Contract",
+      "recipientName": "Herman Construction Group, INC.",
+      "totalAwardValue": 30235974.85,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "HPI Federal LLC",
-      "$_total_award_value": 106518,
-      "award_type": "BPA Call",
+      "recipientName": "HPI Federal LLC",
+      "totalAwardValue": 106518,
+      "awardType": "BPA Call",
       "location": "lompoc"
     },
     {
-      "recipient_name": "IDSC Holdings LLC",
-      "$_total_award_value": 16600,
-      "award_type": "Purchase Order",
+      "recipientName": "IDSC Holdings LLC",
+      "totalAwardValue": 16600,
+      "awardType": "Purchase Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "Indrasoft INC.",
-      "$_total_award_value": 2944378.2,
-      "award_type": "Delivery Order",
+      "recipientName": "Indrasoft INC.",
+      "totalAwardValue": 2944378.2,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Industries For The BLIND, INC.",
-      "$_total_award_value": 475405.81999999995,
-      "award_type": "Purchase Order",
+      "recipientName": "Industries For The BLIND, INC.",
+      "totalAwardValue": 475405.81999999995,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "InDyne, INC.",
-      "$_total_award_value": 837805550.38,
-      "award_type": "Definitive Contract",
+      "recipientName": "InDyne, INC.",
+      "totalAwardValue": 837805550.38,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Innovative Technical Solutions, INC.",
-      "$_total_award_value": 76358341,
-      "award_type": "Delivery Order",
+      "recipientName": "Innovative Technical Solutions, INC.",
+      "totalAwardValue": 76358341,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Installation Engineering Solutions",
-      "$_total_award_value": 1637411.1399999997,
-      "award_type": "Delivery Order",
+      "recipientName": "Installation Engineering Solutions",
+      "totalAwardValue": 1637411.1399999997,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Integrated Industrial Supply, INC.",
-      "$_total_award_value": 7046.75,
-      "award_type": "Purchase Order",
+      "recipientName": "Integrated Industrial Supply, INC.",
+      "totalAwardValue": 7046.75,
+      "awardType": "Purchase Order",
       "location": "santa_maria"
     },
     {
-      "recipient_name": "Integration Technologies Group",
-      "$_total_award_value": 13000,
-      "award_type": "Delivery Order",
+      "recipientName": "Integration Technologies Group",
+      "totalAwardValue": 13000,
+      "awardType": "Delivery Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "Intelligent International INC.",
-      "$_total_award_value": 106560,
-      "award_type": "Purchase Order",
+      "recipientName": "Intelligent International INC.",
+      "totalAwardValue": 106560,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Interscan Corporation",
-      "$_total_award_value": 48318.25,
-      "award_type": "Purchase Order",
+      "recipientName": "Interscan Corporation",
+      "totalAwardValue": 48318.25,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Invested Advisors, INC.",
-      "$_total_award_value": 17439,
-      "award_type": "Purchase Order",
+      "recipientName": "Invested Advisors, INC.",
+      "totalAwardValue": 17439,
+      "awardType": "Purchase Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "J G Contracting",
-      "$_total_award_value": 8913,
-      "award_type": "Purchase Order",
+      "recipientName": "J G Contracting",
+      "totalAwardValue": 8913,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "John P Blanchard MD INC",
-      "$_total_award_value": 65800,
-      "award_type": "Purchase Order",
+      "recipientName": "John P Blanchard MD INC",
+      "totalAwardValue": 65800,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Joslyn Sunbank Company LLC",
-      "$_total_award_value": 0,
-      "award_type": "Purchase Order",
+      "recipientName": "Joslyn Sunbank Company LLC",
+      "totalAwardValue": 0,
+      "awardType": "Purchase Order",
       "location": "paso_robles"
     },
     {
-      "recipient_name": "K.J. Cain Company",
-      "$_total_award_value": 16285,
-      "award_type": "Delivery Order",
+      "recipientName": "K.J. Cain Company",
+      "totalAwardValue": 16285,
+      "awardType": "Delivery Order",
       "location": "santa_maria"
     },
     {
-      "recipient_name": "Kal Architects, INC.",
-      "$_total_award_value": 2173952.67,
-      "award_type": "Delivery Order",
+      "recipientName": "Kal Architects, INC.",
+      "totalAwardValue": 2173952.67,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Kebros & Assoc LLC",
-      "$_total_award_value": 150381.2,
-      "award_type": "Delivery Order",
+      "recipientName": "Kebros & Assoc LLC",
+      "totalAwardValue": 150381.2,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Keilhauer LTD",
-      "$_total_award_value": 17033.95,
-      "award_type": "Delivery Order",
+      "recipientName": "Keilhauer LTD",
+      "totalAwardValue": 17033.95,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Kipper Tool Company",
-      "$_total_award_value": 7634.4,
-      "award_type": "Delivery Order",
+      "recipientName": "Kipper Tool Company",
+      "totalAwardValue": 7634.4,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Kleanerette Dry Cleaners & Laundry",
-      "$_total_award_value": 22475.2,
-      "award_type": "Delivery Order",
+      "recipientName": "Kleanerette Dry Cleaners & Laundry",
+      "totalAwardValue": 22475.2,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Komada LLC",
-      "$_total_award_value": 495384.38,
-      "award_type": "Delivery Order",
+      "recipientName": "Komada LLC",
+      "totalAwardValue": 495384.38,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Konica Minolta Business Solutions U.S.A., INC.",
-      "$_total_award_value": 94527.59,
-      "award_type": "Delivery Order",
+      "recipientName": "Konica Minolta Business Solutions U.S.A., INC.",
+      "totalAwardValue": 94527.59,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Kritz Excavating And Trucking, INC.",
-      "$_total_award_value": 31237.5,
-      "award_type": "Purchase Order",
+      "recipientName": "Kritz Excavating And Trucking, INC.",
+      "totalAwardValue": 31237.5,
+      "awardType": "Purchase Order",
       "location": "paso_robles"
     },
     {
-      "recipient_name": "Laboratory Corporation Of america",
-      "$_total_award_value": 122000,
-      "award_type": "Delivery Order",
+      "recipientName": "Laboratory Corporation Of america",
+      "totalAwardValue": 122000,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Laurus Systems Incorporated",
-      "$_total_award_value": 108394.15,
-      "award_type": "Delivery Order",
+      "recipientName": "Laurus Systems Incorporated",
+      "totalAwardValue": 108394.15,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Lawler Manufacturing INC",
-      "$_total_award_value": 8050,
-      "award_type": "Purchase Order",
+      "recipientName": "Lawler Manufacturing INC",
+      "totalAwardValue": 8050,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Legacy Installations LLC",
-      "$_total_award_value": 3732,
-      "award_type": "Purchase Order",
+      "recipientName": "Legacy Installations LLC",
+      "totalAwardValue": 3732,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Leidos, INC.",
-      "$_total_award_value": 4474626.82,
-      "award_type": "Delivery Order",
+      "recipientName": "Leidos, INC.",
+      "totalAwardValue": 4474626.82,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Lifehealth LLC",
-      "$_total_award_value": 2317214.51,
-      "award_type": "Purchase Order",
+      "recipientName": "Lifehealth LLC",
+      "totalAwardValue": 2317214.51,
+      "awardType": "Purchase Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "Lighthouse For The Blind of Houston",
-      "$_total_award_value": 835423.75,
-      "award_type": "Purchase Order",
+      "recipientName": "Lighthouse For The Blind of Houston",
+      "totalAwardValue": 835423.75,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Lockheed Martin Corporation",
-      "$_total_award_value": 5704208.75,
-      "award_type": "Delivery Order",
+      "recipientName": "Lockheed Martin Corporation",
+      "totalAwardValue": 5704208.75,
+      "awardType": "Delivery Order",
       "location": "santa_maria"
     },
     {
-      "recipient_name": "Lockheed Martin Tactical Syste",
-      "$_total_award_value": 0,
-      "award_type": "Definitive Contract",
+      "recipientName": "Lockheed Martin Tactical Syste",
+      "totalAwardValue": 0,
+      "awardType": "Definitive Contract",
       "location": "santa_maria"
     },
     {
-      "recipient_name": "Loyal Source Government Services LLC",
-      "$_total_award_value": 584305.4,
-      "award_type": "Delivery Order",
+      "recipientName": "Loyal Source Government Services LLC",
+      "totalAwardValue": 584305.4,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "LPKF Distribution Incorporated",
-      "$_total_award_value": 21473.48,
-      "award_type": "Delivery Order",
+      "recipientName": "LPKF Distribution Incorporated",
+      "totalAwardValue": 21473.48,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Luxfer Magtech, INC.",
-      "$_total_award_value": 47642.6,
-      "award_type": "Delivery Order",
+      "recipientName": "Luxfer Magtech, INC.",
+      "totalAwardValue": 47642.6,
+      "awardType": "Delivery Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "M2 Technology, INC.",
-      "$_total_award_value": 483226,
-      "award_type": "Delivery Order",
+      "recipientName": "M2 Technology, INC.",
+      "totalAwardValue": 483226,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Mac-Air",
-      "$_total_award_value": 107634.43,
-      "award_type": "Purchase Order",
+      "recipientName": "Mac-Air",
+      "totalAwardValue": 107634.43,
+      "awardType": "Purchase Order",
       "location": "grover_beach"
     },
     {
-      "recipient_name": "Management Solutions, INC.",
-      "$_total_award_value": 4231749.94,
-      "award_type": "Delivery Order",
+      "recipientName": "Management Solutions, INC.",
+      "totalAwardValue": 4231749.94,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Mantech SRS Technologies, INC.",
-      "$_total_award_value": 598149.91,
-      "award_type": "Delivery Order",
+      "recipientName": "Mantech SRS Technologies, INC.",
+      "totalAwardValue": 598149.91,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Matrix Providers INC.",
-      "$_total_award_value": 922834.95,
-      "award_type": "Delivery Order",
+      "recipientName": "Matrix Providers INC.",
+      "totalAwardValue": 922834.95,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Medical North America JV",
-      "$_total_award_value": 2324653.1700000004,
-      "award_type": "Delivery Order",
+      "recipientName": "Medical North America JV",
+      "totalAwardValue": 2324653.1700000004,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Megabite Electronics, INC.",
-      "$_total_award_value": 4383.34,
-      "award_type": "Purchase Order",
+      "recipientName": "Megabite Electronics, INC.",
+      "totalAwardValue": 4383.34,
+      "awardType": "Purchase Order",
       "location": "paso_robles"
     },
     {
-      "recipient_name": "Microtechnologies LLC",
-      "$_total_award_value": 929278.52,
-      "award_type": "Delivery Order",
+      "recipientName": "Microtechnologies LLC",
+      "totalAwardValue": 929278.52,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Mission Valley Chapel, INC.",
-      "$_total_award_value": 8885.5,
-      "award_type": "BPA Call",
+      "recipientName": "Mission Valley Chapel, INC.",
+      "totalAwardValue": 8885.5,
+      "awardType": "BPA Call",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Mobile Fixture And Equipment Company, INC.",
-      "$_total_award_value": 57879.29,
-      "award_type": "Delivery Order",
+      "recipientName": "Mobile Fixture And Equipment Company, INC.",
+      "totalAwardValue": 57879.29,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Morro Toro Corporation",
-      "$_total_award_value": 35920,
-      "award_type": "Delivery Order",
+      "recipientName": "Morro Toro Corporation",
+      "totalAwardValue": 35920,
+      "awardType": "Delivery Order",
       "location": "atascadero"
     },
     {
-      "recipient_name": "MSI-MID State Instruments LLC",
-      "$_total_award_value": 7874,
-      "award_type": "Purchase Order",
+      "recipientName": "MSI-MID State Instruments LLC",
+      "totalAwardValue": 7874,
+      "awardType": "Purchase Order",
       "location": "san_luis_obispo"
     },
     {
-      "recipient_name": "MWH - Cardno TEC - Baker - A Joint Venture",
-      "$_total_award_value": 350385,
-      "award_type": "Delivery Order",
+      "recipientName": "MWH - Cardno TEC - Baker - A Joint Venture",
+      "totalAwardValue": 350385,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "MX construction, INC.",
-      "$_total_award_value": 12754665.13,
-      "award_type": "Definitive Contract",
+      "recipientName": "MX construction, INC.",
+      "totalAwardValue": 12754665.13,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Nanoscience Instruments, INC.",
-      "$_total_award_value": 146070,
-      "award_type": "Purchase Order",
+      "recipientName": "Nanoscience Instruments, INC.",
+      "totalAwardValue": 146070,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "National Industries For The Blind",
-      "$_total_award_value": 255600,
-      "award_type": "Delivery Order",
+      "recipientName": "National Industries For The Blind",
+      "totalAwardValue": 255600,
+      "awardType": "Delivery Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "National O & M, INC.",
-      "$_total_award_value": 28560,
-      "award_type": "Purchase Order",
+      "recipientName": "National O & M, INC.",
+      "totalAwardValue": 28560,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "NBA Engineering INC",
-      "$_total_award_value": 676506.9199999999,
-      "award_type": "Delivery Order",
+      "recipientName": "NBA Engineering INC",
+      "totalAwardValue": 676506.9199999999,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "NEIE Medical Waste Services, LLC",
-      "$_total_award_value": 21655,
-      "award_type": "Purchase Order",
+      "recipientName": "NEIE Medical Waste Services, LLC",
+      "totalAwardValue": 21655,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Nightingale Corp",
-      "$_total_award_value": 40585.8,
-      "award_type": "Delivery Order",
+      "recipientName": "Nightingale Corp",
+      "totalAwardValue": 40585.8,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "North Star Construction And Engineering, INC",
-      "$_total_award_value": 954548.34,
-      "award_type": "Delivery Order",
+      "recipientName": "North Star Construction And Engineering, INC",
+      "totalAwardValue": 954548.34,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Office Furniture Group, INC.",
-      "$_total_award_value": 36377.66,
-      "award_type": "Purchase Order",
+      "recipientName": "Office Furniture Group, INC.",
+      "totalAwardValue": 36377.66,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "ONEIDA Total Integrated Enterprises, LLC",
-      "$_total_award_value": 3363850.2800000003,
-      "award_type": "Definitive Contract",
+      "recipientName": "ONEIDA Total Integrated Enterprises, LLC",
+      "totalAwardValue": 3363850.2800000003,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Orion Systems, INC.",
-      "$_total_award_value": 21660,
-      "award_type": "Purchase Order",
+      "recipientName": "Orion Systems, INC.",
+      "totalAwardValue": 21660,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "P C Mechanical, INC",
-      "$_total_award_value": 9023510.620000001,
-      "award_type": "Delivery Order",
+      "recipientName": "P C Mechanical, INC",
+      "totalAwardValue": 9023510.620000001,
+      "awardType": "Delivery Order",
       "location": "santa_maria"
     },
     {
-      "recipient_name": "Pacific Bell Telephone Company",
-      "$_total_award_value": 105195.36,
-      "award_type": "Definitive Contract",
+      "recipientName": "Pacific Bell Telephone Company",
+      "totalAwardValue": 105195.36,
+      "awardType": "Definitive Contract",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "Pacific Dredge Company, LLC",
-      "$_total_award_value": 7565859.75,
-      "award_type": "Definitive Contract",
+      "recipientName": "Pacific Dredge Company, LLC",
+      "totalAwardValue": 7565859.75,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Penn Tool CO INC",
-      "$_total_award_value": 6650,
-      "award_type": "Delivery Order",
+      "recipientName": "Penn Tool CO INC",
+      "totalAwardValue": 6650,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Peraton INC.",
-      "$_total_award_value": 128570.93,
-      "award_type": "Delivery Order",
+      "recipientName": "Peraton INC.",
+      "totalAwardValue": 128570.93,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Phillips Corporation",
-      "$_total_award_value": 44424,
-      "award_type": "Purchase Order",
+      "recipientName": "Phillips Corporation",
+      "totalAwardValue": 44424,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Portable Johns INC",
-      "$_total_award_value": 318.75,
-      "award_type": "Purchase Order",
+      "recipientName": "Portable Johns INC",
+      "totalAwardValue": 318.75,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Potter, Paul D.",
-      "$_total_award_value": 4278555,
-      "award_type": "Definitive Contract",
+      "recipientName": "Potter, Paul D.",
+      "totalAwardValue": 4278555,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Power Pro Plus INC.",
-      "$_total_award_value": 2913104.48,
-      "award_type": "Definitive Contract",
+      "recipientName": "Power Pro Plus INC.",
+      "totalAwardValue": 2913104.48,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Powerchoice Construction, INC.",
-      "$_total_award_value": 857470.1799999999,
-      "award_type": "Definitive Contract",
+      "recipientName": "Powerchoice Construction, INC.",
+      "totalAwardValue": 857470.1799999999,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Pre Con Industries, INC.",
-      "$_total_award_value": 1370044,
-      "award_type": "Definitive Contract",
+      "recipientName": "Pre Con Industries, INC.",
+      "totalAwardValue": 1370044,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Preferred Healthcare Registry, INC.",
-      "$_total_award_value": 251920,
-      "award_type": "Delivery Order",
+      "recipientName": "Preferred Healthcare Registry, INC.",
+      "totalAwardValue": 251920,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Premier Business Products, INC.",
-      "$_total_award_value": 5695.64,
-      "award_type": "Delivery Order",
+      "recipientName": "Premier Business Products, INC.",
+      "totalAwardValue": 5695.64,
+      "awardType": "Delivery Order",
       "location": "santa_maria"
     },
     {
-      "recipient_name": "Presentations, INC.",
-      "$_total_award_value": 41680.08,
-      "award_type": "Purchase Order",
+      "recipientName": "Presentations, INC.",
+      "totalAwardValue": 41680.08,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Pro Med Healthcare Services, LLC",
-      "$_total_award_value": 165504,
-      "award_type": "Delivery Order",
+      "recipientName": "Pro Med Healthcare Services, LLC",
+      "totalAwardValue": 165504,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Professional Performance Development Group, INC.",
-      "$_total_award_value": 778430.12,
-      "award_type": "Delivery Order",
+      "recipientName": "Professional Performance Development Group, INC.",
+      "totalAwardValue": 778430.12,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Protel Services, INC.",
-      "$_total_award_value": 582911.47,
-      "award_type": "Purchase Order",
+      "recipientName": "Protel Services, INC.",
+      "totalAwardValue": 582911.47,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Quincon, INC.",
-      "$_total_award_value": 29494,
-      "award_type": "Purchase Order",
+      "recipientName": "Quincon, INC.",
+      "totalAwardValue": 29494,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Quinn Company",
-      "$_total_award_value": 54262,
-      "award_type": "Purchase Order",
+      "recipientName": "Quinn Company",
+      "totalAwardValue": 54262,
+      "awardType": "Purchase Order",
       "location": "santa_maria"
     },
     {
-      "recipient_name": "R K Jimenez Construction, INC",
-      "$_total_award_value": 877206.65,
-      "award_type": "Delivery Order",
+      "recipientName": "R K Jimenez Construction, INC",
+      "totalAwardValue": 877206.65,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "R-J Intl'l INC",
-      "$_total_award_value": 3920,
-      "award_type": "Delivery Order",
+      "recipientName": "R-J Intl'l INC",
+      "totalAwardValue": 3920,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Rantec Power Systems INC.",
-      "$_total_award_value": 6665390,
-      "award_type": "Purchase Order",
+      "recipientName": "Rantec Power Systems INC.",
+      "totalAwardValue": 6665390,
+      "awardType": "Purchase Order",
       "location": "los_osos"
     },
     {
-      "recipient_name": "Rare Electric",
-      "$_total_award_value": 23068.5,
-      "award_type": "Purchase Order",
+      "recipientName": "Rare Electric",
+      "totalAwardValue": 23068.5,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Recon Environmental",
-      "$_total_award_value": 305182.91,
-      "award_type": "Delivery Order",
+      "recipientName": "Recon Environmental",
+      "totalAwardValue": 305182.91,
+      "awardType": "Delivery Order",
       "location": "morro_bay"
     },
     {
-      "recipient_name": "Red Mountain LLC",
-      "$_total_award_value": 366741.97,
-      "award_type": "Delivery Order",
+      "recipientName": "Red Mountain LLC",
+      "totalAwardValue": 366741.97,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Reliance Relocation Services, INC.",
-      "$_total_award_value": 37871.04,
-      "award_type": "BPA Call",
+      "recipientName": "Reliance Relocation Services, INC.",
+      "totalAwardValue": 37871.04,
+      "awardType": "BPA Call",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Rhodes, Stephenne",
-      "$_total_award_value": 90908.55,
-      "award_type": "Purchase Order",
+      "recipientName": "Rhodes, Stephenne",
+      "totalAwardValue": 90908.55,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Rockwell American Services, LTD.",
-      "$_total_award_value": 642316.25,
-      "award_type": "Purchase Order",
+      "recipientName": "Rockwell American Services, LTD.",
+      "totalAwardValue": 642316.25,
+      "awardType": "Purchase Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "Rodriguez, Pedro V",
-      "$_total_award_value": 3939143.31,
-      "award_type": "Definitive Contract",
+      "recipientName": "Rodriguez, Pedro V",
+      "totalAwardValue": 3939143.31,
+      "awardType": "Definitive Contract",
       "location": "nipomo"
     },
     {
-      "recipient_name": "Rore, INC.",
-      "$_total_award_value": 5724748,
-      "award_type": "Definitive Contract",
+      "recipientName": "Rore, INC.",
+      "totalAwardValue": 5724748,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Ruprecht Construction INC",
-      "$_total_award_value": 9057424.33,
-      "award_type": "Definitive Contract",
+      "recipientName": "Ruprecht Construction INC",
+      "totalAwardValue": 9057424.33,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "San Luis Ambulance Service, INC.",
-      "$_total_award_value": 16196.4,
-      "award_type": "Purchase Order",
+      "recipientName": "San Luis Ambulance Service, INC.",
+      "totalAwardValue": 16196.4,
+      "awardType": "Purchase Order",
       "location": "san_luis_obispo"
     },
     {
-      "recipient_name": "San Luis Butane Distributors",
-      "$_total_award_value": 174830.09,
-      "award_type": "BPA Call",
+      "recipientName": "San Luis Butane Distributors",
+      "totalAwardValue": 174830.09,
+      "awardType": "BPA Call",
       "location": "paso_robles"
     },
     {
-      "recipient_name": "Schenk, virginia R",
-      "$_total_award_value": 11940,
-      "award_type": "Purchase Order",
+      "recipientName": "Schenk, virginia R",
+      "totalAwardValue": 11940,
+      "awardType": "Purchase Order",
       "location": "grover_beach"
     },
     {
-      "recipient_name": "Schwab Engineering, INC.",
-      "$_total_award_value": 827935.6600000001,
-      "award_type": "Delivery Order",
+      "recipientName": "Schwab Engineering, INC.",
+      "totalAwardValue": 827935.6600000001,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Science Applications International Corporation",
-      "$_total_award_value": 8222385.28,
-      "award_type": "Delivery Order",
+      "recipientName": "Science Applications International Corporation",
+      "totalAwardValue": 8222385.28,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Scientific Instrument Services, INC.",
-      "$_total_award_value": 4463,
-      "award_type": "Purchase Order",
+      "recipientName": "Scientific Instrument Services, INC.",
+      "totalAwardValue": 4463,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "SCR INC",
-      "$_total_award_value": 35624,
-      "award_type": "Purchase Order",
+      "recipientName": "SCR INC",
+      "totalAwardValue": 35624,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "SCS Integrated Support Solutions, LLC",
-      "$_total_award_value": 34829.59,
-      "award_type": "Purchase Order",
+      "recipientName": "SCS Integrated Support Solutions, LLC",
+      "totalAwardValue": 34829.59,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Security Information Systems, INC.",
-      "$_total_award_value": 19699,
-      "award_type": "Purchase Order",
+      "recipientName": "Security Information Systems, INC.",
+      "totalAwardValue": 19699,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Sentinel Security Solutions, INC.",
-      "$_total_award_value": 64276.09,
-      "award_type": "Purchase Order",
+      "recipientName": "Sentinel Security Solutions, INC.",
+      "totalAwardValue": 64276.09,
+      "awardType": "Purchase Order",
       "location": "grover_beach"
     },
     {
-      "recipient_name": "SERCO INC.",
-      "$_total_award_value": 837594.74,
-      "award_type": "Delivery Order",
+      "recipientName": "SERCO INC.",
+      "totalAwardValue": 837594.74,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Shred-It USA INC.",
-      "$_total_award_value": 41440,
-      "award_type": "Purchase Order",
+      "recipientName": "Shred-It USA INC.",
+      "totalAwardValue": 41440,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Siemens Healthcare Diagnostics INC.",
-      "$_total_award_value": 158512.14,
-      "award_type": "Delivery Order",
+      "recipientName": "Siemens Healthcare Diagnostics INC.",
+      "totalAwardValue": 158512.14,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Siemens Industry INC.",
-      "$_total_award_value": 377769.95999999996,
-      "award_type": "Delivery Order",
+      "recipientName": "Siemens Industry INC.",
+      "totalAwardValue": 377769.95999999996,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "SLO Sail And Canvas",
-      "$_total_award_value": 312337.2,
-      "award_type": "Delivery Order",
+      "recipientName": "SLO Sail And Canvas",
+      "totalAwardValue": 312337.2,
+      "awardType": "Delivery Order",
       "location": "san_luis_obispo"
     },
     {
-      "recipient_name": "Smith, Jennifer Franco",
-      "$_total_award_value": 54707.5,
-      "award_type": "BPA Call",
+      "recipientName": "Smith, Jennifer Franco",
+      "totalAwardValue": 54707.5,
+      "awardType": "BPA Call",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "Space Information Laboratories, LLC",
-      "$_total_award_value": 2499758,
-      "award_type": "Definitive Contract",
+      "recipientName": "Space Information Laboratories, LLC",
+      "totalAwardValue": 2499758,
+      "awardType": "Definitive Contract",
       "location": "santa_maria"
     },
     {
-      "recipient_name": "Spohnheimer Consulting Airspace Systems LLC",
-      "$_total_award_value": 36676,
-      "award_type": "Purchase Order",
+      "recipientName": "Spohnheimer Consulting Airspace Systems LLC",
+      "totalAwardValue": 36676,
+      "awardType": "Purchase Order",
       "location": "los_osos"
     },
     {
-      "recipient_name": "Stassi, Frederica J",
-      "$_total_award_value": 24000,
-      "award_type": "Purchase Order",
+      "recipientName": "Stassi, Frederica J",
+      "totalAwardValue": 24000,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Steris Corporation",
-      "$_total_award_value": 223004.69,
-      "award_type": "Delivery Order",
+      "recipientName": "Steris Corporation",
+      "totalAwardValue": 223004.69,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Sumaria Systems, INC.",
-      "$_total_award_value": 3597336.8,
-      "award_type": "Delivery Order",
+      "recipientName": "Sumaria Systems, INC.",
+      "totalAwardValue": 3597336.8,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Superior Fire INC.",
-      "$_total_award_value": 1120927,
-      "award_type": "Definitive Contract",
+      "recipientName": "Superior Fire INC.",
+      "totalAwardValue": 1120927,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Sustainable Furniture, INC.",
-      "$_total_award_value": 51498.11,
-      "award_type": "Delivery Order",
+      "recipientName": "Sustainable Furniture, INC.",
+      "totalAwardValue": 51498.11,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Sustainment & Restoration Services, LLC",
-      "$_total_award_value": 2775716,
-      "award_type": "Definitive Contract",
+      "recipientName": "Sustainment & Restoration Services, LLC",
+      "totalAwardValue": 2775716,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Sustainment And Restoration Services, LLC",
-      "$_total_award_value": 336296,
-      "award_type": "Definitive Contract",
+      "recipientName": "Sustainment And Restoration Services, LLC",
+      "totalAwardValue": 336296,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "SYNTECH, INC.",
-      "$_total_award_value": 4821.62,
-      "award_type": "Delivery Order",
+      "recipientName": "SYNTECH, INC.",
+      "totalAwardValue": 4821.62,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "SYSCO Ventura, INC.",
-      "$_total_award_value": 398000,
-      "award_type": "Purchase Order",
+      "recipientName": "SYSCO Ventura, INC.",
+      "totalAwardValue": 398000,
+      "awardType": "Purchase Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "SYSMEX America, INC.",
-      "$_total_award_value": 70974.72,
-      "award_type": "Purchase Order",
+      "recipientName": "SYSMEX America, INC.",
+      "totalAwardValue": 70974.72,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "System Spec, INC.",
-      "$_total_award_value": 77333,
-      "award_type": "Purchase Order",
+      "recipientName": "System Spec, INC.",
+      "totalAwardValue": 77333,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "T. Horzen, INC.",
-      "$_total_award_value": 60461.8,
-      "award_type": "BPA Call",
+      "recipientName": "T. Horzen, INC.",
+      "totalAwardValue": 60461.8,
+      "awardType": "BPA Call",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "T. Simons CO., INC.",
-      "$_total_award_value": 13878972.95,
-      "award_type": "Delivery Order",
+      "recipientName": "T. Simons CO., INC.",
+      "totalAwardValue": 13878972.95,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Tapestry Solutions, INC.",
-      "$_total_award_value": 28689448.94,
-      "award_type": "Definitive Contract",
+      "recipientName": "Tapestry Solutions, INC.",
+      "totalAwardValue": 28689448.94,
+      "awardType": "Definitive Contract",
       "location": "san_luis_obispo"
     },
     {
-      "recipient_name": "Technica Corporation",
-      "$_total_award_value": 0,
-      "award_type": "Delivery Order",
+      "recipientName": "Technica Corporation",
+      "totalAwardValue": 0,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Tetra Tech, INC.",
-      "$_total_award_value": 1177767.1500000001,
-      "award_type": "Delivery Order",
+      "recipientName": "Tetra Tech, INC.",
+      "totalAwardValue": 1177767.1500000001,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Tevet, LLC",
-      "$_total_award_value": 58855.68,
-      "award_type": "Delivery Order",
+      "recipientName": "Tevet, LLC",
+      "totalAwardValue": 58855.68,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Thermo Electron North America Limited Liability Company",
-      "$_total_award_value": 73962,
-      "award_type": "Delivery Order",
+      "recipientName": "Thermo Electron North America Limited Liability Company",
+      "totalAwardValue": 73962,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Thermo Electron North America LLC",
-      "$_total_award_value": 26096,
-      "award_type": "Purchase Order",
+      "recipientName": "Thermo Electron North America LLC",
+      "totalAwardValue": 26096,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Thyssenkrupp Elevator Corporation",
-      "$_total_award_value": 35000,
-      "award_type": "Purchase Order",
+      "recipientName": "Thyssenkrupp Elevator Corporation",
+      "totalAwardValue": 35000,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Thyssenkrupp Elevator Corporation (1267)",
-      "$_total_award_value": 67784,
-      "award_type": "Delivery Order",
+      "recipientName": "Thyssenkrupp Elevator Corporation (1267)",
+      "totalAwardValue": 67784,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "TS Government Solutions, LLC",
-      "$_total_award_value": 103680,
-      "award_type": "Purchase Order",
+      "recipientName": "TS Government Solutions, LLC",
+      "totalAwardValue": 103680,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "United Kinetics Corporation",
-      "$_total_award_value": 116485.77,
-      "award_type": "Purchase Order",
+      "recipientName": "United Kinetics Corporation",
+      "totalAwardValue": 116485.77,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "United Paradyne Corporation",
-      "$_total_award_value": 90167250.47,
-      "award_type": "Definitive Contract",
+      "recipientName": "United Paradyne Corporation",
+      "totalAwardValue": 90167250.47,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "URS Federal Services, INC.",
-      "$_total_award_value": 50139.24,
-      "award_type": "Delivery Order",
+      "recipientName": "URS Federal Services, INC.",
+      "totalAwardValue": 50139.24,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "URS Group, INC.",
-      "$_total_award_value": 34768.16,
-      "award_type": "Delivery Order",
+      "recipientName": "URS Group, INC.",
+      "totalAwardValue": 34768.16,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "US Military Corp",
-      "$_total_award_value": 7392,
-      "award_type": "Purchase Order",
+      "recipientName": "US Military Corp",
+      "totalAwardValue": 7392,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "V. Lopez Jr. & Sons General Engineering Contractors, INC.",
-      "$_total_award_value": 8773264.909999996,
-      "award_type": "Purchase Order",
+      "recipientName": "V. Lopez Jr. & Sons General Engineering Contractors, INC.",
+      "totalAwardValue": 8773264.909999996,
+      "awardType": "Purchase Order",
       "location": "santa_maria"
     },
     {
-      "recipient_name": "Val-Coast, INC",
-      "$_total_award_value": 4417150.680000001,
-      "award_type": "Purchase Order",
+      "recipientName": "Val-Coast, INC",
+      "totalAwardValue": 4417150.680000001,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Vandenberg Solar I, LLC",
-      "$_total_award_value": 4043796,
-      "award_type": "Delivery Order",
+      "recipientName": "Vandenberg Solar I, LLC",
+      "totalAwardValue": 4043796,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Vander Werff, Peter Construction, INC.",
-      "$_total_award_value": 3300000,
-      "award_type": "Definitive Contract",
+      "recipientName": "Vander Werff, Peter Construction, INC.",
+      "totalAwardValue": 3300000,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Vision Research, INC.",
-      "$_total_award_value": 1116596.78,
-      "award_type": "Delivery Order",
+      "recipientName": "Vision Research, INC.",
+      "totalAwardValue": 1116596.78,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "VMS Aircraft Company, INC.",
-      "$_total_award_value": 79970,
-      "award_type": "Purchase Order",
+      "recipientName": "VMS Aircraft Company, INC.",
+      "totalAwardValue": 79970,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "VMX International LLC",
-      "$_total_award_value": 5736907.72,
-      "award_type": "Definitive Contract",
+      "recipientName": "VMX International LLC",
+      "totalAwardValue": 5736907.72,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "VT Milcom INC.",
-      "$_total_award_value": 2964857.92,
-      "award_type": "Delivery Order",
+      "recipientName": "VT Milcom INC.",
+      "totalAwardValue": 2964857.92,
+      "awardType": "Delivery Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "VTC Enterprises",
-      "$_total_award_value": 12518999.209999999,
-      "award_type": "Definitive Contract",
+      "recipientName": "VTC Enterprises",
+      "totalAwardValue": 12518999.209999999,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Wasco Sales & Marketing, INC.",
-      "$_total_award_value": 51213.899999999994,
-      "award_type": "Purchase Order",
+      "recipientName": "Wasco Sales & Marketing, INC.",
+      "totalAwardValue": 51213.899999999994,
+      "awardType": "Purchase Order",
       "location": "santa_maria"
     },
     {
-      "recipient_name": "West Pacific Electric Company Corporation",
-      "$_total_award_value": 4104993,
-      "award_type": "Definitive Contract",
+      "recipientName": "West Pacific Electric Company Corporation",
+      "totalAwardValue": 4104993,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Whitefox Defense Technologies, INC.",
-      "$_total_award_value": 4260,
-      "award_type": "Purchase Order",
+      "recipientName": "Whitefox Defense Technologies, INC.",
+      "totalAwardValue": 4260,
+      "awardType": "Purchase Order",
       "location": "san_luis_obispo"
     },
     {
-      "recipient_name": "Wilburn Medical, INC",
-      "$_total_award_value": 20640,
-      "award_type": "Purchase Order",
+      "recipientName": "Wilburn Medical, INC",
+      "totalAwardValue": 20640,
+      "awardType": "Purchase Order",
       "location": "san_miguel"
     },
     {
-      "recipient_name": "Xerox Corporation",
-      "$_total_award_value": 545077.25,
-      "award_type": "Delivery Order",
+      "recipientName": "Xerox Corporation",
+      "totalAwardValue": 545077.25,
+      "awardType": "Delivery Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "XNS INC.",
-      "$_total_award_value": 321694.58,
-      "award_type": "Definitive Contract",
+      "recipientName": "XNS INC.",
+      "totalAwardValue": 321694.58,
+      "awardType": "Definitive Contract",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Zamora, Mario",
-      "$_total_award_value": 83900,
-      "award_type": "Purchase Order",
+      "recipientName": "Zamora, Mario",
+      "totalAwardValue": 83900,
+      "awardType": "Purchase Order",
       "location": "lompoc"
     },
     {
-      "recipient_name": "Zone 5 Technologies, LLC",
-      "$_total_award_value": 149252,
-      "award_type": "Purchase Order",
+      "recipientName": "Zone 5 Technologies, LLC",
+      "totalAwardValue": 149252,
+      "awardType": "Purchase Order",
       "location": "paso_robles"
     }
   ]
