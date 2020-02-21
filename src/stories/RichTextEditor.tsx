@@ -21,6 +21,11 @@ import { Editor, EditorState, RichUtils } from 'draft-js';
 import React, { useState } from 'react';
 import { DraftJSBlockType, DraftJSInlineType } from './DraftJSCommands';
 
+interface FormatButtonProps {
+  icon: JSX.Element;
+  onClick: () => void;
+}
+
 export default function RichTextEditor() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
@@ -50,6 +55,10 @@ export default function RichTextEditor() {
     setEditorState(RichUtils.toggleBlockType(editorState, buttonName));
   }
 
+  function FormatButton(props: FormatButtonProps) {
+    return <IconButton onClick={props.onClick}>{props.icon}</IconButton>;
+  }
+
   return (
     <StyledBox>
       <EditorToolbar>
@@ -59,7 +68,6 @@ export default function RichTextEditor() {
             <InputLabel id="heading-style-select-label">
               Heading Style
             </InputLabel>
-
             {/* TODO: label should animate into the select if nothing is selected */}
             <StyledSelect
               labelId="heading-style-select-label"
@@ -81,31 +89,38 @@ export default function RichTextEditor() {
             </StyledSelect>
           </FormControl>
 
-          <IconButton onClick={() => onClickInlineStyle('BOLD')}>
-            <FormatBold />
-          </IconButton>
-          <IconButton onClick={() => onClickInlineStyle('ITALIC')}>
-            <FormatItalic />
-          </IconButton>
-          <IconButton onClick={() => onClickInlineStyle('UNDERLINE')}>
-            <FormatUnderlined />
-          </IconButton>
-          <IconButton onClick={() => onClickInlineStyle('STRIKETHROUGH')}>
-            <StrikethroughS />
-          </IconButton>
-          <IconButton onClick={() => onClickInlineStyle('CODE')}>
-            <Code />
-          </IconButton>
+          <FormatButton
+            icon={<FormatBold />}
+            onClick={() => onClickInlineStyle('BOLD')}
+          />
+          <FormatButton
+            icon={<FormatItalic />}
+            onClick={() => onClickInlineStyle('ITALIC')}
+          />
+          <FormatButton
+            icon={<FormatUnderlined />}
+            onClick={() => onClickInlineStyle('UNDERLINE')}
+          />
+          <FormatButton
+            icon={<StrikethroughS />}
+            onClick={() => onClickInlineStyle('STRIKETHROUGH')}
+          />
+          <FormatButton
+            icon={<Code />}
+            onClick={() => onClickInlineStyle('CODE')}
+          />
         </FormatButtonGroup>
 
         {/* list styles */}
         <FormatButtonGroup>
-          <IconButton onClick={() => onClickBlockType('unordered-list-item')}>
-            <FormatListBulleted />
-          </IconButton>
-          <IconButton onClick={() => onClickBlockType('ordered-list-item')}>
-            <FormatListNumbered />
-          </IconButton>
+          <FormatButton
+            icon={<FormatListBulleted />}
+            onClick={() => onClickBlockType('unordered-list-item')}
+          />
+          <FormatButton
+            icon={<FormatListNumbered />}
+            onClick={() => onClickBlockType('ordered-list-item')}
+          />
         </FormatButtonGroup>
       </EditorToolbar>
 
