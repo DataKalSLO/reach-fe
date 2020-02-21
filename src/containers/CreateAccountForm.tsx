@@ -4,22 +4,25 @@ import './CreateAccountForm.css';
 
 function CreateAccountForm() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [emailMessage, setEmailMessage] = useState('');
+  const [emailValid, setEmailValid] = useState(false);
+  const [password, setPassword] = useState('');
   const [passwordMessage, setPasswordMessage] = useState('');
+  const [passwordValid, setPasswordValid] = useState(false);
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [
     passwordConfirmationMessage,
     setPasswordConfirmationMessage
   ] = useState('');
-  const [emailValid, setEmailValid] = useState(false);
-  const [passwordValid, setPasswordValid] = useState(false);
   const [passwordConfirmationValid, setPasswordConfirmationValid] = useState(
     false
   );
 
   const validateEmail = useCallback((emailName: string) => {
-    const error = emailName ? '' : 'You must enter an email address';
+    const emailValidRegex = new RegExp('(?=.*[@])(?=.*[.])');
+    const error = emailValidRegex.test(emailName)
+      ? ''
+      : 'You must enter a valid email address';
     if (error == '') {
       setEmailValid(true);
     } else {

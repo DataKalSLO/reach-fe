@@ -4,7 +4,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import AppleIcon from '@material-ui/icons/Apple';
 import './OtherCreateAccountForm.css';
 
-function OtherCreateAccountForm() {
+function AlternateCreateAccount() {
   const [placeholderVal, setPlaceholderVal] = useState('Email Address');
 
   return (
@@ -39,4 +39,4 @@ function OtherCreateAccountForm() {
   );
 }
 
-export default OtherCreateAccountForm;
+export default AlternateCreateAccount;

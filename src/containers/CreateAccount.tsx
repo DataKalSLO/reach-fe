@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Divider } from '@material-ui/core';
 import CreateAccountForm from './CreateAccountForm';
-import OtherCreateAccountForm from './OtherCreateAccountForm';
+import AlternateCreateAccount from './AlternateCreateAccount';
 import './CreateAccount.css';
 
 function CreateAccount() {
@@ -22,7 +22,7 @@ function CreateAccount() {
         </Grid>
         <Divider className="divider" />
         <Grid item>
-          <OtherCreateAccountForm />
+          <AlternateCreateAccount />
         </Grid>
       </Grid>
     </Grid>
