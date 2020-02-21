@@ -8,49 +8,29 @@ import {
   styled,
   withStyles
 } from '@material-ui/core';
-import CodeIcon from '@material-ui/icons/Code';
-import FormatBoldIcon from '@material-ui/icons/FormatBold';
-import FormatItalicIcon from '@material-ui/icons/FormatItalic';
-import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
-import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
-import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
-import StrikethroughSIcon from '@material-ui/icons/StrikethroughS';
+import {
+  Code,
+  FormatBold,
+  FormatItalic,
+  FormatListBulleted,
+  FormatListNumbered,
+  FormatUnderlined,
+  StrikethroughS
+} from '@material-ui/icons';
 import { Editor, EditorState, RichUtils } from 'draft-js';
 import React, { useState } from 'react';
-
-const DraftJSCommands = {
-  // inline styles
-  bold: 'BOLD',
-  italic: 'ITALIC',
-  monospace: 'CODE',
-  underline: 'UNDERLINE',
-  strikethrough: 'STRIKETHROUGH',
-
-  // block styles
-  blockquote: 'blockquote',
-  bulletedList: 'unordered-list-item',
-  headings: {
-    h1: 'header-one',
-    h2: 'header-two',
-    h3: 'header-three',
-    h4: 'header-four',
-    h5: 'header-five',
-    h6: 'header-six',
-    unstyled: 'unstyled'
-  },
-  numberedList: 'ordered-list-item'
-};
+import { DraftJSBlockType, DraftJSInlineType } from './DraftJSCommands';
 
 export default function RichTextEditor() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
-  // enable key binding shortcuts (e.g. ctrl+b for bold)
+  // enable key binding shortcuts (e.g. CTRL+B for bold)
   const handleKeyCommand = (command: string, editorState: EditorState) => {
-    const newState = RichUtils.handleKeyCommand(editorState, command);
-
     // Magic strings from Draft.js that signal success/failure. If you change these strings, the overriding WILL BREAK
     const successMsg = 'handled';
     const failureMsg = 'not-handled';
+
+    const newState = RichUtils.handleKeyCommand(editorState, command);
 
     if (newState) {
       setEditorState(newState);
@@ -61,107 +41,80 @@ export default function RichTextEditor() {
   };
 
   // connect icon buttons in the toolbar to the state updates for inline styles
-  function onClickInlineStyle(buttonName: string) {
+  function onClickInlineStyle(buttonName: DraftJSInlineType) {
     setEditorState(RichUtils.toggleInlineStyle(editorState, buttonName));
   }
 
-  function onClickBlockType(buttonName: string) {
+  // connect icon buttons and heading select in the toolbar to the state updates for block styles
+  function onClickBlockType(buttonName: DraftJSBlockType) {
     setEditorState(RichUtils.toggleBlockType(editorState, buttonName));
   }
 
   return (
-    <div>
-      <StyledBox>
-        <EditorToolbar>
-          {/* text styles */}
-          <FormatButtonGroup>
-            <FormControl variant="outlined">
-              <InputLabel id="heading-style-select-label">
-                Heading Style
-              </InputLabel>
+    <StyledBox>
+      <EditorToolbar>
+        {/* text styles */}
+        <FormatButtonGroup>
+          <FormControl variant="outlined">
+            <InputLabel id="heading-style-select-label">
+              Heading Style
+            </InputLabel>
 
-              {/* TODO: label should animate into the select if nothing is selected */}
-              <StyledSelect
-                labelId="heading-style-select-label"
-                id="heading-style-select"
-                variant="outlined"
-                value={RichUtils.getCurrentBlockType(editorState)}
-                onChange={value =>
-                  onClickBlockType(value.target.value as string)
-                }
-                defaultValue={DraftJSCommands.headings.unstyled}
-              >
-                <MenuItem value={DraftJSCommands.headings.unstyled}>
-                  Normal text
-                </MenuItem>
-                <MenuItem value={DraftJSCommands.headings.h1}>
-                  Heading 1
-                </MenuItem>
-                <MenuItem value={DraftJSCommands.headings.h2}>
-                  Heading 2
-                </MenuItem>
-                <MenuItem value={DraftJSCommands.headings.h3}>
-                  Heading 3
-                </MenuItem>
-                <MenuItem value={DraftJSCommands.headings.h4}>
-                  Heading 4
-                </MenuItem>
-                <MenuItem value={DraftJSCommands.headings.h5}>
-                  Heading 5
-                </MenuItem>
-                <MenuItem value={DraftJSCommands.headings.h6}>
-                  Heading 6
-                </MenuItem>
-              </StyledSelect>
-            </FormControl>
-            <IconButton
-              onClick={() => onClickInlineStyle(DraftJSCommands.bold)}
+            {/* TODO: label should animate into the select if nothing is selected */}
+            <StyledSelect
+              labelId="heading-style-select-label"
+              id="heading-style-select"
+              variant="outlined"
+              value={RichUtils.getCurrentBlockType(editorState)}
+              onChange={value =>
+                onClickBlockType(value.target.value as DraftJSBlockType)
+              }
+              defaultValue={'unstyled'}
             >
-              <FormatBoldIcon />
-            </IconButton>
-            <IconButton
-              onClick={() => onClickInlineStyle(DraftJSCommands.italic)}
-            >
-              <FormatItalicIcon />
-            </IconButton>
-            <IconButton
-              onClick={() => onClickInlineStyle(DraftJSCommands.underline)}
-            >
-              <FormatUnderlinedIcon />
-            </IconButton>
-            <IconButton
-              onClick={() => onClickInlineStyle(DraftJSCommands.strikethrough)}
-            >
-              <StrikethroughSIcon />
-            </IconButton>
-            <IconButton
-              onClick={() => onClickInlineStyle(DraftJSCommands.monospace)}
-            >
-              <CodeIcon />
-            </IconButton>
-          </FormatButtonGroup>
+              <MenuItem value={'unstyled'}>Normal text</MenuItem>
+              <MenuItem value={'header-one'}>Heading 1</MenuItem>
+              <MenuItem value={'header-two'}>Heading 2</MenuItem>
+              <MenuItem value={'header-three'}>Heading 3</MenuItem>
+              <MenuItem value={'header-four'}>Heading 4</MenuItem>
+              <MenuItem value={'header-five'}>Heading 5</MenuItem>
+              <MenuItem value={'header-six'}>Heading 6</MenuItem>
+            </StyledSelect>
+          </FormControl>
 
-          {/* list styles */}
-          <FormatButtonGroup>
-            <IconButton
-              onClick={() => onClickBlockType(DraftJSCommands.bulletedList)}
-            >
-              <FormatListBulletedIcon />
-            </IconButton>
-            <IconButton
-              onClick={() => onClickBlockType(DraftJSCommands.numberedList)}
-            >
-              <FormatListNumberedIcon />
-            </IconButton>
-          </FormatButtonGroup>
-        </EditorToolbar>
-        <Editor
-          editorState={editorState}
-          onChange={s => setEditorState(s)}
-          handleKeyCommand={handleKeyCommand}
-        />
-      </StyledBox>
-    </div>
+          <IconButton onClick={() => onClickInlineStyle('BOLD')}>
+            <FormatBold />
+          </IconButton>
+          <IconButton onClick={() => onClickInlineStyle('ITALIC')}>
+            <FormatItalic />
+          </IconButton>
+          <IconButton onClick={() => onClickInlineStyle('UNDERLINE')}>
+            <FormatUnderlined />
+          </IconButton>
+          <IconButton onClick={() => onClickInlineStyle('STRIKETHROUGH')}>
+            <StrikethroughS />
+          </IconButton>
+          <IconButton onClick={() => onClickInlineStyle('CODE')}>
+            <Code />
+          </IconButton>
+        </FormatButtonGroup>
+
+        {/* list styles */}
+        <FormatButtonGroup>
+          <IconButton onClick={() => onClickBlockType('unordered-list-item')}>
+            <FormatListBulleted />
+          </IconButton>
+          <IconButton onClick={() => onClickBlockType('ordered-list-item')}>
+            <FormatListNumbered />
+          </IconButton>
+        </FormatButtonGroup>
+      </EditorToolbar>
+
+      <Editor
+        editorState={editorState}
+        onChange={s => setEditorState(s)}
+        handleKeyCommand={handleKeyCommand}
+      />
+    </StyledBox>
   );
 }
 
