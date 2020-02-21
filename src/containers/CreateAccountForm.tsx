@@ -1,8 +1,15 @@
 import React, { useState, useCallback } from 'react';
-import { Grid, Button, TextField, Box } from '@material-ui/core';
-import './CreateAccountForm.css';
+import {
+  Grid,
+  Button,
+  TextField,
+  Box,
+  styled,
+  makeStyles
+} from '@material-ui/core';
 
 function CreateAccountForm() {
+  const classes = useStyles();
   const [email, setEmail] = useState('');
   const [emailMessage, setEmailMessage] = useState('');
   const [emailValid, setEmailValid] = useState(false);
@@ -93,53 +100,61 @@ function CreateAccountForm() {
     <Box>
       <Grid container direction="column" alignItems="center" spacing={2}>
         <Grid item>
-          <div className="field">
-            <TextField
-              fullWidth
-              placeholder="Email Address"
-              onChange={handleInputChangeEmail}
-            />
-          </div>
-          <div className="error">{emailMessage}</div>
+          <StyledTextField
+            fullWidth
+            placeholder="Email Address"
+            onChange={handleInputChangeEmail}
+          />
+          <div className={classes.error}>{emailMessage}</div>
         </Grid>
         <Grid item>
-          <div className="field">
-            <TextField
-              fullWidth
-              placeholder="Password"
-              type="password"
-              onChange={handleInputChangePassword}
-            />
-          </div>
-          <div className="error">{passwordMessage}</div>
+          <StyledTextField
+            fullWidth
+            placeholder="Password"
+            type="password"
+            onChange={handleInputChangePassword}
+          />
+          <div className={classes.error}>{passwordMessage}</div>
         </Grid>
         <Grid item>
-          <div className="field">
-            <TextField
-              fullWidth
-              placeholder="Confirm Password"
-              type="password"
-              onChange={handleInputChangePasswordConfirmation}
-            />
-          </div>
-          <div className="error">{passwordConfirmationMessage}</div>
+          <StyledTextField
+            fullWidth
+            placeholder="Confirm Password"
+            type="password"
+            onChange={handleInputChangePasswordConfirmation}
+          />
+          <div className={classes.error}>{passwordConfirmationMessage}</div>
         </Grid>
         <Grid item>
-          <div className="field">
-            {emailValid && passwordValid && passwordConfirmationValid ? (
-              <Button fullWidth variant="outlined">
-                CREATE ACCOUNT
-              </Button>
-            ) : (
-              <Button disabled fullWidth variant="outlined">
-                CREATE ACCOUNT
-              </Button>
-            )}
-          </div>
+          {emailValid && passwordValid && passwordConfirmationValid ? (
+            <ButtonThin fullWidth variant="outlined">
+              CREATE ACCOUNT
+            </ButtonThin>
+          ) : (
+            <ButtonThin disabled fullWidth variant="outlined">
+              CREATE ACCOUNT
+            </ButtonThin>
+          )}
         </Grid>
       </Grid>
     </Box>
   );
 }
+
+const StyledTextField = styled(TextField)({
+  minWidth: '270px'
+});
+
+const ButtonThin = styled(Button)({
+  minWidth: '270px'
+});
+
+const useStyles = makeStyles({
+  error: {
+    maxWidth: '270px',
+    fontSize: '13px',
+    color: 'red'
+  }
+});
 
 export default CreateAccountForm;
