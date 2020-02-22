@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import Toolbar from './Toolbar';
+import Box from '@material-ui/core/Box';
 
 // require is necessary to attach exportChart() to buttons
 // eslint-disable-next-line
@@ -56,6 +57,7 @@ const options: Highcharts.Options = {
     }
   ],
 
+  // Allows us to use custom components for exporting
   exporting: {
     enabled: false
   }
@@ -67,16 +69,14 @@ function Graph() {
   const exportChart = () => chartRef.current.chart.exportChart();
 
   return (
-    <div>
-      <div style={{ position: 'relative' }}>
-        <HighchartsReact
-          highcharts={Highcharts}
-          options={options}
-          ref={chartRef}
-        />
-        <Toolbar exportChartHandler={exportChart} />
-      </div>
-    </div>
+    <Box position="relative">
+      <HighchartsReact
+        highcharts={Highcharts}
+        options={options}
+        ref={chartRef}
+      />
+      <Toolbar exportChartHandler={exportChart} />
+    </Box>
   );
 }
 

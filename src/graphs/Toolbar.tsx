@@ -9,6 +9,8 @@ import TwitterButton from './buttons/TwitterButton';
 import FacebookButton from './buttons/FacebookButton';
 import LinkedInButton from './buttons/LinkedInButton';
 import { useLocation } from 'react-router-dom';
+import { styled } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 
 function getModalStyle() {
   const top = 50;
@@ -31,15 +33,21 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-// match react-share button stylings
-const iconStyle = {
+const StyledContainer = styled(Box)({
+  textAlign: 'center',
+  position: 'absolute',
+  right: 0,
+  top: 0
+});
+
+const StyledButton = styled(Box)({
   backgroundColor: 'transparent',
   border: 'none',
   padding: '0px',
   font: 'inherit',
   color: 'inherit',
   cursor: 'pointer'
-};
+});
 
 interface ToolbarProps {
   exportChartHandler: () => void;
@@ -49,51 +57,40 @@ export default interface ToolbarButtonProps {
   graphUrl: string;
 }
 
+// Modal code adapted from https://material-ui.com/components/modal/
 export default function Toolbar(props: ToolbarProps) {
   const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const location = useLocation();
   const baseUrl = 'http://inserturlhere.com';
   const graphUrl = `${baseUrl}${location.pathname}`;
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+  const toggleModal = () => {
+    setOpen(!open);
   };
 
   return (
-    <div
-      style={{
-        textAlign: 'center',
-        position: 'absolute',
-        right: '0',
-        top: '0'
-      }}
-    >
-      <Button onClick={() => console.log('Do stuff')}>
+    <StyledContainer>
+      <Button onClick={() => console.log('Save to my stuff button clicked')}>
         <SaveIcon />
       </Button>
-      <Button onClick={handleOpen}>
+      <Button onClick={toggleModal}>
         <ShareIcon />
       </Button>
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
         open={open}
-        onClose={handleClose}
+        onClose={toggleModal}
       >
         <div style={modalStyle} className={classes.paper}>
           <h2 id="simple-modal-title">Share</h2>
           <p id="simple-modal-description">
             <Button onClick={props.exportChartHandler}>
-              <button className="react-share__ShareButton" style={iconStyle}>
+              <StyledButton className="react-share__ShareButton">
                 <GetAppIcon />
-              </button>
+              </StyledButton>
             </Button>
             <LinkedInButton graphUrl={graphUrl} />
             <FacebookButton graphUrl={graphUrl} />
@@ -101,6 +98,6 @@ export default function Toolbar(props: ToolbarProps) {
           </p>
         </div>
       </Modal>
-    </div>
+    </StyledContainer>
   );
 }
