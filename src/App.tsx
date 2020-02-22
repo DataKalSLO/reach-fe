@@ -82,37 +82,6 @@ const sample = (
 );
 
 function App() {
-  const home = (
-    <Route path={HOME} exact>
-      <Home />
-    </Route>
-  );
-  const explore = (
-    <Route path={EXPLORE}>
-      <Explore />
-    </Route>
-  );
-  const vizBuilder = (
-    <Route path={VIZ_BUILDER}>
-      <VizBuilder />
-    </Route>
-  );
-  const storyBuilder = (
-    <Route path={STORY_BUILDER}>
-      <StoryBuilder />
-    </Route>
-  );
-  const myStuff = (
-    <Route path={MY_STUFF}>
-      <MyStuff />
-    </Route>
-  );
-  const login = (
-    <Route path={LOGIN}>
-      <Login />
-    </Route>
-  );
-
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
