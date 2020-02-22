@@ -17,14 +17,14 @@ function VizBuilder() {
       border="1px solid red"
       alignContent="center"
     >
-      <SplitterLayout  percentage = {true}  primaryMinSize = {0}  >
+      <SplitterLayout percentage={true} primaryMinSize={0}>
         <Grid item xs={6}>
           <Map />
         </Grid>
         <Grid item xs={6}>
           <Graph />
         </Grid>
-      </SplitterLayout>     
+      </SplitterLayout>
     </Box>
   );
 }
