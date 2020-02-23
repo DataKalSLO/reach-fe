@@ -11,15 +11,15 @@ import {
 function CreateAccountForm() {
   const classes = useStyles();
   const [email, setEmail] = useState('');
-  const [emailMessage, setEmailMessage] = useState('');
+  const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [emailValid, setEmailValid] = useState(false);
   const [password, setPassword] = useState('');
-  const [passwordMessage, setPasswordMessage] = useState('');
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
   const [passwordValid, setPasswordValid] = useState(false);
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [
-    passwordConfirmationMessage,
-    setPasswordConfirmationMessage
+    passwordConfirmationErrorMessage,
+    setPasswordConfirmationErrorMessage
   ] = useState('');
   const [passwordConfirmationValid, setPasswordConfirmationValid] = useState(
     false
@@ -35,7 +35,7 @@ function CreateAccountForm() {
     } else {
       setEmailValid(false);
     }
-    setEmailMessage(error);
+    setEmailErrorMessage(error);
     return error;
   }, []);
 
@@ -51,7 +51,7 @@ function CreateAccountForm() {
     } else {
       setPasswordValid(false);
     }
-    setPasswordMessage(error);
+    setPasswordErrorMessage(error);
     return error;
   }, []);
 
@@ -66,7 +66,7 @@ function CreateAccountForm() {
       } else {
         setPasswordConfirmationValid(false);
       }
-      setPasswordConfirmationMessage(error);
+      setPasswordConfirmationErrorMessage(error);
       return error;
     },
     []
@@ -84,8 +84,11 @@ function CreateAccountForm() {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setPassword(event.target.value);
       validatePassword(event.target.value);
+      if (passwordConfirmation != '') {
+        validatePasswordConfirmation(event.target.value, passwordConfirmation);
+      }
     },
-    [validatePassword]
+    [validatePassword, passwordConfirmation, validatePasswordConfirmation]
   );
 
   const handleInputChangePasswordConfirmation = useCallback(
@@ -105,7 +108,7 @@ function CreateAccountForm() {
             placeholder="Email Address"
             onChange={handleInputChangeEmail}
           />
-          <div className={classes.error}>{emailMessage}</div>
+          <div className={classes.error}>{emailErrorMessage}</div>
         </Grid>
         <Grid item>
           <StyledTextField
@@ -114,7 +117,7 @@ function CreateAccountForm() {
             type="password"
             onChange={handleInputChangePassword}
           />
-          <div className={classes.error}>{passwordMessage}</div>
+          <div className={classes.error}>{passwordErrorMessage}</div>
         </Grid>
         <Grid item>
           <StyledTextField
@@ -123,7 +126,9 @@ function CreateAccountForm() {
             type="password"
             onChange={handleInputChangePasswordConfirmation}
           />
-          <div className={classes.error}>{passwordConfirmationMessage}</div>
+          <div className={classes.error}>
+            {passwordConfirmationErrorMessage}
+          </div>
         </Grid>
         <Grid item>
           {emailValid && passwordValid && passwordConfirmationValid ? (
