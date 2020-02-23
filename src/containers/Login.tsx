@@ -1,9 +1,8 @@
 import React from 'react';
-import { Grid, Divider, Button } from '@material-ui/core';
-import Link from '@material-ui/core/Link';
+import { Grid, Link, Divider, Button, styled } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import SignIn from './SignIn';
-import OtherSignIn from './OtherSignIn';
+import SocialMediaSignIn from './SocialMediaSignIn';
 import { HOME } from '../nav/constants';
 
 function Login() {
@@ -16,23 +15,23 @@ function Login() {
         <Button onClick={navigateTo(HOME)}>REACH</Button>
         <Button onClick={navigateTo(HOME)}>CREATE ACCOUNT</Button>
       </Grid>
-      <Grid
-        container
-        direction="column"
-        justify="space-around"
-        alignItems="center"
-        style={{ minHeight: '75vh' }}
-      >
+      <CenteredGrid container>
         <h1>Log into Reach</h1>
         <Grid container direction="row" justify="center" spacing={9}>
           <SignIn />
           <Divider orientation="vertical" flexItem />
-          <OtherSignIn />
+          <SocialMediaSignIn />
         </Grid>
         <Link onClick={navigateTo(HOME)}>CANT LOG IN?</Link>
-      </Grid>
+      </CenteredGrid>
     </Grid>
   );
 }
+
+const CenteredGrid = styled(Grid)({
+  justifyContent: 'center',
+  alignItems: 'center',
+  minHeight: '75vh'
+});
 
 export default Login;
