@@ -41,14 +41,14 @@ export default function RichTextEditor() {
   };
 
   // connect icon buttons in the toolbar to the state updates for inline styles
-  function onClickInlineStyle(buttonName: DraftJSInlineType) {
+  const onClickInlineStyle = (buttonName: DraftJSInlineType) => {
     setEditorState(RichUtils.toggleInlineStyle(editorState, buttonName));
-  }
+  };
 
   // connect icon buttons and heading select in the toolbar to the state updates for block styles
-  function onClickBlockType(buttonName: DraftJSBlockType) {
+  const onClickBlockType = (buttonName: DraftJSBlockType) => {
     setEditorState(RichUtils.toggleBlockType(editorState, buttonName));
-  }
+  };
 
   return (
     <StyledBox>
