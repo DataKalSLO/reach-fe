@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import Toolbar from './Toolbar';
+import ShareSheet from './ShareSheet';
 import Box from '@material-ui/core/Box';
+import { styled } from '@material-ui/core/styles';
 
 // require is necessary to attach exportChart() to buttons
 // eslint-disable-next-line
@@ -63,20 +64,24 @@ const options: Highcharts.Options = {
   }
 };
 
+const StyledBox = styled(Box)({
+  position: 'relative'
+});
+
 function Graph() {
   // eslint-disable-next-line
   const chartRef: any = useRef<HighchartsReact | null>(null);
   const exportChart = () => chartRef.current.chart.exportChart();
 
   return (
-    <Box position="relative">
+    <StyledBox>
       <HighchartsReact
         highcharts={Highcharts}
         options={options}
         ref={chartRef}
       />
-      <Toolbar exportChartHandler={exportChart} />
-    </Box>
+      <ShareSheet exportChartHandler={exportChart} />
+    </StyledBox>
   );
 }
 

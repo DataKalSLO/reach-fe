@@ -58,7 +58,7 @@ export default interface ToolbarButtonProps {
 }
 
 // Modal code adapted from https://material-ui.com/components/modal/
-export default function Toolbar(props: ToolbarProps) {
+export default function ShareSheet(props: ToolbarProps) {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
