@@ -1,38 +1,35 @@
 import React from 'react';
-import { Grid, Divider, styled } from '@material-ui/core';
+import { Typography, Divider, Box, styled } from '@material-ui/core';
 import CreateAccountForm from './CreateAccountForm';
 import ThirdPartyCreateAccount from './ThirdPartyCreateAccount';
 
 function CreateAccount() {
   return (
-    <Grid container direction="column" alignItems="center" justify="center">
-      <h1>Create Reach Account</h1>
-      <GridCenter
-        container
-        item
-        direction="column"
-        justify="center"
-        alignItems="center"
-        spacing={8}
-      >
-        <Grid item>
-          <CreateAccountForm />
-        </Grid>
-        <StyledDivider />
-        <Grid item>
-          <ThirdPartyCreateAccount />
-        </Grid>
-      </GridCenter>
-    </Grid>
+    <BoxCenter>
+      <Title variant="h4">Create Reach Account</Title>
+      <CreateAccountForm />
+      <StyledDivider />
+      <ThirdPartyCreateAccount />
+    </BoxCenter>
   );
 }
 
 const StyledDivider = styled(Divider)({
-  minWidth: '270px'
+  width: '270px',
+  height: '2px',
+  margin: '20px'
 });
 
-const GridCenter = styled(Grid)({
-  minHeight: '75vh'
+const BoxCenter = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyItems: 'center'
+});
+
+const Title = styled(Typography)({
+  textAlign: 'center',
+  margin: '20px'
 });
 
 export default CreateAccount;

@@ -1,30 +1,34 @@
 import React from 'react';
-import { Grid, Button, Box, styled } from '@material-ui/core';
+import { Button, Box, styled } from '@material-ui/core';
 import AppleIcon from '@material-ui/icons/Apple';
 import GoogleIcon from '../icons/GoogleIcon';
 
 function ThirdPartyCreateAccount() {
   return (
-    <Box>
-      <Grid container item direction="column" alignItems="center" spacing={3}>
-        <Grid item md={12}>
-          <StyledButton fullWidth variant="outlined" endIcon={<GoogleIcon />}>
-            Continue with Google
-          </StyledButton>
-        </Grid>
-        <Grid item>
-          <StyledButton fullWidth variant="outlined" endIcon={<AppleIcon />}>
-            Continue with Apple
-          </StyledButton>
-        </Grid>
-      </Grid>
-    </Box>
+    <BoxCenter>
+      <StyledButton fullWidth variant="outlined" endIcon={<GoogleIcon />}>
+        Continue with Google
+      </StyledButton>
+      <StyledButton fullWidth variant="outlined" endIcon={<AppleIcon />}>
+        Continue with Apple
+      </StyledButton>
+    </BoxCenter>
   );
 }
 
 const StyledButton = styled(Button)({
   minWidth: '270px',
   minHeight: '50px'
+});
+
+const BoxCenter = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyItems: 'center',
+  justifyContent: 'space-between',
+  height: '115px',
+  width: '200px'
 });
 
 export default ThirdPartyCreateAccount;

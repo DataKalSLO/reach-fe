@@ -1,12 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import {
-  Grid,
-  Button,
-  TextField,
-  Box,
-  styled,
-  makeStyles
-} from '@material-ui/core';
+import { Button, TextField, Box, styled, makeStyles } from '@material-ui/core';
 
 function CreateAccountForm() {
   const classes = useStyles();
@@ -60,11 +53,10 @@ function CreateAccountForm() {
       let error = '';
       if (passwordVal !== passwordConfirmationVal) {
         error = 'Passwords need to match';
+        setPasswordConfirmationValid(false);
       }
       if (error === '') {
         setPasswordConfirmationValid(true);
-      } else {
-        setPasswordConfirmationValid(false);
       }
       setPasswordConfirmationErrorMessage(error);
       return error;
@@ -100,51 +92,52 @@ function CreateAccountForm() {
   );
 
   return (
-    <Box>
-      <Grid container direction="column" alignItems="center" spacing={2}>
-        <Grid item>
-          <StyledTextField
-            fullWidth
-            placeholder="Email Address"
-            onChange={handleInputChangeEmail}
-          />
-          <div className={classes.error}>{emailErrorMessage}</div>
-        </Grid>
-        <Grid item>
-          <StyledTextField
-            fullWidth
-            placeholder="Password"
-            type="password"
-            onChange={handleInputChangePassword}
-          />
-          <div className={classes.error}>{passwordErrorMessage}</div>
-        </Grid>
-        <Grid item>
-          <StyledTextField
-            fullWidth
-            placeholder="Confirm Password"
-            type="password"
-            onChange={handleInputChangePasswordConfirmation}
-          />
-          <div className={classes.error}>
-            {passwordConfirmationErrorMessage}
-          </div>
-        </Grid>
-        <Grid item>
-          {emailValid && passwordValid && passwordConfirmationValid ? (
-            <ButtonThin fullWidth variant="outlined">
-              CREATE ACCOUNT
-            </ButtonThin>
-          ) : (
-            <ButtonThin disabled fullWidth variant="outlined">
-              CREATE ACCOUNT
-            </ButtonThin>
-          )}
-        </Grid>
-      </Grid>
-    </Box>
+    <BoxCenter>
+      <StyledTextField
+        fullWidth
+        placeholder="Email Address"
+        onChange={handleInputChangeEmail}
+        variant="outlined"
+      />
+      <div className={classes.error}>{emailErrorMessage}</div>
+      <StyledTextField
+        fullWidth
+        placeholder="Password"
+        type="password"
+        onChange={handleInputChangePassword}
+        variant="outlined"
+      />
+      <div className={classes.error}>{passwordErrorMessage}</div>
+      <StyledTextField
+        fullWidth
+        placeholder="Confirm Password"
+        type="password"
+        onChange={handleInputChangePasswordConfirmation}
+        variant="outlined"
+      />
+      <div className={classes.error}>{passwordConfirmationErrorMessage}</div>
+      {emailValid && passwordValid && passwordConfirmationValid ? (
+        <ButtonThin fullWidth variant="outlined">
+          CREATE ACCOUNT
+        </ButtonThin>
+      ) : (
+        <ButtonThin disabled fullWidth variant="outlined">
+          CREATE ACCOUNT
+        </ButtonThin>
+      )}
+    </BoxCenter>
   );
 }
+
+const BoxCenter = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyItems: 'center',
+  justifyContent: 'space-between',
+  height: '250px',
+  width: '200px'
+});
 
 const StyledTextField = styled(TextField)({
   minWidth: '270px'
@@ -156,7 +149,7 @@ const ButtonThin = styled(Button)({
 
 const useStyles = makeStyles({
   error: {
-    maxWidth: '270px',
+    minWidth: '270px',
     fontSize: '13px',
     color: 'red'
   }
