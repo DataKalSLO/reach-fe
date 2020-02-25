@@ -3,7 +3,8 @@ import { Button, LinearProgress } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
-import RichTextEditor, { contentToRaw } from './RichTextEditor';
+import RichTextEditor from './RichTextEditor';
+import { contentToRaw } from './RichTextEditor';
 
 function StoryBuilderForm() {
   const [textBlock, setTextBlock] = useState();
@@ -39,18 +40,8 @@ function StoryBuilderForm() {
           {/* FIXME: @tanner refactor into a custom field
               https://hceris.com/custom-components-in-formik/
           */}
-          <RichTextEditor sendData={(v: any) => setTextBlock(v)} />
+          <RichTextEditor />
           <br />
-          <Button
-            variant="contained"
-            color="primary"
-            disabled={isSubmitting}
-            onClick={submitForm}
-            startIcon={<SaveIcon />}
-          >
-            Save Story
-          </Button>
-          {isSubmitting && <LinearProgress />}
         </Form>
       )}
     </Formik>

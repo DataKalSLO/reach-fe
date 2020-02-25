@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import uuidv4 from 'uuid/v4';
+import RichTextEditor from './RichTextEditor';
 
 export interface Story {
   StoryID: string;
@@ -12,7 +13,6 @@ export interface Story {
 }
 
 export interface StoryBlock {
-  BlockID: string;
   Position: number;
   BlockValue: Block;
 }
@@ -28,6 +28,12 @@ export interface TextBlock extends Block {
 export interface GraphBlock extends Block {
   XAxis: string;
   YAxis: string;
+}
+
+export interface BlockComponent {
+  component: JSX.Element;
+  key: string;
+  blockValue: Block;
 }
 
 export function GenerateEmptyStory(userID: string): Story {
@@ -59,6 +65,23 @@ export const SampleStory: Story = {
     } as StoryBlock
   ] as Array<StoryBlock>
 };
+
+export const SampleBlockComponents: Array<StoryBlock> = [
+  {
+    Position: 0,
+    BlockValue: {
+      BlockID: 'id1',
+      EditorState: JSON.parse('{}')
+    } as TextBlock
+  } as StoryBlock,
+  {
+    Position: 1,
+    BlockValue: {
+      BlockID: 'id2',
+      EditorState: JSON.parse('{}')
+    } as TextBlock
+  } as StoryBlock
+] as Array<StoryBlock>;
 
 export function SaveStory(story: Story) {
   alert(JSON.stringify(story, null, 2));
