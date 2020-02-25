@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import ReactMapGL, { Source, Layer, ViewportProps } from 'react-map-gl';
+import ReactMapGL, { Source, Layer, ViewportProps, Marker } from 'react-map-gl';
 import { SLO_LATITUDE, SLO_LONGITUDE } from './constants';
 import features from '../common/assets/Local Data/census/b25053.js';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import chroma from 'chroma-js';
 import _ from 'lodash';
 import Tooltip from './Tooltip';
+import { schoolData, data } from './LayersComponent';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
 
@@ -97,6 +98,9 @@ function MapView() {
         <Layer {...layer} />
       </Source>
       {renderTooltip()}
+      {schoolData[0].features.forEach(function(location: any) {
+        markers(location);
+      })}
     </ReactMapGL>
   ) : (
     <div
@@ -167,6 +171,18 @@ function quantileMaker(colorScale: any, quantiles: any, min: any, max: any) {
     return colorScale(val).hex();
   });
   return _.zip(dataScale, chromaScale);
+}
+
+function markers(location: any) {
+  return (
+    <Marker
+      key={location[0].properties.name}
+      latitude={location[0].geometry.coordinates[0]}
+      longitude={location[0].geometry.coordinates[1]}
+    >
+      <div> {location[0].properties.name} </div>
+    </Marker>
+  );
 }
 
 export default MapView;

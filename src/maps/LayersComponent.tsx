@@ -95,8 +95,8 @@ const HighSchoolData = {
   ]
 };
 
-const schoolData = [CollegeData, HighSchoolData];
-const data = GeoJSON.parse(schoolData, { GeoJSON: 'geometry' });
+export const schoolData = [CollegeData, HighSchoolData];
+export const data = GeoJSON.parse(schoolData, { GeoJSON: 'geometry' });
 console.log(data);
 
 const useStyles = makeStyles((theme: Theme) =>
