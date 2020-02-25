@@ -1,3 +1,3 @@
-export function selector() {
-  //pass
-}
+import { RootState } from '../index';
+
+export const getVizbuilder = (store: RootState) => store.vizbuilder;

@@ -1,0 +1,7 @@
+/*
+ * Action Constants
+ */
+
+export const FETCH_METADATA = 'FETCH_METADATA';
+export const FETCH_ENTIRE_DATASET = 'FETCH_ENTIRE_DATASET';
+export const FETCH_DATASET_COLUMNS = 'FETCH_DATASET_COLUMNS';

@@ -1,3 +1,5 @@
+import { FETCH_ENTIRE_DATASET, FETCH_METADATA } from './constants';
+
 /*
  * The following type aliases/interfaces are used to create a generic
  * dataset object. A PayloadDataset is retrieved from an API call, only
@@ -42,3 +44,15 @@ export interface VizState {
  * The following type aliases/interfaces are used to create the
  * actions for the reducer.
  */
+
+export interface FetchMetadataAction {
+  type: typeof FETCH_METADATA;
+  payload: Metadata;
+}
+
+export interface FetchDatasetAction {
+  type: typeof FETCH_ENTIRE_DATASET;
+  payload: Dataset;
+}
+
+export type VizActionTypes = FetchMetadataAction | FetchDatasetAction;
