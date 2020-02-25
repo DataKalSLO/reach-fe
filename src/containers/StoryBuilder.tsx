@@ -1,9 +1,15 @@
 import { Container } from '@material-ui/core';
-import React from 'react';
-import StoryBuilderForm from '../stories/StoryBuilderForm';
-import SortableList from '../stories/SortableList';
+import React, { useState } from 'react';
+import RichTextEditor from '../stories/RichTextEditor';
+import { SaveStory, Story, GenerateEmptyStory } from '../stories/StoryObjects';
+import SaveIcon from '@material-ui/icons/Save';
+import { Button } from '@material-ui/core';
+import uuidv4 from 'uuid/v4';
 
 function StoryBuilder() {
+  const tempUserId = uuidv4();
+  const [story, setStory] = useState<Story>(GenerateEmptyStory(tempUserId));
+
   return (
     <Container>
       <h1>StoryBuilder</h1>
@@ -12,9 +18,16 @@ function StoryBuilder() {
         add text blocks, graphs, static images, and dataset snippets to help
         readers follow along with your findings and conclusions. Use the drag
         handles to the left of each component if you want to reorder them.
-      </text>
-      <StoryBuilderForm />
-      <SortableList />
+      </p>
+      <RichTextEditor />
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => SaveStory(story)}
+        startIcon={<SaveIcon />}
+      >
+        Save
+      </Button>
     </Container>
   );
 }
