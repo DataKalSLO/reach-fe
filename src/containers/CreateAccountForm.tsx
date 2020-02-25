@@ -1,8 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { Button, TextField, Box, styled, makeStyles } from '@material-ui/core';
+import { Button, TextField, Box, styled, Typography } from '@material-ui/core';
 
 function CreateAccountForm() {
-  const classes = useStyles();
   const [email, setEmail] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [emailValid, setEmailValid] = useState(false);
@@ -99,7 +98,7 @@ function CreateAccountForm() {
         onChange={handleInputChangeEmail}
         variant="outlined"
       />
-      <div className={classes.error}>{emailErrorMessage}</div>
+      <ErrorMessage>{emailErrorMessage}</ErrorMessage>
       <StyledTextField
         fullWidth
         placeholder="Password"
@@ -107,7 +106,7 @@ function CreateAccountForm() {
         onChange={handleInputChangePassword}
         variant="outlined"
       />
-      <div className={classes.error}>{passwordErrorMessage}</div>
+      <ErrorMessage>{passwordErrorMessage}</ErrorMessage>
       <StyledTextField
         fullWidth
         placeholder="Confirm Password"
@@ -115,7 +114,7 @@ function CreateAccountForm() {
         onChange={handleInputChangePasswordConfirmation}
         variant="outlined"
       />
-      <div className={classes.error}>{passwordConfirmationErrorMessage}</div>
+      <ErrorMessage>{passwordConfirmationErrorMessage}</ErrorMessage>
       {emailValid && passwordValid && passwordConfirmationValid ? (
         <ButtonThin fullWidth variant="outlined">
           CREATE ACCOUNT
@@ -144,15 +143,14 @@ const StyledTextField = styled(TextField)({
 });
 
 const ButtonThin = styled(Button)({
-  minWidth: '270px'
+  minWidth: '270px',
+  backgroundColor: 'rgba(0, 154, 138, 0.6)'
 });
 
-const useStyles = makeStyles({
-  error: {
-    minWidth: '270px',
-    fontSize: '13px',
-    color: 'red'
-  }
+const ErrorMessage = styled(Typography)({
+  minWidth: '270px',
+  fontSize: '13px',
+  color: 'red'
 });
 
 export default CreateAccountForm;

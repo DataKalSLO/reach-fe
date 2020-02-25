@@ -29,7 +29,7 @@ const BoxCenter = styled(Box)({
 
 const Title = styled(Typography)({
   textAlign: 'center',
-  margin: '20px'
+  margin: '35px'
 });
 
 export default CreateAccount;
