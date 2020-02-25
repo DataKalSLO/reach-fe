@@ -30,7 +30,7 @@ function CreateAccountForm() {
     const error = emailValidRegex.test(emailName)
       ? ''
       : 'You must enter a valid email address';
-    if (error == '') {
+    if (error === '') {
       setEmailValid(true);
     } else {
       setEmailValid(false);
@@ -46,7 +46,7 @@ function CreateAccountForm() {
     const error = passwordStrengthRegex.test(passwordVal)
       ? ''
       : 'Your password must be at at least 6 characters, contain 1 number, and contain 1 special symbol';
-    if (error == '') {
+    if (error === '') {
       setPasswordValid(true);
     } else {
       setPasswordValid(false);
@@ -58,10 +58,10 @@ function CreateAccountForm() {
   const validatePasswordConfirmation = useCallback(
     (passwordVal, passwordConfirmationVal) => {
       let error = '';
-      if (passwordVal != passwordConfirmationVal) {
+      if (passwordVal !== passwordConfirmationVal) {
         error = 'Passwords need to match';
       }
-      if (error == '') {
+      if (error === '') {
         setPasswordConfirmationValid(true);
       } else {
         setPasswordConfirmationValid(false);
@@ -84,7 +84,7 @@ function CreateAccountForm() {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setPassword(event.target.value);
       validatePassword(event.target.value);
-      if (passwordConfirmation != '') {
+      if (passwordConfirmation !== '') {
         validatePasswordConfirmation(event.target.value, passwordConfirmation);
       }
     },
