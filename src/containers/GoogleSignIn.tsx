@@ -13,12 +13,11 @@ const GoogleSignIn = () => {
   };
 
   const responseGoogle = (googleUser: gapi.auth2.GoogleUser): void => {
-    console.log(googleId);
     // eslint-disable-next-line
     const id_token = googleUser.getAuthResponse(true).id_token;
     setGoogleId(googleUser.getId());
 
-    console.log(googleId);
+    console.log(googleUser.getId());
     // eslint-disable-next-line
     console.log({ accessToken: id_token });
   };
@@ -30,6 +29,7 @@ const GoogleSignIn = () => {
   return (
     <GoogleLoginButton
       classNames="custom_class center-block"
+      
       responseHandler={responseGoogle}
       clientConfig={clientConfig}
       failureHandler={errorHandler}
