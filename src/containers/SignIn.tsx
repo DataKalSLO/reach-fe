@@ -11,7 +11,7 @@ function SignIn() {
         <TextField placeholder="Password" type="password" fullWidth={true} />
       </Grid>
       <Grid item>
-        <Button variant="contained" disabled fullWidth={true}>
+        <Button variant="outlined" fullWidth={true}>
           LOG IN
         </Button>
       </Grid>

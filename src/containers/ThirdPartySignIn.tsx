@@ -1,10 +1,10 @@
 import React from 'react';
 import { Grid, Button } from '@material-ui/core';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import AppleIcon from '@material-ui/icons/Apple';
+
+import { Facebook, Apple } from '@material-ui/icons';
 
 // A component to handle signing in using existing Social Media Accounts
-function SocialMediaSignIn() {
+function ThirdPartySignIn() {
   return (
     <Grid
       container
@@ -23,7 +23,7 @@ function SocialMediaSignIn() {
 const GoogleSignIn = () => {
   return (
     <Grid item>
-      <Button endIcon={<FacebookIcon />} fullWidth={true}>
+      <Button endIcon={<Facebook />} fullWidth={true}>
         Continue with Google
       </Button>
     </Grid>
@@ -33,11 +33,11 @@ const GoogleSignIn = () => {
 const AppleSignIn = () => {
   return (
     <Grid item>
-      <Button endIcon={<AppleIcon />} fullWidth={true}>
+      <Button endIcon={<Apple />} fullWidth={true}>
         Continue with Apple
       </Button>
     </Grid>
   );
 };
 
-export default SocialMediaSignIn;
+export default ThirdPartySignIn;
