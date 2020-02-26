@@ -12,7 +12,7 @@ import DragHandleIcon from '@material-ui/icons/DragHandle';
 import arrayMove from 'array-move';
 import RichTextEditor from './RichTextEditor';
 import { Box } from '@material-ui/core';
-import { BlockComponent, TextBlock, StoryBlock } from './StoryObjects';
+import { BlockComponent, TextBlock, StoryBlock } from './StoryTypes';
 
 interface SortableElementProps {
   value: JSX.Element;
@@ -24,7 +24,7 @@ interface SortableContainerProps {
 
 interface SortableListProps {
   setBlocks: (blocks: StoryBlock[]) => void;
-  blockComponents: Array<StoryBlock>;
+  storyBlocks: Array<StoryBlock>;
 }
 
 const DragHandle = SortableHandle(() => (
@@ -50,33 +50,44 @@ const LocalSortableContainer = SortableContainer(
   }
 );
 
-function StoryBlockToBlockComponentConverter(
-  blockComponents: Array<StoryBlock>
-): Array<BlockComponent> {
-  const values = new Array<BlockComponent>(blockComponents.length);
+// function StoryBlockToBlockComponentConverter(
+//   blockComponents: Array<StoryBlock>
+// ): Array<BlockComponent> {
+//   const values = new Array<BlockComponent>(blockComponents.length);
 
-  blockComponents.map((storyBlock: StoryBlock) => {
-    values[storyBlock.Position] = {
-      component: <RichTextEditor key={storyBlock.BlockValue.BlockID} />,
-      key: storyBlock.BlockValue.BlockID,
-      blockValue: storyBlock.BlockValue
-    } as BlockComponent;
-  });
-  return values;
+//   blockComponents.map((storyBlock: StoryBlock) => {
+//     values[storyBlock.position] = {
+//       component: <RichTextEditor key={storyBlock.blockValue.blockID} />,
+//       key: storyBlock.blockValue.blockID,
+//       blockValue: storyBlock.blockValue
+//     } as BlockComponent;
+//   });
+//   return values;
+//}
+
+function blockToComponent(block: StoryBlock): JSX.Element {
+  console.log('checking type');
+  console.log(block.type);
+  switch (block.type) {
+    case 'Text':
+      return <RichTextEditor key={block.blockID} />;
+    case 'Graph':
+      return <div></div>;
+  }
 }
 
 export const SortableList = (props: SortableListProps) => {
   const onSortEnd: SortEndHandler = (sort: SortEnd, event: SortEvent) => {
-    props.setBlocks(StoryBlockToBlockComponentConverter(props.blockComponents));
+    props.setBlocks(arrayMove(props.storyBlocks, sort.oldIndex, sort.newIndex));
   };
 
   return (
     <LocalSortableContainer useDragHandle onSortEnd={onSortEnd}>
-      {props.blockComponents.map((value, index) => (
+      {props.storyBlocks.map((block, index) => (
         <SortableItem
-          key={`item-${value.key}`}
+          key={`item-${block.blockID}`}
           index={index}
-          value={value.component}
+          value={blockToComponent(block)}
         />
       ))}
     </LocalSortableContainer>

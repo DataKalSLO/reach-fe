@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import uuidv4 from 'uuid/v4';
-import { Story } from './StoryObjects';
+import { Story } from './StoryTypes';
 
 interface StoryDB {
   StoryID: string;
@@ -52,12 +52,12 @@ export const SampleStory: StoryDB = {
 
 export function SaveStory(story: Story) {
   const storyDB = {
-    StoryID: story.StoryID,
-    UserID: story.UserID,
-    Title: story.Title,
-    Description: story.Description,
-    DateCreated: story.DateCreated,
-    DateLastEdited: story.DateLastEdited
+    StoryID: story.storyID,
+    UserID: story.userID,
+    Title: story.title,
+    Description: story.description,
+    DateCreated: story.dateCreated,
+    DateLastEdited: story.dateLastEdited
   } as StoryDB;
 
   const storyBlocks: Array<StoryBlockDB> = [];

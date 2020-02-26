@@ -5,11 +5,12 @@ import {
   SaveStory,
   Story,
   GenerateEmptyStory,
-  Block,
   BlockComponent,
-  StoryBlock
-} from '../stories/StoryObjects';
+  StoryBlock,
+  TextBlock
+} from '../stories/StoryTypes';
 import SaveIcon from '@material-ui/icons/Save';
+import AddIcon from '@material-ui/icons/Add';
 import StoryBuilderForm from '../stories/StoryBuilderForm';
 import SortableList from '../stories/SortableList';
 import { Button, LinearProgress } from '@material-ui/core';
@@ -21,13 +22,13 @@ function StoryBuilder() {
 
   const setBlocks = (blocks: Array<StoryBlock>) => {
     setStory({
-      StoryID: story.StoryID,
-      UserID: story.UserID,
-      Title: story.Title,
-      Description: story.Description,
-      DateCreated: story.DateCreated,
-      DateLastEdited: story.DateLastEdited,
-      StoryBlocks: blocks
+      storyID: story.storyID,
+      userID: story.userID,
+      title: story.title,
+      description: story.description,
+      dateCreated: story.dateCreated,
+      dateLastEdited: story.dateLastEdited,
+      storyBlocks: blocks
     });
   };
 
@@ -42,8 +43,27 @@ function StoryBuilder() {
       </text>
       {/*<RichTextEditor />*/}
       <div>
-        <SortableList setBlocks={setBlocks} />
+        <SortableList setBlocks={setBlocks} storyBlocks={story.storyBlocks} />
       </div>
+      {/*TODO: Make this cleaner*/}
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() =>
+          setBlocks(
+            story.storyBlocks.concat([
+              {
+                blockID: uuidv4(),
+                editorState: JSON.parse('{}'),
+                type: 'Text'
+              } as TextBlock
+            ] as Array<StoryBlock>)
+          )
+        }
+        startIcon={<AddIcon />}
+      >
+        Add Story
+      </Button>
       <Button
         variant="contained"
         color="primary"
