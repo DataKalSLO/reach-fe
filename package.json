@@ -29,8 +29,14 @@
   },
   "scripts": {
     "start": "npm run lint && react-scripts start",
+<<<<<<< HEAD
     "start-no-lint": "react-scripts start",
     "build": "npm run lint && react-scripts build",
+=======
+    "no-lint-start": "react-scripts start",
+    "build": "npm run lint && react-scripts build",
+
+>>>>>>> a92d82412390f877591de6b8565af2b3a5ab236c
     "lint": "eslint . --ext .ts,.tsx",
     "lint-fix": "eslint . --fix --ext .ts,.tsx",
     "test": "react-scripts test",
