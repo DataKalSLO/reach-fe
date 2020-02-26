@@ -24,9 +24,8 @@ import {
   convertFromRaw,
   convertToRaw
 } from 'draft-js';
-
-import React, { useState } from 'react';
 import { DraftJSBlockType, DraftJSInlineType } from './DraftJSCommands';
+import React from 'react';
 
 export function rawToContent(raw: string) {
   return EditorState.createWithContent(convertFromRaw(JSON.parse(raw)));
@@ -39,8 +38,13 @@ export function contentToRaw(editorState: EditorState) {
   return '';
 }
 
-export default function RichTextEditor() {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+interface Props {
+  editorState: EditorState;
+  setEditorState: (s: EditorState) => void;
+}
+
+export default function RichTextEditor(props: Props) {
+  const { editorState, setEditorState } = props; // this is NOT a hook, the state is being managed in StoryForm
 
   // enable key binding shortcuts (e.g. CTRL+B for bold)
   const handleKeyCommand = (command: string, editorState: EditorState) => {
