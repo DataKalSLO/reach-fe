@@ -52,7 +52,6 @@ const options: Highcharts.Options = {
   ]
 };
 
-
 const options2: Highcharts.Options = {
   tooltip: {
     useHTML: true,
@@ -74,13 +73,49 @@ const options2: Highcharts.Options = {
   },
 
   title: {
-    text: 'Department of Defense Contracts'
+    text: 'Department of Defense Contracts2'
+  },
+
+  series: [
+    {
+      type: 'column',
+      name: 'Jane',
+      data: [3, 2, 1, 3, 4] },  {
+      type: 'column',
+      name: 'John',
+      data: [2, 3, 5, 7, 6] },  {
+      type: 'column',
+      name: 'Joe',
+      data: [4, 3, 3, 9, 0] },  {
+      type: 'spline',
+      name: 'Average',
+      data: [3, 2.67, 3, 6.33, 3.33]
+    }
+  ]
+};
+
+const options3: Highcharts.Options = {
+  tooltip: {
+    useHTML: true,
+    headerFormat: '<small>{point.key}</small><table>',
+    valueDecimals: 2,
+    valuePrefix: '$',
+    valueSuffix: ' USD'
+  },
+
+
+  chart: {
+    height: '80%'
+  },
+
+  title: {
+    text: 'Department of Defense Contracts3'
   },
 
   series: [
     {
       name: 'Companies',
-      type: 'column',
+      type: 'bar',
       data: data
     }
   ]
@@ -88,10 +123,15 @@ const options2: Highcharts.Options = {
 
 function Graph() {
   return (
-    <div style={{paddingBottom:'40px' , paddingTop:'40px'}}>
+    <div style={{ paddingBottom: '40px', paddingTop: '40px' }}>
       <div>
         <HighchartsReact highcharts={Highcharts} options={options} />
+      </div>
+      <div>
         <HighchartsReact highcharts={Highcharts} options={options2} />
+      </div>
+      <div>
+        <HighchartsReact highcharts={Highcharts} options={options3} />
       </div>
     </div>
   );

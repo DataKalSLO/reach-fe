@@ -18,6 +18,7 @@
     "highcharts-react-official": "^2.2.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-map-gl": "^5.2.3",
     "react-redux": "^7.1.3",
     "react-scripts": "^3.4.0",
     "react-split-pane": "^0.1.89",
@@ -29,14 +30,8 @@
   },
   "scripts": {
     "start": "npm run lint && react-scripts start",
-<<<<<<< HEAD
-    "start-no-lint": "react-scripts start",
-    "build": "npm run lint && react-scripts build",
-=======
     "no-lint-start": "react-scripts start",
     "build": "npm run lint && react-scripts build",
-
->>>>>>> a92d82412390f877591de6b8565af2b3a5ab236c
     "lint": "eslint . --ext .ts,.tsx",
     "lint-fix": "eslint . --fix --ext .ts,.tsx",
     "test": "react-scripts test",
@@ -60,8 +55,9 @@
   "devDependencies": {
     "@material-ui/core": "^4.9.2",
     "@material-ui/icons": "^4.9.1",
-    "@types/react": "^16.9.19",
     "@types/draft-js": "^0.10.38",
+    "@types/react": "^16.9.19",
+    "@types/react-map-gl": "^5.2.0",
     "@types/react-router-dom": "^5.1.3",
     "@types/react-splitter-layout": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^2.19.2",

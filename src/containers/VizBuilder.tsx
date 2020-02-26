@@ -12,18 +12,23 @@ function VizBuilder() {
     <Box
       display="flex"
       flexDirection="row"
-      height='100vh'
+      height="100vh"
       justifyContent="center"
       alignItems="center"
       //border="1px solid red"
       alignContent="center"
     >
       <SplitterLayout percentage={true} primaryMinSize={0}>
-        <Grid item xs={12}>
-        <GraphContainer/>
+        <Grid item xs={12} 
+        style={{ padding: "40px" ,
+                 display: "flex",
+                 justifyContent: "center",
+                 alignContent: "center",
+                 alignItems: "center"}}>
+          <Map />
         </Grid>
-        <Grid item xs={12} style={{border:'1px solid black'}}>
-          <GraphContainer/>
+        <Grid item xs={12} style={{ border: '1px solid black' }}>
+          <GraphContainer />
         </Grid>
       </SplitterLayout>
     </Box>
