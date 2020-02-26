@@ -3,13 +3,13 @@ import { Button, styled } from '@material-ui/core';
 import AppleIcon from '@material-ui/icons/Apple';
 import GoogleIcon from '../icons/GoogleIcon';
 import BoxCenter from '../common/components/BoxCenter';
+import GoogleAuth from './GoogleAuth';
 
 function ThirdPartyCreateAccount() {
   return (
     <BoxCenterSized>
-      <StyledButton fullWidth variant="outlined" endIcon={<GoogleIcon />}>
-        Continue with Google
-      </StyledButton>
+      <GoogleAuth/>
+      
       <StyledButton fullWidth variant="outlined" endIcon={<AppleIcon />}>
         Continue with Apple
       </StyledButton>

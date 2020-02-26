@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Button, styled } from '@material-ui/core';
 import { Apple } from '@material-ui/icons';
 import GoogleIcon from '../icons/GoogleIcon';
+import GoogleAuth from './GoogleAuth';
 
 // A component to handle signing in using existing Social Media Accounts
 function ThirdPartySignIn() {
@@ -23,9 +24,7 @@ function ThirdPartySignIn() {
 const GoogleSignIn = () => {
   return (
     <Grid item>
-      <StyledButton endIcon={<GoogleIcon />} fullWidth variant="outlined">
-        Continue with Google
-      </StyledButton>
+      <GoogleAuth />
     </Grid>
   );
 };
