@@ -1,11 +1,11 @@
-import { FETCH_ENTIRE_DATASET, FETCH_METADATA } from './constants';
+import { FETCH_ENTIRE_DATASET, FETCH_ALL_METADATA } from './constants';
 
 /*
  * The following type aliases/interfaces are used to create a generic
  * dataset object. A PayloadDataset is retrieved from an API call, only
  * containing the raw values of each row. A Dataset is a properly formatted
  * dataset containing a list of columns; each column has a name and a list
- * of values.
+ * of values. TODO: ADD comment for Metadata
  * - See ./utilities/convertToDataset for more information on how the
  *   conversion works.
  */
@@ -13,6 +13,7 @@ import { FETCH_ENTIRE_DATASET, FETCH_METADATA } from './constants';
 export type DataValue = string | number;
 
 export interface Metadata {
+  name: string;
   columnNames: string[];
   columnTypes: string[];
 }
@@ -36,7 +37,7 @@ export type Dataset = Column[];
  */
 
 export interface VizState {
-  metadata: Metadata;
+  metadataForAllDatasets: Metadata[];
   dataset: Dataset;
 }
 
@@ -46,8 +47,8 @@ export interface VizState {
  */
 
 export interface FetchMetadataAction {
-  type: typeof FETCH_METADATA;
-  payload: Metadata;
+  type: typeof FETCH_ALL_METADATA;
+  payload: Metadata[];
 }
 
 export interface FetchDatasetAction {

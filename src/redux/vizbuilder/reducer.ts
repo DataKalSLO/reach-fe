@@ -1,8 +1,8 @@
-import { VizActionTypes, VizState } from './types'
-import { FETCH_METADATA, FETCH_ENTIRE_DATASET } from './constants';
+import { VizActionTypes, VizState } from './types';
+import { FETCH_ALL_METADATA, FETCH_ENTIRE_DATASET } from './constants';
 
 const initialState: VizState = {
-  metadata: { columnNames: [], columnTypes: [] },
+  metadataForAllDatasets: [],
   dataset: []
 };
 
@@ -11,10 +11,10 @@ export function vizReducer(
   action: VizActionTypes
 ): VizState {
   switch (action.type) {
-    case FETCH_METADATA:
+    case FETCH_ALL_METADATA:
       return {
         ...state,
-        metadata: action.payload
+        metadataForAllDatasets: action.payload
       };
     case FETCH_ENTIRE_DATASET:
       return {
