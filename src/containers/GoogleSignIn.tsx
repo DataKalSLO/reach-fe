@@ -29,7 +29,6 @@ const GoogleSignIn = () => {
   return (
     <GoogleLoginButton
       classNames="custom_class center-block"
-      
       responseHandler={responseGoogle}
       clientConfig={clientConfig}
       failureHandler={errorHandler}
