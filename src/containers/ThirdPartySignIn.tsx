@@ -1,7 +1,7 @@
 import React from 'react';
-import { Grid, Button } from '@material-ui/core';
-
-import { Facebook, Apple } from '@material-ui/icons';
+import { Grid, Button, styled } from '@material-ui/core';
+import { Apple } from '@material-ui/icons';
+import GoogleIcon from '../icons/GoogleIcon';
 
 // A component to handle signing in using existing Social Media Accounts
 function ThirdPartySignIn() {
@@ -23,9 +23,9 @@ function ThirdPartySignIn() {
 const GoogleSignIn = () => {
   return (
     <Grid item>
-      <Button endIcon={<Facebook />} fullWidth={true}>
+      <StyledButton endIcon={<GoogleIcon />} fullWidth variant="outlined">
         Continue with Google
-      </Button>
+      </StyledButton>
     </Grid>
   );
 };
@@ -33,11 +33,16 @@ const GoogleSignIn = () => {
 const AppleSignIn = () => {
   return (
     <Grid item>
-      <Button endIcon={<Apple />} fullWidth={true}>
+      <StyledButton endIcon={<Apple />} fullWidth variant="outlined">
         Continue with Apple
-      </Button>
+      </StyledButton>
     </Grid>
   );
 };
+
+const StyledButton = styled(Button)({
+  width: '270px',
+  height: '50px'
+});
 
 export default ThirdPartySignIn;

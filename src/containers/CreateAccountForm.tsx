@@ -97,7 +97,6 @@ function CreateAccountForm() {
         fullWidth
         placeholder="Email Address"
         onChange={handleInputChangeEmail}
-        variant="outlined"
       />
       <ErrorMessage>{emailErrorMessage}</ErrorMessage>
       <StyledTextField
@@ -105,7 +104,6 @@ function CreateAccountForm() {
         placeholder="Password"
         type="password"
         onChange={handleInputChangePassword}
-        variant="outlined"
       />
       <ErrorMessage>{passwordErrorMessage}</ErrorMessage>
       <StyledTextField
@@ -113,7 +111,6 @@ function CreateAccountForm() {
         placeholder="Confirm Password"
         type="password"
         onChange={handleInputChangePasswordConfirmation}
-        variant="outlined"
       />
       <ErrorMessage>{passwordConfirmationErrorMessage}</ErrorMessage>
       {emailValid && passwordValid && passwordConfirmationValid ? (
@@ -145,7 +142,7 @@ const ErrorMessage = styled(Typography)({
 });
 
 const BoxCenterSized = styled(BoxCenter)({
-  height: '250px',
+  height: '200px',
   width: '200px'
 });
 
