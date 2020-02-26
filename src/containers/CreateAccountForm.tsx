@@ -1,15 +1,8 @@
 import React, { useState, useCallback } from 'react';
-import {
-  Button,
-  TextField,
-  styled,
-  Typography,
-  makeStyles
-} from '@material-ui/core';
+import { Button, TextField, styled, Typography } from '@material-ui/core';
 import BoxCenter from '../common/components/BoxCenter';
 
 function CreateAccountForm() {
-  const styles = useStyles();
   const [email, setEmail] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [emailValid, setEmailValid] = useState(false);
@@ -99,7 +92,7 @@ function CreateAccountForm() {
   );
 
   return (
-    <BoxCenter className={styles.box}>
+    <BoxCenterSized>
       <StyledTextField
         fullWidth
         placeholder="Email Address"
@@ -132,7 +125,7 @@ function CreateAccountForm() {
           CREATE ACCOUNT
         </ButtonThin>
       )}
-    </BoxCenter>
+    </BoxCenterSized>
   );
 }
 
@@ -151,11 +144,9 @@ const ErrorMessage = styled(Typography)({
   color: 'red'
 });
 
-const useStyles = makeStyles({
-  box: {
-    height: '250px',
-    width: '200px'
-  }
+const BoxCenterSized = styled(BoxCenter)({
+  height: '250px',
+  width: '200px'
 });
 
 export default CreateAccountForm;
