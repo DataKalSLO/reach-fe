@@ -16,10 +16,7 @@ const GoogleAuth = () => {
     // eslint-disable-next-line
     const id_token = googleUser.getAuthResponse(true).id_token;
     setGoogleId(googleUser.getId());
-
     console.log(googleUser.getId());
-    // eslint-disable-next-line
-    console.log({ accessToken: id_token });
   };
 
   const errorHandler = (error: string): void => {

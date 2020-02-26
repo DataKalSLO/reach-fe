@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid, Button, styled } from '@material-ui/core';
 import { Apple } from '@material-ui/icons';
-import GoogleIcon from '../icons/GoogleIcon';
 import GoogleAuth from './GoogleAuth';
 
 // A component to handle signing in using existing Social Media Accounts
