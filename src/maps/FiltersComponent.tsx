@@ -35,7 +35,7 @@ export function BasicButtonGroup() {
     <div className={classes.root}>
       <ButtonGroup color="primary" aria-label="outlined primary button group">
         <Button>Region</Button>
-        <Button>City</Button>
+        <Button>Communities</Button>
         <Button>Zip Code</Button>
       </ButtonGroup>
     </div>
