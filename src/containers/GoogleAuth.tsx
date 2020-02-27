@@ -4,6 +4,7 @@ import { Button, styled } from '@material-ui/core';
 import GoogleIcon from '../icons/GoogleIcon';
 
 const GoogleAuth = () => {
+  // eslint-disable-next-line
   const [googleId, setGoogleId] = useState('');
 
   const clientConfig = {
@@ -14,15 +15,11 @@ const GoogleAuth = () => {
 
   const responseGoogle = (googleUser: gapi.auth2.GoogleUser): void => {
     // eslint-disable-next-line
-    const id_token = googleUser.getAuthResponse(true).id_token;
+    // const id_token = googleUser.getAuthResponse(true).id_token;
     setGoogleId(googleUser.getId());
 
     console.log(googleUser.getId());
-    console.log(googleUser.getAuthResponse(true));
-    console.log(googleUser);
-    console.log(id_token);
-
-
+    console.log(googleUser.getBasicProfile().getEmail());
   };
 
   const errorHandler = (error: string): void => {
