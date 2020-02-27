@@ -1,5 +1,5 @@
-import { User, UserActionTypes, LOGIN, LOGOUT } from './types';
-import { login, logout } from '../../api/login';
+import { User, LoginData, UserActionTypes, LOGIN, LOGOUT } from './types';
+import { login } from '../../api/login';
 import { Dispatch } from 'redux';
 
 export function loginAction(user: User): UserActionTypes {
@@ -9,20 +9,13 @@ export function loginAction(user: User): UserActionTypes {
   };
 }
 
-export function loginUser(user: User) {
+export function loginUser(loginData: LoginData) {
   return async (dispatch: Dispatch) => {
-    await login(user);
+    const user = await login(loginData);
     dispatch(loginAction(user));
   };
 }
 
 export function logoutAction(): UserActionTypes {
   return { type: LOGOUT };
-}
-
-export function logoutUser(user: User) {
-  return async (dispatch: Dispatch) => {
-    await logout();
-    dispatch(logoutAction());
-  };
 }

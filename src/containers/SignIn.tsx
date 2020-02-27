@@ -1,14 +1,28 @@
 import React, { useState, useCallback } from 'react';
 import { Grid, TextField, Button, styled } from '@material-ui/core';
-import { login } from '../api/login';
-import { User } from '../redux/login/types';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { LoginData } from '../redux/login/types';
+import { loginUser } from '../redux/login/actions';
+import { HOME } from '../nav/constants';
 
 function SignIn() {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const history = useHistory();
 
   const handleInputChangeEmail = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setEmail(event.target.value);
+    },
+    []
+  );
+
+  const handleInputChangePassword = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setPassword(event.target.value);
     },
     []
   );
@@ -23,14 +37,20 @@ function SignIn() {
         />
       </Grid>
       <Grid item>
-        <TextField placeholder="Password" type="password" fullWidth />
+        <TextField
+          placeholder="Password"
+          type="password"
+          fullWidth
+          onChange={handleInputChangePassword}
+        />
       </Grid>
       <Grid item>
         <StyledButton
           variant="outlined"
           fullWidth
           onClick={() => {
-            login({ email } as User);
+            dispatch(loginUser({ email, password } as LoginData));
+            history.push(HOME);
           }}
         >
           LOG IN

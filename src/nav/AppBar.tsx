@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import MuiAppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -22,6 +23,7 @@ import {
   LOGIN,
   CREATE_ACCOUNT
 } from './constants';
+import { getUser } from '../redux/login/selectors';
 
 const ButtonWithoutHover = styled(Button)({
   textTransform: 'none',
@@ -58,6 +60,7 @@ const displayAppBar = (menu: JSX.Element) => {
 function AppBar() {
   const history = useHistory();
   const navigateTo = (route: string) => () => history.push(route);
+  const user = useSelector(getUser);
 
   const menu = (
     <Grid
@@ -105,7 +108,7 @@ function AppBar() {
       </Grid>
       <Grid item>
         <MenuButton
-          name={MY_STUFF_NAME}
+          name={user.email || MY_STUFF_NAME}
           navigateToRoute={navigateTo(MY_STUFF)}
         />
         <IconButton onClick={navigateTo(LOGIN)}>
