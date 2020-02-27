@@ -46,6 +46,8 @@ function MapView() {
     zoom: 8
   });
 
+  const [selectedInstitutions, setSelectedInstitution] = React.useState(null);
+
   useEffect(() => {
     const minVal = getStat(features, _.minBy, selection);
     const maxVal = getStat(features, _.maxBy, selection);
@@ -98,9 +100,14 @@ function MapView() {
         <Layer {...layer} />
       </Source>
       {renderTooltip()}
-      {schoolData[0].features.forEach(function(location: any) {
-        markers(location);
-      })}
+      {
+        // comment out 106-110 to remove the name of the markers from showing up
+      }
+      {schoolData
+        .map(function(collection: any) {
+          return markers(collection.features, setSelectedInstitution);
+        })
+        .flat()}
     </ReactMapGL>
   ) : (
     <div
@@ -173,16 +180,31 @@ function quantileMaker(colorScale: any, quantiles: any, min: any, max: any) {
   return _.zip(dataScale, chromaScale);
 }
 
-function markers(location: any) {
-  return (
-    <Marker
-      key={location[0].properties.name}
-      latitude={location[0].geometry.coordinates[0]}
-      longitude={location[0].geometry.coordinates[1]}
-    >
-      <div> {location[0].properties.name} </div>
-    </Marker>
-  );
+function markers(features: any, setSelectedInstitution: any) {
+  return features.map(function(location: any) {
+    return (
+      <Marker
+        key={location[0].properties.name}
+        latitude={location[0].geometry.coordinates[0]}
+        longitude={location[0].geometry.coordinates[1]}
+      >
+        {
+          // Clicking adds the location to the list and logs the name to console,
+          // have not handled unclicking
+        }
+        <button
+          className="marker-button"
+          onClick={event => {
+            event.preventDefault();
+            setSelectedInstitution(location[0]);
+            console.log(location[0].properties.name);
+          }}
+        >
+          <div> {location[0].properties.name} </div>
+        </button>
+      </Marker>
+    );
+  });
 }
 
 export default MapView;
