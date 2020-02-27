@@ -121,9 +121,6 @@ function MapView() {
         <Layer {...layer} />
       </Source>
       {renderTooltip()}
-      {
-        // comment out 106-110 to remove the name of the markers from showing up
-      }
       {layerSelection
         .map(function(collection: any) {
           return brokenMarkers(collection.features, setSelectedInstitution);
@@ -135,6 +132,7 @@ function MapView() {
           longitude={selectedInstitutions.geometry.coordinates[1]}
           closeButton={false}
           anchor="bottom"
+          offsetLeft={18}
         >
           <div>{selectedInstitutions.properties.name}</div>
         </Popup>
