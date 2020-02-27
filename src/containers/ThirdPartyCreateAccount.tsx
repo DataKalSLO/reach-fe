@@ -6,7 +6,6 @@ import BoxCenter from '../common/components/BoxCenter';
 function ThirdPartyCreateAccount() {
   return (
     <BoxCenterSized>
-
       <StyledButton fullWidth variant="outlined" endIcon={<AppleIcon />}>
         Continue with Apple
       </StyledButton>
