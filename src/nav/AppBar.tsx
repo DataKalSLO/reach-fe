@@ -18,7 +18,9 @@ import {
   STORY_BUILDER,
   STORY_BUILDER_NAME,
   MY_STUFF,
-  MY_STUFF_NAME
+  MY_STUFF_NAME,
+  LOGIN,
+  CREATE_ACCOUNT
 } from './constants';
 
 const ButtonWithoutHover = styled(Button)({
@@ -37,6 +39,21 @@ const StyledTypography = styled(Typography)({
   display: 'block',
   color: 'white'
 });
+
+const displayAppBar = (menu: JSX.Element) => {
+  const currentRoute = window.location.pathname;
+
+  // Hide the AppBar if on the Login or Create Account Page
+  if (currentRoute === LOGIN || currentRoute === CREATE_ACCOUNT) {
+    return <div />;
+  } else {
+    return (
+      <StyledMuiAppBar position="static">
+        <Toolbar>{menu}</Toolbar>
+      </StyledMuiAppBar>
+    );
+  }
+};
 
 function AppBar() {
   const history = useHistory();
@@ -91,18 +108,14 @@ function AppBar() {
           name={MY_STUFF_NAME}
           navigateToRoute={navigateTo(MY_STUFF)}
         />
-        <IconButton onClick={navigateTo(MY_STUFF)}>
+        <IconButton onClick={navigateTo(LOGIN)}>
           <AccountCircleIcon fontSize="large" />
         </IconButton>
       </Grid>
     </Grid>
   );
 
-  return (
-    <StyledMuiAppBar position="static">
-      <Toolbar>{menu}</Toolbar>
-    </StyledMuiAppBar>
-  );
+  return displayAppBar(menu);
 }
 
 export default AppBar;

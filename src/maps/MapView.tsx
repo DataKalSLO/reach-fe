@@ -1,11 +1,5 @@
 import React, { useEffect } from 'react';
-import ReactMapGL, {
-  Source,
-  Layer,
-  ViewportProps,
-  Marker,
-  Popup
-} from 'react-map-gl';
+import ReactMapGL, { Source, Layer, Marker, Popup } from 'react-map-gl';
 import { SLO_LATITUDE, SLO_LONGITUDE } from './constants';
 import features from '../common/assets/Local Data/census/b25053.js';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -123,7 +117,7 @@ function MapView() {
       {renderTooltip()}
       {layerSelection
         .map(function(collection: any) {
-          return brokenMarkers(collection.features, setSelectedInstitution);
+          return markers(collection.features, setSelectedInstitution);
         })
         .flat()}
       {selectedInstitutions ? (
@@ -213,22 +207,6 @@ function quantileMaker(colorScale: any, quantiles: any, min: any, max: any) {
 }
 
 function markers(features: any, setSelectedInstitution: any) {
-  return features.map(function(location: any) {
-    return (
-      <Popup
-        key={location[0].properties.name}
-        latitude={location[0].geometry.coordinates[0]}
-        longitude={location[0].geometry.coordinates[1]}
-        closeButton={false}
-        anchor="bottom"
-      >
-        <div>{location[0].properties.name}</div>
-      </Popup>
-    );
-  });
-}
-
-function brokenMarkers(features: any, setSelectedInstitution: any) {
   return features.map(function(location: any) {
     return (
       <Marker

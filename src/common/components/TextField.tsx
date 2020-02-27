@@ -7,8 +7,6 @@
 //     docs:  https://material-ui.com/
 //   after implementing the component request someone from the React team for review
 
-import React from 'react';
-
 const TextField = () => {
   throw new Error('TextField has not been defined');
 };

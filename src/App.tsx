@@ -5,7 +5,10 @@ import {
   EXPLORE,
   VIZ_BUILDER,
   STORY_BUILDER,
-  MY_STUFF
+  MY_STUFF,
+  LOGIN,
+  SAMPLE,
+  CREATE_ACCOUNT
 } from './nav/constants';
 
 // Material UI's theming/styling solution
@@ -16,7 +19,16 @@ import { theme } from './theme/theme';
 
 // Routing
 //  https://reacttraining.com/react-router/web/guides/quick-start
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+
+// Link routing and store
+import { ConnectedRouter } from 'connected-react-router';
+
+// Store
+//  https://react-redux.js.org/introduction/quick-start
+//  https://react-redux.js.org/next/api/hooks
+import store, { history } from './redux/store';
+import { Provider } from 'react-redux';
 
 // Containers
 import Home from './containers/Home';
@@ -24,47 +36,70 @@ import Explore from './containers/Explore';
 import VizBuilder from './containers/VizBuilder';
 import StoryBuilder from './containers/StoryBuilder';
 import MyStuff from './containers/MyStuff';
+import Login from './containers/Login';
+import Sample from './containers/Sample';
+import CreateAccount from './containers/CreateAccount';
+
+const home = (
+  <Route path={HOME} exact>
+    <Home />
+  </Route>
+);
+const explore = (
+  <Route path={EXPLORE}>
+    <Explore />
+  </Route>
+);
+const vizBuilder = (
+  <Route path={VIZ_BUILDER}>
+    <VizBuilder />
+  </Route>
+);
+const storyBuilder = (
+  <Route path={STORY_BUILDER}>
+    <StoryBuilder />
+  </Route>
+);
+const myStuff = (
+  <Route path={MY_STUFF}>
+    <MyStuff />
+  </Route>
+);
+const login = (
+  <Route path={LOGIN}>
+    <Login />
+  </Route>
+);
+const createAccount = (
+  <Route path={CREATE_ACCOUNT}>
+    <CreateAccount />
+  </Route>
+);
+const sample = (
+  <Route path={SAMPLE}>
+    <Sample />
+  </Route>
+);
 
 function App() {
-  const home = (
-    <Route path={HOME} exact>
-      <Home />
-    </Route>
-  );
-  const explore = (
-    <Route path={EXPLORE}>
-      <Explore />
-    </Route>
-  );
-  const vizBuilder = (
-    <Route path={VIZ_BUILDER}>
-      <VizBuilder />
-    </Route>
-  );
-  const storyBuilder = (
-    <Route path={STORY_BUILDER}>
-      <StoryBuilder />
-    </Route>
-  );
-  const myStuff = (
-    <Route path={MY_STUFF}>
-      <MyStuff />
-    </Route>
-  );
-
   return (
-    <Router>
-      <ThemeProvider theme={theme}>
-        <AppBar />
-        <Switch>
-          {home}
-          {explore}
-          {vizBuilder}
-          {storyBuilder}
-          {myStuff}
-        </Switch>
-      </ThemeProvider>
-    </Router>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <ThemeProvider theme={theme}>
+          <AppBar />
+          <Switch>
+            {home}
+            {explore}
+            {vizBuilder}
+            {storyBuilder}
+            {myStuff}
+            {login}
+            {createAccount}
+            {sample}
+          </Switch>
+        </ThemeProvider>
+      </ConnectedRouter>
+    </Provider>
   );
 }
 

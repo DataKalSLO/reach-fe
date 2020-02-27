@@ -2,7 +2,6 @@ import React from 'react';
 import MapView from './MapView';
 import LayersComponent from './LayersComponent';
 import { BasicButtonGroup } from './FiltersComponent';
-import { DatePickers } from './FiltersComponent';
 
 function Map() {
   return (
@@ -10,7 +9,6 @@ function Map() {
       <LayersComponent />
       <MapView />
       <BasicButtonGroup />
-      <DatePickers />
     </div>
   );
 }
