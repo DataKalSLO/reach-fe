@@ -21,5 +21,7 @@ export function vizReducer(
         ...state,
         dataset: action.payload
       };
+    default:
+      return state;
   }
 }

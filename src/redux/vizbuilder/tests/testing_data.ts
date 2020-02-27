@@ -237,7 +237,7 @@ export const sampleDatasetFormatted: Dataset = [
   }
 ];
 
-export const convertedTypes: string[] = [
+export const sampleConvertedTypes: string[] = [
   'number',
   'number',
   'number',

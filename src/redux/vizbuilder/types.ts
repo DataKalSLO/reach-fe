@@ -8,7 +8,7 @@ import { FETCH_ENTIRE_DATASET, FETCH_ALL_METADATA } from './constants';
  * of values. The metadata retrieved from an API call will contain the
  * metadata for every dataset (a list of Metadata).
  * - See ./utilities/convertToDataset for more information on how the
- *   conversion works.
+ *   dataset conversion works.
  */
 
 export type DataValue = string | number;
@@ -40,7 +40,7 @@ export interface VizState {
 
 /*
  * The following type aliases/interfaces are used to create the
- * actions for the reducer. A new type has to be declared for
+ * actions for the reducer. A new interface has to be declared for
  * every action.
  */
 

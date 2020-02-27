@@ -2,7 +2,7 @@ import {
   sampleMetadataPayload,
   sampleDatasetPayload,
   sampleDatasetFormatted,
-  convertedTypes
+  sampleConvertedTypes
 } from './testing_data';
 import { createDataset, convertToDataset } from '../utilities';
 
@@ -38,6 +38,6 @@ describe('Dataset Conversion', () => {
   });
   it('should create the same types as metadata', () => {
     const valueTypes = convertedDataset.map(column => typeof column.values[0]);
-    expect(valueTypes).toEqual(convertedTypes);
+    expect(valueTypes).toEqual(sampleConvertedTypes);
   });
 });
