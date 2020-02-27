@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import MuiAppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -24,6 +24,7 @@ import {
   CREATE_ACCOUNT
 } from './constants';
 import { getUser } from '../redux/login/selectors';
+import { logoutAction } from '../redux/login/actions';
 
 const ButtonWithoutHover = styled(Button)({
   textTransform: 'none',
@@ -59,6 +60,7 @@ const displayAppBar = (menu: JSX.Element) => {
 
 function AppBar() {
   const history = useHistory();
+  const dispatch = useDispatch();
   const navigateTo = (route: string) => () => history.push(route);
   const user = useSelector(getUser);
 
@@ -70,7 +72,7 @@ function AppBar() {
       alignItems="center"
       spacing={3}
     >
-      <Grid item>
+      <Grid item xs={1}>
         <ButtonWithoutHover onClick={navigateTo(HOME)}>
           <StyledTypography variant="h6" noWrap>
             {HOME_NAME}
@@ -87,31 +89,35 @@ function AppBar() {
         spacing={8}
         wrap="nowrap"
       >
-        <Grid item key={EXPLORE_NAME}>
+        <Grid item key={EXPLORE_NAME} xs={1}>
           <MenuButton
             name={EXPLORE_NAME}
             navigateToRoute={navigateTo(EXPLORE)}
           />
         </Grid>
-        <Grid item key={VIZ_BUILDER_NAME}>
+        <Grid item key={VIZ_BUILDER_NAME} xs={1}>
           <MenuButton
             name={VIZ_BUILDER_NAME}
             navigateToRoute={navigateTo(VIZ_BUILDER)}
           />
         </Grid>
-        <Grid item key={STORY_BUILDER_NAME}>
+        <Grid item key={STORY_BUILDER_NAME} xs={1}>
           <MenuButton
             name={STORY_BUILDER_NAME}
             navigateToRoute={navigateTo(STORY_BUILDER)}
           />
         </Grid>
       </Grid>
-      <Grid item>
+      <Grid item xs={1}>
         <MenuButton
-          name={user.email || MY_STUFF_NAME}
+          name={user.email || ''}
           navigateToRoute={navigateTo(MY_STUFF)}
         />
-        <IconButton onClick={navigateTo(LOGIN)}>
+        <IconButton
+          onClick={() =>
+            user.email ? dispatch(logoutAction()) : history.push(LOGIN)
+          }
+        >
           <AccountCircleIcon fontSize="large" />
         </IconButton>
       </Grid>

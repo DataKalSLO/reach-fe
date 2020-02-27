@@ -25,6 +25,7 @@ export function loginUser(loginData: LoginData) {
 
 export function register(registerData: RegisterData) {
   return async (dispatch: Dispatch) => {
+    dispatch(logoutAction());
     await postPerson(registerData);
     const user = await login({
       email: registerData.email,
