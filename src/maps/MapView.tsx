@@ -26,6 +26,17 @@ const defaultHoveredLocation = {
   noLocation: true
 };
 
+interface LocationFeatures {
+  type: string;
+  geometry: {
+    type: string;
+    coordinates: Array<number>;
+  };
+  properties: {
+    name: string;
+  };
+}
+
 function MapView() {
   // React-Map-GL State
   const prepped = prepGeo(features);
@@ -53,7 +64,10 @@ function MapView() {
     zoom: 8
   });
 
-  const [selectedInstitutions, setSelectedInstitution] = React.useState(null);
+  const [
+    selectedInstitutions,
+    setSelectedInstitution
+  ] = React.useState<null | LocationFeatures>(null);
 
   useEffect(() => {
     const minVal = getStat(features, _.minBy, selection);
@@ -112,9 +126,19 @@ function MapView() {
       }
       {layerSelection
         .map(function(collection: any) {
-          return markers(collection.features, setSelectedInstitution);
+          return brokenMarkers(collection.features, setSelectedInstitution);
         })
         .flat()}
+      {selectedInstitutions ? (
+        <Popup
+          latitude={selectedInstitutions.geometry.coordinates[0]}
+          longitude={selectedInstitutions.geometry.coordinates[1]}
+          closeButton={false}
+          anchor="bottom"
+        >
+          <div>{selectedInstitutions.properties.name}</div>
+        </Popup>
+      ) : null}
     </ReactMapGL>
   ) : (
     <div
@@ -211,14 +235,6 @@ function brokenMarkers(features: any, setSelectedInstitution: any) {
         latitude={location[0].geometry.coordinates[0]}
         longitude={location[0].geometry.coordinates[1]}
       >
-        <Popup
-          latitude={location[0].geometry.coordinates[0]}
-          longitude={location[0].geometry.coordinates[1]}
-          closeButton={false}
-          anchor="bottom"
-        >
-          <div>{location[0].properties.name}</div>
-        </Popup>
         {
           // Clicking adds the location to the list and logs the name to console,
           // have not handled unclicking
