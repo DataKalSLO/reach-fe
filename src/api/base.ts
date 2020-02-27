@@ -1,4 +1,3 @@
-//const baseURL = 'http://localhost:5000/api/';
 const baseURL = 'http://localhost:5000/';
 
 const headers = new Headers();

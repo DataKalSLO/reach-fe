@@ -17,13 +17,14 @@ import { fetchAllMetaData, fetchEntireDataset } from '../../api/vizbuilder';
  *      response. See the ../../api/vizbuilder for their
  *      implementations. (e.g. fetchAllMetaData)
  *   3. A function that returns the object that is dispatched
- *      to the reducer. The object contains the type and payload. 
+ *      to the reducer. The object contains the type and payload.
  *      (e.g. MetaDataAction)
  */
 
 export function fetchAllMetadataAction() {
   return async (dispatch: Dispatch) => {
     const payload = await fetchAllMetaData();
+    console.log(payload);
     dispatch(MetadataAction(payload));
   };
 }
@@ -38,6 +39,7 @@ export function MetadataAction(payload: Metadata[]): FetchMetadataAction {
 export function fetchEntireDatasetAction(datasetName: string) {
   return async (dispatch: Dispatch) => {
     const payload = await fetchEntireDataset(datasetName);
+    console.log(payload);
     dispatch(DatasetAction(payload));
   };
 }

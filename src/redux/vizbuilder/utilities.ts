@@ -32,7 +32,7 @@ export function convertToDataset(
 
   // populate the Column objects
   payloadDataset.forEach(payloadRow => {
-    payloadRow.values.forEach((value, index) => {
+    payloadRow.forEach((value, index) => {
       // 2nd assumption must be true for indexing to work
       dataset[index].values.push(value);
     });

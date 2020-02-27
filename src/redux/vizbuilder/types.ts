@@ -5,7 +5,8 @@ import { FETCH_ENTIRE_DATASET, FETCH_ALL_METADATA } from './constants';
  * dataset object. A PayloadDataset is retrieved from an API call, only
  * containing the raw values of each row. A Dataset is a properly formatted
  * dataset containing a list of columns; each column has a name and a list
- * of values.
+ * of values. The metadata retrieved from an API call will contain the
+ * metadata for every dataset (a list of Metadata).
  * - See ./utilities/convertToDataset for more information on how the
  *   conversion works.
  */
@@ -13,16 +14,12 @@ import { FETCH_ENTIRE_DATASET, FETCH_ALL_METADATA } from './constants';
 export type DataValue = string | number;
 
 export interface Metadata {
-  name: string;
+  tableName: string;
   columnNames: string[];
   columnTypes: string[];
 }
 
-export interface PayloadRow {
-  values: DataValue[];
-}
-
-export type PayloadDataset = PayloadRow[];
+export type PayloadDataset = DataValue[][];
 
 export interface Column {
   name: string;
@@ -43,8 +40,8 @@ export interface VizState {
 
 /*
  * The following type aliases/interfaces are used to create the
- * actions for the reducer. The metadata retrieved from an API call
- * will contain the metadata for every dataset (a list of Metadata).
+ * actions for the reducer. A new type has to be declared for
+ * every action.
  */
 
 export interface FetchMetadataAction {
