@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
 import uuidv4 from 'uuid/v4';
-import RichTextEditor from './RichTextEditor';
 import { EditorState } from 'draft-js';
 
 export interface Story {

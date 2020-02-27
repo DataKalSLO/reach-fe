@@ -1,5 +1,4 @@
-import React, { Component, useState } from 'react';
-import { render } from 'react-dom';
+import React from 'react';
 import {
   SortableContainer,
   SortableElement,
@@ -14,7 +13,6 @@ import { EditorState } from 'draft-js';
 import RichTextEditor from './RichTextEditor';
 import { Box } from '@material-ui/core';
 import {
-  BlockComponent,
   TextBlock,
   StoryBlock,
   UPDATE_TEXT_BLOCK,
@@ -27,6 +25,7 @@ interface SortableElementProps {
 }
 
 interface SortableContainerProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children: any;
 }
 
@@ -35,19 +34,13 @@ interface SortableListProps {
   storyBlocks: Array<StoryBlock>;
 }
 
-const DragHandle = SortableHandle(() => (
-  <span>
-    <DragHandleIcon />
-  </span>
-));
+const DragHandle = SortableHandle(() => <DragHandleIcon />);
 
 const SortableItem = SortableElement((props: SortableElementProps) => (
   <div>
     <Box color="gray" bgcolor="white" p={1} border={1}>
-      <div>
-        <DragHandle />
-        {props.value}
-      </div>
+      <DragHandle />
+      {props.value}
     </Box>
   </div>
 ));
@@ -58,21 +51,7 @@ const LocalSortableContainer = SortableContainer(
   }
 );
 
-// function StoryBlockToBlockComponentConverter(
-//   blockComponents: Array<StoryBlock>
-// ): Array<BlockComponent> {
-//   const values = new Array<BlockComponent>(blockComponents.length);
-
-//   blockComponents.map((storyBlock: StoryBlock) => {
-//     values[storyBlock.position] = {
-//       component: <RichTextEditor key={storyBlock.blockValue.blockID} />,
-//       key: storyBlock.blockValue.blockID,
-//       blockValue: storyBlock.blockValue
-//     } as BlockComponent;
-//   });
-//   return values;
-//}
-
+//Convert a block object into it's corresponding react component to be displayed
 function blockToComponent(
   block: StoryBlock,
   index: number,
@@ -93,10 +72,10 @@ function blockToComponent(
         />
       );
     case 'Graph':
-      return <div></div>;
+      return <div>Not yet Implemented</div>;
     default:
       console.log('Error', block.type);
-      return <div></div>;
+      return <div>Error: Invalid block type</div>;
   }
 }
 
