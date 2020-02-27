@@ -130,8 +130,11 @@ function MapView() {
         <Popup
           latitude={selectedInstitutions.geometry.coordinates[0]}
           longitude={selectedInstitutions.geometry.coordinates[1]}
-          closeButton={false}
           anchor="bottom"
+          onClose={() => {
+            setSelectedInstitution(null);
+          }}
+          // magic number to center the pop-up tooltip
           offsetLeft={18}
         >
           <div>{selectedInstitutions.properties.name}</div>
