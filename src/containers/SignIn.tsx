@@ -1,22 +1,30 @@
 import React from 'react';
-import { Grid, TextField, Button } from '@material-ui/core';
+import { Box, TextField, Button, styled } from '@material-ui/core';
 
 function SignIn() {
   return (
-    <Grid container item direction="column" xs={3} spacing={3}>
-      <Grid item>
-        <TextField placeholder="Email Address" fullWidth={true} />
-      </Grid>
-      <Grid item>
-        <TextField placeholder="Password" type="password" fullWidth={true} />
-      </Grid>
-      <Grid item>
-        <Button variant="outlined" fullWidth={true}>
-          LOG IN
-        </Button>
-      </Grid>
-    </Grid>
+    <SignInBox>
+      <TextField placeholder="Email Address" fullWidth />
+      <TextField placeholder="Password" type="password" fullWidth />
+      <Button variant="outlined" fullWidth>
+        LOG IN
+      </Button>
+    </SignInBox>
   );
 }
+
+const paddingDefault = '40px';
+
+const SignInBox = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyItems: 'center',
+  justifyContent: 'space-around',
+  paddingLeft: paddingDefault,
+  paddingRight: paddingDefault,
+  height: '200px',
+  width: '270px'
+});
 
 export default SignIn;

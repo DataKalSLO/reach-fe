@@ -1,37 +1,59 @@
 import React from 'react';
-import { Grid, Link, Divider, Button, styled } from '@material-ui/core';
+import {
+  Box,
+  Typography,
+  Link,
+  Divider,
+  Button,
+  styled
+} from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import SignIn from './SignIn';
 import ThirdPartySignIn from './ThirdPartySignIn';
 import { HOME, CREATE_ACCOUNT } from '../nav/constants';
+import BoxCenter from '../common/components/BoxCenter';
 
 function Login() {
   const history = useHistory();
   const navigateTo = (route: string) => () => history.push(route);
 
   return (
-    <Grid container direction="column">
-      <Grid container direction="row" justify="space-between">
+    <Box>
+      <TopBox>
         <Button onClick={navigateTo(HOME)}>REACH</Button>
         <Button onClick={navigateTo(CREATE_ACCOUNT)}>CREATE ACCOUNT</Button>
-      </Grid>
-      <CenteredGrid container>
-        <h1>Log into Reach</h1>
-        <Grid container direction="row" justify="center" spacing={9}>
-          <SignIn />
-          <Divider orientation="vertical" flexItem />
-          <ThirdPartySignIn />
-        </Grid>
+      </TopBox>
+
+      <Title variant="h4">Log into Reach</Title>
+
+      <SignInOptionsBox>
+        <SignIn />
+        <Divider orientation="vertical" flexItem />
+        <ThirdPartySignIn />
+      </SignInOptionsBox>
+
+      <BoxCenter>
         <Link onClick={navigateTo(HOME)}>CAN&apos;T LOG IN?</Link>
-      </CenteredGrid>
-    </Grid>
+      </BoxCenter>
+    </Box>
   );
 }
 
-const CenteredGrid = styled(Grid)({
-  justifyContent: 'center',
-  alignItems: 'center',
-  minHeight: '75vh'
+const TopBox = styled(Box)({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  margin: '20px'
+});
+
+const SignInOptionsBox = styled(BoxCenter)({
+  flexDirection: 'row',
+  justifyContent: 'center'
+});
+
+const Title = styled(Typography)({
+  textAlign: 'center',
+  margin: '35px'
 });
 
 export default Login;

@@ -1,43 +1,46 @@
 import React from 'react';
-import { Grid, Button } from '@material-ui/core';
-
+import { Button, styled } from '@material-ui/core';
 import { Facebook, Apple } from '@material-ui/icons';
+import BoxCenter from '../common/components/BoxCenter';
 
 // A component to handle signing in using existing Social Media Accounts
 function ThirdPartySignIn() {
   return (
-    <Grid
-      container
-      item
-      justify="space-around"
-      direction="column"
-      xs={3}
-      spacing={3}
-    >
+    <ThirdPartyBox>
       <GoogleSignIn />
       <AppleSignIn />
-    </Grid>
+    </ThirdPartyBox>
   );
 }
 
 const GoogleSignIn = () => {
   return (
-    <Grid item>
-      <Button endIcon={<Facebook />} fullWidth={true}>
-        Continue with Google
-      </Button>
-    </Grid>
+    <StyledButton endIcon={<Facebook />} fullWidth variant="outlined">
+      Continue with Google
+    </StyledButton>
   );
 };
 
 const AppleSignIn = () => {
   return (
-    <Grid item>
-      <Button endIcon={<Apple />} fullWidth={true}>
-        Continue with Apple
-      </Button>
-    </Grid>
+    <StyledButton endIcon={<Apple />} fullWidth variant="outlined">
+      Continue with Apple
+    </StyledButton>
   );
 };
+
+const paddingDefault = '40px';
+
+const ThirdPartyBox = styled(BoxCenter)({
+  paddingLeft: paddingDefault,
+  paddingRight: paddingDefault,
+  width: '270px',
+  height: '115px'
+});
+
+const StyledButton = styled(Button)({
+  width: '270px',
+  height: '50px'
+});
 
 export default ThirdPartySignIn;
