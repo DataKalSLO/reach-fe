@@ -25,7 +25,7 @@ async function tryFetch(url: string, request: RequestInit) {
   }
 }
 
-export function post(endpoint: string, body: object | string) {
+export function post(endpoint: string, body: object) {
   return tryFetch(baseURL + endpoint, {
     method: 'POST',
     body: JSON.stringify(body),
