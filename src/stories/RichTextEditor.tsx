@@ -1,9 +1,12 @@
 import {
   Box,
+  FormControl,
   IconButton,
+  InputLabel,
   MenuItem,
+  Select,
   styled,
-  TextField
+  withStyles
 } from '@material-ui/core';
 import {
   Code,
@@ -75,26 +78,29 @@ export default function RichTextEditor(props: Props) {
       <EditorToolbar>
         {/* text styles */}
         <FormatButtonGroup>
-          <StyledTextField
-            id="heading-style-select"
-            select
-            label="Heading Style"
-            variant="outlined"
-            margin="dense"
-            value={RichUtils.getCurrentBlockType(editorState)}
-            onChange={value =>
-              onClickBlockType(value.target.value as DraftJSBlockType)
-            }
-            defaultValue={'unstyled'}
-          >
-            <MenuItem value={'unstyled'}>Normal text</MenuItem>
-            <MenuItem value={'header-one'}>Heading 1</MenuItem>
-            <MenuItem value={'header-two'}>Heading 2</MenuItem>
-            <MenuItem value={'header-three'}>Heading 3</MenuItem>
-            <MenuItem value={'header-four'}>Heading 4</MenuItem>
-            <MenuItem value={'header-five'}>Heading 5</MenuItem>
-            <MenuItem value={'header-six'}>Heading 6</MenuItem>
-          </StyledTextField>
+          <FormControl variant="outlined">
+            <InputLabel id="heading-style-select-label">
+              Heading Style
+            </InputLabel>
+            <StyledSelect
+              labelId="heading-style-select-label"
+              id="heading-style-select"
+              variant="outlined"
+              value={RichUtils.getCurrentBlockType(editorState)}
+              onChange={value =>
+                onClickBlockType(value.target.value as DraftJSBlockType)
+              }
+              defaultValue={'unstyled'}
+            >
+              <MenuItem value={'unstyled'}>Normal text</MenuItem>
+              <MenuItem value={'header-one'}>Heading 1</MenuItem>
+              <MenuItem value={'header-two'}>Heading 2</MenuItem>
+              <MenuItem value={'header-three'}>Heading 3</MenuItem>
+              <MenuItem value={'header-four'}>Heading 4</MenuItem>
+              <MenuItem value={'header-five'}>Heading 5</MenuItem>
+              <MenuItem value={'header-six'}>Heading 6</MenuItem>
+            </StyledSelect>
+          </FormControl>
 
           <IconButton onClick={() => onClickInlineStyle('BOLD')}>
             <FormatBold />
@@ -136,15 +142,6 @@ export default function RichTextEditor(props: Props) {
 const borderStyle = '1px solid #cbcbcb';
 const paddingDefault = '10px';
 
-const StyledBox = styled(Box)({
-  border: borderStyle,
-  borderRadius: '4px',
-  paddingLeft: paddingDefault,
-  paddingBottom: paddingDefault,
-  paddingRight: paddingDefault,
-  margin: '10px 0px'
-});
-
 const EditorToolbar = styled(Box)({
   display: 'flex',
   flexDirection: 'row',
@@ -162,6 +159,18 @@ const FormatButtonGroup = styled(Box)({
   borderRight: borderStyle
 });
 
-const StyledTextField = styled(TextField)({
-  width: '130px'
+const StyledSelect = withStyles({
+  root: {
+    padding: paddingDefault,
+    width: '90px'
+  }
+})(Select);
+
+const StyledBox = styled(Box)({
+  border: borderStyle,
+  borderRadius: '4px',
+  paddingLeft: paddingDefault,
+  paddingBottom: paddingDefault,
+  paddingRight: paddingDefault,
+  margin: '10px 0px'
 });
