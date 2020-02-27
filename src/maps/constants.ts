@@ -1,7 +1,7 @@
 export const SLO_LATITUDE = 35.2828;
 export const SLO_LONGITUDE = -120.6596;
 
-export const CCSR_CITY_ZIPS = {
+export const CCSR_CITY_ZIPS: { [key: string]: string } = {
   'Paso Robles': '93446, 93447',
   Atascadero: '93422, 93423',
   'San Luis Obispo': '93401, 93403, 93405, 93406, 93408',
