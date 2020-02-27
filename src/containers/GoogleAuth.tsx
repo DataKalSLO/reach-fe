@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { GoogleLoginButton } from 'ts-react-google-login-component';
 import { Button, styled } from '@material-ui/core';
 import GoogleIcon from '../icons/GoogleIcon';
 
 const GoogleAuth = () => {
+  
   // eslint-disable-next-line
   const [googleId, setGoogleId] = useState('');
+  // eslint-disable-next-line
+  const [googleEmail, setGoogleEmail] = useState('');
 
   const clientConfig = {
     // eslint-disable-next-line
@@ -13,14 +16,13 @@ const GoogleAuth = () => {
       '771819856575-fs38pckfuc7oipvt6fr0tnugr2dlbusl.apps.googleusercontent.com'
   };
 
-  const responseGoogle = (googleUser: gapi.auth2.GoogleUser): void => {
-    // eslint-disable-next-line
-    // const id_token = googleUser.getAuthResponse(true).id_token;
+  const responseGoogle = useCallback ((googleUser: gapi.auth2.GoogleUser): void => {
     setGoogleId(googleUser.getId());
+    setGoogleEmail(googleUser.getBasicProfile().getEmail());
 
     console.log(googleUser.getId());
     console.log(googleUser.getBasicProfile().getEmail());
-  };
+  }, [setGoogleId, setGoogleEmail] );
 
   const errorHandler = (error: string): void => {
     console.error(error);
