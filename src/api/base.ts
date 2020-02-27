@@ -16,7 +16,6 @@ const reqConf = {
 type Error = { tag: string; details: string[] };
 
 async function tryFetch(url: string, request: RequestInit) {
-  console.log(request);
   const response = await fetch(url, request);
   const body = await response.json();
   if (!response.ok) {
@@ -26,10 +25,10 @@ async function tryFetch(url: string, request: RequestInit) {
   }
 }
 
-export function post(endpoint: string, body: object) {
+export function post(endpoint: string, body: object, serializer?: (body: any) => string) {
   return tryFetch(baseURL + endpoint, {
     method: 'POST',
-    body: JSON.stringify(body),
+    body: serializer ? serializer(body) : JSON.stringify(body),
     ...reqConf
   });
 }
