@@ -20,14 +20,15 @@ function VizBuilder() {
     >
       <SplitterLayout percentage={true} primaryMinSize={0}>
         <Grid item xs={12} 
-        style={{ padding: "40px" ,
+        style={{ padding: "30px" ,
                  display: "flex",
                  justifyContent: "center",
                  alignContent: "center",
                  alignItems: "center"}}>
           <Map />
         </Grid>
-        <Grid item xs={12} style={{ border: '1px solid black' }}>
+        <Grid item xs={12}
+        style={{display: "flex"}} >
           <GraphContainer />
         </Grid>
       </SplitterLayout>

@@ -1,6 +1,8 @@
 import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import highcharts3d from 'highcharts/highcharts-3d'
+highcharts3d(Highcharts);
 
 type DodContract = {
   recipientName: string;
@@ -19,6 +21,7 @@ const data = DATA.dodContracts.map((item: DodContract) => {
     y: item.totalAwardValue
   };
 });
+
 const options: Highcharts.Options = {
   tooltip: {
     useHTML: true,
@@ -79,17 +82,39 @@ const options2: Highcharts.Options = {
   series: [
     {
       type: 'column',
-      name: 'Jane',
+      name: 'Atascadero',
       data: [3, 2, 1, 3, 4] },  {
       type: 'column',
-      name: 'John',
+      name: 'San Luis Obispo',
       data: [2, 3, 5, 7, 6] },  {
       type: 'column',
-      name: 'Joe',
+      name: 'Santa Maria',
       data: [4, 3, 3, 9, 0] },  {
       type: 'spline',
       name: 'Average',
       data: [3, 2.67, 3, 6.33, 3.33]
+    },{
+      type: 'pie',
+      name: 'Total consumption',
+      data: [{
+          name: 'Atascadero',
+          y: 13,
+          color: 'LightBlue' 
+      }, {
+          name: 'Santa Maria',
+          y: 23,
+          color: 'LightGreen' 
+      }, {
+          name: 'San Luis Obispo',
+          y: 19,
+          color: 'black'
+      }],
+      center: [100, 60],
+      size: 100,
+      showInLegend: false,
+      dataLabels: {
+          enabled: true
+      }
     }
   ]
 };
@@ -123,14 +148,14 @@ const options3: Highcharts.Options = {
 
 function Graph() {
   return (
-    <div style={{ paddingBottom: '40px', paddingTop: '40px' }}>
-      <div>
+    <div style={{ paddingBottom: '40px'}}>
+      <div style={{ paddingBottom: '40px'}}>
         <HighchartsReact highcharts={Highcharts} options={options} />
       </div>
-      <div>
+      <div style={{ paddingBottom: '40px'}}>
         <HighchartsReact highcharts={Highcharts} options={options2} />
       </div>
-      <div>
+      <div style={{ paddingBottom: '40px'}}>
         <HighchartsReact highcharts={Highcharts} options={options3} />
       </div>
     </div>
