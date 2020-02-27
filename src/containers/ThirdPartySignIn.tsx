@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button, styled } from '@material-ui/core';
-import { Facebook, Apple } from '@material-ui/icons';
+import { Apple } from '@material-ui/icons';
 import BoxCenter from '../common/components/BoxCenter';
+import GoogleIcon from '../icons/GoogleIcon';
 
 // A component to handle signing in using existing Social Media Accounts
 function ThirdPartySignIn() {
@@ -15,7 +16,7 @@ function ThirdPartySignIn() {
 
 const GoogleSignIn = () => {
   return (
-    <StyledButton endIcon={<Facebook />} fullWidth variant="outlined">
+    <StyledButton endIcon={<GoogleIcon />} fullWidth variant="outlined">
       Continue with Google
     </StyledButton>
   );

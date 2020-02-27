@@ -8,7 +8,7 @@ import {
   styled
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import SignIn from './SignIn';
+import ReachSignIn from './ReachSignIn';
 import ThirdPartySignIn from './ThirdPartySignIn';
 import { HOME, CREATE_ACCOUNT } from '../nav/constants';
 import BoxCenter from '../common/components/BoxCenter';
@@ -27,14 +27,14 @@ function Login() {
       <Title variant="h4">Log into Reach</Title>
 
       <SignInOptionsBox>
-        <SignIn />
+        <ReachSignIn />
         <Divider orientation="vertical" flexItem />
         <ThirdPartySignIn />
       </SignInOptionsBox>
 
-      <BoxCenter>
+      <BoxPaddedTop>
         <Link onClick={navigateTo(HOME)}>CAN&apos;T LOG IN?</Link>
-      </BoxCenter>
+      </BoxPaddedTop>
     </Box>
   );
 }
@@ -54,6 +54,10 @@ const SignInOptionsBox = styled(BoxCenter)({
 const Title = styled(Typography)({
   textAlign: 'center',
   margin: '35px'
+});
+
+const BoxPaddedTop = styled(BoxCenter)({
+  paddingTop: '40px'
 });
 
 export default Login;
