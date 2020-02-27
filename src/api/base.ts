@@ -1,18 +1,22 @@
-const baseURL = 'http://localhost:5000/api/';
+const baseURL = 'http://localhost:5000/';
 
 const headers = new Headers();
 headers.set('Content-Type', 'application/JSON');
+headers.append('Access-Control-Allow-Origin', 'http://localhost:3000/');
 
-const credentials: RequestCredentials = 'include';
+const credentials: RequestCredentials = 'same-origin';
+const mode: RequestMode = 'cors';
 
 const reqConf = {
   headers: headers,
-  credentials: credentials
+  credentials: credentials,
+  mode: mode
 };
 
 type Error = { tag: string; details: string[] };
 
 async function tryFetch(url: string, request: RequestInit) {
+  console.log(request);
   const response = await fetch(url, request);
   const body = await response.json();
   if (!response.ok) {

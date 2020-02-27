@@ -42,7 +42,6 @@ interface Props {
 
 export default function RichTextEditor(props: Props) {
   const { editorState, setEditorState } = props; // this is NOT a hook, the state is being managed in StoryForm
-  console.log(editorState);
 
   // enable key binding shortcuts (e.g. CTRL+B for bold)
   const handleKeyCommand = (command: string, editorState: EditorState) => {

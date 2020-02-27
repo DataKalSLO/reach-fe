@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import uuidv4 from 'uuid/v4';
 import RichTextEditor from './RichTextEditor';
 import { EditorState } from 'draft-js';
+import { post } from '../api/base';
 
 export interface Story {
   id: string;
@@ -84,6 +85,5 @@ export const SampleStory: Story = {
 
 export function SaveStory(story: Story) {
   alert(JSON.stringify(story.storyBlocks, null, 2));
-  console.log(JSON.stringify(story));
-  return story;
+  post('story', story);
 }
