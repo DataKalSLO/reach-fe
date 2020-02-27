@@ -25,10 +25,10 @@ async function tryFetch(url: string, request: RequestInit) {
   }
 }
 
-export function post(endpoint: string, body: object, serializer?: (body: any) => string) {
+export function post(endpoint: string, body: object | string) {
   return tryFetch(baseURL + endpoint, {
     method: 'POST',
-    body: serializer ? serializer(body) : JSON.stringify(body),
+    body: JSON.stringify(body),
     ...reqConf
   });
 }

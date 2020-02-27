@@ -86,7 +86,7 @@ export const SampleStory: Story = {
 
 export function SaveStory(story: Story) {
   alert(JSON.stringify(story.storyBlocks, null, 2));
-  post('story', story, serializeStory) ; 
+  post('story', serializeStory(story));
 }
 
 function loadStories() : Promise<Story[]> {
