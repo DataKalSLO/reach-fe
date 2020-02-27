@@ -1,12 +1,19 @@
 import React, { useEffect } from 'react';
-import ReactMapGL, { Source, Layer, ViewportProps, Marker } from 'react-map-gl';
+import ReactMapGL, {
+  Source,
+  Layer,
+  ViewportProps,
+  Marker,
+  Popup
+} from 'react-map-gl';
 import { SLO_LATITUDE, SLO_LONGITUDE } from './constants';
 import features from '../common/assets/Local Data/census/b25053.js';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import RoomIcon from '@material-ui/icons/Room';
 import chroma from 'chroma-js';
 import _ from 'lodash';
 import Tooltip from './Tooltip';
-import { schoolData, data } from './LayersComponent';
+import { layerSelection } from './LayersComponent';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
 
@@ -103,7 +110,7 @@ function MapView() {
       {
         // comment out 106-110 to remove the name of the markers from showing up
       }
-      {schoolData
+      {layerSelection
         .map(function(collection: any) {
           return markers(collection.features, setSelectedInstitution);
         })
@@ -183,11 +190,35 @@ function quantileMaker(colorScale: any, quantiles: any, min: any, max: any) {
 function markers(features: any, setSelectedInstitution: any) {
   return features.map(function(location: any) {
     return (
+      <Popup
+        key={location[0].properties.name}
+        latitude={location[0].geometry.coordinates[0]}
+        longitude={location[0].geometry.coordinates[1]}
+        closeButton={false}
+        anchor="bottom"
+      >
+        <div>{location[0].properties.name}</div>
+      </Popup>
+    );
+  });
+}
+
+function brokenMarkers(features: any, setSelectedInstitution: any) {
+  return features.map(function(location: any) {
+    return (
       <Marker
         key={location[0].properties.name}
         latitude={location[0].geometry.coordinates[0]}
         longitude={location[0].geometry.coordinates[1]}
       >
+        <Popup
+          latitude={location[0].geometry.coordinates[0]}
+          longitude={location[0].geometry.coordinates[1]}
+          closeButton={false}
+          anchor="bottom"
+        >
+          <div>{location[0].properties.name}</div>
+        </Popup>
         {
           // Clicking adds the location to the list and logs the name to console,
           // have not handled unclicking
@@ -200,7 +231,9 @@ function markers(features: any, setSelectedInstitution: any) {
             console.log(location[0].properties.name);
           }}
         >
-          <div> {location[0].properties.name} </div>
+          <div>
+            <RoomIcon />
+          </div>
         </button>
       </Marker>
     );

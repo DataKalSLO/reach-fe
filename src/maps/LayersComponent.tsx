@@ -98,6 +98,7 @@ const HighSchoolData = {
 export const schoolData = [CollegeData, HighSchoolData];
 export const data = GeoJSON.parse(schoolData, { GeoJSON: 'geometry' });
 console.log(data);
+export let layerSelection = [schoolData[0]];
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -126,6 +127,7 @@ export default function LayersComponent() {
         getOptionLabel={option => option.name}
         defaultValue={[schoolData[0]]}
         filterSelectedOptions
+        onChange={(event, value) => (layerSelection = value)}
         renderInput={params => (
           <TextField
             {...params}
