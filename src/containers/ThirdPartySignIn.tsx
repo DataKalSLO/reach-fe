@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid, Button, styled } from '@material-ui/core';
 import { Apple } from '@material-ui/icons';
-import GoogleAuth from './GoogleAuth';
 
 // A component to handle signing in using existing Social Media Accounts
 function ThirdPartySignIn() {
@@ -14,19 +13,10 @@ function ThirdPartySignIn() {
       xs={3}
       spacing={3}
     >
-      <GoogleSignIn />
       <AppleSignIn />
     </Grid>
   );
 }
-
-const GoogleSignIn = () => {
-  return (
-    <Grid item>
-      <GoogleAuth />
-    </Grid>
-  );
-};
 
 const AppleSignIn = () => {
   return (

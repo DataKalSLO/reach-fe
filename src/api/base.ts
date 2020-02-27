@@ -16,7 +16,7 @@ async function tryFetch(url: string, request: RequestInit) {
   const response = await fetch(url, request);
   const body = await response.json();
   if (!response.ok) {
-    throw body.map((err: Error) => errorTranslate(err.tag));
+    console.log('ERROR: ' + body.tag);
   } else {
     return body;
   }

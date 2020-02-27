@@ -2,12 +2,10 @@ import React from 'react';
 import { Button, styled } from '@material-ui/core';
 import AppleIcon from '@material-ui/icons/Apple';
 import BoxCenter from '../common/components/BoxCenter';
-import GoogleAuth from './GoogleAuth';
 
 function ThirdPartyCreateAccount() {
   return (
     <BoxCenterSized>
-      <GoogleAuth />
 
       <StyledButton fullWidth variant="outlined" endIcon={<AppleIcon />}>
         Continue with Apple
