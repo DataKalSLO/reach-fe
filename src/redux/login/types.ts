@@ -1,23 +1,30 @@
 export interface LoginData {
-  email: string;
-  password: string;
+   email: string;
+   password: string;
+}
+
+export interface RegisterData {
+   email: string;
+   password: string;
+   name: string;
+   role: string;
 }
 
 export interface User {
-  email: string;
-  token: string;
+   email: string;
+   token: string;
 }
 
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
 
 interface LoginUserAction {
-  type: typeof LOGIN;
-  payload: User;
+   type: typeof LOGIN;
+   payload: User;
 }
 
 interface LogoutUserAction {
-  type: typeof LOGOUT;
+   type: typeof LOGOUT;
 }
 
 export type UserActionTypes = LoginUserAction | LogoutUserAction;
