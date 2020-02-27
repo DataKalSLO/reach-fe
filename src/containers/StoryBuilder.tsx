@@ -11,7 +11,6 @@ import {
 } from '../stories/StoryTypes';
 import SaveIcon from '@material-ui/icons/Save';
 import AddIcon from '@material-ui/icons/Add';
-import StoryBuilderForm from '../stories/StoryBuilderForm';
 import SortableList from '../stories/SortableList';
 import { Button, LinearProgress } from '@material-ui/core';
 import uuidv4 from 'uuid/v4';

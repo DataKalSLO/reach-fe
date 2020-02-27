@@ -10,9 +10,17 @@ import {
 } from 'react-sortable-hoc';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import arrayMove from 'array-move';
+import { EditorState } from 'draft-js';
 import RichTextEditor from './RichTextEditor';
 import { Box } from '@material-ui/core';
-import { BlockComponent, TextBlock, StoryBlock } from './StoryTypes';
+import {
+  BlockComponent,
+  TextBlock,
+  StoryBlock,
+  UPDATE_TEXT_BLOCK,
+  Action,
+  CHANGE_BLOCKS
+} from './StoryTypes';
 
 interface SortableElementProps {
   value: JSX.Element;
@@ -23,7 +31,7 @@ interface SortableContainerProps {
 }
 
 interface SortableListProps {
-  setBlocks: (blocks: StoryBlock[]) => void;
+  dispatchAction: React.Dispatch<Action>;
   storyBlocks: Array<StoryBlock>;
 }
 
@@ -65,29 +73,50 @@ const LocalSortableContainer = SortableContainer(
 //   return values;
 //}
 
-function blockToComponent(block: StoryBlock): JSX.Element {
-  console.log('checking type');
-  console.log(block.type);
+function blockToComponent(
+  block: StoryBlock,
+  index: number,
+  dispatch: React.Dispatch<Action>
+): JSX.Element {
   switch (block.type) {
     case 'Text':
-      return <RichTextEditor key={block.blockID} />;
+      return (
+        <RichTextEditor
+          key={block.id}
+          editorState={(block as TextBlock).editorState}
+          setEditorState={(editorState: EditorState) =>
+            dispatch({
+              type: UPDATE_TEXT_BLOCK,
+              payload: { index: index, editorState: editorState }
+            })
+          }
+        />
+      );
     case 'Graph':
+      return <div></div>;
+    default:
+      console.log('Error', block.type);
       return <div></div>;
   }
 }
 
 export const SortableList = (props: SortableListProps) => {
   const onSortEnd: SortEndHandler = (sort: SortEnd, event: SortEvent) => {
-    props.setBlocks(arrayMove(props.storyBlocks, sort.oldIndex, sort.newIndex));
+    props.dispatchAction({
+      type: CHANGE_BLOCKS,
+      payload: {
+        newBlocks: arrayMove(props.storyBlocks, sort.oldIndex, sort.newIndex)
+      }
+    });
   };
 
   return (
     <LocalSortableContainer useDragHandle onSortEnd={onSortEnd}>
       {props.storyBlocks.map((block, index) => (
         <SortableItem
-          key={`item-${block.blockID}`}
+          key={`item-${block.id}`}
           index={index}
-          value={blockToComponent(block)}
+          value={blockToComponent(block, index, props.dispatchAction)}
         />
       ))}
     </LocalSortableContainer>

@@ -1,31 +1,30 @@
 import React, { useState } from 'react';
 import uuidv4 from 'uuid/v4';
 import RichTextEditor from './RichTextEditor';
+import { EditorState } from 'draft-js';
 
 export interface Story {
-  storyID: string;
+  id: string;
   userID: string;
   title: string;
   description: string;
-  dateCreated: string;
-  dateLastEdited: string;
   storyBlocks: Array<StoryBlock>;
 }
 
+export type StoryBlockType = 'Text' | 'Graph';
+
 export interface StoryBlock {
-  blockID: string;
-  type: 'Text' | 'Graph';
+  id: string;
+  type: StoryBlockType;
 }
 
 export interface TextBlock extends StoryBlock {
-  editorState: JSON;
-  type: 'Text';
+  editorState: EditorState;
 }
 
 export interface GraphBlock extends StoryBlock {
   xAxis: string;
   yAxis: string;
-  type: 'Graph';
 }
 
 export interface BlockComponent {
@@ -34,40 +33,57 @@ export interface BlockComponent {
   storyBlock: StoryBlock;
 }
 
+// Action Types
+//
+// Action was created as the union of three objects
+// because TypeScript will create automatic type guards
+// (https://www.sumologic.com/blog/react-hook-typescript/)
+export const UPDATE_TEXT_BLOCK = 'UPDATE_TEXT_BLOCK';
+export const UPDATE_TITLE = 'UPDATE_TITLE';
+export const CHANGE_BLOCKS = 'CHANGE_BLOCKS';
+
+export type Action =
+  | { type: typeof UPDATE_TITLE }
+  | {
+      type: typeof UPDATE_TEXT_BLOCK;
+      payload: { index: number; editorState: EditorState };
+    }
+  | {
+      type: typeof CHANGE_BLOCKS;
+      payload: { newBlocks: Array<StoryBlock> };
+    };
+
 export function GenerateEmptyStory(userID: string): Story {
   return {
-    storyID: uuidv4(),
+    id: uuidv4(),
     userID: userID,
     title: '',
     description: '',
-    dateCreated: Date.now.toString(),
-    dateLastEdited: Date.now.toString(),
     storyBlocks: [] as Array<StoryBlock>
   };
 }
 
 export const SampleBlockComponents: Array<StoryBlock> = [
   {
-    blockID: 'id1',
+    id: 'id1',
     editorState: JSON.parse('{}')
   } as TextBlock,
   {
-    blockID: 'id2',
+    id: 'id2',
     editorState: JSON.parse('{}')
   } as TextBlock
 ] as Array<StoryBlock>;
 
 export const SampleStory: Story = {
-  storyID: uuidv4(),
+  id: uuidv4(),
   userID: uuidv4(),
   title: 'Sample Title',
   description: 'Sample description',
-  dateCreated: Date.now.toString(),
-  dateLastEdited: Date.now.toString(),
   storyBlocks: SampleBlockComponents
 };
 
 export function SaveStory(story: Story) {
-  alert(JSON.stringify(story, null, 2));
+  alert(JSON.stringify(story.storyBlocks, null, 2));
+  console.log(JSON.stringify(story));
   return story;
 }
