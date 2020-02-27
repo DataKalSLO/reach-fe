@@ -32,7 +32,7 @@
     "build": "npm run lint && react-scripts build",
     "lint": "eslint . --ext .ts,.tsx",
     "lint-fix": "eslint . --fix --ext .ts,.tsx",
-    "test": "jest",
+    "test": "jest", 
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
