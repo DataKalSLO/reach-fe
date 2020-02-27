@@ -47,7 +47,7 @@ const SortableItem = SortableElement((props: SortableElementProps) => (
 
 const LocalSortableContainer = SortableContainer(
   (props: SortableContainerProps) => {
-    return <ul>{props.children}</ul>;
+    return <div>{props.children}</div>;
   }
 );
 

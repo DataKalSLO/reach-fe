@@ -1,15 +1,13 @@
 import React, { useReducer } from 'react';
 import { EditorState } from 'draft-js';
-import RichTextEditor from './RichTextEditor';
 import SaveIcon from '@material-ui/icons/Save';
 import AddIcon from '@material-ui/icons/Add';
 import SortableList from '../stories/SortableList';
-import { Button, LinearProgress } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import {
   SaveStory,
   Story,
   GenerateEmptyStory,
-  BlockComponent,
   StoryBlock,
   TextBlock,
   UPDATE_TITLE,
