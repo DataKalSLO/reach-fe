@@ -4,14 +4,20 @@ import { Box, TextField, Button, styled } from '@material-ui/core';
 function ReachSignIn() {
   return (
     <SignInBox>
-      <InputTextField placeholder="Email Address" fullWidth variant="filled" />
+      <InputTextField
+        placeholder="Email Address"
+        fullWidth
+        variant="filled"
+        size="small"
+      />
       <InputTextField
         placeholder="Password"
         type="password"
         fullWidth
         variant="filled"
+        size="small"
       />
-      <StyledButton variant="outlined" fullWidth>
+      <StyledButton variant="contained" fullWidth color="primary">
         LOG IN
       </StyledButton>
     </SignInBox>
@@ -21,7 +27,8 @@ function ReachSignIn() {
 const paddingDefault = '40px';
 
 const InputTextField = styled(TextField)({
-  height: '40px'
+  opacity: '50%',
+  height: '30px'
 });
 
 const SignInBox = styled(Box)({
@@ -32,12 +39,12 @@ const SignInBox = styled(Box)({
   justifyContent: 'space-around',
   paddingLeft: paddingDefault,
   paddingRight: paddingDefault,
-  height: '200px',
+  height: '215px',
   width: '270px'
 });
 
 const StyledButton = styled(Button)({
-  backgroundColor: 'rgba(0, 154, 138, 0.6)'
+  margin: '15px'
 });
 
 export default ReachSignIn;

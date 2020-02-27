@@ -11,6 +11,9 @@ export const theme = responsiveFontSizes(
     createTheme({
         palette: {
             primary: teal,
+            action: {
+                disabledBackground: teal,
+              }
         },
         status: {
             danger: 'red',

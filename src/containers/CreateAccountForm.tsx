@@ -18,50 +18,45 @@ function CreateAccountForm() {
     false
   );
 
-  const validateEmail = useCallback((emailName: string) => {
-    const emailValidRegex = new RegExp('(?=.*[@])(?=.*[.])');
-    const error = emailValidRegex.test(emailName)
-      ? ''
-      : 'You must enter a valid email address';
-    if (error === '') {
-      setEmailValid(true);
-    } else {
-      setEmailValid(false);
-    }
-    setEmailErrorMessage(error);
-    return error;
-  }, []);
+  const validateEmail = useCallback(
+    (emailName: string) => {
+      const emailValidRegex = new RegExp('(?=.*[@])(?=.*[.])');
+      const error = emailValidRegex.test(emailName)
+        ? ''
+        : 'You must enter a valid email address';
+      setEmailValid(error === '');
+      setEmailErrorMessage(error);
+      return error;
+    },
+    [setEmailValid, setEmailErrorMessage]
+  );
 
-  const validatePassword = useCallback((passwordVal: string) => {
-    const passwordStrengthRegex = new RegExp(
-      '(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{6,})'
-    );
-    const error = passwordStrengthRegex.test(passwordVal)
-      ? ''
-      : 'Your password must be at at least 6 characters, contain 1 number, and contain 1 special symbol';
-    if (error === '') {
-      setPasswordValid(true);
-    } else {
-      setPasswordValid(false);
-    }
-    setPasswordErrorMessage(error);
-    return error;
-  }, []);
+  const validatePassword = useCallback(
+    (passwordVal: string) => {
+      const passwordStrengthRegex = new RegExp(
+        '(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{6,})'
+      );
+      const error = passwordStrengthRegex.test(passwordVal)
+        ? ''
+        : 'Your password must be at at least 6 characters, contain 1 number, and contain 1 special symbol';
+      setPasswordValid(error === '');
+      setPasswordErrorMessage(error);
+      return error;
+    },
+    [setPasswordValid, setPasswordErrorMessage]
+  );
 
   const validatePasswordConfirmation = useCallback(
     (passwordVal, passwordConfirmationVal) => {
       let error = '';
       if (passwordVal !== passwordConfirmationVal) {
         error = 'Passwords need to match';
-        setPasswordConfirmationValid(false);
       }
-      if (error === '') {
-        setPasswordConfirmationValid(true);
-      }
+      setPasswordConfirmationValid(error === '');
       setPasswordConfirmationErrorMessage(error);
       return error;
     },
-    []
+    [setPasswordConfirmationValid, setPasswordConfirmationErrorMessage]
   );
 
   const handleInputChangeEmail = useCallback(
@@ -69,7 +64,7 @@ function CreateAccountForm() {
       setEmail(event.target.value);
       validateEmail(event.target.value);
     },
-    [validateEmail]
+    [validateEmail, setEmail]
   );
 
   const handleInputChangePassword = useCallback(
@@ -80,7 +75,12 @@ function CreateAccountForm() {
         validatePasswordConfirmation(event.target.value, passwordConfirmation);
       }
     },
-    [validatePassword, passwordConfirmation, validatePasswordConfirmation]
+    [
+      validatePassword,
+      passwordConfirmation,
+      validatePasswordConfirmation,
+      setPassword
+    ]
   );
 
   const handleInputChangePasswordConfirmation = useCallback(
@@ -88,7 +88,7 @@ function CreateAccountForm() {
       setPasswordConfirmation(event.target.value);
       validatePasswordConfirmation(password, event.target.value);
     },
-    [password, validatePasswordConfirmation]
+    [password, validatePasswordConfirmation, setPasswordConfirmation]
   );
 
   return (
@@ -97,7 +97,8 @@ function CreateAccountForm() {
         fullWidth
         placeholder="Email Address"
         onChange={handleInputChangeEmail}
-        variant="outlined"
+        variant="filled"
+        size="small"
       />
       <ErrorMessage>{emailErrorMessage}</ErrorMessage>
       <StyledTextField
@@ -105,7 +106,8 @@ function CreateAccountForm() {
         placeholder="Password"
         type="password"
         onChange={handleInputChangePassword}
-        variant="outlined"
+        variant="filled"
+        size="small"
       />
       <ErrorMessage>{passwordErrorMessage}</ErrorMessage>
       <StyledTextField
@@ -113,29 +115,29 @@ function CreateAccountForm() {
         placeholder="Confirm Password"
         type="password"
         onChange={handleInputChangePasswordConfirmation}
-        variant="outlined"
+        variant="filled"
+        size="small"
       />
       <ErrorMessage>{passwordConfirmationErrorMessage}</ErrorMessage>
-      {emailValid && passwordValid && passwordConfirmationValid ? (
-        <ButtonThin fullWidth variant="outlined">
-          CREATE ACCOUNT
-        </ButtonThin>
-      ) : (
-        <ButtonThin disabled fullWidth variant="outlined">
-          CREATE ACCOUNT
-        </ButtonThin>
-      )}
+      <ButtonThin
+        fullWidth
+        variant="contained"
+        color="primary"
+        disabled={!emailValid || !passwordValid || !passwordConfirmationValid}
+      >
+        CREATE ACCOUNT
+      </ButtonThin>
     </BoxCenterSized>
   );
 }
 
 const StyledTextField = styled(TextField)({
-  width: '270px'
+  width: '270px',
+  opacity: '50%'
 });
 
 const ButtonThin = styled(Button)({
-  width: '270px',
-  backgroundColor: 'rgba(0, 154, 138, 0.6)'
+  width: '270px'
 });
 
 const ErrorMessage = styled(Typography)({
@@ -145,7 +147,7 @@ const ErrorMessage = styled(Typography)({
 });
 
 const BoxCenterSized = styled(BoxCenter)({
-  height: '250px',
+  height: '225px',
   width: '200px'
 });
 
