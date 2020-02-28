@@ -10,7 +10,8 @@ import {
 } from 'react-sortable-hoc';
 import { swapBlocks, updateTextBlock } from '../redux/story/actions';
 import RichTextEditor from './RichTextEditor';
-import { StoryBlock, TextBlock } from './StoryTypes';
+import { TextBlock, StoryBlock } from './StoryTypes';
+import { Dispatch } from 'redux';
 
 interface SortableElementProps {
   value: JSX.Element;
@@ -48,7 +49,7 @@ const LocalSortableContainer = SortableContainer(
 function blockToComponent(
   block: StoryBlock,
   index: number,
-  dispatch: any //FIXME: @tan find the proper type <-- START HERE
+  dispatch: Dispatch
 ): JSX.Element {
   switch (block.type) {
     case 'Text':
