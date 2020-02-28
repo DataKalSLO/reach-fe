@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { Button, TextField, styled, Typography } from '@material-ui/core';
+import { Button, styled, Typography } from '@material-ui/core';
 import BoxCenter from '../common/components/BoxCenter';
+import AccountTextField from '../common/components/AccountTextField';
 
 function CreateAccountForm() {
   const [email, setEmail] = useState('');
@@ -93,7 +94,7 @@ function CreateAccountForm() {
 
   return (
     <BoxCenterSized>
-      <StyledTextField
+      <AccountTextField
         fullWidth
         placeholder="Email Address"
         onChange={handleInputChangeEmail}
@@ -101,7 +102,7 @@ function CreateAccountForm() {
         size="small"
       />
       <ErrorMessage>{emailErrorMessage}</ErrorMessage>
-      <StyledTextField
+      <AccountTextField
         fullWidth
         placeholder="Password"
         type="password"
@@ -110,7 +111,7 @@ function CreateAccountForm() {
         size="small"
       />
       <ErrorMessage>{passwordErrorMessage}</ErrorMessage>
-      <StyledTextField
+      <AccountTextField
         fullWidth
         placeholder="Confirm Password"
         type="password"
@@ -130,11 +131,6 @@ function CreateAccountForm() {
     </BoxCenterSized>
   );
 }
-
-const StyledTextField = styled(TextField)({
-  width: '270px',
-  opacity: '50%'
-});
 
 const ButtonThin = styled(Button)({
   width: '270px'
