@@ -1,24 +1,16 @@
 import React from 'react';
+import { Box } from '@material-ui/core';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
+import { EditorState } from 'draft-js';
+import { useDispatch } from 'react-redux';
 import {
   SortableContainer,
   SortableElement,
-  SortableHandle,
-  SortEndHandler,
-  SortEnd,
-  SortEvent
+  SortableHandle
 } from 'react-sortable-hoc';
-import DragHandleIcon from '@material-ui/icons/DragHandle';
-import arrayMove from 'array-move';
-import { EditorState } from 'draft-js';
+import { updateTextBlock, swapBlocks } from '../redux/story/actions';
 import RichTextEditor from './RichTextEditor';
-import { Box } from '@material-ui/core';
-import {
-  TextBlock,
-  StoryBlock,
-  UPDATE_TEXT_BLOCK,
-  Action,
-  CHANGE_BLOCKS
-} from './StoryTypes';
+import { TextBlock, StoryBlock } from './StoryTypes';
 
 interface SortableElementProps {
   value: JSX.Element;
@@ -30,19 +22,16 @@ interface SortableContainerProps {
 }
 
 interface SortableListProps {
-  dispatchAction: React.Dispatch<Action>;
   storyBlocks: Array<StoryBlock>;
 }
 
 const DragHandle = SortableHandle(() => <DragHandleIcon />);
 
 const SortableItem = SortableElement((props: SortableElementProps) => (
-  <div>
-    <Box color="gray" bgcolor="white" p={1} border={1}>
-      <DragHandle />
-      {props.value}
-    </Box>
-  </div>
+  <Box color="gray" bgcolor="white" p={1} border={1}>
+    <DragHandle />
+    {props.value}
+  </Box>
 ));
 
 const LocalSortableContainer = SortableContainer(
@@ -55,7 +44,7 @@ const LocalSortableContainer = SortableContainer(
 function blockToComponent(
   block: StoryBlock,
   index: number,
-  dispatch: React.Dispatch<Action>
+  dispatch: any //FIXME: @tan find the proper type <-- START HERE
 ): JSX.Element {
   switch (block.type) {
     case 'Text':
@@ -64,38 +53,36 @@ function blockToComponent(
           key={block.id}
           editorState={(block as TextBlock).editorState}
           setEditorState={(editorState: EditorState) =>
-            dispatch({
-              type: UPDATE_TEXT_BLOCK,
-              payload: { index: index, editorState: editorState }
-            })
+            dispatch(
+              updateTextBlock({ editorState: editorState, index: index })
+            )
           }
         />
       );
     case 'Graph':
-      return <div>Not yet Implemented</div>;
+      throw new Error('TODO: Graph Block type');
     default:
-      console.log('Error', block.type);
-      return <div>Error: Invalid block type</div>;
+      throw new Error('TODO: Block type not implemented');
   }
 }
 
 export const SortableList = (props: SortableListProps) => {
-  const onSortEnd: SortEndHandler = (sort: SortEnd, event: SortEvent) => {
-    props.dispatchAction({
-      type: CHANGE_BLOCKS,
-      payload: {
-        newBlocks: arrayMove(props.storyBlocks, sort.oldIndex, sort.newIndex)
-      }
-    });
-  };
+  const dispatch = useDispatch();
 
   return (
-    <LocalSortableContainer useDragHandle onSortEnd={onSortEnd}>
+    <LocalSortableContainer
+      useDragHandle
+      onSortEnd={sort =>
+        dispatch(
+          swapBlocks({ oldIndex: sort.oldIndex, newIndex: sort.newIndex })
+        )
+      }
+    >
       {props.storyBlocks.map((block, index) => (
         <SortableItem
           key={`item-${block.id}`}
           index={index}
-          value={blockToComponent(block, index, props.dispatchAction)}
+          value={blockToComponent(block, index, dispatch)}
         />
       ))}
     </LocalSortableContainer>
