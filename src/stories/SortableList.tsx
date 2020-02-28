@@ -1,16 +1,16 @@
-import React from 'react';
-import { Box } from '@material-ui/core';
+import { Box, styled, IconButton } from '@material-ui/core';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import { EditorState } from 'draft-js';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import {
   SortableContainer,
   SortableElement,
   SortableHandle
 } from 'react-sortable-hoc';
-import { updateTextBlock, swapBlocks } from '../redux/story/actions';
+import { swapBlocks, updateTextBlock } from '../redux/story/actions';
 import RichTextEditor from './RichTextEditor';
-import { TextBlock, StoryBlock } from './StoryTypes';
+import { StoryBlock, TextBlock } from './StoryTypes';
 
 interface SortableElementProps {
   value: JSX.Element;
@@ -25,13 +25,17 @@ interface SortableListProps {
   storyBlocks: Array<StoryBlock>;
 }
 
-const DragHandle = SortableHandle(() => <DragHandleIcon />);
+const DragHandle = SortableHandle(() => (
+  <IconButton color="primary" disableRipple={true}>
+    <DragHandleIcon />
+  </IconButton>
+));
 
 const SortableItem = SortableElement((props: SortableElementProps) => (
-  <Box color="gray" bgcolor="white" p={1} border={1}>
+  <StoryBlockBox>
     <DragHandle />
     {props.value}
-  </Box>
+  </StoryBlockBox>
 ));
 
 const LocalSortableContainer = SortableContainer(
@@ -90,3 +94,8 @@ export const SortableList = (props: SortableListProps) => {
 };
 
 export default SortableList;
+
+const StoryBlockBox = styled(Box)({
+  display: 'flex',
+  flexDirection: 'row'
+});

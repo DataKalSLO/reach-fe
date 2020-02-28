@@ -1,11 +1,11 @@
-import React from 'react';
-import SaveIcon from '@material-ui/icons/Save';
+import { Button, Typography, styled } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import SortableList from '../stories/SortableList';
-import { Button, LinearProgress } from '@material-ui/core';
+import SaveIcon from '@material-ui/icons/Save';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getStory } from '../redux/story/selectors';
 import { createTextBlock } from '../redux/story/actions';
+import { getStory } from '../redux/story/selectors';
+import SortableList from '../stories/SortableList';
 
 export default function StoryForm() {
   const dispatch = useDispatch();
@@ -20,28 +20,33 @@ export default function StoryForm() {
   return (
     <div>
       {/* TODO: @tan */}
-      <h1>{story.title}</h1>
+      <Typography variant="h3">{story.title}</Typography>
       {/* TODO: @kev */}
-      <h4>{story.description}</h4>
+      <Typography variant="h5">{story.description}</Typography>
       <SortableList storyBlocks={story.storyBlocks} />
 
       {/* TODO: @dan move to toolbar */}
-      <Button
+      <ButtonWithLeftIcon
         variant="contained"
         color="primary"
         onClick={() => dispatch(createTextBlock())}
         startIcon={<AddIcon />}
       >
         Add Text Block
-      </Button>
-      <Button
+      </ButtonWithLeftIcon>
+      <ButtonWithLeftIcon
         variant="contained"
         color="primary"
         onClick={saveStory}
         startIcon={<SaveIcon />}
       >
         Save Story
-      </Button>
+      </ButtonWithLeftIcon>
     </div>
   );
 }
+
+const ButtonWithLeftIcon = styled(Button)({
+  // left margin is 0px to prevent indent
+  margin: '10px 10px 10px 0px'
+});
