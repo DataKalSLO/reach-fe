@@ -1,7 +1,8 @@
 import { Button, styled, TextField } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SaveIcon from '@material-ui/icons/Save';
-import React from 'react';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   createEmptyTextBlock,
@@ -10,6 +11,7 @@ import {
 } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import SortableList from '../stories/SortableList';
+import { storyToHTML } from './StoryConversion';
 
 export default function StoryForm() {
   const dispatch = useDispatch();
@@ -19,6 +21,8 @@ export default function StoryForm() {
   const DESCRIPTION_CHAR_LIMIT = 250;
 
   // TODO: add validation of required fields
+  const [preview, setPreview] = useState(<div>Test</div>);
+
   function saveStory() {
     alert(JSON.stringify(story, null, 2));
   }
@@ -77,6 +81,15 @@ export default function StoryForm() {
       >
         Save Story
       </ButtonWithLeftIcon>
+      <ButtonWithLeftIcon
+        variant="contained"
+        color="primary"
+        onClick={() => setPreview(<div>{storyToHTML(story)}</div>)}
+        startIcon={<VisibilityIcon />}
+      >
+        Preview
+      </ButtonWithLeftIcon>
+      <div>{preview}</div>
     </div>
   );
 }
