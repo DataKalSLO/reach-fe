@@ -1,17 +1,21 @@
 import { vizReducer } from '../reducer';
-import { sampleMetadataPayload, sampleDatasetFormatted } from './testing_data';
+import {
+  sampleMetadataPayload,
+  sampleDatasetFormatted,
+  sampleDatasetPayload
+} from './testing_data';
 import { VizState } from '../types';
 import { metadataAction, datasetAction } from '../actions';
 
 describe('Vizbuilder Reducer', () => {
   const initialState: VizState = {
     metadataForAllDatasets: [],
-    dataset: []
+    dataset: { name: '', columns: [] }
   };
 
   const initialStateWithMetadata = {
     metadataForAllDatasets: sampleMetadataPayload,
-    dataset: []
+    dataset: { name: '', columns: [] }
   };
 
   const initialStateWithDataset = {
@@ -29,7 +33,7 @@ describe('Vizbuilder Reducer', () => {
     expect(
       vizReducer(
         initialStateWithMetadata,
-        datasetAction(sampleDatasetFormatted)
+        datasetAction(sampleMetadataPayload[0].tableName, sampleDatasetPayload)
       )
     ).toEqual(initialStateWithDataset);
   });

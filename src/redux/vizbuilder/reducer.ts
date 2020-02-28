@@ -1,9 +1,10 @@
 import { VizActionTypes, VizState } from './types';
 import { FETCH_ALL_METADATA, FETCH_ENTIRE_DATASET } from './constants';
+import { getMetadataFor, convertToDataset } from './utilities';
 
 const initialState: VizState = {
   metadataForAllDatasets: [],
-  dataset: []
+  dataset: { name: '', columns: [] }
 };
 
 export function vizReducer(
@@ -19,7 +20,10 @@ export function vizReducer(
     case FETCH_ENTIRE_DATASET:
       return {
         ...state,
-        dataset: action.payload
+        dataset: convertToDataset(
+          getMetadataFor(action.datasetName, state.metadataForAllDatasets),
+          action.payload
+        )
       };
     default:
       return state;

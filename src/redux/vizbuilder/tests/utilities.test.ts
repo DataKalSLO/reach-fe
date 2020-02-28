@@ -4,32 +4,31 @@ import {
   sampleDatasetFormatted,
   sampleConvertedTypes
 } from './testing_data';
-import { createDataset, convertToDataset } from '../utilities';
+import { createDataset, convertToDataset, getMetadataFor } from '../utilities';
 
 /*
  *  Test the Dataset Conversion Functions
  */
-
 describe('Dataset Conversion', () => {
-  // initial dataset construction
   const emptyDataset = createDataset(sampleMetadataPayload[0]);
-
-  // dataset population
   const convertedDataset = convertToDataset(
     sampleMetadataPayload[0],
     sampleDatasetPayload
   );
 
   it('should create an empty Dataset', () => {
-    const numRows = emptyDataset
+    const numRows = emptyDataset.columns
       .map(column => column.values.length)
       .reduce((acc, val) => {
         return acc + val;
       }, 0);
     expect(numRows).toEqual(0);
   });
+  it('should contain the same name as the metadata', () => {
+    expect(convertedDataset.name).toEqual(sampleMetadataPayload[0].tableName);
+  });
   it('should have the same number of columns as the metadata', () => {
-    expect(emptyDataset.length).toEqual(
+    expect(convertedDataset.columns.length).toEqual(
       sampleMetadataPayload[0].columnNames.length
     );
   });
@@ -37,7 +36,20 @@ describe('Dataset Conversion', () => {
     expect(convertedDataset).toEqual(sampleDatasetFormatted);
   });
   it('should create the same types as metadata', () => {
-    const valueTypes = convertedDataset.map(column => typeof column.values[0]);
+    const valueTypes = convertedDataset.columns.map(
+      column => typeof column.values[0]
+    );
     expect(valueTypes).toEqual(sampleConvertedTypes);
+  });
+});
+
+/*
+ * Test Metadata Access Functions
+ */
+describe('Metadata Access', () => {
+  it('should retrieve the metadata for a given dataset name', () => {
+    expect(
+      getMetadataFor(sampleMetadataPayload[0].tableName, sampleMetadataPayload)
+    ).toEqual(sampleMetadataPayload[0]);
   });
 });

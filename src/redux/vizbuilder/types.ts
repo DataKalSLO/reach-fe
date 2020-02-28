@@ -4,9 +4,9 @@ import { FETCH_ENTIRE_DATASET, FETCH_ALL_METADATA } from './constants';
  * The following type aliases/interfaces are used to create a generic
  * dataset object. A PayloadDataset is retrieved from an API call, only
  * containing the raw values of each row. A Dataset is a properly formatted
- * dataset containing a list of columns; each column has a name and a list
- * of values. The metadata retrieved from an API call will contain the
- * metadata for every dataset (a list of Metadata).
+ * dataset containing the name of the dataset and a list of columns; each
+ * column has a name and a list of values. The metadata retrieved from an
+ * API call will contain the metadata for every dataset (a list of Metadata).
  * - See ./utilities/convertToDataset for more information on how the
  *   dataset conversion works.
  */
@@ -19,14 +19,19 @@ export interface Metadata {
   columnTypes: string[];
 }
 
-export type PayloadDataset = DataValue[][];
+export interface PayloadDataset {
+  data: DataValue[][];
+}
 
 export interface Column {
   name: string;
   values: DataValue[];
 }
 
-export type Dataset = Column[];
+export interface Dataset {
+  name: string;
+  columns: Column[];
+}
 
 /*
  * The following type aliases/interfaces are used to create the
@@ -51,7 +56,8 @@ export interface FetchMetadataAction {
 
 export interface FetchDatasetAction {
   type: typeof FETCH_ENTIRE_DATASET;
-  payload: Dataset;
+  datasetName: string;
+  payload: PayloadDataset;
 }
 
 export type VizActionTypes = FetchMetadataAction | FetchDatasetAction;

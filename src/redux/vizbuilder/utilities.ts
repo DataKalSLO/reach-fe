@@ -5,12 +5,12 @@ import { PayloadDataset, Metadata, Dataset, Column } from './types';
  * in the meta data. These are aggregated to form a Dataset object.
  */
 export function createDataset(metadata: Metadata): Dataset {
-  const dataset: Dataset = [];
+  const dataset: Dataset = { name: metadata.tableName, columns: [] };
 
   // create the Column objects
   metadata.columnNames.forEach(columnName => {
     const column: Column = { name: columnName, values: [] };
-    dataset.push(column);
+    dataset.columns.push(column);
   });
 
   return dataset;
@@ -31,12 +31,25 @@ export function convertToDataset(
   const dataset = createDataset(metadata);
 
   // populate the Column objects
-  payloadDataset.forEach(payloadRow => {
+  payloadDataset.data.forEach(payloadRow => {
     payloadRow.forEach((value, index) => {
       // 2nd assumption must be true for indexing to work
-      dataset[index].values.push(value);
+      dataset.columns[index].values.push(value);
     });
   });
 
   return dataset;
+}
+
+/*
+ * Gets the metadata for a given dataset by iterating
+ * through the list of metadata.
+ */
+export function getMetadataFor(
+  datasetName: string,
+  meatadataList: Metadata[]
+): Metadata {
+  return meatadataList.filter(
+    metadata => metadata.tableName === datasetName
+  )[0];
 }
