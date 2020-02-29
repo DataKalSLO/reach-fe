@@ -1,6 +1,7 @@
 import { post } from './base';
 import { LoginData, RegisterData } from '../redux/login/types';
 
+// compare returned value to hash
 export async function login(loginData: LoginData) {
   return await post('token', loginData);
 }

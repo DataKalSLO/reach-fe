@@ -6,6 +6,7 @@ import { RegisterData } from '../redux/login/types';
 import { useHistory } from 'react-router-dom';
 import { HOME } from '../nav/constants';
 import { useDispatch } from 'react-redux';
+import { hashSync } from 'bcryptjs';
 
 function CreateAccountForm() {
   const [email, setEmail] = useState('');
@@ -127,7 +128,7 @@ function CreateAccountForm() {
           dispatch(
             register({
               email,
-              password,
+              password: hashSync(password, '$2a$10$000000000000000000000000'),
               name: 'dummy',
               role: 'BaseUser'
             } as RegisterData)

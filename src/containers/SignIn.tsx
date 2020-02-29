@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { LoginData } from '../redux/login/types';
 import { loginUser } from '../redux/login/actions';
 import { HOME } from '../nav/constants';
+import { hashSync } from 'bcryptjs';
 
 function SignIn() {
   const dispatch = useDispatch();
@@ -49,7 +50,12 @@ function SignIn() {
           variant="outlined"
           fullWidth
           onClick={() => {
-            dispatch(loginUser({ email, password } as LoginData));
+            dispatch(
+              loginUser({
+                email,
+                password: hashSync(password, '$2a$10$000000000000000000000000')
+              } as LoginData)
+            );
             history.push(HOME);
           }}
         >
