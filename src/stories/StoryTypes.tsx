@@ -5,6 +5,8 @@ import { EditorState } from 'draft-js';
 import { post, get } from '../api/base';
 import { serializeStory, parseObjectToStory } from './StorySerializer' ; 
 
+const existingUserID = '51d73193-470d-442b-a392-3e43238eb089'; //TODO: Remove when accounts implemented
+
 export interface Story {
   id: string;
   userID: string;
@@ -58,7 +60,7 @@ export type Action =
 export function GenerateEmptyStory(userID: string): Story {
   return {
     id: uuidv4(),
-    userID: userID, //user in databas
+    userID: existingUserID, //user in database (constant while in dev)
     title: 'test title',
     description: 'test description',
     storyBlocks: [] as Array<StoryBlock>
@@ -78,7 +80,7 @@ export const SampleBlockComponents: Array<StoryBlock> = [
 
 export const SampleStory: Story = {
   id: uuidv4(),
-  userID: uuidv4(), 
+  userID: existingUserID,
   title: 'Sample Title',
   description: 'Sample description',
   storyBlocks: SampleBlockComponents
