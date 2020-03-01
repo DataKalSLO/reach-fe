@@ -2,7 +2,7 @@ import { StoryBlock } from '../../stories/StoryTypes';
 import {
   StoryActionType,
   UPDATE_TEXT_BLOCK,
-  CREATE_TEXT_BLOCK,
+  CREATE_EMPTY_TEXT_BLOCK,
   SWAP_BLOCKS
 } from './types';
 import uuidv4 from 'uuid/v4';
@@ -50,7 +50,7 @@ export function storyReducer(state = initialState, action: StoryActionType) {
         ...state,
         storyBlocks: updateObjectInArray(state.storyBlocks, action)
       };
-    case CREATE_TEXT_BLOCK:
+    case CREATE_EMPTY_TEXT_BLOCK:
       return {
         ...state,
         storyBlocks: state.storyBlocks.concat(action.payload.block)
