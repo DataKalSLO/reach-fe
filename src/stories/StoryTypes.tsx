@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import uuidv4 from 'uuid/v4';
 import RichTextEditor from './RichTextEditor';
 import { EditorState } from 'draft-js';
-import { post, get } from '../api/base';
-import { serializeStory, parseObjectToStory } from './StorySerializer' ; 
+import { saveStoryToDatabase, loadStories } from './StoryAPIConnector';
 
 const existingUserID = '51d73193-470d-442b-a392-3e43238eb089'; //TODO: Remove when accounts implemented
 
@@ -87,13 +86,10 @@ export const SampleStory: Story = {
 
 export function SaveStory(story: Story) {
   alert(JSON.stringify(story.storyBlocks, null, 2));
-  post('story', serializeStory(story) as String);
-}
-
-function loadStories() : Promise<Story[]> {
-  return new Promise<Story[]>((resolve, reject) => {
-    get('story')
-      .then(data => resolve(data.map(parseObjectToStory)))
-      .catch(e => reject(e))
-  }) ; 
+  saveStoryToDatabase(story)
+    .then(res => {
+      console.log('Story Created!');
+      console.log(res);
+    })
+    .catch(e => console.log(e[0]['details']));
 }

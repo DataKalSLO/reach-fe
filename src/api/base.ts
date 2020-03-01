@@ -18,8 +18,14 @@ type Error = { tag: string; details: string[] };
 async function tryFetch(url: string, request: RequestInit) {
   const response = await fetch(url, request);
   const body = await response.json();
+
   if (!response.ok) {
-    throw body.map((err: Error) => errorTranslate(err.tag));
+    throw body.map((err: Error) => {
+      return {
+        ...err,
+        Description: errorTranslate(err.tag)
+      };
+    });
   } else {
     return body;
   }
