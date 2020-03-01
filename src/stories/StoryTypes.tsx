@@ -27,8 +27,7 @@ export interface TextBlock extends StoryBlock {
 }
 
 export interface GraphBlock extends StoryBlock {
-  xAxis: string;
-  yAxis: string;
+  graphID: string;
 }
 
 export interface BlockComponent {
