@@ -1,6 +1,6 @@
 import React from 'react';
 import Graph from '../graphs/Graph';
-import Sample2 from '../graphs/Sample2';
+import Map from '../maps/Map';
 import { Grid } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 function VizBuilder() {
@@ -15,7 +15,7 @@ function VizBuilder() {
       alignContent="center"
     >
       <Grid item xs={6}>
-        <Sample2 />
+        <Map />
       </Grid>
       <Grid item xs={6}>
         <Graph />
