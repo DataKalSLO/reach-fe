@@ -8,6 +8,13 @@ import {
 } from './types';
 import uuidv4 from 'uuid/v4';
 import { arrayMove } from 'react-sortable-hoc';
+import { EditorState } from 'draft-js';
+
+const initialTextBlock = {
+  id: uuidv4(),
+  editorState: EditorState.createEmpty(),
+  type: 'Text' // FIXME: loosly typed attribute, planned fix rolling out soon
+};
 
 const initialState = {
   id: uuidv4(),
@@ -15,6 +22,7 @@ const initialState = {
   title: 'Title2',
   description: 'description2',
   storyBlocks: [] as Array<StoryBlock>
+  storyBlocks: [initialTextBlock] as Array<StoryBlock>
 };
 
 // follows immutability update patterns

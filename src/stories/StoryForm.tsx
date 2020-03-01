@@ -1,10 +1,18 @@
-import React from 'react';
+// DEMO: accessing story state from Redux
+//
+// PLEASE DON'T CODE REVIEW THIS FILE
+// It will be completely rewritten in a future PR.
+
+import React, { useEffect } from 'react';
 import SaveIcon from '@material-ui/icons/Save';
 import AddIcon from '@material-ui/icons/Add';
 import { Button, LinearProgress } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStory } from '../redux/story/selectors';
-import { createTextBlock } from '../redux/story/actions';
+import { updateTextBlock } from '../redux/story/actions';
+import RichTextEditor from './RichTextEditor';
+import { TextBlock } from './StoryTypes';
+import { EditorState } from 'draft-js';
 
 export default function StoryForm() {
   const dispatch = useDispatch();
@@ -20,15 +28,12 @@ export default function StoryForm() {
     <div>
       <h1>{story.title}</h1>
       <h4>{story.description}</h4>
-      {/* TODO: @tan show stories */}
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => dispatch(createTextBlock())}
-        startIcon={<AddIcon />}
-      >
-        Add Text Block
-      </Button>
+      <RichTextEditor
+        editorState={(story.storyBlocks[0] as TextBlock).editorState}
+        setEditorState={(editorState: EditorState) =>
+          dispatch(updateTextBlock({ index: 0, editorState: editorState }))
+        }
+      />
       <Button
         variant="contained"
         color="primary"
