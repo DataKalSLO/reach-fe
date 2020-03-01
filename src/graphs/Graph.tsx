@@ -149,7 +149,7 @@ const options3: Highcharts.Options = {
 function Graph() {
   return (
     <div style={{ paddingBottom: '40px'}}>
-      <div style={{ paddingBottom: '40px'}}>
+      <div style={{ paddingBottom: '40px', paddingTop:'100'}}>
         <HighchartsReact highcharts={Highcharts} options={options} />
       </div>
       <div style={{ paddingBottom: '40px'}}>

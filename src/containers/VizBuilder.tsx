@@ -27,8 +27,7 @@ function VizBuilder() {
                  alignItems: "center"}}>
           <Map />
         </Grid>
-        <Grid item xs={12}
-        style={{display: "flex"}} >
+        <Grid item xs={12} >
           <GraphContainer />
         </Grid>
       </SplitterLayout>

@@ -4,8 +4,8 @@ import ReactMapGL from 'react-map-gl';
 function Map() {
 
   const [viewport, setViewport] = useState({
-    width: 820,
-    height: 750,
+    width: 620,
+    height: 550,
     latitude: 35.2828,
     longitude: -120.6596,
     zoom: 8

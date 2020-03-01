@@ -16,7 +16,7 @@ function GraphContainer() {
       padding="20px"
     >
       <Graph />
-      <Graph/>
+      <Graph />
     </Box>
   );
 }
