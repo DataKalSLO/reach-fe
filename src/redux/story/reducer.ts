@@ -13,15 +13,14 @@ import { EditorState } from 'draft-js';
 const initialTextBlock = {
   id: uuidv4(),
   editorState: EditorState.createEmpty(),
-  type: 'Text' // FIXME: loosly typed attribute, planned fix rolling out soon
+  type: 'Text' // TODO: loosly typed attribute, planned fix rolling out soon
 };
 
 const initialState = {
   id: uuidv4(),
-  userID: 'USER-ID', //FIXME: placeholder value
-  title: 'Title2',
-  description: 'description2',
-  storyBlocks: [] as Array<StoryBlock>
+  userID: 'USER-ID', // TODO: replace placeholder value
+  title: '',
+  description: '',
   storyBlocks: [initialTextBlock] as Array<StoryBlock>
 };
 
