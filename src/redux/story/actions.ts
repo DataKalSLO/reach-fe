@@ -1,13 +1,4 @@
-import { Story, TextBlock } from '../../stories/StoryTypes';
-import {
-  StoryActionTypes,
-  UPDATE_TITLE,
-  UPDATE_TEXT_BLOCK,
-  CREATE_TEXT_BLOCK,
-  SWAP_BLOCKS,
-  UpdateTextBlockAction,
-  SwapBlocksAction
-} from './types';
+import { UPDATE_TEXT_BLOCK, CREATE_TEXT_BLOCK, SWAP_BLOCKS } from './types';
 import { EditorState } from 'draft-js';
 import uuidv4 from 'uuid/v4';
 
@@ -17,21 +8,21 @@ export function createTextBlock() {
     payload: {
       id: uuidv4(),
       editorState: EditorState.createEmpty(),
-      type: 'Text' // FIXME: @tan, potentially hard to find bug from loosly typed attribute
+      type: 'Text' // TODO: loosly typed attribute, planned fix rolling out soon
     }
   };
 }
 
-export function updateTextBlock(payload: UpdateTextBlockAction['payload']) {
+export function updateTextBlock(index: number, editorState: EditorState) {
   return {
     type: UPDATE_TEXT_BLOCK,
-    payload: payload
+    payload: { index: index, editorState: editorState }
   };
 }
 
-export function swapBlocks(payload: SwapBlocksAction['payload']) {
+export function swapBlocks(oldIndex: number, newIndex: number) {
   return {
     type: SWAP_BLOCKS,
-    payload: payload
+    payload: { oldIndex: oldIndex, newIndex: newIndex }
   };
 }

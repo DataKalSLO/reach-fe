@@ -31,7 +31,7 @@ export default function StoryForm() {
       <RichTextEditor
         editorState={(story.storyBlocks[0] as TextBlock).editorState}
         setEditorState={(editorState: EditorState) =>
-          dispatch(updateTextBlock({ index: 0, editorState: editorState }))
+          dispatch(updateTextBlock(0, editorState))
         }
       />
       <Button

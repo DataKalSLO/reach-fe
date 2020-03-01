@@ -1,7 +1,6 @@
 import { StoryBlock } from '../../stories/StoryTypes';
 import {
-  StoryActionTypes,
-  UPDATE_TITLE,
+  StoryActionType,
   UPDATE_TEXT_BLOCK,
   CREATE_TEXT_BLOCK,
   SWAP_BLOCKS
@@ -28,7 +27,7 @@ const initialState = {
 // (https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns/
 function updateObjectInArray(
   storyBlocks: Array<StoryBlock>,
-  action: StoryActionTypes
+  action: StoryActionType
 ) {
   if (action.type === UPDATE_TEXT_BLOCK) {
     return storyBlocks.map((item, i) => {
@@ -44,10 +43,8 @@ function updateObjectInArray(
   throw new Error('Action type is incompatible with updateObjectInArray');
 }
 
-export function storyReducer(state = initialState, action: StoryActionTypes) {
+export function storyReducer(state = initialState, action: StoryActionType) {
   switch (action.type) {
-    case UPDATE_TITLE:
-      return { ...state, title: 'New Title' };
     case UPDATE_TEXT_BLOCK:
       return {
         ...state,
@@ -56,7 +53,7 @@ export function storyReducer(state = initialState, action: StoryActionTypes) {
     case CREATE_TEXT_BLOCK:
       return {
         ...state,
-        storyBlocks: state.storyBlocks.concat(action.payload)
+        storyBlocks: state.storyBlocks.concat(action.payload.block)
       };
     case SWAP_BLOCKS:
       return {
