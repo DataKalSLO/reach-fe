@@ -14,26 +14,9 @@ import {
   FormatUnderlined,
   StrikethroughS
 } from '@material-ui/icons';
-import {
-  Editor,
-  EditorState,
-  RichUtils,
-  convertFromRaw,
-  convertToRaw
-} from 'draft-js';
+import { Editor, EditorState, RichUtils } from 'draft-js';
 import { DraftJSBlockType, DraftJSInlineType } from './DraftJSCommands';
 import React from 'react';
-
-export function rawToContent(raw: string) {
-  return EditorState.createWithContent(convertFromRaw(JSON.parse(raw)));
-}
-export function contentToRaw(editorState: EditorState) {
-  if (editorState) {
-    const contentState = editorState.getCurrentContent();
-    return JSON.stringify(convertToRaw(contentState));
-  }
-  return '';
-}
 
 interface Props {
   editorState: EditorState;
