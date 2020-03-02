@@ -9,6 +9,7 @@ import _ from 'lodash';
 import Tooltip from './Tooltip';
 import { layerSelection } from './LayersComponent';
 import { blue, purple, red } from '@material-ui/core/colors';
+import { AirlineSeatReclineNormalRounded } from '@material-ui/icons';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
 
@@ -50,6 +51,24 @@ function MapView() {
   );
   const x = React.useRef(0);
   const y = React.useRef(0);
+
+  const markerColors = [
+    { color: red[500] },
+    { color: blue[500] },
+    { color: purple[500] }
+  ];
+
+  const [colorAssociation, setColorAssociation] = React.useState({});
+
+  useEffect(() => {
+    const newColorAssociation: any = {};
+    layerSelection.forEach((layer, index) => {
+      console.log(index);
+      newColorAssociation[layer.name] = markerColors[index];
+    });
+
+    setColorAssociation(newColorAssociation);
+  }, [layerSelection]);
 
   const [viewport, setViewport]: any = React.useState({
     width: '100%',
@@ -118,7 +137,12 @@ function MapView() {
       {renderTooltip()}
       {layerSelection
         .map(function(collection: any) {
-          return markers(collection.features, setSelectedInstitution);
+          return markers(
+            collection.features,
+            setSelectedInstitution,
+            colorAssociation,
+            collection.name
+          );
         })
         .flat()}
       {selectedInstitutions ? (
@@ -207,23 +231,12 @@ function quantileMaker(colorScale: any, quantiles: any, min: any, max: any) {
   return _.zip(dataScale, chromaScale);
 }
 
-//attempt to change the color of the marker based on the dataset
-//but it constantly changes with every mouse movement
-const markerColors = [
-  { color: red[500] },
-  { color: blue[500] },
-  { color: purple[500] }
-];
-function markerColor() {
-  const swap = markerColors[0];
-  markerColors[0] = markerColors[1];
-  markerColors[1] = markerColors[2];
-  markerColors[2] = swap;
-  return markerColors[0];
-}
-
-function markers(features: any, setSelectedInstitution: any) {
-  markerColor();
+function markers(
+  features: any,
+  setSelectedInstitution: any,
+  colorAssociation: any,
+  layer: string
+) {
   return features.map(function(location: any) {
     return (
       <Marker
@@ -244,7 +257,7 @@ function markers(features: any, setSelectedInstitution: any) {
           }}
         >
           <div>
-            <RoomIcon style={markerColors[0]} />
+            <RoomIcon style={colorAssociation[layer]} />
           </div>
         </button>
       </Marker>
