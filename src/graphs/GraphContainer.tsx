@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import Graph from '../graphs/Graph';
+import Graph3D from '../graphs/Graph3D'
 
 function GraphContainer() {
   return (
@@ -16,7 +17,7 @@ function GraphContainer() {
       padding="20px"
     >
       <Graph />
-      <Graph />
+      <Graph3D/>
     </Box>
   );
 }
