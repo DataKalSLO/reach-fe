@@ -3,6 +3,7 @@ import MapView from './MapView';
 import LayersComponent from './LayersComponent';
 import { BasicButtonGroup } from './FiltersComponent';
 import SourceLabels from './SourcesComponent';
+import VintageComponent from './VintageComponent';
 
 function Map() {
   return (
@@ -11,6 +12,7 @@ function Map() {
       <MapView />
       <BasicButtonGroup />
       <SourceLabels />
+      <VintageComponent />
     </div>
   );
 }

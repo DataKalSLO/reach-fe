@@ -1,12 +1,7 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-import Paper from '@material-ui/core/Paper';
-
-interface Sources {
-  key: number;
-  label: string;
-}
+import { Paper } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,23 +20,15 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-//hard coded sources
-const sources = [
-  { key: 0, label: 'City of SLO' },
-  { key: 1, label: 'City of Santa Maria' }
-];
+const vintage = 2020;
 
-export default function SourceLabels() {
+export default function VintageComponent() {
   const classes = useStyles();
 
   return (
     <Paper className={classes.root} elevation={0}>
-      <div> Data Sources: </div>
-      {sources.map(data => {
-        return (
-          <Chip size="small" label={data.label} />
-        );
-      })}
+      <div> Vintage: </div>
+      <Chip size="small" label={vintage} />
     </Paper>
   );
 }
