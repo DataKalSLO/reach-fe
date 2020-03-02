@@ -2,28 +2,43 @@ import { Story, TextBlock, GraphBlock, StoryBlock } from './StoryTypes';
 import { EditorState } from 'draft-js';
 import { post, get, put, del } from '../api/base';
 
+/* Background/Context Information
+ *
+ * All JSON objects sent to the server are coupled with c# classes. Because we don't
+ * have control over the EditorState's structure I wanted to create an BEND
+ * agnostic to the editorState. Therefore, the BEND will only accept editorstate as a string.
+ */
+
+/* A TextBlock object as represented in the Database + BEND;
+ */
 export interface TextBlockDB extends StoryBlock {
   editorState: string;
 }
 
-/* Makes
+/* The types of actions that mutate a story and
+ * expect a Story to be returned from BEND.
+ */
 enum StoryMutateAction {
   CREATE_STORY,
   UPDATE_STORY
 }
+
+/* Transforms Story to CreateStory API call specifications,
+ * makes call, then returns created Story.
  */
 export function saveStoryToDatabase(story: Story): Promise<Story> {
   return mutateStoryInDatabase(story, StoryMutateAction.CREATE_STORY);
 }
 
-/*
+/* Transforms Story to UpdateStory API call specifications,
+ * makes call, then returns created Story.
  */
 export function updateStoryInDatabase(story: Story): Promise<Story> {
   return mutateStoryInDatabase(story, StoryMutateAction.UPDATE_STORY);
 }
 
-/* Returns a Promise that resolves a list of all the Stories
- * in the database.
+/* Deletes the Story and StoryBlocks associated with given StoryID from the database.
+ * Returns the id of the StoryDeleted.
  */
 export function deleteStoryInDatabase(storyID: Story): Promise<string> {
   return new Promise<string>((resolve, reject) => {
@@ -34,6 +49,9 @@ export function deleteStoryInDatabase(storyID: Story): Promise<string> {
       .catch(e => reject(e));
   });
 }
+
+/* Returns a list of all the stories in the database.
+ */
 export function getAllStories(): Promise<Story[]> {
   return new Promise<Story[]>((resolve, reject) => {
     get('story')
@@ -43,6 +61,9 @@ export function getAllStories(): Promise<Story[]> {
       .catch(e => reject(e));
   });
 }
+
+/* Returns a Story having the given StoryID.
+ */
 export function getStoryWithStoryID(storyID: string): Promise<Story> {
   return new Promise<Story>((resolve, reject) => {
     get(['story', storyID].join('/'))
@@ -78,6 +99,7 @@ function mutateStoryInDatabase(
     promiseResponse.then(data => resolve(data)).catch(e => reject(e));
   });
 }
+
 /* Performs the necessary operations to convert a Story to the
  * expected object format on the backend.
  */
@@ -103,6 +125,10 @@ function parseAPIResponseObjectToStory(apiResponseObject: object): Story {
   }
   throw new Error('API response object not in Story format');
 }
+
+/* Serialies the EditorState of a given TextBlock to a string.
+ * StoryBlock is returned if not a TextBlock;
+ */
 function transformTextBlockToTextBlockDB(storyBlock: StoryBlock): StoryBlock {
   if (storyBlock as TextBlock) {
     const textBlock = storyBlock as TextBlock;
@@ -113,6 +139,10 @@ function transformTextBlockToTextBlockDB(storyBlock: StoryBlock): StoryBlock {
   }
   return storyBlock;
 }
+
+/* Parses a TextBlockDB's the stringified EditorState's into a DraftJS's EditorState.
+ * StoryBlock is returned if not a TextBlock;
+ */
 function transformTextBlockDBToTextBlock(storyBlock: StoryBlock): StoryBlock {
   if (storyBlock as TextBlockDB) {
     const textBlockDB = storyBlock as TextBlockDB;
