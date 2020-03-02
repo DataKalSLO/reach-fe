@@ -30,7 +30,7 @@ export default function SourceLabels() {
   ]);
 
   return (
-    <Paper className={classes.root}>
+    <Paper className={classes.root} elevation={0}>
       <div> Data Sources: </div>
       {Sources.map(data => {
         let icon;

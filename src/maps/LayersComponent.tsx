@@ -135,6 +135,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function LayersComponent() {
   const classes = useStyles();
+  const [layers, setLayers] = React.useState([schoolData[0]]);
   return (
     <div className={classes.root}>
       <Autocomplete
@@ -143,14 +144,16 @@ export default function LayersComponent() {
         options={schoolData}
         //this next part is supposed to disable options when the user has chosen 2 things
         getOptionDisabled={
-          layerSelection.length >= allowedSelections
+          layers.length >= allowedSelections
             ? option => schoolData.includes(option)
             : option => showAll.includes(option)
         }
         getOptionLabel={option => option.name}
         defaultValue={[schoolData[0]]}
         filterSelectedOptions
-        onChange={(event, value) => (layerSelection = value)}
+        onChange={(event, value) => (
+          setLayers(value), (layerSelection = value)
+        )}
         renderInput={params => (
           <TextField
             {...params}
