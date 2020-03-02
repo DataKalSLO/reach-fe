@@ -15,5 +15,10 @@ export const theme = responsiveFontSizes(
         status: {
             danger: 'red',
         },
+        typography: {
+            button: {
+                textTransform: 'none'
+            }
+        }
     })
 )
