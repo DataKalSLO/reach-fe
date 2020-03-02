@@ -99,6 +99,23 @@ export const schoolData = [CollegeData, HighSchoolData];
 export const data = GeoJSON.parse(schoolData, { GeoJSON: 'geometry' });
 console.log(data);
 export let layerSelection = [schoolData[0]];
+//help for disabling options
+const allowedSelections = 2;
+//this will just show everything since it won't match any of the data we have
+const showAll: {
+  type: string;
+  name: string;
+  features: {
+    type: string;
+    geometry: {
+      type: string;
+      coordinates: number[];
+    };
+    properties: {
+      name: string;
+    };
+  }[][];
+}[] = [];
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -124,6 +141,12 @@ export default function LayersComponent() {
         multiple
         id="tags-outlined"
         options={schoolData}
+        //this next part is supposed to disable options when the user has chosen 2 things
+        getOptionDisabled={
+          layerSelection.length >= allowedSelections
+            ? option => schoolData.includes(option)
+            : option => showAll.includes(option)
+        }
         getOptionLabel={option => option.name}
         defaultValue={[schoolData[0]]}
         filterSelectedOptions
@@ -133,7 +156,7 @@ export default function LayersComponent() {
             {...params}
             variant="standard"
             label="Layers"
-            placeholder="Topic Selection"
+            placeholder="Select up to Two Layers"
             fullWidth
           />
         )}

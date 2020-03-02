@@ -8,6 +8,7 @@ import chroma from 'chroma-js';
 import _ from 'lodash';
 import Tooltip from './Tooltip';
 import { layerSelection } from './LayersComponent';
+import { blue, purple, red } from '@material-ui/core/colors';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
 
@@ -206,7 +207,23 @@ function quantileMaker(colorScale: any, quantiles: any, min: any, max: any) {
   return _.zip(dataScale, chromaScale);
 }
 
+//attempt to change the color of the marker based on the dataset
+//but it constantly changes with every mouse movement
+const markerColors = [
+  { color: red[500] },
+  { color: blue[500] },
+  { color: purple[500] }
+];
+function markerColor() {
+  const swap = markerColors[0];
+  markerColors[0] = markerColors[1];
+  markerColors[1] = markerColors[2];
+  markerColors[2] = swap;
+  return markerColors[0];
+}
+
 function markers(features: any, setSelectedInstitution: any) {
+  markerColor();
   return features.map(function(location: any) {
     return (
       <Marker
@@ -227,7 +244,7 @@ function markers(features: any, setSelectedInstitution: any) {
           }}
         >
           <div>
-            <RoomIcon />
+            <RoomIcon style={markerColors[0]} />
           </div>
         </button>
       </Marker>
