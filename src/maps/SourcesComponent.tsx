@@ -16,8 +16,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flexWrap: 'wrap',
       padding: theme.spacing(0.5),
       '& > *': {
-        margin: theme.spacing(0.5),
-      },
+        margin: theme.spacing(0.5)
+      }
     },
     chip: {
       margin: theme.spacing(0.5)
@@ -38,9 +38,7 @@ export default function SourceLabels() {
     <Paper className={classes.root} elevation={0}>
       <div> Data Sources: </div>
       {sources.map(data => {
-        return (
-          <Chip size="small" label={data.label} />
-        );
+        return <Chip size="small" label={data.label} key={data.key} />;
       })}
     </Paper>
   );
