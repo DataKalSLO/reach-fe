@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import uuidv4 from 'uuid/v4';
 import RichTextEditor from './RichTextEditor';
 import { EditorState } from 'draft-js';
-import { saveStoryToDatabase, loadStories } from './StoryAPIConnector';
+import { saveStoryToDatabase } from './StoryAPIConnector';
 
 const existingUserID = '51d73193-470d-442b-a392-3e43238eb089'; //TODO: Remove when accounts implemented
 
