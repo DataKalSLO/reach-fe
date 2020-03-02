@@ -3,10 +3,9 @@
 // PLEASE DON'T CODE REVIEW THIS FILE
 // It will be completely rewritten in a future PR.
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import SaveIcon from '@material-ui/icons/Save';
-import AddIcon from '@material-ui/icons/Add';
-import { Button, LinearProgress } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStory } from '../redux/story/selectors';
 import { updateTextBlock } from '../redux/story/actions';
