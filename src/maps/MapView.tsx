@@ -45,6 +45,14 @@ function MapView() {
       'fill-opacity': 0.7
     }
   });
+  const [outline, setOutline] = React.useState({
+    id: 'outline',
+    type: 'line',
+    paint: {
+      'line-color': 'rgb(0, 0, 0)'
+    }
+  });
+
   // Tooltip State
   const [hoveredLocation, setHoveredLocation] = React.useState(
     defaultHoveredLocation
@@ -100,6 +108,13 @@ function MapView() {
         'fill-opacity': 0.7
       }
     });
+    setOutline({
+      id: 'outline',
+      type: 'line',
+      paint: {
+        'line-color': 'rgb(0, 0, 0)'
+      }
+    });
   }, []);
 
   const renderTooltip = () => {
@@ -133,6 +148,7 @@ function MapView() {
     >
       <Source type="geojson" data={data}>
         <Layer {...layer} />
+        <Layer {...outline} />
       </Source>
       {renderTooltip()}
       {layerSelection
