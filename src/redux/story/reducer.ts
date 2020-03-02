@@ -1,13 +1,14 @@
+import { EditorState } from 'draft-js';
+import { arrayMove } from 'react-sortable-hoc';
+import uuidv4 from 'uuid/v4';
 import { StoryBlock } from '../../stories/StoryTypes';
 import {
-  StoryActionType,
-  UPDATE_TEXT_BLOCK,
   CREATE_EMPTY_TEXT_BLOCK,
-  SWAP_BLOCKS
+  StoryActionType,
+  SWAP_BLOCKS,
+  UpdateBlockType,
+  UPDATE_TEXT_BLOCK
 } from './types';
-import uuidv4 from 'uuid/v4';
-import { arrayMove } from 'react-sortable-hoc';
-import { EditorState } from 'draft-js';
 
 const initialTextBlock = {
   id: uuidv4(),
@@ -24,23 +25,22 @@ const initialState = {
 };
 
 // follows immutability update patterns
-// (https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns/
+// (https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns/)
 function updateObjectInArray(
   storyBlocks: Array<StoryBlock>,
-  action: StoryActionType
+  action: UpdateBlockType
 ) {
-  if (action.type === UPDATE_TEXT_BLOCK) {
-    return storyBlocks.map((item, i) => {
-      if (action.payload.index !== i) {
-        return item;
-      }
+  return storyBlocks.map((item, i) => {
+    // updates desired storyblock
+    if (action.payload.index === i) {
       return {
         ...item,
         ...action.payload
       };
-    });
-  }
-  throw new Error('Action type is incompatible with updateObjectInArray');
+    }
+    // ignores rest of storyblocks
+    return item;
+  });
 }
 
 export function storyReducer(state = initialState, action: StoryActionType) {

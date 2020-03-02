@@ -20,6 +20,13 @@ export interface SwapBlocksAction {
   payload: { oldIndex: number; newIndex: number };
 }
 
+// use in updateObjectInArray function (reducer.ts) when updating a single object.
+// interfaces of this type must include:
+//  - index
+//  - <data-to-change>
+export type UpdateBlockType = UpdateTextBlockAction;
+
+// used by reducer function (reducer.ts)
 export type StoryActionType =
   | CreateEmptyTextBlockAction
   | UpdateTextBlockAction
