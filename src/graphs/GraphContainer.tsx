@@ -15,6 +15,7 @@ function GraphContainer() {
       overflow="scroll"
       alignContent="center"
       padding="20px"
+      
     >
       <Graph />
       <Graph3D/>

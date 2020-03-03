@@ -19,33 +19,38 @@ function VizBuilder() {
       alignContent="center"
     >
       <SplitterLayout  vertical={true} 
-      primaryMinSize={0}
-      secondaryInitialSize={40}>
+      primaryIndex={0}
+      primaryMinSize={80}
+      secondaryMinSize={55}
+      secondaryInitialSize={55}>
         <SplitterLayout percentage={true} primaryMinSize={0}>
           <Grid item xs={12} 
-          style={{ padding: "30px" ,
-                  display: "flex",
-                  justifyContent: "center",
-                  alignContent: "center",
-                  alignItems: "center"}}>
+                style={{ padding: "30px" ,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignContent: "center",
+                        alignItems: "center"}}>
             <Map />
           </Grid>
-          <Grid item xs={12} >
+          <Grid item xs={12}>
             <GraphContainer />
           </Grid>
         </SplitterLayout>
-        <Grid 
-        style={{height:"20vh",
-        justifyContent:"center",
-        alignContent:"center",
-        alignItems:"right",
-        paddingLeft:"500px",
+        <Grid style={{height:"20vh",
+                      justifyContent:"center",
+                      alignContent:"center",
+                      alignItems:"right",
+                      flexDirection:"row",
+                      //border:"4px solid red",
+                      paddingLeft: "450px",
+                      paddingTop:"8px"
+                
         }}>
-          <Button>Education</Button>
-          <Button>Economy</Button>
-          <Button>Housing and Living</Button>
-          <Button>Health</Button>
-          <Button>Industry</Button>
+          <Button style={{backgroundColor:"lightGreen",marginRight:"10px"}}>Education</Button>
+          <Button style={{backgroundColor:"lightblue",marginRight:"10px"}}>Economy</Button>
+          <Button style={{backgroundColor:"pink",marginRight:"10px"}}>Housing and Living</Button>
+          <Button style={{backgroundColor:"yellow",marginRight:"10px"}}>Health</Button>
+          <Button style={{backgroundColor:"grey"}}>Industry</Button>
         </Grid>
       </SplitterLayout>      
     </Box>

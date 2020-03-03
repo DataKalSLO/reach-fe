@@ -146,14 +146,18 @@ const options3: Highcharts.Options = {
 
 function Graph() {
   return (
-    <div style={{ paddingBottom: '40px'}}>
-      <div style={{ paddingBottom: '40px', paddingTop:'100'}}>
+    <div style={{ paddingTop:"50px",
+                  paddingBottom: '40px',
+                  //border:" 4px solid green",
+                  scrollSnapType:"y mandatory",
+                  overflowY:"scroll"}}>
+      <div style={{ paddingBottom: '40px', paddingTop:'100',scrollSnapAlign:"start"}}>
         <HighchartsReact highcharts={Highcharts} options={options} />
       </div>
-      <div style={{ paddingBottom: '40px'}}>
+      <div style={{ paddingBottom: '40px',scrollSnapAlign:"start"}}>
         <HighchartsReact highcharts={Highcharts} options={options2} />
       </div>
-      <div style={{ paddingBottom: '40px'}}>
+      <div style={{ paddingBottom: '40px',scrollSnapAlign:"start"}}>
         <HighchartsReact highcharts={Highcharts} options={options3} />
       </div>
     </div>
