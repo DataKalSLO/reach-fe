@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import { styled } from '@material-ui/core/styles';
 
 // require is necessary to attach exportChart() to buttons
-// eslint-disable-next-line
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('highcharts/modules/exporting')(Highcharts);
 
 type DodContract = {
@@ -69,7 +69,7 @@ const StyledBox = styled(Box)({
 });
 
 function Graph() {
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const chartRef: any = useRef<HighchartsReact | null>(null);
   const exportChart = () => chartRef.current.chart.exportChart();
 
