@@ -27,9 +27,12 @@ interface SortableListProps {
 }
 
 const DragHandle = SortableHandle(() => (
-  <IconButton color="primary" disableRipple={true}>
-    <DragHandleIcon />
-  </IconButton>
+  // This needs to be wrapped in a div to make the ripple the correct size
+  <div>
+    <IconButton color="primary" disableRipple={true}>
+      <DragHandleIcon />
+    </IconButton>
+  </div>
 ));
 
 const SortableItem = SortableElement((props: SortableElementProps) => (
@@ -98,5 +101,6 @@ export default SortableList;
 
 const StoryBlockBox = styled(Box)({
   display: 'flex',
-  flexDirection: 'row'
+  flexDirection: 'row',
+  alignItems: 'center'
 });
