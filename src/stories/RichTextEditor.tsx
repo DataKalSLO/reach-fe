@@ -15,11 +15,16 @@ import {
   StrikethroughS
 } from '@material-ui/icons';
 import { Editor, EditorState, RichUtils } from 'draft-js';
-import React, { useState } from 'react';
 import { DraftJSBlockType, DraftJSInlineType } from './DraftJSCommands';
+import React from 'react';
 
-export default function RichTextEditor() {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+interface Props {
+  editorState: EditorState;
+  setEditorState: (s: EditorState) => void;
+}
+
+export default function RichTextEditor(props: Props) {
+  const { editorState, setEditorState } = props; // this is NOT a hook, the state is being managed in StoryForm
 
   // enable key binding shortcuts (e.g. CTRL+B for bold)
   const handleKeyCommand = (command: string, editorState: EditorState) => {
