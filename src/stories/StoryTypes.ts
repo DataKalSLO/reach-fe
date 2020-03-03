@@ -1,4 +1,3 @@
-import uuidv4 from 'uuid/v4';
 import { EditorState } from 'draft-js';
 
 export interface Story {
@@ -30,24 +29,3 @@ export interface BlockComponent {
   key: string;
   storyBlock: StoryBlock;
 }
-
-// FIXME: @kevin is this for reference?
-export const SampleBlockComponents: Array<StoryBlock> = [
-  {
-    id: 'id1',
-    editorState: JSON.parse('{}')
-  } as TextBlock,
-  {
-    id: 'id2',
-    editorState: JSON.parse('{}')
-  } as TextBlock
-] as Array<StoryBlock>;
-
-// FIXME: @kevin is this for reference?
-export const SampleStory: Story = {
-  id: uuidv4(),
-  userID: uuidv4(),
-  title: 'Sample Title',
-  description: 'Sample description',
-  storyBlocks: SampleBlockComponents
-};
