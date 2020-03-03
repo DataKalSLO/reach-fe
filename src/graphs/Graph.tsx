@@ -150,14 +150,14 @@ function Graph() {
                   paddingBottom: '40px',
                   //border:" 4px solid green",
                   scrollSnapType:"y mandatory",
-                  overflowY:"scroll"}}>
-      <div style={{ paddingBottom: '40px', paddingTop:'100',scrollSnapAlign:"start"}}>
+                  }}>
+      <div style={{ paddingBottom: '40px', paddingTop:'100',scrollSnapAlign:"center"}}>
         <HighchartsReact highcharts={Highcharts} options={options} />
       </div>
-      <div style={{ paddingBottom: '40px',scrollSnapAlign:"start"}}>
+      <div style={{ paddingBottom: '40px',scrollSnapAlign:"center"}}>
         <HighchartsReact highcharts={Highcharts} options={options2} />
       </div>
-      <div style={{ paddingBottom: '40px',scrollSnapAlign:"start"}}>
+      <div style={{ paddingBottom: '40px',scrollSnapAlign:"center"}}>
         <HighchartsReact highcharts={Highcharts} options={options3} />
       </div>
     </div>

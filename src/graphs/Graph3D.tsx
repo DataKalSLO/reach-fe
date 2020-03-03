@@ -81,10 +81,25 @@ type DodContract = {
             }]
         }],
         drilldown: {
-            series: [{
+            series: [
+            {
+                type: 'column',
+                id: 'zip',
+                data: [
+                    [' 93401', 7],
+                    ['93402', 6],
+                    ['93403', 1],
+                    ['93404', 2],
+                    ['93405', 3]
+                ]
+            },
+            {
+                name: 'cities',
                 type: 'column',
                 id: 'slo',
-                data: [
+                data: [{
+                    drilldown: 'zip'
+                },
                     ['Santa Maria', 7],
                     ['San Luis Obispo', 6],
                     ['Atascadero', 1],
