@@ -1,5 +1,5 @@
 import { EditorState } from 'draft-js';
-import uuidv4 from 'uuid/v4';
+import { uuid } from 'uuidv4';
 import {
   CREATE_EMPTY_TEXT_BLOCK,
   SWAP_BLOCKS,
@@ -14,7 +14,7 @@ export function createTextBlock(): CreateEmptyTextBlockAction {
     type: CREATE_EMPTY_TEXT_BLOCK,
     payload: {
       block: {
-        id: uuidv4(),
+        id: uuid(),
         editorState: EditorState.createEmpty(),
         type: 'Text' // TODO: loosly typed attribute, planned fix rolling out soon
       }
