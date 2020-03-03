@@ -10,7 +10,13 @@ import {
 } from 'react-sortable-hoc';
 import { swapBlocks, updateTextBlock } from '../redux/story/actions';
 import RichTextEditor from './RichTextEditor';
-import { TextBlock, StoryBlock } from './StoryTypes';
+import {
+  TextBlock,
+  StoryBlock,
+  TEXT_BLOCK,
+  GRAPH_BLOCK,
+  MAP_BLOCK
+} from './StoryTypes';
 import { Dispatch } from 'redux';
 
 interface SortableElementProps {
@@ -18,6 +24,7 @@ interface SortableElementProps {
 }
 
 interface SortableContainerProps {
+  // Sortable container can contain any type
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children: any;
 }
@@ -52,20 +59,20 @@ function blockToComponent(
   dispatch: Dispatch
 ): JSX.Element {
   switch (block.type) {
-    case 'Text':
+    case TEXT_BLOCK:
       return (
         <RichTextEditor
           key={block.id}
           editorState={(block as TextBlock).editorState}
           setEditorState={(editorState: EditorState) =>
-            dispatch(
-              updateTextBlock({ editorState: editorState, index: index })
-            )
+            dispatch(updateTextBlock(index, editorState))
           }
         />
       );
-    case 'Graph':
+    case GRAPH_BLOCK:
       throw new Error('TODO: Graph Block type');
+    case MAP_BLOCK:
+      throw new Error('TODO: Map Block type');
     default:
       throw new Error('TODO: Block type not implemented');
   }
@@ -77,11 +84,7 @@ export const SortableList = (props: SortableListProps) => {
   return (
     <LocalSortableContainer
       useDragHandle
-      onSortEnd={sort =>
-        dispatch(
-          swapBlocks({ oldIndex: sort.oldIndex, newIndex: sort.newIndex })
-        )
-      }
+      onSortEnd={sort => dispatch(swapBlocks(sort.oldIndex, sort.newIndex))}
     >
       {props.storyBlocks.map((block, index) => (
         <SortableItem

@@ -19,13 +19,13 @@ export default function StoryForm() {
 
   return (
     <div>
-      {/* TODO: @tan */}
+      {/* TODO: @Tanner - Make this modifiable, requied */}
       <Typography variant="h3">{story.title}</Typography>
-      {/* TODO: @kev */}
+      {/* TODO: @Kevin - Make this modifiable, required, max length */}
       <Typography variant="h5">{story.description}</Typography>
       <SortableList storyBlocks={story.storyBlocks} />
 
-      {/* TODO: @dan move to toolbar */}
+      {/* TODO: @Daniel - Move buttons to toolbar */}
       <ButtonWithLeftIcon
         variant="contained"
         color="primary"

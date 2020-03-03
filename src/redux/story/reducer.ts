@@ -1,7 +1,7 @@
 import { EditorState } from 'draft-js';
 import { arrayMove } from 'react-sortable-hoc';
 import { uuid } from 'uuidv4';
-import { StoryBlock } from '../../stories/StoryTypes';
+import { StoryBlock, TEXT_BLOCK } from '../../stories/StoryTypes';
 import {
   CREATE_EMPTY_TEXT_BLOCK,
   StoryActionType,
@@ -13,10 +13,10 @@ import {
 const initialTextBlock = {
   id: uuid(),
   editorState: EditorState.createEmpty(),
-  type: 'Text' // TODO: loosly typed attribute, planned fix rolling out soon
+  type: TEXT_BLOCK
 };
 
-const initialState = {
+const initialStory = {
   id: uuid(),
   userID: 'USER-ID', // TODO: replace placeholder value
   title: '',
@@ -43,7 +43,7 @@ function updateObjectInArray(
   });
 }
 
-export function storyReducer(state = initialState, action: StoryActionType) {
+export function storyReducer(state = initialStory, action: StoryActionType) {
   switch (action.type) {
     case UPDATE_TEXT_BLOCK:
       return {

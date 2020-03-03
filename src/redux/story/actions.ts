@@ -8,6 +8,7 @@ import {
   UpdateTextBlockAction,
   SwapBlocksAction
 } from './types';
+import { TEXT_BLOCK } from '../../stories/StoryTypes';
 
 export function createTextBlock(): CreateEmptyTextBlockAction {
   return {
@@ -16,7 +17,7 @@ export function createTextBlock(): CreateEmptyTextBlockAction {
       block: {
         id: uuid(),
         editorState: EditorState.createEmpty(),
-        type: 'Text' // TODO: loosly typed attribute, planned fix rolling out soon
+        type: TEXT_BLOCK
       }
     }
   };

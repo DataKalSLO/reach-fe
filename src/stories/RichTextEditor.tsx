@@ -14,13 +14,7 @@ import {
   FormatUnderlined,
   StrikethroughS
 } from '@material-ui/icons';
-import {
-  convertFromRaw,
-  convertToRaw,
-  Editor,
-  EditorState,
-  RichUtils
-} from 'draft-js';
+import { Editor, EditorState, RichUtils } from 'draft-js';
 import React from 'react';
 import { DraftJSBlockType, DraftJSInlineType } from './DraftJSCommands';
 

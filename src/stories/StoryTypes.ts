@@ -8,7 +8,10 @@ export interface Story {
   storyBlocks: Array<StoryBlock>;
 }
 
-type StoryBlockType = 'Text' | 'Graph';
+export const TEXT_BLOCK = 'Text';
+export const GRAPH_BLOCK = 'Graph';
+export const MAP_BLOCK = 'Map';
+type StoryBlockType = typeof TEXT_BLOCK | typeof GRAPH_BLOCK | typeof MAP_BLOCK;
 
 export interface StoryBlock {
   id: string;
