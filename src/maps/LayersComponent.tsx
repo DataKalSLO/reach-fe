@@ -4,8 +4,23 @@ import React from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const GeoJSON = require('geojson');
+
+const ALLOWED_SELECTIONS = 2;
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'left',
+      '& > *': {
+        margin: theme.spacing(1)
+      },
+      '& > * + *': {
+        marginTop: theme.spacing(3)
+      }
+    }
+  })
+);
 
 // college data
 const CollegeData = {
@@ -96,12 +111,11 @@ const HighSchoolData = {
 };
 
 export const schoolData = [CollegeData, HighSchoolData];
-export const data = GeoJSON.parse(schoolData, { GeoJSON: 'geometry' });
-console.log(data);
+
+// this is how MapView.tsx accesses the user's selection
 export let layerSelection = [schoolData[0]];
-//help for disabling options
-const allowedSelections = 2;
-//this will just show everything since it won't match any of the data we have
+
+// this is how we show everything in options (disable none)
 const showAll: {
   type: string;
   name: string;
@@ -117,22 +131,7 @@ const showAll: {
   }[][];
 }[] = [];
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'left',
-      '& > *': {
-        margin: theme.spacing(1)
-      },
-      '& > * + *': {
-        marginTop: theme.spacing(3)
-      }
-    }
-  })
-);
-
+// this function creates the multi-seletion autocomplete component
 export default function LayersComponent() {
   const classes = useStyles();
   const [layers, setLayers] = React.useState([schoolData[0]]);
@@ -142,15 +141,17 @@ export default function LayersComponent() {
         multiple
         id="tags-outlined"
         options={schoolData}
-        //this next part is supposed to disable options when the user has chosen 2 things
+        defaultValue={[schoolData[0]]}
+        // disables options when the user has chosen more than the allowedSelections
         getOptionDisabled={
-          layers.length >= allowedSelections
+          layers.length >= ALLOWED_SELECTIONS
             ? option => schoolData.includes(option)
             : option => showAll.includes(option)
         }
         getOptionLabel={option => option.name}
-        defaultValue={[schoolData[0]]}
         filterSelectedOptions
+        // informs the layerSelection variable with the user's selection
+        // likely need more logic here to understand whether user wants points or overlay
         onChange={(event, value) => (
           setLayers(value), (layerSelection = value)
         )}
