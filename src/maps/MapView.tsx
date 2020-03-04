@@ -7,7 +7,6 @@ import RoomIcon from '@material-ui/icons/Room';
 import chroma from 'chroma-js';
 import _ from 'lodash';
 import Tooltip from './Tooltip';
-import { layerSelection } from './LayersComponent';
 import { blue, purple, red } from '@material-ui/core/colors';
 import { AirlineSeatReclineNormalRounded } from '@material-ui/icons';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -33,7 +32,26 @@ interface LocationFeatures {
   };
 }
 
-function MapView() {
+// type interface for props passed in Map.tsx
+interface MapViewProps {
+  layerSelection: {
+    type: string;
+    name: string;
+    features: {
+      type: string;
+      geometry: {
+        type: string;
+        coordinates: number[];
+      };
+      properties: {
+        name: string;
+      };
+    }[][];
+  }[];
+}
+
+function MapView(props: MapViewProps) {
+  const { layerSelection } = props;
   // React-Map-GL State
   const prepped = prepGeo(features);
   const data = GeoJSON.parse(prepped, { GeoJSON: 'geometry' });
