@@ -3,11 +3,7 @@ import {
   Button,
   styled,
   Typography,
-  FormGroup,
-  FormLabel,
-  FormControl,
   FormControlLabel,
-  FormHelperText,
   Checkbox
 } from '@material-ui/core';
 import BoxCenter from '../common/components/BoxCenter';
@@ -159,12 +155,21 @@ const EmailSignUp = (props: {
         <Checkbox
           checked={wantEmailNotification}
           onChange={() => setWantEmailNotifications(!wantEmailNotification)}
+          color="primary"
         />
       }
-      label="I would like to receive email notifications from Reach."
+      label={
+        <EmailSignUpText>
+          I would like to receive email notifications from Reach.
+        </EmailSignUpText>
+      }
     />
   );
 };
+
+const EmailSignUpText = styled(Typography)({
+  fontSize: '15px'
+});
 
 const FormControlLabelSized = styled(FormControlLabel)({
   width: '270px'
