@@ -1,4 +1,4 @@
-import { Box, styled, IconButton } from '@material-ui/core';
+import { Box, IconButton, styled } from '@material-ui/core';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import { EditorState } from 'draft-js';
 import React from 'react';
@@ -8,31 +8,35 @@ import {
   SortableElement,
   SortableHandle
 } from 'react-sortable-hoc';
+import { Dispatch } from 'redux';
 import { swapBlocks, updateTextBlock } from '../redux/story/actions';
 import RichTextEditor from './RichTextEditor';
 import {
-  TextBlock,
-  StoryBlock,
-  TEXT_BLOCK,
   GRAPH_BLOCK,
-  MAP_BLOCK
+  MAP_BLOCK,
+  StoryBlock,
+  TextBlock,
+  TEXT_BLOCK
 } from './StoryTypes';
-import { Dispatch } from 'redux';
 
+// Properties to be passed into a sortable element,
+// defining the body of the draggable piece, aside from the drag handle
 interface SortableElementProps {
   value: JSX.Element;
 }
 
+// Proerties that define the list of components to be draggable, list can be of type any
 interface SortableContainerProps {
-  // Sortable container can contain any type
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  children: any;
+  children: Array<any>;
 }
 
+// The input to the sortable list, objects to be converted into JSX.Element's
 interface SortableListProps {
   storyBlocks: Array<StoryBlock>;
 }
 
+// Component to determine what can be dragged as the drag handle
 const DragHandle = SortableHandle(() => (
   // This needs to be wrapped in a div to make the ripple the correct size
   <div>
@@ -42,13 +46,17 @@ const DragHandle = SortableHandle(() => (
   </div>
 ));
 
-const SortableItem = SortableElement((props: SortableElementProps) => (
+// TODO: Add functionality to remove a story block
+// Component that determines what is in each draggable block
+const LocalSortableElement = SortableElement((props: SortableElementProps) => (
   <StoryBlockBox>
     <DragHandle />
     {props.value}
   </StoryBlockBox>
 ));
 
+// Container for all items in the list,
+// passed as SortableContainerProps which can contain a list of any type
 const LocalSortableContainer = SortableContainer(
   (props: SortableContainerProps) => {
     return <div>{props.children}</div>;
@@ -90,7 +98,7 @@ export const SortableList = (props: SortableListProps) => {
       onSortEnd={sort => dispatch(swapBlocks(sort.oldIndex, sort.newIndex))}
     >
       {props.storyBlocks.map((block, index) => (
-        <SortableItem
+        <LocalSortableElement
           key={`item-${block.id}`}
           index={index}
           value={blockToComponent(block, index, dispatch)}

@@ -1,4 +1,4 @@
-import { Button, Typography, styled } from '@material-ui/core';
+import { Button, styled, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SaveIcon from '@material-ui/icons/Save';
 import React from 'react';
@@ -19,7 +19,7 @@ export default function StoryForm() {
 
   return (
     <div>
-      {/* TODO: @Tanner - Make this modifiable, requied */}
+      {/* TODO: @Tanner - Make this modifiable, required */}
       <Typography variant="h3">{story.title}</Typography>
       {/* TODO: @Kevin - Make this modifiable, required, max length */}
       <Typography variant="h5">{story.description}</Typography>
