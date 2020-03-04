@@ -36,11 +36,10 @@ interface SortableListProps {
   storyBlocks: Array<StoryBlock>;
 }
 
-// Component to determine what can be dragged as the drag handle
 const DragHandle = SortableHandle(() => (
   // This needs to be wrapped in a div to make the ripple the correct size
   <div>
-    <IconButton color="primary" disableRipple={true}>
+    <IconButton color="primary">
       <DragHandleIcon />
     </IconButton>
   </div>
