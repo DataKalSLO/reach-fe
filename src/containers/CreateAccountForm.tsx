@@ -1,5 +1,15 @@
 import React, { useState, useCallback } from 'react';
-import { Button, styled, Typography } from '@material-ui/core';
+import {
+  Button,
+  styled,
+  Typography,
+  FormGroup,
+  FormLabel,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  Checkbox
+} from '@material-ui/core';
 import BoxCenter from '../common/components/BoxCenter';
 import AccountTextField from '../common/components/AccountTextField';
 
@@ -18,6 +28,7 @@ function CreateAccountForm() {
   const [passwordConfirmationValid, setPasswordConfirmationValid] = useState(
     false
   );
+  const [wantEmailNotification, setWantEmailNotifications] = useState(true);
 
   const validateEmail = useCallback(
     (emailName: string) => {
@@ -120,6 +131,10 @@ function CreateAccountForm() {
         size="small"
       />
       <ErrorMessage>{passwordConfirmationErrorMessage}</ErrorMessage>
+      <EmailSignUp
+        wantEmailNotification={wantEmailNotification}
+        setWantEmailNotifications={setWantEmailNotifications}
+      />
       <ButtonThin
         fullWidth
         variant="contained"
@@ -132,6 +147,29 @@ function CreateAccountForm() {
   );
 }
 
+const EmailSignUp = (props: {
+  wantEmailNotification: boolean;
+  setWantEmailNotifications: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const { wantEmailNotification, setWantEmailNotifications } = props;
+
+  return (
+    <FormControlLabelSized
+      control={
+        <Checkbox
+          checked={wantEmailNotification}
+          onChange={() => setWantEmailNotifications(!wantEmailNotification)}
+        />
+      }
+      label="I would like to receive email notifications from Reach."
+    />
+  );
+};
+
+const FormControlLabelSized = styled(FormControlLabel)({
+  width: '270px'
+});
+
 const ButtonThin = styled(Button)({
   width: '270px'
 });
@@ -143,7 +181,7 @@ const ErrorMessage = styled(Typography)({
 });
 
 const BoxCenterSized = styled(BoxCenter)({
-  height: '225px',
+  height: '325px',
   width: '200px'
 });
 
