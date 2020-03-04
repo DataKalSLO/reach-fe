@@ -4,6 +4,7 @@ import BoxCenter from '../common/components/BoxCenter';
 import AccountTextField from '../common/components/AccountTextField';
 
 function CreateAccountForm() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [emailValid, setEmailValid] = useState(false);
@@ -92,8 +93,22 @@ function CreateAccountForm() {
     [password, validatePasswordConfirmation, setPasswordConfirmation]
   );
 
+  const handleInputChangeName = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setName(event.target.value);
+    },
+    [setName]
+  );
+
   return (
     <BoxCenterSized>
+      <AccountTextField
+        fullWidth
+        placeholder="Name"
+        onChange={handleInputChangeName}
+        variant="filled"
+        size="small"
+      />
       <AccountTextField
         fullWidth
         placeholder="Email Address"
@@ -143,7 +158,7 @@ const ErrorMessage = styled(Typography)({
 });
 
 const BoxCenterSized = styled(BoxCenter)({
-  height: '225px',
+  height: '425px',
   width: '200px'
 });
 
