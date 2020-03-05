@@ -1,4 +1,4 @@
-import { Button, styled, TextField } from '@material-ui/core';
+import { Button, styled, Typography, TextField, Divider } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SaveIcon from '@material-ui/icons/Save';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -22,6 +22,7 @@ export default function StoryForm() {
 
   // TODO: add validation of required fields
   const [preview, setPreview] = useState(<div>Test</div>);
+  const [previewSelected, setPreviewSelected] = useState(false);
 
   function saveStory() {
     alert(JSON.stringify(story, null, 2));
@@ -29,6 +30,40 @@ export default function StoryForm() {
 
   function createCharCounter(currentText: string, maxLength: number) {
     return `${currentText.length}/${maxLength}`;
+  }
+
+  function previewStory() {
+    setPreviewSelected(!previewSelected);
+  }
+
+  function displayBody(): JSX.Element {
+    if (previewSelected) {
+      return <div>{storyToHTML(story)}</div>;
+    } else {
+      return (
+        <div>
+          <SortableList storyBlocks={story.storyBlocks} />
+          {/* TODO: @Daniel - Move buttons to toolbar */}
+          <ButtonWithLeftIcon
+            variant="contained"
+            color="primary"
+            onClick={() => dispatch(createEmptyTextBlock())}
+            startIcon={<AddIcon />}
+          >
+            Add Text Block
+          </ButtonWithLeftIcon>
+
+          <ButtonWithLeftIcon
+            variant="contained"
+            color="primary"
+            onClick={saveStory}
+            startIcon={<SaveIcon />}
+          >
+            Save Story
+          </ButtonWithLeftIcon>
+        </div>
+      );
+    }
   }
 
   return (
@@ -62,34 +97,16 @@ export default function StoryForm() {
         defaultValue={story ? story.description : ''}
       />
 
-      <SortableList storyBlocks={story.storyBlocks} />
+      {displayBody()}
 
-      {/* TODO: @Daniel - Move buttons to toolbar */}
       <ButtonWithLeftIcon
         variant="contained"
         color="primary"
-        onClick={() => dispatch(createEmptyTextBlock())}
-        startIcon={<AddIcon />}
-      >
-        Add Text Block
-      </ButtonWithLeftIcon>
-      <ButtonWithLeftIcon
-        variant="contained"
-        color="primary"
-        onClick={saveStory}
-        startIcon={<SaveIcon />}
-      >
-        Save Story
-      </ButtonWithLeftIcon>
-      <ButtonWithLeftIcon
-        variant="contained"
-        color="primary"
-        onClick={() => setPreview(<div>{storyToHTML(story)}</div>)}
+        onClick={previewStory}
         startIcon={<VisibilityIcon />}
       >
-        Preview
+        Preview Story
       </ButtonWithLeftIcon>
-      <div>{preview}</div>
     </div>
   );
 }

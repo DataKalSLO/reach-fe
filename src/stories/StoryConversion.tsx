@@ -5,28 +5,26 @@ import React from 'react';
 import {
   Story,
   StoryBlock,
-  TEXT_BLOCK,
+  TEXT_BLOCK_TYPE,
   TextBlock,
-  GraphBlockStub,
-  GRAPH_BLOCK,
-  MapBlockStub,
-  MAP_BLOCK
+  GraphBlock,
+  GRAPH_BLOCK_TYPE,
+  MapBlock,
+  MAP_BLOCK_TYPE
 } from './StoryTypes';
 
-export function storyToHTML(story: Story): Array<JSX.Element> {
-  return story.storyBlocks.map(block => blockToHTML(block));
+export function storyToHTML(story: Story): JSX.Element {
+  return <div>{story.storyBlocks.map(block => blockToHTML(block))}</div>;
 }
 
 function blockToHTML(storyBlock: StoryBlock): JSX.Element {
   switch (storyBlock.type) {
-    case TEXT_BLOCK:
-      return textBlockToHTML(storyBlock as TextBlock);
-    case GRAPH_BLOCK:
-      return graphBlockToHTML(storyBlock as GraphBlockStub);
-    case MAP_BLOCK:
-      return mapBlockToHTML(storyBlock as MapBlockStub);
-    default:
-      throw new Error('Block type does not exist: ' + storyBlock.type);
+    case TEXT_BLOCK_TYPE:
+      return textBlockToHTML(storyBlock);
+    case GRAPH_BLOCK_TYPE:
+      return graphBlockToHTML(storyBlock);
+    case MAP_BLOCK_TYPE:
+      return mapBlockToHTML(storyBlock);
   }
 }
 
@@ -38,10 +36,10 @@ function textBlockToHTML(textBlock: TextBlock): JSX.Element {
   return <div> {ReactHtmlParser(markup)} </div>;
 }
 
-function graphBlockToHTML(graphBlock: GraphBlockStub): JSX.Element {
+function graphBlockToHTML(graphBlock: GraphBlock): JSX.Element {
   return <div>Graph Block conversion not yet implemented</div>;
 }
 
-function mapBlockToHTML(mapBlock: MapBlockStub): JSX.Element {
+function mapBlockToHTML(mapBlock: MapBlock): JSX.Element {
   return <div>Map Block conversion not yet implemented</div>;
 }
