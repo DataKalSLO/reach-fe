@@ -24,7 +24,9 @@ function CreateAccountForm() {
   const [passwordConfirmationValid, setPasswordConfirmationValid] = useState(
     false
   );
-  const [wantEmailNotification, setWantEmailNotifications] = useState(true);
+  const [emailNotificationEnabled, setEmailNotificationEnabled] = useState(
+    true
+  );
 
   const validateEmail = useCallback(
     (emailName: string) => {
@@ -128,8 +130,8 @@ function CreateAccountForm() {
       />
       <ErrorMessage>{passwordConfirmationErrorMessage}</ErrorMessage>
       <EmailSignUp
-        wantEmailNotification={wantEmailNotification}
-        setWantEmailNotifications={setWantEmailNotifications}
+        emailNotificationEnabled={emailNotificationEnabled}
+        setEmailNotificationEnabled={setEmailNotificationEnabled}
       />
       <ButtonThin
         fullWidth
@@ -143,18 +145,22 @@ function CreateAccountForm() {
   );
 }
 
-const EmailSignUp = (props: {
-  wantEmailNotification: boolean;
-  setWantEmailNotifications: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
-  const { wantEmailNotification, setWantEmailNotifications } = props;
+type EmailSignUpProps = {
+  emailNotificationEnabled: boolean;
+  setEmailNotificationEnabled: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const EmailSignUp = (props: EmailSignUpProps) => {
+  const { emailNotificationEnabled, setEmailNotificationEnabled } = props;
 
   return (
     <FormControlLabelSized
       control={
         <Checkbox
-          checked={wantEmailNotification}
-          onChange={() => setWantEmailNotifications(!wantEmailNotification)}
+          checked={emailNotificationEnabled}
+          onChange={() =>
+            setEmailNotificationEnabled(!emailNotificationEnabled)
+          }
           color="primary"
         />
       }
