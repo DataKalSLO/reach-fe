@@ -8,35 +8,29 @@ export interface Story {
   storyBlocks: Array<StoryBlock>;
 }
 
-export const TEXT_BLOCK = 'Text';
-export const GRAPH_BLOCK = 'Graph';
-export const MAP_BLOCK = 'Map';
-export type StoryBlockType =
-  | typeof TEXT_BLOCK
-  | typeof GRAPH_BLOCK
-  | typeof MAP_BLOCK;
+export const TEXT_BLOCK_TYPE = 'Text';
+export const GRAPH_BLOCK_TYPE = 'Graph';
+export const MAP_BLOCK_TYPE = 'Map';
 
-export interface StoryBlock {
+/*
+ * Story Blocks define the properties needed to generate the associated react components
+ * Story Blocks also have 1-1 mapping with database objects
+ */
+export interface TextBlock {
+  type: typeof TEXT_BLOCK_TYPE;
   id: string;
-  type: StoryBlockType;
-}
-
-export interface TextBlock extends StoryBlock {
   editorState: EditorState;
 }
 
-//"Stubs" of what the graph and map properties may look like
-export interface GraphBlockStub extends StoryBlock {
-  xAxis: string;
-  yAxis: string;
-  graphType: string;
+export interface GraphBlock {
+  type: typeof GRAPH_BLOCK_TYPE;
+  id: string;
+  graphID: string;
+}
+export interface MapBlock {
+  type: typeof MAP_BLOCK_TYPE;
+  id: string;
+  mapID: string;
 }
 
-export interface MapBlockStub extends StoryBlock {
-  center: {
-    lat: number;
-    long: number;
-  };
-  layers: Array<string>;
-  date: string;
-}
+export type StoryBlock = TextBlock | GraphBlock | MapBlock;

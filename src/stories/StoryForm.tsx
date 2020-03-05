@@ -3,7 +3,7 @@ import AddIcon from '@material-ui/icons/Add';
 import SaveIcon from '@material-ui/icons/Save';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createTextBlock } from '../redux/story/actions';
+import { createEmptyTextBlock } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import SortableList from '../stories/SortableList';
 
@@ -13,27 +13,27 @@ export default function StoryForm() {
 
   function saveStory() {
     alert(JSON.stringify(story.storyBlocks, null, 2));
-    console.log(JSON.stringify(story));
-    return story;
   }
 
   return (
     <div>
-      {/* TODO: @Tanner - Make this modifiable, required */}
+      {/* TODO: @Tanner - Make this a required text input */}
       <Typography variant="h3">{story.title}</Typography>
-      {/* TODO: @Kevin - Make this modifiable, required, max length */}
+      {/* TODO: @Kevin - Make this a required text input */}
       <Typography variant="h5">{story.description}</Typography>
+
       <SortableList storyBlocks={story.storyBlocks} />
 
       {/* TODO: @Daniel - Move buttons to toolbar */}
       <ButtonWithLeftIcon
         variant="contained"
         color="primary"
-        onClick={() => dispatch(createTextBlock())}
+        onClick={() => dispatch(createEmptyTextBlock())}
         startIcon={<AddIcon />}
       >
         Add Text Block
       </ButtonWithLeftIcon>
+
       <ButtonWithLeftIcon
         variant="contained"
         color="primary"

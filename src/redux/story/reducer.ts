@@ -1,7 +1,7 @@
 import { EditorState } from 'draft-js';
 import { arrayMove } from 'react-sortable-hoc';
 import { uuid } from 'uuidv4';
-import { StoryBlock, TEXT_BLOCK } from '../../stories/StoryTypes';
+import { StoryBlock, TEXT_BLOCK_TYPE } from '../../stories/StoryTypes';
 import {
   CREATE_EMPTY_TEXT_BLOCK,
   StoryActionType,
@@ -13,7 +13,7 @@ import {
 const initialTextBlock = {
   id: uuid(),
   editorState: EditorState.createEmpty(),
-  type: TEXT_BLOCK
+  type: TEXT_BLOCK_TYPE
 };
 
 const initialStory = {

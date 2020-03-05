@@ -12,28 +12,26 @@ import { Dispatch } from 'redux';
 import { swapBlocks, updateTextBlock } from '../redux/story/actions';
 import RichTextEditor from './RichTextEditor';
 import {
-  GRAPH_BLOCK,
-  MAP_BLOCK,
+  GRAPH_BLOCK_TYPE,
+  MAP_BLOCK_TYPE,
   StoryBlock,
   TextBlock,
-  TEXT_BLOCK
+  TEXT_BLOCK_TYPE
 } from './StoryTypes';
 
-// Properties to be passed into a sortable element,
-// defining the body of the draggable piece, aside from the drag handle
-interface SortableElementProps {
+// The input to the sortable list, objects to be converted into JSX.Elements
+interface SortableListProps {
+  storyBlocks: Array<StoryBlock>;
+}
+
+// (i.e. <RichTextEditor>)
+interface SortableItemProps {
   value: JSX.Element;
 }
 
-// Proerties that define the list of components to be draggable, list can be of type any
-interface SortableContainerProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  children: Array<any>;
-}
-
-// The input to the sortable list, objects to be converted into JSX.Element's
-interface SortableListProps {
-  storyBlocks: Array<StoryBlock>;
+// Properties containing all draggable blocks (i.e. Array of {<DragHandle> and <StoryBlock>})
+interface SortableStoryContainerProps {
+  children: Array<JSX.Element>;
 }
 
 const DragHandle = SortableHandle(() => (
@@ -45,19 +43,18 @@ const DragHandle = SortableHandle(() => (
   </div>
 ));
 
-// TODO: Add functionality to remove a story block
+// TODO: Add button to remove a story block
 // Component that determines what is in each draggable block
-const LocalSortableElement = SortableElement((props: SortableElementProps) => (
+const SortableStoryBlock = SortableElement((props: SortableItemProps) => (
   <StoryBlockBox>
     <DragHandle />
     {props.value}
   </StoryBlockBox>
 ));
 
-// Container for all items in the list,
-// passed as SortableContainerProps which can contain a list of any type
-const LocalSortableContainer = SortableContainer(
-  (props: SortableContainerProps) => {
+// Container for all sortable story blocks
+const SortableStoryContainer = SortableContainer(
+  (props: SortableStoryContainerProps) => {
     return <div>{props.children}</div>;
   }
 );
@@ -69,7 +66,7 @@ function blockToComponent(
   dispatch: Dispatch
 ): JSX.Element {
   switch (block.type) {
-    case TEXT_BLOCK:
+    case TEXT_BLOCK_TYPE:
       return (
         <RichTextEditor
           key={block.id}
@@ -79,31 +76,31 @@ function blockToComponent(
           }
         />
       );
-    case GRAPH_BLOCK:
+    case GRAPH_BLOCK_TYPE:
       throw new Error('TODO: Graph Block type');
-    case MAP_BLOCK:
+    case MAP_BLOCK_TYPE:
       throw new Error('TODO: Map Block type');
     default:
       throw new Error('TODO: Block type not implemented');
   }
 }
 
-export const SortableList = (props: SortableListProps) => {
+const SortableList = (props: SortableListProps) => {
   const dispatch = useDispatch();
 
   return (
-    <LocalSortableContainer
-      useDragHandle
+    <SortableStoryContainer
+      useDragHandle={true}
       onSortEnd={sort => dispatch(swapBlocks(sort.oldIndex, sort.newIndex))}
     >
       {props.storyBlocks.map((block, index) => (
-        <LocalSortableElement
+        <SortableStoryBlock
           key={`item-${block.id}`}
           index={index}
           value={blockToComponent(block, index, dispatch)}
         />
       ))}
-    </LocalSortableContainer>
+    </SortableStoryContainer>
   );
 };
 
