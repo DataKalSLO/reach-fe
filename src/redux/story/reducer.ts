@@ -1,6 +1,6 @@
 import { EditorState } from 'draft-js';
 import { arrayMove } from 'react-sortable-hoc';
-import uuidv4 from 'uuid/v4';
+import { uuid } from 'uuidv4';
 import { StoryBlock } from '../../stories/StoryTypes';
 import {
   CREATE_EMPTY_TEXT_BLOCK,
@@ -11,13 +11,13 @@ import {
 } from './types';
 
 const initialTextBlock = {
-  id: uuidv4(),
+  id: uuid(),
   editorState: EditorState.createEmpty(),
   type: 'Text' // TODO: loosly typed attribute, planned fix rolling out soon
 };
 
 const initialState = {
-  id: uuidv4(),
+  id: uuid(),
   userID: 'USER-ID', // TODO: replace placeholder value
   title: '',
   description: '',

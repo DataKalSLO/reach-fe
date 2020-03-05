@@ -19,6 +19,6 @@ export function clearSampleAction(): SampleActionTypes {
 
 export function updateWithThunk(text: string) {
   return async (dispatch: Dispatch) => {
-    dispatch(updateSampleAction({ text }));
+    return updateSampleAction({ text });
   };
 }
