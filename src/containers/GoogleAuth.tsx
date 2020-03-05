@@ -4,10 +4,8 @@ import { Button, styled } from '@material-ui/core';
 import GoogleIcon from '../icons/GoogleIcon';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { LoginData } from '../redux/login/types';
-import { loginUser } from '../redux/login/actions';
-import { register } from '../redux/login/actions';
-import { RegisterData } from '../redux/login/types';
+import { LoginData, RegisterData } from '../redux/login/types';
+import { loginUser, register } from '../redux/login/actions';
 import { HOME } from '../nav/constants';
 
 const GoogleAuth = (props: { isRegistration: boolean }) => {
