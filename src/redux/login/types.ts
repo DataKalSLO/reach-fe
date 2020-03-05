@@ -3,6 +3,7 @@ export interface LoginData {
   password: string;
 }
 
+<<<<<<< HEAD
 export interface RegisterData {
   email: string;
   password: string;
@@ -10,6 +11,8 @@ export interface RegisterData {
   role: string;
 }
 
+=======
+>>>>>>> 1d6010db89f03a60e07f45b04ccc018bd8ab1836
 export interface User {
   email: string;
   token: string;
