@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Button } from '@material-ui/core';
-import FacebookIcon from '@material-ui/icons/Facebook';
 import { GoogleLoginButton } from 'ts-react-google-login-component';
+import { Button, styled } from '@material-ui/core';
+import GoogleIcon from '../icons/GoogleIcon';
 
-const GoogleSignIn = () => {
+const GoogleAuth = () => {
   const [googleId, setGoogleId] = useState('');
 
   const clientConfig = {
@@ -16,15 +16,17 @@ const GoogleSignIn = () => {
     // eslint-disable-next-line
     const id_token = googleUser.getAuthResponse(true).id_token;
     setGoogleId(googleUser.getId());
-
     console.log(googleUser.getId());
-    // eslint-disable-next-line
-    console.log({ accessToken: id_token });
   };
 
   const errorHandler = (error: string): void => {
     console.error(error);
   };
+
+  const StyledButton = styled(Button)({
+    width: '270px',
+    height: '50px'
+  });
 
   return (
     <GoogleLoginButton
@@ -33,9 +35,11 @@ const GoogleSignIn = () => {
       clientConfig={clientConfig}
       failureHandler={errorHandler}
     >
-      <Button endIcon={<FacebookIcon />}>Continue with Google</Button>
+      <StyledButton endIcon={<GoogleIcon />} fullWidth variant="outlined">
+        Continue with Google
+      </StyledButton>
     </GoogleLoginButton>
   );
 };
 
-export default GoogleSignIn;
+export default GoogleAuth;

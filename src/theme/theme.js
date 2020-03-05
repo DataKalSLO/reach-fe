@@ -10,14 +10,10 @@ import teal from '@material-ui/core/colors/teal';
 export const theme = responsiveFontSizes(
   createTheme({
     palette: {
-<<<<<<< HEAD
-      primary: teal
-=======
       primary: teal,
       action: {
         disabledBackground: teal
       }
->>>>>>> ff3061f31f89699fbf101fdc2dbe31598ba29c84
     },
     status: {
       danger: 'red'
