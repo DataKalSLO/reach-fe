@@ -17,7 +17,7 @@ function ThirdPartySignIn() {
 const GoogleSignIn = () => {
   return (
     <Grid item>
-      <GoogleAuth />
+      <GoogleAuth isRegistration={false} />
     </Grid>
   );
 };

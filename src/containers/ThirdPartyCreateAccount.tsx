@@ -7,7 +7,7 @@ import GoogleAuth from './GoogleAuth';
 function ThirdPartyCreateAccount() {
   return (
     <BoxCenterSized>
-      <GoogleAuth />
+      <GoogleAuth isRegistration={true} />
       <StyledButton fullWidth variant="outlined" endIcon={<AppleIcon />}>
         Continue with Apple
       </StyledButton>
