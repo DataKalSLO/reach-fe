@@ -16,8 +16,8 @@ function GraphContainer() {
       alignContent="center"
       padding="20px"
     >
-      <Graph />
       <Graph3D />
+      <Graph />
     </Box>
   );
 }
