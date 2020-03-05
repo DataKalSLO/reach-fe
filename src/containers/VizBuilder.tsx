@@ -6,6 +6,7 @@ import Box from '@material-ui/core/Box';
 import SplitterLayout from 'react-splitter-layout';
 import 'react-splitter-layout/lib/index.css';
 import GraphContainer from '../graphs/GraphContainer';
+import Fab from '@material-ui/core/Fab';
 
 function VizBuilder() {
   return (
@@ -15,44 +16,62 @@ function VizBuilder() {
       height="100vh"
       justifyContent="center"
       alignItems="center"
-      border="1px solid red"
+      //border="5px solid red"
       alignContent="center"
     >
-      <SplitterLayout  vertical={true} 
-      primaryIndex={0}
-      primaryMinSize={80}
-      secondaryMinSize={55}
-      secondaryInitialSize={55}>
+      <SplitterLayout
+        vertical={true}
+        primaryIndex={0}
+        primaryMinSize={80}
+        secondaryMinSize={65}
+        secondaryInitialSize={65}
+      >
         <SplitterLayout percentage={true} primaryMinSize={0}>
-          <Grid item xs={12} 
-                style={{ padding: "30px" ,
-                        display: "flex",
-                        justifyContent: "center",
-                        alignContent: "center",
-                        alignItems: "center"}}>
+          <Grid
+            item
+            xs={12}
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignContent: 'center',
+              alignItems: 'center',
+              paddingTop: '30px'
+            }}
+          >
             <Map />
           </Grid>
           <Grid item xs={12}>
             <GraphContainer />
           </Grid>
         </SplitterLayout>
-        <Grid style={{height:"20vh",
-                      justifyContent:"center",
-                      alignContent:"center",
-                      alignItems:"right",
-                      flexDirection:"row",
-                      //border:"4px solid red",
-                      paddingLeft: "450px",
-                      paddingTop:"8px"
-                
-        }}>
-          <Button style={{backgroundColor:"lightGreen",marginRight:"10px"}}>Education</Button>
-          <Button style={{backgroundColor:"lightblue",marginRight:"10px"}}>Economy</Button>
-          <Button style={{backgroundColor:"pink",marginRight:"10px"}}>Housing and Living</Button>
-          <Button style={{backgroundColor:"yellow",marginRight:"10px"}}>Health</Button>
-          <Button style={{backgroundColor:"grey"}}>Industry</Button>
+        <Grid
+          container
+          direction="row"
+          justify="space-evenly"
+          alignItems="center"
+          style={{ paddingTop: '10px', paddingBottom: '10px' }}
+        >
+          <Fab
+            size="large"
+            variant="extended"
+            style={{ backgroundColor: 'lightGreen' }}
+          >
+            Education
+          </Fab>
+          <Fab variant="extended" style={{ backgroundColor: 'lightblue' }}>
+            Economy
+          </Fab>
+          <Fab variant="extended" style={{ backgroundColor: 'pink' }}>
+            Housing and Living
+          </Fab>
+          <Fab variant="extended" style={{ backgroundColor: 'yellow' }}>
+            Health
+          </Fab>
+          <Fab variant="extended" style={{ backgroundColor: 'grey' }}>
+            Industry
+          </Fab>
         </Grid>
-      </SplitterLayout>      
+      </SplitterLayout>
     </Box>
   );
 }
