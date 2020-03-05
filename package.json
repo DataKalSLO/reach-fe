@@ -31,8 +31,8 @@
     "start": "npm run lint && react-scripts start",
     "start-no-lint": "react-scripts start",
     "build": "npm run lint && react-scripts build",
-    "lint": "eslint . --ext .ts,.tsx",
-    "lint-fix": "eslint . --fix --ext .ts,.tsx",
+    "lint": "eslint . --ext .ts,.tsx,.js",
+    "lint-fix": "eslint . --fix --ext .ts,.tsx,.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
