@@ -2,6 +2,11 @@ import React, { useState, useCallback } from 'react';
 import { Button, styled, Typography } from '@material-ui/core';
 import BoxCenter from '../common/components/BoxCenter';
 import AccountTextField from '../common/components/AccountTextField';
+import { useHistory } from 'react-router-dom';
+import { HOME } from '../nav/constants';
+import { useDispatch } from 'react-redux';
+import { register } from '../redux/login/actions';
+import { RegisterData } from '../redux/login/types';
 
 function CreateAccountForm() {
   const [email, setEmail] = useState('');
@@ -92,6 +97,9 @@ function CreateAccountForm() {
     [password, validatePasswordConfirmation, setPasswordConfirmation]
   );
 
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   return (
     <BoxCenterSized>
       <AccountTextField
@@ -125,6 +133,17 @@ function CreateAccountForm() {
         variant="contained"
         color="primary"
         disabled={!emailValid || !passwordValid || !passwordConfirmationValid}
+        onClick={() => {
+          dispatch(
+            register({
+              email,
+              password,
+              name: 'dummy',
+              role: 'BaseUser'
+            } as RegisterData)
+          );
+          history.push(HOME);
+        }}
       >
         CREATE ACCOUNT
       </ButtonThin>
