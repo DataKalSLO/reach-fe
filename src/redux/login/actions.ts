@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import {
   User,
   LoginData,
@@ -8,10 +7,6 @@ import {
   RegisterData
 } from './types';
 import { login, postPerson } from '../../api/login';
-=======
-import { User, LoginData, UserActionTypes, LOGIN, LOGOUT } from './types';
-import { login } from '../../api/login';
->>>>>>> 1d6010db89f03a60e07f45b04ccc018bd8ab1836
 import { Dispatch } from 'redux';
 
 export function loginAction(user: User): UserActionTypes {
@@ -28,7 +23,6 @@ export function loginUser(loginData: LoginData) {
   };
 }
 
-<<<<<<< HEAD
 export function register(registerData: RegisterData) {
   return async (dispatch: Dispatch) => {
     dispatch(logoutAction());
@@ -41,8 +35,6 @@ export function register(registerData: RegisterData) {
   };
 }
 
-=======
->>>>>>> 1d6010db89f03a60e07f45b04ccc018bd8ab1836
 export function logoutAction(): UserActionTypes {
   return { type: LOGOUT };
 }
