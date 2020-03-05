@@ -25,13 +25,18 @@ export interface TextBlock extends StoryBlock {
   editorState: EditorState;
 }
 
-export interface GraphBlock extends StoryBlock {
+//"Stubs" of what the graph and map properties may look like
+export interface GraphBlockStub extends StoryBlock {
   xAxis: string;
   yAxis: string;
+  graphType: string;
 }
 
-export interface BlockComponent {
-  component: JSX.Element;
-  key: string;
-  storyBlock: StoryBlock;
+export interface MapBlockStub extends StoryBlock {
+  center: {
+    lat: number;
+    long: number;
+  };
+  layers: Array<string>;
+  date: string;
 }
