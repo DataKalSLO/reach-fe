@@ -7,7 +7,9 @@ import {
   StoryActionType,
   SWAP_BLOCKS,
   UpdateBlockType,
-  UPDATE_TEXT_BLOCK
+  UPDATE_TEXT_BLOCK,
+  UPDATE_TITLE,
+  UPDATE_DESCRIPTION
 } from './types';
 
 const initialTextBlock = {
@@ -63,6 +65,16 @@ export function storyReducer(state = initialStory, action: StoryActionType) {
           action.payload.oldIndex,
           action.payload.newIndex
         )
+      };
+    case UPDATE_TITLE:
+      return {
+        ...state,
+        title: action.payload.newTitle
+      };
+    case UPDATE_DESCRIPTION:
+      return {
+        ...state,
+        description: action.payload.newDescription
       };
     default:
       return state;

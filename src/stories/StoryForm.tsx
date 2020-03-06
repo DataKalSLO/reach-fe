@@ -1,9 +1,13 @@
-import { Button, styled, Typography, TextField } from '@material-ui/core';
+import { Button, styled, TextField } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SaveIcon from '@material-ui/icons/Save';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createEmptyTextBlock } from '../redux/story/actions';
+import {
+  createEmptyTextBlock,
+  updateDescription,
+  updateTitle
+} from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import SortableList from '../stories/SortableList';
 
@@ -12,21 +16,28 @@ export default function StoryForm() {
   const story = useSelector(getStory);
 
   function saveStory() {
-    alert(JSON.stringify(story.storyBlocks, null, 2));
+    alert(JSON.stringify(story, null, 2));
   }
 
   return (
     <div>
-      {/* TODO: @Tanner - Make this a required text input */}
-      <Typography variant="h3">{story.title}</Typography>
-
-      <TextField
-        id="outlined-multiline-static"
+      <StyledTextField
+        id="story-title-field"
+        label="Title"
+        variant="outlined"
+        fullWidth
+        onChange={event => dispatch(updateTitle(event.target.value))}
+        defaultValue={story ? story.title : ''}
+      />
+      <StyledTextField
+        id="story-description-field"
         label="Description"
         multiline
         rows="2"
         variant="outlined"
         fullWidth
+        onChange={event => dispatch(updateDescription(event.target.value))}
+        defaultValue={story ? story.description : ''}
       />
 
       <SortableList storyBlocks={story.storyBlocks} />
@@ -56,4 +67,8 @@ export default function StoryForm() {
 const ButtonWithLeftIcon = styled(Button)({
   // left margin is 0px to prevent indent
   margin: '10px 10px 10px 0px'
+});
+
+const StyledTextField = styled(TextField)({
+  paddingBottom: '10px'
 });
