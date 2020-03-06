@@ -1,4 +1,4 @@
-import { Button, styled, Typography } from '@material-ui/core';
+import { Button, styled, Typography, TextField } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SaveIcon from '@material-ui/icons/Save';
 import React from 'react';
@@ -19,8 +19,15 @@ export default function StoryForm() {
     <div>
       {/* TODO: @Tanner - Make this a required text input */}
       <Typography variant="h3">{story.title}</Typography>
-      {/* TODO: @Kevin - Make this a required text input */}
-      <Typography variant="h5">{story.description}</Typography>
+
+      <TextField
+        id="outlined-multiline-static"
+        label="Description"
+        multiline
+        rows="2"
+        variant="outlined"
+        fullWidth
+      />
 
       <SortableList storyBlocks={story.storyBlocks} />
 
