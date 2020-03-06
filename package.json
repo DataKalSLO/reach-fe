@@ -27,7 +27,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "ts-react-google-login-component": "^1.1.2",
+    "ts-react-google-login-component": "1.1.2",
     "typescript": "~3.7.2",
     "uuidv4": "^6.0.5"
   },
