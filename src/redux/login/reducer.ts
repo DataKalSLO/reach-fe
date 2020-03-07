@@ -1,7 +1,8 @@
 import { LOGIN, LOGOUT, UserActionTypes, User } from './types';
 
 const initialState: User = {
-  email: ''
+  email: '',
+  token: ''
 };
 export function userReducer(
   state = initialState,
@@ -11,7 +12,7 @@ export function userReducer(
     case LOGIN:
       return action.payload;
     case LOGOUT:
-      return { email: '' };
+      return { email: '', token: '' };
     default:
       return state;
   }

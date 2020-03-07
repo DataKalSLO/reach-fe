@@ -10,6 +10,7 @@
     "@types/node": "^12.0.0",
     "@types/react-dom": "^16.9.0",
     "@types/react-redux": "^7.1.7",
+    "array-move": "^2.2.1",
     "connected-react-router": "^6.7.0",
     "core-js": "^3.6.4",
     "draft-js": "^0.11.4",
@@ -31,8 +32,8 @@
     "start": "npm run lint && react-scripts start",
     "start-no-lint": "react-scripts start",
     "build": "npm run lint && react-scripts build",
-    "lint": "eslint . --ext .ts,.tsx",
-    "lint-fix": "eslint . --fix --ext .ts,.tsx",
+    "lint": "eslint . --ext .ts,.tsx,.js",
+    "lint-fix": "eslint . --fix --ext .ts,.tsx,.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
