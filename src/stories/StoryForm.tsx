@@ -26,16 +26,18 @@ export default function StoryForm() {
         label="Title"
         variant="outlined"
         fullWidth
+        required
         onChange={event => dispatch(updateTitle(event.target.value))}
         defaultValue={story ? story.title : ''}
       />
       <StyledTextField
         id="story-description-field"
         label="Description"
+        variant="outlined"
         multiline
         rows="2"
-        variant="outlined"
         fullWidth
+        required
         onChange={event => dispatch(updateDescription(event.target.value))}
         defaultValue={story ? story.description : ''}
       />
