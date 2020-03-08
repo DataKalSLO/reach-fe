@@ -12,23 +12,30 @@ import {
   MapBlock,
   MAP_BLOCK_TYPE
 } from './StoryTypes';
+import { Typography } from '@material-ui/core';
 
-export function storyToHTML(story: Story): JSX.Element {
-  return <div>{story.storyBlocks.map(block => blockToHTML(block))}</div>;
+export function storyAsJSX(story: Story): JSX.Element {
+  return (
+    <div>
+      <Typography variant="h1">{story.title}</Typography>
+      <Typography variant="subtitle1">{story.description}</Typography>
+      {story.storyBlocks.map(block => blockAsJSX(block))}
+    </div>
+  );
 }
 
-function blockToHTML(storyBlock: StoryBlock): JSX.Element {
+function blockAsJSX(storyBlock: StoryBlock): JSX.Element {
   switch (storyBlock.type) {
     case TEXT_BLOCK_TYPE:
-      return textBlockToHTML(storyBlock);
+      return textBlockAsJSX(storyBlock);
     case GRAPH_BLOCK_TYPE:
-      return graphBlockToHTML(storyBlock);
+      return graphBlockAsJSX(storyBlock);
     case MAP_BLOCK_TYPE:
-      return mapBlockToHTML(storyBlock);
+      return mapBlockAsJSX(storyBlock);
   }
 }
 
-function textBlockToHTML(textBlock: TextBlock): JSX.Element {
+function textBlockAsJSX(textBlock: TextBlock): JSX.Element {
   const rawContentState = convertToRaw(
     textBlock.editorState.getCurrentContent()
   );
@@ -36,10 +43,10 @@ function textBlockToHTML(textBlock: TextBlock): JSX.Element {
   return <div> {ReactHtmlParser(markup)} </div>;
 }
 
-function graphBlockToHTML(graphBlock: GraphBlock): JSX.Element {
+function graphBlockAsJSX(graphBlock: GraphBlock): JSX.Element {
   return <div>Graph Block conversion not yet implemented</div>;
 }
 
-function mapBlockToHTML(mapBlock: MapBlock): JSX.Element {
+function mapBlockAsJSX(mapBlock: MapBlock): JSX.Element {
   return <div>Map Block conversion not yet implemented</div>;
 }
