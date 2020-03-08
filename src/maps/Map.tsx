@@ -8,10 +8,18 @@ import { markerData } from '../common/assets/Local Data/MockMarkerData';
 
 function Map() {
   const [layerSelection, setLayerSelection] = useState([markerData[0]]);
+  const [selectedMarker, setSelectedMarker] = useState([]);
   return (
     <div>
-      <LayersComponent layerSelection={layerSelection} setLayerSelection={setLayerSelection} />
-      <MapView layerSelection={layerSelection} />
+      <LayersComponent
+        layerSelection={layerSelection}
+        setLayerSelection={setLayerSelection}
+      />
+      <MapView
+        layerSelection={layerSelection}
+        selectedMarker={selectedMarker}
+        setSelectedMarker={setSelectedMarker}
+      />
       <BasicButtonGroup />
       <SourceLabels />
       <VintageComponent />

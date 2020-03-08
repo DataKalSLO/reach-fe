@@ -58,26 +58,30 @@ interface LayersComponentProps {
       };
     }[][];
   }[];
-  setLayerSelection: React.Dispatch<React.SetStateAction<{
-    type: string;
-    name: string;
-    features: {
-      type: string;
-      geometry: {
+  setLayerSelection: React.Dispatch<
+    React.SetStateAction<
+      {
         type: string;
-        coordinates: number[];
-      };
-      properties: {
         name: string;
-      };
-    }[][];
-  }[]>>
+        features: {
+          type: string;
+          geometry: {
+            type: string;
+            coordinates: number[];
+          };
+          properties: {
+            name: string;
+          };
+        }[][];
+      }[]
+    >
+  >;
 }
 
 // this function creates the multi-seletion autocomplete component
 export default function LayersComponent(props: LayersComponentProps) {
-  let { layerSelection, setLayerSelection } = props;
   const classes = useStyles();
+  const { layerSelection, setLayerSelection } = props;
   return (
     <div className={classes.root}>
       <Autocomplete
@@ -95,9 +99,7 @@ export default function LayersComponent(props: LayersComponentProps) {
         filterSelectedOptions
         // informs the layerSelection variable with the user's selection
         // likely need more logic here to understand whether user wants points or overlay
-        onChange={(event, value) => (
-          setLayerSelection(value)
-        )}
+        onChange={(event, value) => setLayerSelection(value)}
         renderInput={params => (
           <TextField
             {...params}

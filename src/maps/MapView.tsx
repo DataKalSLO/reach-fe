@@ -48,10 +48,21 @@ interface MapViewProps {
       };
     }[][];
   }[];
+  selectedMarker: {
+    type: string;
+    geometry: {
+      type: string;
+      coordinates: number[];
+    };
+    properties: {
+      name: string;
+    };
+  }[];
+  setSelectedMarker: React.Dispatch<React.SetStateAction<never[]>>;
 }
 
 function MapView(props: MapViewProps) {
-  const { layerSelection } = props;
+  const { layerSelection, selectedMarker, setSelectedMarker } = props;
   // React-Map-GL State
   const prepped = prepGeo(features);
   const data = GeoJSON.parse(prepped, { GeoJSON: 'geometry' });
@@ -104,10 +115,10 @@ function MapView(props: MapViewProps) {
     zoom: 8
   });
 
-  const [
-    selectedInstitutions,
-    setSelectedInstitution
-  ] = React.useState<null | LocationFeatures>(null);
+  // const [
+  //   selectedInstitutions,
+  //   setSelectedInstitution
+  // ] = React.useState<null | LocationFeatures>(null);
 
   useEffect(() => {
     const minVal = getStat(features, _.minBy, selection);
@@ -173,26 +184,18 @@ function MapView(props: MapViewProps) {
         .map(function(collection: any) {
           return markers(
             collection.features,
-            setSelectedInstitution,
+            setSelectedMarker,
+            selectedMarker,
             colorAssociation,
             collection.name
           );
         })
         .flat()}
-      {selectedInstitutions ? (
-        <Popup
-          latitude={selectedInstitutions.geometry.coordinates[0]}
-          longitude={selectedInstitutions.geometry.coordinates[1]}
-          anchor="bottom"
-          onClose={() => {
-            setSelectedInstitution(null);
-          }}
-          // magic number to center the pop-up tooltip
-          offsetLeft={18}
-        >
-          <div>{selectedInstitutions.properties.name}</div>
-        </Popup>
-      ) : null}
+      {selectedMarker
+        ? selectedMarker.map(function(selected) {
+            return popups(selected, setSelectedMarker, selectedMarker);
+          })
+        : null}
     </ReactMapGL>
   ) : (
     <div
@@ -267,7 +270,8 @@ function quantileMaker(colorScale: any, quantiles: any, min: any, max: any) {
 
 function markers(
   features: any,
-  setSelectedInstitution: any,
+  setSelectedMarker: any,
+  selectedMarker: any,
   colorAssociation: any,
   layer: string
 ) {
@@ -278,15 +282,11 @@ function markers(
         latitude={location[0].geometry.coordinates[0]}
         longitude={location[0].geometry.coordinates[1]}
       >
-        {
-          // Clicking adds the location to the list and logs the name to console,
-          // have not handled unclicking
-        }
         <button
           className="marker-button"
           onClick={event => {
             event.preventDefault();
-            setSelectedInstitution(location[0]);
+            setSelectedMarker(selectedMarker.concat(location[0]));
             console.log(location[0].properties.name);
           }}
         >
@@ -297,6 +297,46 @@ function markers(
       </Marker>
     );
   });
+}
+
+function popups(
+  marker: {
+    type: string;
+    geometry: {
+      type: string;
+      coordinates: number[];
+    };
+    properties: {
+      name: string;
+    };
+  },
+  setSelectedMarker: any,
+  selectedMarker: any
+) {
+  return (
+    <Popup
+      latitude={marker.geometry.coordinates[0]}
+      longitude={marker.geometry.coordinates[1]}
+      anchor="bottom"
+      onClose={() => {
+        setSelectedMarker(
+          selectedMarker.filter(
+            (obj: {
+              type: string;
+              geometry: { type: string; coordinates: number[] };
+              properties: { name: string };
+            }) => obj !== marker
+          )
+        );
+      }}
+      closeOnClick={false}
+      sortByDepth={true}
+      // magic number to center the pop-up tooltip
+      offsetLeft={18}
+    >
+      <div>{marker.properties.name}</div>
+    </Popup>
+  );
 }
 
 export default MapView;
