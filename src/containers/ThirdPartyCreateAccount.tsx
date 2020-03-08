@@ -1,16 +1,16 @@
 import React from 'react';
 import { Button, styled } from '@material-ui/core';
-import AppleIcon from '@material-ui/icons/Apple';
+import GoogleIcon from '../icons/GoogleIcon';
 import BoxCenter from '../common/components/BoxCenter';
-import GoogleAuth from './GoogleAuth';
+import FacebookLogin, { FacebookLoginButtonStyle } from './FacebookLogin';
 
 function ThirdPartyCreateAccount() {
   return (
     <BoxCenterSized>
-      <GoogleAuth isRegistration={true} />
-      <StyledButton fullWidth variant="outlined" endIcon={<AppleIcon />}>
-        Continue with Apple
+      <StyledButton fullWidth variant="outlined" endIcon={<GoogleIcon />}>
+        Continue with Google
       </StyledButton>
+      <FacebookLogin style={FacebookLoginButtonStyle.ContinueWith} />
     </BoxCenterSized>
   );
 }
