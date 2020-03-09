@@ -22,6 +22,7 @@ import {
   MY_STUFF,
   MY_STUFF_NAME,
   LOGIN,
+  LOGIN_NAME,
   CREATE_ACCOUNT
 } from './constants';
 import AccountDropdown from '../containers/AccountDropdown';
@@ -113,18 +114,24 @@ function AppBar() {
         </Grid>
       </Grid>
       <Grid item>
-        <MenuButton
-          name={MY_STUFF_NAME}
-          navigateToRoute={navigateTo(MY_STUFF)}
-        />
-        <IconButton
-          onClick={handleClickListItem}
-          aria-haspopup="true"
-          aria-controls="menu"
-        >
-          <AccountCircleIcon fontSize="large" />
-        </IconButton>
-        <AccountDropdown anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
+        {user.email ? (
+          <React.Fragment>
+            <MenuButton
+              name={MY_STUFF_NAME}
+              navigateToRoute={navigateTo(MY_STUFF)}
+            />
+            <IconButton
+              onClick={handleClickListItem}
+              aria-haspopup="true"
+              aria-controls="menu"
+            >
+              <AccountCircleIcon fontSize="large" />
+            </IconButton>
+            <AccountDropdown anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
+          </React.Fragment>
+        ) : (
+          <MenuButton name={LOGIN_NAME} navigateToRoute={navigateTo(LOGIN)} />
+        )}
       </Grid>
     </Grid>
   );
