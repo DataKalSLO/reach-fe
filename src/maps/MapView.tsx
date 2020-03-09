@@ -1,5 +1,11 @@
-import React, { useEffect } from 'react';
-import ReactMapGL, { Source, Layer, Marker, Popup } from 'react-map-gl';
+import React, { useEffect, SetStateAction, Dispatch } from 'react';
+import ReactMapGL, {
+  Source,
+  Layer,
+  Marker,
+  Popup,
+  ViewportProps
+} from 'react-map-gl';
 import { SLO_LATITUDE, SLO_LONGITUDE } from './constants';
 import features from '../common/assets/Local Data/census/b25053.js';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -8,8 +14,9 @@ import chroma from 'chroma-js';
 import _ from 'lodash';
 import Tooltip from './Tooltip';
 import { blue, purple, red } from '@material-ui/core/colors';
-import { Button } from '@material-ui/core';
+import { Button, Color } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
+import { MapViewProps } from './MapTypes';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
 
@@ -21,46 +28,6 @@ const defaultHoveredLocation = {
   },
   noLocation: true
 };
-
-interface LocationFeatures {
-  type: string;
-  geometry: {
-    type: string;
-    coordinates: Array<number>;
-  };
-  properties: {
-    name: string;
-  };
-}
-
-// type interface for props passed in Map.tsx
-interface MapViewProps {
-  layerSelection: {
-    type: string;
-    name: string;
-    features: {
-      type: string;
-      geometry: {
-        type: string;
-        coordinates: number[];
-      };
-      properties: {
-        name: string;
-      };
-    }[][];
-  }[];
-  selectedMarker: {
-    type: string;
-    geometry: {
-      type: string;
-      coordinates: number[];
-    };
-    properties: {
-      name: string;
-    };
-  }[];
-  setSelectedMarker: React.Dispatch<React.SetStateAction<never[]>>;
-}
 
 function MapView(props: MapViewProps) {
   const { layerSelection, selectedMarker, setSelectedMarker } = props;
@@ -99,7 +66,9 @@ function MapView(props: MapViewProps) {
   const [colorAssociation, setColorAssociation] = React.useState({});
 
   useEffect(() => {
-    const newColorAssociation: any = {};
+    const newColorAssociation: {
+      [name: string]: { [color: string]: string };
+    } = {};
     layerSelection.forEach((layer, index) => {
       newColorAssociation[layer.name] = markerColors[index];
     });
@@ -110,12 +79,31 @@ function MapView(props: MapViewProps) {
   }, [layerSelection]);
 
   const [viewport, setViewport]: any = React.useState({
-    width: '100%',
-    height: '60vh',
+    width: 790,
+    height: 600,
     latitude: SLO_LATITUDE,
     longitude: SLO_LONGITUDE,
     zoom: 8
   });
+
+  // TODO: Make the types work
+  //   const [viewport, setViewport]: [
+  //     ViewportProps,
+  //     Dispatch<SetStateAction<ViewportProps>>
+  //   ] = React.useState({
+  //     width: 790,
+  //     height: 600,
+  //     latitude: SLO_LATITUDE,
+  //     longitude: SLO_LONGITUDE,
+  //     zoom: 8,
+  //     bearing: 0,
+  //     pitch: 0,
+  //     altitude: 1.5,
+  //     maxZoom: 20,
+  //     minZoom: 0,
+  //     maxPitch: 60,
+  //     minPitch: 0
+  //  });
 
   useEffect(() => {
     const minVal = getStat(features, _.minBy, selection);
@@ -178,7 +166,7 @@ function MapView(props: MapViewProps) {
       </Source>
       {renderTooltip()}
       {layerSelection
-        .map(function(collection: any) {
+        .map((collection: any) => {
           return markers(
             collection.features,
             setSelectedMarker,
