@@ -106,7 +106,7 @@ function MapView(props: MapViewProps) {
     });
 
     setColorAssociation(newColorAssociation);
-  }, [layerSelection]);
+  }, [layerSelection, markerColors]);
 
   const [viewport, setViewport]: any = React.useState({
     width: '100%',
