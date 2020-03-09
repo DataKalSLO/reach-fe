@@ -106,7 +106,9 @@ function MapView(props: MapViewProps) {
     });
 
     setColorAssociation(newColorAssociation);
-  }, [layerSelection, markerColors]);
+    // This disable prevents an eslint quickfix from createing a circular dependency and freezeing the screen
+    // eslint-disable-next-line
+  }, [layerSelection]);
 
   const [viewport, setViewport]: any = React.useState({
     width: '100%',
