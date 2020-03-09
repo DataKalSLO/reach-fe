@@ -15,7 +15,6 @@ const dat: any = {
   statistics_of_businesses: require('../common/assets/Local Data/statistics_of_businesses_2016.json')
 };
 
-
 const dataInfo = getDataInfo(dat[dataset][0]);
 const processedData = processData(
   dat[dataset],
@@ -36,52 +35,51 @@ const data = processedData['1']['full_region'].map((item: any) => {
 const drilldownPush: SeriesOptionsType[] = [];
 
 const drilldown1 = Object.keys(processedData['2']).forEach((item: any) => {
-    const drilldownObject : any = [];
-    const id: String = " ";
-    processedData['2'][item].forEach((item2: any)=> {
-        drilldownObject.push(
-        {
-            name: item2.name,
-            y:item2.totalAwardValue,
-            drilldown: item2.name
-        }
-        )
+  const drilldownObject: any = [];
+  const id = ' ';
+  processedData['2'][item].forEach((item2: any) => {
+    drilldownObject.push({
+      name: item2.name,
+      y: item2.totalAwardValue,
+      drilldown: item2.name
+    });
   });
   drilldownPush.push({
-      type:'column',
-      id: item,
-      data: drilldownObject
-  })
+    type: 'column',
+    id: item,
+    name:'Cities',
+    data: drilldownObject
+  });
 });
 
-
 const drilldown2 = Object.keys(processedData['3']).forEach((item: any) => {
-    const drilldownObject : any = [];
-    const id: String = " ";
-    processedData['3'][item].forEach((item2: any)=> {
-        drilldownObject.push(
-        [item2.recipientName,item2.totalAwardValue]
-        )
+  const drilldownObject: any = [];
+  const id = ' ';
+  processedData['3'][item].forEach((item2: any) => {
+    drilldownObject.push([item2.recipientName, item2.totalAwardValue]);
   });
   drilldownPush.push({
-      type:'column',
-      id: item,
-      data: drilldownObject
-  })
+    type: 'column',
+    id: item,
+    name: "Companies",
+    data: drilldownObject
+  });
 });
 
 const options: Highcharts.Options = {
   title: {
-    text: 'drilldown'
+    text: 'Department of Defense Contract 2018'
   },
   xAxis: {
     type: 'category'
   },
-
+  chart: {
+    height: '100%'
+  },
   series: [
     {
       type: 'column',
-      name: 'Month',
+      name: 'Counties',
       colorByPoint: true,
       data: data
     }

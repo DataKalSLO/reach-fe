@@ -13,7 +13,6 @@ import CastForEducationIcon from '@material-ui/icons/CastForEducation';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
 
-
 function VizBuilder() {
   return (
     <Box
@@ -49,7 +48,7 @@ function VizBuilder() {
           <Grid item xs={12}>
             <GraphContainer />
           </Grid>
-        </SplitterLayout>        
+        </SplitterLayout>
         <Grid
           container
           direction="row"
