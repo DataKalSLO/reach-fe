@@ -79,8 +79,8 @@ function MapView(props: MapViewProps) {
   }, [layerSelection]);
 
   const [viewport, setViewport]: any = React.useState({
-    width: 790,
-    height: 600,
+    width: '100%',
+    height: '60%',
     latitude: SLO_LATITUDE,
     longitude: SLO_LONGITUDE,
     zoom: 8
