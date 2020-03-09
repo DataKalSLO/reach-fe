@@ -5,6 +5,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
+import { Box } from '@material-ui/core';
 
 // number of allowed selections, subject to change based on ui/ux and graph team suggestions
 const ALLOWED_SELECTIONS = 2;
@@ -76,14 +77,99 @@ interface LayersComponentProps {
       }[]
     >
   >;
+  selectedMarker: {
+    type: string;
+    geometry: {
+      type: string;
+      coordinates: number[];
+    };
+    properties: {
+      name: string;
+    };
+  }[];
+  setSelectedMarker: React.Dispatch<React.SetStateAction<never[]>>;
+}
+
+// handles change of selection
+// ensures that popups will not stay when their markers disappear
+function handleChange(
+  value: any,
+  layerSelection: {
+    type: string;
+    name: string;
+    features: {
+      type: string;
+      geometry: {
+        type: string;
+        coordinates: number[];
+      };
+      properties: {
+        name: string;
+      };
+    }[][];
+  }[],
+  setLayerSelection: React.Dispatch<
+    React.SetStateAction<
+      {
+        type: string;
+        name: string;
+        features: {
+          type: string;
+          geometry: {
+            type: string;
+            coordinates: number[];
+          };
+          properties: {
+            name: string;
+          };
+        }[][];
+      }[]
+    >
+  >,
+  setSelectedMarker: any,
+  selectedMarker: {
+    type: string;
+    geometry: {
+      type: string;
+      coordinates: number[];
+    };
+    properties: {
+      name: string;
+    };
+  }[]
+) {
+  setLayerSelection(value);
+  const allSelections: string[] = [];
+  value.map(function(table: { features: any[] }) {
+    table.features.map(function(items) {
+      items.map(function(selection: { properties: { name: string } }) {
+        allSelections.push(selection.properties.name);
+      });
+    });
+  });
+  setSelectedMarker(
+    selectedMarker.filter(
+      (obj: {
+        type: string;
+        geometry: { type: string; coordinates: number[] };
+        properties: { name: string };
+      }) => obj.properties.name in allSelections
+    )
+  );
+  console.log(selectedMarker);
 }
 
 // this function creates the multi-seletion autocomplete component
 export default function LayersComponent(props: LayersComponentProps) {
   const classes = useStyles();
-  const { layerSelection, setLayerSelection } = props;
+  const {
+    layerSelection,
+    setLayerSelection,
+    selectedMarker,
+    setSelectedMarker
+  } = props;
   return (
-    <div className={classes.root}>
+    <Box className={classes.root}>
       <Autocomplete
         multiple
         id="tags-outlined"
@@ -99,7 +185,15 @@ export default function LayersComponent(props: LayersComponentProps) {
         filterSelectedOptions
         // informs the layerSelection variable with the user's selection
         // likely need more logic here to understand whether user wants points or overlay
-        onChange={(event, value) => setLayerSelection(value)}
+        onChange={(event, value) =>
+          handleChange(
+            value,
+            layerSelection,
+            setLayerSelection,
+            setSelectedMarker,
+            selectedMarker
+          )
+        }
         renderInput={params => (
           <TextField
             {...params}
@@ -110,6 +204,6 @@ export default function LayersComponent(props: LayersComponentProps) {
           />
         )}
       />
-    </div>
+    </Box>
   );
 }

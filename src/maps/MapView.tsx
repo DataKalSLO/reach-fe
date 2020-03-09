@@ -191,11 +191,9 @@ function MapView(props: MapViewProps) {
           );
         })
         .flat()}
-      {selectedMarker
-        ? selectedMarker.map(function(selected) {
-            return popups(selected, setSelectedMarker, selectedMarker);
-          })
-        : null}
+      {selectedMarker.map(function(selected) {
+        return popups(selected, setSelectedMarker, selectedMarker);
+      })}
     </ReactMapGL>
   ) : (
     <div
@@ -311,10 +309,20 @@ function popups(
     };
   },
   setSelectedMarker: any,
-  selectedMarker: any
+  selectedMarker: {
+    type: string;
+    geometry: {
+      type: string;
+      coordinates: number[];
+    };
+    properties: {
+      name: string;
+    };
+  }[]
 ) {
   return (
     <Popup
+      key={marker.properties.name}
       latitude={marker.geometry.coordinates[0]}
       longitude={marker.geometry.coordinates[1]}
       anchor="bottom"

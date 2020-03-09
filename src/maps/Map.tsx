@@ -14,6 +14,8 @@ function Map() {
       <LayersComponent
         layerSelection={layerSelection}
         setLayerSelection={setLayerSelection}
+        selectedMarker={selectedMarker}
+        setSelectedMarker={setSelectedMarker}
       />
       <MapView
         layerSelection={layerSelection}
