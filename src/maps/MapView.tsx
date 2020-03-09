@@ -101,7 +101,6 @@ function MapView(props: MapViewProps) {
   useEffect(() => {
     const newColorAssociation: any = {};
     layerSelection.forEach((layer, index) => {
-      console.log(index);
       newColorAssociation[layer.name] = markerColors[index];
     });
 
@@ -297,9 +296,9 @@ function markers(
         <MarkerButton
           onClick={event => {
             event.preventDefault();
-            selectedMarker.includes(location[0])
-              ? console.log('duplicate selection not added')
-              : setSelectedMarker(selectedMarker.concat(location[0]));
+            if (!selectedMarker.includes(location[0])) {
+              setSelectedMarker(selectedMarker.concat(location[0]));
+            }
           }}
         >
           <div>

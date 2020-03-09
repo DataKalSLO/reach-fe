@@ -140,9 +140,9 @@ function handleChange(
 ) {
   setLayerSelection(value);
   const allSelections: string[] = [];
-  value.map((table: { features: any[] }) => {
-    table.features.map(items => {
-      items.map((selection: { properties: { name: string } }) => {
+  value.forEach((table: { features: any[] }) => {
+    table.features.forEach(items => {
+      items.forEach((selection: { properties: { name: string } }) => {
         allSelections.push(selection.properties.name);
       });
     });
@@ -156,7 +156,6 @@ function handleChange(
       }) => obj.properties.name in allSelections
     )
   );
-  console.log(selectedMarker);
 }
 
 // this function creates the multi-seletion autocomplete component

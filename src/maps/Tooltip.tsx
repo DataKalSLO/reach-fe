@@ -40,7 +40,7 @@ function addCommas(x: number) {
 }
 
 // get the cities corresponding with the given zip
-function correspondingCities(zip: any) {
+function correspondingCities(zip: string) {
   const result = Object.keys(CCSR_CITY_ZIPS).filter((key: string) =>
     CCSR_CITY_ZIPS[key].includes(zip)
   );
