@@ -87,14 +87,26 @@ interface LayersComponentProps {
       name: string;
     };
   }[];
-  setSelectedMarker: React.Dispatch<React.SetStateAction<never[]>>;
+  setSelectedMarker: React.Dispatch<
+    React.SetStateAction<
+      {
+        type: string;
+        geometry: {
+          type: string;
+          coordinates: number[];
+        };
+        properties: {
+          name: string;
+        };
+      }[]
+    >
+  >;
 }
 
 // handles change of selection
 // ensures that popups will not stay when their markers disappear
 function handleChange(
-  value: any,
-  layerSelection: {
+  value: {
     type: string;
     name: string;
     features: {
@@ -126,7 +138,20 @@ function handleChange(
       }[]
     >
   >,
-  setSelectedMarker: any,
+  setSelectedMarker: React.Dispatch<
+    React.SetStateAction<
+      {
+        type: string;
+        geometry: {
+          type: string;
+          coordinates: number[];
+        };
+        properties: {
+          name: string;
+        };
+      }[]
+    >
+  >,
   selectedMarker: {
     type: string;
     geometry: {
@@ -140,13 +165,26 @@ function handleChange(
 ) {
   setLayerSelection(value);
   const allSelections: string[] = [];
-  value.forEach((table: { features: any[] }) => {
-    table.features.forEach(items => {
-      items.forEach((selection: { properties: { name: string } }) => {
-        allSelections.push(selection.properties.name);
+  value.forEach(
+    (table: {
+      features: {
+        type: string;
+        geometry: {
+          type: string;
+          coordinates: number[];
+        };
+        properties: {
+          name: string;
+        };
+      }[][];
+    }) => {
+      table.features.forEach(items => {
+        items.forEach((selection: { properties: { name: string } }) => {
+          allSelections.push(selection.properties.name);
+        });
       });
-    });
-  });
+    }
+  );
   setSelectedMarker(
     selectedMarker.filter(
       (obj: {
@@ -187,7 +225,6 @@ export default function LayersComponent(props: LayersComponentProps) {
         onChange={(event, value) =>
           handleChange(
             value,
-            layerSelection,
             setLayerSelection,
             setSelectedMarker,
             selectedMarker

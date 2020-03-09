@@ -8,7 +8,9 @@ import { markerData } from '../common/assets/Local Data/MockMarkerData';
 
 function Map() {
   const [layerSelection, setLayerSelection] = useState([markerData[0]]);
-  const [selectedMarker, setSelectedMarker] = useState([]);
+  const [selectedMarker, setSelectedMarker] = useState(
+    markerData[0].features[0]
+  );
   return (
     <div>
       <LayersComponent
