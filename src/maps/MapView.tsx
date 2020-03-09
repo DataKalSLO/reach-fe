@@ -59,7 +59,20 @@ interface MapViewProps {
       name: string;
     };
   }[];
-  setSelectedMarker: React.Dispatch<React.SetStateAction<never[]>>;
+  setSelectedMarker: React.Dispatch<
+    React.SetStateAction<
+      {
+        type: string;
+        geometry: {
+          type: string;
+          coordinates: number[];
+        };
+        properties: {
+          name: string;
+        };
+      }[]
+    >
+  >;
 }
 
 function MapView(props: MapViewProps) {
