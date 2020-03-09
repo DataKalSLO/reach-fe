@@ -1,17 +1,11 @@
-// DEMO: accessing story state from Redux
-//
-// PLEASE DON'T CODE REVIEW THIS FILE
-// It will be completely rewritten in a future PR.
-
-import React from 'react';
+import { Button, styled, Typography } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import SaveIcon from '@material-ui/icons/Save';
-import { Button } from '@material-ui/core';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { createEmptyTextBlock } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
-import { updateTextBlock } from '../redux/story/actions';
-import RichTextEditor from './RichTextEditor';
-import { TextBlock } from './StoryTypes';
-import { EditorState } from 'draft-js';
+import SortableList from '../stories/SortableList';
 
 export default function StoryForm() {
   const dispatch = useDispatch();
@@ -19,28 +13,40 @@ export default function StoryForm() {
 
   function saveStory() {
     alert(JSON.stringify(story.storyBlocks, null, 2));
-    console.log(JSON.stringify(story));
-    return story;
   }
 
   return (
     <div>
-      <h1>{story.title}</h1>
-      <h4>{story.description}</h4>
-      <RichTextEditor
-        editorState={(story.storyBlocks[0] as TextBlock).editorState}
-        setEditorState={(editorState: EditorState) =>
-          dispatch(updateTextBlock(0, editorState))
-        }
-      />
-      <Button
+      {/* TODO: @Tanner - Make this a required text input */}
+      <Typography variant="h3">{story.title}</Typography>
+      {/* TODO: @Kevin - Make this a required text input */}
+      <Typography variant="h5">{story.description}</Typography>
+
+      <SortableList storyBlocks={story.storyBlocks} />
+
+      {/* TODO: @Daniel - Move buttons to toolbar */}
+      <ButtonWithLeftIcon
+        variant="contained"
+        color="primary"
+        onClick={() => dispatch(createEmptyTextBlock())}
+        startIcon={<AddIcon />}
+      >
+        Add Text Block
+      </ButtonWithLeftIcon>
+
+      <ButtonWithLeftIcon
         variant="contained"
         color="primary"
         onClick={saveStory}
         startIcon={<SaveIcon />}
       >
         Save Story
-      </Button>
+      </ButtonWithLeftIcon>
     </div>
   );
 }
+
+const ButtonWithLeftIcon = styled(Button)({
+  // left margin is 0px to prevent indent
+  margin: '10px 10px 10px 0px'
+});
