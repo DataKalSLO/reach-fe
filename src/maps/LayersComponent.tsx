@@ -4,8 +4,16 @@ import React from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { markerData } from '../common/assets/Local Data/MockMarkerData';
 import { Box } from '@material-ui/core';
+import { markerData } from '../common/assets/Local Data/MockMarkerData';
+import {
+  LocationFeatures,
+  LayersComponentProps,
+  LayerSelection,
+  SetLayerSelection,
+  SelectedMarker,
+  SetSelectedMarker
+} from './MapTypes';
 
 // number of allowed selections, subject to change based on ui/ux and graph team suggestions
 const ALLOWED_SELECTIONS = 2;
@@ -28,140 +36,15 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 // this is how we show everything in options (disable none)
-const showAll: {
-  type: string;
-  name: string;
-  features: {
-    type: string;
-    geometry: {
-      type: string;
-      coordinates: number[];
-    };
-    properties: {
-      name: string;
-    };
-  }[][];
-}[] = [];
-
-// type interface for props passed in Map.tsx
-interface LayersComponentProps {
-  layerSelection: {
-    type: string;
-    name: string;
-    features: {
-      type: string;
-      geometry: {
-        type: string;
-        coordinates: number[];
-      };
-      properties: {
-        name: string;
-      };
-    }[][];
-  }[];
-  setLayerSelection: React.Dispatch<
-    React.SetStateAction<
-      {
-        type: string;
-        name: string;
-        features: {
-          type: string;
-          geometry: {
-            type: string;
-            coordinates: number[];
-          };
-          properties: {
-            name: string;
-          };
-        }[][];
-      }[]
-    >
-  >;
-  selectedMarker: {
-    type: string;
-    geometry: {
-      type: string;
-      coordinates: number[];
-    };
-    properties: {
-      name: string;
-    };
-  }[];
-  setSelectedMarker: React.Dispatch<
-    React.SetStateAction<
-      {
-        type: string;
-        geometry: {
-          type: string;
-          coordinates: number[];
-        };
-        properties: {
-          name: string;
-        };
-      }[]
-    >
-  >;
-}
+const showAll: LayerSelection = [];
 
 // handles change of selection
 // ensures that popups will not stay when their markers disappear
 function handleChange(
-  value: {
-    type: string;
-    name: string;
-    features: {
-      type: string;
-      geometry: {
-        type: string;
-        coordinates: number[];
-      };
-      properties: {
-        name: string;
-      };
-    }[][];
-  }[],
-  setLayerSelection: React.Dispatch<
-    React.SetStateAction<
-      {
-        type: string;
-        name: string;
-        features: {
-          type: string;
-          geometry: {
-            type: string;
-            coordinates: number[];
-          };
-          properties: {
-            name: string;
-          };
-        }[][];
-      }[]
-    >
-  >,
-  setSelectedMarker: React.Dispatch<
-    React.SetStateAction<
-      {
-        type: string;
-        geometry: {
-          type: string;
-          coordinates: number[];
-        };
-        properties: {
-          name: string;
-        };
-      }[]
-    >
-  >,
-  selectedMarker: {
-    type: string;
-    geometry: {
-      type: string;
-      coordinates: number[];
-    };
-    properties: {
-      name: string;
-    };
-  }[]
+  value: LayerSelection,
+  setLayerSelection: SetLayerSelection,
+  setSelectedMarker: SetSelectedMarker,
+  selectedMarker: SelectedMarker
 ) {
   setLayerSelection(value);
   const allSelections: string[] = [];
@@ -187,11 +70,7 @@ function handleChange(
   );
   setSelectedMarker(
     selectedMarker.filter(
-      (obj: {
-        type: string;
-        geometry: { type: string; coordinates: number[] };
-        properties: { name: string };
-      }) => obj.properties.name in allSelections
+      (obj: LocationFeatures) => obj.properties.name in allSelections
     )
   );
 }
