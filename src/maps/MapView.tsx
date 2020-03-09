@@ -284,8 +284,9 @@ function markers(
           className="marker-button"
           onClick={event => {
             event.preventDefault();
-            setSelectedMarker(selectedMarker.concat(location[0]));
-            console.log(location[0].properties.name);
+            selectedMarker.includes(location[0])
+              ? console.log('duplicate selection not added')
+              : setSelectedMarker(selectedMarker.concat(location[0]));
           }}
         >
           <div>
