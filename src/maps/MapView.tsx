@@ -8,7 +8,8 @@ import chroma from 'chroma-js';
 import _ from 'lodash';
 import Tooltip from './Tooltip';
 import { blue, purple, red } from '@material-ui/core/colors';
-import { AirlineSeatReclineNormalRounded } from '@material-ui/icons';
+import { Button } from '@material-ui/core';
+import { styled } from '@material-ui/core/styles';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
 
@@ -191,7 +192,7 @@ function MapView(props: MapViewProps) {
           );
         })
         .flat()}
-      {selectedMarker.map(function(selected) {
+      {selectedMarker.map((selected: any) => {
         return popups(selected, setSelectedMarker, selectedMarker);
       })}
     </ReactMapGL>
@@ -223,7 +224,7 @@ function prepGeo(featureCollection: any) {
 }
 
 function getStat(features: any, extractionFunc: any, selection: any) {
-  const stat = extractionFunc(features, function(o: any) {
+  const stat = extractionFunc(features, (o: any) => {
     return o.properties[selection];
   });
   return stat.properties[selection];
@@ -257,14 +258,29 @@ function quantileMaker(colorScale: any, quantiles: any, min: any, max: any) {
       },
       { acc: min }
     );
-  const normalScale = dataScale.map(function(val: any, idx: any) {
+  const normalScale = dataScale.map((val: any, idx: any) => {
     return idx === 0 ? Math.round((min + 1 / max) * 100) / 100 : val / max;
   });
-  const chromaScale = normalScale.map(function(val: any) {
+  const chromaScale = normalScale.map((val: any) => {
     return colorScale(val).hex();
   });
   return _.zip(dataScale, chromaScale);
 }
+
+const MarkerButton = styled(Button)({
+  background: 'none',
+  border: 'none',
+  // More magic numbers to size the marker
+  cursor: 'pointer',
+  minWidth: '20px',
+  maxWidth: '20px',
+  minHeight: '30px',
+  maxHeight: '25px',
+  textTransform: 'none',
+  '&:hover': {
+    backgroundColor: 'transparent'
+  }
+});
 
 function markers(
   features: any,
@@ -273,15 +289,15 @@ function markers(
   colorAssociation: any,
   layer: string
 ) {
-  return features.map(function(location: any) {
+  return features.map((location: any) => {
+    const datapoint = location[0];
     return (
       <Marker
-        key={location[0].properties.name}
-        latitude={location[0].geometry.coordinates[0]}
-        longitude={location[0].geometry.coordinates[1]}
+        key={datapoint.properties.name}
+        latitude={datapoint.geometry.coordinates[0]}
+        longitude={datapoint.geometry.coordinates[1]}
       >
-        <button
-          className="marker-button"
+        <MarkerButton
           onClick={event => {
             event.preventDefault();
             selectedMarker.includes(location[0])
@@ -292,7 +308,7 @@ function markers(
           <div>
             <RoomIcon style={colorAssociation[layer]} />
           </div>
-        </button>
+        </MarkerButton>
       </Marker>
     );
   });
@@ -341,7 +357,7 @@ function popups(
       closeOnClick={false}
       sortByDepth={true}
       // magic number to center the pop-up tooltip
-      offsetLeft={18}
+      offsetLeft={10}
     >
       <div>{marker.properties.name}</div>
     </Popup>

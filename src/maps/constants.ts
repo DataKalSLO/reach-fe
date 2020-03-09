@@ -1,6 +1,7 @@
 export const SLO_LATITUDE = 35.2828;
 export const SLO_LONGITUDE = -120.6596;
 
+// CSSR stands for Central Coast Super Region
 export const CCSR_CITY_ZIPS: { [key: string]: string } = {
   'Paso Robles': '93446, 93447',
   Atascadero: '93422, 93423',
