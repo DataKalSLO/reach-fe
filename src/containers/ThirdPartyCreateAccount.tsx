@@ -23,7 +23,8 @@ const StyledButton = styled(Button)({
 });
 
 const BoxCenterSized = styled(BoxCenter)({
-  height: '115px',
+  justifyContent: 'space-around',
+  height: '200px',
   width: '200px'
 });
 
