@@ -140,9 +140,9 @@ function handleChange(
 ) {
   setLayerSelection(value);
   const allSelections: string[] = [];
-  value.map(function(table: { features: any[] }) {
-    table.features.map(function(items) {
-      items.map(function(selection: { properties: { name: string } }) {
+  value.map((table: { features: any[] }) => {
+    table.features.map(items => {
+      items.map((selection: { properties: { name: string } }) => {
         allSelections.push(selection.properties.name);
       });
     });

@@ -116,11 +116,6 @@ function MapView(props: MapViewProps) {
     zoom: 8
   });
 
-  // const [
-  //   selectedInstitutions,
-  //   setSelectedInstitution
-  // ] = React.useState<null | LocationFeatures>(null);
-
   useEffect(() => {
     const minVal = getStat(features, _.minBy, selection);
     const maxVal = getStat(features, _.maxBy, selection);
