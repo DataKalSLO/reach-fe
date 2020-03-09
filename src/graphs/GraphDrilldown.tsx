@@ -2,7 +2,6 @@ import React from 'react';
 import Highcharts from 'highcharts';
 import drilldown from 'highcharts/modules/drilldown';
 import HighchartsReact from 'highcharts-react-official';
-import cylinder from 'highcharts/modules/cylinder';
 import highcharts3d from 'highcharts/highcharts-3d';
 highcharts3d(Highcharts);
 drilldown(Highcharts);
@@ -119,13 +118,20 @@ const options: Highcharts.Options = {
         id: 'slo',
         data: [
           {
+            name: 'SLO County',
+            y: 5,
             drilldown: 'zip'
           },
-          ['Santa Maria', 7],
-          ['San Luis Obispo', 6],
-          ['Atascadero', 1],
-          ['Arroyo Grande', 2],
-          ['Paso Robles', 3]
+          {
+            name: 'SB County',
+            y: 2,
+            drilldown: 'sb'
+          },
+          {
+            name: 'Montery County',
+            y: 4,
+            drilldown: 'mc'
+          }
         ]
       },
       {
@@ -149,7 +155,7 @@ const options: Highcharts.Options = {
   }
 };
 
-function Graph3D() {
+function GraphDrilldown() {
   return (
     <div>
       <div>
@@ -159,4 +165,4 @@ function Graph3D() {
   );
 }
 
-export default Graph3D;
+export default GraphDrilldown;

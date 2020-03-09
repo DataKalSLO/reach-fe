@@ -7,6 +7,10 @@ import SplitterLayout from 'react-splitter-layout';
 import 'react-splitter-layout/lib/index.css';
 import GraphContainer from '../graphs/GraphContainer';
 import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import CastForEducationIcon from '@material-ui/icons/CastForEducation';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 
 function VizBuilder() {
   return (
@@ -56,9 +60,10 @@ function VizBuilder() {
             variant="extended"
             style={{ backgroundColor: 'lightGreen' }}
           >
-            Education
+            <CastForEducationIcon style={{ paddingRight: '3px' }} />
           </Fab>
           <Fab variant="extended" style={{ backgroundColor: 'lightblue' }}>
+            <MonetizationOnIcon />
             Economy
           </Fab>
           <Fab variant="extended" style={{ backgroundColor: 'pink' }}>

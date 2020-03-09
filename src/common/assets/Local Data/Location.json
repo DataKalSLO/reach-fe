@@ -1,0 +1,138 @@
+{
+    "1": {
+      "full_region": {
+        "latitude": 35.2478,
+        "longitude": -120.3607,
+        "upperLevel": "none"
+      }
+    },
+    "2": {
+      "san_luis_obispo_county": {
+        "latitude": 35.3711,
+        "longitude": -120.4156,
+        "upperLevel": "full_region"
+      },
+      "north_santa_barbara_county": {
+        "latitude": 34.6864,
+        "longitude": -120.3717,
+        "upperLevel": "full_region"
+      }
+    },
+    "3": {
+      "lompoc": {
+        "latitude": 34.6450,
+        "longitude": -120.4579,
+        "upperLevel": "north_santa_barbara_county"
+      },
+      "morro_bay": {
+        "latitude": 35.3609,
+        "longitude": -120.8450,
+        "upperLevel": "san_luis_obispo_county"
+      },
+      "santa_maria": {
+        "latitude": 34.9560,
+        "longitude": -120.4357,
+        "upperLevel": "north_santa_barbara_county"
+      },
+      "san_miguel": {
+        "latitude": 35.7525,
+        "longitude": -120.6963,
+        "upperLevel": "san_luis_obispo_county"
+      },
+      "grover_beach": {
+        "latitude": 35.1236,
+        "longitude": -120.6213,
+        "upperLevel": "san_luis_obispo_county"
+      },
+      "pismo_beach": {
+        "latitude": 35.1428,
+        "longitude": -120.6413,
+        "upperLevel": "san_luis_obispo_county"
+      },
+      "los_osos": {
+        "latitude": 35.3072,
+        "longitude": -120.8324,
+        "upperLevel": "san_luis_obispo_county"
+      },
+      "atascadero": {
+        "latitude": 35.4924,
+        "longitude": -120.6707,
+        "upperLevel": "san_luis_obispo_county"
+      },
+      "arroyo_grande": {
+        "latitude": 35.1244,
+        "longitude": -120.5855,
+        "upperLevel": "san_luis_obispo_county"
+      },
+      "santa_margarita": {
+        "latitude": 35.3910,
+        "longitude": -120.6074,
+        "upperLevel": "san_luis_obispo_county"
+      },
+      "cambria": {
+        "latitude": 35.5523,
+        "longitude": -121.0868,
+        "upperLevel": "san_luis_obispo_county"
+      },
+      "creston": {
+        "latitude": 35.5207,
+        "longitude": -120.5221,
+        "upperLevel": "san_luis_obispo_county"
+      },
+      "shandon": {
+        "latitude": 35.6556,
+        "longitude": -120.3845,
+        "upperLevel": "san_luis_obispo_county"
+      },
+      "avila_beach": {
+        "latitude": 35.1939,
+        "longitude": -120.71923,
+        "upperLevel": "san_luis_obispo_county"
+      },
+      "solvang": {
+        "latitude": 34.5991,
+        "longitude": -120.1372,
+        "upperLevel": "north_santa_barbara_county"
+      },
+      "buellton": {
+        "latitude": 34.6141,
+        "longitude": -120.1933,
+        "upperLevel": "north_santa_barbara_county"
+      },
+      "guadalupe": {
+        "latitude": 34.9645,
+        "longitude": -120.5728,
+        "upperLevel": "north_santa_barbara_county"
+      },
+      "orcutt": {
+        "latitude": 34.8636,
+        "longitude": -120.4249,
+        "upperLevel": "north_santa_barbara_county"
+      },
+      "santa_ynez": {
+        "latitude": 34.6155,
+        "longitude": -120.0912,
+        "upperLevel": "north_santa_barbara_county"
+      },
+      "vandenberg_village": {
+        "latitude": 34.7087,
+        "longitude": -120.4616,
+        "upperLevel": "north_santa_barbara_county"
+      },
+      "nipomo": {
+        "latitude": 35.0428,
+        "longitude": -120.4800,
+        "upperLevel": "san_luis_obispo_county"
+      },
+      "san_luis_obispo": {
+        "latitude": 35.2858,
+        "longitude": -120.6596,
+        "upperLevel": "san_luis_obispo_county"
+      },
+      "paso_robles": {
+        "latitude": 35.6309,
+        "longitude": -120.6940,
+        "upperLevel": "san_luis_obispo_county"
+      }
+    }
+  }

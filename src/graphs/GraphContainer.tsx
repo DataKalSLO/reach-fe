@@ -1,7 +1,8 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import Graph from '../graphs/Graph';
-import Graph3D from '../graphs/Graph3D';
+import GraphDrilldown from './GraphDrilldown';
+import DrilldownDOD from './DrillDownDOD';
 
 function GraphContainer() {
   return (
@@ -16,8 +17,7 @@ function GraphContainer() {
       alignContent="center"
       padding="20px"
     >
-      <Graph3D />
-      <Graph />
+      <DrilldownDOD />
     </Box>
   );
 }
