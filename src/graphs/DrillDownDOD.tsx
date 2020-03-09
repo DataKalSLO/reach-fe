@@ -23,12 +23,7 @@ const processedData = processData(
   dataInfo.regionLevel,
   dataInfo.yColumns
 );
-type DodContract = {
-  recipientName: string;
-  totalAwardValue: number;
-  awardType: string;
-  location: string;
-};
+
 const data = processedData['1']['full_region'].map((item: any) => {
   return {
     type: 'column',

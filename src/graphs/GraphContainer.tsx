@@ -3,7 +3,7 @@ import Box from '@material-ui/core/Box';
 import Graph from '../graphs/Graph';
 import GraphDrilldown from './GraphDrilldown';
 import DrilldownDOD from './DrillDownDOD';
-
+import StatOfBusiness2016 from './StatOfBusinesses2016'
 function GraphContainer() {
   return (
     <Box
@@ -17,7 +17,9 @@ function GraphContainer() {
       alignContent="center"
       padding="20px"
     >
+      <StatOfBusiness2016/>
       <DrilldownDOD />
+      <Graph/>
     </Box>
   );
 }
