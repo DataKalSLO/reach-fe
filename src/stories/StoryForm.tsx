@@ -1,9 +1,13 @@
-import { Button, styled, Typography } from '@material-ui/core';
+import { Button, styled, TextField } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import SaveIcon from '@material-ui/icons/Save';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createEmptyTextBlock } from '../redux/story/actions';
+import {
+  createEmptyTextBlock,
+  updateDescription,
+  updateTitle
+} from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import SortableList from '../stories/SortableList';
 import { saveStoryToDatabase, getAllStories } from './StoryAPIConnector';
@@ -12,25 +16,48 @@ export default function StoryForm() {
   const dispatch = useDispatch();
   const story = useSelector(getStory);
 
-  function saveStory() {
-    alert(JSON.stringify(story.storyBlocks, null, 2));
-    story.title = 'Adding titles is not implemented yet';
-    story.userID = '51d73193-470d-442b-a392-3e43238eb089';
+  const TITLE_CHAR_LIMIT = 100;
+  const DESCRIPTION_CHAR_LIMIT = 250;
 
-    saveStoryToDatabase(story)
-      .then(res => {
-        console.log('Story Created!');
-        console.log(res);
-      })
-      .catch(e => console.log(e));
+  // TODO: add validation of required fields
+  function saveStory() {
+    alert(JSON.stringify(story, null, 2));
+  }
+
+  function createCharCounter(currentText: string, maxLength: number) {
+    return `${currentText.length}/${maxLength}`;
   }
 
   return (
     <div>
-      {/* TODO: @Tanner - Make this a required text input */}
-      <Typography variant="h3">{story.title}</Typography>
-      {/* TODO: @Kevin - Make this a required text input */}
-      <Typography variant="h5">{story.description}</Typography>
+      <StyledTextField
+        id="story-title-field"
+        label="Title"
+        variant="outlined"
+        fullWidth
+        required
+        margin="dense"
+        helperText={createCharCounter(story.title, TITLE_CHAR_LIMIT)}
+        inputProps={{ maxLength: TITLE_CHAR_LIMIT }}
+        onChange={event => dispatch(updateTitle(event.target.value))}
+        defaultValue={story ? story.title : ''}
+      />
+      <StyledTextField
+        id="story-description-field"
+        label="Description"
+        variant="outlined"
+        multiline
+        fullWidth
+        required
+        margin="dense"
+        helperText={createCharCounter(
+          story.description,
+          DESCRIPTION_CHAR_LIMIT
+        )}
+        inputProps={{ maxLength: DESCRIPTION_CHAR_LIMIT }}
+        onChange={event => dispatch(updateDescription(event.target.value))}
+        defaultValue={story ? story.description : ''}
+      />
 
       <SortableList storyBlocks={story.storyBlocks} />
 
@@ -43,7 +70,6 @@ export default function StoryForm() {
       >
         Add Text Block
       </ButtonWithLeftIcon>
-
       <ButtonWithLeftIcon
         variant="contained"
         color="primary"
@@ -58,5 +84,9 @@ export default function StoryForm() {
 
 const ButtonWithLeftIcon = styled(Button)({
   // left margin is 0px to prevent indent
+  margin: '10px 10px 10px 0px'
+});
+
+const StyledTextField = styled(TextField)({
   margin: '10px 10px 10px 0px'
 });
