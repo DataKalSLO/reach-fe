@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createEmptyTextBlock } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import SortableList from '../stories/SortableList';
+import { saveStoryToDatabase, getAllStories } from './StoryAPIConnector';
 
 export default function StoryForm() {
   const dispatch = useDispatch();
@@ -13,6 +14,15 @@ export default function StoryForm() {
 
   function saveStory() {
     alert(JSON.stringify(story.storyBlocks, null, 2));
+    story.title = 'Adding titles is not implemented yet';
+    story.userID = '51d73193-470d-442b-a392-3e43238eb089';
+
+    saveStoryToDatabase(story)
+      .then(res => {
+        console.log('Story Created!');
+        console.log(res);
+      })
+      .catch(e => console.log(e));
   }
 
   return (
