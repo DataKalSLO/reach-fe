@@ -16,7 +16,12 @@ import Tooltip from './Tooltip';
 import { blue, purple, red } from '@material-ui/core/colors';
 import { Button, Color } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
-import { MapViewProps } from './MapTypes';
+import {
+  LocationFeatures,
+  MapViewProps,
+  SelectedMarker,
+  SetSelectedMarker
+} from './MapTypes';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
 
@@ -80,7 +85,7 @@ function MapView(props: MapViewProps) {
 
   const [viewport, setViewport]: any = React.useState({
     width: '100%',
-    height: '60%',
+    height: '60vh',
     latitude: SLO_LATITUDE,
     longitude: SLO_LONGITUDE,
     zoom: 8
@@ -166,17 +171,23 @@ function MapView(props: MapViewProps) {
       </Source>
       {renderTooltip()}
       {layerSelection
-        .map((collection: any) => {
-          return markers(
-            collection.features,
-            setSelectedMarker,
-            selectedMarker,
-            colorAssociation,
-            collection.name
-          );
-        })
+        .map(
+          (collection: {
+            type: string;
+            name: string;
+            features: LocationFeatures[][];
+          }) => {
+            return markers(
+              collection.features,
+              setSelectedMarker,
+              selectedMarker,
+              colorAssociation,
+              collection.name
+            );
+          }
+        )
         .flat()}
-      {selectedMarker.map((selected: any) => {
+      {selectedMarker.map((selected: LocationFeatures) => {
         return popups(selected, setSelectedMarker, selectedMarker);
       })}
     </ReactMapGL>
@@ -267,13 +278,13 @@ const MarkerButton = styled(Button)({
 });
 
 function markers(
-  features: any,
-  setSelectedMarker: any,
-  selectedMarker: any,
+  features: LocationFeatures[][],
+  setSelectedMarker: SetSelectedMarker,
+  selectedMarker: SelectedMarker,
   colorAssociation: any,
   layer: string
 ) {
-  return features.map((location: any) => {
+  return features.map((location: LocationFeatures[]) => {
     const datapoint = location[0];
     return (
       <Marker
@@ -299,27 +310,9 @@ function markers(
 }
 
 function popups(
-  marker: {
-    type: string;
-    geometry: {
-      type: string;
-      coordinates: number[];
-    };
-    properties: {
-      name: string;
-    };
-  },
-  setSelectedMarker: any,
-  selectedMarker: {
-    type: string;
-    geometry: {
-      type: string;
-      coordinates: number[];
-    };
-    properties: {
-      name: string;
-    };
-  }[]
+  marker: LocationFeatures,
+  setSelectedMarker: SetSelectedMarker,
+  selectedMarker: SelectedMarker
 ) {
   return (
     <Popup
