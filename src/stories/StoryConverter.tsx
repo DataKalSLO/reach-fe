@@ -1,26 +1,53 @@
+import { Box, Grid, styled, Typography } from '@material-ui/core';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
-import ReactHtmlParser from 'react-html-parser';
 import React from 'react';
+import ReactHtmlParser from 'react-html-parser';
 import {
-  Story,
-  StoryBlock,
-  TEXT_BLOCK_TYPE,
-  TextBlock,
   GraphBlock,
   GRAPH_BLOCK_TYPE,
   MapBlock,
-  MAP_BLOCK_TYPE
+  MAP_BLOCK_TYPE,
+  Story,
+  StoryBlock,
+  TextBlock,
+  TEXT_BLOCK_TYPE
 } from './StoryTypes';
-import { Typography } from '@material-ui/core';
 
 export function convertStoryToJSX(story: Story): JSX.Element {
+  const createPublicationDateString = () => {
+    // FIXME: should pull the user's name
+    const username = 'Kevin Krein';
+    return `By ${username} on ${new Date().toDateString()}`;
+  };
+
   return (
-    <div>
-      <Typography variant="h1">{story.title}</Typography>
-      <Typography variant="subtitle1">{story.description}</Typography>
+    <StyledBox>
+      <StyledTitleBox>
+        <Typography variant="h3">{story.title}</Typography>
+        <Typography variant="subtitle1">{story.description}</Typography>
+      </StyledTitleBox>
+
+      <Grid
+        container
+        direction="row"
+        alignContent="space-between"
+        alignItems="center"
+        spacing={2}
+      >
+        <Grid item>
+          <AccountCircleIcon fontSize="large" />
+        </Grid>
+        <Grid item>
+          <Typography variant="subtitle2">
+            {createPublicationDateString()}
+          </Typography>
+        </Grid>
+      </Grid>
+
       {story.storyBlocks.map(block => convertBlockToJSX(block))}
-    </div>
+    </StyledBox>
   );
 }
 
@@ -50,3 +77,11 @@ function convertGraphBlockToJSX(graphBlock: GraphBlock): JSX.Element {
 function convertMapBlockToJSX(mapBlock: MapBlock): JSX.Element {
   return <div>Map Block conversion not yet implemented</div>;
 }
+
+const StyledBox = styled(Box)({
+  margin: '20px 10px 20px 10px'
+});
+
+const StyledTitleBox = styled(Box)({
+  paddingBottom: '10px'
+});
