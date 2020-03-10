@@ -1,111 +1,52 @@
-import React, { useReducer } from 'react';
-import { EditorState } from 'draft-js';
-import RichTextEditor from './RichTextEditor';
-import SaveIcon from '@material-ui/icons/Save';
+import { Button, styled, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import SaveIcon from '@material-ui/icons/Save';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { createEmptyTextBlock } from '../redux/story/actions';
+import { getStory } from '../redux/story/selectors';
 import SortableList from '../stories/SortableList';
-import { Button, LinearProgress } from '@material-ui/core';
-import {
-  SaveStory,
-  Story,
-  GenerateEmptyStory,
-  BlockComponent,
-  StoryBlock,
-  TextBlock,
-  UPDATE_TITLE,
-  UPDATE_TEXT_BLOCK,
-  Action,
-  CHANGE_BLOCKS
-} from '../stories/StoryTypes';
-import uuidv4 from 'uuid/v4';
-
-// DEMO
-// * implements useReducer for maintaining form state in a scaleable way
-// * replaced state logic in RichTextEditor with dispatch function
-
-// TODO: can be removed with syntactic sugar later
-function updateTextBlock(
-  storyBlocks: Array<StoryBlock>,
-  index: number,
-  editorState: EditorState
-) {
-  storyBlocks[index] = {
-    id: storyBlocks[index].id,
-    type: 'Text',
-    editorState: editorState
-  } as TextBlock;
-  return storyBlocks;
-}
-
-// reducer is passed to useReducer and used to manage updating the state
-function reducer(state: Story, action: Action) {
-  switch (action.type) {
-    case UPDATE_TITLE:
-      return { ...state, title: 'New Title' };
-    case UPDATE_TEXT_BLOCK:
-      return {
-        ...state,
-        storyBlocks: updateTextBlock(
-          state.storyBlocks,
-          action.payload.index,
-          action.payload.editorState
-        )
-      };
-    case CHANGE_BLOCKS:
-      return {
-        ...state,
-        storyBlocks: action.payload.newBlocks
-      };
-    default:
-      throw new Error();
-  }
-}
 
 export default function StoryForm() {
-  const tempUserId = uuidv4();
+  const dispatch = useDispatch();
+  const story = useSelector(getStory);
 
-  const [story, dispatch] = useReducer(reducer, GenerateEmptyStory(tempUserId));
+  function saveStory() {
+    alert(JSON.stringify(story.storyBlocks, null, 2));
+  }
 
   return (
     <div>
-      <h1>{story.title}</h1>
-      {/*<RichTextEditor />*/}
-      <div>
-        <SortableList
-          storyBlocks={story.storyBlocks}
-          dispatchAction={dispatch}
-        />
-      </div>
-      {/*TODO: Make this cleaner*/}
-      <Button
+      {/* TODO: @Tanner - Make this a required text input */}
+      <Typography variant="h3">{story.title}</Typography>
+      {/* TODO: @Kevin - Make this a required text input */}
+      <Typography variant="h5">{story.description}</Typography>
+
+      <SortableList storyBlocks={story.storyBlocks} />
+
+      {/* TODO: @Daniel - Move buttons to toolbar */}
+      <ButtonWithLeftIcon
         variant="contained"
         color="primary"
-        onClick={() =>
-          dispatch({
-            type: CHANGE_BLOCKS,
-            payload: {
-              newBlocks: story.storyBlocks.concat([
-                {
-                  id: uuidv4(),
-                  editorState: EditorState.createEmpty(),
-                  type: 'Text'
-                } as TextBlock
-              ] as Array<StoryBlock>)
-            }
-          })
-        }
+        onClick={() => dispatch(createEmptyTextBlock())}
         startIcon={<AddIcon />}
       >
-        Add Story
-      </Button>
-      <Button
+        Add Text Block
+      </ButtonWithLeftIcon>
+
+      <ButtonWithLeftIcon
         variant="contained"
         color="primary"
-        onClick={() => SaveStory(story)}
+        onClick={saveStory}
         startIcon={<SaveIcon />}
       >
         Save Story
-      </Button>
+      </ButtonWithLeftIcon>
     </div>
   );
 }
+
+const ButtonWithLeftIcon = styled(Button)({
+  // left margin is 0px to prevent indent
+  margin: '10px 10px 10px 0px'
+});

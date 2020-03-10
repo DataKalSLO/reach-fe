@@ -1,17 +1,23 @@
 import React from 'react';
-import { Typography, Divider, styled } from '@material-ui/core';
+import { Typography, Divider, Link, styled } from '@material-ui/core';
 import CreateAccountForm from './CreateAccountForm';
 import ThirdPartyCreateAccount from './ThirdPartyCreateAccount';
 import BoxCenter from '../common/components/BoxCenter';
+import { useHistory } from 'react-router-dom';
+import { LOGIN } from '../nav/constants';
 
 function CreateAccount() {
+  const history = useHistory();
+  const navigateTo = (route: string) => () => history.push(route);
+
   return (
-    <BoxCenter>
+    <BoxCenterSized>
       <Title variant="h4">Create Reach Account</Title>
       <CreateAccountForm />
       <StyledDivider />
       <ThirdPartyCreateAccount />
-    </BoxCenter>
+      <Link onClick={navigateTo(LOGIN)}>ALREADY HAVE AN ACCOUNT?</Link>
+    </BoxCenterSized>
   );
 }
 
@@ -24,6 +30,10 @@ const StyledDivider = styled(Divider)({
 const Title = styled(Typography)({
   textAlign: 'center',
   margin: '35px'
+});
+
+const BoxCenterSized = styled(BoxCenter)({
+  height: '650px'
 });
 
 export default CreateAccount;

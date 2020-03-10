@@ -14,26 +14,9 @@ import {
   FormatUnderlined,
   StrikethroughS
 } from '@material-ui/icons';
-import {
-  Editor,
-  EditorState,
-  RichUtils,
-  convertFromRaw,
-  convertToRaw
-} from 'draft-js';
-import { DraftJSBlockType, DraftJSInlineType } from './DraftJSCommands';
+import { Editor, EditorState, RichUtils } from 'draft-js';
 import React from 'react';
-
-export function rawToContent(raw: string) {
-  return EditorState.createWithContent(convertFromRaw(JSON.parse(raw)));
-}
-export function contentToRaw(editorState: EditorState) {
-  if (editorState) {
-    const contentState = editorState.getCurrentContent();
-    return JSON.stringify(convertToRaw(contentState));
-  }
-  return '';
-}
+import { DraftJSBlockType, DraftJSInlineType } from './DraftJSCommands';
 
 interface Props {
   editorState: EditorState;
@@ -70,7 +53,7 @@ export default function RichTextEditor(props: Props) {
   };
 
   return (
-    <StyledBox>
+    <StyledBox width="100%">
       <EditorToolbar>
         {/* text styles */}
         <FormatButtonGroup>
@@ -136,6 +119,8 @@ const borderStyle = '1px solid #cbcbcb';
 const paddingDefault = '10px';
 
 const StyledBox = styled(Box)({
+  minHeight: '100px',
+  minWidth: '510px',
   border: borderStyle,
   borderRadius: '4px',
   paddingLeft: paddingDefault,
@@ -149,8 +134,7 @@ const EditorToolbar = styled(Box)({
   flexDirection: 'row',
   borderBottom: borderStyle,
   marginBottom: '10px',
-  paddingTop: '5px',
-  paddingBottom: '5px'
+  padding: '5px 0px 5px 0px'
 });
 
 const FormatButtonGroup = styled(Box)({

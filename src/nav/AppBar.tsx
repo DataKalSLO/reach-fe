@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import MuiAppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -8,6 +9,7 @@ import { styled } from '@material-ui/core/styles';
 import { Grid, Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import MenuButton from './MenuButton';
+import { getUser } from '../redux/login/selectors';
 import {
   HOME,
   HOME_NAME,
@@ -20,8 +22,10 @@ import {
   MY_STUFF,
   MY_STUFF_NAME,
   LOGIN,
+  LOGIN_NAME,
   CREATE_ACCOUNT
 } from './constants';
+import AccountDropdown from '../containers/AccountDropdown';
 
 const ButtonWithoutHover = styled(Button)({
   textTransform: 'none',
@@ -58,6 +62,12 @@ const displayAppBar = (menu: JSX.Element) => {
 function AppBar() {
   const history = useHistory();
   const navigateTo = (route: string) => () => history.push(route);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const user = useSelector(getUser);
+
+  const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
 
   const menu = (
     <Grid
@@ -104,13 +114,24 @@ function AppBar() {
         </Grid>
       </Grid>
       <Grid item>
-        <MenuButton
-          name={MY_STUFF_NAME}
-          navigateToRoute={navigateTo(MY_STUFF)}
-        />
-        <IconButton onClick={navigateTo(LOGIN)}>
-          <AccountCircleIcon fontSize="large" />
-        </IconButton>
+        {user.email ? (
+          <React.Fragment>
+            <MenuButton
+              name={MY_STUFF_NAME}
+              navigateToRoute={navigateTo(MY_STUFF)}
+            />
+            <IconButton
+              onClick={handleClickListItem}
+              aria-haspopup="true"
+              aria-controls="menu"
+            >
+              <AccountCircleIcon fontSize="large" />
+            </IconButton>
+            <AccountDropdown anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
+          </React.Fragment>
+        ) : (
+          <MenuButton name={LOGIN_NAME} navigateToRoute={navigateTo(LOGIN)} />
+        )}
       </Grid>
     </Grid>
   );
