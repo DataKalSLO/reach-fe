@@ -1,5 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import { Button, styled, Typography } from '@material-ui/core';
+import {
+  Button,
+  styled,
+  Typography,
+  FormControlLabel,
+  Checkbox
+} from '@material-ui/core';
 import BoxCenter from '../common/components/BoxCenter';
 import AccountTextField from '../common/components/AccountTextField';
 import { useHistory } from 'react-router-dom';
@@ -22,6 +28,9 @@ function CreateAccountForm() {
   ] = useState('');
   const [passwordConfirmationValid, setPasswordConfirmationValid] = useState(
     false
+  );
+  const [emailNotificationEnabled, setEmailNotificationEnabled] = useState(
+    true
   );
 
   const validateEmail = useCallback(
@@ -128,6 +137,10 @@ function CreateAccountForm() {
         size="small"
       />
       <ErrorMessage>{passwordConfirmationErrorMessage}</ErrorMessage>
+      <EmailSignUp
+        emailNotificationEnabled={emailNotificationEnabled}
+        setEmailNotificationEnabled={setEmailNotificationEnabled}
+      />
       <ButtonThin
         fullWidth
         variant="contained"
@@ -151,6 +164,42 @@ function CreateAccountForm() {
   );
 }
 
+type EmailSignUpProps = {
+  emailNotificationEnabled: boolean;
+  setEmailNotificationEnabled: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const EmailSignUp = (props: EmailSignUpProps) => {
+  const { emailNotificationEnabled, setEmailNotificationEnabled } = props;
+
+  return (
+    <FormControlLabelSized
+      control={
+        <Checkbox
+          checked={emailNotificationEnabled}
+          onChange={() =>
+            setEmailNotificationEnabled(!emailNotificationEnabled)
+          }
+          color="primary"
+        />
+      }
+      label={
+        <EmailSignUpText>
+          I would like to receive email notifications from Reach.
+        </EmailSignUpText>
+      }
+    />
+  );
+};
+
+const EmailSignUpText = styled(Typography)({
+  fontSize: '15px'
+});
+
+const FormControlLabelSized = styled(FormControlLabel)({
+  width: '270px'
+});
+
 const ButtonThin = styled(Button)({
   width: '270px'
 });
@@ -162,7 +211,7 @@ const ErrorMessage = styled(Typography)({
 });
 
 const BoxCenterSized = styled(BoxCenter)({
-  height: '225px',
+  height: '325px',
   width: '200px'
 });
 

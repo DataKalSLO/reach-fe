@@ -14,3 +14,4 @@ export const EXPLORE_NAME = 'Explore';
 export const VIZ_BUILDER_NAME = 'VizBuilder';
 export const STORY_BUILDER_NAME = 'StoryBuilder';
 export const MY_STUFF_NAME = 'My Stuff';
+export const LOGIN_NAME = 'Login';
