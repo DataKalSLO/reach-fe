@@ -4,13 +4,11 @@ const headers = new Headers();
 headers.set('Content-Type', 'application/JSON');
 headers.append('Access-Control-Allow-Origin', 'http://localhost:3000/');
 
-const credentials: RequestCredentials = 'same-origin';
-const mode: RequestMode = 'cors';
+const credentials: RequestCredentials = 'include';
 
 const reqConf = {
   headers: headers,
-  credentials: credentials,
-  mode: mode
+  credentials: credentials
 };
 
 type Error = { tag: string; details: string[] };
