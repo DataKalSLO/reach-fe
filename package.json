@@ -11,6 +11,7 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-facebook-login": "^4.1.1",
     "@types/react-redux": "^7.1.7",
+    "@types/redux-persist": "^4.3.1",
     "@types/uuidv4": "^5.0.0",
     "array-move": "^2.2.1",
     "connected-react-router": "^6.7.0",
