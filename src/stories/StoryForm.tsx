@@ -15,8 +15,16 @@ export default function StoryForm() {
   const dispatch = useDispatch();
   const story = useSelector(getStory);
 
+  const TITLE_CHAR_LIMIT = 100;
+  const DESCRIPTION_CHAR_LIMIT = 250;
+
+  // TODO: add validation of required fields
   function saveStory() {
     alert(JSON.stringify(story, null, 2));
+  }
+
+  function createCharCounter(currentText: string, maxLength: number) {
+    return `${currentText.length}/${maxLength}`;
   }
 
   return (
@@ -27,6 +35,9 @@ export default function StoryForm() {
         variant="outlined"
         fullWidth
         required
+        margin="dense"
+        helperText={createCharCounter(story.title, TITLE_CHAR_LIMIT)}
+        inputProps={{ maxLength: TITLE_CHAR_LIMIT }}
         onChange={event => dispatch(updateTitle(event.target.value))}
         defaultValue={story ? story.title : ''}
       />
@@ -35,9 +46,14 @@ export default function StoryForm() {
         label="Description"
         variant="outlined"
         multiline
-        rows="2"
         fullWidth
         required
+        margin="dense"
+        helperText={createCharCounter(
+          story.description,
+          DESCRIPTION_CHAR_LIMIT
+        )}
+        inputProps={{ maxLength: DESCRIPTION_CHAR_LIMIT }}
         onChange={event => dispatch(updateDescription(event.target.value))}
         defaultValue={story ? story.description : ''}
       />
@@ -53,7 +69,6 @@ export default function StoryForm() {
       >
         Add Text Block
       </ButtonWithLeftIcon>
-
       <ButtonWithLeftIcon
         variant="contained"
         color="primary"
@@ -72,5 +87,5 @@ const ButtonWithLeftIcon = styled(Button)({
 });
 
 const StyledTextField = styled(TextField)({
-  paddingBottom: '10px'
+  margin: '10px 10px 10px 0px'
 });
