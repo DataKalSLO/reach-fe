@@ -30,7 +30,7 @@ export default function StoryForm() {
     return `${currentText.length}/${maxLength}`;
   }
 
-  function previewStory() {
+  function togglePreview() {
     setPreviewSelected(!previewSelected);
   }
 
@@ -108,7 +108,7 @@ export default function StoryForm() {
       <ButtonWithLeftIcon
         variant="contained"
         color="primary"
-        onClick={previewStory}
+        onClick={togglePreview}
         startIcon={<Visibility />}
       >
         {/* TODO: @Daniel - Move buttons to toolbar & get rid of the magic strings */}

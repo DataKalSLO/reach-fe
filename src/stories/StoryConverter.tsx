@@ -24,12 +24,12 @@ export function convertStoryToJSX(story: Story): JSX.Element {
 
   return (
     <StyledBox>
-      <StyledTitleBox>
+      <TitleBox>
         <Typography variant="h3">{story.title}</Typography>
         <Typography variant="subtitle1">{story.description}</Typography>
-      </StyledTitleBox>
+      </TitleBox>
 
-      <Grid
+      <AuthorGrid
         container
         direction="row"
         alignContent="space-between"
@@ -44,8 +44,10 @@ export function convertStoryToJSX(story: Story): JSX.Element {
             {createPublicationDateString()}
           </Typography>
         </Grid>
-      </Grid>
+      </AuthorGrid>
 
+      {/* TODO: add backgrounds to rich text editors so they don't peek through when dragged over each other */}
+      {/* TODO: add bounding box so blocks cannot be dragged out of sortable area */}
       {story.storyBlocks.map(block => convertBlockToJSX(block))}
     </StyledBox>
   );
@@ -82,6 +84,11 @@ const StyledBox = styled(Box)({
   margin: '20px 10px 20px 10px'
 });
 
-const StyledTitleBox = styled(Box)({
+const TitleBox = styled(Box)({
   paddingBottom: '10px'
+});
+
+const AuthorGrid = styled(Grid)({
+  marginTop: '5px',
+  marginBottom: '5px'
 });
