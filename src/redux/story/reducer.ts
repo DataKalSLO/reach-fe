@@ -1,22 +1,24 @@
 import { EditorState } from 'draft-js';
 import { arrayMove } from 'react-sortable-hoc';
 import { uuid } from 'uuidv4';
-import { StoryBlock } from '../../stories/StoryTypes';
+import { StoryBlock, TEXT_BLOCK_TYPE } from '../../stories/StoryTypes';
 import {
   CREATE_EMPTY_TEXT_BLOCK,
   StoryActionType,
   SWAP_BLOCKS,
   UpdateBlockType,
-  UPDATE_TEXT_BLOCK
+  UPDATE_TEXT_BLOCK,
+  UPDATE_TITLE,
+  UPDATE_DESCRIPTION
 } from './types';
 
 const initialTextBlock = {
   id: uuid(),
   editorState: EditorState.createEmpty(),
-  type: 'Text' // TODO: loosly typed attribute, planned fix rolling out soon
+  type: TEXT_BLOCK_TYPE
 };
 
-const initialState = {
+const initialStory = {
   id: uuid(),
   userID: 'USER-ID', // TODO: replace placeholder value
   title: '',
@@ -43,7 +45,7 @@ function updateObjectInArray(
   });
 }
 
-export function storyReducer(state = initialState, action: StoryActionType) {
+export function storyReducer(state = initialStory, action: StoryActionType) {
   switch (action.type) {
     case UPDATE_TEXT_BLOCK:
       return {
@@ -63,6 +65,16 @@ export function storyReducer(state = initialState, action: StoryActionType) {
           action.payload.oldIndex,
           action.payload.newIndex
         )
+      };
+    case UPDATE_TITLE:
+      return {
+        ...state,
+        title: action.payload.newTitle
+      };
+    case UPDATE_DESCRIPTION:
+      return {
+        ...state,
+        description: action.payload.newDescription
       };
     default:
       return state;

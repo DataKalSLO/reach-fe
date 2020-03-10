@@ -1,6 +1,9 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getUser } from '../redux/login/selectors';
 import PropTypes from 'prop-types';
 import { Menu, MenuItem, Divider, styled } from '@material-ui/core';
+import { logoutAction } from '../redux/login/actions';
 
 interface AccountDropdownProps {
   anchorEl: HTMLElement | null;
@@ -8,8 +11,14 @@ interface AccountDropdownProps {
 }
 
 function AccountDropdown(props: AccountDropdownProps) {
+  const user = useSelector(getUser);
   const handleClose = () => {
     props.setAnchorEl(null);
+  };
+  const dispatch = useDispatch();
+  const logout = () => {
+    props.setAnchorEl(null);
+    dispatch(logoutAction());
   };
 
   return (
@@ -20,10 +29,10 @@ function AccountDropdown(props: AccountDropdownProps) {
       onClose={handleClose}
     >
       <StyledMenuItem onClick={handleClose}>
-        Signed in as <br /> name-here
+        Signed in as <br /> {user.email}
       </StyledMenuItem>
       <Divider />
-      <StyledMenuItem onClick={handleClose}>Logout</StyledMenuItem>
+      <StyledMenuItem onClick={logout}>Logout</StyledMenuItem>
     </StyledMenu>
   );
 }

@@ -27,7 +27,7 @@ import { ConnectedRouter } from 'connected-react-router';
 // Store
 //  https://react-redux.js.org/introduction/quick-start
 //  https://react-redux.js.org/next/api/hooks
-import store, { history } from './redux/store';
+import { history, store, persistor } from './redux/store';
 import { Provider } from 'react-redux';
 
 // Containers
@@ -39,6 +39,7 @@ import MyStuff from './containers/MyStuff';
 import Login from './containers/Login';
 import Sample from './containers/Sample';
 import CreateAccount from './containers/CreateAccount';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const home = (
   <Route path={HOME} exact>
@@ -84,21 +85,23 @@ const sample = (
 function App() {
   return (
     <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <ThemeProvider theme={theme}>
-          <AppBar />
-          <Switch>
-            {home}
-            {explore}
-            {vizBuilder}
-            {storyBuilder}
-            {myStuff}
-            {login}
-            {createAccount}
-            {sample}
-          </Switch>
-        </ThemeProvider>
-      </ConnectedRouter>
+      <PersistGate persistor={persistor}>
+        <ConnectedRouter history={history}>
+          <ThemeProvider theme={theme}>
+            <AppBar />
+            <Switch>
+              {home}
+              {explore}
+              {vizBuilder}
+              {storyBuilder}
+              {myStuff}
+              {login}
+              {createAccount}
+              {sample}
+            </Switch>
+          </ThemeProvider>
+        </ConnectedRouter>
+      </PersistGate>
     </Provider>
   );
 }
