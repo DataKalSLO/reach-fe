@@ -1,5 +1,27 @@
 import React from 'react';
 
+// TODO: For featureCollection type in MapView, not finished
+// export interface PrepGeoData {
+//   objects: Array<PrepGeoObject>;
+// }
+
+// export interface PrepGeoObject {
+//   type: string;
+//   geometry: {
+//     type: string;
+//     coordinates: number[][][];
+//   };
+//   properties: {
+//     ZCTA5CE10: string;
+//     AFFGEOID10: string;
+//     GEOID10: string;
+//     ALAND10: number;
+//     AWATER10: number;
+//     B25053_006E: number;
+//     'zip-code-tabulation-area': string;
+//   };
+// } | { ..., }
+
 export interface LocationFeatures {
   type: string;
   geometry: {

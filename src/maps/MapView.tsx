@@ -1,11 +1,5 @@
-import React, { useEffect, SetStateAction, Dispatch } from 'react';
-import ReactMapGL, {
-  Source,
-  Layer,
-  Marker,
-  Popup,
-  ViewportProps
-} from 'react-map-gl';
+import React, { useEffect } from 'react';
+import ReactMapGL, { Source, Layer, Marker, Popup } from 'react-map-gl';
 import { SLO_LATITUDE, SLO_LONGITUDE } from './constants';
 import features from '../common/assets/Local Data/census/b25053.js';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -14,7 +8,7 @@ import chroma from 'chroma-js';
 import _ from 'lodash';
 import Tooltip from './Tooltip';
 import { blue, purple, red } from '@material-ui/core/colors';
-import { Button, Color } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import {
   LocationFeatures,
@@ -207,6 +201,8 @@ function MapView(props: MapViewProps) {
   );
 }
 
+// TODO: Had trouble creating an interface for featureCollection
+// Tried to create an interface using the type from features on line 34
 function prepGeo(featureCollection: any) {
   const prepped: any = [];
   featureCollection.forEach((feature: any) => {
@@ -241,22 +237,27 @@ function onHover(setHoveredLocation: any, event: any, x: any, y: any) {
   setHoveredLocation(hoveredLocation);
 }
 
-function quantileMaker(colorScale: any, quantiles: any, min: any, max: any) {
+function quantileMaker(
+  colorScale: any,
+  quantiles: number,
+  min: number,
+  max: number
+) {
   const diff = max - min;
   const bucket = diff / quantiles;
   const dataScale = Array(quantiles)
     .fill(0)
     .map(Number.prototype.valueOf, 0)
     .map(
-      function(this: any, val: any, idx: any) {
+      function(this: any, val: number, idx: number) {
         return idx === 0 ? min : (this.acc += bucket);
       },
       { acc: min }
     );
-  const normalScale = dataScale.map((val: any, idx: any) => {
+  const normalScale = dataScale.map((val: number, idx: number) => {
     return idx === 0 ? Math.round((min + 1 / max) * 100) / 100 : val / max;
   });
-  const chromaScale = normalScale.map((val: any) => {
+  const chromaScale = normalScale.map((val: number) => {
     return colorScale(val).hex();
   });
   return _.zip(dataScale, chromaScale);
