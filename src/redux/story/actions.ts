@@ -1,18 +1,20 @@
 import { EditorState } from 'draft-js';
 import { uuid } from 'uuidv4';
-import {
-  CREATE_EMPTY_TEXT_BLOCK,
-  SWAP_BLOCKS,
-  UPDATE_TEXT_BLOCK,
-  CreateEmptyTextBlockAction,
-  UpdateTextBlockAction,
-  SwapBlocksAction,
-  UPDATE_TITLE,
-  UpdateTitleAction,
-  UpdateDescriptionAction,
-  UPDATE_DESCRIPTION
-} from './types';
 import { TEXT_BLOCK_TYPE } from '../../stories/StoryTypes';
+import {
+  CreateEmptyTextBlockAction,
+  CREATE_EMPTY_TEXT_BLOCK,
+  SwapBlocksAction,
+  SWAP_BLOCKS,
+  TogglePreviewAction,
+  TOGGLE_PREVIEW,
+  UpdateDescriptionAction,
+  UpdateTextBlockAction,
+  UpdateTitleAction,
+  UPDATE_DESCRIPTION,
+  UPDATE_TEXT_BLOCK,
+  UPDATE_TITLE
+} from './types';
 
 export function createEmptyTextBlock(): CreateEmptyTextBlockAction {
   return {
@@ -60,5 +62,12 @@ export function updateDescription(
   return {
     type: UPDATE_DESCRIPTION,
     payload: { newDescription: newDescription }
+  };
+}
+
+export function togglePreview(): TogglePreviewAction {
+  return {
+    type: TOGGLE_PREVIEW,
+    payload: null
   };
 }

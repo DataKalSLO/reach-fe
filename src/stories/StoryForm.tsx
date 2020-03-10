@@ -1,9 +1,10 @@
 import { Box, Button, styled, TextField, Typography } from '@material-ui/core';
 import { Add, Save, Visibility } from '@material-ui/icons';
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   createEmptyTextBlock,
+  togglePreview,
   updateDescription,
   updateTitle
 } from '../redux/story/actions';
@@ -13,15 +14,12 @@ import { convertStoryToJSX } from './StoryConverter';
 
 export default function StoryForm() {
   const dispatch = useDispatch();
-  const story = useSelector(getStory);
+  const storyState = useSelector(getStory);
+  const story = storyState.story;
+  const previewSelected = storyState.isPreviewSelected;
 
   const TITLE_CHAR_LIMIT = 100;
   const DESCRIPTION_CHAR_LIMIT = 250;
-
-  // TODO: add validation of required fields
-  // TODO: Move preview selected into Redux to persist after user leaves page
-  const [previewSelected, setPreviewSelected] = useState(false);
-
   function saveStory() {
     alert(JSON.stringify(story, null, 2));
   }
@@ -30,10 +28,7 @@ export default function StoryForm() {
     return `${currentText.length}/${maxLength}`;
   }
 
-  function togglePreview() {
-    setPreviewSelected(!previewSelected);
-  }
-
+  // TODO: add validation of required fields
   function displayBody(): JSX.Element {
     if (previewSelected) {
       return convertStoryToJSX(story);
@@ -103,15 +98,15 @@ export default function StoryForm() {
   }
 
   return (
+    //Will change once @Daniel's changes are pushed in (#45)
     <StyledBox>
       {displayBody()}
       <ButtonWithLeftIcon
         variant="contained"
         color="primary"
-        onClick={togglePreview}
+        onClick={() => dispatch(togglePreview())}
         startIcon={<Visibility />}
       >
-        {/* TODO: @Daniel - Move buttons to toolbar & get rid of the magic strings */}
         {previewSelected ? 'Edit Story' : 'Preview Story'}
       </ButtonWithLeftIcon>
     </StyledBox>
