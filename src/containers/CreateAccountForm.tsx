@@ -225,11 +225,7 @@ const ErrorMessage = styled(Typography)({
 });
 
 const BoxCenterSized = styled(BoxCenter)({
-<<<<<<< HEAD
-  height: '325px',
-=======
   height: '525px',
->>>>>>> a71fe6623cfe2471b07dbea91784cb351fd47917
   width: '200px'
 });
 
