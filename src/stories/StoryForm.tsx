@@ -4,7 +4,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { storyAsJSX } from './StoryConversion';
+import { convertStoryToJSX } from './StoryConverter';
 import {
   createEmptyTextBlock,
   updateDescription,
@@ -37,7 +37,7 @@ export default function StoryForm() {
 
   function displayBody(): JSX.Element {
     if (previewSelected) {
-      return storyAsJSX(story);
+      return convertStoryToJSX(story);
     } else {
       return (
         <div>
