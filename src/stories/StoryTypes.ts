@@ -12,6 +12,9 @@ export const TEXT_BLOCK_TYPE = 'Text';
 export const GRAPH_BLOCK_TYPE = 'Graph';
 export const MAP_BLOCK_TYPE = 'Map';
 
+/* Database version of TextBlock */
+export const TEXT_BLOCK_DB_TYPE = 'TextDB';
+
 /*
  * Story Blocks define the properties needed to generate the associated react components
  * Story Blocks also have 1-1 mapping with database objects
@@ -33,4 +36,11 @@ export interface MapBlock {
   mapID: string;
 }
 
-export type StoryBlock = TextBlock | GraphBlock | MapBlock;
+/* The version of TextBlock that the API backend expects */
+export interface TextBlockDB {
+  type: typeof TEXT_BLOCK_DB_TYPE;
+  id: string;
+  editorState: string; //API will not receive JSON object (reasoning in StoryAPIConnector)
+}
+
+export type StoryBlock = TextBlock | GraphBlock | MapBlock | TextBlockDB;

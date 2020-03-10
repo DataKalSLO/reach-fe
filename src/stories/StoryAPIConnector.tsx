@@ -1,4 +1,10 @@
-import { Story, TextBlock, GraphBlock, StoryBlock } from './StoryTypes';
+import {
+  Story,
+  TextBlock,
+  TextBlockDB,
+  StoryBlock,
+  TEXT_BLOCK_DB_TYPE
+} from './StoryTypes';
 import { EditorState } from 'draft-js';
 import { post, get, put, del } from '../api/base';
 
@@ -8,12 +14,6 @@ import { post, get, put, del } from '../api/base';
  * have control over the EditorState's structure I wanted to create an BEND
  * agnostic to the editorState. Therefore, the BEND will only accept editorstate as a string.
  */
-
-/* A TextBlock object as represented in the Database + BEND;
- */
-export interface TextBlockDB extends StoryBlock {
-  editorState: string;
-}
 
 /* The types of actions that mutate a story and
  * expect a Story to be returned from BEND.
@@ -134,6 +134,8 @@ function transformTextBlockToTextBlockDB(storyBlock: StoryBlock): StoryBlock {
     const textBlock = storyBlock as TextBlock;
     return {
       ...textBlock,
+      id: textBlock.id,
+      type: TEXT_BLOCK_DB_TYPE,
       editorState: JSON.stringify(textBlock.editorState)
     } as TextBlockDB;
   }
