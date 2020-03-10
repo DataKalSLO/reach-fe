@@ -10,7 +10,7 @@ import {
 } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import SortableList from '../stories/SortableList';
-import { saveStoryToDatabase, getAllStories } from './StoryAPIConnector';
+import { saveStoryToDatabase } from './StoryAPIConnector';
 
 export default function StoryForm() {
   const dispatch = useDispatch();
