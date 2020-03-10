@@ -22,7 +22,7 @@ export default function StoryForm() {
   // TODO: add validation of required fields
   function saveStory() {
     alert(JSON.stringify(story, null, 2));
-    story.userID = '51d73193-470d-442b-a392-3e43238eb089'; //Ex
+    story.userID = '51d73193-470d-442b-a392-3e43238eb089'; //Existing user
     saveStoryToDatabase(story)
       .then(res => {
         console.log('Story Created!');
