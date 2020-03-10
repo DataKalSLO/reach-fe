@@ -214,14 +214,27 @@ function prepGeo(featureCollection: any) {
   return prepped;
 }
 
-function getStat(features: any, extractionFunc: any, selection: any) {
+function getStat(features: any, extractionFunc: any, selection: string) {
   const stat = extractionFunc(features, (o: any) => {
     return o.properties[selection];
   });
   return stat.properties[selection];
 }
 
-function onHover(setHoveredLocation: any, event: any, x: any, y: any) {
+function onHover(
+  setHoveredLocation: React.Dispatch<
+    React.SetStateAction<{
+      properties: {
+        [selection]: number;
+        'zip-code-tabulation-area': string;
+      };
+      noLocation: boolean;
+    }>
+  >,
+  event: any,
+  x: React.MutableRefObject<number>,
+  y: React.MutableRefObject<number>
+) {
   const {
     features,
     srcEvent: { offsetX, offsetY }
@@ -238,7 +251,7 @@ function onHover(setHoveredLocation: any, event: any, x: any, y: any) {
 }
 
 function quantileMaker(
-  colorScale: any,
+  colorScale: chroma.Scale<chroma.Color>,
   quantiles: number,
   min: number,
   max: number

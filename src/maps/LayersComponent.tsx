@@ -40,6 +40,7 @@ const showAll: LayerSelection = [];
 
 // handles change of selection
 // ensures that popups will not stay when their markers disappear
+// TODO: color association
 function handleChange(
   value: LayerSelection,
   setLayerSelection: SetLayerSelection,
@@ -92,6 +93,7 @@ export default function LayersComponent(props: LayersComponentProps) {
         options={markerData}
         defaultValue={[markerData[0]]}
         // disables all options when the user has chosen more than the allowedSelections
+        // TODO: logic for markers vs heat map
         getOptionDisabled={
           layerSelection.length >= ALLOWED_SELECTIONS
             ? option => markerData.includes(option)

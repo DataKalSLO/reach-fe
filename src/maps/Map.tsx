@@ -6,6 +6,7 @@ import SourceLabels from './SourcesComponent';
 import VintageComponent from './VintageComponent';
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
 
+// TODO: dummy save to stories - MapView
 function Map() {
   const [layerSelection, setLayerSelection] = useState([markerData[0]]);
   const [selectedMarker, setSelectedMarker] = useState(
