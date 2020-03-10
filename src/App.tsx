@@ -85,7 +85,7 @@ const sample = (
 function App() {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate persistor={persistor}>
         <ConnectedRouter history={history}>
           <ThemeProvider theme={theme}>
             <AppBar />
