@@ -15,6 +15,7 @@ import { register } from '../redux/login/actions';
 import { RegisterData } from '../redux/login/types';
 
 function CreateAccountForm() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [emailValid, setEmailValid] = useState(false);
@@ -106,11 +107,24 @@ function CreateAccountForm() {
     [password, validatePasswordConfirmation, setPasswordConfirmation]
   );
 
+  const handleInputChangeName = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setName(event.target.value);
+    },
+    [setName]
+  );
   const history = useHistory();
   const dispatch = useDispatch();
 
   return (
     <BoxCenterSized>
+      <AccountTextField
+        fullWidth
+        placeholder="Name"
+        onChange={handleInputChangeName}
+        variant="filled"
+        size="small"
+      />
       <AccountTextField
         fullWidth
         placeholder="Email Address"
@@ -211,7 +225,11 @@ const ErrorMessage = styled(Typography)({
 });
 
 const BoxCenterSized = styled(BoxCenter)({
+<<<<<<< HEAD
   height: '325px',
+=======
+  height: '525px',
+>>>>>>> a71fe6623cfe2471b07dbea91784cb351fd47917
   width: '200px'
 });
 
