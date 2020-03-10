@@ -2,7 +2,6 @@ const baseURL = 'http://localhost:5000/';
 
 const headers = new Headers();
 headers.set('Content-Type', 'application/JSON');
-headers.append('Access-Control-Allow-Origin', 'http://localhost:3000/');
 
 const credentials: RequestCredentials = 'include';
 
