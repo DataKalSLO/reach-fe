@@ -7,6 +7,7 @@ import { updateDescription, updateTitle } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
 import SortableList from '../stories/SortableList';
+import { saveStoryToDatabase } from './StoryAPIConnector';
 import { convertStoryToJSX } from './StoryConverter';
 
 export default function StoryForm() {
@@ -18,7 +19,16 @@ export default function StoryForm() {
   const TITLE_CHAR_LIMIT = 100;
   const DESCRIPTION_CHAR_LIMIT = 250;
   function saveStory() {
-    alert(JSON.stringify(story, null, 2));
+    alert(JSON.stringify(story.storyBlocks, null, 2));
+    story.title = 'Adding titles is not implemented yet';
+    story.userID = '51d73193-470d-442b-a392-3e43238eb089';
+
+    saveStoryToDatabase(story)
+      .then(res => {
+        console.log('Story Created!');
+        console.log(res);
+      })
+      .catch(e => console.log(e));
   }
 
   function createCharCounter(currentText: string, maxLength: number) {
