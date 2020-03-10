@@ -7,7 +7,12 @@ import { loginUser, register } from '../redux/login/actions';
 import { HOME } from '../nav/constants';
 import './GoogleAuth.scss';
 
-const GoogleAuth = (props: { isRegistration: boolean }) => {
+export enum GoogleLoginButtonStyle {
+  LoginWith = 'Sign in with Google',
+  ContinueWith = 'Continue with Google'
+}
+
+const GoogleAuth = (props: { style: GoogleLoginButtonStyle }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -19,7 +24,7 @@ const GoogleAuth = (props: { isRegistration: boolean }) => {
 
   const responseGoogle = useCallback(
     (googleUser: gapi.auth2.GoogleUser): void => {
-      if (props.isRegistration) {
+      if (props.style === GoogleLoginButtonStyle.ContinueWith) {
         dispatch(
           register({
             email: googleUser.getBasicProfile().getEmail(),
@@ -38,7 +43,7 @@ const GoogleAuth = (props: { isRegistration: boolean }) => {
       }
       history.push(HOME);
     },
-    [dispatch, history, props.isRegistration]
+    [dispatch, history, props.style]
   );
 
   return (
@@ -74,7 +79,7 @@ const GoogleAuth = (props: { isRegistration: boolean }) => {
             />
           </svg>
         </span>
-        <span className="google-button__text">Sign in with Google</span>
+        <span className="google-button__text">{props.style}</span>
       </button>
     </GoogleLoginButton>
   );
