@@ -6,7 +6,11 @@ import {
   UPDATE_TEXT_BLOCK,
   CreateEmptyTextBlockAction,
   UpdateTextBlockAction,
-  SwapBlocksAction
+  SwapBlocksAction,
+  UPDATE_TITLE,
+  UpdateTitleAction,
+  UpdateDescriptionAction,
+  UPDATE_DESCRIPTION
 } from './types';
 import { TEXT_BLOCK_TYPE } from '../../stories/StoryTypes';
 
@@ -40,5 +44,21 @@ export function swapBlocks(
   return {
     type: SWAP_BLOCKS,
     payload: { oldIndex: oldIndex, newIndex: newIndex }
+  };
+}
+
+export function updateTitle(newTitle: string): UpdateTitleAction {
+  return {
+    type: UPDATE_TITLE,
+    payload: { newTitle: newTitle }
+  };
+}
+
+export function updateDescription(
+  newDescription: string
+): UpdateDescriptionAction {
+  return {
+    type: UPDATE_DESCRIPTION,
+    payload: { newDescription: newDescription }
   };
 }
