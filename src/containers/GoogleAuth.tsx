@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 import { LoginData, RegisterData } from '../redux/login/types';
 import { loginUser, register } from '../redux/login/actions';
 import { HOME } from '../nav/constants';
-import GoogleBtn from '../icons/btn_google_signin_dark_normal_web.png';
 import './GoogleAuth.scss';
 
 const GoogleAuth = (props: { isRegistration: boolean }) => {
