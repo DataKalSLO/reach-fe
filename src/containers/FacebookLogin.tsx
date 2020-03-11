@@ -16,14 +16,12 @@ function FacebookLogin({ style }: FacebookLoginProps) {
     <ReactFacebookLogin
       appId="663110434494643"
       callback={(response: ReactFacebookLoginInfo) => console.log(response)}
-      render={(_: object) => {
-        return <LoginButton style={style} />;
-      }}
+      render={() => <LoginButton style={style} />}
     />
   );
 }
 
-// This is an ugly hack to make sure Facebook's asynchronously-loaded SDK
+// This declaration is a workaround to make sure Facebook's asynchronously-loaded SDK
 // is accessible via the component below.
 // Typescript otherwise fails to acknowledge `window.FB`, since it exists only at runtime.
 declare const window: { FB: { XFBML: { parse(): void } } };
@@ -36,7 +34,7 @@ function LoginButton({ style }: FacebookLoginProps) {
     if (window.FB !== undefined) {
       window.FB.XFBML.parse();
     }
-  });
+  }, []);
 
   return (
     <div
@@ -46,7 +44,7 @@ function LoginButton({ style }: FacebookLoginProps) {
       data-button-type={style}
       data-auto-logout-link="false"
       data-use-continue-as="false"
-    ></div>
+    />
   );
 }
 

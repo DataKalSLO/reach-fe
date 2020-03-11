@@ -36,7 +36,7 @@ declare module 'react-facebook-login/dist/facebook-login-render-props' {
     state?: string;
     authType?: string;
     responseType?: string;
-    render?(props: object): void;
+    render?(): void;
   }
 
   export interface ReactFacebookFailureResponse {

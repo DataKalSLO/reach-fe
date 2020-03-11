@@ -1,14 +1,50 @@
-// Stub for common component: DatePicker
-//
-//   common components are esentially wrappers for Material UI components
-//   we are creating wrappers in order to maintain consistent style between all teams
-//
-//   if you need a component that hasn't been implemented go ahead and set it up!
-//     docs:  https://material-ui.com/
-//   after implementing the component request someone from the React team for review
+import React from 'react';
 
-const DatePicker = () => {
-  throw new Error('DatePicker has not been defined');
-};
+import Grid from '@material-ui/core/Grid';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker
+} from '@material-ui/pickers';
 
-export { DatePicker };
+import 'date-fns';
+
+interface PickerProps {
+  id: string;
+  label: string;
+}
+
+// add a props: Array<string> in parameters but I get some errors
+export function MaterialUIPickers(props: PickerProps) {
+  const { id, label } = props;
+  const [selectedDate, setSelectedDate] = React.useState<Date | null>(
+    // no input defaults to today's date
+    new Date()
+  );
+
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+  };
+
+  return (
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <Grid container justify="space-evenly">
+        <KeyboardDatePicker
+          disableToolbar
+          variant="inline"
+          format="MM/dd/yyyy"
+          margin="normal"
+          id={id}
+          label={label}
+          value={selectedDate}
+          onChange={handleDateChange}
+          KeyboardButtonProps={{
+            'aria-label': 'change date'
+          }}
+        />
+      </Grid>
+    </MuiPickersUtilsProvider>
+  );
+}
+
+export default MaterialUIPickers;
