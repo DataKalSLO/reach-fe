@@ -11,7 +11,7 @@ import {
 /**
  * data_utils tests
  *
- * Tests the capitalizeName, toCurrency, formatData, getDataInfo, getRegionInfo
+ * Tests the capitalizeName, toCurrency, formatData, getDataInfo, getRegionInfo, processData, getLocationsInData
  * from the data_utils file
  */
 
