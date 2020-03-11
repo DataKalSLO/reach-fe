@@ -20,8 +20,7 @@ export default function StoryForm() {
   const DESCRIPTION_CHAR_LIMIT = 250;
   function saveStory() {
     alert(JSON.stringify(story.storyBlocks, null, 2));
-    story.title = 'Adding titles is not implemented yet';
-    story.userID = '51d73193-470d-442b-a392-3e43238eb089';
+    story.userID = '51d73193-470d-442b-a392-3e43238eb089'; //Existing user in database
 
     saveStoryToDatabase(story)
       .then(res => {
