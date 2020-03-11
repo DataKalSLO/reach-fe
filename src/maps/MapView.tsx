@@ -3,6 +3,9 @@ import ReactMapGL, { Source, Layer, Marker, Popup } from 'react-map-gl';
 import { SLO_LATITUDE, SLO_LONGITUDE } from './constants';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import RoomIcon from '@material-ui/icons/Room';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import Chip from '@material-ui/core/Chip';
+import Paper from '@material-ui/core/Paper';
 import chroma from 'chroma-js';
 import _ from 'lodash';
 import Tooltip from './Tooltip';
@@ -27,6 +30,21 @@ const defaultHoveredLocation = {
   },
   noLocation: true
 };
+
+// styling for mui chip array to show legend
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+      justifyContent: 'center',
+      flexWrap: 'wrap',
+      padding: theme.spacing(0.5)
+    },
+    chip: {
+      margin: theme.spacing(0.5)
+    }
+  })
+);
 
 function MapView(props: MapViewProps) {
   const {
@@ -173,6 +191,15 @@ function MapView(props: MapViewProps) {
       </div>
     );
   };
+  const chipArrayClasses = useStyles();
+  const chipData = [
+    {
+      key: 0,
+      label: 'test1',
+      color: 'red'
+    },
+    { key: 1, label: 'test2', color: 'green' }
+  ];
 
   return Object.keys(data).length > 0 ? (
     <ReactMapGL
@@ -208,6 +235,21 @@ function MapView(props: MapViewProps) {
       {selectedMarker.map((selected: LocationFeatures) => {
         return popups(selected, setSelectedMarker, selectedMarker);
       })}
+      <Paper className={chipArrayClasses.root}>
+        {chipData.map(data => {
+          let icon;
+          return (
+            <Chip
+              key={data.key}
+              icon={icon}
+              label={data.label}
+              className={chipArrayClasses.chip}
+              style={{ borderColor: data.color }}
+              variant="outlined"
+            />
+          );
+        })}
+      </Paper>
     </ReactMapGL>
   ) : (
     <div

@@ -4,11 +4,6 @@ import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
 import { SourceComponentProps } from './MapTypes';
 
-interface Sources {
-  key: number;
-  label: string;
-}
-
 //TODO: use mui styled instead of makestyles
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
