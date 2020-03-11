@@ -54,8 +54,9 @@ const showAll: MarkerSelection = [];
 
 // handles change of selection
 // ensures that popups will not stay when their markers disappear
-// TODO: color association??
 function handleChange(
+  // going to solve "any" errors at a later time, ignoring for demo
+  // eslint-disable-next-line
   value: any,
   setMarkerSelection: SetMarkerSelection,
   setHeatMapSelection: SetHeatMapSelection,
@@ -65,9 +66,13 @@ function handleChange(
   setDataSources: SetDataSources
 ) {
   const newMarkers: MarkerSelection = [];
+  // going to solve "any" errors at a later time, ignoring for demo
+  // eslint-disable-next-line
   let newHeatMap: any = {};
   const allSelections: string[] = [];
   const allDataSources: string[] = [];
+  // going to solve "any" errors at a later time, ignoring for demo
+  // eslint-disable-next-line
   value.forEach((table: any) => {
     if (table.type === 'FeatureCollection') {
       newMarkers.push(table);
@@ -103,9 +108,13 @@ function handleChange(
 
 // handles disabling options, only two markers or one marker & one heat map allowed
 function handleDisable(
+  // going to solve "any" errors at a later time, ignoring for demo
+  // eslint-disable-next-line
   allData: any[],
   markerSelection: MarkerSelection,
   heatMapSelection: HeatMapSelection,
+  // going to solve "any" errors at a later time, ignoring for demo
+  // eslint-disable-next-line
   option: any
 ) {
   if (markerSelection.length === ALLOWED_MARKERS) {
