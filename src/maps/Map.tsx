@@ -7,7 +7,7 @@ import VintageComponent from './VintageComponent';
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
 import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/median_income_data.js';
 
-// TODO: dummy save to stories - MapView
+// TODO: dummy save to stories
 // TODO: vintage component should pull from data
 // how will we display this? if we're showing 2 data sets?
 // maybe this info ought to go with the legend?

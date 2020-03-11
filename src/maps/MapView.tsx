@@ -42,6 +42,8 @@ function MapView(props: MapViewProps) {
   } = props;
   // React-Map-GL State
   // heat map prepped here
+  // going to solve "any" errors at a later time, ignoring for demo
+  // eslint-disable-next-line
   let heatMapFeatures: any[] | null = null;
   let valueKey = '';
   if (Object.keys(heatMapSelection).length) {
@@ -111,6 +113,8 @@ function MapView(props: MapViewProps) {
     // eslint-disable-next-line
   }, [markerSelection]);
 
+  // going to solve "any" errors at a later time, ignoring for demo
+  // eslint-disable-next-line
   const [viewport, setViewport]: any = React.useState({
     width: '100%',
     height: '60vh',
@@ -301,8 +305,14 @@ function MapView(props: MapViewProps) {
 
 // TODO: Had trouble creating an interface for featureCollection
 // Tried to create an interface using the type from features on line 34
+// going to solve "any" errors at a later time, ignoring for demo
+// eslint-disable-next-line
 function prepGeo(featureCollection: any) {
+  // going to solve "any" errors at a later time, ignoring for demo
+  // eslint-disable-next-line
   const prepped: any = [];
+  // going to solve "any" errors at a later time, ignoring for demo
+  // eslint-disable-next-line
   featureCollection.forEach((feature: any) => {
     prepped.push({
       geometry: feature.geometry,
@@ -312,7 +322,11 @@ function prepGeo(featureCollection: any) {
   return prepped;
 }
 
+// going to solve "any" errors at a later time, ignoring for demo
+// eslint-disable-next-line
 function getStat(features: any, extractionFunc: any, selection: string) {
+  // going to solve "any" errors at a later time, ignoring for demo
+  // eslint-disable-next-line
   const stat = extractionFunc(features, (o: any) => {
     return o.properties[selection];
   });
@@ -327,7 +341,11 @@ function onHover(
     };
     noLocation: boolean;
   },
+  // going to solve "any" errors at a later time, ignoring for demo
+  // eslint-disable-next-line
   setHoveredLocation: any,
+  // going to solve "any" errors at a later time, ignoring for demo
+  // eslint-disable-next-line
   event: any,
   x: React.MutableRefObject<number>,
   y: React.MutableRefObject<number>
@@ -337,6 +355,8 @@ function onHover(
     srcEvent: { offsetX, offsetY }
   } = event;
   const hoveredLocation =
+    // going to solve "any" errors at a later time, ignoring for demo
+    // eslint-disable-next-line
     features && features.find((f: any) => f.layer.id === 'data');
   if (!hoveredLocation) {
     setHoveredLocation(defaultHoveredLocation);
@@ -359,6 +379,8 @@ function quantileMaker(
     .fill(0)
     .map(Number.prototype.valueOf, 0)
     .map(
+      // going to solve "any" errors at a later time, ignoring for demo
+      // eslint-disable-next-line
       function(this: any, val: number, idx: number) {
         return idx === 0 ? min : (this.acc += bucket);
       },
@@ -392,6 +414,8 @@ function markers(
   features: LocationFeatures[][],
   setSelectedMarker: SetSelectedMarker,
   selectedMarker: SelectedMarker,
+  // going to solve "any" errors at a later time, ignoring for demo
+  // eslint-disable-next-line
   colorAssociation: any,
   layer: string
 ) {

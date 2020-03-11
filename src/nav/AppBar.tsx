@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import MuiAppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -9,7 +9,7 @@ import { styled } from '@material-ui/core/styles';
 import { Grid, Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import MenuButton from './MenuButton';
-import { getUser } from '../redux/login/selectors';
+// import { getUser } from '../redux/login/selectors';
 import {
   HOME,
   HOME_NAME,
@@ -62,7 +62,7 @@ function AppBar() {
   const history = useHistory();
   const navigateTo = (route: string) => () => history.push(route);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const user = useSelector(getUser);
+  // const user = useSelector(getUser);
 
   const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
