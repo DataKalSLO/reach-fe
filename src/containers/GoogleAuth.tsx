@@ -4,15 +4,17 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { LoginData, RegisterData } from '../redux/login/types';
 import { loginUser, register } from '../redux/login/actions';
-import { HOME } from '../nav/constants';
 import './GoogleAuth.scss';
 
+// jest test does not support this type of export
+/*
 export enum GoogleLoginButtonStyle {
   LoginWith = 'Sign in with Google',
   ContinueWith = 'Continue with Google'
 }
+*/
 
-const GoogleAuth = (props: { style: GoogleLoginButtonStyle }) => {
+const GoogleAuth = (props: { style: string }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -24,7 +26,7 @@ const GoogleAuth = (props: { style: GoogleLoginButtonStyle }) => {
 
   const responseGoogle = useCallback(
     (googleUser: gapi.auth2.GoogleUser): void => {
-      if (props.style === GoogleLoginButtonStyle.ContinueWith) {
+      if (props.style === 'Continue with Google') {
         dispatch(
           register({
             email: googleUser.getBasicProfile().getEmail(),
@@ -41,7 +43,7 @@ const GoogleAuth = (props: { style: GoogleLoginButtonStyle }) => {
           } as LoginData)
         );
       }
-      history.push(HOME);
+      history.push('/');
     },
     [dispatch, history, props.style]
   );

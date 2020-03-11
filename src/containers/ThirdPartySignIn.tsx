@@ -1,14 +1,14 @@
 import React from 'react';
 import { styled } from '@material-ui/core';
 import BoxCenter from '../common/components/BoxCenter';
-import GoogleAuth, { GoogleLoginButtonStyle } from './GoogleAuth';
+import GoogleAuth from './GoogleAuth';
 import FacebookLogin, { FacebookLoginButtonStyle } from './FacebookLogin';
 
 // A component to handle signing in using existing Social Media Accounts
 function ThirdPartySignIn() {
   return (
     <ThirdPartyBox>
-      <GoogleAuth style={GoogleLoginButtonStyle.LoginWith} />
+      <GoogleAuth style={'Login with Google'} />
       <FacebookLogin style={FacebookLoginButtonStyle.LoginWith} />
     </ThirdPartyBox>
   );
