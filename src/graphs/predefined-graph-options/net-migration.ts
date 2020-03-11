@@ -12,17 +12,11 @@ export const categories = [
   '2016',
   '2017'
 ];
-
 export const data = [
-  [25.35, 18.52, 18.01, 19.71, 18.75, 20.31, 19.92, 27.57, 28.26]
+  [9348.0, 7007.0, 5400.0, 4908.0, 5239.0, 4123.0, 6147.0, 5259.0, 5825.0]
 ];
 
-export const wagesOptions: Highcharts.Options = {
-  tooltip: {
-    valuePrefix: '$',
-    valueSuffix: ' USD',
-    valueDecimals: 2
-  },
+export const NetMigrationOptions: Highcharts.Options = {
   chart: {
     height: '100%',
     zoomType: 'xy',
@@ -32,31 +26,28 @@ export const wagesOptions: Highcharts.Options = {
     panKey: 'shift'
   },
   title: {
-    text: 'Mean Real Wages Adjusted By Year'
+    text: 'Net Migration Flow'
   },
   xAxis: {
-    type: 'datetime',
+    title: { text: 'Year' },
     categories: categories
   },
   yAxis: {
     title: {
-      text: 'Mean Real Wages Adjusted'
+      text: 'Values'
     }
   },
   plotOptions: {
-    series: {
-      allowPointSelect: true,
-      stacking: 'normal'
-    },
     column: {
-      allowPointSelect: true,
-      stacking: 'normal'
+      stacking: 'normal',
+      allowPointSelect: true
     }
   },
+
   series: [
     {
-      name: 'Mean Real Wages Adjusted',
-      type: 'spline',
+      name: 'Net Migration',
+      type: 'column',
       data: data[0]
     }
   ]
@@ -64,15 +55,15 @@ export const wagesOptions: Highcharts.Options = {
 
 const seriesData: SeriesData[] = [
   {
-    seriesType: 'spline',
+    seriesType: 'column',
     data: [
       {
-        name: 'Mean Real Wage Adjusted',
+        name: 'Net Migration Flow',
         valueType: 'string',
         values: categories
       } as Column,
       {
-        name: 'Mean Real Wages Adjusted',
+        name: 'values',
         valueType: 'number',
         values: data[0]
       } as ValueColumn
@@ -80,8 +71,8 @@ const seriesData: SeriesData[] = [
   }
 ];
 
-export const wagesGraphData: GraphData = {
+export const netMigrationGraphData: GraphData = {
   graphType: 'basic',
-  graphTitle: wagesOptions.title?.text,
+  graphTitle: NetMigrationOptions.title?.text,
   seriesData: seriesData
 };

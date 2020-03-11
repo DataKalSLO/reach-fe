@@ -1,3 +1,26 @@
+import { GraphData, SeriesData, ValueColumn } from '../components/types';
+import { Column } from '../../redux/vizbuilder/types';
+
+const categories = [
+  'Jan',
+  'Feb',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'Aug',
+  'Sept',
+  'Oct',
+  'Nov'
+];
+
+const data = [
+  [19481, 19815, 24304, 24574, 24813, 26035, 24868, 25411, 25185, 29263, 24976],
+  [12171, 11686, 15055, 17541, 18754, 18539, 19147, 18191, 17124, 15261, 16499],
+  [3664, 3421, 3723, 4178, 4167, 4285, 4423, 4286, 4159, 4171, 3955]
+];
+
 export const airportsOptions: Highcharts.Options = {
   tooltip: {
     valueDecimals: 2,
@@ -11,30 +34,15 @@ export const airportsOptions: Highcharts.Options = {
     panKey: 'shift'
   },
   title: {
-    text: 'Passenger Revenure Per Airport By Month (2019)'
+    text: 'Passenger Revenue Per Airport By Month (2019)'
   },
   xAxis: {
     type: 'category',
-    categories: [
-      'Jan',
-      'Feb',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'Aug',
-      'Sept',
-      'Oct',
-      'Nov'
-    ]
+    categories: categories
   },
   yAxis: {
     title: {
       text: 'Total Passenger Revenue'
-    },
-    labels: {
-      format: '${value}'
     }
   },
   plotOptions: {
@@ -51,44 +59,71 @@ export const airportsOptions: Highcharts.Options = {
     {
       name: 'United',
       type: 'column',
-      data: [
-        19481,
-        19815,
-        24304,
-        24574,
-        24813,
-        26035,
-        24868,
-        25411,
-        25185,
-        29263,
-        24976
-      ],
-      stack: 'Arroyo Grande'
+      data: data[0]
     },
     {
       name: 'American',
       type: 'column',
-      data: [
-        12171,
-        11686,
-        15055,
-        17541,
-        18754,
-        18539,
-        19147,
-        18191,
-        17124,
-        15261,
-        16499
-      ],
-      stack: 'Atascadero'
+      data: data[1]
     },
     {
       name: 'Alaska',
       type: 'column',
-      data: [3664, 3421, 3723, 4178, 4167, 4285, 4423, 4286, 4159, 4171, 3955],
-      stack: 'Grover Beach'
+      data: data[2]
     }
   ]
+};
+
+const seriesData: SeriesData[] = [
+  {
+    seriesType: 'column',
+    data: [
+      {
+        name: 'United',
+        valueType: 'string',
+        values: categories
+      } as Column,
+      {
+        name: 'Total Passenger Revenue',
+        valueType: 'number',
+        values: data[0]
+      } as ValueColumn
+    ]
+  },
+  {
+    seriesType: 'column',
+    data: [
+      {
+        name: 'American',
+        valueType: 'string',
+        values: categories
+      } as Column,
+      {
+        name: 'Total Passenger Revenue',
+        valueType: 'number',
+        values: data[1]
+      } as ValueColumn
+    ]
+  },
+  {
+    seriesType: 'column',
+    data: [
+      {
+        name: 'Alaska',
+        valueType: 'string',
+        values: categories
+      } as Column,
+      {
+        name: 'Total Passenger Revenue',
+        valueType: 'number',
+        values: data[2]
+      } as ValueColumn
+    ]
+  }
+];
+
+export const airportsGraphData: GraphData = {
+  graphType: 'basic',
+  graphTitle: airportsOptions.title?.text,
+  seriesData: seriesData
 };
