@@ -57,10 +57,14 @@ const options: Highcharts.Options = {
   ]
 };
 
+const fs =require('fs');
+const myOptions = JSON.stringify(options);
+
 function Graph() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const chartRef: any = useRef<HighchartsReact | null>(null);
   const exportChart = () => chartRef.current.chart.exportChart();
+  console.log(myOptions);
   return (
     <div
       style={{

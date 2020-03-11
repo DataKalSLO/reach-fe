@@ -89,7 +89,11 @@ const options: Highcharts.Options = {
   }
 };
 
+const fs =require('fs');
+const myOptions = JSON.stringify(options);
+
 function DrilldownDOD() {
+    //console.log(myOptions);
   return (
     <div>
       <div>
