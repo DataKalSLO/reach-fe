@@ -52,7 +52,7 @@ function SearchResults(props: SearchResultProps) {
           </ListItemAvatar>
           <ListItemText
             primary={
-              <Link to={item._index + '/' + item._id} className={classes.a}>
+              <Link to={'pmGraph/' + item._id} className={classes.a}>
                 {item._source.title}
               </Link>
             }
