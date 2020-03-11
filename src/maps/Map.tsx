@@ -9,6 +9,7 @@ import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/med
 
 // TODO: dummy save to stories
 // TODO: vintage component should pull from data
+
 // how will we display this? if we're showing 2 data sets?
 // maybe this info ought to go with the legend?
 function Map() {

@@ -24,10 +24,14 @@ describe('<LayersComponent/> with no props', () => {
     console.error = originalConsoleError;
   });
   const props = {
-    layerSelection: [],
-    setLayerSelection: jest.fn().mockResolvedValue([]),
+    markerSelection: [],
+    setMarkerSelection: jest.fn().mockResolvedValue([]),
+    heatMapSelection: [],
+    setHeatMapSelection: jest.fn().mockResolvedValue([]),
     selectedMarker: [],
-    setSelectedMarker: jest.fn().mockResolvedValue([])
+    setSelectedMarker: jest.fn().mockResolvedValue([]),
+    dataSources: [],
+    setDataSources: jest.fn().mockResolvedValue([])
   };
   const container = shallow(<LayersComponent {...props} />);
   it('should match with snapshot', () => {

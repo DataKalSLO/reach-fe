@@ -49,16 +49,16 @@ export type SelectedMarker = LocationFeatures[];
 export type SetSelectedMarker = React.Dispatch<
   React.SetStateAction<LocationFeatures[]>
 >;
-// not sure why types won't work here
+
 export type HeatMapSelection = {
   type: string;
   name: string;
   valueKey: string;
-  // going to solve "any" errors at a later time, ignoring for demo
+  // TODO: going to solve "any" errors at a later time, ignoring for demo
   // eslint-disable-next-line
   features: any[];
 };
-// going to solve "any" errors at a later time, ignoring for demo
+// TODO: going to solve "any" errors at a later time, ignoring for demo
 // eslint-disable-next-line
 export type SetHeatMapSelection = any;
 export type DataSources = {
