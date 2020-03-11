@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import MuiAppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -8,6 +9,7 @@ import { styled } from '@material-ui/core/styles';
 import { Grid, Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import MenuButton from './MenuButton';
+import { getUser } from '../redux/login/selectors';
 import {
   HOME,
   HOME_NAME,
@@ -20,6 +22,7 @@ import {
   MY_STUFF,
   MY_STUFF_NAME,
   LOGIN,
+  LOGIN_NAME,
   CREATE_ACCOUNT
 } from './constants';
 import AccountDropdown from '../containers/AccountDropdown';
@@ -60,6 +63,7 @@ function AppBar() {
   const history = useHistory();
   const navigateTo = (route: string) => () => history.push(route);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const user = useSelector(getUser);
 
   const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -73,7 +77,7 @@ function AppBar() {
       alignItems="center"
       spacing={3}
     >
-      <Grid item>
+      <Grid item xs={1}>
         <ButtonWithoutHover onClick={navigateTo(HOME)}>
           <StyledTypography variant="h6" noWrap>
             {HOME_NAME}
@@ -83,45 +87,53 @@ function AppBar() {
       <Grid
         item
         container
-        xs={10}
         direction="row"
+        xs={9}
         justify="center"
         alignItems="center"
         spacing={8}
         wrap="nowrap"
       >
-        <Grid item key={EXPLORE_NAME}>
+        <Grid item key={EXPLORE_NAME} xs={1}>
           <MenuButton
             name={EXPLORE_NAME}
             navigateToRoute={navigateTo(EXPLORE)}
           />
         </Grid>
-        <Grid item key={VIZ_BUILDER_NAME}>
+        <Grid item key={VIZ_BUILDER_NAME} xs={1}>
           <MenuButton
             name={VIZ_BUILDER_NAME}
             navigateToRoute={navigateTo(VIZ_BUILDER)}
           />
         </Grid>
-        <Grid item key={STORY_BUILDER_NAME}>
+        <Grid item key={STORY_BUILDER_NAME} xs={1}>
           <MenuButton
             name={STORY_BUILDER_NAME}
             navigateToRoute={navigateTo(STORY_BUILDER)}
           />
         </Grid>
       </Grid>
-      <Grid item>
-        <MenuButton
-          name={MY_STUFF_NAME}
-          navigateToRoute={navigateTo(MY_STUFF)}
-        />
-        <IconButton
-          onClick={handleClickListItem}
-          aria-haspopup="true"
-          aria-controls="menu"
-        >
-          <AccountCircleIcon fontSize="large" />
-        </IconButton>
-        <AccountDropdown anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
+      <Grid container justify="flex-end" xs={2}>
+        <Grid item>
+          {user.email ? (
+            <React.Fragment>
+              <MenuButton
+                name={MY_STUFF_NAME}
+                navigateToRoute={navigateTo(MY_STUFF)}
+              />
+              <IconButton
+                onClick={handleClickListItem}
+                aria-haspopup="true"
+                aria-controls="menu"
+              >
+                <AccountCircleIcon fontSize="large" />
+              </IconButton>
+              <AccountDropdown anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
+            </React.Fragment>
+          ) : (
+            <MenuButton name={LOGIN_NAME} navigateToRoute={navigateTo(LOGIN)} />
+          )}
+        </Grid>
       </Grid>
     </Grid>
   );

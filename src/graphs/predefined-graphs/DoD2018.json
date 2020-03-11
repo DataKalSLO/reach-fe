@@ -1,0 +1,909 @@
+{
+	"tooltip": {
+		"useHTML": true,
+		"headerFormat": "<small>{point.key}</small><table>",
+		"valueDecimals": 2,
+		"valuePrefix": "$",
+		"valueSuffix": " USD"
+	},
+	"chart": {
+    "height": "100%",
+    "zoomType": "xy",
+    "panning": {"enabled": true},
+    "panKey": "shift"
+	},
+	"title": {
+		"text": "Department of Defense Contracts"
+	},
+	"series": [{
+		"name": "Companies",
+		"type": "column",
+		"data": [{
+			"name": "A&J Enterprise",
+			"y": 15702.03
+		}, {
+			"name": "Ace Technology Partners LLC",
+			"y": 32822.86
+		}, {
+			"name": "ACF Technologies, INC.",
+			"y": 21627
+		}, {
+			"name": "Adellsen Group, LLC, THE",
+			"y": 2176203.92
+		}, {
+			"name": "Aegir Systems",
+			"y": 623845.68
+		}, {
+			"name": "AGS, INC.",
+			"y": 1598106.15
+		}, {
+			"name": "Air Dry CO Of America, LLC",
+			"y": 36040.91
+		}, {
+			"name": "Alan's Draperies",
+			"y": 7520
+		}, {
+			"name": "ALEUT Aerospace Engineering, LLC",
+			"y": 3944118.85
+		}, {
+			"name": "Alexander's, INC",
+			"y": 30414
+		}, {
+			"name": "All Valley Environmental, INC",
+			"y": 38257.5
+		}, {
+			"name": "AllCom Global Services, INC.",
+			"y": 750494.63
+		}, {
+			"name": "Alliance Technical Services, INC.",
+			"y": 4193103.6799999997
+		}, {
+			"name": "Alturdyne International",
+			"y": 7470
+		}, {
+			"name": "American Automation, INC.",
+			"y": 40910.64
+		}, {
+			"name": "American Fire Protection INC",
+			"y": 22410
+		}, {
+			"name": "American Floor Sanding INC",
+			"y": 8200
+		}, {
+			"name": "American Medical Response West",
+			"y": 4034687.6
+		}, {
+			"name": "American Systems Corporation",
+			"y": 2611576.1100000003
+		}, {
+			"name": "American Water Operations and Maintenance, INC.",
+			"y": 365514543.28
+		}, {
+			"name": "Analytical Graphics, INC.",
+			"y": 113170.04
+		}, {
+			"name": "Andersen Van & Storage, INC",
+			"y": 95000
+		}, {
+			"name": "Anderson Burton Construction, INC.",
+			"y": 7017105.459999999
+		}, {
+			"name": "Anna Lisa Luna Construction, INC.",
+			"y": 7666.51
+		}, {
+			"name": "AOS Services INC",
+			"y": 196725.6
+		}, {
+			"name": "Applied Earthworks INC",
+			"y": 7250.39
+		}, {
+			"name": "APRO International, INC.",
+			"y": 4653541.87
+		}, {
+			"name": "Arbiter Systems, Incorporated",
+			"y": 35000
+		}, {
+			"name": "Arroyo Instruments, LLC",
+			"y": 8440
+		}, {
+			"name": "ASRC Builders, LLC",
+			"y": 46618
+		}, {
+			"name": "Asteres INC.",
+			"y": 35000
+		}, {
+			"name": "Atlantic Diving Supply, INC.",
+			"y": 84054.64
+		}, {
+			"name": "Atlas Copco Mafi-Trench Company LLC",
+			"y": 2012969
+		}, {
+			"name": "Atlas Performance Industries, INC.",
+			"y": 1959.83
+		}, {
+			"name": "Atlas Waste Management INC",
+			"y": 5425
+		}, {
+			"name": "Avlite Aviation, INC",
+			"y": 1055563.5500000003
+		}, {
+			"name": "Axxon International, LLC",
+			"y": 189630
+		}, {
+			"name": "Baudville, INC.",
+			"y": 11458.82
+		}, {
+			"name": "Beckman Coulter, INC.",
+			"y": 8950
+		}, {
+			"name": "Bengal Engineering, INC",
+			"y": 148538.7
+		}, {
+			"name": "Big Red Crane Company, INC.",
+			"y": 68075.61
+		}, {
+			"name": "Bishop, INC.",
+			"y": 184680
+		}, {
+			"name": "Black & Veatch Special Projects CORP.",
+			"y": 199773
+		}, {
+			"name": "Black Gold Industries",
+			"y": 223602.65
+		}, {
+			"name": "Blue Tech INC.",
+			"y": 85220.53
+		}, {
+			"name": "Bohannon, Brittany",
+			"y": 13950
+		}, {
+			"name": "Bonneville Steel of Utah, INC.",
+			"y": 184209.74
+		}, {
+			"name": "Booz Allen Hamilton INC",
+			"y": 4878009.39
+		}, {
+			"name": "Boyd Industries, INC.",
+			"y": 9748
+		}, {
+			"name": "Bragg Investment Company, INC.",
+			"y": 0
+		}, {
+			"name": "Brenner-Fiedler & Associates INC",
+			"y": 5331
+		}, {
+			"name": "Bristol Environmental Remediation Services LLC",
+			"y": 365420
+		}, {
+			"name": "Brodart CO.",
+			"y": 7818
+		}, {
+			"name": "Brown, Curtis",
+			"y": 31400
+		}, {
+			"name": "BSE Performance LLC",
+			"y": 35568
+		}, {
+			"name": "BSH Management Services LLC",
+			"y": 1164499.68
+		}, {
+			"name": "BTAS INC",
+			"y": 141109.8
+		}, {
+			"name": "Burgos Group LLC",
+			"y": 1650067.13
+		}, {
+			"name": "C F W Research & Development CO.",
+			"y": 17086.6
+		}, {
+			"name": "C U Enterprises LTD.",
+			"y": 1399972.17
+		}, {
+			"name": "Calibre Engineering, INC.",
+			"y": 630276.2899999999
+		}, {
+			"name": "Calibre Systems, INC.",
+			"y": 1663407.68
+		}, {
+			"name": "Call Henry, INC.",
+			"y": 93693676.50999999
+		}, {
+			"name": "Cape Environmental Management",
+			"y": 10019084.52
+		}, {
+			"name": "CAPP, INC.",
+			"y": 5309.97
+		}, {
+			"name": "Caprice Electronics, INC.",
+			"y": 936.54
+		}, {
+			"name": "Carl Amber Brian Isaiah and Associates CO",
+			"y": 299086.18
+		}, {
+			"name": "Cartridge Technologies, INC.",
+			"y": 166299.39
+		}, {
+			"name": "Castleblack Pismo Beach Owner, LLC",
+			"y": 14629.32
+		}, {
+			"name": "CDW Government LLC",
+			"y": 40100
+		}, {
+			"name": "Centech Group, INC., THE",
+			"y": 36228612.27
+		}, {
+			"name": "Centralcare, Incorporated",
+			"y": 311403.2
+		}, {
+			"name": "CH2M Hill Constructors, INC.",
+			"y": 3767383.08
+		}, {
+			"name": "Cherokee Nation Environmental Solutions, L.L.C.",
+			"y": 928.9
+		}, {
+			"name": "Chesapeake Strategies Group, INC.",
+			"y": 831070.44
+		}, {
+			"name": "Chigosi Company, THE",
+			"y": 228787
+		}, {
+			"name": "Chloeta Fire, L.L.C.",
+			"y": 1806704.67
+		}, {
+			"name": "Chromal Plating Company",
+			"y": 253005
+		}, {
+			"name": "City Appliance Sales and Service",
+			"y": 483441.26
+		}, {
+			"name": "CMCS - T. Simons JV",
+			"y": 11739353.82
+		}, {
+			"name": "Coast to Coast Computer Products, INC",
+			"y": 40251.6
+		}, {
+			"name": "Compass Medical Provider LLC",
+			"y": 251699
+		}, {
+			"name": "Computer Sites, INC.",
+			"y": 413767.00999999995
+		}, {
+			"name": "CON Serve INC.",
+			"y": 2258949
+		}, {
+			"name": "Corporate Allocation SVCS, INC.",
+			"y": 3915078.35
+		}, {
+			"name": "Courts & Greens",
+			"y": 109056
+		}, {
+			"name": "Credence Management Solutions Limited Liability Company",
+			"y": 1308199.5
+		}, {
+			"name": "Crystal Engineering Corporation",
+			"y": 2170
+		}, {
+			"name": "Culligan Water Conditioning of Lompoc INC",
+			"y": 29100.96
+		}, {
+			"name": "Cummins Pacific, LLC",
+			"y": 5670.25
+		}, {
+			"name": "DC Scientific Glass, INC.",
+			"y": 32204.55
+		}, {
+			"name": "Den-Mat Holdings, LLC",
+			"y": 60.9
+		}, {
+			"name": "Diesel Forward, INC.",
+			"y": 5159
+		}, {
+			"name": "Digital Plaza, LLC",
+			"y": 36445
+		}, {
+			"name": "Direct Project INC.",
+			"y": 763563
+		}, {
+			"name": "Diverse Pest Management",
+			"y": 142690.71
+		}, {
+			"name": "Donald L Mooney Enterprises, LLC",
+			"y": 544392
+		}, {
+			"name": "EA Engineering, Science, and Technology, INC., PBC",
+			"y": 7144969.7
+		}, {
+			"name": "Ean Holdings, LLC",
+			"y": 10888.8
+		}, {
+			"name": "Earth Systems Pacific",
+			"y": 11250
+		}, {
+			"name": "Eastern Rigging Supply Company, INC.",
+			"y": 5128
+		}, {
+			"name": "Eaton Corporation",
+			"y": 1201127.94
+		}, {
+			"name": "Eco & Associates INC",
+			"y": 0
+		}, {
+			"name": "Emie's RE",
+			"y": 11250
+		}, {
+			"name": "Emrick Machine Tool Rebuilding INC",
+			"y": 77585.04
+		}, {
+			"name": "EnTech Associates/EnTech Signs - Alpha Led LLC",
+			"y": 3950.02
+		}, {
+			"name": "Esi Acquisition Corp.",
+			"y": 17561.36
+		}, {
+			"name": "Essnova Solutions, INC.",
+			"y": 633908.4199999999
+		}, {
+			"name": "Est Companies LLC",
+			"y": 15499.92
+		}, {
+			"name": "Estate Property Management, INC.",
+			"y": 28355
+		}, {
+			"name": "Evergreen Fire Alarms, LLC",
+			"y": 3443082
+		}, {
+			"name": "Exbon Development, INC.",
+			"y": 6409653.49
+		}, {
+			"name": "Executive Furniture Of washington DC INC",
+			"y": 7867.55
+		}, {
+			"name": "Executive Suite Services INC",
+			"y": 171264
+		}, {
+			"name": "Federal Key LLC",
+			"y": 47430.520000000004
+		}, {
+			"name": "Federal Prison Industries INC",
+			"y": 11011.07
+		}, {
+			"name": "Federal Solutions Group",
+			"y": 1556593.92
+		}, {
+			"name": "Filter Factory, INC., THE",
+			"y": 31003.870000000003
+		}, {
+			"name": "Floor Connection, INC.",
+			"y": 53237.64000000001
+		}, {
+			"name": "Flythissim Technologies, INC.",
+			"y": 11850
+		}, {
+			"name": "Force 3, INC.",
+			"y": 1226013.26
+		}, {
+			"name": "Four Tribes Construction Services, LLC",
+			"y": 5342851
+		}, {
+			"name": "Gannett Fleming, INC.",
+			"y": 58799.12
+		}, {
+			"name": "Garda CL Northwest, INC.",
+			"y": 81407.77
+		}, {
+			"name": "Gemtek Technology INC",
+			"y": 37550
+		}, {
+			"name": "Get It While Its Hot INC.",
+			"y": 44229.23
+		}, {
+			"name": "Gibbs International, INC.",
+			"y": 27351.78
+		}, {
+			"name": "GLR Construction, INC.",
+			"y": 5060284.11
+		}, {
+			"name": "Goodwill Industries of Southern California",
+			"y": 11544075.05
+		}, {
+			"name": "Granite Construction Company",
+			"y": 27298275
+		}, {
+			"name": "Granite Telecommunications, LLC",
+			"y": 2241.24
+		}, {
+			"name": "Great Western Installations, INC",
+			"y": 36949.62
+		}, {
+			"name": "Greater Central Coast Officials ASSN",
+			"y": 292691
+		}, {
+			"name": "Ground Control Systems, INC.",
+			"y": 27578.8
+		}, {
+			"name": "Grundy Government Services, LLC",
+			"y": 356379.73
+		}, {
+			"name": "GSI North America INC.",
+			"y": 599485.97
+		}, {
+			"name": "GSL Solutions INC",
+			"y": 27600
+		}, {
+			"name": "Gulf Holdings, LLC",
+			"y": 10708.78
+		}, {
+			"name": "Hardy Diagnostics",
+			"y": 3147.57
+		}, {
+			"name": "Hardy Media",
+			"y": 155014.00000000003
+		}, {
+			"name": "Harvey, Jill M.",
+			"y": 42000
+		}, {
+			"name": "Herman Construction Group, INC.",
+			"y": 30235974.85
+		}, {
+			"name": "HPI Federal LLC",
+			"y": 106518
+		}, {
+			"name": "IDSC Holdings LLC",
+			"y": 16600
+		}, {
+			"name": "Indrasoft INC.",
+			"y": 2944378.2
+		}, {
+			"name": "Industries For The BLIND, INC.",
+			"y": 475405.81999999995
+		}, {
+			"name": "InDyne, INC.",
+			"y": 837805550.38
+		}, {
+			"name": "Innovative Technical Solutions, INC.",
+			"y": 76358341
+		}, {
+			"name": "Installation Engineering Solutions",
+			"y": 1637411.1399999997
+		}, {
+			"name": "Integrated Industrial Supply, INC.",
+			"y": 7046.75
+		}, {
+			"name": "Integration Technologies Group",
+			"y": 13000
+		}, {
+			"name": "Intelligent International INC.",
+			"y": 106560
+		}, {
+			"name": "Interscan Corporation",
+			"y": 48318.25
+		}, {
+			"name": "Invested Advisors, INC.",
+			"y": 17439
+		}, {
+			"name": "J G Contracting",
+			"y": 8913
+		}, {
+			"name": "John P Blanchard MD INC",
+			"y": 65800
+		}, {
+			"name": "Joslyn Sunbank Company LLC",
+			"y": 0
+		}, {
+			"name": "K.J. Cain Company",
+			"y": 16285
+		}, {
+			"name": "Kal Architects, INC.",
+			"y": 2173952.67
+		}, {
+			"name": "Kebros & Assoc LLC",
+			"y": 150381.2
+		}, {
+			"name": "Keilhauer LTD",
+			"y": 17033.95
+		}, {
+			"name": "Kipper Tool Company",
+			"y": 7634.4
+		}, {
+			"name": "Kleanerette Dry Cleaners & Laundry",
+			"y": 22475.2
+		}, {
+			"name": "Komada LLC",
+			"y": 495384.38
+		}, {
+			"name": "Konica Minolta Business Solutions U.S.A., INC.",
+			"y": 94527.59
+		}, {
+			"name": "Kritz Excavating And Trucking, INC.",
+			"y": 31237.5
+		}, {
+			"name": "Laboratory Corporation Of america",
+			"y": 122000
+		}, {
+			"name": "Laurus Systems Incorporated",
+			"y": 108394.15
+		}, {
+			"name": "Lawler Manufacturing INC",
+			"y": 8050
+		}, {
+			"name": "Legacy Installations LLC",
+			"y": 3732
+		}, {
+			"name": "Leidos, INC.",
+			"y": 4474626.82
+		}, {
+			"name": "Lifehealth LLC",
+			"y": 2317214.51
+		}, {
+			"name": "Lighthouse For The Blind of Houston",
+			"y": 835423.75
+		}, {
+			"name": "Lockheed Martin Corporation",
+			"y": 5704208.75
+		}, {
+			"name": "Lockheed Martin Tactical Syste",
+			"y": 0
+		}, {
+			"name": "Loyal Source Government Services LLC",
+			"y": 584305.4
+		}, {
+			"name": "LPKF Distribution Incorporated",
+			"y": 21473.48
+		}, {
+			"name": "Luxfer Magtech, INC.",
+			"y": 47642.6
+		}, {
+			"name": "M2 Technology, INC.",
+			"y": 483226
+		}, {
+			"name": "Mac-Air",
+			"y": 107634.43
+		}, {
+			"name": "Management Solutions, INC.",
+			"y": 4231749.94
+		}, {
+			"name": "Mantech SRS Technologies, INC.",
+			"y": 598149.91
+		}, {
+			"name": "Matrix Providers INC.",
+			"y": 922834.95
+		}, {
+			"name": "Medical North America JV",
+			"y": 2324653.1700000004
+		}, {
+			"name": "Megabite Electronics, INC.",
+			"y": 4383.34
+		}, {
+			"name": "Microtechnologies LLC",
+			"y": 929278.52
+		}, {
+			"name": "Mission Valley Chapel, INC.",
+			"y": 8885.5
+		}, {
+			"name": "Mobile Fixture And Equipment Company, INC.",
+			"y": 57879.29
+		}, {
+			"name": "Morro Toro Corporation",
+			"y": 35920
+		}, {
+			"name": "MSI-MID State Instruments LLC",
+			"y": 7874
+		}, {
+			"name": "MWH - Cardno TEC - Baker - A Joint Venture",
+			"y": 350385
+		}, {
+			"name": "MX construction, INC.",
+			"y": 12754665.13
+		}, {
+			"name": "Nanoscience Instruments, INC.",
+			"y": 146070
+		}, {
+			"name": "National Industries For The Blind",
+			"y": 255600
+		}, {
+			"name": "National O & M, INC.",
+			"y": 28560
+		}, {
+			"name": "NBA Engineering INC",
+			"y": 676506.9199999999
+		}, {
+			"name": "NEIE Medical Waste Services, LLC",
+			"y": 21655
+		}, {
+			"name": "Nightingale Corp",
+			"y": 40585.8
+		}, {
+			"name": "North Star Construction And Engineering, INC",
+			"y": 954548.34
+		}, {
+			"name": "Office Furniture Group, INC.",
+			"y": 36377.66
+		}, {
+			"name": "ONEIDA Total Integrated Enterprises, LLC",
+			"y": 3363850.2800000003
+		}, {
+			"name": "Orion Systems, INC.",
+			"y": 21660
+		}, {
+			"name": "P C Mechanical, INC",
+			"y": 9023510.620000001
+		}, {
+			"name": "Pacific Bell Telephone Company",
+			"y": 105195.36
+		}, {
+			"name": "Pacific Dredge Company, LLC",
+			"y": 7565859.75
+		}, {
+			"name": "Penn Tool CO INC",
+			"y": 6650
+		}, {
+			"name": "Peraton INC.",
+			"y": 128570.93
+		}, {
+			"name": "Phillips Corporation",
+			"y": 44424
+		}, {
+			"name": "Portable Johns INC",
+			"y": 318.75
+		}, {
+			"name": "Potter, Paul D.",
+			"y": 4278555
+		}, {
+			"name": "Power Pro Plus INC.",
+			"y": 2913104.48
+		}, {
+			"name": "Powerchoice Construction, INC.",
+			"y": 857470.1799999999
+		}, {
+			"name": "Pre Con Industries, INC.",
+			"y": 1370044
+		}, {
+			"name": "Preferred Healthcare Registry, INC.",
+			"y": 251920
+		}, {
+			"name": "Premier Business Products, INC.",
+			"y": 5695.64
+		}, {
+			"name": "Presentations, INC.",
+			"y": 41680.08
+		}, {
+			"name": "Pro Med Healthcare Services, LLC",
+			"y": 165504
+		}, {
+			"name": "Professional Performance Development Group, INC.",
+			"y": 778430.12
+		}, {
+			"name": "Protel Services, INC.",
+			"y": 582911.47
+		}, {
+			"name": "Quincon, INC.",
+			"y": 29494
+		}, {
+			"name": "Quinn Company",
+			"y": 54262
+		}, {
+			"name": "R K Jimenez Construction, INC",
+			"y": 877206.65
+		}, {
+			"name": "R-J Intl'l INC",
+			"y": 3920
+		}, {
+			"name": "Rantec Power Systems INC.",
+			"y": 6665390
+		}, {
+			"name": "Rare Electric",
+			"y": 23068.5
+		}, {
+			"name": "Recon Environmental",
+			"y": 305182.91
+		}, {
+			"name": "Red Mountain LLC",
+			"y": 366741.97
+		}, {
+			"name": "Reliance Relocation Services, INC.",
+			"y": 37871.04
+		}, {
+			"name": "Rhodes, Stephenne",
+			"y": 90908.55
+		}, {
+			"name": "Rockwell American Services, LTD.",
+			"y": 642316.25
+		}, {
+			"name": "Rodriguez, Pedro V",
+			"y": 3939143.31
+		}, {
+			"name": "Rore, INC.",
+			"y": 5724748
+		}, {
+			"name": "Ruprecht Construction INC",
+			"y": 9057424.33
+		}, {
+			"name": "San Luis Ambulance Service, INC.",
+			"y": 16196.4
+		}, {
+			"name": "San Luis Butane Distributors",
+			"y": 174830.09
+		}, {
+			"name": "Schenk, virginia R",
+			"y": 11940
+		}, {
+			"name": "Schwab Engineering, INC.",
+			"y": 827935.6600000001
+		}, {
+			"name": "Science Applications International Corporation",
+			"y": 8222385.28
+		}, {
+			"name": "Scientific Instrument Services, INC.",
+			"y": 4463
+		}, {
+			"name": "SCR INC",
+			"y": 35624
+		}, {
+			"name": "SCS Integrated Support Solutions, LLC",
+			"y": 34829.59
+		}, {
+			"name": "Security Information Systems, INC.",
+			"y": 19699
+		}, {
+			"name": "Sentinel Security Solutions, INC.",
+			"y": 64276.09
+		}, {
+			"name": "SERCO INC.",
+			"y": 837594.74
+		}, {
+			"name": "Shred-It USA INC.",
+			"y": 41440
+		}, {
+			"name": "Siemens Healthcare Diagnostics INC.",
+			"y": 158512.14
+		}, {
+			"name": "Siemens Industry INC.",
+			"y": 377769.95999999996
+		}, {
+			"name": "SLO Sail And Canvas",
+			"y": 312337.2
+		}, {
+			"name": "Smith, Jennifer Franco",
+			"y": 54707.5
+		}, {
+			"name": "Space Information Laboratories, LLC",
+			"y": 2499758
+		}, {
+			"name": "Spohnheimer Consulting Airspace Systems LLC",
+			"y": 36676
+		}, {
+			"name": "Stassi, Frederica J",
+			"y": 24000
+		}, {
+			"name": "Steris Corporation",
+			"y": 223004.69
+		}, {
+			"name": "Sumaria Systems, INC.",
+			"y": 3597336.8
+		}, {
+			"name": "Superior Fire INC.",
+			"y": 1120927
+		}, {
+			"name": "Sustainable Furniture, INC.",
+			"y": 51498.11
+		}, {
+			"name": "Sustainment & Restoration Services, LLC",
+			"y": 2775716
+		}, {
+			"name": "Sustainment And Restoration Services, LLC",
+			"y": 336296
+		}, {
+			"name": "SYNTECH, INC.",
+			"y": 4821.62
+		}, {
+			"name": "SYSCO Ventura, INC.",
+			"y": 398000
+		}, {
+			"name": "SYSMEX America, INC.",
+			"y": 70974.72
+		}, {
+			"name": "System Spec, INC.",
+			"y": 77333
+		}, {
+			"name": "T. Horzen, INC.",
+			"y": 60461.8
+		}, {
+			"name": "T. Simons CO., INC.",
+			"y": 13878972.95
+		}, {
+			"name": "Tapestry Solutions, INC.",
+			"y": 28689448.94
+		}, {
+			"name": "Technica Corporation",
+			"y": 0
+		}, {
+			"name": "Tetra Tech, INC.",
+			"y": 1177767.1500000001
+		}, {
+			"name": "Tevet, LLC",
+			"y": 58855.68
+		}, {
+			"name": "Thermo Electron North America Limited Liability Company",
+			"y": 73962
+		}, {
+			"name": "Thermo Electron North America LLC",
+			"y": 26096
+		}, {
+			"name": "Thyssenkrupp Elevator Corporation",
+			"y": 35000
+		}, {
+			"name": "Thyssenkrupp Elevator Corporation (1267)",
+			"y": 67784
+		}, {
+			"name": "TS Government Solutions, LLC",
+			"y": 103680
+		}, {
+			"name": "United Kinetics Corporation",
+			"y": 116485.77
+		}, {
+			"name": "United Paradyne Corporation",
+			"y": 90167250.47
+		}, {
+			"name": "URS Federal Services, INC.",
+			"y": 50139.24
+		}, {
+			"name": "URS Group, INC.",
+			"y": 34768.16
+		}, {
+			"name": "US Military Corp",
+			"y": 7392
+		}, {
+			"name": "V. Lopez Jr. & Sons General Engineering Contractors, INC.",
+			"y": 8773264.909999996
+		}, {
+			"name": "Val-Coast, INC",
+			"y": 4417150.680000001
+		}, {
+			"name": "Vandenberg Solar I, LLC",
+			"y": 4043796
+		}, {
+			"name": "Vander Werff, Peter Construction, INC.",
+			"y": 3300000
+		}, {
+			"name": "Vision Research, INC.",
+			"y": 1116596.78
+		}, {
+			"name": "VMS Aircraft Company, INC.",
+			"y": 79970
+		}, {
+			"name": "VMX International LLC",
+			"y": 5736907.72
+		}, {
+			"name": "VT Milcom INC.",
+			"y": 2964857.92
+		}, {
+			"name": "VTC Enterprises",
+			"y": 12518999.209999999
+		}, {
+			"name": "Wasco Sales & Marketing, INC.",
+			"y": 51213.899999999994
+		}, {
+			"name": "West Pacific Electric Company Corporation",
+			"y": 4104993
+		}, {
+			"name": "Whitefox Defense Technologies, INC.",
+			"y": 4260
+		}, {
+			"name": "Wilburn Medical, INC",
+			"y": 20640
+		}, {
+			"name": "Xerox Corporation",
+			"y": 545077.25
+		}, {
+			"name": "XNS INC.",
+			"y": 321694.58
+		}, {
+			"name": "Zamora, Mario",
+			"y": 83900
+		}, {
+			"name": "Zone 5 Technologies, LLC",
+			"y": 149252
+		}]
+	}]
+}
+

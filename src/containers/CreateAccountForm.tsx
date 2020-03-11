@@ -1,9 +1,21 @@
 import React, { useState, useCallback } from 'react';
-import { Button, styled, Typography } from '@material-ui/core';
+import {
+  Button,
+  styled,
+  Typography,
+  FormControlLabel,
+  Checkbox
+} from '@material-ui/core';
 import BoxCenter from '../common/components/BoxCenter';
 import AccountTextField from '../common/components/AccountTextField';
+import { useHistory } from 'react-router-dom';
+import { HOME } from '../nav/constants';
+import { useDispatch } from 'react-redux';
+import { register } from '../redux/login/actions';
+import { RegisterData } from '../redux/login/types';
 
 function CreateAccountForm() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [emailValid, setEmailValid] = useState(false);
@@ -17,6 +29,9 @@ function CreateAccountForm() {
   ] = useState('');
   const [passwordConfirmationValid, setPasswordConfirmationValid] = useState(
     false
+  );
+  const [emailNotificationEnabled, setEmailNotificationEnabled] = useState(
+    true
   );
 
   const validateEmail = useCallback(
@@ -92,8 +107,24 @@ function CreateAccountForm() {
     [password, validatePasswordConfirmation, setPasswordConfirmation]
   );
 
+  const handleInputChangeName = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setName(event.target.value);
+    },
+    [setName]
+  );
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   return (
     <BoxCenterSized>
+      <AccountTextField
+        fullWidth
+        placeholder="Name"
+        onChange={handleInputChangeName}
+        variant="filled"
+        size="small"
+      />
       <AccountTextField
         fullWidth
         placeholder="Email Address"
@@ -120,17 +151,68 @@ function CreateAccountForm() {
         size="small"
       />
       <ErrorMessage>{passwordConfirmationErrorMessage}</ErrorMessage>
+      <EmailSignUp
+        emailNotificationEnabled={emailNotificationEnabled}
+        setEmailNotificationEnabled={setEmailNotificationEnabled}
+      />
       <ButtonThin
         fullWidth
         variant="contained"
         color="primary"
         disabled={!emailValid || !passwordValid || !passwordConfirmationValid}
+        onClick={() => {
+          dispatch(
+            register({
+              email,
+              password,
+              name: 'dummy',
+              role: 'BaseUser'
+            } as RegisterData)
+          );
+          history.push(HOME);
+        }}
       >
         CREATE ACCOUNT
       </ButtonThin>
     </BoxCenterSized>
   );
 }
+
+type EmailSignUpProps = {
+  emailNotificationEnabled: boolean;
+  setEmailNotificationEnabled: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const EmailSignUp = (props: EmailSignUpProps) => {
+  const { emailNotificationEnabled, setEmailNotificationEnabled } = props;
+
+  return (
+    <FormControlLabelSized
+      control={
+        <Checkbox
+          checked={emailNotificationEnabled}
+          onChange={() =>
+            setEmailNotificationEnabled(!emailNotificationEnabled)
+          }
+          color="primary"
+        />
+      }
+      label={
+        <EmailSignUpText>
+          I would like to receive email notifications from Reach.
+        </EmailSignUpText>
+      }
+    />
+  );
+};
+
+const EmailSignUpText = styled(Typography)({
+  fontSize: '15px'
+});
+
+const FormControlLabelSized = styled(FormControlLabel)({
+  width: '270px'
+});
 
 const ButtonThin = styled(Button)({
   width: '270px'
@@ -143,7 +225,7 @@ const ErrorMessage = styled(Typography)({
 });
 
 const BoxCenterSized = styled(BoxCenter)({
-  height: '225px',
+  height: '525px',
   width: '200px'
 });
 
