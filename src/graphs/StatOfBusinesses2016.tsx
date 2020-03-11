@@ -124,16 +124,15 @@ const options: Highcharts.Options = {
     }
   ]
 };
-const fs =require('fs');
+const fs = require('fs');
 const myOptions = JSON.stringify(options);
 
 function StatOfBusiness2016() {
-
   //fs.writeFile("StateOfBUsinesses2016.json",myOptions)
   //console.log(myOptions);
   return (
-   <div>
-      <div style={{marginTop:"80px"}}>
+    <div>
+      <div style={{ marginTop: '80px' }}>
         <HighchartsReact highcharts={Highcharts} options={options} />
       </div>
     </div>

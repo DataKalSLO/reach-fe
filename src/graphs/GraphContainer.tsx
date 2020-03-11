@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import Graph from '../graphs/Graph';
+//import Graph from '../graphs/Graph';
 import GraphDrilldown from './GraphDrilldown';
 import DrilldownDOD from './DrillDownDOD';
 import StatOfBusiness2016 from './StatOfBusinesses2016';
@@ -20,7 +20,6 @@ function GraphContainer() {
     >
       <DrilldownDOD />
       <StatOfBusiness2016 />
-      <Graph />
     </Box>
   );
 }

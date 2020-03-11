@@ -3,7 +3,11 @@ import Highcharts, { SeriesOptionsType } from 'highcharts';
 import drilldown from 'highcharts/modules/drilldown';
 import HighchartsReact from 'highcharts-react-official';
 import highcharts3d from 'highcharts/highcharts-3d';
-import { getDataInfo, processData } from './Utils/data_utils';
+import {
+  getDataInfo,
+  processData,
+  getLocationsInData
+} from './Utils/data_utils';
 highcharts3d(Highcharts);
 drilldown(Highcharts);
 
@@ -22,6 +26,8 @@ const processedData = processData(
   dataInfo.regionLevel,
   dataInfo.yColumns
 );
+
+const locationInData = getLocationsInData(processedData);
 
 const data = processedData['1']['full_region'].map((item: any) => {
   return {
@@ -47,7 +53,7 @@ const drilldown1 = Object.keys(processedData['2']).forEach((item: any) => {
   drilldownPush.push({
     type: 'column',
     id: item,
-    name:'Cities',
+    name: 'Cities',
     data: drilldownObject
   });
 });
@@ -61,7 +67,7 @@ const drilldown2 = Object.keys(processedData['3']).forEach((item: any) => {
   drilldownPush.push({
     type: 'column',
     id: item,
-    name: "Companies",
+    name: 'Companies',
     data: drilldownObject
   });
 });
@@ -89,11 +95,13 @@ const options: Highcharts.Options = {
   }
 };
 
-const fs =require('fs');
+const fs = require('fs');
 const myOptions = JSON.stringify(options);
 
 function DrilldownDOD() {
-    //console.log(myOptions);
+  //console.log(myOptions);
+  console.log(processedData);
+  console.log(locationInData);
   return (
     <div>
       <div>
