@@ -17,6 +17,7 @@ import {
   SetSelectedMarker,
   SetHeatMapSelection,
   HeatMapSelection,
+  DataSources,
   SetDataSources
 } from './MapTypes';
 
@@ -29,7 +30,7 @@ const ALLOWED_BOTH = 2;
 // heat map data should have both kitchen facilities & median household income as options
 //const heatMapData = [kitchenFaciltiesHeatMap, medianHouseholdIncomeHeatMap];
 const heatMapData = [medianHouseholdIncomeHeatMap, kitchenFaciltiesHeatMap];
-export const allData = [markerData, heatMapData].flat();
+const allData = [markerData, heatMapData].flat();
 
 // I don't think there's a better way to do this; it's styling the div not the mui component
 const useStyles = makeStyles((theme: Theme) =>
@@ -61,6 +62,7 @@ function handleChange(
   setHeatMapSelection: SetHeatMapSelection,
   setSelectedMarker: SetSelectedMarker,
   selectedMarker: SelectedMarker,
+  dataSources: DataSources,
   setDataSources: SetDataSources
 ) {
   const newMarkers: MarkerSelection = [];
@@ -105,7 +107,7 @@ function handleChange(
 }
 
 // handles disabling options, only two markers or one marker & one heat map allowed
-export function handleDisable(
+function handleDisable(
   // TODO: going to solve "any" errors at a later time, ignoring for demo
   // eslint-disable-next-line
   allData: any[],
@@ -139,6 +141,7 @@ export default function LayersComponent(props: LayersComponentProps) {
     setHeatMapSelection,
     selectedMarker,
     setSelectedMarker,
+    dataSources,
     setDataSources
   } = props;
   return (
@@ -162,6 +165,7 @@ export default function LayersComponent(props: LayersComponentProps) {
             setHeatMapSelection,
             setSelectedMarker,
             selectedMarker,
+            dataSources,
             setDataSources
           )
         }

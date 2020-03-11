@@ -128,38 +128,47 @@ export const sampleDatasetFormatted: Dataset = {
   columns: [
     {
       name: 'id',
+      valueType: 'number',
       values: [1, 2]
     },
     {
       name: 'total_dollars_obligated',
+      valueType: 'number',
       values: [41453.64, 52200]
     },
     {
       name: 'current_total_value_of_award',
+      valueType: 'number',
       values: [41453.64, 52200]
     },
     {
       name: 'potential_total_value_of_award',
+      valueType: 'number',
       values: [41453.64, 79200]
     },
     {
       name: 'action_date',
+      valueType: 'date',
       values: ['2018-10-01T00:00:00', '2018-10-01T00:00:00']
     },
     {
       name: 'period_of_performance_start_date',
+      valueType: 'date',
       values: ['2018-10-01T00:00:00', '2018-10-01T00:00:00']
     },
     {
       name: 'period_of_performance_current_end_date',
+      valueType: 'date',
       values: ['2018-12-31T00:00:00', '2019-09-30T00:00:00']
     },
     {
       name: 'period_of_performance_potential_end_date',
+      valueType: 'date',
       values: ['2018-12-31T00:00:00', '2021-03-31T00:00:00']
     },
     {
       name: 'awarding_agency_name',
+      valueType: 'string',
       values: [
         'DEPARTMENT OF JUSTICE (DOJ)',
         'DEPARTMENT OF VETERANS AFFAIRS (VA)'
@@ -167,6 +176,7 @@ export const sampleDatasetFormatted: Dataset = {
     },
     {
       name: 'funding_agency_name',
+      valueType: 'string',
       values: [
         'DEPARTMENT OF JUSTICE (DOJ)',
         'DEPARTMENT OF VETERANS AFFAIRS (VA)'
@@ -174,66 +184,82 @@ export const sampleDatasetFormatted: Dataset = {
     },
     {
       name: 'recipient_name',
+      valueType: 'string',
       values: ['FEDERAL PRISON INDUSTRIES INC', 'MARFRAN CLEANING LLC']
     },
     {
       name: 'recipient_parent_name',
+      valueType: 'string',
       values: ['GOVERNMENT OF THE UNITED STATES', 'MARFRAN CLEANING  LLC']
     },
     {
       name: 'recipient_country_name',
+      valueType: 'string',
       values: ['UNITED STATES', 'UNITED STATES']
     },
     {
       name: 'recipient_address_line_1',
+      valueType: 'string',
       values: ['3301 LEESTOWN RD', '15502 OLD GALVESTON RD STE 718']
     },
     {
       name: 'recipient_city_name',
+      valueType: 'string',
       values: ['LEXINGTON', 'HOUSTON']
     },
     {
       name: 'recipient_state_name',
+      valueType: 'string',
       values: ['KENTUCKY', 'TEXAS']
     },
     {
       name: 'recipient_zip_4_code',
+      valueType: 'string',
       values: ['40511', '77062']
     },
     {
       name: 'primary_place_of_performance_country_code',
+      valueType: 'string',
       values: ['USA', 'USA']
     },
     {
       name: 'primary_place_of_performance_country_name',
+      valueType: 'string',
       values: ['UNITED STATES', 'UNITED STATES']
     },
     {
       name: 'primary_place_of_performance_city_name',
+      valueType: 'string',
       values: ['LOMPOC', 'SAN LUIS OBISPO']
     },
     {
       name: 'primary_place_of_performance_county_name',
+      valueType: 'string',
       values: ['SANTA BARBARA', 'SAN LUIS OBISPO']
     },
     {
       name: 'primary_place_of_performance_state_code',
+      valueType: 'string',
       values: ['CA', 'CA']
     },
     {
       name: 'primary_place_of_performance_state_name',
+      valueType: 'string',
       values: ['CALIFORNIA', 'CALIFORNIA']
     },
     {
       name: 'primary_place_of_performance_zip_4',
+      valueType: 'string',
       values: ['934360402', '934015813']
     },
     {
       name: 'award_type',
+      valueType: 'string',
       values: ['BPA CALL', 'DEFINITIVE CONTRACT']
     },
     {
       name: 'award_description',
+      valueType: 'string',
       values: [
         'FY19 1ST QUARTER MILK IN ACCORDANCE WITH BPA# DJBP0700NASBPA123.',
         'IGF::OT::IGF JANITORIAL SERVICES'
@@ -247,10 +273,10 @@ export const sampleConvertedTypes: string[] = [
   'number',
   'number',
   'number',
-  'string',
-  'string',
-  'string',
-  'string',
+  'date',
+  'date',
+  'date',
+  'date',
   'string',
   'string',
   'string',

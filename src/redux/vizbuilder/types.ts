@@ -11,7 +11,7 @@ import { FETCH_ENTIRE_DATASET, FETCH_ALL_METADATA } from './constants';
  *   dataset conversion works.
  */
 
-export type DataValue = string | number;
+export type DataValue = string | number | Date;
 
 export interface Metadata {
   tableName: string;
@@ -25,6 +25,7 @@ export interface PayloadDataset {
 
 export interface Column {
   name: string;
+  valueType: string;
   values: DataValue[];
 }
 

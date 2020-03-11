@@ -8,8 +8,13 @@ export function createDataset(metadata: Metadata): Dataset {
   const dataset: Dataset = { name: metadata.tableName, columns: [] };
 
   // create the Column objects
-  metadata.columnNames.forEach(columnName => {
-    const column: Column = { name: columnName, values: [] };
+  metadata.columnNames.forEach((columnName, index) => {
+    const valueType: string = getValueType(metadata.columnTypes[index]);
+    const column: Column = {
+      name: columnName,
+      valueType: valueType,
+      values: []
+    };
     dataset.columns.push(column);
   });
 
@@ -19,8 +24,7 @@ export function createDataset(metadata: Metadata): Dataset {
 /*
  * Convert a PayloadDataset To Dataset
  * This approach strongly depends on two assumptions.
- * 1. only numbers and strings will appear as values
- *    (may add support for Date later)
+ * 1. only numbers, strings and dates will appear as values
  * 2. the column names, column types, and the values in a row are all
  *    in order
  */
@@ -34,6 +38,9 @@ export function convertToDataset(
   payloadDataset.data.forEach(payloadRow => {
     payloadRow.forEach((value, index) => {
       // 2nd assumption must be true for indexing to work
+      if (dataset.columns[index].valueType === 'datetime') {
+        dataset.columns[index].values.push(new Date(value));
+      }
       dataset.columns[index].values.push(value);
     });
   });
@@ -52,4 +59,15 @@ export function getMetadataFor(
   return meatadataList.filter(
     metadata => metadata.tableName === datasetName
   )[0];
+}
+
+export function getValueType(rawValueType: string): string {
+  switch (rawValueType) {
+    case 'datetime':
+      return 'date';
+    case 'string':
+      return 'string';
+    default:
+      return 'number';
+  }
 }

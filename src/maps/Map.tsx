@@ -39,6 +39,7 @@ function Map() {
         setHeatMapSelection={setHeatMapSelection}
         selectedMarker={selectedMarker}
         setSelectedMarker={setSelectedMarker}
+        dataSources={dataSources}
         setDataSources={setDataSources}
       />
       <MapView

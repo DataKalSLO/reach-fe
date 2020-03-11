@@ -4,7 +4,12 @@ import {
   sampleDatasetFormatted,
   sampleConvertedTypes
 } from './testing_data';
-import { createDataset, convertToDataset, getMetadataFor } from '../utilities';
+import {
+  createDataset,
+  convertToDataset,
+  getMetadataFor,
+  getValueType
+} from '../utilities';
 
 /*
  *  Test the Dataset Conversion Functions
@@ -44,9 +49,7 @@ describe('Dataset Conversion', () => {
     expect(convertedDataset).toEqual(sampleDatasetFormatted);
   });
   it('should create the same types as metadata', () => {
-    const valueTypes = convertedDataset.columns.map(
-      column => typeof column.values[0]
-    );
+    const valueTypes = convertedDataset.columns.map(column => column.valueType);
     expect(valueTypes).toEqual(sampleConvertedTypes);
   });
 });
@@ -63,5 +66,26 @@ describe('Metadata Access', () => {
     expect(
       getMetadataFor('federal_contracts_fy2019', sampleMetadataPayload)
     ).toEqual(datasetMetadata);
+  });
+});
+
+/*
+ * Test Value Type Getter Function
+ */
+describe('Value Type Getter', () => {
+  it('should retrieve the correct JavaScript type for datetime', () => {
+    expect(getValueType('datetime')).toEqual('date');
+  });
+
+  it('should retrieve the correct JavaScript type for string', () => {
+    expect(getValueType('string')).toEqual('string');
+  });
+
+  it('should retrieve the correct JavaScript type for double', () => {
+    expect(getValueType('double')).toEqual('number');
+  });
+
+  it('should retrieve the correct JavaScript type for int', () => {
+    expect(getValueType('int')).toEqual('number');
   });
 });

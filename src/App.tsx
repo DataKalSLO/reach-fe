@@ -39,6 +39,7 @@ import MyStuff from './containers/MyStuff';
 import Login from './containers/Login';
 import Sample from './containers/Sample';
 import CreateAccount from './containers/CreateAccount';
+import PremadeGraphContainer from './containers/PremadeGraphContainer';
 import { PersistGate } from 'redux-persist/integration/react';
 
 const home = (
@@ -81,6 +82,11 @@ const sample = (
     <Sample />
   </Route>
 );
+const premadeGraphs = (
+  <Route path="/pmGraph/:graphId">
+    <PremadeGraphContainer />
+  </Route>
+);
 
 function App() {
   return (
@@ -98,6 +104,7 @@ function App() {
               {login}
               {createAccount}
               {sample}
+              {premadeGraphs}
             </Switch>
           </ThemeProvider>
         </ConnectedRouter>

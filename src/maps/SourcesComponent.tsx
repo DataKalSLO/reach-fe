@@ -30,11 +30,7 @@ export default function SourceLabels(props: SourceComponentProps) {
     <Paper className={classes.root} elevation={0}>
       <div> Data Sources: </div>
       {dataSources.map(data => {
-        const prefix = 'https://www.';
-        const link = prefix.concat(data.label);
-        return (
-          <Chip size="small" label={<a href={link}>{link}</a>} key={data.key} />
-        );
+        return <Chip size="small" label={data.label} key={data.key} />;
       })}
     </Paper>
   );
