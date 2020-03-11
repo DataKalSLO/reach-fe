@@ -41,16 +41,13 @@
     "typescript": "~3.7.2",
     "uuidv4": "^6.0.5"
   },
-  "optionalDependencies": {
-    "fsevents": "^2.1.2"
-  },
   "scripts": {
     "start": "npm run lint && react-scripts start",
     "no-lint-start": "react-scripts start",
     "build": "npm run lint && react-scripts build",
-    "lint": "eslint . --ext .ts,.tsx",
-    "lint-fix": "eslint . --fix --ext .ts,.tsx",
-    "test": "jest",
+    "lint": "eslint . --ext .ts,.tsx,.js",
+    "lint-fix": "eslint . --fix --ext .ts,.tsx,.js",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -70,9 +67,6 @@
   },
   "devDependencies": {
     "@material-ui/core": "^4.9.2",
-    "@babel/core": "^7.8.6",
-    "@babel/preset-env": "^7.8.6",
-    "@babel/preset-typescript": "^7.8.3",
     "@material-ui/icons": "^4.9.1",
     "@types/draft-js": "^0.10.38",
     "@types/react": "^16.9.19",
