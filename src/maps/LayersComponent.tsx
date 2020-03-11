@@ -6,17 +6,27 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Box } from '@material-ui/core';
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
+import features from '../common/assets/Local Data/census/b25053.js';
 import {
   LocationFeatures,
   LayersComponentProps,
-  LayerSelection,
-  SetLayerSelection,
+  MarkerSelection,
+  SetMarkerSelection,
   SelectedMarker,
-  SetSelectedMarker
+  SetSelectedMarker,
+  SetHeatMapSelection,
+  HeatMapSelection
 } from './MapTypes';
 
 // number of allowed selections, subject to change based on ui/ux and graph team suggestions
-const ALLOWED_SELECTIONS = 2;
+const ALLOWED_MARKERS = 2;
+const ALLOWED_BOTH = 2;
+
+// all of the local data we have available
+// TODO: pull this from backend! need distinct split between marker & heat map
+// heat map data should have both kitchen facilities & median household income as options
+const heatMapData = [features];
+const allData = [markerData, heatMapData].flat();
 
 // I don't think there's a better way to do this; it's styling the div not the mui component
 const useStyles = makeStyles((theme: Theme) =>
@@ -36,39 +46,35 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 // this is how we show everything in options (disable none)
-const showAll: LayerSelection = [];
+const showAll: MarkerSelection = [];
 
 // handles change of selection
 // ensures that popups will not stay when their markers disappear
-// TODO: color association
+// TODO: color association??
 function handleChange(
-  value: LayerSelection,
-  setLayerSelection: SetLayerSelection,
+  value: any,
+  setMarkerSelection: SetMarkerSelection,
+  setHeatMapSelection: SetHeatMapSelection,
   setSelectedMarker: SetSelectedMarker,
   selectedMarker: SelectedMarker
 ) {
-  setLayerSelection(value);
+  const newMarkers: any[] = [];
+  let newHeatMap: any = {};
   const allSelections: string[] = [];
-  value.forEach(
-    (table: {
-      features: {
-        type: string;
-        geometry: {
-          type: string;
-          coordinates: number[];
-        };
-        properties: {
-          name: string;
-        };
-      }[][];
-    }) => {
-      table.features.forEach(items => {
+  value.forEach((table: any) => {
+    if (table.type === 'FeatureCollection') {
+      newMarkers.push(table);
+      table.features.forEach((items: { properties: { name: string } }[]) => {
         items.forEach((selection: { properties: { name: string } }) => {
           allSelections.push(selection.properties.name);
         });
       });
+    } else if (table.type === 'HeatMap') {
+      newHeatMap = table;
     }
-  );
+  });
+  setHeatMapSelection(newHeatMap);
+  setMarkerSelection(newMarkers);
   setSelectedMarker(
     selectedMarker.filter(
       (obj: LocationFeatures) => obj.properties.name in allSelections
@@ -76,12 +82,35 @@ function handleChange(
   );
 }
 
+// handles disabling options, only two markers or one marker & one heat map allowed
+function handleDisable(
+  allData: any[],
+  markerSelection: MarkerSelection,
+  heatMapSelection: HeatMapSelection,
+  option: any
+) {
+  if (markerSelection.length === ALLOWED_MARKERS) {
+    return allData.includes(option);
+  }
+  if (Object.keys(heatMapSelection).length) {
+    if (markerSelection.length + 1 === ALLOWED_BOTH) {
+      return allData.includes(option);
+    }
+    return allData
+      .filter(obj => obj.type !== 'FeatureCollection')
+      .includes(option);
+  }
+  return showAll.includes(option);
+}
+
 // this function creates the multi-seletion autocomplete component
 export default function LayersComponent(props: LayersComponentProps) {
   const classes = useStyles();
   const {
-    layerSelection,
-    setLayerSelection,
+    markerSelection,
+    setMarkerSelection,
+    heatMapSelection,
+    setHeatMapSelection,
     selectedMarker,
     setSelectedMarker
   } = props;
@@ -90,23 +119,20 @@ export default function LayersComponent(props: LayersComponentProps) {
       <Autocomplete
         multiple
         id="tags-outlined"
-        options={markerData}
-        defaultValue={[markerData[0]]}
+        options={allData}
+        defaultValue={[allData[0], allData[2]]}
         // disables all options when the user has chosen more than the allowedSelections
-        // TODO: logic for markers vs heat map
-        getOptionDisabled={
-          layerSelection.length >= ALLOWED_SELECTIONS
-            ? option => markerData.includes(option)
-            : option => showAll.includes(option)
+        getOptionDisabled={option =>
+          handleDisable(allData, markerSelection, heatMapSelection, option)
         }
         getOptionLabel={option => option.name}
         filterSelectedOptions
         // informs the layerSelection variable with the user's selection
-        // likely need more logic here to understand whether user wants points or overlay
         onChange={(event, value) =>
           handleChange(
             value,
-            setLayerSelection,
+            setMarkerSelection,
+            setHeatMapSelection,
             setSelectedMarker,
             selectedMarker
           )

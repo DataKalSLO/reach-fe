@@ -4833,4 +4833,13 @@ const json = [
   }
 ];
 
-export default json;
+const formatted = {
+  type: 'HeatMap',
+  name: 'Number of Kitchen Facilities',
+  valueKey: 'B25053_006E',
+  features: json
+};
+
+export default formatted;
+
+// export default json;

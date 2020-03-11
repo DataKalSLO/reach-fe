@@ -5,23 +5,28 @@ import { BasicButtonGroup } from './FiltersComponent';
 import SourceLabels from './SourcesComponent';
 import VintageComponent from './VintageComponent';
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
+import features from '../common/assets/Local Data/census/b25053.js';
 
 // TODO: dummy save to stories - MapView
 function Map() {
-  const [layerSelection, setLayerSelection] = useState([markerData[0]]);
+  const [markerSelection, setMarkerSelection] = useState([markerData[0]]);
+  const [heatMapSelection, setHeatMapSelection] = useState(features);
   const [selectedMarker, setSelectedMarker] = useState(
     markerData[0].features[0]
   );
   return (
     <div>
       <LayersComponent
-        layerSelection={layerSelection}
-        setLayerSelection={setLayerSelection}
+        markerSelection={markerSelection}
+        setMarkerSelection={setMarkerSelection}
+        heatMapSelection={heatMapSelection}
+        setHeatMapSelection={setHeatMapSelection}
         selectedMarker={selectedMarker}
         setSelectedMarker={setSelectedMarker}
       />
       <MapView
-        layerSelection={layerSelection}
+        markerSelection={markerSelection}
+        heatMapSelection={heatMapSelection}
         selectedMarker={selectedMarker}
         setSelectedMarker={setSelectedMarker}
       />

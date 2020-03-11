@@ -34,30 +34,41 @@ export interface LocationFeatures {
 }
 
 // types for various props passed to map and layers interfaces
-export type LayerSelection = {
+export type MarkerSelection = {
   type: string;
   name: string;
   features: LocationFeatures[][];
 }[];
-export type SetLayerSelection = React.Dispatch<
-  React.SetStateAction<LayerSelection>
+export type SetMarkerSelection = React.Dispatch<
+  React.SetStateAction<MarkerSelection>
 >;
 export type SelectedMarker = LocationFeatures[];
 export type SetSelectedMarker = React.Dispatch<
   React.SetStateAction<LocationFeatures[]>
 >;
+// not sure why types won't work here
+export type HeatMapSelection = {
+  type: string;
+  name: string;
+  valueKey: string;
+  features: any[];
+};
+export type SetHeatMapSelection = any;
 
 // type interface for props passed in Map.tsx
 export interface MapViewProps {
-  layerSelection: LayerSelection;
+  markerSelection: MarkerSelection;
+  heatMapSelection: HeatMapSelection;
   selectedMarker: SelectedMarker;
   setSelectedMarker: SetSelectedMarker;
 }
 
 // type interface for props passed in Map.tsx
 export interface LayersComponentProps {
-  layerSelection: LayerSelection;
-  setLayerSelection: SetLayerSelection;
+  markerSelection: MarkerSelection;
+  setMarkerSelection: SetMarkerSelection;
+  heatMapSelection: HeatMapSelection;
+  setHeatMapSelection: SetHeatMapSelection;
   selectedMarker: SelectedMarker;
   setSelectedMarker: SetSelectedMarker;
 }

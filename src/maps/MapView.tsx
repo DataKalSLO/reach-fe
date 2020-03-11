@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactMapGL, { Source, Layer, Marker, Popup } from 'react-map-gl';
 import { SLO_LATITUDE, SLO_LONGITUDE } from './constants';
-import features from '../common/assets/Local Data/census/b25053.js';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import RoomIcon from '@material-ui/icons/Room';
 import chroma from 'chroma-js';
@@ -16,22 +15,39 @@ import {
   SelectedMarker,
   SetSelectedMarker
 } from './MapTypes';
+import noData from '../common/assets/Local Data/census/noHeatMap';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
+const placer = 'a';
 
-const selection = 'B25053_006E';
 const defaultHoveredLocation = {
   properties: {
-    [selection]: 0,
+    [placer]: '1',
     'zip-code-tabulation-area': ''
   },
   noLocation: true
 };
 
 function MapView(props: MapViewProps) {
-  const { layerSelection, selectedMarker, setSelectedMarker } = props;
+  const {
+    markerSelection,
+    heatMapSelection,
+    selectedMarker,
+    setSelectedMarker
+  } = props;
   // React-Map-GL State
-  const prepped = prepGeo(features);
+  // heat map prepped here
+  let heatMapFeatures: any[] | null = null;
+  let valueKey = '';
+  // TODO: how to get outline to still show up???
+  if (Object.keys(heatMapSelection).length) {
+    heatMapFeatures = heatMapSelection.features;
+    valueKey = heatMapSelection.valueKey;
+  } else {
+    heatMapFeatures = noData.features;
+    valueKey = noData.valueKey;
+  }
+  const prepped = prepGeo(heatMapFeatures);
   const data = GeoJSON.parse(prepped, { GeoJSON: 'geometry' });
   const [layer, setLayer] = React.useState({
     id: 'data',
@@ -50,9 +66,13 @@ function MapView(props: MapViewProps) {
   });
 
   // Tooltip State
-  const [hoveredLocation, setHoveredLocation] = React.useState(
-    defaultHoveredLocation
-  );
+  const [hoveredLocation, setHoveredLocation] = React.useState({
+    properties: {
+      [valueKey]: '1',
+      'zip-code-tabulation-area': ''
+    },
+    noLocation: true
+  });
   const x = React.useRef(0);
   const y = React.useRef(0);
 
@@ -68,14 +88,14 @@ function MapView(props: MapViewProps) {
     const newColorAssociation: {
       [name: string]: { [color: string]: string };
     } = {};
-    layerSelection.forEach((layer, index) => {
-      newColorAssociation[layer.name] = markerColors[index];
+    markerSelection.forEach((marker, index) => {
+      newColorAssociation[marker.name] = markerColors[index];
     });
 
     setColorAssociation(newColorAssociation);
     // This disable prevents an eslint quickfix from createing a circular dependency and freezeing the screen
     // eslint-disable-next-line
-  }, [layerSelection]);
+  }, [markerSelection]);
 
   const [viewport, setViewport]: any = React.useState({
     width: '100%',
@@ -105,8 +125,8 @@ function MapView(props: MapViewProps) {
   //  });
 
   useEffect(() => {
-    const minVal = getStat(features, _.minBy, selection);
-    const maxVal = getStat(features, _.maxBy, selection);
+    const minVal = getStat(heatMapFeatures, _.minBy, valueKey);
+    const maxVal = getStat(heatMapFeatures, _.maxBy, valueKey);
     const quantiles_ = 20;
     const colorScale_ = chroma.scale(['white', 'green']).domain([0, 1]);
     const stops = quantileMaker(colorScale_, quantiles_, minVal, maxVal);
@@ -115,7 +135,7 @@ function MapView(props: MapViewProps) {
       type: 'fill',
       paint: {
         'fill-color': {
-          property: selection,
+          property: valueKey,
           stops: stops
         },
         'fill-opacity': 0.7
@@ -128,13 +148,13 @@ function MapView(props: MapViewProps) {
         'line-color': 'rgb(0, 0, 0)'
       }
     });
-  }, []);
+  }, [heatMapFeatures, valueKey]);
 
   const renderTooltip = () => {
     if (hoveredLocation.noLocation) {
       return;
     }
-    const zipsValue = hoveredLocation.properties[selection];
+    const zipsValue = hoveredLocation.properties[valueKey];
     const zipCode = hoveredLocation.properties['zip-code-tabulation-area'];
     return (
       <div
@@ -147,7 +167,7 @@ function MapView(props: MapViewProps) {
           position: 'absolute'
         }}
       >
-        <Tooltip value={zipsValue} zipCode={zipCode} />
+        <Tooltip value={parseInt(zipsValue)} zipCode={zipCode} />
       </div>
     );
   };
@@ -157,14 +177,16 @@ function MapView(props: MapViewProps) {
       mapboxApiAccessToken={process.env.REACT_APP_TOKEN}
       {...viewport}
       onViewportChange={viewport => setViewport(viewport)}
-      onHover={event => onHover(setHoveredLocation, event, x, y)}
+      onHover={event =>
+        onHover(defaultHoveredLocation, setHoveredLocation, event, x, y)
+      }
     >
       <Source type="geojson" data={data}>
         <Layer {...layer} />
         <Layer {...outline} />
       </Source>
       {renderTooltip()}
-      {layerSelection
+      {markerSelection
         .map(
           (collection: {
             type: string;
@@ -222,15 +244,14 @@ function getStat(features: any, extractionFunc: any, selection: string) {
 }
 
 function onHover(
-  setHoveredLocation: React.Dispatch<
-    React.SetStateAction<{
-      properties: {
-        [selection]: number;
-        'zip-code-tabulation-area': string;
-      };
-      noLocation: boolean;
-    }>
-  >,
+  defaultHoveredLocation: {
+    properties: {
+      [x: string]: string | number;
+      'zip-code-tabulation-area': string;
+    };
+    noLocation: boolean;
+  },
+  setHoveredLocation: any,
   event: any,
   x: React.MutableRefObject<number>,
   y: React.MutableRefObject<number>
