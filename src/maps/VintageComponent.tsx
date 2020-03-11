@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
-      justifyContent: 'center',
+      justifyContent: 'left',
       flexWrap: 'wrap',
       padding: theme.spacing(0.5),
       '& > *': {

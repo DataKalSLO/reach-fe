@@ -54,8 +54,12 @@ export type HeatMapSelection = {
   type: string;
   name: string;
   valueKey: string;
+  // going to solve "any" errors at a later time, ignoring for demo
+  // eslint-disable-next-line
   features: any[];
 };
+// going to solve "any" errors at a later time, ignoring for demo
+// eslint-disable-next-line
 export type SetHeatMapSelection = any;
 export type DataSources = {
   key: number;
