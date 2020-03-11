@@ -16,9 +16,11 @@ import {
   LocationFeatures,
   MapViewProps,
   SelectedMarker,
-  SetSelectedMarker
+  SetSelectedMarker,
+  MarkerSelection
 } from './MapTypes';
 import noData from '../common/assets/Local Data/census/noHeatMap';
+import mapOutline from '../common/assets/Local Data/census/b25053';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
 const placer = 'a';
@@ -57,18 +59,20 @@ function MapView(props: MapViewProps) {
   // heat map prepped here
   let heatMapFeatures: any[] | null = null;
   let valueKey = '';
-  // TODO: how to get outline to still show up???
   if (Object.keys(heatMapSelection).length) {
     heatMapFeatures = heatMapSelection.features;
     valueKey = heatMapSelection.valueKey;
-    console.log(valueKey);
-    console.log(heatMapSelection.valueKey);
   } else {
     heatMapFeatures = noData.features;
     valueKey = noData.valueKey;
   }
   const prepped = prepGeo(heatMapFeatures);
   const data = GeoJSON.parse(prepped, { GeoJSON: 'geometry' });
+
+  // map outlines
+  const outlinesPrepped = prepGeo(mapOutline.features);
+  const outlineData = GeoJSON.parse(outlinesPrepped, { GeoJSON: 'geometry' });
+
   const [layer, setLayer] = React.useState({
     id: 'data',
     type: 'fill',
@@ -102,7 +106,12 @@ function MapView(props: MapViewProps) {
     { color: purple[500] }
   ];
 
-  const [colorAssociation, setColorAssociation] = React.useState({});
+  const [colorAssociation, setColorAssociation]: [
+    { [name: string]: { [color: string]: string } },
+    React.Dispatch<
+      React.SetStateAction<{ [name: string]: { [color: string]: string } }>
+    >
+  ] = React.useState({});
 
   useEffect(() => {
     const newColorAssociation: {
@@ -191,15 +200,35 @@ function MapView(props: MapViewProps) {
       </div>
     );
   };
-  const chipArrayClasses = useStyles();
-  const chipData = [
-    {
+  const legendClasses = useStyles();
+  const legendData: {
+    key: number;
+    label: string;
+    color: string;
+  }[] = [];
+  let i = 0;
+  if (valueKey !== 'NO_DATA') {
+    const heatMapLegend = {
       key: 0,
-      label: 'test1',
-      color: 'red'
-    },
-    { key: 1, label: 'test2', color: 'green' }
-  ];
+      label: heatMapSelection.name,
+      color: 'green'
+    };
+    legendData.push(heatMapLegend);
+    i += 1;
+  }
+  if (
+    Object.keys(colorAssociation).length === Object.keys(markerSelection).length
+  ) {
+    markerSelection.forEach((selection: MarkerSelection[0]) => {
+      const markerLegend = {
+        key: i,
+        label: selection.name,
+        color: colorAssociation[selection.name].color
+      };
+      legendData.push(markerLegend);
+      i += 1;
+    });
+  }
 
   return Object.keys(data).length > 0 ? (
     <ReactMapGL
@@ -212,8 +241,11 @@ function MapView(props: MapViewProps) {
     >
       <Source type="geojson" data={data}>
         <Layer {...layer} />
+      </Source>
+      <Source type="geojson" data={outlineData}>
         <Layer {...outline} />
       </Source>
+
       {renderTooltip()}
       {markerSelection
         .map(
@@ -235,15 +267,15 @@ function MapView(props: MapViewProps) {
       {selectedMarker.map((selected: LocationFeatures) => {
         return popups(selected, setSelectedMarker, selectedMarker);
       })}
-      <Paper className={chipArrayClasses.root}>
-        {chipData.map(data => {
+      <Paper className={legendClasses.root}>
+        {legendData.map(data => {
           let icon;
           return (
             <Chip
               key={data.key}
               icon={icon}
               label={data.label}
-              className={chipArrayClasses.chip}
+              className={legendClasses.chip}
               style={{ borderColor: data.color }}
               variant="outlined"
             />
@@ -281,8 +313,6 @@ function prepGeo(featureCollection: any) {
 }
 
 function getStat(features: any, extractionFunc: any, selection: string) {
-  console.log(features[0].properties);
-  console.log(selection);
   const stat = extractionFunc(features, (o: any) => {
     return o.properties[selection];
   });
