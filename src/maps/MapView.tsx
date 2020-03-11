@@ -3,7 +3,6 @@ import ReactMapGL, { Source, Layer, Marker, Popup } from 'react-map-gl';
 import { SLO_LATITUDE, SLO_LONGITUDE } from './constants';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import RoomIcon from '@material-ui/icons/Room';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
 import chroma from 'chroma-js';
@@ -12,6 +11,7 @@ import Tooltip from './Tooltip';
 import { blue, purple, red } from '@material-ui/core/colors';
 import { Button } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
+import { theme } from '../theme/theme';
 import {
   LocationFeatures,
   MapViewProps,
@@ -32,21 +32,6 @@ const defaultHoveredLocation = {
   },
   noLocation: true
 };
-
-// styling for mui chip array to show legend
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-      justifyContent: 'center',
-      flexWrap: 'wrap',
-      padding: theme.spacing(0.5)
-    },
-    chip: {
-      margin: theme.spacing(0.5)
-    }
-  })
-);
 
 function MapView(props: MapViewProps) {
   const {
@@ -200,7 +185,22 @@ function MapView(props: MapViewProps) {
       </div>
     );
   };
-  const legendClasses = useStyles();
+
+  // styling for mui chip array to show legend
+  const ChipLegend = styled(Paper)({
+    display: 'flex',
+    flexDirection: 'column',
+    width: 200,
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    margin: theme.spacing(0.5),
+    padding: theme.spacing(0.3)
+  });
+
+  const StyledChip = styled(Chip)({
+    margin: theme.spacing(0.5)
+  });
+
   const legendData: {
     key: number;
     label: string;
@@ -267,21 +267,21 @@ function MapView(props: MapViewProps) {
       {selectedMarker.map((selected: LocationFeatures) => {
         return popups(selected, setSelectedMarker, selectedMarker);
       })}
-      <Paper className={legendClasses.root}>
+      <ChipLegend>
+        <div>Legend:</div>
         {legendData.map(data => {
           let icon;
           return (
-            <Chip
+            <StyledChip
               key={data.key}
               icon={icon}
               label={data.label}
-              className={legendClasses.chip}
               style={{ borderColor: data.color }}
               variant="outlined"
             />
           );
         })}
-      </Paper>
+      </ChipLegend>
     </ReactMapGL>
   ) : (
     <div
