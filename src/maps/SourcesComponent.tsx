@@ -2,6 +2,7 @@ import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
+import { SourceComponentProps } from './MapTypes';
 
 interface Sources {
   key: number;
@@ -26,19 +27,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-//hard coded sources
-const sources = [
-  { key: 0, label: 'City of SLO' },
-  { key: 1, label: 'City of Santa Maria' }
-];
-
-export default function SourceLabels() {
+export default function SourceLabels(props: SourceComponentProps) {
   const classes = useStyles();
+  const { dataSources } = props;
 
   return (
     <Paper className={classes.root} elevation={0}>
       <div> Data Sources: </div>
-      {sources.map(data => {
+      {dataSources.map(data => {
         return <Chip size="small" label={data.label} key={data.key} />;
       })}
     </Paper>

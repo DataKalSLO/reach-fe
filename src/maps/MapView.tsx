@@ -43,6 +43,8 @@ function MapView(props: MapViewProps) {
   if (Object.keys(heatMapSelection).length) {
     heatMapFeatures = heatMapSelection.features;
     valueKey = heatMapSelection.valueKey;
+    console.log(valueKey);
+    console.log(heatMapSelection.valueKey);
   } else {
     heatMapFeatures = noData.features;
     valueKey = noData.valueKey;
@@ -237,6 +239,8 @@ function prepGeo(featureCollection: any) {
 }
 
 function getStat(features: any, extractionFunc: any, selection: string) {
+  console.log(features[0].properties);
+  console.log(selection);
   const stat = extractionFunc(features, (o: any) => {
     return o.properties[selection];
   });
@@ -246,7 +250,7 @@ function getStat(features: any, extractionFunc: any, selection: string) {
 function onHover(
   defaultHoveredLocation: {
     properties: {
-      [x: string]: string | number;
+      [x: string]: string;
       'zip-code-tabulation-area': string;
     };
     noLocation: boolean;
@@ -371,7 +375,9 @@ function popups(
       // magic number to center the pop-up tooltip
       offsetLeft={10}
     >
-      <div>{marker.properties.name}</div>
+      <div>
+        {marker.properties.name} : {marker.properties.value}
+      </div>
     </Popup>
   );
 }

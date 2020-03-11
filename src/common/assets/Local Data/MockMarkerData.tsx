@@ -1,7 +1,9 @@
 // college data
 const CollegeData = {
   type: 'FeatureCollection',
-  name: 'Colleges',
+  name: 'College Graduation Rate',
+  vintage: '2020',
+  source: 'collegetuitioncompare.com',
   features: [
     [
       {
@@ -11,7 +13,8 @@ const CollegeData = {
           coordinates: [35.305, -120.6625]
         },
         properties: {
-          name: 'Cal Poly, SLO'
+          name: 'Cal Poly, SLO',
+          value: '82%'
         }
       }
     ],
@@ -23,7 +26,8 @@ const CollegeData = {
           coordinates: [35.3292, -120.7401]
         },
         properties: {
-          name: 'Cuesta College'
+          name: 'Cuesta College',
+          value: '33%'
         }
       }
     ],
@@ -35,7 +39,8 @@ const CollegeData = {
           coordinates: [34.9446, -120.4189]
         },
         properties: {
-          name: 'Allan Hancock College'
+          name: 'Allan Hancock College',
+          value: '33%'
         }
       }
     ]
@@ -45,7 +50,9 @@ const CollegeData = {
 // high school data
 const HighSchoolData = {
   type: 'FeatureCollection',
-  name: 'High Schools',
+  name: 'High School Graduation Rate',
+  vintage: '2020',
+  source: 'publicschoolreview.com',
   features: [
     [
       {
@@ -55,7 +62,8 @@ const HighSchoolData = {
           coordinates: [35.2829, -120.6517]
         },
         properties: {
-          name: 'San Luis Obispo High School'
+          name: 'San Luis Obispo High School',
+          value: '97%'
         }
       }
     ],
@@ -67,7 +75,8 @@ const HighSchoolData = {
           coordinates: [35.1161, -120.5806]
         },
         properties: {
-          name: 'Arroyo Grande High School'
+          name: 'Arroyo Grande High School',
+          value: '95%'
         }
       }
     ],
@@ -79,7 +88,8 @@ const HighSchoolData = {
           coordinates: [35.2901, -120.4017]
         },
         properties: {
-          name: 'Atascadero High School'
+          name: 'Atascadero High School',
+          value: '95%'
         }
       }
     ]

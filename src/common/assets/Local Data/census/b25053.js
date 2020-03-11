@@ -4833,13 +4833,12 @@ const json = [
   }
 ];
 
-const formatted = {
+const kitchenFacilitiesHeatMap = {
   type: 'HeatMap',
   name: 'Number of Kitchen Facilities',
   valueKey: 'B25053_006E',
+  source: 'census.gov',
   features: json
 };
 
-export default formatted;
-
-// export default json;
+export default kitchenFacilitiesHeatMap;

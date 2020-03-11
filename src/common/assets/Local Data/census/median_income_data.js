@@ -4850,4 +4850,12 @@ const medianHouseholdIncomeData = [
   }
 ];
 
-export default medianHouseholdIncomeData;
+const medianHouseholdIncomeHeatMap = {
+  type: 'HeatMap',
+  name: 'Median Household Income',
+  valueKey: 'B19019_001E',
+  source: 'census.gov',
+  features: medianHouseholdIncomeData
+};
+
+export default medianHouseholdIncomeHeatMap;

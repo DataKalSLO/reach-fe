@@ -6,7 +6,8 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Box } from '@material-ui/core';
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
-import features from '../common/assets/Local Data/census/b25053.js';
+import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/median_income_data.js';
+import kitchenFaciltiesHeatMap from '../common/assets/Local Data/census/b25053.js';
 import {
   LocationFeatures,
   LayersComponentProps,
@@ -15,7 +16,9 @@ import {
   SelectedMarker,
   SetSelectedMarker,
   SetHeatMapSelection,
-  HeatMapSelection
+  HeatMapSelection,
+  DataSources,
+  SetDataSources
 } from './MapTypes';
 
 // number of allowed selections, subject to change based on ui/ux and graph team suggestions
@@ -25,7 +28,8 @@ const ALLOWED_BOTH = 2;
 // all of the local data we have available
 // TODO: pull this from backend! need distinct split between marker & heat map
 // heat map data should have both kitchen facilities & median household income as options
-const heatMapData = [features];
+//const heatMapData = [kitchenFaciltiesHeatMap, medianHouseholdIncomeHeatMap];
+const heatMapData = [medianHouseholdIncomeHeatMap, kitchenFaciltiesHeatMap];
 const allData = [markerData, heatMapData].flat();
 
 // I don't think there's a better way to do this; it's styling the div not the mui component
@@ -56,14 +60,18 @@ function handleChange(
   setMarkerSelection: SetMarkerSelection,
   setHeatMapSelection: SetHeatMapSelection,
   setSelectedMarker: SetSelectedMarker,
-  selectedMarker: SelectedMarker
+  selectedMarker: SelectedMarker,
+  dataSources: DataSources,
+  setDataSources: SetDataSources
 ) {
-  const newMarkers: any[] = [];
+  const newMarkers: MarkerSelection = [];
   let newHeatMap: any = {};
   const allSelections: string[] = [];
+  const allDataSources: string[] = [];
   value.forEach((table: any) => {
     if (table.type === 'FeatureCollection') {
       newMarkers.push(table);
+      allDataSources.push(table.source);
       table.features.forEach((items: { properties: { name: string } }[]) => {
         items.forEach((selection: { properties: { name: string } }) => {
           allSelections.push(selection.properties.name);
@@ -71,6 +79,7 @@ function handleChange(
       });
     } else if (table.type === 'HeatMap') {
       newHeatMap = table;
+      allDataSources.push(table.source);
     }
   });
   setHeatMapSelection(newHeatMap);
@@ -80,6 +89,16 @@ function handleChange(
       (obj: LocationFeatures) => obj.properties.name in allSelections
     )
   );
+  const dataSourceDict: {
+    key: number;
+    label: string;
+  }[] = [];
+  let i = 0;
+  allDataSources.forEach((source: string) => {
+    dataSourceDict.push({ key: i, label: source });
+    i++;
+  });
+  setDataSources(dataSourceDict);
 }
 
 // handles disabling options, only two markers or one marker & one heat map allowed
@@ -112,7 +131,9 @@ export default function LayersComponent(props: LayersComponentProps) {
     heatMapSelection,
     setHeatMapSelection,
     selectedMarker,
-    setSelectedMarker
+    setSelectedMarker,
+    dataSources,
+    setDataSources
   } = props;
   return (
     <Box className={classes.root}>
@@ -134,7 +155,9 @@ export default function LayersComponent(props: LayersComponentProps) {
             setMarkerSelection,
             setHeatMapSelection,
             setSelectedMarker,
-            selectedMarker
+            selectedMarker,
+            dataSources,
+            setDataSources
           )
         }
         renderInput={params => (

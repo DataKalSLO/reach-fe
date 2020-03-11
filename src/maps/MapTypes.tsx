@@ -30,6 +30,7 @@ export interface LocationFeatures {
   };
   properties: {
     name: string;
+    value: string;
   };
 }
 
@@ -37,6 +38,8 @@ export interface LocationFeatures {
 export type MarkerSelection = {
   type: string;
   name: string;
+  vintage: string;
+  source: string;
   features: LocationFeatures[][];
 }[];
 export type SetMarkerSelection = React.Dispatch<
@@ -54,8 +57,13 @@ export type HeatMapSelection = {
   features: any[];
 };
 export type SetHeatMapSelection = any;
+export type DataSources = {
+  key: number;
+  label: string;
+}[];
+export type SetDataSources = React.Dispatch<React.SetStateAction<DataSources>>;
 
-// type interface for props passed in Map.tsx
+// type interface for props passed to MapView in Map.tsx
 export interface MapViewProps {
   markerSelection: MarkerSelection;
   heatMapSelection: HeatMapSelection;
@@ -63,7 +71,7 @@ export interface MapViewProps {
   setSelectedMarker: SetSelectedMarker;
 }
 
-// type interface for props passed in Map.tsx
+// type interface for props passed to LayersComponent in Map.tsx
 export interface LayersComponentProps {
   markerSelection: MarkerSelection;
   setMarkerSelection: SetMarkerSelection;
@@ -71,4 +79,11 @@ export interface LayersComponentProps {
   setHeatMapSelection: SetHeatMapSelection;
   selectedMarker: SelectedMarker;
   setSelectedMarker: SetSelectedMarker;
+  dataSources: DataSources;
+  setDataSources: SetDataSources;
+}
+
+// type interface for props passed to SourceComponent in Map.tsx
+export interface SourceComponentProps {
+  dataSources: DataSources;
 }
