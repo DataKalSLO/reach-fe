@@ -19,7 +19,7 @@ export default function StoryForm() {
   const TITLE_CHAR_LIMIT = 100;
   const DESCRIPTION_CHAR_LIMIT = 250;
   function saveStory() {
-    alert(JSON.stringify(story.storyBlocks, null, 2));
+    alert(JSON.stringify(story, null, 2));
     story.userID = '51d73193-470d-442b-a392-3e43238eb089'; //Existing user in database
 
     saveStoryToDatabase(story)
