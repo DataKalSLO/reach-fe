@@ -83,7 +83,6 @@ export interface LayersComponentProps {
   setHeatMapSelection: SetHeatMapSelection;
   selectedMarker: SelectedMarker;
   setSelectedMarker: SetSelectedMarker;
-  dataSources: DataSources;
   setDataSources: SetDataSources;
 }
 
