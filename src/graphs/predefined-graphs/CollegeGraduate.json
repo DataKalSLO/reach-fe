@@ -1,0 +1,40 @@
+{
+	"tooltip": {
+		"useHTML": true,
+		"headerFormat": "<small>{point.key}</small><table>",
+		"valueDecimals": 2
+	},
+	"chart": {
+		"height": "100%",
+		"zoomType": "xy",
+		"panning": {
+			"enabled": true
+		},
+		"panKey": "shift"
+	},
+	"title": {
+		"text": "Number of Graduates by College"
+	},
+	"xAxis": {
+		"name": "College",
+		"type": "datetime",
+		"categories": ["Cal Poly (SLO)", "Cuesta College", "Laurus College", "Fielding Graduate University", "Allan Hancock College", "Santa Barbara City College"]
+	},
+	"yAxis": {
+		"title": {
+			"text": "Number of Gradautes"
+		}
+	},
+	"plotOptions": {
+		"column": {
+			"stacking": "normal",
+			"allowPointSelect": true
+		}
+	},
+
+	"series": [{
+		"name": "College Graduates",
+		"type": "column",
+		"data": [4996, 1303, 177, 379, 1879, 3506]
+	}]
+}
