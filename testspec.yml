@@ -10,7 +10,7 @@ phases:
   build:
     commands:
       - echo Testing...
-      - npm run test
+      - CI=true npm run test
 
 artifacts:
   files:
