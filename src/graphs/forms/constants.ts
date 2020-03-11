@@ -6,3 +6,4 @@ export const SAVE_LABEL = 'Save';
 export const EDIT_LABEL = 'Edit';
 export const DUPLICATE_LABEL = 'Duplicate';
 export const SHARE_LABEL = 'Share';
+export const FORMAT_LABEL = 'Format';
