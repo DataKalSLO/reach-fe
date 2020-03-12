@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import clsx from 'clsx';
 import IconButton from '@material-ui/core/IconButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useOptionsStyles } from './styles';
 import { addGraphsForInitiativeAction } from '../../redux/graphs/actions';
 import { uuid } from 'uuidv4';
@@ -23,9 +23,11 @@ import {
   BottomNavigationAction,
   Typography
 } from '@material-ui/core';
+import { getGraphs } from '../../redux/graphs/selector';
 
 function Options() {
   const dispatch = useDispatch();
+  const stat = useSelector(getGraphs);
   const classes = useOptionsStyles();
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
@@ -60,10 +62,12 @@ function Options() {
   ];
 
   const initiatives = () => {
+    console.log(stat);
     return initiaveList.map((initiative, index) => {
       return (
         <BottomNavigationAction
           key={index}
+          className={classes.icon}
           label={initiative[0]}
           icon={initiative[1]}
           onClick={() =>

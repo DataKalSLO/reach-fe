@@ -1,4 +1,3 @@
-import { GraphData } from '../../graphs/components/types';
 import { uuid } from 'uuidv4';
 import * as cnst from './constants';
 import * as typs from './types';
@@ -6,18 +5,20 @@ import * as typs from './types';
 export function getGraphsForInitiative(
   initiative: string,
   graphStateInitiatives: typs.InitiativeGraphs
-): GraphData[] {
+): Highcharts.Options[] {
   switch (initiative) {
     case cnst.INDUSTRY:
-      return graphStateInitiatives[cnst.INDUSTRY];
+      return JSON.parse(JSON.stringify(graphStateInitiatives[cnst.INDUSTRY]));
     case cnst.DEMOGRAPHICS:
-      return graphStateInitiatives[cnst.DEMOGRAPHICS];
+      return JSON.parse(
+        JSON.stringify(graphStateInitiatives[cnst.DEMOGRAPHICS])
+      );
     case cnst.ASSETS:
-      return graphStateInitiatives[cnst.ASSETS];
+      return JSON.parse(JSON.stringify(graphStateInitiatives[cnst.ASSETS]));
     case cnst.EDUCATION:
-      return graphStateInitiatives[cnst.EDUCATION];
+      return JSON.parse(JSON.stringify(graphStateInitiatives[cnst.EDUCATION]));
     case cnst.HOUSING:
-      return graphStateInitiatives[cnst.HOUSING];
+      return JSON.parse(JSON.stringify(graphStateInitiatives[cnst.HOUSING]));
   }
   return [];
 }
@@ -25,32 +26,34 @@ export function getGraphsForInitiative(
 export function getGraphWithTitle(
   graphTitle: string,
   graphStateInitiatives: typs.InitiativeGraphs
-): [string, GraphData][] {
-  const allInitiativeData: [string, GraphData][] = Object.values(
+): [string, Highcharts.Options][] {
+  const allInitiativeData: [string, Highcharts.Options][] = Object.values(
     graphStateInitiatives
   );
   for (let idx = 0; idx < allInitiativeData.length; ++idx) {
     const dataForOneInitiatiave = allInitiativeData[idx][1];
-    if (dataForOneInitiatiave.graphTitle === graphTitle) {
+    if (dataForOneInitiatiave.title === graphTitle) {
       return [allInitiativeData[idx]];
     }
   }
   return [];
 }
 
-export function graphWithIds(graphs: GraphData[]): [string, GraphData][] {
-  return graphs.map(graphData => {
-    return [uuid(), graphData];
+export function graphWithIds(
+  graphs: Highcharts.Options[]
+): [string, Highcharts.Options][] {
+  return graphs.map((graphData: Highcharts.Options) => {
+    return [uuid(), { ...graphData, ...graphData.series }];
   });
 }
 
 export function getDuplicateGraph(
   id: string,
-  graphs: [string, GraphData][]
-): [string, GraphData][] {
+  graphs: [string, Highcharts.Options][]
+): [string, Highcharts.Options][] {
   for (let idx = 0; idx < graphs.length; ++idx) {
     if (graphs[idx][0] === id) {
-      return [[uuid(), graphs[idx][1]]];
+      return [[uuid(), JSON.parse(JSON.stringify(graphs[idx][1]))]];
     }
   }
   return [];
@@ -58,7 +61,11 @@ export function getDuplicateGraph(
 
 export function getGraphsWithout(
   id: string,
-  graphs: [string, GraphData][]
-): [string, GraphData][] {
-  return graphs.filter((graph: [string, GraphData]) => graph[0] !== id);
+  graphs: [string, Highcharts.Options][]
+): [string, Highcharts.Options][] {
+  return JSON.parse(
+    JSON.stringify(
+      graphs.filter((graph: [string, Highcharts.Options]) => graph[0] !== id)
+    )
+  );
 }

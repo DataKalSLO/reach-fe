@@ -1,4 +1,3 @@
-import { GraphData } from '../../graphs/components/types';
 import * as cnst from './constants';
 
 /*
@@ -7,17 +6,17 @@ import * as cnst from './constants';
  */
 
 export interface GraphState {
-  graphs: [string, GraphData][];
+  graphs: [string, Highcharts.Options][];
   initiatives: InitiativeGraphs;
   isEditting: boolean;
 }
 
 export interface InitiativeGraphs {
-  [cnst.INDUSTRY]: GraphData[];
-  [cnst.DEMOGRAPHICS]: GraphData[];
-  [cnst.ASSETS]: GraphData[];
-  [cnst.EDUCATION]: GraphData[];
-  [cnst.HOUSING]: GraphData[];
+  [cnst.INDUSTRY]: Highcharts.Options[];
+  [cnst.DEMOGRAPHICS]: Highcharts.Options[];
+  [cnst.ASSETS]: Highcharts.Options[];
+  [cnst.EDUCATION]: Highcharts.Options[];
+  [cnst.HOUSING]: Highcharts.Options[];
 }
 
 /*
@@ -28,12 +27,12 @@ export interface InitiativeGraphs {
 
 export interface AddGraphAction {
   type: typeof cnst.ADD_GRAPH;
-  payload: GraphData;
+  payload: Highcharts.Options;
 }
 
 export interface AddListOfGraphsAction {
   type: typeof cnst.ADD_LIST_OF_GRAPHS;
-  payload: GraphData[];
+  payload: Highcharts.Options[];
 }
 
 export interface AddGraphsForInitiativeAction {

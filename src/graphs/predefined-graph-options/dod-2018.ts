@@ -319,6 +319,9 @@ export const defenseOptions: Highcharts.Options = {
   title: {
     text: 'Department of Defense Contracts'
   },
+  xAxis: {
+    categories: data.map(dat => dat[0] as string)
+  },
   yAxis: {
     title: {
       text: 'Total Award Value'

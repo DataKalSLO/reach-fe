@@ -1,24 +1,23 @@
-import { GraphData } from '../../graphs/components/types';
 import * as typs from './types';
 import * as cnst from './constants';
 
-export function addGraphAction(graph: GraphData) {
+export function addGraphAction(graph: Highcharts.Options) {
   return graphAction(graph);
 }
 
-export function graphAction(payload: GraphData): typs.AddGraphAction {
+export function graphAction(payload: Highcharts.Options): typs.AddGraphAction {
   return {
     type: cnst.ADD_GRAPH,
     payload: payload
   };
 }
 
-export function addListOfGraphsAction(graphs: GraphData[]) {
+export function addListOfGraphsAction(graphs: Highcharts.Options[]) {
   return listOfGraphsAction(graphs);
 }
 
 export function listOfGraphsAction(
-  payload: GraphData[]
+  payload: Highcharts.Options[]
 ): typs.AddListOfGraphsAction {
   return {
     type: cnst.ADD_LIST_OF_GRAPHS,

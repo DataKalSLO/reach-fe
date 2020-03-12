@@ -1,30 +1,30 @@
 import { GraphState, GraphActionTypes } from './types';
-import { defenseGraphData } from '../../graphs/predefined-graph-options/dod-2018';
-import { incomeInequalityGraphData } from '../../graphs/predefined-graph-options/income-inequality';
-import { wagesGraphData } from '../../graphs/predefined-graph-options/real-mean-wages';
-import { airportsGraphData } from '../../graphs/predefined-graph-options/airports';
-import { collegeGraphData } from '../../graphs/predefined-graph-options/college-graduates';
-import { statsOfBusinessGraphData } from '../../graphs/predefined-graph-options/state-of-business';
-import { medianIncomeGraphData } from '../../graphs/predefined-graph-options/median-income';
-import { highschoolGraphData } from '../../graphs/predefined-graph-options/percent-highschool';
-import { milesTraveledGraphData } from '../../graphs/predefined-graph-options/miles-traveled';
-import { medianListGraphData } from '../../graphs/predefined-graph-options/median-list-price';
-import { medianSaleGraphData } from '../../graphs/predefined-graph-options/median-sale-price';
+import { defenseOptions } from '../../graphs/predefined-graph-options/dod-2018';
+import { incomeInequalityOptions } from '../../graphs/predefined-graph-options/income-inequality';
+import { wagesOptions } from '../../graphs/predefined-graph-options/real-mean-wages';
+import { airportsOptions } from '../../graphs/predefined-graph-options/airports';
+import { collegeGraduatesOptions } from '../../graphs/predefined-graph-options/college-graduates';
+import { statsOfBusinessOptions } from '../../graphs/predefined-graph-options/state-of-business';
+import { medianIncomeOptions } from '../../graphs/predefined-graph-options/median-income';
+import { highschoolOptions } from '../../graphs/predefined-graph-options/percent-highschool';
+import { milesTraveledOptions } from '../../graphs/predefined-graph-options/miles-traveled';
+import { medianListOptions } from '../../graphs/predefined-graph-options/median-list-price';
+import { medianSaleOptions } from '../../graphs/predefined-graph-options/median-sale-price';
 import * as utils from './utilities';
 import * as cnst from './constants';
 
 const initialState: GraphState = {
   graphs: [],
   initiatives: {
-    [cnst.INDUSTRY]: [statsOfBusinessGraphData, defenseGraphData],
+    [cnst.INDUSTRY]: [statsOfBusinessOptions, defenseOptions],
     [cnst.DEMOGRAPHICS]: [
-      wagesGraphData,
-      medianIncomeGraphData,
-      incomeInequalityGraphData
+      wagesOptions,
+      medianIncomeOptions,
+      incomeInequalityOptions
     ],
-    [cnst.ASSETS]: [milesTraveledGraphData, airportsGraphData],
-    [cnst.EDUCATION]: [highschoolGraphData, collegeGraphData],
-    [cnst.HOUSING]: [medianListGraphData, medianSaleGraphData]
+    [cnst.ASSETS]: [milesTraveledOptions, airportsOptions],
+    [cnst.EDUCATION]: [highschoolOptions, collegeGraduatesOptions],
+    [cnst.HOUSING]: [medianSaleOptions, medianListOptions]
   },
   isEditting: false
 };
@@ -50,8 +50,7 @@ export function graphReducer(
         graphs: [
           ...utils.graphWithIds(
             utils.getGraphsForInitiative(action.payload, state.initiatives)
-          ),
-          ...state.graphs
+          )
         ]
       };
     case cnst.ADD_GRAPH_WITH_TITLE:

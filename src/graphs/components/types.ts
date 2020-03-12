@@ -108,3 +108,8 @@ declare module 'highcharts' {
     searchPoint(event: Highcharts.PointerEventObject, isBoolean: true): Point;
   }
 }
+
+export interface GraphPredefinedProps {
+  graphData: Highcharts.Options;
+  graphId: string;
+}

@@ -2,7 +2,7 @@
  * General Chart Options Constants
  */
 export const EMPTY_TEXT = '';
-export const DEFAULT_SUBTITLE = 'Source: ';
+export const DEFAULT_SUBTITLE = '';
 export const DEFAULT_STACKING_TYPE = 'normal';
 export const DEFAULT_MAX_WIDTH = 500;
 export const DEFAULT_ZOOM_TYPE = 'x';

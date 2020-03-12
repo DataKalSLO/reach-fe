@@ -1,5 +1,6 @@
 import { Column } from '../../redux/vizbuilder/types';
 import { ValueColumn, GraphData } from '../components/types';
+import Highcharts from 'highcharts';
 
 const data = [
   [
@@ -64,7 +65,8 @@ export const statsOfBusinessOptions: Highcharts.Options = {
   },
   xAxis: {
     title: { text: 'Industry' },
-    type: 'category'
+    type: 'category',
+    categories: data[0].map(dat => dat[0] as string)
   },
   yAxis: {
     title: {
@@ -81,9 +83,6 @@ export const statsOfBusinessOptions: Highcharts.Options = {
     text: 'Number of Establishments by Industry (2016)'
   },
   plotOptions: {
-    series: {
-      allowPointSelect: true
-    },
     column: {
       allowPointSelect: true,
       stacking: 'normal'
@@ -108,12 +107,21 @@ export const statsOfBusinessOptions: Highcharts.Options = {
     {
       type: 'pie',
       name: 'Total consumption',
-      data: data[2],
+      data: [
+        {
+          name: 'San Luis Obispo',
+          y: 7349
+        },
+        {
+          name: 'Santa Barbara',
+          y: 10373
+        }
+      ],
       center: [220, 60],
       size: 100,
       showInLegend: false,
       dataLabels: {
-        enabled: true
+        enabled: false
       }
     }
   ]

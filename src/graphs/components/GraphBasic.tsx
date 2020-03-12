@@ -2,7 +2,7 @@ import React from 'react';
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
 import { GraphChildrenProps } from './types';
-import { Container, Card, Button } from '@material-ui/core';
+import { Container, Card } from '@material-ui/core';
 import { useGraphStyles } from '../container/styles';
 import GraphHeader from '../forms/GaphHeader';
 import highcharts3d from 'highcharts/highcharts-3d';
@@ -40,7 +40,6 @@ export function GraphBasic({
   return (
     <Card className={classes.root}>
       <GraphHeader graphId={graphId} />
-      <Button onClick={() => graphs[0].setTitle('red')} />
       <Container className={classes.graphContainer}>
         {getHighchartsComponents()}
       </Container>

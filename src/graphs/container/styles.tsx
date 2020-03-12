@@ -173,6 +173,7 @@ export const useOptionsStyles = makeStyles((theme: Theme) =>
       backgroundColor: 'white',
       marginBottom: '10px',
       boxShadow: theme.shadows[5],
+      border: '1px solid rgba(0,0,0,0.3)',
       borderRadius: '5px'
     },
     popover: {
@@ -182,6 +183,12 @@ export const useOptionsStyles = makeStyles((theme: Theme) =>
     typography: {
       padding: theme.spacing(2),
       fontSize: 'large'
+    },
+    icon: {
+      borderRadius: '20px',
+      '&:focus': {
+        backgroundColor: 'rgba(0,0,0,0.15)'
+      }
     }
   })
 );

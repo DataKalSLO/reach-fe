@@ -1,26 +1,23 @@
 import React, { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGraphContainerStyles } from './styles';
-import { Button } from '@material-ui/core';
-import { Add } from '@material-ui/icons';
 import { getGraphs } from '../../redux/graphs/selector';
 import { Box } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
-import { ADD_BUTTON_DESC } from './constants';
 import GraphCreateForm from '../forms/GraphCreateForm';
-import { Graph } from '../components/Graph';
 import GraphDefault from '../components/GraphDefault';
 import { uuid } from 'uuidv4';
-import { GraphData } from '../components/types';
+import GraphPremade from '../components/GraphPremade';
 
 function GraphContainer() {
   const graphState = useSelector(getGraphs);
   const classes = useGraphContainerStyles();
   const [open, setOpen] = useState(false);
-
+  /*
   const handleOpen = () => {
     setOpen(true);
   };
+*/
 
   const handleClose = () => {
     setOpen(false);
@@ -28,10 +25,10 @@ function GraphContainer() {
 
   const getGraphComponents = () => {
     const graphs = graphState.graphs.map(
-      (graphData: [string, GraphData], index: number) => {
+      (graphData: [string, Highcharts.Options], index: number) => {
         return (
           <Box key={index} className={classes.item}>
-            <Graph graphData={graphData[1]} graphId={graphData[0]} />
+            <GraphPremade graphData={graphData[1]} graphId={graphData[0]} />
           </Box>
         );
       }
@@ -53,6 +50,7 @@ function GraphContainer() {
         </div>
       </Modal>
       <Box className={classes.list}>{getGraphComponents()}</Box>
+      {/* remove button for demo 
       <Button
         className={classes.button}
         endIcon={<Add />}
@@ -63,6 +61,7 @@ function GraphContainer() {
       >
         {ADD_BUTTON_DESC}
       </Button>
+      */}
     </Fragment>
   );
 }
