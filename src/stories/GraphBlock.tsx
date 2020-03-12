@@ -16,42 +16,54 @@ import {
   IncomeInequalityGraph,
   MedianIncomeGraph,
   MilesTraveledGraph,
-  RealMeanWagesGraph
+  RealMeanWagesGraph,
+  MedianSaleGraph
 } from '../graphs/demo-graphs/PremadeGraphs';
-import { GraphPreviewCard } from './GraphPreviewCard';
+import { GraphPreviewCard } from './GraphBlockPreviewCard';
+import { useDispatch } from 'react-redux';
+import { updateGraphBlock } from '../redux/story/actions';
 
-const GraphBlock = () => {
+//TODO: replace with a proper button that loads more premade graphs
+const LoadMore = () => (
+  <StyledPaper>
+    <Typography variant="h6">Load More...</Typography>
+  </StyledPaper>
+);
+export const graphs = [
+  defenseGraph,
+  IncomeInequalityGraph,
+  MedianSaleGraph,
+  RealMeanWagesGraph,
+  MilesTraveledGraph,
+  AirportsGraph,
+  HighSchoolGraph,
+  CollegeGraph,
+  LoadMore
+];
+
+export const selectedGraph = (graphId: number) => (
+  <GraphBlockContainer>{graphs[graphId]}</GraphBlockContainer>
+);
+
+interface Props {
+  graphId: number;
+  setGraphId: (n: number) => void;
+}
+const GraphBlock = (props: Props) => {
   const [isExploring, setExploring] = useState(true);
-  const [selectedGraph, setSelectedGraph] = useState(0);
-
-  const LoadMore = () => (
-    <StyledPaper>
-      <Typography variant="h6">Load More...</Typography>
-    </StyledPaper>
-  );
-  const graphs = [
-    defenseGraph,
-    MedianIncomeGraph,
-    IncomeInequalityGraph,
-    RealMeanWagesGraph,
-    MilesTraveledGraph,
-    AirportsGraph,
-    HighSchoolGraph,
-    CollegeGraph,
-    LoadMore
-  ];
+  const { graphId, setGraphId } = props; // this is NOT a hook, the state is being managed in StoryForm
 
   if (isExploring) {
     return (
       <Grid container spacing={5}>
-        {graphs.map((value, index) => (
+        {graphs.map((graph, index) => (
           <Grid item key={index} xs={12} sm={4}>
             <GraphPreviewCard
               key={index}
               index={index}
-              value={value}
+              graph={graph}
               onClick={() => {
-                setSelectedGraph(index);
+                setGraphId(index);
                 setExploring(false);
               }}
             />
@@ -60,7 +72,7 @@ const GraphBlock = () => {
       </Grid>
     );
   } else {
-    return <GraphBlockContainer>{graphs[selectedGraph]}</GraphBlockContainer>;
+    return selectedGraph(graphId);
   }
 };
 

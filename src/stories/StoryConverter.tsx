@@ -14,6 +14,7 @@ import {
   TextBlock,
   TEXT_BLOCK_TYPE
 } from './StoryTypes';
+import { selectedGraph } from './selectedGraph';
 
 export function convertStoryToJSX(story: Story): JSX.Element {
   const createPublicationDateString = () => {
@@ -73,7 +74,7 @@ function convertTextBlockToJSX(textBlock: TextBlock): JSX.Element {
 }
 
 function convertGraphBlockToJSX(graphBlock: GraphBlock): JSX.Element {
-  return <div>Graph Block conversion not yet implemented</div>;
+  return selectedGraph(graphBlock.graphID);
 }
 
 function convertMapBlockToJSX(mapBlock: MapBlock): JSX.Element {

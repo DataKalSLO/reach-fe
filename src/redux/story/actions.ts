@@ -13,7 +13,9 @@ import {
   UpdateTitleAction,
   UPDATE_DESCRIPTION,
   UPDATE_TEXT_BLOCK,
-  UPDATE_TITLE
+  UPDATE_TITLE,
+  UPDATE_GRAPH_BLOCK,
+  UpdateGraphBlockAction
 } from './types';
 import { uuid } from 'uuidv4';
 
@@ -32,7 +34,7 @@ export function createGraphBlock(): CreateGraphBlockAction {
     payload: {
       block: {
         id: uuid(),
-        graphID: uuid(),
+        graphID: 0,
         type: GRAPH_BLOCK_TYPE
       }
     }
@@ -46,6 +48,16 @@ export function updateTextBlock(
   return {
     type: UPDATE_TEXT_BLOCK,
     payload: { index: index, editorState: editorState }
+  };
+}
+
+export function updateGraphBlock(
+  index: number,
+  graphID: number
+): UpdateGraphBlockAction {
+  return {
+    type: UPDATE_GRAPH_BLOCK,
+    payload: { index: index, graphID: graphID }
   };
 }
 

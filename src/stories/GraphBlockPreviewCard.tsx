@@ -3,13 +3,13 @@ import React from 'react';
 
 interface Props {
   index: number;
-  value: React.ReactNode;
+  graph: React.ReactNode;
   onClick: () => void;
 }
 export const GraphPreviewCard = (props: Props) => (
   <Card variant="outlined">
     <CardActionArea onClick={props.onClick}>
-      <PreviewWrapper>{props.value}</PreviewWrapper>
+      <PreviewWrapper>{props.graph}</PreviewWrapper>
     </CardActionArea>
   </Card>
 );

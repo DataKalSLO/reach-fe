@@ -14,7 +14,8 @@ import {
   UPDATE_DESCRIPTION,
   UPDATE_TEXT_BLOCK,
   UPDATE_TITLE,
-  CREATE_GRAPH_BLOCK
+  CREATE_GRAPH_BLOCK,
+  UPDATE_GRAPH_BLOCK
 } from './types';
 
 export const emptyTextBlock: TextBlock = {
@@ -53,6 +54,11 @@ function updateObjectInArray(
 export function storyReducer(state = initialStory, action: StoryActionType) {
   switch (action.type) {
     case UPDATE_TEXT_BLOCK:
+      return {
+        ...state,
+        storyBlocks: updateObjectInArray(state.storyBlocks, action)
+      };
+    case UPDATE_GRAPH_BLOCK:
       return {
         ...state,
         storyBlocks: updateObjectInArray(state.storyBlocks, action)

@@ -25,7 +25,7 @@ export interface TextBlock {
 export interface GraphBlock {
   type: typeof GRAPH_BLOCK_TYPE;
   id: string;
-  graphID: string;
+  graphID: number; //FIXME: revert to string (used for demo)
 }
 export interface MapBlock {
   type: typeof MAP_BLOCK_TYPE;

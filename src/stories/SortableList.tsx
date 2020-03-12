@@ -9,7 +9,11 @@ import {
   SortableHandle
 } from 'react-sortable-hoc';
 import { Dispatch } from 'redux';
-import { swapBlocks, updateTextBlock } from '../redux/story/actions';
+import {
+  swapBlocks,
+  updateTextBlock,
+  updateGraphBlock
+} from '../redux/story/actions';
 import RichTextEditor from './RichTextEditor';
 import {
   GRAPH_BLOCK_TYPE,
@@ -78,7 +82,14 @@ function blockToComponent(
         />
       );
     case GRAPH_BLOCK_TYPE:
-      return <GraphBlock />;
+      return (
+        <GraphBlock
+          graphId={block.graphID}
+          setGraphId={(graphId: number) =>
+            dispatch(updateGraphBlock(index, graphId))
+          }
+        />
+      );
     case MAP_BLOCK_TYPE:
       throw new Error('TODO: Map Block type');
     default:
