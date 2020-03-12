@@ -28,7 +28,7 @@ export const airportsOptions: Highcharts.Options = {
     valueSuffix: ' USD'
   },
   chart: {
-    height: '100%',
+    height: '70%',
     zoomType: 'xy',
     panning: { enabled: true },
     panKey: 'shift'

@@ -10,7 +10,7 @@
 		"type": "category"
 	},
 	"chart": {
-    "height": "90%",
+    "height": "80%",
     "zoomType": "x",
     "panning": {"enabled": true},
     "panKey": "shift"

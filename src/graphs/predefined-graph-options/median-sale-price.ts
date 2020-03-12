@@ -131,7 +131,7 @@ export const medianSaleOptions: Highcharts.Options = {
     valueSuffix: ' USD'
   },
   chart: {
-    height: '100%',
+    height: '80%',
     zoomType: 'xy',
     panning: {
       enabled: true
