@@ -17,7 +17,7 @@ import {
 } from '@material-ui/icons';
 import React, { Dispatch } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createEmptyTextBlock } from '../redux/story/actions';
+import { createEmptyTextBlock, createGraphBlock } from '../redux/story/actions';
 import { StoryActionType } from '../redux/story/types';
 import { getStory } from '../redux/story/selectors';
 import { Story } from './StoryTypes';
@@ -94,8 +94,8 @@ const getAddButtonContentList = (): ToolbarButtonContents[] => [
   {
     title: 'Add Graph',
     icon: <InsertChart />,
-    useDispatch: false,
-    onClick: () => alert('Not implemented')
+    useDispatch: true,
+    onClick: createGraphBlock
   },
   {
     title: 'Add Map',
