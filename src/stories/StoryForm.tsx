@@ -1,5 +1,5 @@
 import { Box, Button, styled, TextField, Typography } from '@material-ui/core';
-import { Save, Visibility } from '@material-ui/icons';
+import { Visibility } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateDescription, updateTitle } from '../redux/story/actions';
@@ -17,10 +17,6 @@ export default function StoryForm() {
   // TODO: add validation of required fields
   // TODO: Move preview selected into Redux to persist after user leaves page
   const [previewSelected, setPreviewSelected] = useState(false);
-
-  function saveStory() {
-    alert(JSON.stringify(story, null, 2));
-  }
 
   function createCharCounter(currentText: string, maxLength: number) {
     return `${currentText.length}/${maxLength}`;
@@ -74,15 +70,6 @@ export default function StoryForm() {
           />
 
           <SortableList storyBlocks={story.storyBlocks} />
-
-          <ButtonWithLeftIcon
-            variant="contained"
-            color="primary"
-            onClick={saveStory}
-            startIcon={<Save />}
-          >
-            Save Story
-          </ButtonWithLeftIcon>
         </div>
       );
     }

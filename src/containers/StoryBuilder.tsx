@@ -15,6 +15,8 @@ export default function StoryBuilder() {
   );
 }
 
+const halfToolbarWidth = STORY_TOOLBAR_WIDTH / 1.5;
+
 const StoryFormContainer = styled(Box)({
-  marginRight: STORY_TOOLBAR_WIDTH
+  marginLeft: halfToolbarWidth
 });
