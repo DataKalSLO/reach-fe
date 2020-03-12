@@ -7,11 +7,13 @@ import CardMedia from '@material-ui/core/CardMedia';
 import { red } from '@material-ui/core/colors';
 import Typography from '@material-ui/core/Typography';
 import StoryCardProps from './ExploreGrid';
+import { Link, useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      maxWidth: 345
+      maxWidth: 345,
+      cursor: 'pointer'
     },
     media: {
       height: 0,
@@ -35,9 +37,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function StoryCard(props: StoryCardProps) {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} onClick={() => history.push('pmStory/1')}>
       <CardHeader title={props.title} />
       <CardMedia
         className={classes.media}

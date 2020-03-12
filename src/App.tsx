@@ -40,6 +40,7 @@ import Login from './containers/Login';
 import Sample from './containers/Sample';
 import CreateAccount from './containers/CreateAccount';
 import PremadeGraphContainer from './containers/PremadeGraphContainer';
+import PremadeStoryContainer from './containers/PremadeStoryContainer';
 import { PersistGate } from 'redux-persist/integration/react';
 
 const home = (
@@ -87,6 +88,11 @@ const premadeGraphs = (
     <PremadeGraphContainer />
   </Route>
 );
+const premadeStories = (
+  <Route path="/pmStory/:storyId">
+    <PremadeStoryContainer />
+  </Route>
+);
 
 function App() {
   return (
@@ -105,6 +111,7 @@ function App() {
               {createAccount}
               {sample}
               {premadeGraphs}
+              {premadeStories}
             </Switch>
           </ThemeProvider>
         </ConnectedRouter>
