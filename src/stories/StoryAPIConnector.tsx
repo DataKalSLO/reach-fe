@@ -1,11 +1,11 @@
 import {
   Story,
-  TextBlock,
-  TextBlockDB,
   StoryBlock,
-  TEXT_BLOCK_DB_TYPE
+  TEXT_BLOCK_TYPE,
+  TEXT_BLOCK_DB_TYPE,
+  DatabaseStory,
+  DatabaseStoryBlock
 } from './StoryTypes';
-import { EditorState } from 'draft-js';
 import { post, get, put, del } from '../api/base';
 
 /* Background/Context Information
@@ -52,11 +52,11 @@ export function deleteStoryInDatabase(storyID: Story): Promise<string> {
 
 /* Returns a list of all the stories in the database.
  */
-export function getAllStories(): Promise<Story[]> {
+export function getAllStoriesFromDatabase(): Promise<Story[]> {
   return new Promise<Story[]>((resolve, reject) => {
     get('story')
       .then(responseObject =>
-        resolve(responseObject.map(parseAPIResponseObjectToStory))
+        resolve(responseObject.map(transformAPIResponseToStory))
       )
       .catch(e => reject(e));
   });
@@ -64,11 +64,13 @@ export function getAllStories(): Promise<Story[]> {
 
 /* Returns a Story having the given StoryID.
  */
-export function getStoryWithStoryID(storyID: string): Promise<Story> {
+export function getStoryWithStoryIDFromDatabase(
+  storyID: string
+): Promise<Story> {
   return new Promise<Story>((resolve, reject) => {
     get(['story', storyID].join('/'))
       .then(responseObject =>
-        resolve(parseAPIResponseObjectToStory(responseObject))
+        resolve(transformAPIResponseToStory(responseObject))
       )
       .catch(e => reject(e));
   });
@@ -83,7 +85,7 @@ function mutateStoryInDatabase(
 ): Promise<Story> {
   return new Promise<Story>((resolve, reject) => {
     let promiseResponse;
-    const apiObject = transformStoryToAPIObject(story);
+    const apiObject = transformStoryToDatabaseStory(story);
     switch (actionType) {
       case StoryMutateAction.CREATE_STORY:
         promiseResponse = post('story', apiObject);
@@ -103,10 +105,10 @@ function mutateStoryInDatabase(
 /* Performs the necessary operations to convert a Story to the
  * expected object format on the backend.
  */
-function transformStoryToAPIObject(story: Story): Story {
+function transformStoryToDatabaseStory(story: Story): DatabaseStory {
   return {
     ...story,
-    storyBlocks: story.storyBlocks.map(transformTextBlockToTextBlockDB)
+    storyBlocks: story.storyBlocks.map(transformTextBlockToDatabaseTextBlock)
   };
 }
 
@@ -115,12 +117,14 @@ function transformStoryToAPIObject(story: Story): Story {
  * specifically, unstructured JSON like EditorState (from DraftJS)
  * is stored as a string on the backend.
  */
-function parseAPIResponseObjectToStory(apiResponseObject: object): Story {
-  if (apiResponseObject as Story) {
-    const dbStory: Story = apiResponseObject as Story;
+function transformAPIResponseToStory(apiResponse: object): Story {
+  if (apiResponse as DatabaseStory) {
+    const databaseStory: DatabaseStory = apiResponse as DatabaseStory;
     return {
-      ...dbStory,
-      storyBlocks: dbStory.storyBlocks.map(transformTextBlockDBToTextBlock)
+      ...databaseStory,
+      storyBlocks: databaseStory.storyBlocks.map(
+        transformDatabaseTextBlockToTextBlock
+      )
     };
   }
   throw new Error('API response object not in Story format');
@@ -129,29 +133,35 @@ function parseAPIResponseObjectToStory(apiResponseObject: object): Story {
 /* Serialies the EditorState of a given TextBlock to a string.
  * StoryBlock is returned if not a TextBlock;
  */
-function transformTextBlockToTextBlockDB(storyBlock: StoryBlock): StoryBlock {
-  if (storyBlock as TextBlock) {
-    const textBlock = storyBlock as TextBlock;
-    return {
-      ...textBlock,
-      id: textBlock.id,
-      type: TEXT_BLOCK_DB_TYPE,
-      editorState: JSON.stringify(textBlock.editorState)
-    } as TextBlockDB;
+function transformTextBlockToDatabaseTextBlock(
+  storyBlock: StoryBlock
+): DatabaseStoryBlock {
+  switch (storyBlock.type) {
+    case TEXT_BLOCK_TYPE:
+      return {
+        ...storyBlock,
+        type: TEXT_BLOCK_DB_TYPE,
+        editorState: JSON.stringify(storyBlock.editorState)
+      };
+    default:
+      return storyBlock;
   }
-  return storyBlock;
 }
 
 /* Parses a TextBlockDB's the stringified EditorState's into a DraftJS's EditorState.
  * StoryBlock is returned if not a TextBlock;
  */
-function transformTextBlockDBToTextBlock(storyBlock: StoryBlock): StoryBlock {
-  if (storyBlock as TextBlockDB) {
-    const textBlockDB = storyBlock as TextBlockDB;
-    return {
-      ...storyBlock,
-      editorState: JSON.parse(textBlockDB.editorState) as EditorState
-    } as TextBlock;
+function transformDatabaseTextBlockToTextBlock(
+  storyBlock: DatabaseStoryBlock
+): StoryBlock {
+  switch (storyBlock.type) {
+    case TEXT_BLOCK_DB_TYPE:
+      return {
+        ...storyBlock,
+        type: TEXT_BLOCK_TYPE,
+        editorState: JSON.parse(storyBlock.editorState)
+      };
+    default:
+      return storyBlock;
   }
-  return storyBlock;
 }
