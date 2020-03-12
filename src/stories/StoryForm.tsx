@@ -7,7 +7,7 @@ import { updateDescription, updateTitle } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
 import SortableList from '../stories/SortableList';
-import { saveStoryToDatabase } from './StoryAPIConnector';
+import { saveStory } from './StoryAPIConnector';
 import { convertStoryToJSX } from './StoryConverter';
 
 export default function StoryForm() {
@@ -22,7 +22,7 @@ export default function StoryForm() {
     alert(JSON.stringify(story, null, 2));
     story.userID = '51d73193-470d-442b-a392-3e43238eb089'; //Existing user in database
 
-    saveStoryToDatabase(story)
+    saveStory(story)
       .then(res => {
         console.log('Story Created!');
         console.log(res);

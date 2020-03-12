@@ -8,13 +8,6 @@ import {
   TEXT_BLOCK_TYPE
 } from './StoryTypes';
 
-/* Background/Context Information
- *
- * All JSON objects sent to the server are coupled with c# classes. Because we don't
- * have control over the EditorState's structure I wanted to create an BEND
- * agnostic to the editorState. Therefore, the BEND will only accept editorstate as a string.
- */
-
 /* The types of actions that mutate a story and
  * expect a Story to be returned from BEND.
  */
@@ -26,21 +19,21 @@ enum StoryMutateAction {
 /* Transforms Story to CreateStory API call specifications,
  * makes call, then returns created Story.
  */
-export function saveStoryToDatabase(story: Story): Promise<Story> {
-  return mutateStoryInDatabase(story, StoryMutateAction.CREATE_STORY);
+export function saveStory(story: Story): Promise<Story> {
+  return mutateStory(story, StoryMutateAction.CREATE_STORY);
 }
 
 /* Transforms Story to UpdateStory API call specifications,
  * makes call, then returns created Story.
  */
-export function updateStoryInDatabase(story: Story): Promise<Story> {
-  return mutateStoryInDatabase(story, StoryMutateAction.UPDATE_STORY);
+export function updateStory(story: Story): Promise<Story> {
+  return mutateStory(story, StoryMutateAction.UPDATE_STORY);
 }
 
 /* Deletes the Story and StoryBlocks associated with given StoryID from the database.
  * Returns the id of the StoryDeleted.
  */
-export function deleteStoryInDatabase(storyID: Story): Promise<string> {
+export function deleteStory(storyID: Story): Promise<string> {
   return new Promise<string>((resolve, reject) => {
     del(['story', storyID].join('/'))
       .then(data => {
@@ -52,7 +45,7 @@ export function deleteStoryInDatabase(storyID: Story): Promise<string> {
 
 /* Returns a list of all the stories in the database.
  */
-export function getAllStoriesFromDatabase(): Promise<Story[]> {
+export function getAllStories(): Promise<Story[]> {
   return new Promise<Story[]>((resolve, reject) => {
     get('story')
       .then(responseObject =>
@@ -64,7 +57,7 @@ export function getAllStoriesFromDatabase(): Promise<Story[]> {
 
 /* Returns a Story having the given StoryID.
  */
-export function getStoryWithStoryIDFromDatabase(
+export function getStoryWithStoryID(
   storyID: string
 ): Promise<Story> {
   return new Promise<Story>((resolve, reject) => {
@@ -80,7 +73,7 @@ export function getStoryWithStoryIDFromDatabase(
  * mutate API post, put, delete
  * TODO: Merge Update and Create functionality into the PUT request
  */
-function mutateStoryInDatabase(
+function mutateStory(
   story: Story,
   actionType: StoryMutateAction
 ): Promise<Story> {
@@ -109,14 +102,14 @@ function mutateStoryInDatabase(
 function transformStoryToDatabaseStory(story: Story): DatabaseStory {
   return {
     ...story,
-    storyBlocks: story.storyBlocks.map(transformTextBlockToDatabaseTextBlock)
+    storyBlocks: story.storyBlocks.map(transformStoryBlockToDatabaseStoryBlock)
   };
 }
 
 /* Serialies the EditorState of a given TextBlock to a string.
  * StoryBlock is returned if not a TextBlock;
  */
-function transformTextBlockToDatabaseTextBlock(
+function transformStoryBlockToDatabaseStoryBlock(
   storyBlock: StoryBlock
 ): DatabaseStoryBlock {
   switch (storyBlock.type) {
@@ -142,7 +135,7 @@ function transformAPIResponseToStory(apiResponse: object): Story {
     return {
       ...databaseStory,
       storyBlocks: databaseStory.storyBlocks.map(
-        transformDatabaseTextBlockToTextBlock
+        transformDatabaseStoryBlockToStoryBlock
       )
     };
   }
@@ -152,7 +145,7 @@ function transformAPIResponseToStory(apiResponse: object): Story {
 /* Parses a TextBlockDB's the stringified EditorState's into a DraftJS's EditorState.
  * StoryBlock is returned if not a TextBlock;
  */
-function transformDatabaseTextBlockToTextBlock(
+function transformDatabaseStoryBlockToStoryBlock(
   storyBlock: DatabaseStoryBlock
 ): StoryBlock {
   switch (storyBlock.type) {
@@ -160,7 +153,9 @@ function transformDatabaseTextBlockToTextBlock(
       return {
         ...storyBlock,
         type: TEXT_BLOCK_TYPE,
-        editorState: JSON.parse(storyBlock.editorState)
+        editorState: EditorState.createWithContent(
+          convertFromRaw(SON.parse(storyBlock.editorState))
+      )
       };
     default:
       return storyBlock;
