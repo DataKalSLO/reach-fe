@@ -43,6 +43,45 @@ const CollegeData = {
           value: '33%'
         }
       }
+    ],
+    [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [34.4059, -119.6973]
+        },
+        properties: {
+          name: 'Santa Barbara City College',
+          value: '36%'
+        }
+      }
+    ],
+    [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [34.923333, -120.4301]
+        },
+        properties: {
+          name: 'Laurus College',
+          value: '88%'
+        }
+      }
+    ],
+    [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [34.4293, -119.7175]
+        },
+        properties: {
+          name: 'Fielding Graduate University',
+          value: '46%'
+        }
+      }
     ]
   ]
 };

@@ -121,9 +121,10 @@ function handleDisable(
     return allData.includes(option);
   }
   if (Object.keys(heatMapSelection).length) {
-    if (markerSelection.length + 1 === ALLOWED_BOTH) {
-      return allData.includes(option);
-    }
+    // uncomment next lines after demo
+    // if (markerSelection.length + 1 === ALLOWED_BOTH) {
+    //   return allData.includes(option);
+    // }
     return allData
       .filter(obj => obj.type !== 'FeatureCollection')
       .includes(option);
