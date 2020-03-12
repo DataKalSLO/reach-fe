@@ -1,12 +1,12 @@
+import { del, get, post, put } from '../api/base';
 import {
+  DatabaseStory,
+  DatabaseStoryBlock,
   Story,
   StoryBlock,
-  TEXT_BLOCK_TYPE,
   TEXT_BLOCK_DB_TYPE,
-  DatabaseStory,
-  DatabaseStoryBlock
+  TEXT_BLOCK_TYPE
 } from './StoryTypes';
-import { post, get, put, del } from '../api/base';
 
 /* Background/Context Information
  *
@@ -78,6 +78,7 @@ export function getStoryWithStoryIDFromDatabase(
 
 /* Groups all actions that require transforming a Story and sending the result to a
  * mutate API post, put, delete
+ * TODO: Merge Update and Create functionality into the PUT request
  */
 function mutateStoryInDatabase(
   story: Story,
@@ -85,13 +86,13 @@ function mutateStoryInDatabase(
 ): Promise<Story> {
   return new Promise<Story>((resolve, reject) => {
     let promiseResponse;
-    const apiObject = transformStoryToDatabaseStory(story);
+    const databaseStory = transformStoryToDatabaseStory(story);
     switch (actionType) {
       case StoryMutateAction.CREATE_STORY:
-        promiseResponse = post('story', apiObject);
+        promiseResponse = post('story', databaseStory);
         break;
       case StoryMutateAction.UPDATE_STORY:
-        promiseResponse = put('story', apiObject);
+        promiseResponse = put('story', databaseStory);
         break;
       default:
         throw new Error(
@@ -112,24 +113,6 @@ function transformStoryToDatabaseStory(story: Story): DatabaseStory {
   };
 }
 
-/* Converts from StoryDB to Story. This is necessary because some
- * values are represented differently between BEND and FEND.
- * specifically, unstructured JSON like EditorState (from DraftJS)
- * is stored as a string on the backend.
- */
-function transformAPIResponseToStory(apiResponse: object): Story {
-  if (apiResponse as DatabaseStory) {
-    const databaseStory: DatabaseStory = apiResponse as DatabaseStory;
-    return {
-      ...databaseStory,
-      storyBlocks: databaseStory.storyBlocks.map(
-        transformDatabaseTextBlockToTextBlock
-      )
-    };
-  }
-  throw new Error('API response object not in Story format');
-}
-
 /* Serialies the EditorState of a given TextBlock to a string.
  * StoryBlock is returned if not a TextBlock;
  */
@@ -146,6 +129,24 @@ function transformTextBlockToDatabaseTextBlock(
     default:
       return storyBlock;
   }
+}
+
+/* Converts from StoryDB to Story. This is necessary because some
+ * values are represented differently between BEND and FEND.
+ * specifically, unstructured JSON like EditorState (from DraftJS)
+ * is stored as a string on the backend.
+ */
+function transformAPIResponseToStory(apiResponse: object): Story {
+  if (apiResponse as DatabaseStory) {
+    const databaseStory: DatabaseStory = apiResponse as DatabaseStory;
+    return {
+      ...databaseStory,
+      storyBlocks: databaseStory.storyBlocks.map(
+        transformDatabaseTextBlockToTextBlock
+      )
+    };
+  }
+  throw new Error('API response object not in Story format');
 }
 
 /* Parses a TextBlockDB's the stringified EditorState's into a DraftJS's EditorState.
