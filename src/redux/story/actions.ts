@@ -1,8 +1,11 @@
 import { EditorState } from 'draft-js';
+import { GRAPH_BLOCK_TYPE } from '../../stories/StoryTypes';
 import { emptyTextBlock } from './reducer';
 import {
   CreateEmptyTextBlockAction,
+  CreateGraphBlockAction,
   CREATE_EMPTY_TEXT_BLOCK,
+  CREATE_GRAPH_BLOCK,
   SwapBlocksAction,
   SWAP_BLOCKS,
   UpdateDescriptionAction,
@@ -12,12 +15,26 @@ import {
   UPDATE_TEXT_BLOCK,
   UPDATE_TITLE
 } from './types';
+import { uuid } from 'uuidv4';
 
 export function createEmptyTextBlock(): CreateEmptyTextBlockAction {
   return {
     type: CREATE_EMPTY_TEXT_BLOCK,
     payload: {
       block: emptyTextBlock
+    }
+  };
+}
+
+export function createGraphBlock(): CreateGraphBlockAction {
+  return {
+    type: CREATE_GRAPH_BLOCK,
+    payload: {
+      block: {
+        id: uuid(),
+        graphID: uuid(),
+        type: GRAPH_BLOCK_TYPE
+      }
     }
   };
 }

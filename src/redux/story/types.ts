@@ -1,7 +1,8 @@
 import { EditorState } from 'draft-js';
-import { TextBlock } from '../../stories/StoryTypes';
+import { TextBlock, GraphBlock } from '../../stories/StoryTypes';
 
 export const CREATE_EMPTY_TEXT_BLOCK = 'CREATE_EMPTY_TEXT_BLOCK';
+export const CREATE_GRAPH_BLOCK = 'CREATE_GRAPH_BLOCK';
 export const UPDATE_TEXT_BLOCK = 'UPDATE_TEXT_BLOCK';
 export const SWAP_BLOCKS = 'SWAP_BLOCKS';
 export const UPDATE_TITLE = 'UPDATE_TITLE';
@@ -10,6 +11,11 @@ export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
 export interface CreateEmptyTextBlockAction {
   type: typeof CREATE_EMPTY_TEXT_BLOCK;
   payload: { block: TextBlock };
+}
+
+export interface CreateGraphBlockAction {
+  type: typeof CREATE_GRAPH_BLOCK;
+  payload: { block: GraphBlock };
 }
 
 export interface UpdateTextBlockAction {
@@ -41,6 +47,7 @@ export type UpdateBlockType = UpdateTextBlockAction;
 // used by reducer function (reducer.ts)
 export type StoryActionType =
   | CreateEmptyTextBlockAction
+  | CreateGraphBlockAction
   | UpdateTextBlockAction
   | SwapBlocksAction
   | UpdateTitleAction
