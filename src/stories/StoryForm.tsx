@@ -22,7 +22,11 @@ import {
 import { getStory } from '../redux/story/selectors';
 import SortableList from './SortableList';
 
-export default function StoryForm() {
+interface Props {
+  previewSelected: boolean;
+  togglePreview: () => void;
+}
+export default function StoryForm(props: Props) {
   const dispatch = useDispatch();
   const story = useSelector(getStory);
 
@@ -31,18 +35,18 @@ export default function StoryForm() {
 
   // TODO: add validation of required fields
   // TODO: Move preview selected into Redux to persist after user leaves page
-  const [previewSelected, setPreviewSelected] = useState(false);
+  // const [previewSelected, setPreviewSelected] = useState(false);
 
   function createCharCounter(currentText: string, maxLength: number) {
     return `${currentText.length}/${maxLength}`;
   }
 
-  function togglePreview() {
-    setPreviewSelected(!previewSelected);
-  }
+  // function togglePreview() {
+  //   setPreviewSelected(!previewSelected);
+  // }
 
   function displayBody(): JSX.Element {
-    if (previewSelected) {
+    if (props.previewSelected) {
       return convertStoryToJSX(story);
     } else {
       // TODO: refactor everything inside of the return into a seperate component
@@ -91,22 +95,7 @@ export default function StoryForm() {
     }
   }
 
-  return (
-    <StyledBox>
-      {displayBody()}
-      <ButtonWithLeftIcon
-        variant="contained"
-        color="primary"
-        onClick={togglePreview}
-        startIcon={<Visibility />}
-      >
-        {/** TODO: @Daniel - Move buttons to toolbar & get rid of the magic strings
-         * @tan - magic strings are fine, just pull this conditional into a function
-         */}
-        {previewSelected ? 'Edit Story' : 'Preview Story'}
-      </ButtonWithLeftIcon>
-    </StyledBox>
-  );
+  return <StyledBox>{displayBody()}</StyledBox>;
 }
 
 const StyledBox = styled(Box)({

@@ -32,7 +32,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export function StoryToolbar() {
+interface Props {
+  togglePreview: () => void;
+}
+export function StoryToolbar(props: Props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const story = useSelector(getStory);
@@ -56,7 +59,8 @@ export function StoryToolbar() {
       <Divider />
       <List>
         {getUtilityButtonContentList(
-          story
+          story,
+          props.togglePreview
         ).map((contents: ToolbarButtonContents) =>
           generateButton(contents, dispatch)
         )}
@@ -111,12 +115,15 @@ const getAddButtonContentList = (): ToolbarButtonContents[] => [
   }
 ];
 
-const getUtilityButtonContentList = (story: Story): ToolbarButtonContents[] => [
+const getUtilityButtonContentList = (
+  story: Story,
+  togglePreview: any
+): ToolbarButtonContents[] => [
   {
     title: 'Preview',
     icon: <Visibility />,
     useDispatch: false,
-    onClick: () => alert('Not implemented')
+    onClick: togglePreview
   },
   {
     title: 'Save',
