@@ -1,13 +1,20 @@
-import { Container } from '@material-ui/core';
+import { Box, Container } from '@material-ui/core';
+import { styled } from '@material-ui/styles';
 import React from 'react';
 import StoryForm from '../stories/StoryForm';
+import { StoryToolbar, STORY_TOOLBAR_WIDTH } from '../stories/StoryToolbar';
 
-function StoryBuilder() {
+export default function StoryBuilder() {
   return (
     <Container>
-      <StoryForm />
+      <StoryFormContainer>
+        <StoryForm />
+      </StoryFormContainer>
+      <StoryToolbar />
     </Container>
   );
 }
 
-export default StoryBuilder;
+const StoryFormContainer = styled(Box)({
+  marginRight: STORY_TOOLBAR_WIDTH
+});

@@ -33,7 +33,9 @@ const ButtonWithoutHover = styled(Button)({
 });
 
 const StyledMuiAppBar = styled(MuiAppBar)({
-  background: '#283c46'
+  background: '#283c46',
+  // necessary to put appbar in front of story builder toolbar
+  position: 'sticky'
 });
 
 const displayAppBar = (menu: JSX.Element) => {
