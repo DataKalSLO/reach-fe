@@ -1,12 +1,8 @@
 import { Box, Button, styled, TextField, Typography } from '@material-ui/core';
-import { Add, Save, Visibility } from '@material-ui/icons';
+import { Save, Visibility } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  createEmptyTextBlock,
-  updateDescription,
-  updateTitle
-} from '../redux/story/actions';
+import { updateDescription, updateTitle } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import SortableList from '../stories/SortableList';
 import { convertStoryToJSX } from './StoryConverter';
@@ -78,16 +74,6 @@ export default function StoryForm() {
           />
 
           <SortableList storyBlocks={story.storyBlocks} />
-
-          {/* TODO: @Daniel - Move buttons to toolbar */}
-          <ButtonWithLeftIcon
-            variant="contained"
-            color="primary"
-            onClick={() => dispatch(createEmptyTextBlock())}
-            startIcon={<Add />}
-          >
-            Add Text Block
-          </ButtonWithLeftIcon>
 
           <ButtonWithLeftIcon
             variant="contained"
