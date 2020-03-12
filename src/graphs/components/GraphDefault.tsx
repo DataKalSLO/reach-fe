@@ -5,6 +5,7 @@ import exporting from 'highcharts/modules/exporting';
 import drilldown from 'highcharts/modules/drilldown';
 import { useGraphStyles, useGraphContainerStyles } from '../container/styles';
 import { Container, Card, Box } from '@material-ui/core';
+import GraphHeader from '../forms/GaphHeader';
 exporting(Highcharts);
 drilldown(Highcharts);
 
@@ -16,6 +17,7 @@ function GraphDefault() {
   return (
     <Box className={containerClasses.item}>
       <Card className={classes.root}>
+        <GraphHeader graphId={'default'} />
         <Container className={classes.graphContainer}>
           <HighchartsReact
             highcharts={Highcharts}
