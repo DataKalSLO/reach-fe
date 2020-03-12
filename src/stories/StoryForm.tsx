@@ -1,11 +1,26 @@
-import { Box, Button, styled, TextField, Typography } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  styled,
+  TextField,
+  Typography,
+  Grid,
+  Paper
+} from '@material-ui/core';
 import { Visibility } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateDescription, updateTitle } from '../redux/story/actions';
-import { getStory } from '../redux/story/selectors';
-import SortableList from '../stories/SortableList';
 import { convertStoryToJSX } from './StoryConverter';
+import AddIcon from '@material-ui/icons/Add';
+import SaveIcon from '@material-ui/icons/Save';
+import {
+  createEmptyTextBlock,
+  updateDescription,
+  updateTitle,
+  createGraphBlock
+} from '../redux/story/actions';
+import { getStory } from '../redux/story/selectors';
+import SortableList from './SortableList';
 
 export default function StoryForm() {
   const dispatch = useDispatch();
@@ -30,6 +45,7 @@ export default function StoryForm() {
     if (previewSelected) {
       return convertStoryToJSX(story);
     } else {
+      // TODO: refactor everything inside of the return into a seperate component
       return (
         <div>
           <Typography variant="h3">StoryBuilder</Typography>
@@ -84,7 +100,9 @@ export default function StoryForm() {
         onClick={togglePreview}
         startIcon={<Visibility />}
       >
-        {/* TODO: @Daniel - Move buttons to toolbar & get rid of the magic strings */}
+        {/** TODO: @Daniel - Move buttons to toolbar & get rid of the magic strings
+         * @tan - magic strings are fine, just pull this conditional into a function
+         */}
         {previewSelected ? 'Edit Story' : 'Preview Story'}
       </ButtonWithLeftIcon>
     </StyledBox>

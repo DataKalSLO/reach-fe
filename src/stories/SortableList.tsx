@@ -18,6 +18,7 @@ import {
   TextBlock,
   TEXT_BLOCK_TYPE
 } from './StoryTypes';
+import GraphBlock from './GraphBlock';
 
 // The input to the sortable list, objects to be converted into JSX.Elements
 interface SortableListProps {
@@ -77,7 +78,7 @@ function blockToComponent(
         />
       );
     case GRAPH_BLOCK_TYPE:
-      throw new Error('TODO: Graph Block type');
+      return <GraphBlock />;
     case MAP_BLOCK_TYPE:
       throw new Error('TODO: Map Block type');
     default:
