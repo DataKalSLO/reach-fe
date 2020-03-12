@@ -4,7 +4,8 @@ import {
   Button,
   styled,
   CardContent,
-  Box
+  Box,
+  Typography
 } from '@material-ui/core';
 import React, { useState } from 'react';
 import {
@@ -23,6 +24,11 @@ const GraphBlock = () => {
   const [isExploring, setExploring] = useState(true);
   const [selectedGraph, setSelectedGraph] = useState(0);
 
+  const LoadMore = () => (
+    <StyledPaper>
+      <Typography variant="h6">Load More...</Typography>
+    </StyledPaper>
+  );
   const graphs = [
     defenseGraph,
     MedianIncomeGraph,
@@ -31,7 +37,8 @@ const GraphBlock = () => {
     MilesTraveledGraph,
     AirportsGraph,
     HighSchoolGraph,
-    CollegeGraph
+    CollegeGraph,
+    LoadMore
   ];
 
   if (isExploring) {
@@ -43,26 +50,28 @@ const GraphBlock = () => {
               key={index}
               index={index}
               value={value}
-              onClick={() => setExploring(false)}
+              onClick={() => {
+                setSelectedGraph(index);
+                setExploring(false);
+              }}
             />
           </Grid>
         ))}
       </Grid>
     );
   } else {
-    return (
-      <GraphBlockContainer>
-        {/* HACK: hardcoded */}
-        <MedianIncomeGraph />
-      </GraphBlockContainer>
-    );
+    return <GraphBlockContainer>{graphs[selectedGraph]}</GraphBlockContainer>;
   }
 };
 
 export default GraphBlock;
 
-const GraphBlockContainer = styled(Box)({
-  width: '40%',
-  height: '50%',
-  margin: 'auto'
+const GraphBlockContainer = styled(Box)({});
+
+const StyledPaper = styled(Paper)({
+  flexGrow: 1,
+  border: '1px solid #cbcbcb', // same border style is used in EditorToolbar
+  borderRadius: '4px',
+  padding: '100px',
+  textAlign: 'center'
 });
