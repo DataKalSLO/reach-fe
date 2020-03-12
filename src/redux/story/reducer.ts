@@ -1,20 +1,24 @@
-import { EditorState } from 'draft-js';
 import { arrayMove } from 'react-sortable-hoc';
 import { uuid } from 'uuidv4';
-import { StoryBlock, TEXT_BLOCK_TYPE } from '../../stories/StoryTypes';
+import { emptyEditorState } from '../../stories/RichTextEditor';
+import {
+  StoryBlock,
+  TextBlock,
+  TEXT_BLOCK_TYPE
+} from '../../stories/StoryTypes';
 import {
   CREATE_EMPTY_TEXT_BLOCK,
   StoryActionType,
   SWAP_BLOCKS,
   UpdateBlockType,
+  UPDATE_DESCRIPTION,
   UPDATE_TEXT_BLOCK,
-  UPDATE_TITLE,
-  UPDATE_DESCRIPTION
+  UPDATE_TITLE
 } from './types';
 
-const initialTextBlock = {
+export const emptyTextBlock: TextBlock = {
   id: uuid(),
-  editorState: EditorState.createEmpty(),
+  editorState: emptyEditorState,
   type: TEXT_BLOCK_TYPE
 };
 
@@ -23,7 +27,7 @@ const initialStory = {
   userID: 'USER-ID', // TODO: replace placeholder value
   title: '',
   description: '',
-  storyBlocks: [initialTextBlock] as Array<StoryBlock>
+  storyBlocks: [emptyTextBlock] as Array<StoryBlock>
 };
 
 // follows immutability update patterns
