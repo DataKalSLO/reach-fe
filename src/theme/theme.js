@@ -2,7 +2,6 @@ import {
   createMuiTheme as createTheme,
   responsiveFontSizes
 } from '@material-ui/core/styles';
-import teal from '@material-ui/core/colors/teal';
 
 // Material UI's theming/styling solution
 //  https://material-ui.com/styles/basics/
@@ -10,9 +9,9 @@ import teal from '@material-ui/core/colors/teal';
 export const theme = responsiveFontSizes(
   createTheme({
     palette: {
-      primary: teal,
+      primary: { main: '#73bfa1' },
       action: {
-        disabledBackground: teal
+        disabledBackground: { main: '#7b9a92' }
       }
     },
     status: {

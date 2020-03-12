@@ -45,7 +45,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 const home = (
   <Route path={HOME} exact>
-    <Home />
+    <VizBuilder />
   </Route>
 );
 const explore = (
