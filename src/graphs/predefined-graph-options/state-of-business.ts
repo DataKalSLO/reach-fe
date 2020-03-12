@@ -84,8 +84,8 @@ export const statsOfBusinessOptions: Highcharts.Options = {
   },
   plotOptions: {
     column: {
-      allowPointSelect: true,
-      stacking: 'normal'
+      allowPointSelect: true
+      //stacking: 'normal'
     },
     pie: {
       allowPointSelect: true
