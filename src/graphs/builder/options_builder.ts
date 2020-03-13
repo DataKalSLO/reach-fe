@@ -80,7 +80,7 @@ export default class OptionsBuilder {
     };
   }
 
-  // the options reset after they are created and retrieved
+  /* the options reset after they are created and retrieved */
   public getOptions(): typs.GraphOptionsGeneral {
     const finishedOptions: typs.GraphOptionsGeneral = {
       ...this.generalGraphOptions
