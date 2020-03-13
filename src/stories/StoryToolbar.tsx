@@ -40,20 +40,20 @@ export function StoryToolbar() {
     >
       <List>
         {addButtonContentList.map((contents: ToolbarButtonContents) =>
-          generateButton(contents, dispatch)
+          generateToolbarButton(contents, dispatch)
         )}
       </List>
       <Divider />
       <List>
         {utilityButtonContentList.map((contents: ToolbarButtonContents) =>
-          generateButton(contents, dispatch)
+          generateToolbarButton(contents, dispatch)
         )}
       </List>
     </Drawer>
   );
 }
 
-function generateButton(
+export function generateToolbarButton(
   contents: ToolbarButtonContents,
   dispatch: Dispatch<StoryActionType>
 ) {
