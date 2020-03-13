@@ -1,8 +1,20 @@
 import { Editor, EditorState } from 'draft-js';
 import { shallow } from 'enzyme';
 import React from 'react';
-import RichTextEditor from '../RichTextEditor';
 import EditorToolbar from '../EditorToolbar';
+import { HyperlinkDecorator } from '../HyperlinkDecorator';
+import RichTextEditor, { emptyEditorState } from '../RichTextEditor';
+
+describe('emptyEditorState', () => {
+  it('renders empty editor', () => {
+    expect(emptyEditorState.getCurrentContent().getPlainText()).toEqual('');
+  });
+
+  it('renders empty editor with HyperlinkDecorator', () => {
+    const decorator = new HyperlinkDecorator().createHyperlinkDecorator();
+    expect(emptyEditorState.getDecorator()).toEqual(decorator);
+  });
+});
 
 describe('<RichTextEditor />', () => {
   let editorState = EditorState.createEmpty();
