@@ -1,12 +1,5 @@
+// External Imports
 import React from 'react';
-import AppBar from './nav/AppBar';
-import {
-  HOME,
-  EXPLORE,
-  VIZ_BUILDER,
-  STORY_BUILDER,
-  MY_STUFF,
-} from './nav/constants';
 
 // Material UI's theming/styling solution
 //  https://material-ui.com/styles/basics/
@@ -22,6 +15,16 @@ import {
   Route,
 } from "react-router-dom";
 
+// Internal Imports
+import AppBar from './nav/AppBar';
+import {
+  HOME,
+  EXPLORE,
+  VIZ_BUILDER,
+  STORY_BUILDER,
+  MY_STUFF,
+} from './nav/constants';
+
 // Containers
 import Home from './containers/Home';
 import Explore from './containers/Explore';
@@ -29,6 +32,11 @@ import VizBuilder from './containers/VizBuilder';
 import StoryBuilder from './containers/StoryBuilder';
 import MyStuff from './containers/MyStuff';
 
+/*
+  The starting point for the application. 
+  App defines the available routes, holds the naviagtion bar, and propagates
+  the style to the rest of the app.
+*/
 function App() {
   const home = (
     <Route path={HOME} exact>
@@ -40,6 +48,8 @@ function App() {
       <Explore />
     </Route>
   )
+
+  // Currently same as HOME, but could change, so keeping VIZ_BUILDER separate
   const vizBuilder = (
     <Route path={VIZ_BUILDER}>
       <VizBuilder />

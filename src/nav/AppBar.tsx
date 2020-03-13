@@ -33,6 +33,7 @@ const StyledTypography = styled(Typography)({
     color: 'white',
 })
 
+// The navigation bar - holds the necessary buttons, icons, and styles them 
 function AppBar() {
     let history = useHistory()
     const navigateTo = (route: string) => () => history.push(route)
