@@ -1,9 +1,8 @@
-import { shallow } from 'enzyme';
-import { generateToolbarButton } from '../StoryToolbar';
-import Enzyme from 'enzyme';
-import React from 'react';
-import Adapter from 'enzyme-adapter-react-16';
 import { TextFields } from '@material-ui/icons';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import React from 'react';
+import { generateToolbarButton } from '../StoryToolbar';
 
 Enzyme.configure({ adapter: new Adapter() });
 
