@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Button } from '@material-ui/core';
 import { useGraphHeaderStyles } from '../container/styles';
 import { Delete, Save, FileCopy, Edit } from '@material-ui/icons';
+import GraphShareButton from './GraphShareButton';
 import * as cnst from './constants';
 
 /*
@@ -41,6 +42,7 @@ function GraphHeader() {
       >
         {cnst.DUPLICATE_LABEL}
       </Button>
+      <GraphShareButton />
     </Grid>
   );
 }
