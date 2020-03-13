@@ -3,6 +3,16 @@ import * as types from '../types';
 import { EditorState } from 'draft-js';
 
 describe('actions', () => {
+  it('should create an action to swap two story blocks', () => {
+    const expectedAction = {
+      type: types.SWAP_BLOCKS,
+      payload: {
+        oldIndex: 1,
+        newIndex: 0
+      }
+    };
+    expect(actions.swapBlocks(1, 0)).toEqual(expectedAction);
+  });
 
   it('should create an action to update a text block - no changes', () => {
     const updateTextBlockAction = actions.updateTextBlock(
