@@ -52,7 +52,7 @@ export function del(endpoint: string) {
   });
 }
 
-export function constructGetParameters(params: errMapType) {
+export function constructGetParameters(params: Array) {
   return Object.keys(params).reduce((accumulator, current, idx) => {
     return (
       accumulator +
