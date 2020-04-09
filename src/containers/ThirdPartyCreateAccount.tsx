@@ -1,27 +1,21 @@
 import React from 'react';
-import { Button, styled } from '@material-ui/core';
-import GoogleIcon from '../icons/GoogleIcon';
+import { styled } from '@material-ui/core';
 import BoxCenter from '../common/components/BoxCenter';
+import GoogleAuth, { GoogleLoginButtonStyle } from './GoogleAuth';
 import FacebookLogin, { FacebookLoginButtonStyle } from './FacebookLogin';
 
 function ThirdPartyCreateAccount() {
   return (
     <BoxCenterSized>
-      <StyledButton fullWidth variant="outlined" endIcon={<GoogleIcon />}>
-        Continue with Google
-      </StyledButton>
+      <GoogleAuth style={GoogleLoginButtonStyle.ContinueWith} />
       <FacebookLogin style={FacebookLoginButtonStyle.ContinueWith} />
     </BoxCenterSized>
   );
 }
 
-const StyledButton = styled(Button)({
-  width: '270px',
-  height: '50px'
-});
-
 const BoxCenterSized = styled(BoxCenter)({
-  height: '115px',
+  justifyContent: 'space-around',
+  height: '200px',
   width: '200px'
 });
 

@@ -35,7 +35,9 @@ const ButtonWithoutHover = styled(Button)({
 });
 
 const StyledMuiAppBar = styled(MuiAppBar)({
-  background: 'linear-gradient(90deg, #586571 -3.4%, #65BDAF 101.98%);'
+  background: 'linear-gradient(90deg, #586571 -3.4%, #65BDAF 101.98%)',
+  // necessary to put appbar in front of story builder toolbar
+  position: 'sticky'
 });
 
 const StyledTypography = styled(Typography)({

@@ -1,28 +1,23 @@
 import { EditorState } from 'draft-js';
-import { uuid } from 'uuidv4';
+import { emptyTextBlock } from './reducer';
 import {
-  CREATE_EMPTY_TEXT_BLOCK,
-  SWAP_BLOCKS,
-  UPDATE_TEXT_BLOCK,
   CreateEmptyTextBlockAction,
-  UpdateTextBlockAction,
+  CREATE_EMPTY_TEXT_BLOCK,
   SwapBlocksAction,
-  UPDATE_TITLE,
-  UpdateTitleAction,
+  SWAP_BLOCKS,
   UpdateDescriptionAction,
-  UPDATE_DESCRIPTION
+  UpdateTextBlockAction,
+  UpdateTitleAction,
+  UPDATE_DESCRIPTION,
+  UPDATE_TEXT_BLOCK,
+  UPDATE_TITLE
 } from './types';
-import { TEXT_BLOCK_TYPE } from '../../stories/StoryTypes';
 
 export function createEmptyTextBlock(): CreateEmptyTextBlockAction {
   return {
     type: CREATE_EMPTY_TEXT_BLOCK,
     payload: {
-      block: {
-        id: uuid(),
-        editorState: EditorState.createEmpty(),
-        type: TEXT_BLOCK_TYPE
-      }
+      block: emptyTextBlock
     }
   };
 }
