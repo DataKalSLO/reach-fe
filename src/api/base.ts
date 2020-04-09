@@ -1,3 +1,5 @@
+import { Dispatch } from "redux";
+
 const baseURL = 'http://localhost:5000/';
 
 const headers = new Headers();
@@ -16,10 +18,16 @@ async function tryFetch(url: string, request: RequestInit) {
   const response = await fetch(url, request);
   const body = await response.json();
   if (!response.ok) {
-    throw body.map((err: Error) => errorTranslate(err.tag));
+    throw errorTranslate(body.tag);
   } else {
     return body;
   }
+}
+
+export function wrapWithCatch(fn: Function, errorFn: Function) {
+  return function(dispatch: Dispatch) {
+    fn(dispatch).catch(errorFn);
+  };
 }
 
 export function post(endpoint: string, body: object) {

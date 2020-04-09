@@ -5,12 +5,14 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { LoginData } from '../redux/login/types';
 import { loginUser } from '../redux/login/actions';
+import { wrapWithCatch } from '../api/base';
 import { HOME } from '../nav/constants';
 
 function ReachSignIn() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [badlogin, setBadlogin] = useState(false);
   const history = useHistory();
 
   const handleInputChangeEmail = useCallback(
@@ -27,8 +29,13 @@ function ReachSignIn() {
     []
   );
 
+  const handleLoginError = useCallback(() => {
+    setBadlogin(true);
+  }, []);
+
   return (
     <SignInBox>
+      {badlogin ? <h3>bad login</h3> : null}
       <AccountTextField
         placeholder="Email Address"
         fullWidth
@@ -49,8 +56,12 @@ function ReachSignIn() {
         fullWidth
         color="primary"
         onClick={() => {
-          dispatch(loginUser({ email, password } as LoginData));
-          history.push(HOME);
+          dispatch(
+            wrapWithCatch(
+              loginUser({ email, password } as LoginData),
+              handleLoginError
+            )
+          );
         }}
       >
         LOG IN
