@@ -1,4 +1,4 @@
-import { Dispatch } from "redux";
+import { Dispatch } from 'redux';
 
 const baseURL = 'http://localhost:5000/';
 
@@ -12,8 +12,6 @@ const reqConf = {
   credentials: credentials
 };
 
-type Error = { tag: string; details: string[] };
-
 async function tryFetch(url: string, request: RequestInit) {
   const response = await fetch(url, request);
   const body = await response.json();
@@ -24,9 +22,13 @@ async function tryFetch(url: string, request: RequestInit) {
   }
 }
 
-export function wrapWithCatch(fn: Function, errorFn: Function) {
+export function wrapWithCatch(fn: Function, errorFn: Function, cb?: Function) {
   return function(dispatch: Dispatch) {
-    fn(dispatch).catch(errorFn);
+    fn(dispatch)
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(errorFn);
   };
 }
 

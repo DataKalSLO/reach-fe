@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Box, Button, styled } from '@material-ui/core';
+import { Box, Button, styled, CircularProgress } from '@material-ui/core';
 import AccountTextField from '../common/components/AccountTextField';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -12,30 +12,31 @@ function ReachSignIn() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [badlogin, setBadlogin] = useState(false);
+  const [badLogin, setBadLogin] = useState(false);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const handleInputChangeEmail = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setEmail(event.target.value);
     },
-    []
+    [setEmail]
   );
 
   const handleInputChangePassword = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setPassword(event.target.value);
     },
-    []
+    [setPassword]
   );
 
   const handleLoginError = useCallback(() => {
-    setBadlogin(true);
-  }, []);
+    setBadLogin(true);
+    setLoading(false);
+  }, [setBadLogin, setLoading]);
 
   return (
     <SignInBox>
-      {badlogin ? <h3>bad login</h3> : null}
       <AccountTextField
         placeholder="Email Address"
         fullWidth
@@ -44,6 +45,8 @@ function ReachSignIn() {
         onChange={handleInputChangeEmail}
       />
       <AccountTextField
+        error={badLogin}
+        helperText={badLogin ? 'Incorrect email/password combination' : ''}
         placeholder="Password"
         type="password"
         fullWidth
@@ -56,16 +59,19 @@ function ReachSignIn() {
         fullWidth
         color="primary"
         onClick={() => {
+          setLoading(true);
           dispatch(
             wrapWithCatch(
               loginUser({ email, password } as LoginData),
-              handleLoginError
+              handleLoginError,
+              () => history.push(HOME)
             )
           );
         }}
       >
         LOG IN
       </StyledButton>
+      {loading ? <CircularProgress /> : null}
     </SignInBox>
   );
 }
