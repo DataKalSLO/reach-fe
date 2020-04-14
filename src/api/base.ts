@@ -1,3 +1,5 @@
+import { Dispatch } from 'redux';
+
 const baseURL = 'http://localhost:5000/';
 
 const headers = new Headers();
@@ -10,16 +12,24 @@ const reqConf = {
   credentials: credentials
 };
 
-type Error = { tag: string; details: string[] };
-
 async function tryFetch(url: string, request: RequestInit) {
   const response = await fetch(url, request);
   const body = await response.json();
-  if (!response.ok) {
-    throw body.map((err: Error) => errorTranslate(err.tag));
-  } else {
+  if (response.ok) {
     return body;
+  } else {
+    throw errorTranslate(body.tag, navigator.language);
   }
+}
+
+export function wrapWithCatch(fn: Function, errorFn: Function, cb?: Function) {
+  return function(dispatch: Dispatch) {
+    fn(dispatch)
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(errorFn);
+  };
 }
 
 export function post(endpoint: string, body: object) {
@@ -52,17 +62,20 @@ export function del(endpoint: string) {
   });
 }
 
-export function constructGetParameters(params: errMapType) {
+type getParamObjType = { [key: string]: string | number };
+
+export function constructGetParameters(params: getParamObjType) {
   return Object.keys(params).reduce((accumulator, current, idx) => {
     return (
       accumulator +
-      (idx ? '&' : '?') +
+      (idx === 0 ? '&' : '?') +
       (params[current] ? `${current}=${params[current]}` : '')
     );
   }, '');
 }
 
-export function errorTranslate(errTag: string, lang = 'en') {
+export function errorTranslate(errTag: string, lang: string) {
+  if (!(lang in errMap)) lang = 'en'; // use English if unsupported language
   return errMap[lang][errTag] || 'Unknown Error!';
 }
 
