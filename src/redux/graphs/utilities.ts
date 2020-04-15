@@ -1,6 +1,5 @@
 import { cloneDeep } from 'lodash';
 import { uuid } from 'uuidv4';
-import * as consts from './constants';
 import * as types from './types';
 
 /*
@@ -46,6 +45,7 @@ export function getGraphsWithDuplicate(
       newGraphs.push({ id: uuid(), options: cloneDeep(graphRecord.options) });
       return true;
     }
+    return false;
   });
   return newGraphs;
 }
