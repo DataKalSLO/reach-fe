@@ -14,12 +14,12 @@ export function graphForInitiativeAction(
   };
 }
 
-export function duplicateGraphAction(id: string) {
-  return graphDuplicationAction(id);
+export function duplicateGraphAction(graphOptions: Highcharts.Options) {
+  return graphDuplicationAction(graphOptions);
 }
 
 export function graphDuplicationAction(
-  payload: string
+  payload: Highcharts.Options
 ): types.DuplicateGraphAction {
   return {
     type: consts.DUPLICATE_GRAPH,

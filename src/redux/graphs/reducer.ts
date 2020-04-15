@@ -46,7 +46,7 @@ export function graphReducer(
     case consts.DUPLICATE_GRAPH:
       return {
         ...state,
-        graphs: utils.getGraphsWithDuplicate(action.payload, state.graphs)
+        graphs: utils.addDuplicateToGraphs(action.payload, state.graphs)
       };
     case consts.DELETE_GRAPH:
       return {

@@ -32,21 +32,14 @@ export function getGraphWithIds(
 }
 
 /*
- * Adds a copy of the graph associated with the given id
- * to the array of graphs.
+ * Adds a copy of the given graph options to the array of graphs.
  */
-export function getGraphsWithDuplicate(
-  id: string,
+export function addDuplicateToGraphs(
+  graphOptions: Highcharts.Options,
   graphs: types.GraphRecord[]
 ): types.GraphRecord[] {
   const newGraphs = cloneDeep(graphs);
-  graphs.some(graphRecord => {
-    if (id === graphRecord.id) {
-      newGraphs.push({ id: uuid(), options: cloneDeep(graphRecord.options) });
-      return true;
-    }
-    return false;
-  });
+  newGraphs.push({ id: uuid(), options: cloneDeep(graphOptions) });
   return newGraphs;
 }
 

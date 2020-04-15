@@ -36,7 +36,7 @@ export interface AddGraphsForInitiativeAction {
 
 export interface DuplicateGraphAction {
   type: typeof consts.DUPLICATE_GRAPH;
-  payload: string;
+  payload: Highcharts.Options;
 }
 
 export interface DeleteGraphAction {
