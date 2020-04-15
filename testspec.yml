@@ -3,10 +3,6 @@ phases:
   install:
     runtime-versions:
       nodejs: 10
-  pre_build:
-    commands:
-      - echo Installing source NPM dependencies...
-      - npm install
   build:
     commands:
       - echo Testing...
@@ -15,3 +11,7 @@ phases:
 artifacts:
   files:
     - '**/*'
+
+cache:
+  paths:
+    - './node_modules/**/*'

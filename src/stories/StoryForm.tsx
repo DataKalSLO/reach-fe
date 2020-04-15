@@ -3,7 +3,6 @@ import { Save } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateDescription, updateTitle } from '../redux/story/actions';
-import { togglePreview } from '../redux/storybuilder/actions';
 import { getStory } from '../redux/story/selectors';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
 import SortableList from '../stories/SortableList';
@@ -70,16 +69,6 @@ export default function StoryForm() {
           />
 
           <SortableList storyBlocks={story.storyBlocks} />
-
-          {/* TODO: @Daniel - Move buttons to toolbar */}
-          <ButtonWithLeftIcon
-            variant="contained"
-            color="primary"
-            onClick={() => dispatch(createEmptyTextBlock())}
-            startIcon={<Add />}
-          >
-            Add Text Block
-          </ButtonWithLeftIcon>
 
           <ButtonWithLeftIcon
             variant="contained"

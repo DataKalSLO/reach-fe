@@ -1,3 +1,8 @@
+// key bindings
+// Magic strings from Draft.js that signal success/failure. If you change these strings, the overriding WILL BREAK
+export const KEY_COMMAND_SUCCESS = 'handled';
+export const KEY_COMMAND_FAILURE = 'not-handled';
+
 // inline styles
 export type DraftJSInlineType =
   | 'BOLD'
