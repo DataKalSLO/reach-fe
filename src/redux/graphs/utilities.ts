@@ -27,7 +27,8 @@ export function getGraphsForInitiative(
 }
 
 /*
- * Creates a dictionary by giving every graph a key.
+ * Creates an array of graphs where each graph is represented as an
+ * object with an id and a set of Highcharts chart options.
  */
 export function getGraphWithIds(
   graphOptions: Highcharts.Options[]
@@ -42,7 +43,7 @@ export function getGraphWithIds(
 
 /*
  * Adds a copy of the graph associated with the given id
- * to the dictionary.
+ * to the array of graphs.
  */
 export function getGraphsWithDuplicate(
   id: string,
@@ -59,7 +60,7 @@ export function getGraphsWithDuplicate(
 
 /*
  * Removes the graph associated with the given id
- * from the dictionary.
+ * from the array of graphs.
  */
 export function getGraphsWithout(
   id: string,
