@@ -35,6 +35,7 @@ export function graphReducer(
   action: GraphActionTypes
 ): GraphState {
   switch (action.type) {
+    // replaces any pre-existing graphs (this will probably change)
     case consts.ADD_GRAPH_FOR_INITIATIVE:
       return {
         ...state,

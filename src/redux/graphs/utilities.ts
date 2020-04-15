@@ -51,7 +51,7 @@ export function getGraphsWithDuplicate(
   const newGraphs = cloneDeep(graphs);
   graphs.forEach(graphRecord => {
     if (id === graphRecord.id) {
-      newGraphs.push(cloneDeep(graphRecord));
+      newGraphs.push({ id: uuid(), options: cloneDeep(graphRecord.options) });
     }
   });
   return newGraphs;
@@ -66,5 +66,5 @@ export function getGraphsWithout(
   graphs: types.GraphRecord[]
 ): types.GraphRecord[] {
   const newGraphs = cloneDeep(graphs);
-  return newGraphs.filter(graphRecord => graphRecord.id === id);
+  return newGraphs.filter(graphRecord => graphRecord.id !== id);
 }
