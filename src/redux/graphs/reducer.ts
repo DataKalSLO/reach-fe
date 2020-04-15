@@ -4,7 +4,7 @@ import * as consts from './constants';
 import * as utils from './utilities';
 
 const initialState: GraphState = {
-  graphs: {},
+  graphs: [],
   initiatives: {
     [consts.INDUSTRY]: [
       prebuilt.statsOfBusinessGraphOptions,

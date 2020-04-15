@@ -30,13 +30,14 @@ export function getGraphsForInitiative(
  * Creates a dictionary by giving every graph a key.
  */
 export function getGraphWithIds(
-  graphs: Highcharts.Options[]
-): types.GraphDictionary {
-  const graphsRecord: types.GraphDictionary = {};
-  graphs.forEach((graphData: Highcharts.Options) => {
-    graphsRecord[uuid()] = cloneDeep(graphData);
+  graphOptions: Highcharts.Options[]
+): types.GraphRecord[] {
+  const graphs: types.GraphRecord[] = [];
+  graphOptions.forEach((options: Highcharts.Options) => {
+    const graphRecord = { id: uuid(), options: cloneDeep(options) };
+    graphs.push(graphRecord);
   });
-  return graphsRecord;
+  return graphs;
 }
 
 /*
@@ -45,13 +46,15 @@ export function getGraphWithIds(
  */
 export function getGraphsWithDuplicate(
   id: string,
-  graphs: types.GraphDictionary
-): types.GraphDictionary {
-  if (id in Object.keys(graphs)) {
-    const newGraphs = cloneDeep(graphs);
-    newGraphs[uuid()] = cloneDeep(graphs[id]);
-  }
-  return graphs;
+  graphs: types.GraphRecord[]
+): types.GraphRecord[] {
+  const newGraphs = cloneDeep(graphs);
+  graphs.forEach(graphRecord => {
+    if (id === graphRecord.id) {
+      newGraphs.push(cloneDeep(graphRecord));
+    }
+  });
+  return newGraphs;
 }
 
 /*
@@ -60,12 +63,8 @@ export function getGraphsWithDuplicate(
  */
 export function getGraphsWithout(
   id: string,
-  graphs: types.GraphDictionary
-): types.GraphDictionary {
-  if (id in Object.keys(graphs)) {
-    const newGraphs = cloneDeep(graphs);
-    const { [id]: graphToDelete, ...others } = newGraphs;
-    return others;
-  }
-  return graphs;
+  graphs: types.GraphRecord[]
+): types.GraphRecord[] {
+  const newGraphs = cloneDeep(graphs);
+  return newGraphs.filter(graphRecord => graphRecord.id === id);
 }

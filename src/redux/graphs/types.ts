@@ -5,12 +5,13 @@ import * as consts from './constants';
  * initial state of the graph store.
  */
 
-export interface GraphDictionary {
-  [id: string]: Highcharts.Options;
+export interface GraphRecord {
+  id: string;
+  options: Highcharts.Options;
 }
 
 export interface GraphState {
-  graphs: GraphDictionary;
+  graphs: GraphRecord[];
   initiatives: InitiativeGraphs;
 }
 
