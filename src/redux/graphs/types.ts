@@ -54,7 +54,7 @@ export type GraphActionTypes =
  * string to the 5 initiative names.
  */
 
-const names = [
+export const initiativeNames = [
   consts.INDUSTRY,
   consts.DEMOGRAPHICS,
   consts.ASSETS,
@@ -62,4 +62,4 @@ const names = [
   consts.HOUSING
 ] as const;
 
-export type Initiative = typeof names;
+export type InitiativeLiteral = typeof initiativeNames[number];

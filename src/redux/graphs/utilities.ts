@@ -10,20 +10,11 @@ export function getGraphsForInitiative(
   initiative: string,
   graphStateInitiatives: types.InitiativeGraphs
 ): Highcharts.Options[] {
-  switch (initiative) {
-    case consts.INDUSTRY:
-      return graphStateInitiatives[consts.INDUSTRY];
-    case consts.DEMOGRAPHICS:
-      return graphStateInitiatives[consts.DEMOGRAPHICS];
-    case consts.ASSETS:
-      return graphStateInitiatives[consts.ASSETS];
-    case consts.EDUCATION:
-      return graphStateInitiatives[consts.EDUCATION];
-    case consts.HOUSING:
-      return graphStateInitiatives[consts.HOUSING];
-    default:
-      return [];
+  if (initiative in types.initiativeNames) {
+    const initiativeLiteral = initiative as types.InitiativeLiteral;
+    return graphStateInitiatives[initiativeLiteral];
   }
+  return [];
 }
 
 /*
