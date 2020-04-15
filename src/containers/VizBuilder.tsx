@@ -4,7 +4,9 @@ import { useVizBuilderStyles } from './VizBuilderStyles';
 import Map from '../maps/Map';
 import Graph from '../graphs/Graph';
 import SplitterLayout from 'react-splitter-layout';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+
 import 'react-splitter-layout/lib/index.css';
 
 function VizBuilder() {
@@ -14,16 +16,16 @@ function VizBuilder() {
       <Container className={classes.root} maxWidth={'xl'}>
         <SplitterLayout>
           <Grid item className={classes.grid} xs={12}>
-            <ArrowBackIosIcon
-              className={classes.leftNav}
-              fontSize={'default'}
+            <NavigateBeforeIcon
+              className={classes.leftArrow}
+              fontSize={'large'}
             />
             <Map />
           </Grid>
           <Grid item className={classes.grid} xs={12}>
-            <ArrowBackIosIcon
-              className={classes.rightNav}
-              fontSize={'default'}
+            <NavigateNextIcon
+              className={classes.rightArrow}
+              fontSize={'large'}
             />
             <Graph />
           </Grid>

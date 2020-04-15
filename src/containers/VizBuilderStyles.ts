@@ -23,16 +23,17 @@ export const useVizBuilderStyles = makeStyles((them: Theme) =>
       height: '100%',
       overflow: 'hidden'
     },
-    leftNav: {
+    leftArrow: {
       position: 'absolute',
       top: '50%',
-      right: '0'
+      right: '0',
+      zIndex: 500
     },
-    rightNav: {
+    rightArrow: {
       position: 'absolute',
       top: '50%',
       left: '0',
-      transform: 'scaleX(-1)'
+      zIndex: 500
     }
   })
 );
