@@ -1,7 +1,6 @@
 import { EditorState } from 'draft-js';
 
-export interface StoryState {
-  story: Story;
+export interface StoryBuilderState {
   isPreviewSelected: boolean;
 }
 

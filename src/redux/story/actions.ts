@@ -1,13 +1,10 @@
 import { EditorState } from 'draft-js';
-import { uuid } from 'uuidv4';
-import { TEXT_BLOCK_TYPE } from '../../stories/StoryTypes';
+import { emptyTextBlock } from './reducer';
 import {
   CreateEmptyTextBlockAction,
   CREATE_EMPTY_TEXT_BLOCK,
   SwapBlocksAction,
   SWAP_BLOCKS,
-  TogglePreviewAction,
-  TOGGLE_PREVIEW,
   UpdateDescriptionAction,
   UpdateTextBlockAction,
   UpdateTitleAction,
@@ -20,11 +17,7 @@ export function createEmptyTextBlock(): CreateEmptyTextBlockAction {
   return {
     type: CREATE_EMPTY_TEXT_BLOCK,
     payload: {
-      block: {
-        id: uuid(),
-        editorState: EditorState.createEmpty(),
-        type: TEXT_BLOCK_TYPE
-      }
+      block: emptyTextBlock
     }
   };
 }
@@ -62,12 +55,5 @@ export function updateDescription(
   return {
     type: UPDATE_DESCRIPTION,
     payload: { newDescription: newDescription }
-  };
-}
-
-export function togglePreview(): TogglePreviewAction {
-  return {
-    type: TOGGLE_PREVIEW,
-    payload: null
   };
 }

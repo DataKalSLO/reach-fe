@@ -6,7 +6,6 @@ export const UPDATE_TEXT_BLOCK = 'UPDATE_TEXT_BLOCK';
 export const SWAP_BLOCKS = 'SWAP_BLOCKS';
 export const UPDATE_TITLE = 'UPDATE_TITLE';
 export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
-export const TOGGLE_PREVIEW = 'TOGGLE_PREVIEW';
 
 export interface CreateEmptyTextBlockAction {
   type: typeof CREATE_EMPTY_TEXT_BLOCK;
@@ -33,11 +32,6 @@ export interface UpdateDescriptionAction {
   payload: { newDescription: string };
 }
 
-export interface TogglePreviewAction {
-  type: typeof TOGGLE_PREVIEW;
-  payload: null;
-}
-
 // use in updateObjectInArray function (reducer.ts) when updating a single object.
 // interfaces of this type must include:
 //  - index
@@ -50,5 +44,4 @@ export type StoryActionType =
   | UpdateTextBlockAction
   | SwapBlocksAction
   | UpdateTitleAction
-  | UpdateDescriptionAction
-  | TogglePreviewAction;
+  | UpdateDescriptionAction;

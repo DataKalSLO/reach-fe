@@ -1,37 +1,33 @@
-import { EditorState } from 'draft-js';
 import { arrayMove } from 'react-sortable-hoc';
 import { uuid } from 'uuidv4';
+import { emptyEditorState } from '../../stories/RichTextEditor';
 import {
   StoryBlock,
-  StoryState,
+  TextBlock,
   TEXT_BLOCK_TYPE
 } from '../../stories/StoryTypes';
 import {
   CREATE_EMPTY_TEXT_BLOCK,
   StoryActionType,
   SWAP_BLOCKS,
-  TOGGLE_PREVIEW,
   UpdateBlockType,
   UPDATE_DESCRIPTION,
   UPDATE_TEXT_BLOCK,
   UPDATE_TITLE
 } from './types';
 
-const initialTextBlock = {
+export const emptyTextBlock: TextBlock = {
   id: uuid(),
-  editorState: EditorState.createEmpty(),
+  editorState: emptyEditorState,
   type: TEXT_BLOCK_TYPE
 };
 
-const initialStoryState = {
-  story: {
-    id: uuid(),
-    userID: 'USER-ID', // TODO: replace placeholder value
-    title: '',
-    description: '',
-    storyBlocks: [initialTextBlock] as Array<StoryBlock>
-  },
-  isPreviewSelected: false
+const initialStory = {
+  id: uuid(),
+  userID: 'USER-ID', // TODO: replace placeholder value
+  title: '',
+  description: '',
+  storyBlocks: [emptyTextBlock] as Array<StoryBlock>
 };
 
 // follows immutability update patterns
@@ -53,59 +49,36 @@ function updateObjectInArray(
   });
 }
 
-export function storyReducer(
-  state = initialStoryState,
-  action: StoryActionType
-): StoryState {
+export function storyReducer(state = initialStory, action: StoryActionType) {
   switch (action.type) {
     case UPDATE_TEXT_BLOCK:
       return {
-        story: {
-          ...state.story,
-          storyBlocks: updateObjectInArray(state.story.storyBlocks, action)
-        },
-        isPreviewSelected: state.isPreviewSelected
+        ...state,
+        storyBlocks: updateObjectInArray(state.storyBlocks, action)
       };
     case CREATE_EMPTY_TEXT_BLOCK:
       return {
-        story: {
-          ...state.story,
-          storyBlocks: state.story.storyBlocks.concat(action.payload.block)
-        },
-        isPreviewSelected: state.isPreviewSelected
+        ...state,
+        storyBlocks: state.storyBlocks.concat(action.payload.block)
       };
     case SWAP_BLOCKS:
       return {
-        story: {
-          ...state.story,
-          storyBlocks: arrayMove(
-            state.story.storyBlocks,
-            action.payload.oldIndex,
-            action.payload.newIndex
-          )
-        },
-        isPreviewSelected: state.isPreviewSelected
+        ...state,
+        storyBlocks: arrayMove(
+          state.storyBlocks,
+          action.payload.oldIndex,
+          action.payload.newIndex
+        )
       };
     case UPDATE_TITLE:
       return {
-        story: {
-          ...state.story,
-          title: action.payload.newTitle
-        },
-        isPreviewSelected: state.isPreviewSelected
+        ...state,
+        title: action.payload.newTitle
       };
     case UPDATE_DESCRIPTION:
       return {
-        story: {
-          ...state.story,
-          description: action.payload.newDescription
-        },
-        isPreviewSelected: state.isPreviewSelected
-      };
-    case TOGGLE_PREVIEW:
-      return {
-        story: state.story,
-        isPreviewSelected: !state.isPreviewSelected
+        ...state,
+        description: action.payload.newDescription
       };
     default:
       return state;

@@ -1,22 +1,19 @@
 import { Box, Button, styled, TextField, Typography } from '@material-ui/core';
-import { Add, Save, Visibility } from '@material-ui/icons';
+import { Save } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  createEmptyTextBlock,
-  togglePreview,
-  updateDescription,
-  updateTitle
-} from '../redux/story/actions';
+import { updateDescription, updateTitle } from '../redux/story/actions';
+import { togglePreview } from '../redux/storybuilder/actions';
 import { getStory } from '../redux/story/selectors';
+import { getStoryBuilder } from '../redux/storybuilder/selectors';
 import SortableList from '../stories/SortableList';
 import { convertStoryToJSX } from './StoryConverter';
 
 export default function StoryForm() {
   const dispatch = useDispatch();
-  const storyState = useSelector(getStory);
-  const story = storyState.story;
-  const previewSelected = storyState.isPreviewSelected;
+  const story = useSelector(getStory);
+  const storyBuilderState = useSelector(getStoryBuilder);
+  const previewSelected = storyBuilderState.isPreviewSelected;
 
   const TITLE_CHAR_LIMIT = 100;
   const DESCRIPTION_CHAR_LIMIT = 250;
@@ -97,20 +94,7 @@ export default function StoryForm() {
     }
   }
 
-  return (
-    //Will change once @Daniel's changes are pushed in (#45)
-    <StyledBox>
-      {displayBody()}
-      <ButtonWithLeftIcon
-        variant="contained"
-        color="primary"
-        onClick={() => dispatch(togglePreview())}
-        startIcon={<Visibility />}
-      >
-        {previewSelected ? 'Edit Story' : 'Preview Story'}
-      </ButtonWithLeftIcon>
-    </StyledBox>
-  );
+  return <StyledBox>{displayBody()}</StyledBox>;
 }
 
 const StyledBox = styled(Box)({
