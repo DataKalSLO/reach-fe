@@ -1,26 +1,35 @@
-import React from 'react';
-import Graph from '../graphs/Graph';
+import React, { Fragment } from 'react';
+import { Grid, Container } from '@material-ui/core';
+import { useVizBuilderStyles } from './VizBuilderStyles';
 import Map from '../maps/Map';
-import { Grid } from '@material-ui/core';
-import Box from '@material-ui/core/Box';
+import Graph from '../graphs/Graph';
+import SplitterLayout from 'react-splitter-layout';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import 'react-splitter-layout/lib/index.css';
+
 function VizBuilder() {
+  const classes = useVizBuilderStyles();
   return (
-    <Box
-      display="flex"
-      flexDirection="row"
-      height="100vh"
-      justifyContent="center"
-      alignItems="center"
-      border="1px solid red"
-      alignContent="center"
-    >
-      <Grid item xs={6}>
-        <Map />
-      </Grid>
-      <Grid item xs={6}>
-        <Graph />
-      </Grid>
-    </Box>
+    <Fragment>
+      <Container className={classes.root} maxWidth={'xl'}>
+        <SplitterLayout>
+          <Grid item className={classes.grid} xs={12}>
+            <ArrowBackIosIcon
+              className={classes.leftNav}
+              fontSize={'default'}
+            />
+            <Map />
+          </Grid>
+          <Grid item className={classes.grid} xs={12}>
+            <ArrowBackIosIcon
+              className={classes.rightNav}
+              fontSize={'default'}
+            />
+            <Graph />
+          </Grid>
+        </SplitterLayout>
+      </Container>
+    </Fragment>
   );
 }
 
