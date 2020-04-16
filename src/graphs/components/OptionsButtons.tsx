@@ -55,6 +55,7 @@ function OptionsButtons() {
         <StyledBottomNav
           showLabel={true}
           key={index}
+          color="default"
           label={initiative.name}
           icon={initiative.icon}
           onClick={() =>
