@@ -9,7 +9,7 @@ export function getGraphsForInitiative(
   initiative: string,
   graphStateInitiatives: types.InitiativeGraphs
 ): Highcharts.Options[] {
-  if (initiative in types.initiativeNames) {
+  if (types.initiativeNames.some(val => val === initiative)) {
     const initiativeLiteral = initiative as types.InitiativeLiteral;
     return graphStateInitiatives[initiativeLiteral];
   }
