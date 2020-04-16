@@ -109,7 +109,7 @@ function AppBar() {
           />
         </Grid>
       </Grid>
-      <Grid container justify="flex-end" xs={2}>
+      <Grid item container justify="flex-end" xs={2}>
         <Grid item>
           {user.email ? (
             <React.Fragment>
