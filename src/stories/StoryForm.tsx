@@ -84,7 +84,7 @@ export default function StoryForm() {
         <SortableList storyBlocks={story.storyBlocks} />
 
         <Button
-          onClick={saveStory}
+          onClick={saveStoryButtonAction}
           label="Save Story"
           startIcon={<Save />}
           edge="start"
