@@ -1,10 +1,10 @@
-import React from 'react';
-import HighchartsReact from 'highcharts-react-official';
+import { Box, Card, Container } from '@material-ui/core';
 import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 import exporting from 'highcharts/modules/exporting';
+import React from 'react';
 import GraphHeader from './GraphHeader';
 import { useGraphStyles } from './styles';
-import { Container, Card, Box } from '@material-ui/core';
 import { GraphPrebuiltProps } from './types';
 exporting(Highcharts);
 

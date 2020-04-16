@@ -1,18 +1,24 @@
+import { BottomNavigationAction } from '@material-ui/core';
+import {
+  BusinessCenterOutlined,
+  EmojiTransportation,
+  HouseOutlined,
+  PeopleAltOutlined,
+  SchoolOutlined
+} from '@material-ui/icons';
 import React, { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 import { uuid } from 'uuidv4';
-import { BottomNavigationAction } from '@material-ui/core';
 import { addGraphsForInitiativeAction } from '../../redux/graphs/actions';
+import {
+  ASSETS,
+  DEMOGRAPHICS,
+  EDUCATION,
+  HOUSING,
+  INDUSTRY
+} from '../../redux/graphs/constants';
 import { useOptionsButtonsStyles } from './styles';
 import { InitiativeIcon } from './types';
-import {
-  HouseOutlined,
-  PeopleAltOutlined,
-  EmojiTransportation,
-  BusinessCenterOutlined,
-  SchoolOutlined
-} from '@material-ui/icons';
-import * as consts from '../../redux/graphs/constants';
 
 /*
  * Contains the buttons for the options toolbar, which simply
@@ -24,23 +30,23 @@ function OptionsButtons() {
   const classes = useOptionsButtonsStyles();
   const initiativeIcons: InitiativeIcon[] = [
     {
-      name: consts.INDUSTRY,
+      name: INDUSTRY,
       icon: <EmojiTransportation key={uuid()} fontSize={'large'} />
     },
     {
-      name: consts.DEMOGRAPHICS,
+      name: DEMOGRAPHICS,
       icon: <PeopleAltOutlined key={uuid()} fontSize={'large'} />
     },
     {
-      name: consts.ASSETS,
+      name: ASSETS,
       icon: <BusinessCenterOutlined key={uuid()} fontSize={'large'} />
     },
     {
-      name: consts.EDUCATION,
+      name: EDUCATION,
       icon: <SchoolOutlined key={uuid()} fontSize={'large'} />
     },
     {
-      name: consts.HOUSING,
+      name: HOUSING,
       icon: <HouseOutlined key={uuid()} fontSize={'large'} />
     }
   ];

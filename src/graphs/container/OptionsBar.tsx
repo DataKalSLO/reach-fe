@@ -1,17 +1,17 @@
-import React, { Fragment } from 'react';
-import clsx from 'clsx';
-import {IconButton} from '../../common/components/IconButton';
-import Drawer from '@material-ui/core/Drawer';
-import Popover from '@material-ui/core/Popover';
-import OptionsButtons from '../components/OptionsButtons';
-import { useOptionsStyles } from './styles';
-import { Close, ArrowUpward } from '@material-ui/icons';
-import { INITIATIVE_DESC } from './constants';
 import {
   BottomNavigation,
   BottomNavigationAction,
   Typography
 } from '@material-ui/core';
+import Drawer from '@material-ui/core/Drawer';
+import Popover from '@material-ui/core/Popover';
+import { ArrowUpward, Close } from '@material-ui/icons';
+import clsx from 'clsx';
+import React, { Fragment } from 'react';
+import { IconButton } from '../../common/components/IconButton';
+import OptionsButtons from '../components/OptionsButtons';
+import { INITIATIVE_DESC } from './constants';
+import { useOptionsStyles } from './styles';
 
 /*
  * The toolbar that displays a button for each initiative.
