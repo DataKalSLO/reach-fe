@@ -1,4 +1,3 @@
-import { Box, Card, Container } from '@material-ui/core';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import drilldown from 'highcharts/modules/drilldown';
@@ -6,7 +5,12 @@ import exporting from 'highcharts/modules/exporting';
 import React from 'react';
 import { DEFAULT_KEY } from './constants';
 import GraphHeader from './GraphHeader';
-import { useGraphStyles } from './styles';
+import {
+  StyledGraph,
+  StyledGraphBox,
+  StyledGraphCard,
+  useGraphStyles
+} from './styles';
 exporting(Highcharts);
 drilldown(Highcharts);
 
@@ -24,18 +28,18 @@ function GraphDefault() {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const options = require('../prebuilt-graph-options/DoDDrilldown2018.json');
   return (
-    <Box className={classes.root}>
-      <Card className={classes.card}>
+    <StyledGraphBox>
+      <StyledGraphCard>
         <GraphHeader graph={{ id: DEFAULT_KEY, options: options }} />
-        <Container className={classes.graphContainer}>
+        <StyledGraph>
           <HighchartsReact
             highcharts={Highcharts}
             options={options}
             containerProps={{ className: classes.highcharts }}
           />
-        </Container>
-      </Card>
-    </Box>
+        </StyledGraph>
+      </StyledGraphCard>
+    </StyledGraphBox>
   );
 }
 

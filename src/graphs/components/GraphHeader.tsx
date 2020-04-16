@@ -1,14 +1,19 @@
-import { Grid } from '@material-ui/core';
-import { Delete, Edit, FileCopy, Save } from '@material-ui/icons';
+import { Delete, Edit, FileCopy, Save, Share } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { IconButton } from '../../common/components/IconButton';
+import { Button } from '../../common/components/Button';
 import {
   deleteGraphAction,
   duplicateGraphAction
 } from '../../redux/graphs/actions';
-import { DEFAULT_KEY } from './constants';
-import { useGraphHeaderStyles } from './styles';
+import {
+  DEFAULT_KEY,
+  DELETE_LABEL,
+  DUPLICATE_LABEL,
+  EDIT_LABEL,
+  SAVE_LABEL
+} from './constants';
+import { StyledHeaderGrid } from './styles';
 import { GraphHeaderProps } from './types';
 
 /*
@@ -19,43 +24,56 @@ import { GraphHeaderProps } from './types';
  */
 
 function GraphHeader({ graph }: GraphHeaderProps) {
-  const classes = useGraphHeaderStyles();
   const dispatch = useDispatch();
   // TODO: change the way default graphs are handled
   const defaultFlag = graph.id === DEFAULT_KEY;
 
   return (
-    <Grid container className={classes.root}>
-      <IconButton
-        style={{ color: 'error' }}
-        ariaLabel={'delete graph'}
-        icon={<Delete />}
+    <StyledHeaderGrid container>
+      <Button
+        label={DELETE_LABEL}
+        color="default"
+        variant="text"
+        startIcon={<Delete color="error" />}
         onClick={() => {
           if (!defaultFlag) {
             dispatch(deleteGraphAction(graph.id));
           }
         }}
       />
-      <IconButton
-        ariaLabel={'save graph'}
-        icon={<Save />}
+      <Button
+        label={SAVE_LABEL}
+        variant="text"
+        color="default"
+        startIcon={<Save />}
         onClick={() => alert('Not implemented')}
       />
-      <IconButton
-        ariaLabel={'edit graph'}
-        icon={<Edit />}
+      <Button
+        label={EDIT_LABEL}
+        variant="text"
+        color="default"
+        startIcon={<Edit />}
         onClick={() => alert('Not implemented')}
       />
-      <IconButton
-        ariaLabel={'duplicate graph'}
-        icon={<FileCopy />}
+      <Button
+        label={DUPLICATE_LABEL}
+        variant="text"
+        color="default"
+        startIcon={<FileCopy />}
         onClick={() => {
           if (!defaultFlag) {
             dispatch(duplicateGraphAction(graph.options));
           }
         }}
       />
-    </Grid>
+      <Button
+        label="Share"
+        variant="text"
+        color="default"
+        startIcon={<Share />}
+        onClick={() => alert('Not implemented')}
+      />
+    </StyledHeaderGrid>
   );
 }
 

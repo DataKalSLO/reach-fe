@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   BottomNavigation,
   BottomNavigationAction,
@@ -5,13 +6,25 @@ import {
 } from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
 import Popover from '@material-ui/core/Popover';
+=======
+import { BottomNavigationAction, Drawer } from '@material-ui/core';
+>>>>>>> 7353dcf729116cde9b30e71ac7d2a08e16579842
 import { ArrowUpward, Close } from '@material-ui/icons';
 import clsx from 'clsx';
 import React, { Fragment } from 'react';
 import { IconButton } from '../../common/components/IconButton';
 import OptionsButtons from '../components/OptionsButtons';
 import { INITIATIVE_DESC } from './constants';
+<<<<<<< HEAD
 import { useOptionsStyles } from './styles';
+=======
+import {
+  StyledBottomNav,
+  StyledPopover,
+  StyledTypography,
+  useOptionsStyles
+} from './styles';
+>>>>>>> 7353dcf729116cde9b30e71ac7d2a08e16579842
 
 /*
  * The toolbar that displays a button for each initiative.
@@ -44,7 +57,11 @@ function OptionsBar() {
   return (
     <Fragment>
       <IconButton
+<<<<<<< HEAD
         ariaLabel={'expand options bar'}
+=======
+        ariaLabel="expand options bar"
+>>>>>>> 7353dcf729116cde9b30e71ac7d2a08e16579842
         icon={<ArrowUpward />}
         area-describeby={id}
         onClick={toggleDrawer}
@@ -52,8 +69,12 @@ function OptionsBar() {
         onMouseLeave={handlePopoverClose}
         className={clsx(classes.menuButton, open && classes.hide)}
       />
+<<<<<<< HEAD
       <Popover
         className={classes.popover}
+=======
+      <StyledPopover
+>>>>>>> 7353dcf729116cde9b30e71ac7d2a08e16579842
         id={id}
         open={popoverIsOpen}
         anchorEl={anchorEl}
@@ -61,17 +82,24 @@ function OptionsBar() {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         transformOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
+<<<<<<< HEAD
         <Typography className={classes.typography}>
           {INITIATIVE_DESC}
         </Typography>
       </Popover>
       <Drawer
         className={classes.drawer}
+=======
+        <StyledTypography>{INITIATIVE_DESC}</StyledTypography>
+      </StyledPopover>
+      <Drawer
+>>>>>>> 7353dcf729116cde9b30e71ac7d2a08e16579842
         anchor="bottom"
         variant="persistent"
         open={open}
         classes={{ paper: classes.drawerPaper }}
       >
+<<<<<<< HEAD
         <BottomNavigation showLabels className={classes.nav}>
           <BottomNavigationAction
             onClick={toggleDrawer}
@@ -81,6 +109,17 @@ function OptionsBar() {
           />
           <OptionsButtons />
         </BottomNavigation>
+=======
+        <StyledBottomNav showLabels>
+          <BottomNavigationAction
+            color="error"
+            onClick={toggleDrawer}
+            label="Exit"
+            icon={<Close fontSize="large" color="error" />}
+          />
+          <OptionsButtons />
+        </StyledBottomNav>
+>>>>>>> 7353dcf729116cde9b30e71ac7d2a08e16579842
       </Drawer>
     </Fragment>
   );
