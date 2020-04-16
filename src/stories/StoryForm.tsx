@@ -21,8 +21,6 @@ export default function StoryForm() {
 
   // TODO: add validation of required fields
   // TODO: Move preview selected into Redux to persist after user leaves page
-  const [previewSelected, setPreviewSelected] = useState(false);
-
   function saveStoryButtonAction() {
     alert(JSON.stringify(story, null, 2));
     story.userID = 'test@test.com'; //Existing user in database
