@@ -3,8 +3,8 @@ import { Box, Button, styled, CircularProgress } from '@material-ui/core';
 import AccountTextField from '../common/components/AccountTextField';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { LoginData } from '../redux/login/types';
-import { loginUser } from '../redux/login/actions';
+import { LoginData, DeleteData } from '../redux/login/types';
+import { loginUser, deleteUser } from '../redux/login/actions';
 import { wrapWithCatch } from '../api/base';
 import { HOME } from '../nav/constants';
 
@@ -70,6 +70,19 @@ function ReachSignIn() {
         }}
       >
         LOG IN
+      </StyledButton>
+      <StyledButton
+        variant="contained"
+        fullWidth
+        color="primary"
+        onClick={() => {
+          setLoading(true);
+          dispatch(
+            deleteUser({id: 0} as DeleteData) // how to get user id here?
+          );
+        }}
+      >
+        Delete
       </StyledButton>
       {loading ? <CircularProgress /> : null}
     </SignInBox>
