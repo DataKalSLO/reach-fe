@@ -10,6 +10,9 @@ exporting(Highcharts);
 
 /*
  * Renders an individual chart with the header.
+ * This component contains two main parts:
+ *  1. The header with a set of options (e.g. edit graph)
+ *  2. The chart itself
  */
 
 function GraphPrebuilt({ graph }: GraphPrebuiltProps) {

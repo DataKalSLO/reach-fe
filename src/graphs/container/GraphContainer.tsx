@@ -1,5 +1,5 @@
 import { Box } from '@material-ui/core';
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { uuid } from 'uuidv4';
 import { getGraphs } from '../../redux/graphs/selector';
@@ -17,10 +17,11 @@ function GraphContainer() {
   const classes = useGraphContainerStyles();
 
   /*
-   * Creates a component for each graph and appends the
-   * default component. The default graph is not stored
-   * in the store since it is read directly from the JSON file.
-   * This will change when the backend is connected.
+   * Creates a component for each graph. The default graph is separately
+   * appended since the graph is read directly from a JSON file rather
+   * than being stored in the store (since it is not currently supported).
+   * A graph component contains the chart itself, and the header with a
+   * set of options.
    */
   const getGraphComponents = () => {
     const graphs = graphState.graphs.map((graph, index) => (
@@ -32,11 +33,7 @@ function GraphContainer() {
     return [...graphs, <GraphDefault key={uuid()} />];
   };
 
-  return (
-    <Fragment>
-      <Box className={classes.root}>{getGraphComponents()}</Box>
-    </Fragment>
-  );
+  return <Box className={classes.root}>{getGraphComponents()}</Box>;
 }
 
 export default GraphContainer;

@@ -37,12 +37,8 @@ function OptionsBar() {
     setAnchorEl(null);
   };
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
+  const toggleDrawer = () => {
+    setOpen(!open);
   };
 
   return (
@@ -51,7 +47,7 @@ function OptionsBar() {
         ariaLabel={'expand options bar'}
         icon={<ArrowUpward />}
         area-describeby={id}
-        onClick={handleDrawerOpen}
+        onClick={toggleDrawer}
         onMouseEnter={handlePopoverOpen}
         onMouseLeave={handlePopoverClose}
         className={clsx(classes.menuButton, open && classes.hide)}
@@ -78,7 +74,7 @@ function OptionsBar() {
       >
         <BottomNavigation showLabels className={classes.nav}>
           <BottomNavigationAction
-            onClick={handleDrawerClose}
+            onClick={toggleDrawer}
             label="Exit"
             icon={<Close fontSize={'large'} />}
             style={{ color: 'red' }}
