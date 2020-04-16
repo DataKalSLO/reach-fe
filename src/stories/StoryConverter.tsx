@@ -12,7 +12,7 @@ import {
   StoryBlock,
   TextBlock,
   TEXT_BLOCK_TYPE
-} from './StoryTypes';
+} from '../redux/story/types';
 import { Story } from '../redux/story/types';
 
 export function convertStoryToJSX(story: Story): JSX.Element {

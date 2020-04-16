@@ -1,11 +1,7 @@
 import { arrayMove } from 'react-sortable-hoc';
 import { uuid } from 'uuidv4';
 import { emptyEditorState } from '../../stories/RichTextEditor';
-import {
-  StoryBlock,
-  TextBlock,
-  TEXT_BLOCK_TYPE
-} from '../../stories/StoryTypes';
+import { StoryBlock, TextBlock, TEXT_BLOCK_TYPE } from './types';
 import {
   CREATE_EMPTY_TEXT_BLOCK,
   Story,

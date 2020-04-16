@@ -1,6 +1,6 @@
 import { Box, styled, TextField, Typography } from '@material-ui/core';
-import { Save, Visibility } from '@material-ui/icons';
-import React, { useState } from 'react';
+import { Save } from '@material-ui/icons';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../common/components/Button';
 import { updateDescription, updateTitle } from '../redux/story/actions';
