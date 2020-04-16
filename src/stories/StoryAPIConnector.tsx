@@ -6,7 +6,7 @@ import {
   StoryBlock,
   TEXT_BLOCK_DB_TYPE,
   TEXT_BLOCK_TYPE
-} from './StoryTypes';
+} from '../redux/story/types';
 import { EditorState, convertFromRaw } from 'draft-js';
 
 enum StoryActions {
