@@ -1,24 +1,35 @@
-import { Divider, List, ListItem, ListItemIcon } from '@material-ui/core';
+import {
+  Divider,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Typography
+} from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
   InsertChart,
   InsertPhoto,
   Map,
+  Save,
   TextFields,
   Visibility
 } from '@material-ui/icons';
 import React, { Dispatch } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createEmptyTextBlock } from '../redux/story/actions';
+import { getStory } from '../redux/story/selectors';
+import { Story, StoryActionType } from '../redux/story/types';
 import { togglePreview } from '../redux/storybuilder/actions';
-import { StoryActionType } from '../redux/story/types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     drawerPaper: {
       zIndex: 0, // to place drawer behind appbar
       width: STORY_TOOLBAR_WIDTH,
+
+      backgroundColor: theme.palette.secondary.light,
       paddingTop: 100 // padding to place buttons beneath app bar
     }
   })
@@ -27,11 +38,12 @@ const useStyles = makeStyles((theme: Theme) =>
 export function StoryToolbar() {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const story = useSelector(getStory);
 
   return (
     <Drawer
       variant="permanent"
-      anchor="right"
+      anchor="left"
       classes={{
         // styling for drawer must be done with drawer's child paper element,
         // and cannot be done with styled components
@@ -39,14 +51,19 @@ export function StoryToolbar() {
         paper: classes.drawerPaper
       }}
     >
+      <Typography variant="subtitle1" align="center">
+        <b>Add Block</b>
+      </Typography>
       <List>
-        {addButtonContentList.map((contents: ToolbarButtonContents) =>
+        {getAddButtonContentList().map((contents: ToolbarButtonContents) =>
           generateButton(contents, dispatch)
         )}
       </List>
       <Divider />
       <List>
-        {utilityButtonContentList.map((contents: ToolbarButtonContents) =>
+        {getUtilityButtonContentList(
+          story
+        ).map((contents: ToolbarButtonContents) =>
           generateButton(contents, dispatch)
         )}
       </List>
@@ -66,45 +83,52 @@ function generateButton(
       key={contents.title}
       onClick={() => (contents.useDispatch ? dispatch(dispatchFunc()) : func())}
     >
-      {/* TODO: move the hard-coded color into the theme  */}
-      <ListItemIcon style={{ color: '#f1b71c' }}>{contents.icon}</ListItemIcon>
+      <ListItemIcon>{contents.icon}</ListItemIcon>
+      <ListItemText primary={contents.title} />
     </ListItem>
   );
 }
 
-const addButtonContentList: ToolbarButtonContents[] = [
+const getAddButtonContentList = (): ToolbarButtonContents[] => [
   {
-    title: 'Add Text',
+    title: 'Text',
     icon: <TextFields />,
     useDispatch: true,
     onClick: createEmptyTextBlock
   },
   {
-    title: 'Add Graph',
+    title: 'Graph',
     icon: <InsertChart />,
     useDispatch: false,
     onClick: () => alert('Not implemented')
   },
   {
-    title: 'Add Map',
+    title: 'Map',
     icon: <Map />,
     useDispatch: false,
     onClick: () => alert('Not implemented')
   },
   {
-    title: 'Add Image',
+    title: 'Image',
     icon: <InsertPhoto />,
     useDispatch: false,
     onClick: () => alert('Not implemented')
   }
 ];
 
-const utilityButtonContentList: ToolbarButtonContents[] = [
+const getUtilityButtonContentList = (story: Story): ToolbarButtonContents[] => [
+  // TODO: if you're in preview mode, show an edit button instead
   {
-    title: 'Preview Story',
+    title: 'Preview',
     icon: <Visibility />,
     useDispatch: true,
     onClick: togglePreview
+  },
+  {
+    title: 'Save',
+    icon: <Save />,
+    useDispatch: false,
+    onClick: () => alert(JSON.stringify(story, null, 2))
   }
 ];
 
@@ -115,4 +139,4 @@ interface ToolbarButtonContents {
   onClick: { (): StoryActionType } | { (): void };
 }
 
-export const STORY_TOOLBAR_WIDTH = 60; // Arbitrarily chosen
+export const STORY_TOOLBAR_WIDTH = 150;

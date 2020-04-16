@@ -1,8 +1,6 @@
 import { Box, styled, TextField, Typography } from '@material-ui/core';
-import { Save } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from '../common/components/Button';
 import { updateDescription, updateTitle } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
@@ -17,9 +15,6 @@ export default function StoryForm() {
 
   const TITLE_CHAR_LIMIT = 100;
   const DESCRIPTION_CHAR_LIMIT = 250;
-  function saveStory() {
-    alert(JSON.stringify(story, null, 2));
-  }
 
   function createCharCounter(currentText: string, maxLength: number) {
     return `${currentText.length}/${maxLength}`;
@@ -33,10 +28,10 @@ export default function StoryForm() {
       <StyledBox>
         <Typography variant="h3">StoryBuilder</Typography>
         <p>
-          Tell us a compelling story using data. Use the toolbar on the right to
-          add text blocks, graphs, static images, and dataset snippets to help
-          readers follow along with your findings and conclusions. Use the drag
-          handles to the left of each component if you want to reorder them.
+          Tell us a compelling story using data. Use the toolbar on the left to
+          add text blocks, graphs, images, and dataset snippets to help readers
+          follow along with your findings and conclusions. Use the drag handles
+          to the left of each component if you want to reorder them.
         </p>
         <StyledTextField
           id="story-title-field"
@@ -68,13 +63,6 @@ export default function StoryForm() {
         />
 
         <SortableList storyBlocks={story.storyBlocks} />
-
-        <Button
-          onClick={saveStory}
-          label="Save Story"
-          startIcon={<Save />}
-          edge="start"
-        />
       </StyledBox>
     );
   }
