@@ -1,5 +1,4 @@
-import { Grid } from '@material-ui/core';
-import { Delete, Edit, FileCopy, Save } from '@material-ui/icons';
+import { Delete, Edit, FileCopy, Save, Share } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { IconButton } from '../../common/components/IconButton';
@@ -8,7 +7,7 @@ import {
   duplicateGraphAction
 } from '../../redux/graphs/actions';
 import { DEFAULT_KEY } from './constants';
-import { useGraphHeaderStyles } from './styles';
+import { StyledHeaderGrid } from './styles';
 import { GraphHeaderProps } from './types';
 
 /*
@@ -19,17 +18,15 @@ import { GraphHeaderProps } from './types';
  */
 
 function GraphHeader({ graph }: GraphHeaderProps) {
-  const classes = useGraphHeaderStyles();
   const dispatch = useDispatch();
   // TODO: change the way default graphs are handled
   const defaultFlag = graph.id === DEFAULT_KEY;
 
   return (
-    <Grid container className={classes.root}>
+    <StyledHeaderGrid container>
       <IconButton
-        style={{ color: 'error' }}
-        ariaLabel={'delete graph'}
-        icon={<Delete />}
+        ariaLabel="delete graph"
+        icon={<Delete color="error" />}
         onClick={() => {
           if (!defaultFlag) {
             dispatch(deleteGraphAction(graph.id));
@@ -37,17 +34,17 @@ function GraphHeader({ graph }: GraphHeaderProps) {
         }}
       />
       <IconButton
-        ariaLabel={'save graph'}
+        ariaLabel="save graph"
         icon={<Save />}
         onClick={() => alert('Not implemented')}
       />
       <IconButton
-        ariaLabel={'edit graph'}
+        ariaLabel="edit graph"
         icon={<Edit />}
         onClick={() => alert('Not implemented')}
       />
       <IconButton
-        ariaLabel={'duplicate graph'}
+        ariaLabel="duplicate graph"
         icon={<FileCopy />}
         onClick={() => {
           if (!defaultFlag) {
@@ -55,7 +52,12 @@ function GraphHeader({ graph }: GraphHeaderProps) {
           }
         }}
       />
-    </Grid>
+      <IconButton
+        ariaLabel="share graph"
+        icon={<Share />}
+        onClick={() => alert('Not implemented')}
+      />
+    </StyledHeaderGrid>
   );
 }
 

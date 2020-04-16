@@ -1,4 +1,3 @@
-import { BottomNavigationAction } from '@material-ui/core';
 import {
   BusinessCenterOutlined,
   EmojiTransportation,
@@ -17,7 +16,7 @@ import {
   HOUSING,
   INDUSTRY
 } from '../../redux/graphs/constants';
-import { useOptionsButtonsStyles } from './styles';
+import { StyledBottomNav } from './styles';
 import { InitiativeIcon } from './types';
 
 /*
@@ -27,37 +26,35 @@ import { InitiativeIcon } from './types';
 
 function OptionsButtons() {
   const dispatch = useDispatch();
-  const classes = useOptionsButtonsStyles();
   const initiativeIcons: InitiativeIcon[] = [
     {
       name: INDUSTRY,
-      icon: <EmojiTransportation key={uuid()} fontSize={'large'} />
+      icon: <EmojiTransportation key={uuid()} fontSize="large" />
     },
     {
       name: DEMOGRAPHICS,
-      icon: <PeopleAltOutlined key={uuid()} fontSize={'large'} />
+      icon: <PeopleAltOutlined key={uuid()} fontSize="large" />
     },
     {
       name: ASSETS,
-      icon: <BusinessCenterOutlined key={uuid()} fontSize={'large'} />
+      icon: <BusinessCenterOutlined key={uuid()} fontSize="large" />
     },
     {
       name: EDUCATION,
-      icon: <SchoolOutlined key={uuid()} fontSize={'large'} />
+      icon: <SchoolOutlined key={uuid()} fontSize="large" />
     },
     {
       name: HOUSING,
-      icon: <HouseOutlined key={uuid()} fontSize={'large'} />
+      icon: <HouseOutlined key={uuid()} fontSize="large" />
     }
   ];
 
   const initiatives = () => {
     return initiativeIcons.map((initiative, index) => {
       return (
-        <BottomNavigationAction
+        <StyledBottomNav
           showLabel={true}
           key={index}
-          className={classes.root}
           label={initiative.name}
           icon={initiative.icon}
           onClick={() =>

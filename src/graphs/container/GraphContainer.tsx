@@ -1,11 +1,10 @@
-import { Box } from '@material-ui/core';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { uuid } from 'uuidv4';
 import { getGraphs } from '../../redux/graphs/selector';
 import GraphDefault from '../components/GraphDefault';
 import GraphPrebuilt from '../components/GraphPrebuilt';
-import { useGraphContainerStyles } from './styles';
+import { StyledGraphComponent, StyledGraphContainer } from './styles';
 
 /*
  * Renders a list of graphs.
@@ -14,7 +13,6 @@ import { useGraphContainerStyles } from './styles';
  */
 function GraphContainer() {
   const graphState = useSelector(getGraphs);
-  const classes = useGraphContainerStyles();
 
   /*
    * Creates a component for each graph. The default graph is separately
@@ -25,15 +23,15 @@ function GraphContainer() {
    */
   const getGraphComponents = () => {
     const graphs = graphState.graphs.map((graph, index) => (
-      <Box key={index} className={classes.item}>
+      <StyledGraphComponent key={index}>
         <GraphPrebuilt graph={graph} />
-      </Box>
+      </StyledGraphComponent>
     ));
     // TODO: change the way default graphs are handled
     return [...graphs, <GraphDefault key={uuid()} />];
   };
 
-  return <Box className={classes.root}>{getGraphComponents()}</Box>;
+  return <StyledGraphContainer>{getGraphComponents()}</StyledGraphContainer>;
 }
 
 export default GraphContainer;

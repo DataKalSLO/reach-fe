@@ -1,17 +1,16 @@
-import {
-  BottomNavigation,
-  BottomNavigationAction,
-  Typography
-} from '@material-ui/core';
-import Drawer from '@material-ui/core/Drawer';
-import Popover from '@material-ui/core/Popover';
+import { BottomNavigationAction, Drawer } from '@material-ui/core';
 import { ArrowUpward, Close } from '@material-ui/icons';
 import clsx from 'clsx';
 import React, { Fragment } from 'react';
 import { IconButton } from '../../common/components/IconButton';
 import OptionsButtons from '../components/OptionsButtons';
 import { INITIATIVE_DESC } from './constants';
-import { useOptionsStyles } from './styles';
+import {
+  StyledBottomNav,
+  StyledPopover,
+  StyledTypography,
+  useOptionsStyles
+} from './styles';
 
 /*
  * The toolbar that displays a button for each initiative.
@@ -44,7 +43,7 @@ function OptionsBar() {
   return (
     <Fragment>
       <IconButton
-        ariaLabel={'expand options bar'}
+        ariaLabel="expand options bar"
         icon={<ArrowUpward />}
         area-describeby={id}
         onClick={toggleDrawer}
@@ -52,8 +51,7 @@ function OptionsBar() {
         onMouseLeave={handlePopoverClose}
         className={clsx(classes.menuButton, open && classes.hide)}
       />
-      <Popover
-        className={classes.popover}
+      <StyledPopover
         id={id}
         open={popoverIsOpen}
         anchorEl={anchorEl}
@@ -61,26 +59,23 @@ function OptionsBar() {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         transformOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
-        <Typography className={classes.typography}>
-          {INITIATIVE_DESC}
-        </Typography>
-      </Popover>
+        <StyledTypography>{INITIATIVE_DESC}</StyledTypography>
+      </StyledPopover>
       <Drawer
-        className={classes.drawer}
         anchor="bottom"
         variant="persistent"
         open={open}
         classes={{ paper: classes.drawerPaper }}
       >
-        <BottomNavigation showLabels className={classes.nav}>
+        <StyledBottomNav showLabels>
           <BottomNavigationAction
+            color="error"
             onClick={toggleDrawer}
             label="Exit"
-            icon={<Close fontSize={'large'} />}
-            style={{ color: 'red' }}
+            icon={<Close fontSize="large" color="error" />}
           />
           <OptionsButtons />
-        </BottomNavigation>
+        </StyledBottomNav>
       </Drawer>
     </Fragment>
   );
