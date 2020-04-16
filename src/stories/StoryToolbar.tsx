@@ -11,6 +11,7 @@ import {
 import React, { Dispatch } from 'react';
 import { useDispatch } from 'react-redux';
 import { createEmptyTextBlock } from '../redux/story/actions';
+import { togglePreview } from '../redux/storybuilder/actions';
 import { StoryActionType } from '../redux/story/types';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -102,8 +103,8 @@ const utilityButtonContentList: ToolbarButtonContents[] = [
   {
     title: 'Preview Story',
     icon: <Visibility />,
-    useDispatch: false,
-    onClick: () => alert('Not implemented')
+    useDispatch: true,
+    onClick: togglePreview
   }
 ];
 
