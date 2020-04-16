@@ -2,7 +2,6 @@ import {
   createMuiTheme as createTheme,
   responsiveFontSizes
 } from '@material-ui/core/styles';
-import teal from '@material-ui/core/colors/teal';
 
 // Material UI's theming/styling solution
 //  https://material-ui.com/styles/basics/
@@ -10,10 +9,13 @@ import teal from '@material-ui/core/colors/teal';
 export const theme = responsiveFontSizes(
   createTheme({
     palette: {
-      primary: teal,
+      primary: { main: '#73bfa1' },
+      secondary: { main: '#f1b71c' },
       action: {
-        disabledBackground: teal
-      }
+        disabledBackground: { main: '#7b9a92' }
+      },
+      contrastThreshold: 3,
+      tonalOffset: 0.2
     },
     status: {
       danger: 'red'
@@ -25,3 +27,5 @@ export const theme = responsiveFontSizes(
     }
   })
 );
+
+export const NAV_BAR_COLOR = '#283c46';

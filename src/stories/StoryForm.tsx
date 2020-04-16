@@ -1,7 +1,8 @@
-import { Box, Button, styled, TextField, Typography } from '@material-ui/core';
-import { Save } from '@material-ui/icons';
-import React from 'react';
+import { Box, styled, TextField, Typography } from '@material-ui/core';
+import { Save, Visibility } from '@material-ui/icons';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '../common/components/Button';
 import { updateDescription, updateTitle } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
@@ -68,14 +69,12 @@ export default function StoryForm() {
 
         <SortableList storyBlocks={story.storyBlocks} />
 
-        <ButtonWithLeftIcon
-          variant="contained"
-          color="primary"
+        <Button
           onClick={saveStory}
+          label="Save Story"
           startIcon={<Save />}
-        >
-          Save Story
-        </ButtonWithLeftIcon>
+          edge="start"
+        />
       </StyledBox>
     );
   }
@@ -83,11 +82,6 @@ export default function StoryForm() {
 
 const StyledBox = styled(Box)({
   margin: '20px 10px 20px 10px'
-});
-
-const ButtonWithLeftIcon = styled(Button)({
-  // left margin is 0px to prevent indent
-  margin: '10px 10px 10px 0px'
 });
 
 const StyledTextField = styled(TextField)({
