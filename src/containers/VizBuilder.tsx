@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 import { Grid, Container } from '@material-ui/core';
+import { styled } from '@material-ui/core/styles';
 import Map from '../maps/Map';
-import Graph from '../graphs/Graph';
 import SplitterLayout from 'react-splitter-layout';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import { styled } from '@material-ui/core/styles';
-
+import GraphContainer from '../graphs/container/GraphContainer';
+import OptionsBar from '../graphs/container/OptionsBar';
 import 'react-splitter-layout/lib/index.css';
 
 function VizBuilder() {
@@ -26,10 +26,11 @@ function VizBuilder() {
           </StyledGrid>
           <StyledGrid item xs={12}>
             <RightArrow fontSize={'large'} />
-            <Graph />
+            <GraphContainer />
           </StyledGrid>
         </SplitterLayout>
       </StyledContainer>
+      <OptionsBar />
     </Fragment>
   );
 }
