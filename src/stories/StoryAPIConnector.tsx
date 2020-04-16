@@ -7,98 +7,92 @@ import {
   TEXT_BLOCK_DB_TYPE,
   TEXT_BLOCK_TYPE
 } from './StoryTypes';
+import { EditorState, convertFromRaw } from 'draft-js';
 
-/* The types of actions that mutate a story and
- * expect a Story to be returned from BEND.
- */
-enum StoryMutateAction {
-  CREATE_STORY,
-  UPDATE_STORY
+enum StoryActions {
+  CREATE,
+  UPDATE,
+  DELETE_WITH_ID,
+  GET_ALL_STORIES
 }
 
-/* Transforms Story to CreateStory API call specifications,
- * makes call, then returns created Story.
- */
-export function saveStory(story: Story): Promise<Story> {
-  return mutateStory(story, StoryMutateAction.CREATE_STORY);
+type StoryApiResponse = string | Story | Array<Story>;
+type StoryApiPayload = string | DatabaseStory;
+
+export function saveStory(story: Story): Promise<string> {
+  const databaseStory = transformStoryToDatabaseStory(story);
+  return httpRequestWithStringResponse(StoryActions.CREATE, databaseStory);
 }
 
-/* Transforms Story to UpdateStory API call specifications,
- * makes call, then returns created Story.
- */
-export function updateStory(story: Story): Promise<Story> {
-  return mutateStory(story, StoryMutateAction.UPDATE_STORY);
+export function updateStory(story: Story): Promise<string> {
+  const databaseStory = transformStoryToDatabaseStory(story);
+  return httpRequestWithStringResponse(StoryActions.UPDATE, databaseStory);
 }
 
-/* Deletes the Story and StoryBlocks associated with given StoryID from the database.
- * Returns the id of the StoryDeleted.
- */
-export function deleteStory(storyID: Story): Promise<string> {
-  return new Promise<string>((resolve, reject) => {
-    del(['story', storyID].join('/'))
-      .then(data => {
-        resolve(data);
-      })
-      .catch(e => reject(e));
-  });
+export function deleteStory(story: Story): Promise<string> {
+  return httpRequestWithStringResponse(StoryActions.DELETE_WITH_ID, story.id);
 }
 
-/* Returns a list of all the stories in the database.
- */
-export function getAllStories(): Promise<Story[]> {
-  return new Promise<Story[]>((resolve, reject) => {
-    get('story')
-      .then(responseObject =>
-        resolve(responseObject.map(transformAPIResponseToStory))
-      )
-      .catch(e => reject(e));
-  });
+export async function getStoryWithStoryID(storyID: string): Promise<Story> {
+  return transformAPIResponseToStory(get(['story', storyID].join('/')));
 }
 
-/* Returns a Story having the given StoryID.
- */
-export function getStoryWithStoryID(
-  storyID: string
-): Promise<Story> {
-  return new Promise<Story>((resolve, reject) => {
-    get(['story', storyID].join('/'))
-      .then(responseObject =>
-        resolve(transformAPIResponseToStory(responseObject))
-      )
-      .catch(e => reject(e));
-  });
+export async function getAllStories(): Promise<Story[]> {
+  return httpRequestWithStoryArrayResponse(StoryActions.GET_ALL_STORIES);
 }
 
-/* Groups all actions that require transforming a Story and sending the result to a
- * mutate API post, put, delete
- * TODO: Merge Update and Create functionality into the PUT request
- */
-function mutateStory(
-  story: Story,
-  actionType: StoryMutateAction
-): Promise<Story> {
-  return new Promise<Story>((resolve, reject) => {
-    let promiseResponse;
-    const databaseStory = transformStoryToDatabaseStory(story);
-    switch (actionType) {
-      case StoryMutateAction.CREATE_STORY:
-        promiseResponse = post('story', databaseStory);
-        break;
-      case StoryMutateAction.UPDATE_STORY:
-        promiseResponse = put('story', databaseStory);
-        break;
-      default:
-        throw new Error(
-          'Unimplemented mutation action on Story: ' + actionType
-        );
-    }
-    promiseResponse.then(data => resolve(data)).catch(e => reject(e));
-  });
+async function httpRequestWithStoryArrayResponse(
+  actionType: StoryActions,
+  payload: StoryApiPayload | void
+): Promise<Array<Story>> {
+  const response: StoryApiResponse = await storyHttp(actionType, payload);
+  if (response as Array<Story>) {
+    return response as Array<Story>;
+  } else {
+    throw new Error(
+      'Expected a string to be returned by call story action: ' + actionType
+    );
+  }
 }
 
-/* Performs the necessary operations to convert a Story to the
- * expected object format on the backend.
- */
+async function httpRequestWithStringResponse(
+  actionType: StoryActions,
+  payload: StoryApiPayload
+): Promise<string> {
+  const response: StoryApiResponse = await storyHttp(actionType, payload);
+  if (response as string) {
+    return response as string;
+  } else {
+    throw new Error(
+      'Expected a string to be returned by call story action: ' + actionType
+    );
+  }
+}
+
+async function storyHttp(
+  actionType: StoryActions,
+  payload: StoryApiPayload | void
+): Promise<StoryApiResponse> {
+  let response: unknown;
+  switch (actionType) {
+    case StoryActions.CREATE:
+      response = post('story', payload as object);
+      break;
+    case StoryActions.UPDATE:
+      response = put('story', payload as object);
+      break;
+    case StoryActions.GET_ALL_STORIES:
+      response = get('story');
+      break;
+    case StoryActions.DELETE_WITH_ID:
+      response = del('story/' + payload);
+      break;
+    default:
+      throw new Error('Unimplemented mutation action on Story: ' + actionType);
+  }
+  return response as StoryApiResponse;
+}
+
 function transformStoryToDatabaseStory(story: Story): DatabaseStory {
   return {
     ...story,
@@ -106,9 +100,7 @@ function transformStoryToDatabaseStory(story: Story): DatabaseStory {
   };
 }
 
-/* Serialies the EditorState of a given TextBlock to a string.
- * StoryBlock is returned if not a TextBlock;
- */
+//Serialies the EditorState of a given TextBlock to a string.
 function transformStoryBlockToDatabaseStoryBlock(
   storyBlock: StoryBlock
 ): DatabaseStoryBlock {
@@ -124,11 +116,7 @@ function transformStoryBlockToDatabaseStoryBlock(
   }
 }
 
-/* Converts from StoryDB to Story. This is necessary because some
- * values are represented differently between BEND and FEND.
- * specifically, unstructured JSON like EditorState (from DraftJS)
- * is stored as a string on the backend.
- */
+//Parses any types in each story block
 function transformAPIResponseToStory(apiResponse: object): Story {
   if (apiResponse as DatabaseStory) {
     const databaseStory: DatabaseStory = apiResponse as DatabaseStory;
@@ -142,9 +130,7 @@ function transformAPIResponseToStory(apiResponse: object): Story {
   throw new Error('API response object not in Story format');
 }
 
-/* Parses a TextBlockDB's the stringified EditorState's into a DraftJS's EditorState.
- * StoryBlock is returned if not a TextBlock;
- */
+//Parses a TextBlockDB's the stringified EditorState's into a DraftJS's EditorState.
 function transformDatabaseStoryBlockToStoryBlock(
   storyBlock: DatabaseStoryBlock
 ): StoryBlock {
@@ -154,8 +140,8 @@ function transformDatabaseStoryBlockToStoryBlock(
         ...storyBlock,
         type: TEXT_BLOCK_TYPE,
         editorState: EditorState.createWithContent(
-          convertFromRaw(SON.parse(storyBlock.editorState))
-      )
+          convertFromRaw(JSON.parse(storyBlock.editorState))
+        )
       };
     default:
       return storyBlock;
