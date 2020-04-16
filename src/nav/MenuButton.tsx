@@ -21,7 +21,10 @@ export interface MenuButtonProps {
 function MenuButton(props: MenuButtonProps) {
   const { name, navigateToRoute } = props;
   return (
-    <StyledButton onClick={navigateToRoute}>
+    <StyledButton
+      id={`menu-button-${name.replace(' ', '-')}`}
+      onClick={navigateToRoute}
+    >
       <StyledTypography variant="body1" noWrap>
         {name}
       </StyledTypography>
