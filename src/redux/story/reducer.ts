@@ -8,6 +8,7 @@ import {
 } from '../../stories/StoryTypes';
 import {
   CREATE_EMPTY_TEXT_BLOCK,
+  Story,
   StoryActionType,
   SWAP_BLOCKS,
   UpdateBlockType,
@@ -22,7 +23,7 @@ export const emptyTextBlock: TextBlock = {
   type: TEXT_BLOCK_TYPE
 };
 
-const initialStory = {
+const initialStory: Story = {
   id: uuid(),
   userID: 'USER-ID', // TODO: replace placeholder value
   title: '',

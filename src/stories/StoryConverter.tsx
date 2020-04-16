@@ -9,11 +9,11 @@ import {
   GRAPH_BLOCK_TYPE,
   MapBlock,
   MAP_BLOCK_TYPE,
-  Story,
   StoryBlock,
   TextBlock,
   TEXT_BLOCK_TYPE
 } from './StoryTypes';
+import { Story } from '../redux/story/types';
 
 export function convertStoryToJSX(story: Story): JSX.Element {
   const createPublicationDateString = () => {

@@ -1,11 +1,19 @@
 import { EditorState } from 'draft-js';
-import { TextBlock } from '../../stories/StoryTypes';
+import { StoryBlock, TextBlock } from '../../stories/StoryTypes';
 
 export const CREATE_EMPTY_TEXT_BLOCK = 'CREATE_EMPTY_TEXT_BLOCK';
 export const UPDATE_TEXT_BLOCK = 'UPDATE_TEXT_BLOCK';
 export const SWAP_BLOCKS = 'SWAP_BLOCKS';
 export const UPDATE_TITLE = 'UPDATE_TITLE';
 export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
+
+export interface Story {
+  id: string;
+  userID: string;
+  title: string;
+  description: string;
+  storyBlocks: Array<StoryBlock>;
+}
 
 export interface CreateEmptyTextBlockAction {
   type: typeof CREATE_EMPTY_TEXT_BLOCK;

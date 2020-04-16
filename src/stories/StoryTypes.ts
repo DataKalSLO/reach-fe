@@ -1,17 +1,5 @@
 import { EditorState } from 'draft-js';
 
-export interface StoryBuilderState {
-  isPreviewSelected: boolean;
-}
-
-export interface Story {
-  id: string;
-  userID: string;
-  title: string;
-  description: string;
-  storyBlocks: Array<StoryBlock>;
-}
-
 export const TEXT_BLOCK_TYPE = 'Text';
 export const GRAPH_BLOCK_TYPE = 'Graph';
 export const MAP_BLOCK_TYPE = 'Map';

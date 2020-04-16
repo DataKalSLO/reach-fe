@@ -1,5 +1,8 @@
-import { StoryBuilderState } from '../../stories/StoryTypes';
-import { StoryActionType, TOGGLE_PREVIEW } from './types';
+import {
+  StoryBuilderState,
+  StoryBuilderActionType,
+  TOGGLE_PREVIEW
+} from './types';
 
 const initialStoryBuilderState = {
   isPreviewSelected: false
@@ -7,7 +10,7 @@ const initialStoryBuilderState = {
 
 export function storyBuilderReducer(
   state = initialStoryBuilderState,
-  action: StoryActionType
+  action: StoryBuilderActionType
 ): StoryBuilderState {
   switch (action.type) {
     case TOGGLE_PREVIEW:
