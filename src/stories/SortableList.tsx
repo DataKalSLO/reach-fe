@@ -17,7 +17,7 @@ import {
   StoryBlock,
   TextBlock,
   TEXT_BLOCK_TYPE
-} from './StoryTypes';
+} from '../redux/story/types';
 
 // The input to the sortable list, objects to be converted into JSX.Elements
 interface SortableListProps {
