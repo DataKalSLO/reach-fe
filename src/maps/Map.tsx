@@ -1,27 +1,63 @@
 import React, { useState } from 'react';
-import ReactMapGL from 'react-map-gl';
+import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/median_income_data.js';
+import { markerData } from '../common/assets/Local Data/MockMarkerData';
+import { GeoFilter } from './FiltersComponent';
+import LayersComponent from './LayersComponent';
+import { BoundSelection } from './MapTypes.js';
+import MapView from './MapView';
+import SourceLabels from './SourcesComponent';
+
+// TODO: save to stories
+// TODO: use redux store instead of state
+
+const defaultMarkerSelection = markerData[0];
+const defaultHeatMapSelection = medianHouseholdIncomeHeatMap;
+const defaultBoundsSelection: BoundSelection = 'Zip Code';
 
 function Map() {
-  const [viewport, setViewport] = useState({
-    width: 620,
-    height: 550,
-    latitude: 35.2828,
-    longitude: -120.6596,
-    zoom: 8
-  });
-
+  const [markerSelection, setMarkerSelection] = useState([
+    defaultMarkerSelection
+  ]);
+  const [heatMapSelection, setHeatMapSelection] = useState(
+    defaultHeatMapSelection
+  );
+  const [selectedMarker, setSelectedMarker] = useState(
+    defaultMarkerSelection.features[0]
+  );
+  // TODO: consider putting these in legend so they are associated with their data sets
+  const [dataSources, setDataSources] = useState([
+    {
+      key: 0,
+      label: defaultMarkerSelection.source
+    },
+    {
+      key: 1,
+      label: defaultHeatMapSelection.source
+    }
+  ]);
+  const [boundSelection, setBoundSelection] = useState(defaultBoundsSelection);
   return (
     <div>
-      <div>
-        <h3>Central Coast map</h3>
-      </div>
-      <ReactMapGL
-        mapboxApiAccessToken={
-          'pk.eyJ1IjoiYWljaG91cmkiLCJhIjoiY2s3MzBzOHp0MDNrbjNtbW1rNGR2NHl4aCJ9.3SGwGK8OmEVnrt0RtrRidQ'
-        }
-        {...viewport}
-        onViewportChange={setViewport}
+      <LayersComponent
+        markerSelection={markerSelection}
+        setMarkerSelection={setMarkerSelection}
+        heatMapSelection={heatMapSelection}
+        setHeatMapSelection={setHeatMapSelection}
+        selectedMarker={selectedMarker}
+        setSelectedMarker={setSelectedMarker}
+        setDataSources={setDataSources}
       />
+      <MapView
+        markerSelection={markerSelection}
+        heatMapSelection={heatMapSelection}
+        selectedMarker={selectedMarker}
+        setSelectedMarker={setSelectedMarker}
+      />
+      <GeoFilter
+        boundSelection={boundSelection}
+        setBoundSelection={setBoundSelection}
+      />
+      <SourceLabels dataSources={dataSources} />
     </div>
   );
 }

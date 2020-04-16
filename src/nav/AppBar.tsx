@@ -1,47 +1,45 @@
+import { Button, Grid } from '@material-ui/core';
+import MuiAppBar from '@material-ui/core/AppBar';
+import IconButton from '@material-ui/core/IconButton';
+import { styled } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import MuiAppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import Typography from '@material-ui/core/Typography';
-import { styled } from '@material-ui/core/styles';
-import { Grid, Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import MenuButton from './MenuButton';
+import AccountDropdown from '../containers/AccountDropdown';
 import { getUser } from '../redux/login/selectors';
+import { NAV_BAR_COLOR } from '../theme/theme';
 import {
-  HOME,
-  HOME_NAME,
+  CREATE_ACCOUNT,
   EXPLORE,
   EXPLORE_NAME,
-  VIZ_BUILDER,
-  VIZ_BUILDER_NAME,
-  STORY_BUILDER,
-  STORY_BUILDER_NAME,
-  MY_STUFF,
-  MY_STUFF_NAME,
+  HOME,
   LOGIN,
   LOGIN_NAME,
-  CREATE_ACCOUNT
+  MY_STUFF,
+  MY_STUFF_NAME,
+  STORY_BUILDER,
+  STORY_BUILDER_NAME,
+  VIZ_BUILDER,
+  VIZ_BUILDER_NAME
 } from './constants';
-import AccountDropdown from '../containers/AccountDropdown';
+import MenuButton from './MenuButton';
 
-const ButtonWithoutHover = styled(Button)({
-  textTransform: 'none',
-  '&:hover': {
-    backgroundColor: 'transparent'
-  }
-});
+const ReachLogoWhite = () => {
+  return (
+    <img
+      src={require('../common/assets/reach_logo_white.png')}
+      alt="Reach wordmark logo"
+      width="100%"
+    />
+  );
+};
 
 const StyledMuiAppBar = styled(MuiAppBar)({
-  background: 'linear-gradient(90deg, #586571 -3.4%, #65BDAF 101.98%);'
-});
-
-const StyledTypography = styled(Typography)({
-  flexGrow: 1,
-  display: 'block',
-  color: 'white'
+  background: NAV_BAR_COLOR,
+  // necessary to put appbar in front of story builder toolbar
+  position: 'sticky'
 });
 
 const displayAppBar = (menu: JSX.Element) => {
@@ -78,11 +76,9 @@ function AppBar() {
       spacing={3}
     >
       <Grid item xs={1}>
-        <ButtonWithoutHover onClick={navigateTo(HOME)}>
-          <StyledTypography variant="h6" noWrap>
-            {HOME_NAME}
-          </StyledTypography>
-        </ButtonWithoutHover>
+        <Button onClick={navigateTo(HOME)}>
+          <ReachLogoWhite />
+        </Button>
       </Grid>
       <Grid
         item
@@ -113,7 +109,7 @@ function AppBar() {
           />
         </Grid>
       </Grid>
-      <Grid container justify="flex-end" xs={2}>
+      <Grid item container justify="flex-end" xs={2}>
         <Grid item>
           {user.email ? (
             <React.Fragment>

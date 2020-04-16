@@ -11,11 +11,9 @@ phases:
     commands:
       - echo Build started on `date`
       - npm run build
+      # temporary workaround while we get separate testing stage working
+      - CI=true npm run test
 
 artifacts:
   files:
     - '**/*'
-    
-cache:
-  paths:
-    - './node_modules/**/*'

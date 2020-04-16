@@ -1,21 +1,13 @@
 import React, { Fragment } from 'react';
 import { Grid, Container } from '@material-ui/core';
-import { useVizBuilderStyles } from '../graphs/container/styles';
-import GraphContainer from '../graphs/container/GraphContainer';
 import Map from '../maps/Map';
+import Graph from '../graphs/Graph';
 import SplitterLayout from 'react-splitter-layout';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import { styled } from '@material-ui/core/styles';
+
 import 'react-splitter-layout/lib/index.css';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import Options from '../graphs/container/Options';
-import DrilldownDOD from '../graphs/DrillDownDOD';
-
-export interface OptionsProp {
-  onClickHandle(grpahOptions: any): void;
-}
-
-export interface ContainerProps {
-  clicked: any;
-}
 
 function VizBuilder() {
   const classes = useVizBuilderStyles();
@@ -26,27 +18,57 @@ function VizBuilder() {
 
   return (
     <Fragment>
-      <Container className={classes.root} maxWidth={'xl'}>
+      <StyledContainer maxWidth={'xl'}>
         <SplitterLayout>
-          <Grid item className={classes.grid} xs={12}>
-            <ArrowBackIosIcon
-              className={classes.leftNav}
-              fontSize={'default'}
-            />
+          <StyledGrid item xs={12}>
+            <LeftArrow fontSize={'large'} />
             <Map />
-          </Grid>
-          <Grid item className={classes.grid} xs={12}>
-            <ArrowBackIosIcon
-              className={classes.rightNav}
-              fontSize={'default'}
-            />
-            <GraphContainer clicked={state} />
-          </Grid>
+          </StyledGrid>
+          <StyledGrid item xs={12}>
+            <RightArrow fontSize={'large'} />
+            <Graph />
+          </StyledGrid>
         </SplitterLayout>
-      </Container>
-      <Options onClickHandle={handleOptionsClick} />
+      </StyledContainer>
     </Fragment>
   );
 }
+
+const StyledContainer = styled(Container)({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  height: '90vh',
+  padding: '0px',
+  position: 'relative',
+  overflow: 'hidden',
+  '& .splitter-layout .layout-pane': {
+    overflow: 'hidden'
+  }
+});
+
+const StyledGrid = styled(Grid)({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '100%',
+  overflow: 'hidden'
+});
+
+const LeftArrow = styled(NavigateBeforeIcon)({
+  right: '0',
+  top: '50%',
+  position: 'absolute',
+  zIndex: 500
+});
+
+const RightArrow = styled(NavigateNextIcon)({
+  left: '0',
+  top: '50%',
+  position: 'absolute',
+  zIndex: 500
+});
 
 export default VizBuilder;

@@ -37,7 +37,7 @@ interface SortableStoryContainerProps {
 const DragHandle = SortableHandle(() => (
   // This needs to be wrapped in a div to make the ripple the correct size
   <div>
-    <IconButton color="primary">
+    <IconButton color="primary" edge="start">
       <DragHandleIcon />
     </IconButton>
   </div>
