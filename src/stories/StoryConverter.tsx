@@ -9,16 +9,16 @@ import {
   GRAPH_BLOCK_TYPE,
   MapBlock,
   MAP_BLOCK_TYPE,
-  Story,
   StoryBlock,
   TextBlock,
   TEXT_BLOCK_TYPE
-} from './StoryTypes';
+} from '../redux/story/types';
+import { Story } from '../redux/story/types';
 
 export function convertStoryToJSX(story: Story): JSX.Element {
   const createPublicationDateString = () => {
     // FIXME: should pull the user's name
-    const username = 'Kevin Krein';
+    const username = 'Business Owner';
     return `By ${username} on ${new Date().toDateString()}`;
   };
 

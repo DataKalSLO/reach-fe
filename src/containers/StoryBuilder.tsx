@@ -7,14 +7,14 @@ import { StoryToolbar, STORY_TOOLBAR_WIDTH } from '../stories/StoryToolbar';
 export default function StoryBuilder() {
   return (
     <Container>
+      <StoryToolbar />
       <StoryFormContainer>
         <StoryForm />
       </StoryFormContainer>
-      <StoryToolbar />
     </Container>
   );
 }
 
 const StoryFormContainer = styled(Box)({
-  marginRight: STORY_TOOLBAR_WIDTH
+  marginLeft: STORY_TOOLBAR_WIDTH
 });

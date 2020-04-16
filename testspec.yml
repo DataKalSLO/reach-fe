@@ -11,7 +11,10 @@ phases:
     commands:
       - echo Testing...
       - CI=true npm run test
-
 artifacts:
   files:
     - '**/*'
+
+cache:
+  paths:
+    - './node_modules/**/*'

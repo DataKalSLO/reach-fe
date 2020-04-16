@@ -17,7 +17,7 @@ import {
   StoryBlock,
   TextBlock,
   TEXT_BLOCK_TYPE
-} from './StoryTypes';
+} from '../redux/story/types';
 
 // The input to the sortable list, objects to be converted into JSX.Elements
 interface SortableListProps {
@@ -37,7 +37,7 @@ interface SortableStoryContainerProps {
 const DragHandle = SortableHandle(() => (
   // This needs to be wrapped in a div to make the ripple the correct size
   <div>
-    <IconButton color="primary">
+    <IconButton color="primary" edge="start">
       <DragHandleIcon />
     </IconButton>
   </div>
