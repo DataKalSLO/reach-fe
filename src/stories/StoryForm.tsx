@@ -19,8 +19,6 @@ export default function StoryForm() {
   const TITLE_CHAR_LIMIT = 100;
   const DESCRIPTION_CHAR_LIMIT = 250;
 
-  // TODO: add validation of required fields
-  // TODO: Move preview selected into Redux to persist after user leaves page
   function saveStoryButtonAction() {
     alert(JSON.stringify(story, null, 2));
     story.userID = 'test@test.com'; //Existing user in database
