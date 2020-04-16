@@ -55,9 +55,10 @@ export function get(endpoint: string) {
   });
 }
 
-export function del(endpoint: string) {
+export function del(endpoint: string, body: object) {
   return tryFetch(baseURL + endpoint, {
     method: 'DELETE',
+    body: JSON.stringify(body),
     ...reqConf
   });
 }

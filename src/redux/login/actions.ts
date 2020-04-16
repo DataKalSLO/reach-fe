@@ -4,9 +4,10 @@ import {
   UserActionTypes,
   LOGIN,
   LOGOUT,
-  RegisterData
+  RegisterData,
+  DeleteData
 } from './types';
-import { login, postPerson } from '../../api/login';
+import { login, postPerson, deletePerson } from '../../api/login';
 import { Dispatch } from 'redux';
 
 export function loginAction(user: User): UserActionTypes {
@@ -26,7 +27,7 @@ export function loginUser(loginData: LoginData) {
 export function register(registerData: RegisterData) {
   return async (dispatch: Dispatch) => {
     dispatch(logoutAction());
-    await postPerson(registerData);
+    await postPerson(registerData); // what is registerData returns error message?
     const user = await login({
       email: registerData.email,
       password: registerData.password
@@ -37,4 +38,11 @@ export function register(registerData: RegisterData) {
 
 export function logoutAction(): UserActionTypes {
   return { type: LOGOUT };
+}
+
+export function deleteUser(deleteData: DeleteData) {
+  return async (dispatch: Dispatch) => {
+    await deletePerson(deleteData); // want something to return here to indicate error?
+    dispatch(logoutAction());
+  };
 }
