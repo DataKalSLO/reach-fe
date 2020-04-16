@@ -9,7 +9,7 @@ phases:
       - npm install
   build:
     commands:
-      - echo Testing...
+      - echo Testing..
       - CI=true npm run test
 artifacts:
   files:
