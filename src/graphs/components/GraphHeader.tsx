@@ -1,12 +1,15 @@
+import { Grid } from '@material-ui/core';
+import { Delete, Edit, FileCopy, Save } from '@material-ui/icons';
 import React from 'react';
-import GraphShareButton from './GraphShareButton';
 import { useDispatch } from 'react-redux';
+import { IconButton } from '../../common/components/IconButton';
+import {
+  deleteGraphAction,
+  duplicateGraphAction
+} from '../../redux/graphs/actions';
+import { DEFAULT_KEY } from './constants';
 import { useGraphHeaderStyles } from './styles';
-import { Grid, Button } from '@material-ui/core';
-import { Delete, Save, FileCopy, Edit } from '@material-ui/icons';
-import * as actions from '../../redux/graphs/actions';
-import * as consts from './constants';
-import * as types from './types';
+import { GraphHeaderProps } from './types';
 
 /*
  * Contains the buttons rendered on the header of a graph.
@@ -15,55 +18,43 @@ import * as types from './types';
  *       will get removed when we connect to the backend.
  */
 
-function GraphHeader({ graph }: types.GraphHeaderProps) {
+function GraphHeader({ graph }: GraphHeaderProps) {
   const classes = useGraphHeaderStyles();
   const dispatch = useDispatch();
-  const defaultFlag = graph.id === consts.DEFAULT_KEY;
+  // TODO: change the way default graphs are handled
+  const defaultFlag = graph.id === DEFAULT_KEY;
 
   return (
     <Grid container className={classes.root}>
-      <Button
-        variant="contained"
-        className={classes.button}
-        style={{ color: 'red' }}
-        startIcon={<Delete />}
+      <IconButton
+        style={{ color: 'error' }}
+        ariaLabel={'delete graph'}
+        icon={<Delete />}
         onClick={() => {
           if (!defaultFlag) {
-            dispatch(actions.deleteGraphAction(graph.id));
+            dispatch(deleteGraphAction(graph.id));
           }
         }}
-      >
-        {consts.DELETE_LABEL}
-      </Button>
-      <Button
-        variant="contained"
-        className={classes.button}
-        startIcon={<Save />}
+      />
+      <IconButton
+        ariaLabel={'save graph'}
+        icon={<Save />}
         onClick={() => alert('Not implemented')}
-      >
-        {consts.SAVE_LABEL}
-      </Button>
-      <Button
-        variant="contained"
-        className={classes.button}
-        startIcon={<Edit />}
+      />
+      <IconButton
+        ariaLabel={'edit graph'}
+        icon={<Edit />}
         onClick={() => alert('Not implemented')}
-      >
-        {consts.EDIT_LABEL}
-      </Button>
-      <Button
-        variant="contained"
-        className={classes.button}
-        startIcon={<FileCopy />}
+      />
+      <IconButton
+        ariaLabel={'duplicate graph'}
+        icon={<FileCopy />}
         onClick={() => {
           if (!defaultFlag) {
-            dispatch(actions.duplicateGraphAction(graph.options));
+            dispatch(duplicateGraphAction(graph.options));
           }
         }}
-      >
-        {consts.DUPLICATE_LABEL}
-      </Button>
-      <GraphShareButton />
+      />
     </Grid>
   );
 }

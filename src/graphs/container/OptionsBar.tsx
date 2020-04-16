@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import clsx from 'clsx';
-import IconButton from '@material-ui/core/IconButton';
+import {IconButton} from '../../common/components/IconButton';
 import Drawer from '@material-ui/core/Drawer';
 import Popover from '@material-ui/core/Popover';
 import OptionsButtons from '../components/OptionsButtons';
@@ -48,14 +48,14 @@ function OptionsBar() {
   return (
     <Fragment>
       <IconButton
+        ariaLabel={'expand options bar'}
+        icon={<ArrowUpward />}
         area-describeby={id}
         onClick={handleDrawerOpen}
         onMouseEnter={handlePopoverOpen}
         onMouseLeave={handlePopoverClose}
         className={clsx(classes.menuButton, open && classes.hide)}
-      >
-        <ArrowUpward fontSize={'large'} />
-      </IconButton>
+      />
       <Popover
         className={classes.popover}
         id={id}
