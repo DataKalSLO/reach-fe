@@ -1,0 +1,23 @@
+import { defenseOptions } from './dod-2018';
+import { incomeInequalityOptions } from './income-inequality';
+import { wagesOptions } from './real-mean-wages';
+import { airportsOptions } from './airports';
+import { collegeGraduatesOptions } from './college-graduates';
+import { statsOfBusinessOptions } from './stats-of-business';
+import { medianIncomeOptions } from './median-income';
+import { highschoolOptions } from './percent-highschool';
+import { milesTraveledOptions } from './miles-traveled';
+import { medianListOptions } from './median-list-price';
+import { medianSaleOptions } from './median-sale-price';
+
+export const defenseGraphOptions = defenseOptions;
+export const incomeInequalityGraphOptions = incomeInequalityOptions;
+export const wagesGraphOptions = wagesOptions;
+export const airportsGraphOptions = airportsOptions;
+export const collegeGraduatesGraphOptions = collegeGraduatesOptions;
+export const statsOfBusinessGraphOptions = statsOfBusinessOptions;
+export const medianIncomeGraphOptions = medianIncomeOptions;
+export const highschoolGraphOptions = highschoolOptions;
+export const milesTraveledGraphOptions = milesTraveledOptions;
+export const medianListGraphOptions = medianListOptions;
+export const medianSaleGraphOptions = medianSaleOptions;
