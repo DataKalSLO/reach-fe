@@ -106,6 +106,7 @@ const EditorToolbar = (props: Props) => {
           <MenuItem value={'header-six'}>Heading 6</MenuItem>
         </StyledTextField>
 
+        {/* TODO: refactor these to use the common IconButton */}
         <IconButton onClick={() => onClickInlineStyle('BOLD')}>
           <FormatBold />
         </IconButton>
