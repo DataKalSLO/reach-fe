@@ -25,65 +25,60 @@ export default function StoryForm() {
   }
 
   // TODO: add validation of required fields
-  function displayBody(): JSX.Element {
-    if (previewSelected) {
-      return convertStoryToJSX(story);
-    } else {
-      return (
-        <div>
-          <Typography variant="h3">StoryBuilder</Typography>
-          <p>
-            Tell us a compelling story using data. Use the toolbar on the right
-            to add text blocks, graphs, static images, and dataset snippets to
-            help readers follow along with your findings and conclusions. Use
-            the drag handles to the left of each component if you want to
-            reorder them.
-          </p>
-          <StyledTextField
-            id="story-title-field"
-            label="Title"
-            variant="outlined"
-            fullWidth
-            required
-            margin="dense"
-            helperText={createCharCounter(story.title, TITLE_CHAR_LIMIT)}
-            inputProps={{ maxLength: TITLE_CHAR_LIMIT }}
-            onChange={event => dispatch(updateTitle(event.target.value))}
-            defaultValue={story ? story.title : ''}
-          />
-          <StyledTextField
-            id="story-description-field"
-            label="Description"
-            variant="outlined"
-            multiline
-            fullWidth
-            required
-            margin="dense"
-            helperText={createCharCounter(
-              story.description,
-              DESCRIPTION_CHAR_LIMIT
-            )}
-            inputProps={{ maxLength: DESCRIPTION_CHAR_LIMIT }}
-            onChange={event => dispatch(updateDescription(event.target.value))}
-            defaultValue={story ? story.description : ''}
-          />
+  if (previewSelected) {
+    return <StyledBox>{convertStoryToJSX(story)}</StyledBox>;
+  } else {
+    return (
+      <StyledBox>
+        <Typography variant="h3">StoryBuilder</Typography>
+        <p>
+          Tell us a compelling story using data. Use the toolbar on the right to
+          add text blocks, graphs, static images, and dataset snippets to help
+          readers follow along with your findings and conclusions. Use the drag
+          handles to the left of each component if you want to reorder them.
+        </p>
+        <StyledTextField
+          id="story-title-field"
+          label="Title"
+          variant="outlined"
+          fullWidth
+          required
+          margin="dense"
+          helperText={createCharCounter(story.title, TITLE_CHAR_LIMIT)}
+          inputProps={{ maxLength: TITLE_CHAR_LIMIT }}
+          onChange={event => dispatch(updateTitle(event.target.value))}
+          defaultValue={story ? story.title : ''}
+        />
+        <StyledTextField
+          id="story-description-field"
+          label="Description"
+          variant="outlined"
+          multiline
+          fullWidth
+          required
+          margin="dense"
+          helperText={createCharCounter(
+            story.description,
+            DESCRIPTION_CHAR_LIMIT
+          )}
+          inputProps={{ maxLength: DESCRIPTION_CHAR_LIMIT }}
+          onChange={event => dispatch(updateDescription(event.target.value))}
+          defaultValue={story ? story.description : ''}
+        />
 
-          <SortableList storyBlocks={story.storyBlocks} />
+        <SortableList storyBlocks={story.storyBlocks} />
 
-          <ButtonWithLeftIcon
-            variant="contained"
-            color="primary"
-            onClick={saveStory}
-            startIcon={<Save />}
-          >
-            Save Story
-          </ButtonWithLeftIcon>
-        </div>
-      );
-    }
+        <ButtonWithLeftIcon
+          variant="contained"
+          color="primary"
+          onClick={saveStory}
+          startIcon={<Save />}
+        >
+          Save Story
+        </ButtonWithLeftIcon>
+      </StyledBox>
+    );
   }
-
-  return <StyledBox>{displayBody()}</StyledBox>;
 }
 
 const StyledBox = styled(Box)({
