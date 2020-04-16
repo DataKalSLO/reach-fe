@@ -2,6 +2,9 @@ import { Dispatch } from 'redux';
 
 const baseURL = 'http://localhost:5000/';
 
+const esURL =
+  'https://search-hourglass-search-test-boatibipr2tvrekti6tuz7pghi.us-east-2.es.amazonaws.com/';
+
 const headers = new Headers();
 headers.set('Content-Type', 'application/JSON');
 
@@ -37,6 +40,18 @@ export function post(endpoint: string, body: object) {
     method: 'POST',
     body: JSON.stringify(body),
     ...reqConf
+  });
+}
+
+// TEMPORARY: will access ES index from backend in future, for now accessing ES directly from client
+export function esPost(endpoint: string, body: object) {
+  return tryFetch(esURL + endpoint, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
   });
 }
 
