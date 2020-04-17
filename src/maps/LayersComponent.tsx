@@ -5,6 +5,7 @@ import { styled } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import React from 'react';
+import { flatten } from 'lodash';
 import kitchenFaciltiesHeatMap from '../common/assets/Local Data/census/b25053.js';
 import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/median_income_data.js';
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
@@ -30,7 +31,7 @@ const ALLOWED_BOTH = 2;
 // all of the local data we have available
 // TODO: pull this from backend! need distinct split between marker & heat map
 const heatMapData = [medianHouseholdIncomeHeatMap, kitchenFaciltiesHeatMap];
-export const allData = [markerData, heatMapData].flat();
+export const allData = flatten([markerData, heatMapData]);
 
 const StyleBox = styled(Box)({
   display: 'flex',
