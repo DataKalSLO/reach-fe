@@ -6,6 +6,7 @@ import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/med
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
 import LayersComponent, { allData, handleDisable } from './LayersComponent';
 import { MarkerSelection } from './MapTypes.js';
+import { LocalDrinkSharp } from '@material-ui/icons';
 
 React.useLayoutEffect = React.useEffect;
 
