@@ -31,7 +31,7 @@ const ALLOWED_BOTH = 2;
 // all of the local data we have available
 // TODO: pull this from backend! need distinct split between marker & heat map
 const heatMapData = [medianHouseholdIncomeHeatMap, kitchenFaciltiesHeatMap];
-export const allData = flatten([markerData, heatMapData]);
+export const allData = flatten([markerData as any, heatMapData]);
 
 const StyleBox = styled(Box)({
   display: 'flex',
