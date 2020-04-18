@@ -10,10 +10,6 @@ export interface RegisterData {
   role: string;
 }
 
-export interface DeleteData {
-  id: number;
-}
-
 export interface User {
   email: string;
   token: string;
