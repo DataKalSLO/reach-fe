@@ -1,10 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import { Box, Button, styled, CircularProgress } from '@material-ui/core';
 import AccountTextField from '../common/components/AccountTextField';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { LoginData, DeleteData } from '../redux/login/types';
+import { LoginData } from '../redux/login/types';
 import { loginUser, deleteUser } from '../redux/login/actions';
+import { getUser } from '../redux/login/selectors';
 import { wrapWithCatch } from '../api/base';
 import { HOME } from '../nav/constants';
 
@@ -15,6 +16,8 @@ function ReachSignIn() {
   const [badLogin, setBadLogin] = useState(false);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+
+  const user = useSelector(getUser);
 
   const handleInputChangeEmail = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,9 +79,8 @@ function ReachSignIn() {
         fullWidth
         color="primary"
         onClick={() => {
-          setLoading(true);
           dispatch(
-            deleteUser({id: 0} as DeleteData) // how to get user id here?
+            deleteUser(user.email, user.token) // delete currently logged in user using current token as validation
           );
         }}
       >
