@@ -18,7 +18,7 @@ import { Story } from '../redux/story/types';
 export function convertStoryToJSX(story: Story): JSX.Element {
   const createPublicationDateString = () => {
     // FIXME: should pull the user's name
-    const username = 'Kevin Krein';
+    const username = 'Business Owner';
     return `By ${username} on ${new Date().toDateString()}`;
   };
 

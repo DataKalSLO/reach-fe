@@ -90,26 +90,26 @@ function AppBar() {
         spacing={8}
         wrap="nowrap"
       >
-        <Grid item key={EXPLORE_NAME} xs={1}>
+        <Grid item key={EXPLORE_NAME}>
           <MenuButton
             name={EXPLORE_NAME}
             navigateToRoute={navigateTo(EXPLORE)}
           />
         </Grid>
-        <Grid item key={VIZ_BUILDER_NAME} xs={1}>
+        <Grid item key={VIZ_BUILDER_NAME}>
           <MenuButton
             name={VIZ_BUILDER_NAME}
             navigateToRoute={navigateTo(VIZ_BUILDER)}
           />
         </Grid>
-        <Grid item key={STORY_BUILDER_NAME} xs={1}>
+        <Grid item key={STORY_BUILDER_NAME}>
           <MenuButton
             name={STORY_BUILDER_NAME}
             navigateToRoute={navigateTo(STORY_BUILDER)}
           />
         </Grid>
       </Grid>
-      <Grid container justify="flex-end" xs={2}>
+      <Grid item container justify="flex-end" xs={2}>
         <Grid item>
           {user.email ? (
             <React.Fragment>

@@ -13,6 +13,16 @@ import ThirdPartySignIn from './ThirdPartySignIn';
 import { HOME, CREATE_ACCOUNT } from '../nav/constants';
 import BoxCenter from '../common/components/BoxCenter';
 
+const ReachLogoBlack = () => {
+  return (
+    <img
+      src={require('../common/assets/reach_logo_black.jpg')}
+      alt="Reach wordmark logo"
+      width="100%"
+    />
+  );
+};
+
 function Login() {
   const history = useHistory();
   const navigateTo = (route: string) => () => history.push(route);
@@ -20,7 +30,9 @@ function Login() {
   return (
     <Box>
       <TopBox>
-        <Button onClick={navigateTo(HOME)}>REACH</Button>
+        <ReachButton onClick={navigateTo(HOME)}>
+          <ReachLogoBlack />
+        </ReachButton>
         <Button onClick={navigateTo(CREATE_ACCOUNT)}>CREATE ACCOUNT</Button>
       </TopBox>
 
@@ -58,6 +70,10 @@ const Title = styled(Typography)({
 
 const BoxPaddedTop = styled(BoxCenter)({
   paddingTop: '40px'
+});
+
+const ReachButton = styled(Button)({
+  width: '120px'
 });
 
 export default Login;
