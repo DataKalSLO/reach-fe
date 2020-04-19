@@ -22,6 +22,7 @@ import { createEmptyTextBlock } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import { Story, StoryActionType } from '../redux/story/types';
 import { togglePreview } from '../redux/storybuilder/actions';
+import { saveStory } from './StoryAPIConnector';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -128,7 +129,7 @@ const getUtilityButtonContentList = (story: Story): ToolbarButtonContents[] => [
     title: 'Save',
     icon: <Save />,
     useDispatch: false,
-    onClick: () => alert(JSON.stringify(story, null, 2))
+    onClick: () => saveStoryButtonAction(story)
   }
 ];
 
@@ -137,6 +138,17 @@ interface ToolbarButtonContents {
   icon: JSX.Element;
   useDispatch: boolean; // used for placeholder funcs, flag so dispatch is not used when onClick is called
   onClick: { (): StoryActionType } | { (): void };
+}
+
+async function saveStoryButtonAction(story: Story) {
+  alert(JSON.stringify(story, null, 2));
+  story.userID = 'test1@test.com'; //Existing user in database
+
+  await saveStory(story)
+    .then(res => {
+      console.log('Story Created');
+    })
+    .catch(e => console.log('Error: ' + e));
 }
 
 export const STORY_TOOLBAR_WIDTH = 150;
