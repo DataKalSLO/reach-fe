@@ -142,7 +142,7 @@ interface ToolbarButtonContents {
 
 async function saveStoryButtonAction(story: Story) {
   story.userID = 'test1@test.com'; //TODO: Remove when userId can be found in store.
-
+  //TODO: Add Loading bar while waiting for request.
   await saveStory(story)
     .then(res => {
       console.log('Story Created');
