@@ -141,7 +141,6 @@ interface ToolbarButtonContents {
 }
 
 async function saveStoryButtonAction(story: Story) {
-  alert(JSON.stringify(story, null, 2));
   story.userID = 'test1@test.com'; //TODO: Remove when userId can be found in store.
 
   await saveStory(story)
