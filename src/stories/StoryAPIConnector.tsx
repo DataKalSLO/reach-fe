@@ -1,13 +1,15 @@
 import { del, get, post, put } from '../api/base';
 import {
-  DatabaseStory,
-  DatabaseStoryBlock,
   Story,
   StoryBlock,
   TextBlock,
-  TEXT_BLOCK_DB_TYPE,
   TEXT_BLOCK_TYPE
 } from '../redux/story/types';
+import {
+  DatabaseStory,
+  DatabaseStoryBlock,
+  TEXT_BLOCK_DB_TYPE
+} from './StoryDBTypes';
 import { EditorState, convertFromRaw } from 'draft-js';
 
 enum StoryActions {

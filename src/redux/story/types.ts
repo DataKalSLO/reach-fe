@@ -4,7 +4,6 @@ import { EditorState } from 'draft-js';
 export const TEXT_BLOCK_TYPE = 'Text';
 export const GRAPH_BLOCK_TYPE = 'Graph';
 export const MAP_BLOCK_TYPE = 'Map';
-export const TEXT_BLOCK_DB_TYPE = 'TextDB'; // Database version of TextBlock
 
 //Action names
 export const CREATE_EMPTY_TEXT_BLOCK = 'CREATE_EMPTY_TEXT_BLOCK';
@@ -23,7 +22,7 @@ export interface Story {
   storyBlocks: Array<StoryBlock>;
 }
 
-interface StoryMetaInformation {
+export interface StoryMetaInformation {
   id: string;
   userID: string;
   title: string;
@@ -34,9 +33,6 @@ export interface Story extends StoryMetaInformation {
   storyBlocks: Array<StoryBlock>;
 }
 
-export interface DatabaseStory extends StoryMetaInformation {
-  storyBlocks: Array<DatabaseStoryBlock>;
-}
 /*
  * Story Blocks define the properties needed to generate the associated react components
  * Story Blocks also have 1-1 mapping with database objects
@@ -45,12 +41,6 @@ export interface TextBlock {
   type: typeof TEXT_BLOCK_TYPE;
   id: string;
   editorState: EditorState;
-}
-
-export interface TextBlockDB {
-  type: typeof TEXT_BLOCK_DB_TYPE;
-  id: string;
-  editorState: string;
 }
 
 export interface GraphBlock {
@@ -65,7 +55,6 @@ export interface MapBlock {
 }
 
 export type StoryBlock = TextBlock | GraphBlock | MapBlock;
-export type DatabaseStoryBlock = TextBlockDB | GraphBlock | MapBlock;
 
 //Actions
 
