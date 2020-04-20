@@ -4,6 +4,7 @@ import {
   DatabaseStoryBlock,
   Story,
   StoryBlock,
+  TextBlock,
   TEXT_BLOCK_DB_TYPE,
   TEXT_BLOCK_TYPE
 } from '../redux/story/types';
@@ -100,7 +101,8 @@ function transformStoryToDatabaseStory(story: Story): DatabaseStory {
   };
 }
 
-//Serialies the EditorState of a given TextBlock to a string.
+//If given a TextBlock, Serializes the EditorState as a string
+//Otherwise, storyBlock is returned.
 function transformStoryBlockToDatabaseStoryBlock(
   storyBlock: StoryBlock
 ): DatabaseStoryBlock {
@@ -142,7 +144,7 @@ function transformDatabaseStoryBlockToStoryBlock(
         editorState: EditorState.createWithContent(
           convertFromRaw(JSON.parse(storyBlock.editorState))
         )
-      };
+      } as TextBlock;
     default:
       return storyBlock;
   }
