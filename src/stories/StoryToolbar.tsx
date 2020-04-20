@@ -141,16 +141,18 @@ interface ToolbarButtonContents {
 }
 
 async function saveStoryButtonAction(story: Story) {
-  alert(
-    'Story was not be created. Saving stories has not yet been implemented.'
-  ); //TODO: Delete when backend is working.
   story.userID = 'test1@test.com'; //TODO: Remove when userId can be found in store.
   //TODO: Add Loading bar while waiting for request.
   await saveStory(story)
     .then(res => {
       console.log('Story Created');
     })
-    .catch(e => console.log('Error: ' + e));
+    .catch(e => {
+      console.log('Error Occured while saving a story.\n' + e);
+      alert(
+        'Story was not be created. Saving stories has not yet been implemented.'
+      ); //TODO: Remove 'not implemented' when BEND is working
+    });
 }
 
 export const STORY_TOOLBAR_WIDTH = 150;
