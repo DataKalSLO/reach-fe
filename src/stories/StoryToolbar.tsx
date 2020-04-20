@@ -141,6 +141,9 @@ interface ToolbarButtonContents {
 }
 
 async function saveStoryButtonAction(story: Story) {
+  alert(
+    'Story was not be created. Saving stories has not yet been implemented.'
+  ); //TODO: Delete when backend is working.
   story.userID = 'test1@test.com'; //TODO: Remove when userId can be found in store.
   //TODO: Add Loading bar while waiting for request.
   await saveStory(story)
