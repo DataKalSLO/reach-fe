@@ -5,8 +5,7 @@ import { GeoFilter } from './FiltersComponent';
 import LayersComponent from './LayersComponent';
 import { BoundSelection, ColorAssociation } from './MapTypes.js';
 import MapView from './MapView';
-import SourceLabels from './SourcesComponent';
-import { ChipLegend } from './Legend';
+import { Legend } from './Legend';
 
 // TODO: save to stories
 // TODO: use redux store instead of state
@@ -29,17 +28,6 @@ function Map() {
   const [colorAssociation, setColorAssociation] = useState(
     defaultColorAssociation
   );
-  // TODO: consider putting these in legend so they are associated with their data sets
-  const [dataSources, setDataSources] = useState([
-    {
-      key: 0,
-      label: defaultMarkerSelection.source
-    },
-    {
-      key: 1,
-      label: defaultHeatMapSelection.source
-    }
-  ]);
   const [boundSelection, setBoundSelection] = useState(defaultBoundsSelection);
   return (
     <div>
@@ -50,7 +38,6 @@ function Map() {
         setHeatMapSelection={setHeatMapSelection}
         selectedMarker={selectedMarker}
         setSelectedMarker={setSelectedMarker}
-        setDataSources={setDataSources}
       />
       <MapView
         markerSelection={markerSelection}
@@ -60,7 +47,7 @@ function Map() {
         colorAssociation={colorAssociation}
         setColorAssociation={setColorAssociation}
       />
-      <ChipLegend
+      <Legend
         heatMapSelection={heatMapSelection}
         colorAssociation={colorAssociation}
         markerSelection={markerSelection}
@@ -69,7 +56,6 @@ function Map() {
         boundSelection={boundSelection}
         setBoundSelection={setBoundSelection}
       />
-      <SourceLabels dataSources={dataSources} />
     </div>
   );
 }

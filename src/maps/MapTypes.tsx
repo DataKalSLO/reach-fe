@@ -78,11 +78,6 @@ export type BoundSelection = 'Zip Code' | 'Communities' | 'Region';
 export type SetBoundSelection = React.Dispatch<
   React.SetStateAction<BoundSelection>
 >;
-export type DataSources = {
-  key: number;
-  label: string;
-}[];
-export type SetDataSources = React.Dispatch<React.SetStateAction<DataSources>>;
 
 // type for either marker or heat map selection
 export type MarkerOrHeatMap = MarkerSelection[] | HeatMapSelection[];
@@ -105,18 +100,12 @@ export interface LayersComponentProps {
   setHeatMapSelection: SetHeatMapSelection;
   selectedMarker: SelectedMarker;
   setSelectedMarker: SetSelectedMarker;
-  setDataSources: SetDataSources;
 }
 
 // placeholder type interface for props passed to FiltersComponent in Map.tsx
 export interface GeoFilterComponentProps {
   boundSelection: BoundSelection;
   setBoundSelection: SetBoundSelection;
-}
-
-// type interface for props passed to SourceComponent in Map.tsx
-export interface SourceComponentProps {
-  dataSources: DataSources;
 }
 
 export interface TooltipProps {
@@ -128,7 +117,7 @@ export interface FeatureProperty {
   properties: { name: string };
 }
 
-export interface ChipLegendProps {
+export interface LegendProps {
   heatMapSelection: HeatMapSelection;
   colorAssociation: ColorAssociation;
   markerSelection: MarkerSelection[];

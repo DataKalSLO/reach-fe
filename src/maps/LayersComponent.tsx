@@ -18,7 +18,6 @@ import {
   MarkerOrHeatMap,
   MarkerSelection,
   SelectedMarker,
-  SetDataSources,
   SetHeatMapSelection,
   SetMarkerSelection,
   SetSelectedMarker
@@ -55,20 +54,17 @@ export function handleChange(
   setMarkerSelection: SetMarkerSelection,
   setHeatMapSelection: SetHeatMapSelection,
   setSelectedMarker: SetSelectedMarker,
-  selectedMarker: SelectedMarker,
-  setDataSources: SetDataSources
+  selectedMarker: SelectedMarker
 ) {
   const newMarkers: MarkerSelection[] = [];
   let newHeatMap: {} | HeatMapSelection = {};
   const allSelections: string[] = [];
-  const allDataSources: string[] = [];
   // TODO: fix type errors here, I am unable to use the MarkerOrHeatMap type
   // eslint-disable-next-line
   value.forEach((table: MarkerSelection | HeatMapSelection) => {
     if (table.type === 'FeatureCollection') {
       const marker = table as MarkerSelection;
       newMarkers.push(marker);
-      allDataSources.push(marker.source);
       marker.features.forEach((items: FeatureProperty[]) => {
         items.forEach((selection: FeatureProperty) => {
           allSelections.push(selection.properties.name);
@@ -77,7 +73,6 @@ export function handleChange(
     } else if (table.type === 'HeatMap') {
       const heatMap = table as HeatMapSelection;
       newHeatMap = heatMap;
-      allDataSources.push(heatMap.source);
     }
   });
   setHeatMapSelection(newHeatMap);
@@ -87,14 +82,6 @@ export function handleChange(
       (obj: LocationFeatures) => obj.properties.name in allSelections
     )
   );
-  const dataSourceDict: {
-    key: number;
-    label: string;
-  }[] = [];
-  allDataSources.forEach((source: string, i: number) => {
-    dataSourceDict.push({ key: i, label: source });
-  });
-  setDataSources(dataSourceDict);
 }
 
 // handles disabling options, only two markers or one marker & one heat map allowed
@@ -134,8 +121,7 @@ export default function LayersComponent(props: LayersComponentProps) {
     heatMapSelection,
     setHeatMapSelection,
     selectedMarker,
-    setSelectedMarker,
-    setDataSources
+    setSelectedMarker
   } = props;
   return (
     <StyleBox>
@@ -158,8 +144,7 @@ export default function LayersComponent(props: LayersComponentProps) {
             setMarkerSelection,
             setHeatMapSelection,
             setSelectedMarker,
-            selectedMarker,
-            setDataSources
+            selectedMarker
           )
         }
         renderInput={params => (
