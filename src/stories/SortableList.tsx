@@ -27,12 +27,9 @@ interface SortableStoryContainerProps {
 }
 
 const DragHandle = SortableHandle(() => (
-  // This needs to be wrapped in a div to make the ripple the correct size
-  <div>
-    <IconButton color="primary" edge="start" aria-label="Drag Handle">
-      <DragHandleIcon />
-    </IconButton>
-  </div>
+  <IconButton color="primary" edge="start" aria-label="Drag Handle">
+    <DragHandleIcon />
+  </IconButton>
 ));
 
 // TODO: Add button to remove a story block

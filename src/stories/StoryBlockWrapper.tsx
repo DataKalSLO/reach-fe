@@ -1,9 +1,10 @@
-import { IconButton } from '../common/components/IconButton';
-import { DeleteForever } from '@material-ui/icons';
 import Grid from '@material-ui/core/Grid';
+import { DeleteForever } from '@material-ui/icons';
 import { EditorState } from 'draft-js';
-import { updateTextBlock, deleteBlock } from '../redux/story/actions';
-import RichTextEditor from './RichTextEditor';
+import React from 'react';
+import { Dispatch } from 'redux';
+import { IconButton } from '../common/components/IconButton';
+import { deleteBlock, updateTextBlock } from '../redux/story/actions';
 import {
   GRAPH_BLOCK_TYPE,
   MAP_BLOCK_TYPE,
@@ -11,8 +12,8 @@ import {
   TextBlock,
   TEXT_BLOCK_TYPE
 } from '../redux/story/types';
-import React from 'react';
-import { Dispatch } from 'redux';
+import { theme } from '../theme/theme';
+import RichTextEditor from './RichTextEditor';
 
 interface DeleteButtonProps {
   index: number;
@@ -30,7 +31,7 @@ const DeleteButton = (props: DeleteButtonProps) => (
     onClick={() => props.dispatch(deleteBlock(props.index))}
     edge="end"
     aria-label="Delete block"
-    color="secondary"
+    style={{ color: theme.palette.error.main }}
     icon={<DeleteForever />}
   />
 );
@@ -63,11 +64,11 @@ function blockToComponent(
 
 export const StoryBlockWrapper = (props: StoryBlockWrapperProps) => {
   return (
-    <Grid container spacing={2}>
+    <Grid container justify="center" alignItems="center">
       <Grid item xs={11}>
         {blockToComponent(props.value, props.myIndex, props.dispatch)}
       </Grid>
-      <Grid item xs={1}>
+      <Grid item>
         <DeleteButton index={props.myIndex} dispatch={props.dispatch} />
       </Grid>
     </Grid>
