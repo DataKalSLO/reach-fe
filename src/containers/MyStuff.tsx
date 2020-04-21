@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Container from '@material-ui/core/Container';
 
 function MyStuff() {
-  return <div />;
+  const [landingVisible, setLandingVisible] = useState(true);
+  const [hits, setHits] = useState([]);
+  const [qry, setQry] = useState('');
 }
 
 export default MyStuff;
