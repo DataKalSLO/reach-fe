@@ -1,3 +1,5 @@
+import { Box } from '@material-ui/core';
+import { styled } from '@material-ui/core/styles';
 import React, { useState } from 'react';
 import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/median_income_data.js';
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
@@ -9,6 +11,30 @@ import SourceLabels from './SourcesComponent';
 
 // TODO: save to stories
 // TODO: use redux store instead of state
+
+export const StyledMapContainer = styled(Box)({
+  display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100%',
+  width: '97%',
+  marginLeft: '10px',
+  overflow: 'scroll',
+  scrollSnapType: 'y mandatory',
+  '&::-webkit-scrollbar': {
+    width: '0.5em'
+  },
+  '&::-webkit-scrollbar-track': {
+    boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+    webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+  },
+  '&::-webkit-scrollbar-thumb': {
+    borderRadius: '10px',
+    backgroundColor: 'rgba(0,0,0,.3)',
+    outline: '1px solid slategrey'
+  }
+});
 
 const defaultMarkerSelection = markerData[0];
 const defaultHeatMapSelection = medianHouseholdIncomeHeatMap;
@@ -37,7 +63,7 @@ function Map() {
   ]);
   const [boundSelection, setBoundSelection] = useState(defaultBoundsSelection);
   return (
-    <div>
+    <StyledMapContainer>
       <LayersComponent
         markerSelection={markerSelection}
         setMarkerSelection={setMarkerSelection}
@@ -58,7 +84,7 @@ function Map() {
         setBoundSelection={setBoundSelection}
       />
       <SourceLabels dataSources={dataSources} />
-    </div>
+    </StyledMapContainer>
   );
 }
 export default Map;
