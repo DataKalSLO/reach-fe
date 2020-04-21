@@ -11,6 +11,7 @@ import {
   CREATE_ACCOUNT,
   SETTINGS
 } from './nav/constants';
+import ProtectedRoute from './nav/ProtectedRoute';
 
 // Material UI's theming/styling solution
 //  https://material-ui.com/styles/basics/
@@ -79,9 +80,7 @@ const createAccount = (
   </Route>
 );
 const settings = (
-  <Route path={SETTINGS}>
-    <Settings />
-  </Route>
+  <ProtectedRoute routeConstant={SETTINGS} componentPage={<Settings />} />
 );
 const sample = (
   <Route path={SAMPLE}>

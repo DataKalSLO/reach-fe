@@ -43,7 +43,7 @@ function OptionsBar() {
   return (
     <Fragment>
       <IconButton
-        aria-label="expand options bar"
+        aria-label="Expand Options Bar"
         icon={<ArrowUpward />}
         area-describeby={id}
         onClick={toggleDrawer}
