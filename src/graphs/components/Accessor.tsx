@@ -1,14 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { getGraphs } from '../../redux/graphs/selector';
-import {
-  getGraphWithIds,
-  getGraphsForInitiative
-} from '../../redux/graphs/utilities';
-import { INDUSTRY, DEMOGRAPHICS } from '../../redux/graphs/constants';
-import Graph from './Graph';
-import { GraphRecord } from '../../redux/graphs/types';
 import { uuid } from 'uuidv4';
+import { DEMOGRAPHICS, INDUSTRY } from '../../redux/graphs/constants';
+import { getGraphs } from '../../redux/graphs/selector';
+import { GraphRecord } from '../../redux/graphs/types';
+import {
+  getGraphsForInitiative,
+  getGraphWithIds
+} from '../../redux/graphs/utilities';
+import Graph from './Graph';
 
 /*
  * Custom Hook to access graphs.
