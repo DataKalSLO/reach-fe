@@ -1,36 +1,58 @@
-import { isValidURL } from './urlValidation';
+import { isValidURL, recoverURL } from './urlValidation';
 
-describe('Yup hyperlink validation', () => {
-  it('accepts correctly formatted URLs', async () => {
-    const validURLs = [
-      'https://www.sample.com',
-      'http://www.sample.com',
-      'https://sample.com',
-      'http://sample.com',
-      'www.sample.com',
-      'sample.com'
-    ];
+describe('Hyperlink validation', () => {
+  const goodURLs = [
+    'https://www.sample.com',
+    'http://www.sample.com',
+    'https://sample.com',
+    'http://sample.com',
+    'https://www.sample',
+    'http://www.sample'
+  ];
 
-    validURLs.forEach((url) => {
-      expect(isValidURL(url)).toBeTruthy();
-    });
+  const badURLs = [
+    'www.sample.com',
+    'sample.com',
+    'https://sample',
+    'http://sample',
+    'www.sample',
+    'sample',
+    'sample.',
+    'hp://sample.com',
+    'http:sample.com',
+    '://sample.com'
+  ];
+
+  const recoverableURLs = [
+    ['sample.com', 'http://sample.com'],
+    ['www.sample.com', 'http://www.sample.com'],
+    ['www.sample', 'http://www.sample']
+  ];
+
+  const unrecoverableURLs = [
+    'sample',
+    'sample.',
+    'hp://sample.com',
+    'http:sample.com',
+    '://sample.com'
+  ];
+
+  it.each(goodURLs)('Accepts %s as a correctly formatted URL', async url => {
+    isValidURL(url).then(result => expect(result).toBeTruthy());
   });
 
-  it('rejects poorly formatted URLs', () => {
-    const badURLs = [
-      'https://www.sample',
-      'http://www.sample',
-      'https://sample',
-      'http://sample',
-      'www.sample',
-      'sample',
-      'hp://sample.com',
-      'http:sample.com',
-      '://sample.com'
-    ];
+  it.each(badURLs)('Rejects %s as a poorly formatted URL', async url => {
+    isValidURL(url).then(result => expect(result).toBeFalsy());
+  });
 
-    badURLs.forEach((url) => {
-      expect(isValidURL(url)).toBeTruthy();
-    });
+  it.each(recoverableURLs)(
+    'Recovers %s, corrects it to %s',
+    async (original, expected) => {
+      recoverURL(original).then(result => expect(result).toEqual(expected));
+    }
+  );
+
+  it.each(unrecoverableURLs)('Fails to recover %s', async url => {
+    recoverURL(url).then(result => expect(result).toBeUndefined());
   });
 });
