@@ -1,4 +1,5 @@
 import { EditorState } from 'draft-js';
+import { StoryMetaInformation } from '../../stories/StoryDBTypes';
 
 //Text block types
 export const TEXT_BLOCK_TYPE = 'Text';
@@ -13,22 +14,6 @@ export const UPDATE_TITLE = 'UPDATE_TITLE';
 export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
 
 //Story-related types
-
-export interface Story {
-  id: string;
-  userID: string;
-  title: string;
-  description: string;
-  storyBlocks: Array<StoryBlock>;
-}
-
-export interface StoryMetaInformation {
-  id: string;
-  userID: string;
-  title: string;
-  description: string;
-}
-
 export interface Story extends StoryMetaInformation {
   storyBlocks: Array<StoryBlock>;
 }
