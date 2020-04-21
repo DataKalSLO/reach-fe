@@ -8,6 +8,7 @@ export const MAP_BLOCK_TYPE = 'Map';
 //Action names
 export const CREATE_EMPTY_TEXT_BLOCK = 'CREATE_EMPTY_TEXT_BLOCK';
 export const UPDATE_TEXT_BLOCK = 'UPDATE_TEXT_BLOCK';
+export const DELETE_BLOCK = 'DELETE_BLOCK';
 export const SWAP_BLOCKS = 'SWAP_BLOCKS';
 export const UPDATE_TITLE = 'UPDATE_TITLE';
 export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
@@ -57,6 +58,11 @@ export interface UpdateTextBlockAction {
   payload: { index: number; editorState: EditorState };
 }
 
+export interface DeleteBlockAction {
+  type: typeof DELETE_BLOCK;
+  payload: { index: number };
+}
+
 export interface SwapBlocksAction {
   type: typeof SWAP_BLOCKS;
   payload: { oldIndex: number; newIndex: number };
@@ -82,6 +88,7 @@ export type UpdateBlockType = UpdateTextBlockAction;
 export type StoryActionType =
   | CreateEmptyTextBlockAction
   | UpdateTextBlockAction
+  | DeleteBlockAction
   | SwapBlocksAction
   | UpdateTitleAction
   | UpdateDescriptionAction;

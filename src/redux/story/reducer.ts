@@ -7,6 +7,7 @@ import {
   Story,
   StoryActionType,
   SWAP_BLOCKS,
+  DELETE_BLOCK,
   UpdateBlockType,
   UPDATE_DESCRIPTION,
   UPDATE_TEXT_BLOCK,
@@ -46,6 +47,12 @@ function updateObjectInArray(
   });
 }
 
+function removeObjectAtIndex(storyBlocks: Array<StoryBlock>, index: number) {
+  storyBlocks.splice(index, 1);
+  console.log(index);
+  return storyBlocks;
+}
+
 export function storyReducer(state = initialStory, action: StoryActionType) {
   switch (action.type) {
     case UPDATE_TEXT_BLOCK:
@@ -57,6 +64,14 @@ export function storyReducer(state = initialStory, action: StoryActionType) {
       return {
         ...state,
         storyBlocks: state.storyBlocks.concat(action.payload.block)
+      };
+    case DELETE_BLOCK:
+      return {
+        ...state,
+        storyBlocks: removeObjectAtIndex(
+          state.storyBlocks,
+          action.payload.index
+        )
       };
     case SWAP_BLOCKS:
       return {
