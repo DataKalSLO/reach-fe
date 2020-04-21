@@ -58,10 +58,8 @@ const GoogleAuth = (props: { style: GoogleLoginButtonStyle }) => {
       const name = googleUser.getBasicProfile().getName();
       if (props.style === GoogleLoginButtonStyle.ContinueWith) {
         dispatch(
-          wrapWithCatch(registerAccount(email, id, name, 'BaseUser'), () =>
-            loginAccount(email, id)
-          )
-        );
+          wrapWithCatch(registerAccount(email, id, name, 'BaseUser'),
+          () => dispatch(loginAccount(email, id))));
       } else {
         dispatch(
           wrapWithCatch(loginAccount(email, id), () =>
