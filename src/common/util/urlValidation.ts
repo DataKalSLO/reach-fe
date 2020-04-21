@@ -1,7 +1,7 @@
-import * as yup from 'yup';
+import { object, string } from 'yup';
 
-const urlSchema = yup.object().shape({
-  url: yup.string().url()
+const urlSchema = object().shape({
+  url: string().url()
 });
 
 // URLs must start with http:// or https://
