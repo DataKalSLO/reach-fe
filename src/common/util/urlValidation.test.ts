@@ -20,7 +20,11 @@ describe('Hyperlink validation', () => {
     'sample.',
     'hp://sample.com',
     'http:sample.com',
-    '://sample.com'
+    '://sample.com',
+    '',
+    ' ',
+    'http://',
+    'https:// '
   ];
 
   const recoverableURLs = [
@@ -34,7 +38,11 @@ describe('Hyperlink validation', () => {
     'sample.',
     'hp://sample.com',
     'http:sample.com',
-    '://sample.com'
+    '://sample.com',
+    '',
+    ' ',
+    'http://',
+    'https:// '
   ];
 
   it.each(goodURLs)('Accepts %s as a correctly formatted URL', async url => {

@@ -10,6 +10,9 @@ const urlSchema = yup.object().shape({
 // Good URL examples: https://www.sample.com, http://sample.com, http://www.sample
 // Bad URL examples: www.sample.com, sample.com, hp://sample
 const isValidURL = async (url: string): Promise<boolean> => {
+  if (url === '') {
+    return false;
+  }
   return await urlSchema.isValid({ url: url });
 };
 
