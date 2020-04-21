@@ -3,9 +3,10 @@ import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/med
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
 import { GeoFilter } from './FiltersComponent';
 import LayersComponent from './LayersComponent';
-import { BoundSelection } from './MapTypes.js';
+import { BoundSelection, ColorAssociation } from './MapTypes.js';
 import MapView from './MapView';
 import SourceLabels from './SourcesComponent';
+import { ChipLegend } from './Legend';
 
 // TODO: save to stories
 // TODO: use redux store instead of state
@@ -13,6 +14,7 @@ import SourceLabels from './SourcesComponent';
 const defaultMarkerSelection = markerData[0];
 const defaultHeatMapSelection = medianHouseholdIncomeHeatMap;
 const defaultBoundsSelection: BoundSelection = 'Zip Code';
+const defaultColorAssociation: ColorAssociation = {};
 
 function Map() {
   const [markerSelection, setMarkerSelection] = useState([
@@ -23,6 +25,9 @@ function Map() {
   );
   const [selectedMarker, setSelectedMarker] = useState(
     defaultMarkerSelection.features[0]
+  );
+  const [colorAssociation, setColorAssociation] = useState(
+    defaultColorAssociation
   );
   // TODO: consider putting these in legend so they are associated with their data sets
   const [dataSources, setDataSources] = useState([
@@ -52,6 +57,13 @@ function Map() {
         heatMapSelection={heatMapSelection}
         selectedMarker={selectedMarker}
         setSelectedMarker={setSelectedMarker}
+        colorAssociation={colorAssociation}
+        setColorAssociation={setColorAssociation}
+      />
+      <ChipLegend
+        heatMapSelection={heatMapSelection}
+        colorAssociation={colorAssociation}
+        markerSelection={markerSelection}
       />
       <GeoFilter
         boundSelection={boundSelection}

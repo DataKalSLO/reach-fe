@@ -13,15 +13,13 @@ import {
   SLO_LONGITUDE,
   ZIP_TABULATION
 } from './constants';
-import { ChipLegend } from './Legend';
 import { mapMarkers } from './MapMarker';
 import Popups from './MapPopups';
 import {
   ColorAssociation,
   LocationFeatures,
   MapViewProps,
-  PrepGeoObject,
-  SetColorAssociation
+  PrepGeoObject
 } from './MapTypes';
 import { getStat, onHover, prepGeo, quantileMaker } from './MapViewHelpers';
 import Tooltip from './Tooltip';
@@ -42,7 +40,9 @@ function MapView(props: MapViewProps) {
     markerSelection,
     heatMapSelection,
     selectedMarker,
-    setSelectedMarker
+    setSelectedMarker,
+    colorAssociation,
+    setColorAssociation
   } = props;
   // heat map prepped here
   let heatMapFeatures: PrepGeoObject[] | null = null;
@@ -94,11 +94,6 @@ function MapView(props: MapViewProps) {
     { color: blue[500] },
     { color: purple[500] }
   ];
-
-  const [colorAssociation, setColorAssociation]: [
-    ColorAssociation,
-    SetColorAssociation
-  ] = React.useState({});
 
   useEffect(() => {
     const newColorAssociation: ColorAssociation = {};
@@ -196,12 +191,6 @@ function MapView(props: MapViewProps) {
         {selectedMarker.map((selected: LocationFeatures) => {
           return Popups(selected, setSelectedMarker, selectedMarker);
         })}
-        <ChipLegend
-          valueKey={valueKey}
-          heatMapSelection={heatMapSelection}
-          colorAssociation={colorAssociation}
-          markerSelection={markerSelection}
-        />
       </ReactMapGL>
     );
   } else {

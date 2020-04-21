@@ -93,6 +93,8 @@ export interface MapViewProps {
   heatMapSelection: HeatMapSelection;
   selectedMarker: SelectedMarker;
   setSelectedMarker: SetSelectedMarker;
+  colorAssociation: ColorAssociation;
+  setColorAssociation: SetColorAssociation;
 }
 
 // type interface for props passed to LayersComponent in Map.tsx
@@ -127,7 +129,6 @@ export interface FeatureProperty {
 }
 
 export interface ChipLegendProps {
-  valueKey: string;
   heatMapSelection: HeatMapSelection;
   colorAssociation: ColorAssociation;
   markerSelection: MarkerSelection[];

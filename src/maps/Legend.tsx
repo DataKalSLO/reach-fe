@@ -1,37 +1,42 @@
-import { Chip, Paper, styled } from '@material-ui/core';
+import {
+  Chip,
+  Paper,
+  makeStyles,
+  createStyles,
+  Theme
+} from '@material-ui/core';
 import React from 'react';
-import { theme } from '../theme/theme';
-import { NO_DATA } from './constants';
 import { ChipLegendProps, MarkerSelection } from './MapTypes';
 
-// TODO: move this legend to bottom and adjust width dynamically
-export const StyledPaper = styled(Paper)({
-  display: 'flex',
-  flexDirection: 'column',
-  width: 250,
-  justifyContent: 'center',
-  flexWrap: 'wrap',
-  margin: theme.spacing(0.5),
-  padding: theme.spacing(0.3)
-});
-
-export const StyledChip = styled(Chip)({
-  margin: theme.spacing(0.5)
-});
+//TODO: use mui styled instead of makestyles
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+      justifyContent: 'left',
+      flexWrap: 'wrap',
+      padding: theme.spacing(0.5),
+      '& > *': {
+        margin: theme.spacing(0.5)
+      }
+    },
+    chip: {
+      margin: theme.spacing(0.5)
+    }
+  })
+);
 
 export function ChipLegend(props: ChipLegendProps) {
-  const {
-    valueKey,
-    heatMapSelection,
-    colorAssociation,
-    markerSelection
-  } = props;
+  const classes = useStyles();
+  const { heatMapSelection, colorAssociation, markerSelection } = props;
+
   const legendData: {
     key: number;
     label: string;
     color: string;
   }[] = [];
-  if (valueKey !== NO_DATA) {
+  if (heatMapSelection.name !== undefined) {
+    console.log(heatMapSelection);
     const heatMapLegend = {
       key: legendData.length,
       label: heatMapSelection.name + ' (' + heatMapSelection.vintage + ')',
@@ -53,11 +58,12 @@ export function ChipLegend(props: ChipLegendProps) {
   }
 
   return (
-    <StyledPaper>
-      <div>Legend:</div>
+    <Paper className={classes.root} elevation={0}>
+      <div> Legend: </div>
       {legendData.map(data => {
         return (
-          <StyledChip
+          <Chip
+            size="small"
             key={data.key}
             label={data.label}
             style={{ borderColor: data.color }}
@@ -65,6 +71,6 @@ export function ChipLegend(props: ChipLegendProps) {
           />
         );
       })}
-    </StyledPaper>
+    </Paper>
   );
 }
