@@ -1,11 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import { Box, Button, styled, CircularProgress } from '@material-ui/core';
 import AccountTextField from '../common/components/AccountTextField';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { LoginData } from '../redux/login/types';
-import { loginUser, deleteUser } from '../redux/login/actions';
-import { getUser } from '../redux/login/selectors';
+import { loginUser } from '../redux/login/actions';
 import { wrapWithCatch } from '../api/base';
 import { HOME } from '../nav/constants';
 
@@ -16,8 +15,6 @@ function ReachSignIn() {
   const [badLogin, setBadLogin] = useState(false);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-
-  const user = useSelector(getUser);
 
   const handleInputChangeEmail = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,18 +70,6 @@ function ReachSignIn() {
         }}
       >
         LOG IN
-      </StyledButton>
-      <StyledButton
-        variant="contained"
-        fullWidth
-        color="primary"
-        onClick={() => {
-          dispatch(
-            deleteUser(user.email, user.token) // delete currently logged in user using current token as validation
-          );
-        }}
-      >
-        Delete
       </StyledButton>
       {loading ? <CircularProgress /> : null}
     </SignInBox>

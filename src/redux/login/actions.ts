@@ -26,7 +26,7 @@ export function loginUser(loginData: LoginData) {
 export function register(registerData: RegisterData) {
   return async (dispatch: Dispatch) => {
     dispatch(logoutAction());
-    await postPerson(registerData); // what is registerData returns error message?
+    await postPerson(registerData);
     const user = await login({
       email: registerData.email,
       password: registerData.password
@@ -41,7 +41,7 @@ export function logoutAction(): UserActionTypes {
 
 export function deleteUser(email: string, token: string) {
   return async (dispatch: Dispatch) => {
-    await deletePerson(email, token); // want something to return here to indicate error?
+    await deletePerson(email, token);
     dispatch(logoutAction());
   };
 }
