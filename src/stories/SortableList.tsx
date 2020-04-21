@@ -29,7 +29,7 @@ interface SortableStoryContainerProps {
 const DragHandle = SortableHandle(() => (
   // This needs to be wrapped in a div to make the ripple the correct size
   <div>
-    <IconButton color="primary" edge="start" aria-label="Drag handle">
+    <IconButton color="primary" edge="start" aria-label="Drag Handle">
       <DragHandleIcon />
     </IconButton>
   </div>
@@ -37,16 +37,12 @@ const DragHandle = SortableHandle(() => (
 
 // TODO: Add button to remove a story block
 // Component that determines what is in each draggable block
-const SortableStoryBlock = SortableElement((props: SortableItemProps) => {
-  return (
-    <div>
-      <StoryBlockBox>
-        <DragHandle />
-        {props.value}
-      </StoryBlockBox>
-    </div>
-  );
-});
+const SortableStoryBlock = SortableElement((props: SortableItemProps) => (
+  <StoryBlockBox>
+    <DragHandle />
+    {props.value}
+  </StoryBlockBox>
+));
 
 // Container for all sortable story blocks
 const SortableStoryContainer = SortableContainer(
@@ -64,7 +60,6 @@ const SortableList = (props: SortableListProps) => {
       onSortEnd={sort => dispatch(swapBlocks(sort.oldIndex, sort.newIndex))}
     >
       {props.storyBlocks.map((block, index) => {
-        console.log(index);
         return (
           <SortableStoryBlock
             key={`item-${block.id}`}

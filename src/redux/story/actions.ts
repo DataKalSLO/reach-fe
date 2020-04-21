@@ -24,9 +24,7 @@ export function createEmptyTextBlock(): CreateEmptyTextBlockAction {
   };
 }
 
-export function deleteBlock(
-  index: number,
-): DeleteBlockAction {
+export function deleteBlock(index: number): DeleteBlockAction {
   return {
     type: DELETE_BLOCK,
     payload: { index: index }

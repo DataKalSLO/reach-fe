@@ -49,7 +49,6 @@ function updateObjectInArray(
 
 function removeObjectAtIndex(storyBlocks: Array<StoryBlock>, index: number) {
   storyBlocks.splice(index, 1);
-  console.log(index);
   return storyBlocks;
 }
 

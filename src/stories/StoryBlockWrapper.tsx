@@ -14,7 +14,6 @@ import {
 import React from 'react';
 import { Dispatch } from 'redux';
 
-//Convert a block object into it's corresponding react component to be displayed
 interface DeleteButtonProps {
   index: number;
   dispatch: Dispatch;
@@ -30,12 +29,13 @@ const DeleteButton = (props: DeleteButtonProps) => (
   <IconButton
     onClick={() => props.dispatch(deleteBlock(props.index))}
     edge="end"
-    ariaLabel="Delete block"
+    aria-label="Delete block"
     color="secondary"
     icon={<DeleteForever />}
   />
 );
 
+//Convert a block object into it's corresponding react component to be displayed
 function blockToComponent(
   block: StoryBlock,
   index: number,
