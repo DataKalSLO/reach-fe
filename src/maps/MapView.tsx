@@ -62,6 +62,7 @@ function MapView(props: MapViewProps) {
   const outlineData = GeoJSON.parse(outlinesPrepped, { GeoJSON: 'geometry' });
 
   // React-Map-GL State
+  const [mapRectBounds, setMapRectBounds] = React.useState(new DOMRect());
   const [layer, setLayer] = React.useState({
     id: 'data',
     type: 'fill',
@@ -148,12 +149,39 @@ function MapView(props: MapViewProps) {
     }
     const zipsValue = hoveredLocation.properties[valueKey];
     const zipCode = hoveredLocation.properties[ZIP_TABULATION];
+
+    // Figure out where to place the tooltip
+    let left, top, right, bottom;
+    const xCenter = (mapRectBounds.left + mapRectBounds.right) / 2;
+    const yCenter = (mapRectBounds.top + mapRectBounds.bottom) / 2;
+
+    console.log('\nx:');
+    console.log(`${mapRectBounds.left} - ${mapRectBounds.right}`);
+    console.log(x.current);
+    console.log('\ny:');
+    console.log(`${mapRectBounds.top} - ${mapRectBounds.bottom}`);
+    console.log(y.current);
+
+    if (x.current > xCenter) {
+      right = x.current;
+    } else {
+      left = x.current;
+    }
+
+    if (y.current > yCenter) {
+      bottom = y.current;
+    } else {
+      top = y.current;
+    }
+
     return (
       <div
         className="tooltip"
         style={{
-          left: x.current,
-          top: y.current,
+          left,
+          top,
+          bottom,
+          right,
           zIndex: 999,
           pointerEvents: 'none',
           position: 'absolute'
@@ -171,7 +199,15 @@ function MapView(props: MapViewProps) {
         {...viewport}
         onViewportChange={viewport => setViewport(viewport)}
         onHover={event =>
-          onHover(defaultHoveredLocation, setHoveredLocation, event, x, y)
+          onHover(
+            defaultHoveredLocation,
+            setHoveredLocation,
+            event,
+            x,
+            y,
+            mapRectBounds,
+            setMapRectBounds
+          )
         }
       >
         <Source type="geojson" data={data}>

@@ -40,11 +40,13 @@ export function onHover(
   setHoveredLocation: any,
   // TODO: going to solve "any" errors at a later time, ignoring for demo
   // eslint-disable-next-line
-  event: any, x: React.MutableRefObject<number>, y: React.MutableRefObject<number>) {
-  const {
-    features,
-    srcEvent: { offsetX, offsetY }
-  } = event;
+  event: any, 
+  x: React.MutableRefObject<number>,
+  y: React.MutableRefObject<number>,
+  currentBounds: DOMRect,
+  setMapRectBounds: (newRect: DOMRect) => void
+) {
+  const { target, features, point } = event;
   const hoveredLocation =
     // TODO: going to solve "any" errors at a later time, ignoring for demo
     // eslint-disable-next-line
@@ -53,8 +55,12 @@ export function onHover(
     setHoveredLocation(defaultHoveredLocation);
     return;
   }
-  x.current = offsetX > 0 ? offsetX : x;
-  y.current = offsetY > 0 ? offsetY : y;
+  const bounds = target.getBoundingClientRect();
+  if (JSON.stringify(bounds) !== JSON.stringify(currentBounds)) {
+    setMapRectBounds(bounds);
+  }
+  x.current = point[0];
+  y.current = point[1];
   setHoveredLocation(hoveredLocation);
 }
 export function quantileMaker(
