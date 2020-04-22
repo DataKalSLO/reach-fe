@@ -13,10 +13,15 @@ export enum GoogleLoginButtonStyle {
   ContinueWith = 'Continue with Google'
 }
 
+export enum UserRoles {
+  defaultRole = 'BaseUser',
+  adminRole = 'Admin'
+}
+
 const GoogleAuth = (props: { style: GoogleLoginButtonStyle }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const defaultRole = 'BaseUser'
+  const defaultRole = 'BaseUser';
 
   const clientConfig = {
     // eslint-disable-next-line
@@ -57,10 +62,14 @@ const GoogleAuth = (props: { style: GoogleLoginButtonStyle }) => {
       const email = googleUser.getBasicProfile().getEmail();
       const id = googleUser.getId();
       const name = googleUser.getBasicProfile().getName();
+      // if the google button is continue with, try to register the user first, if not
+      // just try to sign them in 
       if (props.style === GoogleLoginButtonStyle.ContinueWith) {
         dispatch(
-          wrapWithCatch(registerAccount(email, id, name, defaultRole),
-          () => dispatch(loginAccount(email, id))));
+          wrapWithCatch(registerAccount(email, id, name, defaultRole), () =>
+            dispatch(loginAccount(email, id))
+          )
+        );
       } else {
         dispatch(
           wrapWithCatch(loginAccount(email, id), () =>
