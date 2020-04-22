@@ -2,7 +2,7 @@ import { IconButton as CoreIconButton, styled } from '@material-ui/core';
 import React from 'react';
 
 interface Props {
-  ariaLabel: string; // Accessible label that describes button's purpose
+  'aria-label': string; // Accessible label that describes button's purpose
   icon: React.ReactNode;
   onClick: (e?: React.MouseEvent) => void;
   // This extra parameter is necessary to allow other props to be passed through
@@ -12,7 +12,11 @@ interface Props {
 const IconButton = (props: Props) => {
   // These default settings will be overriden if different props are passed in
   return (
-    <PaddedIconButton aria-label={props.ariaLabel} color="primary" {...props}>
+    <PaddedIconButton
+      aria-label={props['aria-label']}
+      color="primary"
+      {...props}
+    >
       {props.icon}
     </PaddedIconButton>
   );
