@@ -1,4 +1,5 @@
-import { Box, IconButton, styled } from '@material-ui/core';
+import { Box, Grid, IconButton, styled } from '@material-ui/core';
+import { DeleteForever } from '@material-ui/icons';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -7,9 +8,12 @@ import {
   SortableElement,
   SortableHandle
 } from 'react-sortable-hoc';
-import { swapBlocks } from '../redux/story/actions';
+import { Dispatch } from 'redux';
+import { IconButton as CustomIconButton } from '../common/components/IconButton';
+import { deleteBlock, swapBlocks } from '../redux/story/actions';
 import { StoryBlock } from '../redux/story/types';
-import { StoryBlockWrapper } from './StoryBlockWrapper';
+import { theme } from '../theme/theme';
+import { StoryBlockComponent } from './StoryBlockWrapper';
 
 // The input to the sortable list, objects to be converted into JSX.Elements
 interface SortableListProps {
@@ -18,12 +22,19 @@ interface SortableListProps {
 
 // (i.e. <RichTextEditor>)
 interface SortableItemProps {
-  value: JSX.Element;
+  myIndex: number;
+  dispatch: Dispatch;
+  block: StoryBlock;
 }
 
 // Properties containing all draggable blocks (i.e. Array of {<DragHandle> and <StoryBlock>})
 interface SortableStoryContainerProps {
   children: Array<JSX.Element>;
+}
+
+interface DeleteButtonProps {
+  index: number;
+  dispatch: Dispatch;
 }
 
 const DragHandle = SortableHandle(() => (
@@ -32,12 +43,32 @@ const DragHandle = SortableHandle(() => (
   </IconButton>
 ));
 
-// TODO: Add button to remove a story block
+const DeleteButton = (props: DeleteButtonProps) => (
+  <CustomIconButton
+    onClick={() => props.dispatch(deleteBlock(props.index))}
+    edge="end"
+    aria-label="Delete block"
+    style={{ color: theme.palette.error.main }}
+    icon={<DeleteForever />}
+  />
+);
+
 // Component that determines what is in each draggable block
 const SortableStoryBlock = SortableElement((props: SortableItemProps) => (
   <StoryBlockBox>
     <DragHandle />
-    {props.value}
+    <Grid container justify="center" alignItems="center">
+      <Grid item xs={11}>
+        <StoryBlockComponent
+          block={props.block}
+          myIndex={props.myIndex}
+          dispatch={props.dispatch}
+        />
+      </Grid>
+      <Grid item>
+        <DeleteButton index={props.myIndex} dispatch={props.dispatch} />
+      </Grid>
+    </Grid>
   </StoryBlockBox>
 ));
 
@@ -61,13 +92,9 @@ const SortableList = (props: SortableListProps) => {
           <SortableStoryBlock
             key={`item-${block.id}`}
             index={index}
-            value={
-              <StoryBlockWrapper
-                value={block}
-                myIndex={index}
-                dispatch={dispatch}
-              />
-            }
+            myIndex={index} //needed because of https://github.com/clauderic/react-sortable-hoc/issues/128
+            dispatch={dispatch}
+            block={block}
           />
         );
       })}

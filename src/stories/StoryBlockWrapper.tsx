@@ -1,10 +1,7 @@
-import Grid from '@material-ui/core/Grid';
-import { DeleteForever } from '@material-ui/icons';
 import { EditorState } from 'draft-js';
 import React from 'react';
 import { Dispatch } from 'redux';
-import { IconButton } from '../common/components/IconButton';
-import { deleteBlock, updateTextBlock } from '../redux/story/actions';
+import { updateTextBlock } from '../redux/story/actions';
 import {
   GRAPH_BLOCK_TYPE,
   MAP_BLOCK_TYPE,
@@ -12,44 +9,26 @@ import {
   TextBlock,
   TEXT_BLOCK_TYPE
 } from '../redux/story/types';
-import { theme } from '../theme/theme';
 import RichTextEditor from './RichTextEditor';
 
-interface DeleteButtonProps {
-  index: number;
-  dispatch: Dispatch;
-}
-
-interface StoryBlockWrapperProps {
-  value: StoryBlock;
+interface StoryBlockComponentProps {
+  block: StoryBlock;
   myIndex: number;
   dispatch: Dispatch;
 }
 
-const DeleteButton = (props: DeleteButtonProps) => (
-  <IconButton
-    onClick={() => props.dispatch(deleteBlock(props.index))}
-    edge="end"
-    aria-label="Delete block"
-    style={{ color: theme.palette.error.main }}
-    icon={<DeleteForever />}
-  />
-);
-
 //Convert a block object into it's corresponding react component to be displayed
-function blockToComponent(
-  block: StoryBlock,
-  index: number,
-  dispatch: Dispatch
-): JSX.Element {
-  switch (block.type) {
+export const StoryBlockComponent = (
+  props: StoryBlockComponentProps
+): JSX.Element => {
+  switch (props.block.type) {
     case TEXT_BLOCK_TYPE:
       return (
         <RichTextEditor
-          key={block.id}
-          editorState={(block as TextBlock).editorState}
+          key={props.block.id}
+          editorState={(props.block as TextBlock).editorState}
           setEditorState={(editorState: EditorState) =>
-            dispatch(updateTextBlock(index, editorState))
+            props.dispatch(updateTextBlock(props.myIndex, editorState))
           }
         />
       );
@@ -60,17 +39,4 @@ function blockToComponent(
     default:
       throw new Error('TODO: Block type not implemented');
   }
-}
-
-export const StoryBlockWrapper = (props: StoryBlockWrapperProps) => {
-  return (
-    <Grid container justify="center" alignItems="center">
-      <Grid item xs={11}>
-        {blockToComponent(props.value, props.myIndex, props.dispatch)}
-      </Grid>
-      <Grid item>
-        <DeleteButton index={props.myIndex} dispatch={props.dispatch} />
-      </Grid>
-    </Grid>
-  );
 };
