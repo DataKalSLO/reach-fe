@@ -106,7 +106,16 @@ export function Legend(props: LegendProps) {
                 Vintage: {data.vintage}
               </Typography>
               <Typography className={classes.subtitle}>
-                Source: {<a href={data.source}>{data.source}</a>}
+                Source:{' '}
+                {
+                  <a
+                    href={data.source}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {data.source}
+                  </a>
+                }
               </Typography>
             </CardContent>
           </Card>
