@@ -16,7 +16,7 @@ export enum GoogleLoginButtonStyle {
 const GoogleAuth = (props: { style: GoogleLoginButtonStyle }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const defaultRole = 'BaseUser'
+  const defaultRole = 'BaseUser';
 
   const clientConfig = {
     // eslint-disable-next-line
@@ -59,8 +59,10 @@ const GoogleAuth = (props: { style: GoogleLoginButtonStyle }) => {
       const name = googleUser.getBasicProfile().getName();
       if (props.style === GoogleLoginButtonStyle.ContinueWith) {
         dispatch(
-          wrapWithCatch(registerAccount(email, id, name, defaultRole),
-          () => dispatch(loginAccount(email, id))));
+          wrapWithCatch(registerAccount(email, id, name, defaultRole), () =>
+            dispatch(loginAccount(email, id))
+          )
+        );
       } else {
         dispatch(
           wrapWithCatch(loginAccount(email, id), () =>
