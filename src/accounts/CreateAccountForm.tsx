@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import BoxCenter from '../common/components/BoxCenter';
 import AccountTextField from '../common/components/AccountTextField';
+import { OccupationDropdown } from '../containers/OccupationDropdown';
 import { useHistory } from 'react-router-dom';
 import { HOME } from '../nav/constants';
 import { useDispatch } from 'react-redux';
@@ -35,6 +36,7 @@ function CreateAccountForm() {
     true
   );
   const [badEmail, setBadEmail] = useState(false);
+  const [occupation, setOccupation] = useState('');
 
   const validateEmail = useCallback(
     (emailName: string) => {
@@ -132,6 +134,10 @@ function CreateAccountForm() {
         variant="filled"
         size="small"
       />
+      <OccupationDropdown
+        occupation={occupation}
+        setOccupation={setOccupation}
+      />
       <AccountTextField
         fullWidth
         error={badEmail}
@@ -178,7 +184,8 @@ function CreateAccountForm() {
                 email,
                 password,
                 name: name,
-                role: 'BaseUser'
+                role: 'BaseUser',
+                occupation: occupation
               } as RegisterData),
               handleAccountError,
               () => history.push(HOME)
@@ -239,7 +246,7 @@ const ErrorMessage = styled(Typography)({
 });
 
 const BoxCenterSized = styled(BoxCenter)({
-  height: '525px',
+  height: '660px',
   width: '200px'
 });
 
