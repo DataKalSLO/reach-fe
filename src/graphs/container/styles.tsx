@@ -78,7 +78,6 @@ export const useOptionsStyles = makeStyles((theme: Theme) =>
   createStyles({
     menuButton: {
       position: 'fixed',
-      right: '50%',
       left: '50%',
       top: '95%',
       transform: 'translate(-50%, -50%)',
