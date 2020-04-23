@@ -43,10 +43,10 @@ export function onHover(
   event: any, 
   x: React.MutableRefObject<number>,
   y: React.MutableRefObject<number>,
-  currentBounds: DOMRect,
-  setMapRectBounds: (newRect: DOMRect) => void
+  dims: { width: number; height: number },
+  setDims: (dims: { width: number; height: number }) => void
 ) {
-  const { target, features, point } = event;
+  const { features, point } = event;
   const hoveredLocation =
     // TODO: going to solve "any" errors at a later time, ignoring for demo
     // eslint-disable-next-line
@@ -55,9 +55,16 @@ export function onHover(
     setHoveredLocation(defaultHoveredLocation);
     return;
   }
-  const bounds = target.getBoundingClientRect();
-  if (JSON.stringify(bounds) !== JSON.stringify(currentBounds)) {
-    setMapRectBounds(bounds);
+  const tooltipDiv = document.getElementById('map-tooltip');
+  let newDims = { height: 0, width: 0 };
+  if (tooltipDiv) {
+    newDims = {
+      height: tooltipDiv.offsetHeight,
+      width: tooltipDiv.offsetWidth
+    };
+  }
+  if (JSON.stringify(dims) !== JSON.stringify(newDims)) {
+    setDims(newDims);
   }
   x.current = point[0];
   y.current = point[1];
