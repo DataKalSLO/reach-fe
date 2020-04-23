@@ -7,7 +7,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import AccountDropdown from '../containers/AccountDropdown';
+import AccountDropdown from '../accounts/AccountDropdown';
 import { getUser } from '../redux/login/selectors';
 import { NAV_BAR_COLOR } from '../theme/theme';
 import {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Divider, Link, styled } from '@material-ui/core';
-import CreateAccountForm from './CreateAccountForm';
-import ThirdPartyCreateAccount from './ThirdPartyCreateAccount';
+import CreateAccountForm from '../accounts/CreateAccountForm';
+import ThirdPartyCreateAccount from '../accounts/ThirdPartyCreateAccount';
 import BoxCenter from '../common/components/BoxCenter';
 import { useHistory } from 'react-router-dom';
 import { LOGIN } from '../nav/constants';
