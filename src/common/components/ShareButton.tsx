@@ -52,7 +52,11 @@ function ShareButton() {
       <Drawer anchor="right" open={drawerVisible} onClose={handleDrawerClose}>
         <div className={listClass.list} role="presentation">
           <List>
-            <FacebookShareButton className={listClass.item} url={graphUrl}>
+            <FacebookShareButton
+              className={listClass.item}
+              url={graphUrl}
+              title="Facebook"
+            >
               <ListItem button key="fb">
                 <ListItemIcon>
                   <Facebook />
@@ -63,7 +67,7 @@ function ShareButton() {
             <TwitterShareButton
               className={listClass.item}
               url={graphUrl}
-              title="REACH Demo"
+              title="Twitter"
               via="REACH Development Team"
             >
               <ListItem button key="twt">
@@ -76,7 +80,7 @@ function ShareButton() {
             <LinkedinShareButton
               className={listClass.item}
               url={graphUrl}
-              title="REACH Demo"
+              title="LinkedIn"
               summary="I want to share this to LinkedIn!"
             >
               <ListItem button key="lnkd">
