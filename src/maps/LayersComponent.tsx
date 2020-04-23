@@ -168,7 +168,6 @@ export default function LayersComponent(props: LayersComponentProps) {
             variant="standard"
             placeholder="Layers"
             label="Select up to Two Layers"
-
           />
         )}
       />
