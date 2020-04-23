@@ -14,6 +14,7 @@ import {
   TwitterShareButton,
   LinkedinShareButton
 } from 'react-share';
+import { useLocation } from 'react-router-dom';
 
 /*
  * Code for drawer that opens right when "Share" button is clicked.
@@ -28,12 +29,17 @@ const useStyles = makeStyles({
   }
 });
 
-function GraphShareButton() {
+export type ShareGraphProps = {
+  graphId?: string;
+};
+
+function GraphShareButton(props: ShareGraphProps) {
   const classes = useGraphHeaderStyles();
   const listClass = useStyles();
+  const location = useLocation();
   const [drawerVisible, setDrawerVisible] = React.useState(false);
-  const graphUrl = 'http://github.com';
-  //const graphUrl = `http://inserturlhere.com${location.pathname}`
+  const prod = 'https://production.d1t7lxoixksik3.amplifyapp.com';
+  const graphUrl = `${prod}${location.pathname}`;
 
   const handleDrawerOpen = () => {
     setDrawerVisible(true);
