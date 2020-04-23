@@ -55,7 +55,7 @@ function ShareButton() {
             <FacebookShareButton className={listClass.item} url={graphUrl}>
               <ListItem button key="fb">
                 <ListItemIcon>
-                  <Facebook />
+                  <Facebook fontSize="small" />
                 </ListItemIcon>
                 <ListItemText primary="Share to Facebook" />
               </ListItem>
@@ -68,7 +68,7 @@ function ShareButton() {
             >
               <ListItem button key="twt">
                 <ListItemIcon>
-                  <Twitter />
+                  <Twitter fontSize="small" />
                 </ListItemIcon>
                 <ListItemText primary="Share to Twitter" />
               </ListItem>
@@ -81,7 +81,7 @@ function ShareButton() {
             >
               <ListItem button key="lnkd">
                 <ListItemIcon>
-                  <LinkedIn />
+                  <LinkedIn fontSize="small" />
                 </ListItemIcon>
                 <ListItemText primary="Share to LinkedIn" />
               </ListItem>
