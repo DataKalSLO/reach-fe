@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Box, Button, styled, CircularProgress } from '@material-ui/core';
+import { Box, Button, styled, CircularProgress, Fade } from '@material-ui/core';
 import AccountTextField from '../common/components/AccountTextField';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -46,7 +46,7 @@ function ReachSignIn() {
       />
       <AccountTextField
         error={badLogin}
-        helperText={badLogin ? 'Incorrect email/password combination' : ''}
+        helperText={badLogin ? 'Incorrect email/password combination' : ' '}
         placeholder="Password"
         type="password"
         fullWidth
@@ -71,7 +71,9 @@ function ReachSignIn() {
       >
         LOG IN
       </StyledButton>
-      {loading ? <CircularProgress /> : null}
+      <Fade in={loading}>
+        <CircularProgress />
+      </Fade>
     </SignInBox>
   );
 }
@@ -83,10 +85,10 @@ const SignInBox = styled(Box)({
   flexDirection: 'column',
   alignItems: 'center',
   justifyItems: 'center',
-  justifyContent: 'space-around',
+  justifyContent: 'space-between',
   paddingLeft: paddingDefault,
   paddingRight: paddingDefault,
-  height: '215px',
+  height: '235px',
   width: '270px'
 });
 
