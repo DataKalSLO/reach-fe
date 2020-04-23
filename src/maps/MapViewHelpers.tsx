@@ -17,6 +17,7 @@ export function prepGeo(featureCollection: any) {
   });
   return prepped;
 }
+
 // TODO: going to solve "any" errors at a later time, ignoring for demo
 // eslint-disable-next-line
 export function getStat(features: any, extractionFunc: any, selection: string) {
@@ -27,6 +28,7 @@ export function getStat(features: any, extractionFunc: any, selection: string) {
   });
   return stat.properties[selection];
 }
+
 export function onHover(
   defaultHoveredLocation: {
     properties: {
@@ -70,6 +72,7 @@ export function onHover(
   y.current = point[1];
   setHoveredLocation(hoveredLocation);
 }
+
 export function quantileMaker(
   colorScale: chroma.Scale<chroma.Color>,
   quantiles: number,
@@ -96,4 +99,16 @@ export function quantileMaker(
     return colorScale(val).hex();
   });
   return zip(dataScale, chromaScale);
+}
+
+// Find optimal anchor point for an element within a container based on cursor position.
+export function position(
+  containerLowerBound: number,
+  containerUpperBound: number,
+  elementLength: number,
+  cursor: number
+) {
+  const mid = (containerUpperBound - containerLowerBound) / 2;
+  const inLowerHalf = cursor < mid;
+  return inLowerHalf ? cursor : cursor - elementLength;
 }

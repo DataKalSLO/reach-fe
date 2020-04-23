@@ -21,7 +21,7 @@ import {
   MapViewProps,
   PrepGeoObject
 } from './MapTypes';
-import { getStat, onHover, prepGeo, quantileMaker } from './MapViewHelpers';
+import { getStat, onHover, prepGeo, quantileMaker, position } from './MapViewHelpers';
 import Tooltip from './Tooltip';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -155,16 +155,8 @@ function MapView(props: MapViewProps) {
       return;
     }
     const bounds = map.getBoundingClientRect();
-
-    // x and y are relative to the map component, therefore, the mid's are also relative
-    const horizontalMid = (bounds.right - bounds.left) / 2;
-    const verticalMid = (bounds.bottom - bounds.top) / 2;
-
-    const inLeftHalf = x.current < horizontalMid;
-    const inTopHalf = y.current < verticalMid;
-
-    const left = inLeftHalf ? x.current : x.current - dims.width;
-    const top = inTopHalf ? y.current : y.current - dims.height;
+    const left = position(bounds.left, bounds.right, dims.width, x.current);
+    const top = position(bounds.top, bounds.bottom, dims.height, y.current);
 
     return (
       <div
