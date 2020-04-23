@@ -1,50 +1,40 @@
 import {
   Paper,
-  makeStyles,
-  createStyles,
-  Theme,
   Card,
   CardContent,
-  Typography
+  Typography,
+  styled
 } from '@material-ui/core';
 import React from 'react';
 import { LegendProps, MarkerSelection } from './MapTypes';
+import { theme } from '../theme/theme';
 
-//TODO: use mui styled instead of makestyles
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-      justifyContent: 'left',
-      flexWrap: 'wrap',
-      padding: theme.spacing(0.5),
-      '& > *': {
-        margin: theme.spacing(0.5)
-      }
-    },
-    card: {
-      display: 'flex'
-    },
-    cardContent: {
-      padding: theme.spacing(0.5),
-      '&:last-child': {
-        paddingBottom: theme.spacing(0.5)
-      }
-    },
-    paperTitle: {
-      fontSize: 12
-    },
-    title: {
-      fontSize: 14
-    },
-    subtitle: {
-      fontSize: 10
+const StylePaper = styled(Paper)({
+  root: {
+    display: 'flex',
+    justifyContent: 'left',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    padding: theme.spacing(0.5),
+    '& > *': {
+      margin: theme.spacing(0.5)
     }
-  })
-);
+  }
+});
+
+const StyleCard = styled(Card)({
+  display: 'inline-block',
+  margin: theme.spacing(0.5)
+});
+
+const StyleCardContent = styled(CardContent)({
+  padding: theme.spacing(0.5),
+  '&:last-child': {
+    paddingBottom: theme.spacing(0.5)
+  }
+});
 
 export function Legend(props: LegendProps) {
-  const classes = useStyles();
   const { heatMapSelection, colorAssociation, markerSelection } = props;
 
   const legendData: {
@@ -84,28 +74,26 @@ export function Legend(props: LegendProps) {
   }
 
   return (
-    <Paper className={classes.root} elevation={0}>
-      <Typography
-        className={classes.paperTitle}
-        color="textSecondary"
-        gutterBottom
-      >
+    <StylePaper elevation={0}>
+      <Typography variant="caption" color="textSecondary" display="block">
         Legend
       </Typography>
       {legendData.map(data => {
         return (
-          <Card
-            className={classes.card}
+          <StyleCard
             key={data.key}
             variant="outlined"
             style={{ borderColor: data.color }}
           >
-            <CardContent className={classes.cardContent}>
-              <Typography className={classes.title}> {data.label} </Typography>
-              <Typography className={classes.subtitle}>
+            <StyleCardContent>
+              <Typography variant="body2" display="block">
+                {' '}
+                {data.label}{' '}
+              </Typography>
+              <Typography variant="caption" display="block">
                 Vintage: {data.vintage}
               </Typography>
-              <Typography className={classes.subtitle}>
+              <Typography variant="caption" display="block">
                 Source:{' '}
                 {
                   <a
@@ -117,10 +105,10 @@ export function Legend(props: LegendProps) {
                   </a>
                 }
               </Typography>
-            </CardContent>
-          </Card>
+            </StyleCardContent>
+          </StyleCard>
         );
       })}
-    </Paper>
+    </StylePaper>
   );
 }
