@@ -1,4 +1,4 @@
-import { Box, Grid, IconButton, styled } from '@material-ui/core';
+import { Box, IconButton, styled } from '@material-ui/core';
 import { DeleteForever } from '@material-ui/icons';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import React from 'react';
@@ -57,18 +57,14 @@ const DeleteButton = (props: DeleteButtonProps) => (
 const SortableStoryBlock = SortableElement((props: SortableItemProps) => (
   <StoryBlockBox>
     <DragHandle />
-    <Grid container justify="center" alignItems="center">
-      <Grid item xs={11}>
-        <StoryBlockComponent
-          block={props.block}
-          myIndex={props.myIndex}
-          dispatch={props.dispatch}
-        />
-      </Grid>
-      <Grid item>
-        <DeleteButton index={props.myIndex} dispatch={props.dispatch} />
-      </Grid>
-    </Grid>
+    <Box flexGrow={2}>
+      <StoryBlockComponent
+        block={props.block}
+        myIndex={props.myIndex}
+        dispatch={props.dispatch}
+      />
+    </Box>
+    <DeleteButton index={props.myIndex} dispatch={props.dispatch} />
   </StoryBlockBox>
 ));
 
@@ -107,5 +103,6 @@ export default SortableList;
 const StoryBlockBox = styled(Box)({
   display: 'flex',
   flexDirection: 'row',
-  alignItems: 'center'
+  alignItems: 'center',
+  flexWrap: 'nowrap'
 });
