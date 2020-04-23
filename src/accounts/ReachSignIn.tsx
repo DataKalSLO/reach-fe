@@ -35,17 +35,20 @@ function ReachSignIn() {
     setLoading(false);
   }, [setBadLogin, setLoading]);
 
-  const handleSubmit = useCallback(e => {
-    e.preventDefault();
-    setLoading(true);
-    dispatch(
-      wrapWithCatch(
-        loginUser({ email, password } as LoginData),
-        handleLoginError,
-        () => history.push(HOME)
-      )
-    );
-  }, [setLoading, dispatch, email, password, history]);
+  const handleSubmit = useCallback(
+    e => {
+      e.preventDefault();
+      setLoading(true);
+      dispatch(
+        wrapWithCatch(
+          loginUser({ email, password } as LoginData),
+          handleLoginError,
+          () => history.push(HOME)
+        )
+      );
+    },
+    [setLoading, dispatch, email, password, history]
+  );
 
   return (
     <form onSubmit={handleSubmit}>
