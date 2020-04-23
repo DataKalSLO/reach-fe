@@ -63,7 +63,6 @@ export function get(endpoint: string, token?: string) {
 
 export function del(endpoint: string, token?: string) {
   const config = buildRequestConfig(token);
-  console.log(config);
   return tryFetch(baseURL + endpoint, {
     method: 'DELETE',
     ...config
