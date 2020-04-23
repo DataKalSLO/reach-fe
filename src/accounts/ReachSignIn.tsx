@@ -35,7 +35,8 @@ function ReachSignIn() {
     setLoading(false);
   }, [setBadLogin, setLoading]);
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(e => {
+    e.preventDefault();
     setLoading(true);
     dispatch(
       wrapWithCatch(
