@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Grid, Container } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import Map from '../maps/Map';
@@ -10,16 +10,21 @@ import OptionsBar from '../graphs/container/OptionsBar';
 import 'react-splitter-layout/lib/index.css';
 
 function VizBuilder() {
+  const [dragging, setDragging] = useState(false);
+
   return (
     <Fragment>
       <StyledContainer maxWidth={'xl'}>
-        <SplitterLayout>
+        <SplitterLayout
+          onDragEnd={() => setDragging(false)}
+          onDragStart={() => setDragging(true)}
+        >
           <StyledGrid item xs={12}>
-            <LeftArrow fontSize={'large'} />
             <Map />
+            {dragging ? <LeftArrow fontSize={'large'} /> : <div />}
           </StyledGrid>
           <StyledGrid item xs={12}>
-            <RightArrow fontSize={'large'} />
+            {dragging ? <RightArrow fontSize={'large'} /> : <div />}
             <GraphContainer />
           </StyledGrid>
         </SplitterLayout>
@@ -39,6 +44,13 @@ const StyledContainer = styled(Container)({
   overflow: 'hidden',
   '& .splitter-layout .layout-pane': {
     overflow: 'hidden'
+  },
+  '& .splitter-layout > .layout-splitter': {
+    flex: '0 0 auto',
+    width: '8px',
+    height: '100%',
+    cursor: 'col-resize',
+    backgroundColor: '#ccc'
   }
 });
 
