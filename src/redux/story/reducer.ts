@@ -13,7 +13,7 @@ import {
   UPDATE_TITLE
 } from './types';
 
-export const emptyTextBlock = ():TextBlock => ({
+export const emptyTextBlock = (): TextBlock => ({
   id: uuid(),
   editorState: emptyEditorState,
   type: TEXT_BLOCK_TYPE
