@@ -13,18 +13,18 @@ import {
   UPDATE_TITLE
 } from './types';
 
-export const emptyTextBlock: TextBlock = {
+export const emptyTextBlock = ():TextBlock => ({
   id: uuid(),
   editorState: emptyEditorState,
   type: TEXT_BLOCK_TYPE
-};
+});
 
 const initialStory: Story = {
   id: uuid(),
   userID: 'USER-ID', // TODO: replace placeholder value
   title: '',
   description: '',
-  storyBlocks: [emptyTextBlock] as Array<StoryBlock>
+  storyBlocks: [emptyTextBlock()] as Array<StoryBlock>
 };
 
 // follows immutability update patterns
