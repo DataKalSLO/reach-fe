@@ -35,7 +35,6 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
             containerProps={{ className: classes.highcharts }}
           />
         </StyledGraph>
-        <GraphEdit />
       </StyledGraphCard>
     </StyledGraphBox>
   );

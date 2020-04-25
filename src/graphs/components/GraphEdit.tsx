@@ -5,12 +5,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IconButton, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import { getGraphs } from '../../redux/graphs/selector';
+import GraphEditForm from './GraphEditForm';
+import { editingGraphAction } from '../../redux/graphs/actions';
 
 function GraphEdit() {
   const graphState = useSelector(getGraphs);
-//  const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const classes = useGraphEditStyles();
-
   return (
     <Fragment>
       <Drawer
@@ -20,11 +21,13 @@ function GraphEdit() {
         open={graphState.isEditing}
         classes={{ paper: classes.drawerPaper }}
       >
+        <GraphEditForm />
         <IconButton
-          onClick={() => alert('Not Implemented')}
+          onClick={() => dispatch(editingGraphAction())}
           className={classes.button}
+          size="small"
         >
-          <Close fontSize={'default'} />
+          <Close />
         </IconButton>
       </Drawer>
     </Fragment>
@@ -44,13 +47,13 @@ const useGraphEditStyles = makeStyles((theme: Theme) =>
     drawerPaper: {
       position: 'absolute',
       bottom: 0,
-      height: '60%',
       display: 'flex',
       flexFlow: 'column',
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'white',
       border: '1px solid slategrey',
+      padding: '20px',
       margin: '20px'
     },
     hide: {
@@ -61,9 +64,7 @@ const useGraphEditStyles = makeStyles((theme: Theme) =>
       top: 0,
       right: 0,
       color: 'red',
-      backgroundColor: 'white',
-      margin: theme.spacing(1),
-      boxShadow: theme.shadows[5]
+      margin: theme.spacing(1)
     }
   })
 );
