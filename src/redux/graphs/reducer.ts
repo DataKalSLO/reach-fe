@@ -27,7 +27,8 @@ const initialState: GraphState = {
       prebuilt.medianSaleGraphOptions,
       prebuilt.medianListGraphOptions
     ]
-  }
+  },
+  isEditing: false
 };
 
 export function graphReducer(
@@ -52,6 +53,11 @@ export function graphReducer(
       return {
         ...state,
         graphs: utils.getGraphsWithout(action.payload, state.graphs)
+      };
+    case consts.EDITING_GRAPH:
+      return {
+        ...state,
+        isEditing: !state.isEditing
       };
     default:
       return state;

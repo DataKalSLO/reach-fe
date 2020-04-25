@@ -37,3 +37,9 @@ export function graphDeletionAction(payload: string): types.DeleteGraphAction {
     payload: payload
   };
 }
+
+export function editingGraphAction(): types.EditingGraphAction {
+  return {
+    type: consts.EDITING_GRAPH
+  };
+}

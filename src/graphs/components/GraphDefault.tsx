@@ -11,6 +11,7 @@ import {
   StyledGraphCard,
   useGraphStyles
 } from './styles';
+import GraphEdit from './GraphEdit';
 exporting(Highcharts);
 drilldown(Highcharts);
 
@@ -37,6 +38,7 @@ function GraphDefault() {
             options={options}
             containerProps={{ className: classes.highcharts }}
           />
+          <GraphEdit />
         </StyledGraph>
       </StyledGraphCard>
     </StyledGraphBox>
