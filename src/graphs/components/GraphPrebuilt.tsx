@@ -34,6 +34,7 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
             options={graph.options}
             containerProps={{ className: classes.highcharts }}
           />
+          <GraphEdit />
         </StyledGraph>
       </StyledGraphCard>
     </StyledGraphBox>
