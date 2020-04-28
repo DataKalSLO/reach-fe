@@ -1,6 +1,13 @@
 import { Dispatch } from 'redux';
 
-const baseURL = 'http://localhost:5000/';
+const baseURL = process.env.REACT_APP_API_URL;
+
+const headers = new Headers();
+headers.set('Content-Type', 'application/JSON');
+
+const reqConf = {
+  headers: headers
+};
 
 async function tryFetch(url: string, request: RequestInit) {
   const response = await fetch(url, request);

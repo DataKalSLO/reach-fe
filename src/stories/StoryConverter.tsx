@@ -25,8 +25,10 @@ export function convertStoryToJSX(story: Story): JSX.Element {
   return (
     <StyledBox>
       <TitleBox>
-        <Typography variant="h3">{story.title}</Typography>
-        <Typography variant="subtitle1">{story.description}</Typography>
+        <WrappingTypography variant="h3">{story.title}</WrappingTypography>
+        <WrappingTypography variant="subtitle1">
+          {story.description}
+        </WrappingTypography>
       </TitleBox>
 
       <AuthorGrid
@@ -86,6 +88,10 @@ const StyledBox = styled(Box)({
 
 const TitleBox = styled(Box)({
   paddingBottom: '10px'
+});
+
+const WrappingTypography = styled(Typography)({
+  overflowWrap: 'break-word'
 });
 
 const AuthorGrid = styled(Grid)({

@@ -8,8 +8,10 @@ import {
   MY_STUFF,
   LOGIN,
   SAMPLE,
-  CREATE_ACCOUNT
+  CREATE_ACCOUNT,
+  SETTINGS
 } from './nav/constants';
+import ProtectedRoute from './nav/ProtectedRoute';
 
 // Material UI's theming/styling solution
 //  https://material-ui.com/styles/basics/
@@ -39,6 +41,7 @@ import MyStuff from './containers/MyStuff';
 import Login from './containers/Login';
 import Sample from './containers/Sample';
 import CreateAccount from './containers/CreateAccount';
+import Settings from './containers/Settings';
 import { PersistGate } from 'redux-persist/integration/react';
 
 const home = (
@@ -76,6 +79,9 @@ const createAccount = (
     <CreateAccount />
   </Route>
 );
+const settings = (
+  <ProtectedRoute routeConstant={SETTINGS} componentPage={<Settings />} />
+);
 const sample = (
   <Route path={SAMPLE}>
     <Sample />
@@ -98,6 +104,7 @@ function App() {
               {login}
               {createAccount}
               {sample}
+              {settings}
             </Switch>
           </ThemeProvider>
         </ConnectedRouter>

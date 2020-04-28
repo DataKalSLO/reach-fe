@@ -7,6 +7,7 @@ export const MY_STUFF = '/my-stuff';
 export const LOGIN = '/login';
 export const SAMPLE = '/sample';
 export const CREATE_ACCOUNT = '/create-account';
+export const SETTINGS = '/settings';
 
 // Names of routes in the navigation bar
 export const HOME_NAME = 'Reach';
