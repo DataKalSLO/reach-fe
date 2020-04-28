@@ -13,6 +13,8 @@ import { unemploymentInsuranceClaimOptions } from './NewUnemploymentInsurance';
 import { CovidCasesOptions } from './SLOCovidCases';
 import { CovidCasesByStatusOptions } from './SLOCovidCasesByStatus';
 import { CovidCasesBycityOptions } from './SLOCovidCasesByCity';
+import { CovidCasesByRegionOptions } from './SLOCovidCasesByRegion';
+import { CovidCasesByAgeOptions } from './SLOCovidCasesByAge';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 export const dodGraphOptions = require('./DoDDrilldown2018.json');
@@ -31,3 +33,5 @@ export const unemploymentInsuranceClaimGraphOption = unemploymentInsuranceClaimO
 export const covidCasesGraphOptions = CovidCasesOptions;
 export const covidCasesByStatusGraphOptions = CovidCasesByStatusOptions;
 export const covidCasesByCityGraphOptions = CovidCasesBycityOptions;
+export const covidCasesByRegionGraphOptions = CovidCasesByRegionOptions;
+export const covidCasesByAgeGraphOptions = CovidCasesByAgeOptions;
