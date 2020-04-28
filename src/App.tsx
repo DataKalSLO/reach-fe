@@ -33,7 +33,6 @@ import { history, store, persistor } from './redux/store';
 import { Provider } from 'react-redux';
 
 // Containers
-import Home from './containers/Home';
 import Explore from './containers/Explore';
 import VizBuilder from './containers/VizBuilder';
 import StoryBuilder from './containers/StoryBuilder';

@@ -148,57 +148,69 @@ export function unemploymentInsuranceClaim() {
       highcharts={Highcharts}
       options={prebuilt.unemploymentInsuranceClaimGraphOption}
     />
-  )
+  );
 }
 
 // Covid-19 Cases
 export function covidCases() {
-  <HighchartsReact
+  return (
+    <HighchartsReact
       highcharts={Highcharts}
       options={prebuilt.covidCasesGraphOptions}
     />
+  );
 }
 
 // Covid-19 cases by status
-export function covidCasesByStatus(){
-  <HighchartsReact
+export function covidCasesByStatus() {
+  return (
+    <HighchartsReact
       highcharts={Highcharts}
       options={prebuilt.covidCasesByStatusGraphOptions}
     />
+  );
 }
 
 // Covid-19 cases by city
 
-export function covidCasesByCity(){
-  <HighchartsReact
+export function covidCasesByCity() {
+  return (
+    <HighchartsReact
       highcharts={Highcharts}
       options={prebuilt.covidCasesByCityGraphOptions}
     />
+  );
 }
 
 // Covid-19 cases by region
 
-export function covidCasesByRegion(){
-  <HighchartsReact
+export function covidCasesByRegion() {
+  return (
+    <HighchartsReact
       highcharts={Highcharts}
       options={prebuilt.covidCasesByRegionGraphOptions}
     />
+  );
 }
 
 // Covid-19 cases by Age
 
-export function covidCasesByAge(){
-  <HighchartsReact
+export function covidCasesByAge() {
+  return (
+    <HighchartsReact
       highcharts={Highcharts}
       options={prebuilt.covidCasesByAgeGraphOptions}
     />
+  );
 }
 
 // Covid-19 health care facity bed capacity
 
-export function HealthCareFacityBedOptions(){
-  <HighchartsReact
+export function HealthCareFacityBedOptions() {
+  return (
+    <HighchartsReact
       highcharts={Highcharts}
       options={prebuilt.HealthCareFacityBedGraphOptions}
     />
+  );
 }

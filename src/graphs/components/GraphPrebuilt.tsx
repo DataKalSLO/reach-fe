@@ -4,7 +4,7 @@ import exporting from 'highcharts/modules/exporting';
 import React from 'react';
 import GraphHeader from './GraphHeader';
 import drilldown from 'highcharts/modules/drilldown';
-import GraphEdit from './GraphEdit';
+
 import {
   StyledGraph,
   StyledGraphBox,
@@ -36,7 +36,6 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
             options={graph.options}
             containerProps={{ className: classes.highcharts }}
           />
-          <GraphEdit />
         </StyledGraph>
       </StyledGraphCard>
     </StyledGraphBox>
