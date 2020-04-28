@@ -8,7 +8,8 @@ const initialState: GraphState = {
   initiatives: {
     [consts.INDUSTRY]: [
       prebuilt.statsOfBusinessGraphOptions,
-      prebuilt.defenseGraphOptions
+      prebuilt.defenseGraphOptions,
+      prebuilt.dodGraphOptions
     ],
     [consts.DEMOGRAPHICS]: [
       prebuilt.wagesGraphOptions,

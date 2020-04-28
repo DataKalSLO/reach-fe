@@ -12,6 +12,8 @@ import { medianSaleOptions } from './median-sale-price';
 import { unemploymentInsuranceClaimOptions } from './NewUnemploymentInsurance';
 import { CovidCasesOptions } from './SLOCovidCases';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const dodGraphOptions = require('./DoDDrilldown2018.json');
 export const defenseGraphOptions = defenseOptions;
 export const incomeInequalityGraphOptions = incomeInequalityOptions;
 export const wagesGraphOptions = wagesOptions;
