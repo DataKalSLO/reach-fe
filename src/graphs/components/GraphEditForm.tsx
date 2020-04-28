@@ -9,13 +9,13 @@ import {
   FormLabel,
   FormGroup,
   MenuItem,
-  Button,
   Menu,
   InputLabel,
   Select,
   FormControl
 } from '@material-ui/core';
 import { SliderPicker } from 'react-color';
+import { Button } from '../../common/components/Button';
 import { uuid } from 'uuidv4';
 
 
@@ -117,6 +117,14 @@ function GraphEditForm() {
         <SliderPicker 
           onChangeComplete={handleChangeComplete}
         />
+      </StyledFormGroup>
+      <StyledFormGroup row ={true}>
+      <Button
+        label="Update Graph"
+        variant="text"
+        color="default"
+        onClick={() => alert('Not implemented')}
+      />
       </StyledFormGroup>
     </form>
   );
