@@ -20,37 +20,37 @@ export interface Story {
   userID: string;
   title: string;
   description: string;
-  storyBlocks: Array<StoryBlock>;
+  storyBlocks: Array<StoryBlockType>;
 }
 
 /*
  * Story Blocks define the properties needed to generate the associated react components
  * Story Blocks also have 1-1 mapping with database objects
  */
-export interface TextBlock {
+export interface TextBlockType {
   type: typeof TEXT_BLOCK_TYPE;
   id: string;
   editorState: EditorState;
 }
 
-export interface GraphBlock {
+export interface GraphBlockType {
   type: typeof GRAPH_BLOCK_TYPE;
   id: string;
   graphID: string;
 }
-export interface MapBlock {
+export interface MapBlockType {
   type: typeof MAP_BLOCK_TYPE;
   id: string;
   mapID: string;
 }
 
-export type StoryBlock = TextBlock | GraphBlock | MapBlock;
+export type StoryBlockType = TextBlockType | GraphBlockType | MapBlockType;
 
 //Actions
 
 export interface CreateEmptyTextBlockAction {
   type: typeof CREATE_EMPTY_TEXT_BLOCK;
-  payload: { block: TextBlock };
+  payload: { block: TextBlockType };
 }
 
 export interface UpdateTextBlockAction {

@@ -1,20 +1,22 @@
 import { arrayMove } from 'react-sortable-hoc';
 import { uuid } from 'uuidv4';
 import { emptyEditorState } from '../../stories/RichTextEditor';
-import { StoryBlock, TextBlock, TEXT_BLOCK_TYPE } from './types';
 import {
   CREATE_EMPTY_TEXT_BLOCK,
+  DELETE_BLOCK,
   Story,
   StoryActionType,
+  StoryBlockType,
   SWAP_BLOCKS,
-  DELETE_BLOCK,
+  TextBlockType,
+  TEXT_BLOCK_TYPE,
   UpdateBlockType,
   UPDATE_DESCRIPTION,
   UPDATE_TEXT_BLOCK,
   UPDATE_TITLE
 } from './types';
 
-export const emptyTextBlock: TextBlock = {
+export const emptyTextBlock: TextBlockType = {
   id: uuid(),
   editorState: emptyEditorState,
   type: TEXT_BLOCK_TYPE
@@ -25,13 +27,13 @@ const initialStory: Story = {
   userID: 'USER-ID', // TODO: replace placeholder value
   title: '',
   description: '',
-  storyBlocks: [emptyTextBlock] as Array<StoryBlock>
+  storyBlocks: [emptyTextBlock] as Array<StoryBlockType>
 };
 
 // follows immutability update patterns
 // (https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns/)
 function updateObjectInArray(
-  storyBlocks: Array<StoryBlock>,
+  storyBlocks: Array<StoryBlockType>,
   action: UpdateBlockType
 ) {
   return storyBlocks.map((item, i) => {
@@ -47,7 +49,10 @@ function updateObjectInArray(
   });
 }
 
-function removeObjectAtIndex(storyBlocks: Array<StoryBlock>, index: number) {
+function removeObjectAtIndex(
+  storyBlocks: Array<StoryBlockType>,
+  index: number
+) {
   storyBlocks.splice(index, 1);
   return storyBlocks;
 }

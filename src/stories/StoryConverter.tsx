@@ -5,12 +5,12 @@ import draftToHtml from 'draftjs-to-html';
 import React from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import {
-  GraphBlock,
+  GraphBlockType,
   GRAPH_BLOCK_TYPE,
-  MapBlock,
+  MapBlockType,
   MAP_BLOCK_TYPE,
-  StoryBlock,
-  TextBlock,
+  StoryBlockType,
+  TextBlockType,
   TEXT_BLOCK_TYPE
 } from '../redux/story/types';
 import { Story } from '../redux/story/types';
@@ -53,7 +53,7 @@ export function convertStoryToJSX(story: Story): JSX.Element {
   );
 }
 
-function convertBlockToJSX(storyBlock: StoryBlock): JSX.Element {
+function convertBlockToJSX(storyBlock: StoryBlockType): JSX.Element {
   switch (storyBlock.type) {
     case TEXT_BLOCK_TYPE:
       return convertTextBlockToJSX(storyBlock);
@@ -64,7 +64,7 @@ function convertBlockToJSX(storyBlock: StoryBlock): JSX.Element {
   }
 }
 
-function convertTextBlockToJSX(textBlock: TextBlock): JSX.Element {
+function convertTextBlockToJSX(textBlock: TextBlockType): JSX.Element {
   const rawContentState = convertToRaw(
     textBlock.editorState.getCurrentContent()
   );
@@ -72,11 +72,11 @@ function convertTextBlockToJSX(textBlock: TextBlock): JSX.Element {
   return <div> {ReactHtmlParser(markup)} </div>;
 }
 
-function convertGraphBlockToJSX(graphBlock: GraphBlock): JSX.Element {
+function convertGraphBlockToJSX(graphBlock: GraphBlockType): JSX.Element {
   return <div>Graph Block conversion not yet implemented</div>;
 }
 
-function convertMapBlockToJSX(mapBlock: MapBlock): JSX.Element {
+function convertMapBlockToJSX(mapBlock: MapBlockType): JSX.Element {
   return <div>Map Block conversion not yet implemented</div>;
 }
 

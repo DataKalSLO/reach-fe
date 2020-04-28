@@ -4,6 +4,7 @@ import {
   CreateEmptyTextBlockAction,
   CREATE_EMPTY_TEXT_BLOCK,
   DeleteBlockAction,
+  DELETE_BLOCK,
   SwapBlocksAction,
   SWAP_BLOCKS,
   UpdateDescriptionAction,
@@ -11,8 +12,7 @@ import {
   UpdateTitleAction,
   UPDATE_DESCRIPTION,
   UPDATE_TEXT_BLOCK,
-  UPDATE_TITLE,
-  DELETE_BLOCK
+  UPDATE_TITLE
 } from './types';
 
 export function createEmptyTextBlock(): CreateEmptyTextBlockAction {

@@ -11,20 +11,20 @@ import {
 import { Dispatch } from 'redux';
 import { IconButton as CustomIconButton } from '../common/components/IconButton';
 import { deleteBlock, swapBlocks } from '../redux/story/actions';
-import { StoryBlock } from '../redux/story/types';
+import { StoryBlockType } from '../redux/story/types';
 import { theme } from '../theme/theme';
-import { StoryBlockComponent } from './StoryBlockWrapper';
+import { StoryBlock } from './StoryBlock';
 
 // The input to the sortable list, objects to be converted into JSX.Elements
 interface SortableListProps {
-  storyBlocks: Array<StoryBlock>;
+  storyBlocks: Array<StoryBlockType>;
 }
 
 // (i.e. <RichTextEditor>)
 interface SortableItemProps {
-  myIndex: number;
+  myIndex: number; //myIndex naming needed because of https://github.com/clauderic/react-sortable-hoc/issues/128
   dispatch: Dispatch;
-  block: StoryBlock;
+  block: StoryBlockType;
 }
 
 // Properties containing all draggable blocks (i.e. Array of {<DragHandle> and <StoryBlock>})
@@ -58,7 +58,7 @@ const SortableStoryBlock = SortableElement((props: SortableItemProps) => (
   <StoryBlockBox>
     <DragHandle />
     <Box flexGrow={2}>
-      <StoryBlockComponent
+      <StoryBlock
         block={props.block}
         myIndex={props.myIndex}
         dispatch={props.dispatch}
@@ -88,7 +88,7 @@ const SortableList = (props: SortableListProps) => {
           <SortableStoryBlock
             key={`item-${block.id}`}
             index={index}
-            myIndex={index} //needed because of https://github.com/clauderic/react-sortable-hoc/issues/128
+            myIndex={index}
             dispatch={dispatch}
             block={block}
           />
