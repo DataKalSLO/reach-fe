@@ -193,3 +193,12 @@ export function covidCasesByAge(){
       options={prebuilt.covidCasesByAgeGraphOptions}
     />
 }
+
+// Covid-19 health care facity bed capacity
+
+export function HealthCareFacityBedOptions(){
+  <HighchartsReact
+      highcharts={Highcharts}
+      options={prebuilt.HealthCareFacityBedGraphOptions}
+    />
+}

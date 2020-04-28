@@ -34,7 +34,8 @@ const initialState: GraphState = {
       prebuilt.covidCasesByStatusGraphOptions,
       prebuilt.covidCasesByCityGraphOptions,
       prebuilt.covidCasesByRegionGraphOptions,
-      prebuilt.covidCasesByAgeGraphOptions
+      prebuilt.covidCasesByAgeGraphOptions,
+      prebuilt.HealthCareFacityBedGraphOptions
     ]
   },
   isEditing: false
