@@ -24,6 +24,7 @@ import { getStory } from '../redux/story/selectors';
 import { Story, StoryActionType } from '../redux/story/types';
 import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
+import { saveStory } from './StoryAPIConnector';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
