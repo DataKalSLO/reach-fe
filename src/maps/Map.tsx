@@ -5,16 +5,16 @@ import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/med
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
 import { GeoFilter } from './FiltersComponent';
 import LayersComponent from './LayersComponent';
-import { BoundSelection } from './MapTypes.js';
+import { BoundSelection, ColorAssociation } from './MapTypes.js';
 import MapView from './MapView';
-import SourceLabels from './SourcesComponent';
+import { Legend } from './Legend';
 
 // TODO: save to stories
 // TODO: use redux store instead of state
 
 export const StyledMapContainer = styled(Box)({
   display: 'flex',
-  flexWrap: 'wrap',
+  flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
   height: '100%',
@@ -39,6 +39,7 @@ export const StyledMapContainer = styled(Box)({
 const defaultMarkerSelection = markerData[0];
 const defaultHeatMapSelection = medianHouseholdIncomeHeatMap;
 const defaultBoundsSelection: BoundSelection = 'Zip Code';
+const defaultColorAssociation: ColorAssociation = {};
 
 function Map() {
   const [markerSelection, setMarkerSelection] = useState([
@@ -50,17 +51,9 @@ function Map() {
   const [selectedMarker, setSelectedMarker] = useState(
     defaultMarkerSelection.features[0]
   );
-  // TODO: consider putting these in legend so they are associated with their data sets
-  const [dataSources, setDataSources] = useState([
-    {
-      key: 0,
-      label: defaultMarkerSelection.source
-    },
-    {
-      key: 1,
-      label: defaultHeatMapSelection.source
-    }
-  ]);
+  const [colorAssociation, setColorAssociation] = useState(
+    defaultColorAssociation
+  );
   const [boundSelection, setBoundSelection] = useState(defaultBoundsSelection);
   return (
     <StyledMapContainer>
@@ -71,19 +64,24 @@ function Map() {
         setHeatMapSelection={setHeatMapSelection}
         selectedMarker={selectedMarker}
         setSelectedMarker={setSelectedMarker}
-        setDataSources={setDataSources}
       />
       <MapView
         markerSelection={markerSelection}
         heatMapSelection={heatMapSelection}
         selectedMarker={selectedMarker}
         setSelectedMarker={setSelectedMarker}
+        colorAssociation={colorAssociation}
+        setColorAssociation={setColorAssociation}
+      />
+      <Legend
+        heatMapSelection={heatMapSelection}
+        colorAssociation={colorAssociation}
+        markerSelection={markerSelection}
       />
       <GeoFilter
         boundSelection={boundSelection}
         setBoundSelection={setBoundSelection}
       />
-      <SourceLabels dataSources={dataSources} />
     </StyledMapContainer>
   );
 }
