@@ -14,7 +14,7 @@ import SourceLabels from './SourcesComponent';
 
 export const StyledMapContainer = styled(Box)({
   display: 'flex',
-  flexWrap: 'wrap',
+  flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
   height: '100%',
