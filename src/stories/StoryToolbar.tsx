@@ -155,10 +155,8 @@ async function saveStoryButtonAction(story: Story) {
       console.log('Story Created');
     })
     .catch(e => {
-      console.log('Error Occured while saving a story.\n' + e);
-      alert(
-        'Story was not created. Saving stories has not yet been implemented.'
-      ); //TODO: Remove 'not implemented' when BEND is working
+      console.log(e);
+      alert('An Error occurred while saving a Story. Story was not created.');
     });
 }
 
