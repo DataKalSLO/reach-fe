@@ -1,12 +1,13 @@
 import { EditorState, RichUtils } from 'draft-js';
 import React from 'react';
+import { isValidURL, recoverURL } from '../common/util/urlValidation';
 
 // all hyperlink functionality copied from https://github.com/facebook/draft-js/blob/master/examples/draft-0-10-0/link/link.html
 
 // https://css-tricks.com/snippets/javascript/javascript-keycodes/#article-header-id-1
 const ENTER_KEY_CODE = 13;
 
-export class HyperlinkPlugin {
+class HyperlinkPlugin {
   private editorState: EditorState;
   private setEditorState: (s: EditorState) => void;
   private showURLInput: boolean;
@@ -14,7 +15,6 @@ export class HyperlinkPlugin {
   private urlValue: string;
   private setURLValue: (url: string) => void;
 
-  // TODO: @kellie @tan is it possible to name these params so they don't get messed up?
   constructor(
     editorState: EditorState,
     setEditorState: (s: EditorState) => void,
@@ -53,14 +53,33 @@ export class HyperlinkPlugin {
     }
   };
 
-  public confirmLink = (e: React.MouseEvent | React.KeyboardEvent) => {
+  // Validate the URL. Apply it if it's a good URL, reject it otherwise
+  public confirmLink = async (e: React.MouseEvent | React.KeyboardEvent) => {
     e.preventDefault();
+    let linkToAdd = this.urlValue;
+
+    // Check if the entered text is a valid URL
+    if (!(await isValidURL(linkToAdd))) {
+      // If not, attempt to correct the text to make it a valid URL
+      const recovery = await recoverURL(linkToAdd);
+      if (typeof recovery == 'string') {
+        linkToAdd = recovery as string;
+      } else {
+        alert('That URL is not valid. Please double-check it and try again.');
+        return;
+      }
+    }
+
+    this.applyLink(linkToAdd);
+  };
+
+  public applyLink = (url: string) => {
     const contentState = this.editorState.getCurrentContent();
     const contentStateWithEntity = contentState.createEntity(
       'LINK',
       'MUTABLE',
       {
-        url: this.urlValue
+        url: url
       }
     );
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
@@ -95,3 +114,5 @@ export class HyperlinkPlugin {
     }
   };
 }
+
+export { HyperlinkPlugin };
