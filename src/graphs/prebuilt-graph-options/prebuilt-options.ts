@@ -9,6 +9,7 @@ import { highschoolOptions } from './percent-highschool';
 import { milesTraveledOptions } from './miles-traveled';
 import { medianListOptions } from './median-list-price';
 import { medianSaleOptions } from './median-sale-price';
+import { unemploymentInsuranceClaimOptions } from './NewUnemploymentInsurance';
 
 export const defenseGraphOptions = defenseOptions;
 export const incomeInequalityGraphOptions = incomeInequalityOptions;
@@ -21,3 +22,4 @@ export const highschoolGraphOptions = highschoolOptions;
 export const milesTraveledGraphOptions = milesTraveledOptions;
 export const medianListGraphOptions = medianListOptions;
 export const medianSaleGraphOptions = medianSaleOptions;
+export const unemploymentInsuranceClaimGraphOption = unemploymentInsuranceClaimOptions;

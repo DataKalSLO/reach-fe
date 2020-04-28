@@ -108,7 +108,7 @@ function GraphEditForm() {
       <FormLabel>Group 4</FormLabel>
       <StyledFormGroup>
         <StyledFormGroup row={true}>
-          {getTextField('Serie Name')}
+          {getTextField('Series Name')}
           <FormControl variant="outlined" className = {classes.formControl}>
             <InputLabel id="select-label">Type of Chart</InputLabel>
             {getListItem('Type of Graph')}   

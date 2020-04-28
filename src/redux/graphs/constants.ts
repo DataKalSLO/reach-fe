@@ -14,3 +14,4 @@ export const DEMOGRAPHICS = 'Demographics';
 export const ASSETS = 'Assets';
 export const HOUSING = 'Housing and Living';
 export const EDUCATION = 'Education';
+export const HEALTH = 'Health';

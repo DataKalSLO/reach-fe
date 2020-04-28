@@ -140,3 +140,13 @@ export function MedianSaleGraph() {
     />
   );
 }
+
+// unemployment insurance claim
+export function unemploymentInsuranceClaim() {
+  return (
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={prebuilt.unemploymentInsuranceClaimGraphOption}
+    />
+  )
+}
