@@ -11,6 +11,8 @@ import { medianListOptions } from './median-list-price';
 import { medianSaleOptions } from './median-sale-price';
 import { unemploymentInsuranceClaimOptions } from './NewUnemploymentInsurance';
 import { CovidCasesOptions } from './SLOCovidCases';
+import { CovidCasesByStatusOptions } from './SLOCovidCasesByStatus';
+import { CovidCasesBycityOptions } from './SLOCovidCasesByCity';
 
 export const defenseGraphOptions = defenseOptions;
 export const incomeInequalityGraphOptions = incomeInequalityOptions;
@@ -25,3 +27,5 @@ export const medianListGraphOptions = medianListOptions;
 export const medianSaleGraphOptions = medianSaleOptions;
 export const unemploymentInsuranceClaimGraphOption = unemploymentInsuranceClaimOptions;
 export const covidCasesGraphOptions = CovidCasesOptions;
+export const covidCasesByStatusGraphOptions = CovidCasesByStatusOptions;
+export const covidCasesByCityGraphOptions = CovidCasesBycityOptions;

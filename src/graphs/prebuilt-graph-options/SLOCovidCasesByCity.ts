@@ -1,26 +1,21 @@
 const categories = [
-    'Jan. 4',
-    'Jan.18',
-    'Jan.22',
-    'Jan. 25',
-    'Feb 1',
-    'Feb 8',
-    'Feb 15',
-    'Feb 22',
-    'Feb 29',
-    'March 7',
-    'March 14',
-    'March 21',
-    'March 28',
-    'April 4',
-    'April 11',
+    'Paso Robles',
+    'Atascadero',
+    'Arroyo Grande',
+    'Nipomo',
+    'San Luis Obispo (City)',
+    'Templeton',
+    'San Miguel',
+    'Pismo Beach',
+    'Morro Bay',
+    'Other',
   ];
   
   const data = [
-    [109, 183, 167, 161, 120, 109, 125, 93, 103, 111, 142,893,8959,6131,3737]
+    [54,28,19,14,14,7,7,7,6,13]
   ];
   
-  export const unemploymentInsuranceClaimOptions: Highcharts.Options = {
+  export const CovidCasesBycityOptions: Highcharts.Options = {
     tooltip: {
       valueDecimals: 2,
       valuePrefix: '',
@@ -33,7 +28,7 @@ const categories = [
       panKey: 'shift'
     },
     title: {
-      text: 'Number of Weekly New Unemployment Insurance (UI) Claims for San Luis Obispo County During Covid-19'
+      text: ' Covid-19 cases by City or Town in San Luis Obispo County'
     },
     xAxis: {
       type: 'category',
@@ -41,7 +36,7 @@ const categories = [
     },
     yAxis: {
       title: {
-        text: 'Number of Weekly New UI Claims'
+        text: 'Ciy or town'
       }
     },
     plotOptions: {
@@ -56,8 +51,8 @@ const categories = [
     },
     series: [
       {
-        name: 'Unployment Insurance Claims',
-        type: 'column',
+        name: 'City or town',
+        type: 'bar',
         data: data[0]
       }
     ]

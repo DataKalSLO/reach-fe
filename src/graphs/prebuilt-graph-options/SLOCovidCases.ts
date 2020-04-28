@@ -45,12 +45,12 @@ const categories = [
     },
     series: [
       {
-        name: 'United',
+        name: 'New confirmed Cases',
         type: 'column',
         data: data[0]
       },
       {
-        name: 'American',
+        name: 'Total confirmed cases',
         type: 'line',
         data: data[1]
       }

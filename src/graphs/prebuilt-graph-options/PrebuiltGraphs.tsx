@@ -158,3 +158,20 @@ export function covidCases() {
       options={prebuilt.covidCasesGraphOptions}
     />
 }
+
+// Covid-19 cases by status
+export function covidCasesByStatus(){
+  <HighchartsReact
+      highcharts={Highcharts}
+      options={prebuilt.covidCasesByStatusGraphOptions}
+    />
+}
+
+// Covid-19 cases by city
+
+export function covidCasesByCity(){
+  <HighchartsReact
+      highcharts={Highcharts}
+      options={prebuilt.covidCasesByCityGraphOptions}
+    />
+}

@@ -29,7 +29,9 @@ const initialState: GraphState = {
     ],
     [consts.HEALTH]:[
       prebuilt.unemploymentInsuranceClaimGraphOption,
-      prebuilt.covidCasesGraphOptions
+      prebuilt.covidCasesGraphOptions,
+      prebuilt.covidCasesByStatusGraphOptions,
+      prebuilt.covidCasesByCityGraphOptions
     ]
   },
   isEditing: false
