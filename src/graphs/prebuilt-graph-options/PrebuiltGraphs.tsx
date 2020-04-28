@@ -150,3 +150,11 @@ export function unemploymentInsuranceClaim() {
     />
   )
 }
+
+// Covid-19 Cases
+export function covidCases() {
+  <HighchartsReact
+      highcharts={Highcharts}
+      options={prebuilt.covidCasesGraphOptions}
+    />
+}

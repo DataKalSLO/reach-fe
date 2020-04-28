@@ -10,6 +10,7 @@ import { milesTraveledOptions } from './miles-traveled';
 import { medianListOptions } from './median-list-price';
 import { medianSaleOptions } from './median-sale-price';
 import { unemploymentInsuranceClaimOptions } from './NewUnemploymentInsurance';
+import { CovidCasesOptions } from './SLOCovidCases';
 
 export const defenseGraphOptions = defenseOptions;
 export const incomeInequalityGraphOptions = incomeInequalityOptions;
@@ -23,3 +24,4 @@ export const milesTraveledGraphOptions = milesTraveledOptions;
 export const medianListGraphOptions = medianListOptions;
 export const medianSaleGraphOptions = medianSaleOptions;
 export const unemploymentInsuranceClaimGraphOption = unemploymentInsuranceClaimOptions;
+export const covidCasesGraphOptions = CovidCasesOptions;
