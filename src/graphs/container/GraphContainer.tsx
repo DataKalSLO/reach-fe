@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getGraphs } from '../../redux/graphs/selector';
 import GraphPrebuilt from '../components/GraphPrebuilt';
 import { StyledGraphComponent, StyledGraphContainer } from './styles';
-import { INDUSTRY } from '../../redux/graphs/constants';
+import { HEALTH } from '../../redux/graphs/constants';
 import { addGraphsForInitiativeAction } from '../../redux/graphs/actions';
 
 /*
@@ -16,7 +16,7 @@ function GraphContainer() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(addGraphsForInitiativeAction(INDUSTRY));
+    dispatch(addGraphsForInitiativeAction(HEALTH));
   }, []);
 
   /*
