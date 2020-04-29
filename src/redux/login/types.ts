@@ -8,11 +8,14 @@ export interface RegisterData {
   password: string;
   name: string;
   role: string;
+  occupation: string;
 }
 
 export interface User {
   email: string;
   token: string;
+  name: string;
+  role: string;
 }
 
 export const LOGIN = 'LOGIN';

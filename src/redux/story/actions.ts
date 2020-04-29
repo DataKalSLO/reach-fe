@@ -19,7 +19,7 @@ export function createEmptyTextBlock(): CreateEmptyTextBlockAction {
   return {
     type: CREATE_EMPTY_TEXT_BLOCK,
     payload: {
-      block: emptyTextBlock
+      block: emptyTextBlock()
     }
   };
 }

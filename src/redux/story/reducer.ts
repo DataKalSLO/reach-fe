@@ -20,7 +20,7 @@ export const emptyTextBlock: TextBlockType = {
   id: uuid(),
   editorState: emptyEditorState,
   type: TEXT_BLOCK_TYPE
-};
+});
 
 const initialStory: Story = {
   id: uuid(),
