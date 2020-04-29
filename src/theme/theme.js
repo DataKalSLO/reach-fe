@@ -28,4 +28,4 @@ export const theme = responsiveFontSizes(
   })
 );
 
-export const NAV_BAR_COLOR = '#283c46';
+export const NAV_BAR_COLOR = '#133F4D';

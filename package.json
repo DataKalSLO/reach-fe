@@ -25,6 +25,7 @@
     "@types/react-html-parser": "^2.0.1",
     "@types/react-redux": "^7.1.7",
     "@types/react-splitter-layout": "^3.0.0",
+    "@types/yup": "^0.26.37",
     "array-move": "^2.2.1",
     "chroma-js": "^2.1.0",
     "connected-react-router": "^6.7.0",
@@ -57,7 +58,8 @@
     "redux-thunk": "^2.3.0",
     "ts-react-google-login-component": "1.1.2",
     "typescript": "~3.7.2",
-    "uuidv4": "^6.0.5"
+    "uuidv4": "^6.0.5",
+    "yup": "^0.28.4"
   },
   "scripts": {
     "start": "npm run lint && react-scripts start",

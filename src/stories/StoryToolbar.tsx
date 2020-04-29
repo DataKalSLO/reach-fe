@@ -9,6 +9,7 @@ import {
 import Drawer from '@material-ui/core/Drawer';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
+  Edit,
   InsertChart,
   InsertPhoto,
   Map,
@@ -22,6 +23,7 @@ import { createEmptyTextBlock } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import { Story, StoryActionType } from '../redux/story/types';
 import { togglePreview } from '../redux/storybuilder/actions';
+import { getStoryBuilder } from '../redux/storybuilder/selectors';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,6 +41,8 @@ export function StoryToolbar() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const story = useSelector(getStory);
+  const storyBuilderState = useSelector(getStoryBuilder);
+  const previewSelected = storyBuilderState.isPreviewSelected;
 
   return (
     <Drawer
@@ -62,7 +66,8 @@ export function StoryToolbar() {
       <Divider />
       <List>
         {getUtilityButtonContentList(
-          story
+          story,
+          previewSelected
         ).map((contents: ToolbarButtonContents) =>
           generateButton(contents, dispatch)
         )}
@@ -116,11 +121,13 @@ const getAddButtonContentList = (): ToolbarButtonContents[] => [
   }
 ];
 
-const getUtilityButtonContentList = (story: Story): ToolbarButtonContents[] => [
-  // TODO: if you're in preview mode, show an edit button instead
+const getUtilityButtonContentList = (
+  story: Story,
+  previewSelected: boolean
+): ToolbarButtonContents[] => [
   {
-    title: 'Preview',
-    icon: <Visibility />,
+    title: previewSelected ? 'Edit' : 'Preview',
+    icon: previewSelected ? <Edit /> : <Visibility />,
     useDispatch: true,
     onClick: togglePreview
   },

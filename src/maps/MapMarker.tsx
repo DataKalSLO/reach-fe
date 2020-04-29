@@ -78,6 +78,16 @@ export default function Markers(
             event.preventDefault();
             if (!selectedMarker.includes(location[0])) {
               setSelectedMarker(selectedMarker.concat(location[0]));
+            } else {
+              setSelectedMarker(
+                selectedMarker.filter(
+                  (obj: {
+                    type: string;
+                    geometry: { type: string; coordinates: number[] };
+                    properties: { name: string };
+                  }) => obj !== datapoint
+                )
+              );
             }
           }}
         >
