@@ -32,6 +32,12 @@ export const CovidCasesByAgeOptions: Highcharts.Options = {
     column: {
       allowPointSelect: true,
       stacking: 'normal'
+    },
+    pie: {
+      allowPointSelect: true,
+      dataLabels: {
+        color: 'black'
+      }
     }
   },
   series: [
@@ -58,7 +64,8 @@ export const CovidCasesByAgeOptions: Highcharts.Options = {
       ],
       showInLegend: true,
       dataLabels: {
-        enabled: true
+        enabled: true,
+        useHTML: true
       }
     }
   ]
