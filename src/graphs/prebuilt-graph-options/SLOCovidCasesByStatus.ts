@@ -243,7 +243,7 @@ export const CovidCasesByStatusOptions: Highcharts.Options = {
     panKey: 'shift'
   },
   title: {
-    text: 'SLO Cases By Status'
+    text: 'Covid-19 Cases by Status in San Luis Obispo County'
   },
   xAxis: {
     type: 'category',

@@ -29,8 +29,8 @@ const initialState: GraphState = {
       prebuilt.medianListGraphOptions
     ],
     [consts.HEALTH]: [
-      prebuilt.unemploymentInsuranceClaimGraphOption,
       prebuilt.covidCasesGraphOptions,
+      prebuilt.unemploymentInsuranceClaimGraphOption,
       prebuilt.covidCasesByStatusGraphOptions,
       prebuilt.covidCasesByCityGraphOptions,
       prebuilt.covidCasesByRegionGraphOptions,

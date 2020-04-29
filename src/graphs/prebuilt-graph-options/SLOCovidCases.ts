@@ -156,7 +156,8 @@ export const CovidCasesOptions: Highcharts.Options = {
     panKey: 'shift'
   },
   title: {
-    text: 'New vs. Total Confirmed Cases'
+    text: 'Covid-19 New vs. Total Confirmed Cases in San Luis Obispo',
+    widthAdjust: -100
   },
   xAxis: {
     type: 'category',

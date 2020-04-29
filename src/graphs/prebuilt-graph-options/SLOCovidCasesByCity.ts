@@ -26,7 +26,7 @@ export const CovidCasesBycityOptions: Highcharts.Options = {
     panKey: 'shift'
   },
   title: {
-    text: ' Covid-19 cases by City or Town in San Luis Obispo County'
+    text: ' Covid-19 Cases by City or Town in San Luis Obispo County'
   },
   xAxis: {
     type: 'category',
