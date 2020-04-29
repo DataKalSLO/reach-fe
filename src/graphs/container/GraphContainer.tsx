@@ -15,16 +15,14 @@ function GraphContainer() {
   const graphState = useSelector(getGraphs);
   const dispatch = useDispatch();
 
+  // Use the prebuilt health graphs as the default graphs
   useEffect(() => {
     dispatch(addGraphsForInitiativeAction(HEALTH));
   }, [dispatch]);
 
   /*
-   * Creates a component for each graph. The default graph is separately
-   * appended since the graph is read directly from a JSON file rather
-   * than being stored in the store (since it is not currently supported).
-   * A graph component contains the chart itself, and the header with a
-   * set of options.
+   * Creates a component for each graph. A graph component contains
+   * the chart itself, and the header with a set of options.
    */
   const getGraphComponents = () => {
     return graphState.graphs.map((graph, index) => (
