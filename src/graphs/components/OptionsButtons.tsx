@@ -2,9 +2,9 @@ import {
   BusinessCenterOutlined,
   EmojiTransportation,
   HouseOutlined,
+  LocalHospital,
   PeopleAltOutlined,
-  SchoolOutlined,
-  LocalHospital
+  SchoolOutlined
 } from '@material-ui/icons';
 import React, { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
@@ -14,9 +14,9 @@ import {
   ASSETS,
   DEMOGRAPHICS,
   EDUCATION,
+  HEALTH,
   HOUSING,
-  INDUSTRY,
-  HEALTH
+  INDUSTRY
 } from '../../redux/graphs/constants';
 import { StyledBottomNav } from './styles';
 import { InitiativeIcon } from './types';

@@ -1,6 +1,6 @@
-import { GraphState, GraphActionTypes } from './types';
 import * as prebuilt from '../../graphs/prebuilt-graph-options/prebuilt-options';
 import * as consts from './constants';
+import { GraphActionTypes, GraphState } from './types';
 import * as utils from './utilities';
 
 const initialState: GraphState = {
@@ -37,8 +37,7 @@ const initialState: GraphState = {
       prebuilt.covidCasesByAgeGraphOptions,
       prebuilt.HealthCareFacityBedGraphOptions
     ]
-  },
-  isEditing: false
+  }
 };
 
 export function graphReducer(
@@ -63,11 +62,6 @@ export function graphReducer(
       return {
         ...state,
         graphs: utils.getGraphsWithout(action.payload, state.graphs)
-      };
-    case consts.EDITING_GRAPH:
-      return {
-        ...state,
-        isEditing: !state.isEditing
       };
     default:
       return state;

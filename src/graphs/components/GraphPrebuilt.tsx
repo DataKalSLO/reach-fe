@@ -1,10 +1,9 @@
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import drilldown from 'highcharts/modules/drilldown';
 import exporting from 'highcharts/modules/exporting';
 import React from 'react';
 import GraphHeader from './GraphHeader';
-import drilldown from 'highcharts/modules/drilldown';
-
 import {
   StyledGraph,
   StyledGraphBox,
@@ -12,6 +11,7 @@ import {
   useGraphStyles
 } from './styles';
 import { GraphPrebuiltProps } from './types';
+
 exporting(Highcharts);
 drilldown(Highcharts);
 

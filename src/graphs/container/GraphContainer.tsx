@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addGraphsForInitiativeAction } from '../../redux/graphs/actions';
+import { HEALTH } from '../../redux/graphs/constants';
 import { getGraphs } from '../../redux/graphs/selector';
 import GraphPrebuilt from '../components/GraphPrebuilt';
 import { StyledGraphComponent, StyledGraphContainer } from './styles';
-import { HEALTH } from '../../redux/graphs/constants';
-import { addGraphsForInitiativeAction } from '../../redux/graphs/actions';
 
 /*
  * Renders a list of graphs.

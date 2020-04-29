@@ -13,7 +13,6 @@ export interface GraphRecord {
 export interface GraphState {
   graphs: GraphRecord[];
   initiatives: InitiativeGraphs;
-  isEditing: boolean;
 }
 
 // Maps an industry to an array of graphs
@@ -46,15 +45,10 @@ export interface DeleteGraphAction {
   payload: string;
 }
 
-export interface EditingGraphAction {
-  type: typeof consts.EDITING_GRAPH;
-}
-
 export type GraphActionTypes =
   | AddGraphsForInitiativeAction
   | DuplicateGraphAction
-  | DeleteGraphAction
-  | EditingGraphAction;
+  | DeleteGraphAction;
 
 /*
  * The following type aliases/interfaces are used to restrict a

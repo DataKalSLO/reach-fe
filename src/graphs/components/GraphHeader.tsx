@@ -4,8 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Button } from '../../common/components/Button';
 import {
   deleteGraphAction,
-  duplicateGraphAction,
-  editingGraphAction
+  duplicateGraphAction
 } from '../../redux/graphs/actions';
 import {
   DEFAULT_KEY,
@@ -54,9 +53,7 @@ function GraphHeader({ graph }: GraphHeaderProps) {
         variant="text"
         color="default"
         startIcon={<Edit />}
-        onClick={() => {
-          dispatch(editingGraphAction());
-        }}
+        onClick={() => alert('Not implemented')}
       />
       <Button
         label={DUPLICATE_LABEL}
