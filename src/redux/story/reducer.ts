@@ -15,8 +15,9 @@ import {
   UPDATE_TEXT_BLOCK,
   UPDATE_TITLE
 } from './types';
+import { removeObjectAtIndex } from '../../common/util/arrayTools';
 
-export const emptyTextBlock: TextBlockType = {
+export const emptyTextBlock = (): TextBlockType => ({
   id: uuid(),
   editorState: emptyEditorState,
   type: TEXT_BLOCK_TYPE
@@ -27,7 +28,7 @@ const initialStory: Story = {
   userID: 'USER-ID', // TODO: replace placeholder value
   title: '',
   description: '',
-  storyBlocks: [emptyTextBlock] as Array<StoryBlockType>
+  storyBlocks: [emptyTextBlock()] as Array<StoryBlockType>
 };
 
 // follows immutability update patterns
@@ -47,14 +48,6 @@ function updateObjectInArray(
     // ignores rest of storyblocks
     return item;
   });
-}
-
-function removeObjectAtIndex(
-  storyBlocks: Array<StoryBlockType>,
-  index: number
-) {
-  storyBlocks.splice(index, 1);
-  return storyBlocks;
 }
 
 export function storyReducer(state = initialStory, action: StoryActionType) {
