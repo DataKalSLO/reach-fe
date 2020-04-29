@@ -6,7 +6,7 @@ import {
   LOGOUT,
   RegisterData
 } from './types';
-import { login, postPerson } from '../../api/login';
+import { login, postPerson, deletePerson } from '../../api/login';
 import { Dispatch } from 'redux';
 
 export function loginAction(user: User): UserActionTypes {
@@ -37,4 +37,11 @@ export function register(registerData: RegisterData) {
 
 export function logoutAction(): UserActionTypes {
   return { type: LOGOUT };
+}
+
+export function deleteUser(email: string, token: string) {
+  return async (dispatch: Dispatch) => {
+    await deletePerson(email, token);
+    dispatch(logoutAction());
+  };
 }
