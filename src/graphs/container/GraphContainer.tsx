@@ -17,7 +17,7 @@ function GraphContainer() {
 
   useEffect(() => {
     dispatch(addGraphsForInitiativeAction(HEALTH));
-  }, []);
+  }, [dispatch]);
 
   /*
    * Creates a component for each graph. The default graph is separately

@@ -6,7 +6,6 @@ import {
   SchoolOutlined,
   LocalHospital
 } from '@material-ui/icons';
-import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import React, { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 import { uuid } from 'uuidv4';
@@ -52,7 +51,7 @@ function OptionsButtons() {
     },
     {
       name: HEALTH,
-      icon: <LocalHospital key={uuid()} fontSize="large"/>
+      icon: <LocalHospital key={uuid()} fontSize="large" />
     }
   ];
 

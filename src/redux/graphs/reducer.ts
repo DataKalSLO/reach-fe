@@ -28,13 +28,14 @@ const initialState: GraphState = {
       prebuilt.medianSaleGraphOptions,
       prebuilt.medianListGraphOptions
     ],
-    [consts.HEALTH]:[
+    [consts.HEALTH]: [
       prebuilt.unemploymentInsuranceClaimGraphOption,
       prebuilt.covidCasesGraphOptions,
       prebuilt.covidCasesByStatusGraphOptions,
       prebuilt.covidCasesByCityGraphOptions,
       prebuilt.covidCasesByRegionGraphOptions,
-      prebuilt.covidCasesByAgeGraphOptions
+      prebuilt.covidCasesByAgeGraphOptions,
+      prebuilt.HealthCareFacityBedGraphOptions
     ]
   },
   isEditing: false

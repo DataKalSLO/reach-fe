@@ -56,7 +56,6 @@ export type GraphActionTypes =
   | DeleteGraphAction
   | EditingGraphAction;
 
-
 /*
  * The following type aliases/interfaces are used to restrict a
  * string to the 5 initiative names.
@@ -68,7 +67,7 @@ export const initiativeNames = [
   consts.ASSETS,
   consts.EDUCATION,
   consts.HOUSING,
-  consts.HEALTH,
+  consts.HEALTH
 ] as const;
 
 export type InitiativeLiteral = typeof initiativeNames[number];
