@@ -8,11 +8,13 @@ import {
 } from '@material-ui/core';
 import BoxCenter from '../common/components/BoxCenter';
 import AccountTextField from '../common/components/AccountTextField';
+import { OccupationDropdown } from '../containers/OccupationDropdown';
 import { useHistory } from 'react-router-dom';
 import { HOME } from '../nav/constants';
 import { useDispatch } from 'react-redux';
 import { register } from '../redux/login/actions';
 import { RegisterData } from '../redux/login/types';
+import { wrapWithCatch } from '../api/base';
 
 function CreateAccountForm() {
   const [name, setName] = useState('');
@@ -33,6 +35,8 @@ function CreateAccountForm() {
   const [emailNotificationEnabled, setEmailNotificationEnabled] = useState(
     true
   );
+  const [badEmail, setBadEmail] = useState(false);
+  const [occupation, setOccupation] = useState('');
 
   const validateEmail = useCallback(
     (emailName: string) => {
@@ -113,6 +117,11 @@ function CreateAccountForm() {
     },
     [setName]
   );
+
+  const handleAccountError = useCallback(() => {
+    setBadEmail(true);
+  }, [setBadEmail]);
+
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -125,8 +134,16 @@ function CreateAccountForm() {
         variant="filled"
         size="small"
       />
+      <OccupationDropdown
+        occupation={occupation}
+        setOccupation={setOccupation}
+      />
       <AccountTextField
         fullWidth
+        error={badEmail}
+        helperText={
+          badEmail ? 'An account has already been created with this email' : ''
+        }
         placeholder="Email Address"
         onChange={handleInputChangeEmail}
         variant="filled"
@@ -162,14 +179,18 @@ function CreateAccountForm() {
         disabled={!emailValid || !passwordValid || !passwordConfirmationValid}
         onClick={() => {
           dispatch(
-            register({
-              email,
-              password,
-              name: 'dummy',
-              role: 'BaseUser'
-            } as RegisterData)
+            wrapWithCatch(
+              register({
+                email,
+                password,
+                name: name,
+                role: 'BaseUser',
+                occupation: occupation
+              } as RegisterData),
+              handleAccountError,
+              () => history.push(HOME)
+            )
           );
-          history.push(HOME);
         }}
       >
         CREATE ACCOUNT
@@ -225,7 +246,7 @@ const ErrorMessage = styled(Typography)({
 });
 
 const BoxCenterSized = styled(BoxCenter)({
-  height: '525px',
+  height: '660px',
   width: '200px'
 });
 

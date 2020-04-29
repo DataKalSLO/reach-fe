@@ -2,7 +2,9 @@ import { LOGIN, LOGOUT, UserActionTypes, User } from './types';
 
 const initialState: User = {
   email: '',
-  token: ''
+  token: '',
+  name: '',
+  role: ''
 };
 export function userReducer(
   state = initialState,
@@ -12,7 +14,7 @@ export function userReducer(
     case LOGIN:
       return action.payload;
     case LOGOUT:
-      return { email: '', token: '' };
+      return { email: '', token: '', name: '', role: '' };
     default:
       return state;
   }

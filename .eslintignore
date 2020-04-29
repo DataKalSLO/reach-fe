@@ -1,0 +1,5 @@
+#https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories
+
+# Ignore built files except build/index.js
+build/*
+!build/index.js
