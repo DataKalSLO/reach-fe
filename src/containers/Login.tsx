@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Typography,
@@ -29,14 +29,14 @@ function Login() {
   const history = useHistory();
   const navigateTo = (route: string) => () => history.push(route);
 
-  const [open, setOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setIsOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setIsOpen(false);
   };
 
   return (
@@ -58,7 +58,7 @@ function Login() {
 
       <BoxPaddedTop>
         <Link onClick={handleClickOpen}>CAN&apos;T LOG IN?</Link>
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={isOpen} onClose={handleClose}>
           <DialogTitle>Account recovery not implemented.</DialogTitle>
         </Dialog>
       </BoxPaddedTop>
