@@ -8,8 +8,8 @@ import {
   styled
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import ReachSignIn from './ReachSignIn';
-import ThirdPartySignIn from './ThirdPartySignIn';
+import ReachSignIn from '../accounts/ReachSignIn';
+import ThirdPartySignIn from '../accounts/ThirdPartySignIn';
 import { HOME, CREATE_ACCOUNT } from '../nav/constants';
 import BoxCenter from '../common/components/BoxCenter';
 
