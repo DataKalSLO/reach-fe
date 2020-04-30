@@ -26,6 +26,9 @@ const initialState: GraphState = {
     [consts.HOUSING]: [
       prebuilt.medianSaleGraphOptions,
       prebuilt.medianListGraphOptions
+    ],
+    [consts.HEALTH]:[
+      prebuilt.unemploymentInsuranceClaimGraphOption,
     ]
   }
 };

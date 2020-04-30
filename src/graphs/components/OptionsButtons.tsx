@@ -3,8 +3,10 @@ import {
   EmojiTransportation,
   HouseOutlined,
   PeopleAltOutlined,
-  SchoolOutlined
+  SchoolOutlined,
+  LocalHospital
 } from '@material-ui/icons';
+import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import React, { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 import { uuid } from 'uuidv4';
@@ -14,7 +16,8 @@ import {
   DEMOGRAPHICS,
   EDUCATION,
   HOUSING,
-  INDUSTRY
+  INDUSTRY,
+  HEALTH
 } from '../../redux/graphs/constants';
 import { StyledBottomNav } from './styles';
 import { InitiativeIcon } from './types';
@@ -46,6 +49,10 @@ function OptionsButtons() {
     {
       name: HOUSING,
       icon: <HouseOutlined key={uuid()} fontSize="large" />
+    },
+    {
+      name: HEALTH,
+      icon: <LocalHospital key={uuid()} fontSize="large"/>
     }
   ];
 
