@@ -9,22 +9,7 @@ import {
   MarkerSelection,
   SelectedMarker,
   SetSelectedMarker
-} from './MapTypes';
-
-const MarkerButton = styled(Button)({
-  background: 'none',
-  border: 'none',
-  // More magic numbers to size the marker
-  cursor: 'pointer',
-  minWidth: '20px',
-  maxWidth: '20px',
-  minHeight: '30px',
-  maxHeight: '25px',
-  textTransform: 'none',
-  '&:hover': {
-    backgroundColor: 'transparent'
-  }
-});
+} from './types';
 
 // call Markers on each marker in markerSelection
 export function mapMarkers(
@@ -99,3 +84,18 @@ export default function Markers(
     );
   });
 }
+
+const MarkerButton = styled(Button)({
+  background: 'none',
+  border: 'none',
+  // More magic numbers to size the marker
+  cursor: 'pointer',
+  minWidth: '20px',
+  maxWidth: '20px',
+  minHeight: '30px',
+  maxHeight: '25px',
+  textTransform: 'none',
+  '&:hover': {
+    backgroundColor: 'transparent'
+  }
+});
