@@ -109,8 +109,10 @@ function MapView(props: MapViewProps) {
   // TODO: going to solve "any" errors at a later time
   // eslint-disable-next-line
   const [viewport, setViewport]: any = React.useState({
-    width: '90%',
-    height: '60vh',
+    width: '75%',
+    height: '50vh',
+    display: 'flex',
+    flexDirection: 'column',
     latitude: SLO_LATITUDE,
     longitude: SLO_LONGITUDE,
     zoom: 8
@@ -201,6 +203,7 @@ function MapView(props: MapViewProps) {
           height: viewport.height,
           backgroundColor: 'grey',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center'
         }}
