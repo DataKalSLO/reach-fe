@@ -21,7 +21,13 @@ import {
   MapViewProps,
   PrepGeoObject
 } from './MapTypes';
-import { getStat, onHover, prepGeo, quantileMaker, position } from './MapViewHelpers';
+import {
+  getStat,
+  onHover,
+  prepGeo,
+  quantileMaker,
+  position
+} from './MapViewHelpers';
 import Tooltip from './Tooltip';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
