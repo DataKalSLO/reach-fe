@@ -1,4 +1,4 @@
-import { createStyles, IconButton, makeStyles, Theme } from '@material-ui/core';
+import { createStyles, IconButton, makeStyles, Theme, styled, Box } from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
 import { Close } from '@material-ui/icons';
 import clsx from 'clsx';
@@ -8,32 +8,23 @@ import { editingGraphAction } from '../../redux/graphs/actions';
 import GraphEditForm from './GraphEditForm';
 import { GraphHeaderProps } from './types';
 
-function GraphEdit({ graph }: GraphHeaderProps) {
+function GraphEditBottom() {
   const dispatch = useDispatch();
   const classes = useGraphEditStyles();
   return (
-    <Fragment>
-      <Drawer
-        className={clsx(classes.drawer, !graph.isEditing && classes.hide)}
-        anchor={'bottom'}
-        variant="persistent"
-        open={graph.isEditing}
-        classes={{ paper: classes.drawerPaper }}
-      >
+      <StyledBox>
         <GraphEditForm />
-        <IconButton
-          onClick={() => dispatch(editingGraphAction(graph.id))}
-          className={classes.button}
-          size="small"
-        >
-          <Close />
-        </IconButton>
-      </Drawer>
-    </Fragment>
+      </StyledBox>
   );
 }
 
-export default GraphEdit;
+export default GraphEditBottom;
+
+const StyledBox = styled(Box)({
+  height: '50%',
+  width: '90%',
+  paddingTop: '20px'
+});
 
 const useGraphEditStyles = makeStyles((theme: Theme) =>
   createStyles({

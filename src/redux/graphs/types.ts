@@ -8,12 +8,12 @@ import * as consts from './constants';
 export interface GraphRecord {
   id: string;
   options: Highcharts.Options;
+  isEditing: boolean;
 }
 
 export interface GraphState {
   graphs: GraphRecord[];
   initiatives: InitiativeGraphs;
-  isEditing: boolean;
 }
 
 // Maps an industry to an array of graphs
@@ -47,6 +47,7 @@ export interface DeleteGraphAction {
 
 export interface EditingGraphAction {
   type: typeof consts.EDITING_GRAPH;
+  payload: string;
 }
 
 export type GraphActionTypes =
@@ -54,7 +55,6 @@ export type GraphActionTypes =
   | DuplicateGraphAction
   | DeleteGraphAction
   | EditingGraphAction;
-
 
 /*
  * The following type aliases/interfaces are used to restrict a

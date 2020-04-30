@@ -56,16 +56,19 @@ export const airportsOptions: Highcharts.Options = {
     {
       name: 'United',
       type: 'column',
+      visible: true,
       data: data[0]
     },
     {
       name: 'American',
       type: 'column',
+      visible: false,
       data: data[1]
     },
     {
       name: 'Alaska',
       type: 'column',
+      visible: false,
       data: data[2]
     }
   ]

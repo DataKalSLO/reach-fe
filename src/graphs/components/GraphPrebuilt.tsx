@@ -1,16 +1,13 @@
 import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
 import exporting from 'highcharts/modules/exporting';
-import React from 'react';
+import React, { useMemo, useRef, createRef, useEffect, LegacyRef, RefObject, useState } from 'react';
 import GraphHeader from './GraphHeader';
+import { StyledGraph, StyledGraphBox, StyledGraphCard } from './styles';
+import { GraphPrebuiltProps, GraphRef } from './types';
 import GraphEdit from './GraphEdit';
-import {
-  StyledGraph,
-  StyledGraphBox,
-  StyledGraphCard,
-  useGraphStyles
-} from './styles';
-import { GraphPrebuiltProps } from './types';
+import Graph from './Graph';
+import { isNull, isNullOrUndefined } from 'util';
+import HighchartsReact from 'highcharts-react-official';
 exporting(Highcharts);
 
 /*
@@ -21,23 +18,34 @@ exporting(Highcharts);
  */
 
 function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
-  const classes = useGraphStyles();
+  const [state, setState] = useState<string>('');
+  const highchartsRef = useRef<HighchartsReact>(null);
 
-  return (
-    <StyledGraphBox>
-      <StyledGraphCard>
-        <GraphHeader graph={graph} />
-        <StyledGraph>
-          <HighchartsReact
-            highcharts={Highcharts}
-            immutable={true}
-            options={graph.options}
-            containerProps={{ className: classes.highcharts }}
-          />
-        </StyledGraph>
-      </StyledGraphCard>
-    </StyledGraphBox>
-  );
+  useEffect(() => {
+    console.log('object');
+    if (!isNullOrUndefined(highchartsRef.current)) {
+      console.log(highchartsRef.current?.chart.plotWidth);
+      setState(highchartsRef.current?.chart.getSVG());
+//    <img src="http://localhost:8000/offline-export.svg" alt="graph" />
+    }
+  }, []);
+
+  return useMemo(() => {
+    return (
+      <StyledGraphBox>
+        <StyledGraphCard>
+          <GraphHeader graph={graph} />
+          <StyledGraph>
+            <Graph
+              graphRecord={{ id: graph.id, options: graph.options }}
+              ref={highchartsRef}
+            />
+            <GraphEdit graph={graph} />
+          </StyledGraph>
+        </StyledGraphCard>
+      </StyledGraphBox>
+    );
+  }, [graph]);
 }
 
 export default GraphPrebuilt;

@@ -36,7 +36,8 @@ export const StyledGraphBox = styled(Box)({
   height: '95%',
   scrollSnapAlign: 'center',
   scrollSnapStop: 'always',
-  maxWidth: 'calc(100vw/2.2)'
+  maxWidth: 'calc(100vw/2.2)',
+  overflowY: 'scroll'
 });
 
 export const StyledGraphCard = styled(Card)({
@@ -44,7 +45,7 @@ export const StyledGraphCard = styled(Card)({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  alignItems: 'space-around',
+  alignItems: 'center',
   height: '95%',
   boxShadow: theme.shadows[5],
   marginLeft: '15px',
@@ -82,6 +83,7 @@ export const StyledBottomNav = styled(BottomNavigationAction)({
 export const useGraphStyles = makeStyles((theme: Theme) =>
   createStyles({
     highcharts: {
+      position: 'relative',
       display: 'flex',
       flexDirection: 'row',
       flexWrap: 'wrap',

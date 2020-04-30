@@ -84,6 +84,7 @@ export const useOptionsStyles = makeStyles((theme: Theme) =>
       transform: 'translate(-50%, -50%)',
       backgroundColor: 'white',
       margin: '0px !important',
+      zIndex: 500,
       boxShadow: theme.shadows[5],
       '&:hover': {
         backgroundColor: 'white'

@@ -8,10 +8,12 @@ import GraphHeader from './GraphHeader';
 import {
   StyledGraph,
   StyledGraphBox,
-  StyledGraphCard,
   useGraphStyles
 } from './styles';
 import GraphEdit from './GraphEdit';
+import GraphEditBottom from './GraphEditBottom';
+import { styled, Card } from '@material-ui/core';
+import { theme } from '../../theme/theme';
 exporting(Highcharts);
 drilldown(Highcharts);
 
@@ -31,18 +33,32 @@ function GraphDefault() {
   return (
     <StyledGraphBox>
       <StyledGraphCard>
-        <GraphHeader graph={{ id: DEFAULT_KEY, options: options }} />
+        <GraphHeader
+          graph={{ id: DEFAULT_KEY, options: options, isEditing: false }}
+        />
         <StyledGraph>
           <HighchartsReact
             highcharts={Highcharts}
             options={options}
             containerProps={{ className: classes.highcharts }}
           />
-          <GraphEdit />
         </StyledGraph>
+        <GraphEditBottom />
       </StyledGraphCard>
     </StyledGraphBox>
   );
 }
 
 export default GraphDefault;
+
+const StyledGraphCard = styled(Card)({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  boxShadow: theme.shadows[5],
+  marginLeft: '15px',
+  margin: '20px'
+});
+

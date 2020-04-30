@@ -38,8 +38,9 @@ export function graphDeletionAction(payload: string): types.DeleteGraphAction {
   };
 }
 
-export function editingGraphAction(): types.EditingGraphAction {
+export function editingGraphAction(id: string): types.EditingGraphAction {
   return {
-    type: consts.EDITING_GRAPH
+    type: consts.EDITING_GRAPH,
+    payload: id
   };
 }

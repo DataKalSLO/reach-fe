@@ -55,7 +55,7 @@ function GraphHeader({ graph }: GraphHeaderProps) {
         color="default"
         startIcon={<Edit />}
         onClick={() => {
-          dispatch(editingGraphAction());
+          dispatch(editingGraphAction(graph.id));
         }}
       />
       <Button
