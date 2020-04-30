@@ -35,46 +35,54 @@ function ReachSignIn() {
     setLoading(false);
   }, [setBadLogin, setLoading]);
 
+  const handleSubmit = useCallback(
+    e => {
+      e.preventDefault();
+      setLoading(true);
+      dispatch(
+        wrapWithCatch(
+          loginUser({ email, password } as LoginData),
+          handleLoginError,
+          () => history.push(HOME)
+        )
+      );
+    },
+    [setLoading, dispatch, email, password, history]
+  );
+
   return (
-    <SignInBox>
-      <AccountTextField
-        placeholder="Email Address"
-        fullWidth
-        variant="filled"
-        size="small"
-        onChange={handleInputChangeEmail}
-      />
-      <AccountTextField
-        error={badLogin}
-        helperText={badLogin ? 'Incorrect email/password combination' : ' '}
-        placeholder="Password"
-        type="password"
-        fullWidth
-        variant="filled"
-        size="small"
-        onChange={handleInputChangePassword}
-      />
-      <StyledButton
-        variant="contained"
-        fullWidth
-        color="primary"
-        onClick={() => {
-          setLoading(true);
-          dispatch(
-            wrapWithCatch(
-              loginUser({ email, password } as LoginData),
-              handleLoginError,
-              () => history.push(HOME)
-            )
-          );
-        }}
-      >
-        LOG IN
-      </StyledButton>
-      <Fade in={loading}>
-        <CircularProgress />
-      </Fade>
-    </SignInBox>
+    <form onSubmit={handleSubmit}>
+      <SignInBox>
+        <AccountTextField
+          placeholder="Email Address"
+          fullWidth
+          variant="filled"
+          size="small"
+          onChange={handleInputChangeEmail}
+        />
+        <AccountTextField
+          error={badLogin}
+          helperText={badLogin ? 'Incorrect email/password combination' : ' '}
+          placeholder="Password"
+          type="password"
+          fullWidth
+          variant="filled"
+          size="small"
+          onChange={handleInputChangePassword}
+        />
+        <StyledButton
+          variant="contained"
+          fullWidth
+          color="primary"
+          type="submit"
+        >
+          LOG IN
+        </StyledButton>
+        <Fade in={loading}>
+          <CircularProgress />
+        </Fade>
+      </SignInBox>
+    </form>
   );
 }
 

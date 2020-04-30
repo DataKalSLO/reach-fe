@@ -1,60 +1,35 @@
 import {
-  Paper,
-  makeStyles,
-  createStyles,
-  Theme,
+  Box,
   Card,
   CardContent,
-  Typography
+  Link,
+  Typography,
+  styled
 } from '@material-ui/core';
 import React from 'react';
-import { LegendProps, MarkerSelection } from './MapTypes';
+import { MarkerSelection, HeatMapSelection, ColorAssociation } from './types';
+import { theme } from '../theme/theme';
 
-//TODO: use mui styled instead of makestyles
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-      justifyContent: 'left',
-      flexWrap: 'wrap',
-      padding: theme.spacing(0.5),
-      '& > *': {
-        margin: theme.spacing(0.5)
-      }
-    },
-    card: {
-      display: 'flex'
-    },
-    cardContent: {
-      padding: theme.spacing(0.5),
-      '&:last-child': {
-        paddingBottom: theme.spacing(0.5)
-      }
-    },
-    paperTitle: {
-      fontSize: 12
-    },
-    title: {
-      fontSize: 14
-    },
-    subtitle: {
-      fontSize: 10
-    }
-  })
-);
-
-export function Legend(props: LegendProps) {
-  const classes = useStyles();
-  const { heatMapSelection, colorAssociation, markerSelection } = props;
-
-  const legendData: {
+// populate legend using data selected in the layers component
+// legend has name of data set, color association, vintage, and source of data
+// since the color association is handled differently,
+// markers and heat maps need to be parsed separately
+function populateLegendData(
+  heatMapSelection: HeatMapSelection,
+  colorAssociation: ColorAssociation,
+  markerSelection: MarkerSelection[],
+  legendData: {
     key: number;
     label: string;
     vintage: string;
     source: string;
     color: string;
-  }[] = [];
+  }[]
+) {
+  // add heat map selection to legend if it exists
   if (heatMapSelection.name !== undefined) {
+    // TODO: once we are using DB instead of local data, the concat below will
+    // likely be removed
     const prefix = 'https://www.';
     const link = prefix.concat(heatMapSelection.source);
     const heatMapLegend = {
@@ -66,10 +41,13 @@ export function Legend(props: LegendProps) {
     };
     legendData.push(heatMapLegend);
   }
+  // add marker selection to legend data if it exists
   if (
     Object.keys(colorAssociation).length === Object.keys(markerSelection).length
   ) {
     markerSelection.forEach((selection: MarkerSelection) => {
+      // TODO: once we are using DB instead of local data, the concat below will
+      // likely be removed
       const prefix = 'https://www.';
       const link = prefix.concat(selection.source);
       const markerLegend = {
@@ -82,36 +60,101 @@ export function Legend(props: LegendProps) {
       legendData.push(markerLegend);
     });
   }
+}
 
+// creates and formats a card for each item in the legend
+function getCards(data: {
+  key: number;
+  label: string;
+  vintage: string;
+  source: string;
+  color: string;
+}) {
   return (
-    <Paper className={classes.root} elevation={0}>
-      <Typography
-        className={classes.paperTitle}
-        color="textSecondary"
-        gutterBottom
-      >
-        Legend
-      </Typography>
-      {legendData.map(data => {
-        return (
-          <Card
-            className={classes.card}
-            key={data.key}
-            variant="outlined"
-            style={{ borderColor: data.color }}
-          >
-            <CardContent className={classes.cardContent}>
-              <Typography className={classes.title}> {data.label} </Typography>
-              <Typography className={classes.subtitle}>
-                Vintage: {data.vintage}
-              </Typography>
-              <Typography className={classes.subtitle}>
-                Source: {<a href={data.source}>{data.source}</a>}
-              </Typography>
-            </CardContent>
-          </Card>
-        );
-      })}
-    </Paper>
+    <StyledCard
+      key={data.key}
+      variant="outlined"
+      style={{ borderColor: data.color }}
+    >
+      <StyledCardContent>
+        <Typography variant="body2" display="block">
+          {data.label}
+        </Typography>
+        <Typography variant="caption" display="block">
+          Vintage: {data.vintage}
+        </Typography>
+        <Typography variant="caption" display="block">
+          {'Source: '}
+          <Link href={data.source} rel="noopener noreferrer" target="_blank">
+            {data.source}
+          </Link>
+        </Typography>
+      </StyledCardContent>
+    </StyledCard>
   );
 }
+
+interface LegendProps {
+  heatMapSelection: HeatMapSelection;
+  colorAssociation: ColorAssociation;
+  markerSelection: MarkerSelection[];
+}
+
+export default function Legend(props: LegendProps) {
+  const { heatMapSelection, colorAssociation, markerSelection } = props;
+
+  const legendData: {
+    key: number;
+    label: string;
+    vintage: string;
+    source: string;
+    color: string;
+  }[] = [];
+  populateLegendData(
+    heatMapSelection,
+    colorAssociation,
+    markerSelection,
+    legendData
+  );
+
+  return (
+    <StyledBox>
+      <Typography variant="caption" color="textSecondary" display="block">
+        Legend
+      </Typography>
+      {legendData.map(
+        (data: {
+          key: number;
+          label: string;
+          vintage: string;
+          source: string;
+          color: string;
+        }) => {
+          return getCards(data);
+        }
+      )}
+    </StyledBox>
+  );
+}
+
+const StyledBox = styled(Box)({
+  root: {
+    display: 'flex',
+    justifyContent: 'left',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    padding: theme.spacing(0.5)
+  }
+});
+
+const StyledCard = styled(Card)({
+  display: 'inline-block',
+  margin: theme.spacing(0.5)
+});
+
+const StyledCardContent = styled(CardContent)({
+  padding: theme.spacing(0.5),
+  '&:last-child': {
+    paddingBottom: theme.spacing(0.5)
+  }
+});

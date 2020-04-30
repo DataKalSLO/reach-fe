@@ -18,9 +18,13 @@ import Popups from './MapPopups';
 import {
   ColorAssociation,
   LocationFeatures,
-  MapViewProps,
-  PrepGeoObject
-} from './MapTypes';
+  PrepGeoObject,
+  HeatMapSelection,
+  MarkerSelection,
+  SelectedMarker,
+  SetSelectedMarker,
+  SetColorAssociation
+} from './types';
 import {
   getStat,
   onHover,
@@ -40,6 +44,15 @@ const defaultHoveredLocation = {
   },
   noLocation: true
 };
+
+interface MapViewProps {
+  markerSelection: MarkerSelection[];
+  heatMapSelection: HeatMapSelection;
+  selectedMarker: SelectedMarker;
+  setSelectedMarker: SetSelectedMarker;
+  colorAssociation: ColorAssociation;
+  setColorAssociation: SetColorAssociation;
+}
 
 function MapView(props: MapViewProps) {
   const {

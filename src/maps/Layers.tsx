@@ -13,15 +13,14 @@ import { theme } from '../theme/theme';
 import {
   FeatureProperty,
   HeatMapSelection,
-  LayersComponentProps,
   LocationFeatures,
-  MarkerOrHeatMap,
+  Selections,
   MarkerSelection,
   SelectedMarker,
   SetHeatMapSelection,
   SetMarkerSelection,
   SetSelectedMarker
-} from './MapTypes';
+} from './types';
 
 // number of allowed selections, subject to change based on ui/ux and graph team suggestions
 const ALLOWED_MARKERS = 2;
@@ -32,25 +31,13 @@ const ALLOWED_BOTH = 2;
 const heatMapData = [medianHouseholdIncomeHeatMap, kitchenFaciltiesHeatMap];
 export const allData = flatten([markerData as any, heatMapData]);
 
-const StyleBox = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'left',
-  '& > *': {
-    margin: theme.spacing(1)
-  },
-  '& > * + *': {
-    marginTop: theme.spacing(3)
-  }
-});
-
 // this is how we show everything in options (disable none)
-const showAll: MarkerOrHeatMap = [];
+const showAll: Selections = [];
 
 // handles change of selection
 // ensures that popups will not stay when their markers disappear
 export function handleChange(
-  value: MarkerOrHeatMap,
+  value: Selections,
   setMarkerSelection: SetMarkerSelection,
   setHeatMapSelection: SetHeatMapSelection,
   setSelectedMarker: SetSelectedMarker,
@@ -59,8 +46,6 @@ export function handleChange(
   const newMarkers: MarkerSelection[] = [];
   let newHeatMap: {} | HeatMapSelection = {};
   const allSelections: string[] = [];
-  // TODO: fix type errors here, I am unable to use the MarkerOrHeatMap type
-  // eslint-disable-next-line
   value.forEach((table: MarkerSelection | HeatMapSelection) => {
     if (table.type === 'FeatureCollection') {
       const marker = table as MarkerSelection;
@@ -113,8 +98,17 @@ export function handleDisable(
   return showAll.includes(option);
 }
 
+interface LayersProps {
+  markerSelection: MarkerSelection[];
+  setMarkerSelection: SetMarkerSelection;
+  heatMapSelection: HeatMapSelection;
+  setHeatMapSelection: SetHeatMapSelection;
+  selectedMarker: SelectedMarker;
+  setSelectedMarker: SetSelectedMarker;
+}
+
 // this function creates the multi-seletion autocomplete component
-export default function LayersComponent(props: LayersComponentProps) {
+export default function Layers(props: LayersProps) {
   const {
     markerSelection,
     setMarkerSelection,
@@ -124,7 +118,7 @@ export default function LayersComponent(props: LayersComponentProps) {
     setSelectedMarker
   } = props;
   return (
-    <StyleBox>
+    <StyledBox>
       <Autocomplete
         multiple
         id="tags-outlined"
@@ -157,6 +151,18 @@ export default function LayersComponent(props: LayersComponentProps) {
           />
         )}
       />
-    </StyleBox>
+    </StyledBox>
   );
 }
+
+const StyledBox = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'left',
+  '& > *': {
+    margin: theme.spacing(1)
+  },
+  '& > * + *': {
+    marginTop: theme.spacing(3)
+  }
+});
