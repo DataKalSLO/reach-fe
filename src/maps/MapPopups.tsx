@@ -1,11 +1,7 @@
 import React from 'react';
 import { Popup } from 'react-map-gl';
 import { POPUP_OFFSET_LEFT } from './constants';
-import {
-  LocationFeatures,
-  SelectedMarker,
-  SetSelectedMarker
-} from './MapTypes';
+import { LocationFeatures, SelectedMarker, SetSelectedMarker } from './types';
 
 export default function Popups(
   marker: LocationFeatures,
