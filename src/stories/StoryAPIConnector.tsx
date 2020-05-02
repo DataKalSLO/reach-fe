@@ -1,8 +1,8 @@
 import { del, get, post, put } from '../api/base';
 import {
   Story,
-  StoryBlock,
-  TextBlock,
+  StoryBlockType,
+  TextBlockType,
   TEXT_BLOCK_TYPE
 } from '../redux/story/types';
 import {
@@ -106,7 +106,7 @@ function transformStoryToDatabaseStory(story: Story): DatabaseStory {
 //If given a TextBlock, Serializes the EditorState as a string
 //Otherwise, storyBlock is returned.
 function transformStoryBlockToDatabaseStoryBlock(
-  storyBlock: StoryBlock
+  storyBlock: StoryBlockType
 ): DatabaseStoryBlock {
   switch (storyBlock.type) {
     case TEXT_BLOCK_TYPE:
@@ -137,7 +137,7 @@ function transformAPIResponseToStory(apiResponse: object): Story {
 //Parses a TextBlockDB's the stringified EditorState's into a DraftJS's EditorState.
 function transformDatabaseStoryBlockToStoryBlock(
   storyBlock: DatabaseStoryBlock
-): StoryBlock {
+): StoryBlockType {
   switch (storyBlock.type) {
     case TEXT_BLOCK_DB_TYPE:
       return {
@@ -146,7 +146,7 @@ function transformDatabaseStoryBlockToStoryBlock(
         editorState: EditorState.createWithContent(
           convertFromRaw(JSON.parse(storyBlock.editorState))
         )
-      } as TextBlock;
+      } as TextBlockType;
     default:
       return storyBlock;
   }

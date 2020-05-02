@@ -16,7 +16,7 @@ export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
 
 //Story-related types
 export interface Story extends StoryMetaInformation {
-  storyBlocks: Array<StoryBlock>;
+  storyBlocks: Array<StoryBlockType>;
 }
 
 /*

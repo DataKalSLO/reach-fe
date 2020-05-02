@@ -1,4 +1,4 @@
-import { GraphBlock, MapBlock } from '../redux/story/types';
+import { GraphBlockType, MapBlockType } from '../redux/story/types';
 
 export const TEXT_BLOCK_DB_TYPE = 'TextDB'; // Database version of TextBlock
 
@@ -19,4 +19,4 @@ export interface TextBlockDB {
   editorState: string;
 }
 
-export type DatabaseStoryBlock = TextBlockDB | GraphBlock | MapBlock;
+export type DatabaseStoryBlock = TextBlockDB | GraphBlockType | MapBlockType;
