@@ -2,7 +2,6 @@ import { Card, CardContent, Typography } from '@material-ui/core';
 import { styled } from '@material-ui/styles';
 import React from 'react';
 import { CCSR_CITY_ZIPS } from './constants';
-import { TooltipProps } from './MapTypes';
 
 const TooltipTypography = styled(Typography)({
   textTransform: 'capitalize',
@@ -12,6 +11,11 @@ const TooltipTypography = styled(Typography)({
 const TooltipCard = styled(Card)({
   backgroundColor: 'white'
 });
+
+interface TooltipProps {
+  value: number;
+  zipCode: string;
+}
 
 export default function Tooltip(props: TooltipProps) {
   const { value, zipCode } = props;

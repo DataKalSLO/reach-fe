@@ -15,7 +15,11 @@ const data = [[54, 28, 19, 14, 14, 7, 7, 7, 6, 13]];
 
 export const CovidCasesBycityOptions: Highcharts.Options = {
   tooltip: {
+<<<<<<< HEAD
     valueDecimals: 0,
+=======
+    valueDecimals: 2,
+>>>>>>> 20f43cfec3463177803abe9f62d7c75d6216b83d
     valuePrefix: '',
     valueSuffix: ' '
   },
