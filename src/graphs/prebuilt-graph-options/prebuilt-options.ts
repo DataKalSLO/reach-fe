@@ -16,6 +16,10 @@ import { CovidCasesBycityOptions } from './SLOCovidCasesByCity';
 import { CovidCasesByRegionOptions } from './SLOCovidCasesByRegion';
 import { CovidCasesByAgeOptions } from './SLOCovidCasesByAge';
 import { HealthCareFacityBedOptions } from './SLOCovidBedCapacity';
+import { SBCovidCasesOptions } from './SBCovidcasesConfirmed';
+import { SBCovidCasesByStatusOptions } from './SBCovidCasesByStatus';
+import { SBCovidCasesBycityOptions } from './SBCovidCasesByCity';
+import { SBCovidCasesByAgeOptions } from './SBCovidCasesbyAge';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 export const dodGraphOptions = require('./DoDDrilldown2018.json');
@@ -37,3 +41,7 @@ export const covidCasesByCityGraphOptions = CovidCasesBycityOptions;
 export const covidCasesByRegionGraphOptions = CovidCasesByRegionOptions;
 export const covidCasesByAgeGraphOptions = CovidCasesByAgeOptions;
 export const HealthCareFacityBedGraphOptions = HealthCareFacityBedOptions;
+export const SBCovidCasesGraphOptions = SBCovidCasesOptions;
+export const SBCovidCasesByStatusGraphOptions = SBCovidCasesByStatusOptions;
+export const SBCovidCasesBycityGraphOptions = SBCovidCasesBycityOptions;
+export const SBCovidCasesByAgeGraphOptions = SBCovidCasesByAgeOptions

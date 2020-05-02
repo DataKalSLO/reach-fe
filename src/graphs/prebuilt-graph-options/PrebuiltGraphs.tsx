@@ -214,3 +214,46 @@ export function HealthCareFacityBedOptions() {
     />
   );
 }
+
+// Covid-19 health care confirmed cases SB
+
+export function SBCovidCasesOptions() {
+  return (
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={prebuilt.HealthCareFacityBedGraphOptions}
+    />
+  );
+}
+
+// Covid-19 health  cases by status SB
+
+export function SBCovidCasesByStatusOptions() {
+  return (
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={prebuilt.SBCovidCasesByStatusGraphOptions}
+    />
+  );
+}
+
+// Covid-19 health  cases by city or town SB
+
+export function SBCovidCasesBycityOptions() {
+  return (
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={prebuilt.SBCovidCasesBycityGraphOptions}
+    />
+  );
+}
+// Covid-19 health  cases by Age SB
+
+export function SBCovidCasesByAgeOptions() {
+  return (
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={prebuilt.SBCovidCasesByAgeGraphOptions}
+    />
+  );
+}
