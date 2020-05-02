@@ -9,7 +9,16 @@ import { highschoolOptions } from './percent-highschool';
 import { milesTraveledOptions } from './miles-traveled';
 import { medianListOptions } from './median-list-price';
 import { medianSaleOptions } from './median-sale-price';
+import { unemploymentInsuranceClaimOptions } from './NewUnemploymentInsurance';
+import { CovidCasesOptions } from './SLOCovidCases';
+import { CovidCasesByStatusOptions } from './SLOCovidCasesByStatus';
+import { CovidCasesBycityOptions } from './SLOCovidCasesByCity';
+import { CovidCasesByRegionOptions } from './SLOCovidCasesByRegion';
+import { CovidCasesByAgeOptions } from './SLOCovidCasesByAge';
+import { HealthCareFacityBedOptions } from './SLOCovidBedCapacity';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+export const dodGraphOptions = require('./DoDDrilldown2018.json');
 export const defenseGraphOptions = defenseOptions;
 export const incomeInequalityGraphOptions = incomeInequalityOptions;
 export const wagesGraphOptions = wagesOptions;
@@ -21,3 +30,10 @@ export const highschoolGraphOptions = highschoolOptions;
 export const milesTraveledGraphOptions = milesTraveledOptions;
 export const medianListGraphOptions = medianListOptions;
 export const medianSaleGraphOptions = medianSaleOptions;
+export const unemploymentInsuranceClaimGraphOption = unemploymentInsuranceClaimOptions;
+export const covidCasesGraphOptions = CovidCasesOptions;
+export const covidCasesByStatusGraphOptions = CovidCasesByStatusOptions;
+export const covidCasesByCityGraphOptions = CovidCasesBycityOptions;
+export const covidCasesByRegionGraphOptions = CovidCasesByRegionOptions;
+export const covidCasesByAgeGraphOptions = CovidCasesByAgeOptions;
+export const HealthCareFacityBedGraphOptions = HealthCareFacityBedOptions;

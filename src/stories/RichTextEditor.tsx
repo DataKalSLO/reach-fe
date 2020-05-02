@@ -30,7 +30,7 @@ export default function RichTextEditor(props: Props) {
   };
 
   return (
-    <StyledBox width="100%">
+    <StyledBox>
       <EditorToolbar
         editorState={editorState}
         setEditorState={setEditorState}

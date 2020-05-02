@@ -9,6 +9,7 @@ export const MAP_BLOCK_TYPE = 'Map';
 //Action names
 export const CREATE_EMPTY_TEXT_BLOCK = 'CREATE_EMPTY_TEXT_BLOCK';
 export const UPDATE_TEXT_BLOCK = 'UPDATE_TEXT_BLOCK';
+export const DELETE_BLOCK = 'DELETE_BLOCK';
 export const SWAP_BLOCKS = 'SWAP_BLOCKS';
 export const UPDATE_TITLE = 'UPDATE_TITLE';
 export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
@@ -22,35 +23,40 @@ export interface Story extends StoryMetaInformation {
  * Story Blocks define the properties needed to generate the associated react components
  * Story Blocks also have 1-1 mapping with database objects
  */
-export interface TextBlock {
+export interface TextBlockType {
   type: typeof TEXT_BLOCK_TYPE;
   id: string;
   editorState: EditorState;
 }
 
-export interface GraphBlock {
+export interface GraphBlockType {
   type: typeof GRAPH_BLOCK_TYPE;
   id: string;
   graphID: string;
 }
-export interface MapBlock {
+export interface MapBlockType {
   type: typeof MAP_BLOCK_TYPE;
   id: string;
   mapID: string;
 }
 
-export type StoryBlock = TextBlock | GraphBlock | MapBlock;
+export type StoryBlockType = TextBlockType | GraphBlockType | MapBlockType;
 
 //Actions
 
 export interface CreateEmptyTextBlockAction {
   type: typeof CREATE_EMPTY_TEXT_BLOCK;
-  payload: { block: TextBlock };
+  payload: { block: TextBlockType };
 }
 
 export interface UpdateTextBlockAction {
   type: typeof UPDATE_TEXT_BLOCK;
   payload: { index: number; editorState: EditorState };
+}
+
+export interface DeleteBlockAction {
+  type: typeof DELETE_BLOCK;
+  payload: { index: number };
 }
 
 export interface SwapBlocksAction {
@@ -78,6 +84,7 @@ export type UpdateBlockType = UpdateTextBlockAction;
 export type StoryActionType =
   | CreateEmptyTextBlockAction
   | UpdateTextBlockAction
+  | DeleteBlockAction
   | SwapBlocksAction
   | UpdateTitleAction
   | UpdateDescriptionAction;

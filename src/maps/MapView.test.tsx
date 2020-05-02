@@ -3,7 +3,7 @@ import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
 import Popups from './MapPopups';
-import { LocationFeatures } from './MapTypes';
+import { LocationFeatures } from './types';
 import { quantileMaker } from './MapViewHelpers';
 
 React.useLayoutEffect = React.useEffect;
