@@ -22,6 +22,7 @@ export interface InitiativeGraphs {
   [consts.ASSETS]: Highcharts.Options[];
   [consts.EDUCATION]: Highcharts.Options[];
   [consts.HOUSING]: Highcharts.Options[];
+  [consts.HEALTH]: Highcharts.Options[];
 }
 
 /*
@@ -59,7 +60,8 @@ export const initiativeNames = [
   consts.DEMOGRAPHICS,
   consts.ASSETS,
   consts.EDUCATION,
-  consts.HOUSING
+  consts.HOUSING,
+  consts.HEALTH
 ] as const;
 
 export type InitiativeLiteral = typeof initiativeNames[number];

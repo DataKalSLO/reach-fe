@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Box, Button, styled, CircularProgress } from '@material-ui/core';
+import { Box, Button, styled, CircularProgress, Fade } from '@material-ui/core';
 import AccountTextField from '../common/components/AccountTextField';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -35,44 +35,54 @@ function ReachSignIn() {
     setLoading(false);
   }, [setBadLogin, setLoading]);
 
+  const handleSubmit = useCallback(
+    e => {
+      e.preventDefault();
+      setLoading(true);
+      dispatch(
+        wrapWithCatch(
+          loginUser({ email, password } as LoginData),
+          handleLoginError,
+          () => history.push(HOME)
+        )
+      );
+    },
+    [setLoading, dispatch, email, password, history]
+  );
+
   return (
-    <SignInBox>
-      <AccountTextField
-        placeholder="Email Address"
-        fullWidth
-        variant="filled"
-        size="small"
-        onChange={handleInputChangeEmail}
-      />
-      <AccountTextField
-        error={badLogin}
-        helperText={badLogin ? 'Incorrect email/password combination' : ''}
-        placeholder="Password"
-        type="password"
-        fullWidth
-        variant="filled"
-        size="small"
-        onChange={handleInputChangePassword}
-      />
-      <StyledButton
-        variant="contained"
-        fullWidth
-        color="primary"
-        onClick={() => {
-          setLoading(true);
-          dispatch(
-            wrapWithCatch(
-              loginUser({ email, password } as LoginData),
-              handleLoginError,
-              () => history.push(HOME)
-            )
-          );
-        }}
-      >
-        LOG IN
-      </StyledButton>
-      {loading ? <CircularProgress /> : null}
-    </SignInBox>
+    <form onSubmit={handleSubmit}>
+      <SignInBox>
+        <AccountTextField
+          placeholder="Email Address"
+          fullWidth
+          variant="filled"
+          size="small"
+          onChange={handleInputChangeEmail}
+        />
+        <AccountTextField
+          error={badLogin}
+          helperText={badLogin ? 'Incorrect email/password combination' : ' '}
+          placeholder="Password"
+          type="password"
+          fullWidth
+          variant="filled"
+          size="small"
+          onChange={handleInputChangePassword}
+        />
+        <StyledButton
+          variant="contained"
+          fullWidth
+          color="primary"
+          type="submit"
+        >
+          LOG IN
+        </StyledButton>
+        <Fade in={loading}>
+          <CircularProgress />
+        </Fade>
+      </SignInBox>
+    </form>
   );
 }
 
@@ -83,10 +93,10 @@ const SignInBox = styled(Box)({
   flexDirection: 'column',
   alignItems: 'center',
   justifyItems: 'center',
-  justifyContent: 'space-around',
+  justifyContent: 'space-between',
   paddingLeft: paddingDefault,
   paddingRight: paddingDefault,
-  height: '215px',
+  height: '235px',
   width: '270px'
 });
 

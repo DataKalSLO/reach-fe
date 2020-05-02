@@ -3,6 +3,8 @@ import { emptyTextBlock } from './reducer';
 import {
   CreateEmptyTextBlockAction,
   CREATE_EMPTY_TEXT_BLOCK,
+  DeleteBlockAction,
+  DELETE_BLOCK,
   SwapBlocksAction,
   SWAP_BLOCKS,
   UpdateDescriptionAction,
@@ -17,8 +19,15 @@ export function createEmptyTextBlock(): CreateEmptyTextBlockAction {
   return {
     type: CREATE_EMPTY_TEXT_BLOCK,
     payload: {
-      block: emptyTextBlock
+      block: emptyTextBlock()
     }
+  };
+}
+
+export function deleteBlock(index: number): DeleteBlockAction {
+  return {
+    type: DELETE_BLOCK,
+    payload: { index: index }
   };
 }
 

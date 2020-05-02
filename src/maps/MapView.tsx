@@ -18,10 +18,20 @@ import Popups from './MapPopups';
 import {
   ColorAssociation,
   LocationFeatures,
-  MapViewProps,
-  PrepGeoObject
-} from './MapTypes';
-import { getStat, onHover, prepGeo, quantileMaker } from './MapViewHelpers';
+  PrepGeoObject,
+  HeatMapSelection,
+  MarkerSelection,
+  SelectedMarker,
+  SetSelectedMarker,
+  SetColorAssociation
+} from './types';
+import {
+  getStat,
+  onHover,
+  prepGeo,
+  quantileMaker,
+  position
+} from './MapViewHelpers';
 import Tooltip from './Tooltip';
 import { Grid } from '@material-ui/core';
 
@@ -35,6 +45,15 @@ const defaultHoveredLocation = {
   },
   noLocation: true
 };
+
+interface MapViewProps {
+  markerSelection: MarkerSelection[];
+  heatMapSelection: HeatMapSelection;
+  selectedMarker: SelectedMarker;
+  setSelectedMarker: SetSelectedMarker;
+  colorAssociation: ColorAssociation;
+  setColorAssociation: SetColorAssociation;
+}
 
 function MapView(props: MapViewProps) {
   const {
@@ -63,6 +82,7 @@ function MapView(props: MapViewProps) {
   const outlineData = GeoJSON.parse(outlinesPrepped, { GeoJSON: 'geometry' });
 
   // React-Map-GL State
+  const [dims, setDims] = React.useState({ height: 0, width: 0 });
   const [layer, setLayer] = React.useState({
     id: 'data',
     type: 'fill',
@@ -151,12 +171,21 @@ function MapView(props: MapViewProps) {
     }
     const zipsValue = hoveredLocation.properties[valueKey];
     const zipCode = hoveredLocation.properties[ZIP_TABULATION];
+
+    const map = document.getElementById('map');
+    if (!map) {
+      return;
+    }
+    const bounds = map.getBoundingClientRect();
+    const left = position(bounds.left, bounds.right, dims.width, x.current);
+    const top = position(bounds.top, bounds.bottom, dims.height, y.current);
+
     return (
       <div
-        className="tooltip"
+        id="map-tooltip"
         style={{
-          left: x.current,
-          top: y.current,
+          top,
+          left,
           zIndex: 999,
           pointerEvents: 'none',
           position: 'absolute'
@@ -170,32 +199,42 @@ function MapView(props: MapViewProps) {
   if (Object.keys(data).length > 0) {
     return (
       <Grid container>
-        <ReactMapGL
-          mapboxApiAccessToken={process.env.REACT_APP_TOKEN}
-          {...viewport}
-          onViewportChange={viewport => setViewport(viewport)}
-          onHover={event =>
-            onHover(defaultHoveredLocation, setHoveredLocation, event, x, y)
-          }
-        >
-          <Source type="geojson" data={data}>
-            <Layer {...layer} />
-          </Source>
-          <Source type="geojson" data={outlineData}>
-            <Layer {...outline} />
-          </Source>
+        <div id="map">
+          <ReactMapGL
+            mapboxApiAccessToken={process.env.REACT_APP_TOKEN}
+            {...viewport}
+            onViewportChange={viewport => setViewport(viewport)}
+            onHover={event =>
+              onHover(
+                defaultHoveredLocation,
+                setHoveredLocation,
+                event,
+                x,
+                y,
+                dims,
+                setDims
+              )
+            }
+          >
+            <Source type="geojson" data={data}>
+              <Layer {...layer} />
+            </Source>
+            <Source type="geojson" data={outlineData}>
+              <Layer {...outline} />
+            </Source>
 
-          {renderTooltip()}
-          {mapMarkers(
-            markerSelection,
-            setSelectedMarker,
-            selectedMarker,
-            colorAssociation
-          )}
-          {selectedMarker.map((selected: LocationFeatures) => {
-            return Popups(selected, setSelectedMarker, selectedMarker);
-          })}
-        </ReactMapGL>
+            {renderTooltip()}
+            {mapMarkers(
+              markerSelection,
+              setSelectedMarker,
+              selectedMarker,
+              colorAssociation
+            )}
+            {selectedMarker.map((selected: LocationFeatures) => {
+              return Popups(selected, setSelectedMarker, selectedMarker);
+            })}
+          </ReactMapGL>
+        </div>
       </Grid>
     );
   } else {

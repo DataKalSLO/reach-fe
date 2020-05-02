@@ -52,11 +52,13 @@ export const StyledGraphCard = styled(Card)({
 });
 
 export const StyledGraph = styled(Container)({
+  position: 'relative',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignContent: 'center',
   height: '90%',
+  width: '95%',
   padding: '10px'
 });
 

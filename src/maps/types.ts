@@ -80,38 +80,7 @@ export type SetBoundSelection = React.Dispatch<
 >;
 
 // type for either marker or heat map selection
-export type MarkerOrHeatMap = MarkerSelection[] | HeatMapSelection[];
-
-// type interface for props passed to MapView in Map.tsx
-export interface MapViewProps {
-  markerSelection: MarkerSelection[];
-  heatMapSelection: HeatMapSelection;
-  selectedMarker: SelectedMarker;
-  setSelectedMarker: SetSelectedMarker;
-  colorAssociation: ColorAssociation;
-  setColorAssociation: SetColorAssociation;
-}
-
-// type interface for props passed to LayersComponent in Map.tsx
-export interface LayersComponentProps {
-  markerSelection: MarkerSelection[];
-  setMarkerSelection: SetMarkerSelection;
-  heatMapSelection: HeatMapSelection;
-  setHeatMapSelection: SetHeatMapSelection;
-  selectedMarker: SelectedMarker;
-  setSelectedMarker: SetSelectedMarker;
-}
-
-// placeholder type interface for props passed to FiltersComponent in Map.tsx
-export interface GeoFilterComponentProps {
-  boundSelection: BoundSelection;
-  setBoundSelection: SetBoundSelection;
-}
-
-export interface TooltipProps {
-  value: number;
-  zipCode: string;
-}
+export type Selections = MarkerSelection[] | HeatMapSelection[];
 
 export interface FeatureProperty {
   properties: { name: string };
