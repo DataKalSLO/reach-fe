@@ -198,43 +198,41 @@ function MapView(props: MapViewProps) {
 
   if (Object.keys(data).length > 0) {
     return (
-      <Grid container>
-        <div id="map">
-          <ReactMapGL
-            mapboxApiAccessToken={process.env.REACT_APP_TOKEN}
-            {...viewport}
-            onViewportChange={viewport => setViewport(viewport)}
-            onHover={event =>
-              onHover(
-                defaultHoveredLocation,
-                setHoveredLocation,
-                event,
-                x,
-                y,
-                dims,
-                setDims
-              )
-            }
-          >
-            <Source type="geojson" data={data}>
-              <Layer {...layer} />
-            </Source>
-            <Source type="geojson" data={outlineData}>
-              <Layer {...outline} />
-            </Source>
+      <Grid container id="map">
+        <ReactMapGL
+          mapboxApiAccessToken={process.env.REACT_APP_TOKEN}
+          {...viewport}
+          onViewportChange={viewport => setViewport(viewport)}
+          onHover={event =>
+            onHover(
+              defaultHoveredLocation,
+              setHoveredLocation,
+              event,
+              x,
+              y,
+              dims,
+              setDims
+            )
+          }
+        >
+          <Source type="geojson" data={data}>
+            <Layer {...layer} />
+          </Source>
+          <Source type="geojson" data={outlineData}>
+            <Layer {...outline} />
+          </Source>
 
-            {renderTooltip()}
-            {mapMarkers(
-              markerSelection,
-              setSelectedMarker,
-              selectedMarker,
-              colorAssociation
-            )}
-            {selectedMarker.map((selected: LocationFeatures) => {
-              return Popups(selected, setSelectedMarker, selectedMarker);
-            })}
-          </ReactMapGL>
-        </div>
+          {renderTooltip()}
+          {mapMarkers(
+            markerSelection,
+            setSelectedMarker,
+            selectedMarker,
+            colorAssociation
+          )}
+          {selectedMarker.map((selected: LocationFeatures) => {
+            return Popups(selected, setSelectedMarker, selectedMarker);
+          })}
+        </ReactMapGL>
       </Grid>
     );
   } else {

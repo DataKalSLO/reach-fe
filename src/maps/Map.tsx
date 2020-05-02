@@ -73,11 +73,6 @@ function Map() {
         colorAssociation={colorAssociation}
         setColorAssociation={setColorAssociation}
       />
-      <Legend
-        heatMapSelection={heatMapSelection}
-        colorAssociation={colorAssociation}
-        markerSelection={markerSelection}
-      />
       <GeoFilter
         boundSelection={boundSelection}
         setBoundSelection={setBoundSelection}
