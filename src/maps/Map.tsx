@@ -20,7 +20,7 @@ export const StyledMapContainer = styled(Box)({
   height: '100%',
   width: '97%',
   marginLeft: '10px',
-  overflow: 'scroll',
+  overflow: 'hidden',
   scrollSnapType: 'y mandatory',
   '&::-webkit-scrollbar': {
     width: '0.5em'

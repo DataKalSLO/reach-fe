@@ -23,6 +23,7 @@ import {
 } from './MapTypes';
 import { getStat, onHover, prepGeo, quantileMaker } from './MapViewHelpers';
 import Tooltip from './Tooltip';
+import { Grid } from '@material-ui/core';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
@@ -109,10 +110,10 @@ function MapView(props: MapViewProps) {
   // TODO: going to solve "any" errors at a later time
   // eslint-disable-next-line
   const [viewport, setViewport]: any = React.useState({
-    width: '75%',
+    width: '100%',
     height: '50vh',
     display: 'flex',
-    flexDirection: 'column',
+    flexFlow: 'row',
     latitude: SLO_LATITUDE,
     longitude: SLO_LONGITUDE,
     zoom: 8
@@ -168,32 +169,34 @@ function MapView(props: MapViewProps) {
 
   if (Object.keys(data).length > 0) {
     return (
-      <ReactMapGL
-        mapboxApiAccessToken={process.env.REACT_APP_TOKEN}
-        {...viewport}
-        onViewportChange={viewport => setViewport(viewport)}
-        onHover={event =>
-          onHover(defaultHoveredLocation, setHoveredLocation, event, x, y)
-        }
-      >
-        <Source type="geojson" data={data}>
-          <Layer {...layer} />
-        </Source>
-        <Source type="geojson" data={outlineData}>
-          <Layer {...outline} />
-        </Source>
+      <Grid container>
+        <ReactMapGL
+          mapboxApiAccessToken={process.env.REACT_APP_TOKEN}
+          {...viewport}
+          onViewportChange={viewport => setViewport(viewport)}
+          onHover={event =>
+            onHover(defaultHoveredLocation, setHoveredLocation, event, x, y)
+          }
+        >
+          <Source type="geojson" data={data}>
+            <Layer {...layer} />
+          </Source>
+          <Source type="geojson" data={outlineData}>
+            <Layer {...outline} />
+          </Source>
 
-        {renderTooltip()}
-        {mapMarkers(
-          markerSelection,
-          setSelectedMarker,
-          selectedMarker,
-          colorAssociation
-        )}
-        {selectedMarker.map((selected: LocationFeatures) => {
-          return Popups(selected, setSelectedMarker, selectedMarker);
-        })}
-      </ReactMapGL>
+          {renderTooltip()}
+          {mapMarkers(
+            markerSelection,
+            setSelectedMarker,
+            selectedMarker,
+            colorAssociation
+          )}
+          {selectedMarker.map((selected: LocationFeatures) => {
+            return Popups(selected, setSelectedMarker, selectedMarker);
+          })}
+        </ReactMapGL>
+      </Grid>
     );
   } else {
     return (
@@ -203,7 +206,7 @@ function MapView(props: MapViewProps) {
           height: viewport.height,
           backgroundColor: 'grey',
           display: 'flex',
-          flexDirection: 'column',
+          flexFlow: 'row',
           alignItems: 'center',
           justifyContent: 'center'
         }}
