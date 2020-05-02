@@ -37,8 +37,9 @@ const initialState: GraphState = {
       prebuilt.SBCovidCasesBycityGraphOptions,
       prebuilt.covidCasesByAgeGraphOptions,
       prebuilt.SBCovidCasesByAgeGraphOptions,
-      prebuilt.covidCasesByRegionGraphOptions,
       prebuilt.HealthCareFacityBedGraphOptions,
+      prebuilt.SBHealthCareFacityBedGraphOptions,
+      prebuilt.covidCasesByRegionGraphOptions,
       prebuilt.unemploymentInsuranceClaimGraphOption
     ]
   }

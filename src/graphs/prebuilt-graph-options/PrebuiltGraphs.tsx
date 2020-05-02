@@ -257,3 +257,14 @@ export function SBCovidCasesByAgeOptions() {
     />
   );
 }
+
+// Covid-19 health care facity bed capacity for SB
+
+export function SBHealthCareFacityBedOptions() {
+  return (
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={prebuilt.SBHealthCareFacityBedGraphOptions}
+    />
+  );
+}
