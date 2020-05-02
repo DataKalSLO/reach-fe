@@ -41,7 +41,6 @@
     "geojson": "^0.5.0",
     "highcharts": "^8.0.0",
     "highcharts-react-official": "^2.2.2",
-    "history": "^4.10.1",
     "lodash": "^4.17.15",
     "node-sass": "^4.13.1",
     "react": "^16.12.0",
@@ -108,17 +107,5 @@
     "eslint-plugin-react": "^7.18.3",
     "prettier": "^1.19.1",
     "react-router-dom": "^5.1.2"
-  },
-  "description": "## Running the project: ### Create enviroment variable file * The Mapbox token needs to be added to a file called .env.local in the project root in the form `REACT_APP_TOKEN=token_from_slack`. Note: this file should remain untracked. ### Start a local server with linting: **`npm start`** * Note is that linting issues will not throw errors once the server has started, so **before making a pull request you need to re-run `npm start` or `npm run build`**. * Also note that the server will not start if there are linting issues. You can run `npm run start-no-lint` if you want to temporarily ignore linting issues but be sure to at least run `npm run build` before making a pull request. ### Build the project: **`npm run build`** ### Run tests: **`npm run test`** ### Run just the linter: **`npm run lint`** ### Run linter and auto-fix most issues: **`npm run lint-fix`**",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/CPSECapstone/hourglass-fe.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/CPSECapstone/hourglass-fe/issues"
-  },
-  "homepage": "https://github.com/CPSECapstone/hourglass-fe#readme"
+  }
 }

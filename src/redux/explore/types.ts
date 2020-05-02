@@ -1,4 +1,4 @@
-import { Story } from '../../stories/StoryTypes';
+import { Story } from '../story/types';
 import {
   FETCH_ALL_RESULTS,
   FETCH_TOP_RESULTS,

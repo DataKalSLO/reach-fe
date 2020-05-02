@@ -4,7 +4,7 @@ import {
   FETCH_TOP_RESULTS,
   FETCH_ALL_STORIES
 } from './constants';
-import { Story } from '../../stories/StoryTypes';
+import { Story } from '../story/types';
 
 const initialExploreState: ExploreState = {
   query: '',

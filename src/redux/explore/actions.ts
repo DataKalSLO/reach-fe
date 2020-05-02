@@ -27,7 +27,7 @@ export function fetchAllStories() {
 export function receiveAllStories(json: string) {
   return {
     type: FETCH_ALL_STORIES,
-    payload: { query: '', data: mapStories(json)}
+    payload: { query: '', data: mapStories(json) }
   };
 }
 
