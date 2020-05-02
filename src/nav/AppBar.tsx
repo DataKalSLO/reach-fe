@@ -108,6 +108,12 @@ function AppBar() {
             navigateToRoute={navigateTo(STORY_BUILDER)}
           />
         </Grid>
+        <Grid item key={MY_STUFF_NAME}>
+          <MenuButton
+            name={MY_STUFF_NAME}
+            navigateToRoute={navigateTo(MY_STUFF)}
+          />
+        </Grid>
       </Grid>
       <Grid item container justify="flex-end" xs={2}>
         <Grid item>
