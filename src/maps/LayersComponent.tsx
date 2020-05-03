@@ -166,8 +166,9 @@ export default function LayersComponent(props: LayersComponentProps) {
           <TextField
             {...params}
             variant="standard"
-            placeholder="Layers"
             label="Select up to Two Layers"
+            placeholder="Layers"
+            fullWidth
           />
         )}
       />
