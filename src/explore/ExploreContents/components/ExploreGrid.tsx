@@ -8,6 +8,9 @@ import campusImage from '../images/campus.jpg';
 import propertyImage from '../images/property.png';
 import waterImage from '../images/water.jpg';
 import housingImage from '../images/housing.jpg';
+import { useDispatch, useSelector } from 'react-redux';
+import { getExplore } from '../../../redux/explore/selector';
+import { fetchAllStories } from '../../../redux/explore/actions';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,13 +38,18 @@ export default function ExploreGrid() {
   const [spacing] = React.useState<GridSpacing>(2);
   const classes = useStyles();
 
+  const explore = useSelector(getExplore);
+  const dispatch = useDispatch();
+  dispatch(fetchAllStories());
+  const storyArray = explore.data;
+
   return (
     <Grid container className={classes.root} spacing={2}>
       <Grid item xs={12}>
         <Grid container justify="center" spacing={spacing}>
           <Grid item xs={3}>
             <StoryCard
-              title="Commute Times in Santa Barbara"
+              title={storyArray[1].title}
               hover="hover"
               content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
               nisi ut aliquip ex ea commodo consequat."
