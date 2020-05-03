@@ -1,6 +1,6 @@
-import { GraphState, GraphActionTypes } from './types';
 import * as prebuilt from '../../graphs/prebuilt-graph-options/prebuilt-options';
 import * as consts from './constants';
+import { GraphActionTypes, GraphState } from './types';
 import * as utils from './utilities';
 
 const initialState: GraphState = {
@@ -8,7 +8,8 @@ const initialState: GraphState = {
   initiatives: {
     [consts.INDUSTRY]: [
       prebuilt.statsOfBusinessGraphOptions,
-      prebuilt.defenseGraphOptions
+      prebuilt.defenseGraphOptions,
+      prebuilt.dodGraphOptions
     ],
     [consts.DEMOGRAPHICS]: [
       prebuilt.wagesGraphOptions,
@@ -26,6 +27,15 @@ const initialState: GraphState = {
     [consts.HOUSING]: [
       prebuilt.medianSaleGraphOptions,
       prebuilt.medianListGraphOptions
+    ],
+    [consts.HEALTH]: [
+      prebuilt.covidCasesGraphOptions,
+      prebuilt.unemploymentInsuranceClaimGraphOption,
+      prebuilt.covidCasesByStatusGraphOptions,
+      prebuilt.covidCasesByCityGraphOptions,
+      prebuilt.covidCasesByRegionGraphOptions,
+      prebuilt.covidCasesByAgeGraphOptions,
+      prebuilt.HealthCareFacityBedGraphOptions
     ]
   }
 };

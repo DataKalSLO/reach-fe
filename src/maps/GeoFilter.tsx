@@ -4,28 +4,24 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { styled } from '@material-ui/core/styles';
 import React from 'react';
 import { theme } from '../theme/theme';
-import { GeoFilterComponentProps } from './MapTypes';
+import { BoundSelection, SetBoundSelection } from './types';
 
-const StyleBox = styled(Box)({
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'left',
-  '& > *': {
-    margin: theme.spacing(1)
-  }
-});
+interface GeoFilterProps {
+  boundSelection: BoundSelection;
+  setBoundSelection: SetBoundSelection;
+}
 
 // TODO: get coordinates for other bound types, change outlines according to button clicked
 
 // The geofilter button manipulates the bounds and heat map displayed by zip
 // code, communities, and region.
-export function GeoFilter(props: GeoFilterComponentProps) {
+export default function GeoFilter(props: GeoFilterProps) {
   const region = 'Region';
   const communities = 'Communities';
   const zipcode = 'Zip Code';
 
   return (
-    <StyleBox>
+    <StyledBox>
       {/* button group represents possible bounds to be displayed on map */}
       <ButtonGroup color="primary" aria-label="outlined primary button group">
         <Button className={region} onClick={() => alert('Not implemented')}>
@@ -41,6 +37,13 @@ export function GeoFilter(props: GeoFilterComponentProps) {
           Zip Code
         </Button>
       </ButtonGroup>
-    </StyleBox>
+    </StyledBox>
   );
 }
+
+const StyledBox = styled(Box)({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'left',
+  margin: theme.spacing(1)
+});
