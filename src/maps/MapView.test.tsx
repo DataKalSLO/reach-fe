@@ -24,16 +24,18 @@ const testPopup = {
   }
 };
 const testPopups = Array<LocationFeatures>();
+// TODO: fix type errors here
+// eslint-disable-next-line
 function setTestedMarker(location: any) {
   testPopups.concat(location);
 }
 
 // Values are for Marker testing
-const testFeatures = Array<LocationFeatures[]>();
-const testColorAssociation: {
-  [name: string]: { [color: string]: string };
-} = {};
-const testLayer = 'testing Marker';
+// const testFeatures = Array<LocationFeatures[]>();
+// const testColorAssociation: {
+//   [name: string]: { [color: string]: string };
+// } = {};
+// const testLayer = 'testing Marker';
 
 // Testing basic props of Popups, still do not know how to test clicks and similar events.
 describe('<Popups /> with props', () => {

@@ -29,20 +29,9 @@ const ALLOWED_BOTH = 2;
 // all of the local data we have available
 // TODO: pull this from backend! need distinct split between marker & heat map
 const heatMapData = [medianHouseholdIncomeHeatMap, kitchenFaciltiesHeatMap];
+// TODO: fix type errors here, can't figure out what it expects
+// eslint-disable-next-line
 export const allData = flatten([markerData as any, heatMapData]);
-
-const StyleBox = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  minWidth: '75%',
-  alignItems: 'left',
-  '& > *': {
-    margin: theme.spacing(1)
-  },
-  '& > * + *': {
-    marginTop: theme.spacing(3)
-  }
-});
 
 // this is how we show everything in options (disable none)
 const showAll: Selections = [];
