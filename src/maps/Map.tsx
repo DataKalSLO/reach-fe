@@ -3,11 +3,11 @@ import { styled } from '@material-ui/core/styles';
 import React, { useState } from 'react';
 import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/median_income_data.js';
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
-import { GeoFilter } from './FiltersComponent';
-import LayersComponent from './LayersComponent';
-import { BoundSelection, ColorAssociation } from './MapTypes.js';
+import GeoFilter from './GeoFilter';
+import Layers from './Layers';
+import { BoundSelection, ColorAssociation } from './types.js';
 import MapView from './MapView';
-import { Legend } from './Legend';
+import Legend from './Legend';
 
 // TODO: save to stories
 // TODO: use redux store instead of state
@@ -56,8 +56,8 @@ function Map() {
   );
   const [boundSelection, setBoundSelection] = useState(defaultBoundsSelection);
   return (
-    <StyledMapContainer>
-      <LayersComponent
+    <div>
+      <Layers
         markerSelection={markerSelection}
         setMarkerSelection={setMarkerSelection}
         heatMapSelection={heatMapSelection}
@@ -73,16 +73,16 @@ function Map() {
         colorAssociation={colorAssociation}
         setColorAssociation={setColorAssociation}
       />
+      <GeoFilter
+        boundSelection={boundSelection}
+        setBoundSelection={setBoundSelection}
+      />
       <Legend
         heatMapSelection={heatMapSelection}
         colorAssociation={colorAssociation}
         markerSelection={markerSelection}
       />
-      <GeoFilter
-        boundSelection={boundSelection}
-        setBoundSelection={setBoundSelection}
-      />
-    </StyledMapContainer>
+    </div>
   );
 }
 export default Map;
