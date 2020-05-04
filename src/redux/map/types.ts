@@ -15,3 +15,9 @@ interface ClearMapAction {
 }
 
 export type MapActionTypes = UpdateMapAction | ClearMapAction;
+
+export const UPDATE_SELECTIONS = 'UPDATE_SELECTIONS';
+
+export const UPDATE_SELECTED_MARKER = 'UPDATE_SELECTED_MARKER';
+
+export const UPDATE_COLOR_ASSOCIATION = 'UPDATE_COLOR_ASSOCIATION';
