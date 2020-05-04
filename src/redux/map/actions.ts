@@ -1,37 +1,31 @@
 import {
-  UPDATE_MAP,
-  CLEAR_MAP,
-  MapActionTypes,
-  Map,
-  UPDATE_SELECTIONS,
-  UPDATE_SELECTED_MARKER,
-  UPDATE_COLOR_ASSOCIATION
+  BoundSelection,
+  ColorAssociation,
+  HeatMapSelection,
+  MarkerSelection,
+  SelectedMarker
+} from '../../maps/types';
+import {
+  UPDATE_BOUND_SELECTION,
+  UPDATE_COLOR_ASSOCIATION,
+  UPDATE_HEAT_MAP_SELECTION,
+  UPDATE_MARKER_SELECTION,
+  UPDATE_SELECTED_MARKER
 } from './types';
-import { Dispatch } from 'redux';
-import { Selections, SelectedMarker, ColorAssociation } from '../../maps/types';
-
-export function updateMapAction(map: Map): MapActionTypes {
-  return {
-    type: UPDATE_MAP,
-    payload: map
-  };
-}
-
-export function clearMapAction(): MapActionTypes {
-  return { type: CLEAR_MAP };
-}
-
-export function updateWithThunk(text: string) {
-  return async (dispatch: Dispatch) => {
-    return updateMapAction({ text });
-  };
-}
 
 // I think these are the functions we will need?
-export function updateSelections(selections: Selections) {
+// possibly need to have remove/add for each of these
+export function updateMarkerSelection(markerSelection: MarkerSelection) {
   return {
-    type: UPDATE_SELECTIONS,
-    payload: selections
+    type: UPDATE_MARKER_SELECTION,
+    payload: markerSelection
+  };
+}
+
+export function updateHeatMapSelection(heatMapSelection: HeatMapSelection) {
+  return {
+    type: UPDATE_HEAT_MAP_SELECTION,
+    payload: heatMapSelection
   };
 }
 
@@ -46,5 +40,12 @@ export function updateColorAssociation(colorAssociation: ColorAssociation) {
   return {
     type: UPDATE_COLOR_ASSOCIATION,
     payload: colorAssociation
+  };
+}
+
+export function updateBoundSelection(boundSelection: BoundSelection) {
+  return {
+    type: UPDATE_BOUND_SELECTION,
+    payload: boundSelection
   };
 }
