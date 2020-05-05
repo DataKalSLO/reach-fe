@@ -6,7 +6,12 @@ import {
   Divider,
   Box,
   Button,
-  styled
+  styled,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+  DialogContentText
 } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUser } from '../redux/login/selectors';
@@ -23,12 +28,17 @@ function Settings() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [displayError, setDisplayError] = useState(false);
+  const [isConfirmDelete, setIsConfirmDelete] = useState(false);
 
   const handleDeleteAccountError = useCallback(() => {
     setDisplayError(true);
   }, [setDisplayError]);
 
-  const handleDeleteAccount = useCallback(() => {
+  const handleDeleteAccount = () => {
+    setIsConfirmDelete(true);
+  };
+
+  const handleDelete = useCallback(() => {
     dispatch(
       wrapWithCatch(
         deleteUser(user.email, user.token),
@@ -37,6 +47,10 @@ function Settings() {
       )
     );
   }, [dispatch, handleDeleteAccountError, history, user.email, user.token]);
+
+  const handleClose = () => {
+    setIsConfirmDelete(false);
+  };
 
   return (
     <React.Fragment>
@@ -61,6 +75,20 @@ function Settings() {
           >
             Delete Account
           </SettingsDeleteButton>
+          <Dialog open={isConfirmDelete} onClose={handleClose}>
+            <DialogTitle>
+              Are you sure you want to delete your REACH Account?
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                This action will delete your account.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <DeleteButton onClick={handleDelete}>Confirm</DeleteButton>
+              <Button onClick={handleClose}>Cancel</Button>
+            </DialogActions>
+          </Dialog>
         </CenterBox>
         {displayError ? (
           <Typography variant="body1" color="error" align="center">
@@ -71,6 +99,10 @@ function Settings() {
     </React.Fragment>
   );
 }
+
+const DeleteButton = styled(Button)({
+  color: 'red'
+});
 
 const SettingsPaper = styled(Paper)({
   marginLeft: '300px',
