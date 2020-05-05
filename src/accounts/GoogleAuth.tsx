@@ -8,9 +8,9 @@ import { wrapWithCatch } from '../api/base';
 import { HOME } from '../nav/constants';
 import './GoogleAuth.scss';
 
-export enum GoogleLoginButtonStyle {
-  LoginWith = 'Sign in with Google',
-  ContinueWith = 'Continue with Google'
+export enum GoogleAuthButtonType {
+  SignIn = 'Sign in with Google',
+  Register = 'Continue with Google'
 }
 
 export enum UserRoles {
@@ -18,11 +18,12 @@ export enum UserRoles {
   adminRole = 'Admin'
 }
 
-const GoogleAuth = (props: { style: GoogleLoginButtonStyle }) => {
+const GoogleAuth = (props: { style: GoogleAuthButtonType }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const clientConfig = {
+    // This is a public id, not meant to be secret
     // eslint-disable-next-line
     client_id:
       '771819856575-fs38pckfuc7oipvt6fr0tnugr2dlbusl.apps.googleusercontent.com'
@@ -63,7 +64,7 @@ const GoogleAuth = (props: { style: GoogleLoginButtonStyle }) => {
       const name = googleUser.getBasicProfile().getName();
       // if the google button is continue with, try to register the user first, if not
       // just try to sign them in
-      if (props.style === GoogleLoginButtonStyle.ContinueWith) {
+      if (props.style === GoogleAuthButtonType.Register) {
         dispatch(
           wrapWithCatch(
             registerAccount(email, id, name, UserRoles.defaultRole),
