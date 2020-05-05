@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   Paper,
   Typography,
@@ -8,14 +8,36 @@ import {
   Button,
   styled
 } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getUser } from '../redux/login/selectors';
+import { deleteUser } from '../redux/login/actions';
+import { wrapWithCatch } from '../api/base';
+import { useHistory } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import EditIcon from '@material-ui/icons/Edit';
 import IndividualSetting from './IndividualSetting';
+import { HOME } from '../nav/constants';
 
 function Settings() {
   const user = useSelector(getUser);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [displayError, setDisplayError] = useState(false);
+
+  const handleDeleteAccountError = useCallback(() => {
+    setDisplayError(true);
+  }, [setDisplayError]);
+
+  const handleDeleteAccount = useCallback(() => {
+    dispatch(
+      wrapWithCatch(
+        deleteUser(user.email, user.token),
+        handleDeleteAccountError,
+        () => history.push(HOME)
+      )
+    );
+  }, [dispatch, handleDeleteAccountError, history, user.email, user.token]);
+
   return (
     <React.Fragment>
       <SettingsTypography variant="h4"> Settings</SettingsTypography>
@@ -33,8 +55,18 @@ function Settings() {
         <IndividualSetting settingName="Email Notifications" userInfo="" />
         <CenterBox>
           <SettingsButton variant="outlined">Reset Password</SettingsButton>
-          <SettingsButton variant="outlined">Delete Account</SettingsButton>
+          <SettingsDeleteButton
+            variant="contained"
+            onClick={handleDeleteAccount}
+          >
+            Delete Account
+          </SettingsDeleteButton>
         </CenterBox>
+        {displayError ? (
+          <Typography variant="body1" color="error" align="center">
+            Error when deleting account. Please try again later.
+          </Typography>
+        ) : null}
       </SettingsPaper>
     </React.Fragment>
   );
@@ -78,6 +110,12 @@ const CenterBox = styled(Box)({
 
 const SettingsButton = styled(Button)({
   margin: '10px'
+});
+
+const SettingsDeleteButton = styled(Button)({
+  margin: '10px',
+  background: 'rgb(255,89,10)',
+  color: 'white'
 });
 
 export default Settings;
