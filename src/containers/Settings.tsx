@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import {
   Paper,
   Typography,
@@ -6,50 +6,22 @@ import {
   Divider,
   Box,
   Button,
-  styled,
-  Dialog,
-  DialogActions,
-  DialogTitle,
-  DialogContent,
-  DialogContentText
+  styled
 } from '@material-ui/core';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getUser } from '../redux/login/selectors';
-import { deleteUser } from '../redux/login/actions';
-import { wrapWithCatch } from '../api/base';
-import { useHistory } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import EditIcon from '@material-ui/icons/Edit';
 import IndividualSetting from './IndividualSetting';
-import { HOME } from '../nav/constants';
+import ConfirmDeleteAccount from '../accounts/ConfirmDeleteAccount';
 
 function Settings() {
   const user = useSelector(getUser);
-  const dispatch = useDispatch();
-  const history = useHistory();
   const [displayError, setDisplayError] = useState(false);
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
 
-  const handleDeleteAccountError = useCallback(() => {
-    setDisplayError(true);
-  }, [setDisplayError]);
-
   const handleDeleteAccount = () => {
     setIsConfirmDelete(true);
-  };
-
-  const handleDelete = useCallback(() => {
-    dispatch(
-      wrapWithCatch(
-        deleteUser(user.email, user.token),
-        handleDeleteAccountError,
-        () => history.push(HOME)
-      )
-    );
-  }, [dispatch, handleDeleteAccountError, history, user.email, user.token]);
-
-  const handleClose = () => {
-    setIsConfirmDelete(false);
   };
 
   return (
@@ -75,20 +47,11 @@ function Settings() {
           >
             Delete Account
           </SettingsDeleteButton>
-          <Dialog open={isConfirmDelete} onClose={handleClose}>
-            <DialogTitle>
-              Are you sure you want to delete your REACH Account?
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                This action will delete your account.
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <DeleteButton onClick={handleDelete}>Confirm</DeleteButton>
-              <Button onClick={handleClose}>Cancel</Button>
-            </DialogActions>
-          </Dialog>
+          <ConfirmDeleteAccount
+            isConfirmDelete={isConfirmDelete}
+            setIsConfirmDelete={setIsConfirmDelete}
+            setDisplayError={setDisplayError}
+          ></ConfirmDeleteAccount>
         </CenterBox>
         {displayError ? (
           <Typography variant="body1" color="error" align="center">
@@ -99,10 +62,6 @@ function Settings() {
     </React.Fragment>
   );
 }
-
-const DeleteButton = styled(Button)({
-  color: 'red'
-});
 
 const SettingsPaper = styled(Paper)({
   marginLeft: '300px',
