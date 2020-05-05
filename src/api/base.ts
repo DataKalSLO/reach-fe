@@ -2,18 +2,11 @@ import { Dispatch } from 'redux';
 
 const baseURL = process.env.REACT_APP_API_URL;
 
-const headers = new Headers();
-headers.set('Content-Type', 'application/JSON');
-
-const reqConf = {
-  headers: headers
-};
-
 async function tryFetch(url: string, request: RequestInit) {
   const response = await fetch(url, request);
   const body = await response.json();
   if (response.ok) {
-    return body;
+    return body || {};
   } else {
     throw errorTranslate(body.tag, navigator.language);
   }
@@ -29,33 +22,47 @@ export function wrapWithCatch(fn: Function, errorFn: Function, cb?: Function) {
   };
 }
 
-export function post(endpoint: string, body: object) {
+function buildRequestConfig(token?: string) {
+  const headers = new Headers();
+  headers.set('Content-Type', 'application/JSON');
+  if (token) headers.set('Authorization', `Bearer ${token}`);
+
+  return {
+    headers: headers
+  };
+}
+
+export function post(endpoint: string, body: object, token?: string) {
+  const config = buildRequestConfig(token);
   return tryFetch(baseURL + endpoint, {
     method: 'POST',
     body: JSON.stringify(body),
-    ...reqConf
+    ...config
   });
 }
 
-export function put(endpoint: string, body: object) {
+export function put(endpoint: string, body: object, token?: string) {
+  const config = buildRequestConfig(token);
   return tryFetch(baseURL + endpoint, {
     method: 'PUT',
     body: JSON.stringify(body),
-    ...reqConf
+    ...config
   });
 }
 
-export function get(endpoint: string) {
+export function get(endpoint: string, token?: string) {
+  const config = buildRequestConfig(token);
   return tryFetch(baseURL + endpoint, {
     method: 'GET',
-    ...reqConf
+    ...config
   });
 }
 
-export function del(endpoint: string) {
+export function del(endpoint: string, token?: string) {
+  const config = buildRequestConfig(token);
   return tryFetch(baseURL + endpoint, {
     method: 'DELETE',
-    ...reqConf
+    ...config
   });
 }
 
