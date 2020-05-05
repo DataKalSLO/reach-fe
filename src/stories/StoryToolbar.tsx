@@ -1,11 +1,4 @@
-import {
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography
-} from '@material-ui/core';
+import { Divider, Typography } from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
@@ -17,11 +10,10 @@ import {
   TextFields,
   Visibility
 } from '@material-ui/icons';
-import React, { Dispatch } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { List, ListItemButton } from '../reach-ui/core';
 import { createEmptyTextBlock } from '../redux/story/actions';
-import { getStory } from '../redux/story/selectors';
-import { Story, StoryActionType } from '../redux/story/types';
 import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
 
@@ -38,11 +30,20 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export function StoryToolbar() {
-  const classes = useStyles();
-  const dispatch = useDispatch();
-  const story = useSelector(getStory);
   const storyBuilderState = useSelector(getStoryBuilder);
   const previewSelected = storyBuilderState.isPreviewSelected;
+  const dispatch = useDispatch();
+  const classes = useStyles();
+
+  const handleTogglePreview = () => {
+    // TODO: @kellie add form validation here
+    dispatch(togglePreview());
+  };
+
+  const handleSave = () => {
+    // TODO: @kellie add form validation here
+    alert('Save Stories is not implemented');
+  };
 
   return (
     <Drawer
@@ -59,91 +60,48 @@ export function StoryToolbar() {
         <b>Add Block</b>
       </Typography>
       <List>
-        {getAddButtonContentList().map((contents: ToolbarButtonContents) =>
-          generateButton(contents, dispatch)
-        )}
+        <ListItemButton
+          primarylabel={'Text'}
+          aria-label={'Text'}
+          icon={<TextFields />}
+          onClick={() => dispatch(createEmptyTextBlock())}
+        />
+        <ListItemButton
+          primarylabel={'Graph'}
+          aria-label={'Graph'}
+          icon={<InsertChart />}
+          onClick={() => alert('Not implemented')}
+        />
+        <ListItemButton
+          primarylabel={'Map'}
+          aria-label={'Map'}
+          icon={<Map />}
+          onClick={() => alert('Not implemented')}
+        />
+        <ListItemButton
+          primarylabel={'Image'}
+          aria-label={'Image'}
+          icon={<InsertPhoto />}
+          onClick={() => alert('Not implemented')}
+        />
       </List>
       <Divider />
       <List>
-        {getUtilityButtonContentList(
-          story,
-          previewSelected
-        ).map((contents: ToolbarButtonContents) =>
-          generateButton(contents, dispatch)
-        )}
+        <ListItemButton
+          primarylabel={previewSelected ? 'Edit' : 'Preview'}
+          aria-label={previewSelected ? 'Edit' : 'Preview'}
+          icon={previewSelected ? <Edit /> : <Visibility />}
+          onClick={handleTogglePreview}
+        />
+        <ListItemButton
+          primarylabel={'Save'}
+          aria-label={'Save'}
+          icon={<Save />}
+          onClick={handleSave}
+        />
       </List>
     </Drawer>
   );
-}
-
-function generateButton(
-  contents: ToolbarButtonContents,
-  dispatch: Dispatch<StoryActionType>
-) {
-  const dispatchFunc = contents.onClick as () => StoryActionType;
-  const func = contents.onClick;
-  return (
-    <ListItem
-      button
-      key={contents.title}
-      onClick={() => (contents.useDispatch ? dispatch(dispatchFunc()) : func())}
-    >
-      <ListItemIcon>{contents.icon}</ListItemIcon>
-      <ListItemText primary={contents.title} />
-    </ListItem>
-  );
-}
-
-const getAddButtonContentList = (): ToolbarButtonContents[] => [
-  {
-    title: 'Text',
-    icon: <TextFields />,
-    useDispatch: true,
-    onClick: createEmptyTextBlock
-  },
-  {
-    title: 'Graph',
-    icon: <InsertChart />,
-    useDispatch: false,
-    onClick: () => alert('Not implemented')
-  },
-  {
-    title: 'Map',
-    icon: <Map />,
-    useDispatch: false,
-    onClick: () => alert('Not implemented')
-  },
-  {
-    title: 'Image',
-    icon: <InsertPhoto />,
-    useDispatch: false,
-    onClick: () => alert('Not implemented')
-  }
-];
-
-const getUtilityButtonContentList = (
-  story: Story,
-  previewSelected: boolean
-): ToolbarButtonContents[] => [
-  {
-    title: previewSelected ? 'Edit' : 'Preview',
-    icon: previewSelected ? <Edit /> : <Visibility />,
-    useDispatch: true,
-    onClick: togglePreview
-  },
-  {
-    title: 'Save',
-    icon: <Save />,
-    useDispatch: false,
-    onClick: () => alert(JSON.stringify(story, null, 2))
-  }
-];
-
-interface ToolbarButtonContents {
-  title: string;
-  icon: JSX.Element;
-  useDispatch: boolean; // used for placeholder funcs, flag so dispatch is not used when onClick is called
-  onClick: { (): StoryActionType } | { (): void };
 }
 
 export const STORY_TOOLBAR_WIDTH = 150;
