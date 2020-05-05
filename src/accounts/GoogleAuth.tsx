@@ -30,7 +30,7 @@ const GoogleAuth = (props: { style: GoogleAuthButtonType }) => {
   };
 
   const registerAccount = useCallback(
-    (email: string, password: string, name: string, role: string) =>
+    (email: string, password: string, name: string, role: number) =>
       register({
         email,
         password,
@@ -50,7 +50,7 @@ const GoogleAuth = (props: { style: GoogleAuthButtonType }) => {
   );
 
   const registerThenLogin = useCallback(
-    (email: string, password: string, name: string, role: string) => {
+    (email: string, password: string, name: string, role: number) => {
       dispatch(registerAccount(email, password, name, role));
       dispatch(loginAccount(email, password));
     },
