@@ -30,13 +30,6 @@ function setTestedMarker(location: any) {
   testPopups.concat(location);
 }
 
-// Values are for Marker testing
-// const testFeatures = Array<LocationFeatures[]>();
-// const testColorAssociation: {
-//   [name: string]: { [color: string]: string };
-// } = {};
-// const testLayer = 'testing Marker';
-
 // Testing basic props of Popups, still do not know how to test clicks and similar events.
 describe('<Popups /> with props', () => {
   const container = Popups(testPopup, setTestedMarker, testPopups);
