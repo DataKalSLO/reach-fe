@@ -4,7 +4,8 @@ const initialState: User = {
   email: '',
   token: '',
   name: '',
-  role: ''
+  role: -1,
+  occupation: ''
 };
 export function userReducer(
   state = initialState,
@@ -14,7 +15,7 @@ export function userReducer(
     case LOGIN:
       return action.payload;
     case LOGOUT:
-      return { email: '', token: '', name: '', role: '' };
+      return { email: '', token: '', name: '', occupation: '', role: -1 };
     default:
       return state;
   }

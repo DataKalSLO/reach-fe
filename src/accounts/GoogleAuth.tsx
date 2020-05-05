@@ -30,7 +30,7 @@ const GoogleAuth = (props: { style: GoogleLoginButtonStyle }) => {
             email: googleUser.getBasicProfile().getEmail(),
             password: googleUser.getId(),
             name: googleUser.getBasicProfile().getName(),
-            role: 'BaseUser'
+            role: 0
           } as RegisterData)
         );
       } else {

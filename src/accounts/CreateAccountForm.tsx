@@ -184,7 +184,7 @@ function CreateAccountForm() {
                 email,
                 password,
                 name: name,
-                role: 'BaseUser',
+                role: 0,
                 occupation: occupation
               } as RegisterData),
               handleAccountError,

@@ -8,6 +8,7 @@ export const LOGIN = '/login';
 export const SAMPLE = '/sample';
 export const CREATE_ACCOUNT = '/create-account';
 export const SETTINGS = '/settings';
+export const ADMIN = '/admin';
 
 // Names of routes in the navigation bar
 export const HOME_NAME = 'Reach';
@@ -16,3 +17,6 @@ export const VIZ_BUILDER_NAME = 'VizBuilder';
 export const STORY_BUILDER_NAME = 'StoryBuilder';
 export const MY_STUFF_NAME = 'My Stuff';
 export const LOGIN_NAME = 'Login';
+export const ADMIN_NAME = 'Admin';
+
+export const ADMIN_USER = 1;

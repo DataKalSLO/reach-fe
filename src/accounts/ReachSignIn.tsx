@@ -47,7 +47,7 @@ function ReachSignIn() {
         )
       );
     },
-    [setLoading, dispatch, email, password, history]
+    [dispatch, email, password, handleLoginError, history]
   );
 
   return (

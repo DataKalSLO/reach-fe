@@ -51,7 +51,10 @@ function Settings() {
         <Divider variant="middle" />
         <IndividualSetting settingName="Name" userInfo={user.name} />
         <IndividualSetting settingName="Email" userInfo={user.email} />
-        <IndividualSetting settingName="Occupation" userInfo={user.role} />
+        <IndividualSetting
+          settingName="Occupation"
+          userInfo={user.occupation}
+        />
         <IndividualSetting settingName="Email Notifications" userInfo="" />
         <CenterBox>
           <SettingsButton variant="outlined">Reset Password</SettingsButton>
