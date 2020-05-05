@@ -13,17 +13,14 @@ import {
 } from '@material-ui/icons';
 import { EditorState, RichUtils } from 'draft-js';
 import React, { useState } from 'react';
-import { IconButton } from '../common/components/IconButton';
+import {
+  IconButton,
+  Props as IconButtonProps
+} from '../common/components/IconButton';
 import { DraftJSBlockType, DraftJSInlineType } from './DraftJSCommands';
 import { HyperlinkPlugin } from './HyperlinkPlugin';
 
-interface ToolbarButtonProps {
-  'aria-label': string;
-  icon: React.ReactNode;
-  [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-}
-
-const ToolbarButton = (props: ToolbarButtonProps) => {
+const ToolbarButton = (props: IconButtonProps) => {
   return <IconButton size="small" color="default" {...props} />;
 };
 
