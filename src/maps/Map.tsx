@@ -56,7 +56,7 @@ function Map() {
   );
   const [boundSelection, setBoundSelection] = useState(defaultBoundsSelection);
   return (
-    <div>
+    <StyledMapContainer>
       <Layers
         markerSelection={markerSelection}
         setMarkerSelection={setMarkerSelection}
@@ -82,7 +82,7 @@ function Map() {
         colorAssociation={colorAssociation}
         markerSelection={markerSelection}
       />
-    </div>
+    </StyledMapContainer>
   );
 }
 export default Map;

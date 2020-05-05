@@ -131,7 +131,7 @@ function MapView(props: MapViewProps) {
   // eslint-disable-next-line
   const [viewport, setViewport]: any = React.useState({
     width: '100%',
-    height: '50vh',
+    height: '45vh',
     display: 'flex',
     flexFlow: 'row',
     latitude: SLO_LATITUDE,

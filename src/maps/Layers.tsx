@@ -162,6 +162,7 @@ export default function Layers(props: LayersProps) {
 const StyledBox = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
+  minWidth: '75%',
   alignItems: 'left',
   '& > *': {
     margin: theme.spacing(1)
