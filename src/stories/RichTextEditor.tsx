@@ -1,6 +1,6 @@
 import { Box, styled } from '@material-ui/core';
 import { Editor, EditorState, RichUtils } from 'draft-js';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { KEY_COMMAND_FAILURE, KEY_COMMAND_SUCCESS } from './DraftJSCommands';
 import EditorToolbar from './EditorToolbar';
 import { HyperlinkDecorator } from './HyperlinkDecorator';
@@ -48,6 +48,7 @@ const paddingDefault = '10px';
 
 //TODO: @tan refactor into StoryBlockWrapper
 export const StyledBox = styled(Box)({
+  width: '100%',
   minHeight: '100px',
   minWidth: '510px',
   border: '1px solid #cbcbcb', // same border style is used in EditorToolbar
