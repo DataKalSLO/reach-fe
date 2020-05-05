@@ -9,6 +9,7 @@ import {
 export interface Map {
   markerSelection: MarkerSelection;
   heatMapSelection: HeatMapSelection;
+  selectedMarker: SelectedMarker;
   boundSelection: BoundSelection;
   colorAssociation: ColorAssociation;
 }
