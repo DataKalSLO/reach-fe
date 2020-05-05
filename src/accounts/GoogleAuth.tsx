@@ -62,8 +62,6 @@ const GoogleAuth = (props: { style: GoogleAuthButtonType }) => {
       const email = googleUser.getBasicProfile().getEmail();
       const id = googleUser.getId();
       const name = googleUser.getBasicProfile().getName();
-      // if the google button is continue with, try to register the user first, if not
-      // just try to sign them in
       if (props.style === GoogleAuthButtonType.Register) {
         dispatch(
           wrapWithCatch(
