@@ -1,6 +1,5 @@
 import {
   BoundSelection,
-  ColorAssociation,
   HeatMapSelection,
   MarkerSelection,
   SelectedMarker
@@ -36,10 +35,9 @@ export function updateSelectedMarker(selectedMarker: SelectedMarker) {
   };
 }
 
-export function updateColorAssociation(colorAssociation: ColorAssociation) {
+export function updateColorAssociation() {
   return {
-    type: UPDATE_COLOR_ASSOCIATION,
-    payload: colorAssociation
+    type: UPDATE_COLOR_ASSOCIATION
   };
 }
 

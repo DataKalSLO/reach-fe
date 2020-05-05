@@ -7,9 +7,9 @@ import {
 } from '../../maps/types';
 
 export interface Map {
-  markerSelection: MarkerSelection;
+  markerSelection: [MarkerSelection];
   heatMapSelection: HeatMapSelection;
-  selectedMarker: SelectedMarker;
+  selectedMarker: [SelectedMarker];
   boundSelection: BoundSelection;
   colorAssociation: ColorAssociation;
 }
