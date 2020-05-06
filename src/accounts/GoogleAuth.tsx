@@ -4,46 +4,88 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { LoginData, RegisterData } from '../redux/login/types';
 import { loginUser, register } from '../redux/login/actions';
+import { wrapWithCatch } from '../api/base';
 import { HOME } from '../nav/constants';
 import './GoogleAuth.scss';
 
-export enum GoogleLoginButtonStyle {
-  LoginWith = 'Sign in with Google',
-  ContinueWith = 'Continue with Google'
+export enum GoogleAuthButtonType {
+  SignIn = 'Sign in with Google',
+  Register = 'Continue with Google'
 }
 
-const GoogleAuth = (props: { style: GoogleLoginButtonStyle }) => {
+export enum UserRoles {
+  defaultRole = 'BaseUser',
+  adminRole = 'Admin'
+}
+
+const GoogleAuth = (props: { style: GoogleAuthButtonType }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const clientConfig = {
+    // This is a public id, not meant to be secret
     // eslint-disable-next-line
     client_id:
       '771819856575-fs38pckfuc7oipvt6fr0tnugr2dlbusl.apps.googleusercontent.com'
   };
 
+  const registerAccount = useCallback(
+    (email: string, password: string, name: string, role: string) =>
+      register({
+        email,
+        password,
+        name,
+        role
+      } as RegisterData),
+    []
+  );
+
+  const loginAccount = useCallback(
+    (email: string, password: string) =>
+      loginUser({
+        email,
+        password
+      } as LoginData),
+    []
+  );
+
+  const registerThenLogin = useCallback(
+    (email: string, password: string, name: string, role: string) => {
+      dispatch(registerAccount(email, password, name, role));
+      dispatch(loginAccount(email, password));
+    },
+    [dispatch, registerAccount, loginAccount]
+  );
+
   const responseGoogle = useCallback(
     (googleUser: gapi.auth2.GoogleUser): void => {
-      if (props.style === GoogleLoginButtonStyle.ContinueWith) {
+      const email = googleUser.getBasicProfile().getEmail();
+      const id = googleUser.getId();
+      const name = googleUser.getBasicProfile().getName();
+      if (props.style === GoogleAuthButtonType.Register) {
         dispatch(
-          register({
-            email: googleUser.getBasicProfile().getEmail(),
-            password: googleUser.getId(),
-            name: googleUser.getBasicProfile().getName(),
-            role: 'BaseUser'
-          } as RegisterData)
+          wrapWithCatch(
+            registerAccount(email, id, name, UserRoles.defaultRole),
+            () => dispatch(loginAccount(email, id))
+          )
         );
       } else {
         dispatch(
-          loginUser({
-            email: googleUser.getBasicProfile().getEmail(),
-            password: googleUser.getId()
-          } as LoginData)
+          wrapWithCatch(loginAccount(email, id), () =>
+            registerThenLogin(email, id, name, UserRoles.defaultRole)
+          )
         );
       }
       history.push(HOME);
     },
-    [dispatch, history, props.style]
+    [
+      dispatch,
+      history,
+      props.style,
+      registerThenLogin,
+      registerAccount,
+      loginAccount
+    ]
   );
 
   return (

@@ -1,8 +1,10 @@
 import { arrayMove } from 'react-sortable-hoc';
 import { uuid } from 'uuidv4';
+import { removeObjectAtIndex } from '../../common/util/arrayTools';
 import { emptyEditorState } from '../../stories/RichTextEditor';
 import {
   CREATE_EMPTY_TEXT_BLOCK,
+  CREATE_GRAPH_BLOCK,
   DELETE_BLOCK,
   Story,
   StoryActionType,
@@ -15,7 +17,6 @@ import {
   UPDATE_TEXT_BLOCK,
   UPDATE_TITLE
 } from './types';
-import { removeObjectAtIndex } from '../../common/util/arrayTools';
 
 export const emptyTextBlock = (): TextBlockType => ({
   id: uuid(),
@@ -52,12 +53,8 @@ function updateObjectInArray(
 
 export function storyReducer(state = initialStory, action: StoryActionType) {
   switch (action.type) {
-    case UPDATE_TEXT_BLOCK:
-      return {
-        ...state,
-        storyBlocks: updateObjectInArray(state.storyBlocks, action)
-      };
-    case CREATE_EMPTY_TEXT_BLOCK:
+    case CREATE_EMPTY_TEXT_BLOCK: // NOTE: using the fall through features of swtich statements
+    case CREATE_GRAPH_BLOCK:
       return {
         ...state,
         storyBlocks: state.storyBlocks.concat(action.payload.block)
@@ -88,6 +85,11 @@ export function storyReducer(state = initialStory, action: StoryActionType) {
       return {
         ...state,
         description: action.payload.newDescription
+      };
+    case UPDATE_TEXT_BLOCK:
+      return {
+        ...state,
+        storyBlocks: updateObjectInArray(state.storyBlocks, action)
       };
     default:
       return state;
