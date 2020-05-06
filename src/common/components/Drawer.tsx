@@ -8,6 +8,9 @@ interface Props {
   children: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
+// styling for drawer must be done with drawer's child paper element,
+// and cannot be done with styled components
+// https://material-ui.com/guides/interoperability/#deeper-elements-3
 const useStyles = makeStyles({
   drawer: {
     width: (props: Props) => props.width,
@@ -30,9 +33,6 @@ export default function Drawer(props: Props) {
       anchor="left"
       className={classes.drawer}
       classes={{
-        // styling for drawer must be done with drawer's child paper element,
-        // and cannot be done with styled components
-        // https://material-ui.com/guides/interoperability/#deeper-elements-3
         paper: classes.drawerPaper
       }}
     >
