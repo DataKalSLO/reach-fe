@@ -7,6 +7,7 @@ import {
   withStyles
 } from '@material-ui/core';
 import React from 'react';
+import { theme } from '../../theme/theme';
 
 interface Props {
   'aria-label': string;
@@ -38,8 +39,8 @@ export default function ListItemButton(props: Props) {
 // removes default paddingRight so icons can be centered
 const SvgIconStyleOverride = withStyles({
   root: {
-    margin: '0px'
-    // FIXME: @kellie
+    margin: '0px',
+    color: theme.palette.text.secondary
   }
 })(SvgIcon);
 
