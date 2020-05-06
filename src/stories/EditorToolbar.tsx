@@ -1,10 +1,4 @@
-import {
-  Box,
-  IconButton,
-  MenuItem,
-  styled,
-  TextField
-} from '@material-ui/core';
+import { Box, MenuItem, styled, TextField } from '@material-ui/core';
 import {
   Code,
   Done,
@@ -19,9 +13,17 @@ import {
 } from '@material-ui/icons';
 import { EditorState, RichUtils } from 'draft-js';
 import React, { useState } from 'react';
+import {
+  IconButton,
+  Props as IconButtonProps
+} from '../common/components/IconButton';
 import { CollapsibleItem, CollapsibleMenu } from './CollapsibleToolbar';
 import { DraftJSBlockType, DraftJSInlineType } from './DraftJSCommands';
 import { HyperlinkPlugin } from './HyperlinkPlugin';
+
+const ToolbarButton = (props: IconButtonProps) => {
+  return <IconButton size="small" color="default" {...props} />;
+};
 
 interface Props {
   editorState: EditorState;
@@ -57,13 +59,13 @@ const EditorToolbar = (props: Props) => {
           value={urlValue}
           variant="outlined"
         />
-        <IconButton edge="start" onMouseDown={hyperlinkPlugin.confirmLink}>
-          <Done />
-        </IconButton>
-        {/* TODO: @kellie add cancel button */}
-        {/* <IconButton edge="start">
-          <Clear />
-        </IconButton> */}
+        <ToolbarButton
+          aria-label="Confirm Hyperlink"
+          icon={<Done />}
+          onClick={hyperlinkPlugin.confirmLink}
+          edge="start"
+          color="primary"
+        />
       </URLInputBox>
     );
   }
@@ -108,46 +110,63 @@ const EditorToolbar = (props: Props) => {
               <MenuItem value={'header-six'}>Heading 6</MenuItem>
             </StyledTextField>
 
-            {/* TODO: refactor these to use the common IconButton */}
-            <IconButton onClick={() => onClickInlineStyle('BOLD')}>
-              <FormatBold />
-            </IconButton>
-            <IconButton onClick={() => onClickInlineStyle('ITALIC')}>
-              <FormatItalic />
-            </IconButton>
-            <IconButton onClick={() => onClickInlineStyle('UNDERLINE')}>
-              <FormatUnderlined />
-            </IconButton>
-            <IconButton onClick={() => onClickInlineStyle('STRIKETHROUGH')}>
-              <StrikethroughS />
-            </IconButton>
-            <IconButton onClick={() => onClickInlineStyle('CODE')}>
-              <Code />
-            </IconButton>
+            <ToolbarButton
+              aria-label="Bold"
+              icon={<FormatBold />}
+              onClick={() => onClickInlineStyle('BOLD')}
+            />
+            <ToolbarButton
+              aria-label="Italic"
+              icon={<FormatItalic />}
+              onClick={() => onClickInlineStyle('ITALIC')}
+            />
+            <ToolbarButton
+              aria-label="Underline"
+              icon={<FormatUnderlined />}
+              onClick={() => onClickInlineStyle('UNDERLINE')}
+            />
+            <ToolbarButton
+              aria-label="Strikethrough"
+              icon={<StrikethroughS />}
+              onClick={() => onClickInlineStyle('STRIKETHROUGH')}
+            />
+            <ToolbarButton
+              aria-label="Monospace"
+              icon={<Code />}
+              onClick={() => onClickInlineStyle('CODE')}
+            />
           </FormatButtonGroup>
         </CollapsibleItem>
 
         {/* list styles */}
         <CollapsibleItem hideWidth={LIST_STYLE_HIDE_WIDTH}>
           <FormatButtonGroup>
-            <IconButton onClick={() => onClickBlockType('unordered-list-item')}>
-              <FormatListBulleted />
-            </IconButton>
-            <IconButton onClick={() => onClickBlockType('ordered-list-item')}>
-              <FormatListNumbered />
-            </IconButton>
+            <ToolbarButton
+              aria-label="Unordered List"
+              icon={<FormatListBulleted />}
+              onClick={() => onClickBlockType('unordered-list-item')}
+            />
+            <ToolbarButton
+              aria-label="Ordered List"
+              icon={<FormatListNumbered />}
+              onClick={() => onClickBlockType('ordered-list-item')}
+            />
           </FormatButtonGroup>
         </CollapsibleItem>
 
         {/* link styles */}
         <CollapsibleItem hideWidth={LINK_STYLE_HIDE_WIDTH}>
           <FormatButtonGroup>
-            <IconButton onClick={hyperlinkPlugin.promptForLink}>
-              <Link />
-            </IconButton>
-            <IconButton onClick={hyperlinkPlugin.removeLink}>
-              <LinkOff />
-            </IconButton>
+            <ToolbarButton
+              aria-label="Add Hyperlink"
+              icon={<Link />}
+              onClick={hyperlinkPlugin.promptForLink}
+            />
+            <ToolbarButton
+              aria-label="Remove Hyperlink"
+              icon={<LinkOff />}
+              onClick={hyperlinkPlugin.removeLink}
+            />
             {urlInputUI}
           </FormatButtonGroup>
         </CollapsibleItem>
