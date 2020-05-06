@@ -21,8 +21,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     drawerPaper: {
       zIndex: 0, // to place drawer behind appbar
-      width: STORY_TOOLBAR_WIDTH,
-
       backgroundColor: theme.palette.secondary.light,
       paddingTop: 100 // padding to place buttons beneath app bar
     }

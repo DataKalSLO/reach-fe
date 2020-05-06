@@ -1,9 +1,13 @@
 import {
+  Box,
   ListItem as CoreListItem,
-  ListItemIcon,
-  ListItemText
+  ListItemText,
+  styled,
+  SvgIcon,
+  withStyles
 } from '@material-ui/core';
 import React from 'react';
+import { theme } from '../../theme/theme';
 
 interface Props {
   'aria-label': string;
@@ -21,10 +25,37 @@ export default function ListItemButton(props: Props) {
       key={props['aria-label']}
       {...props}
     >
-      <ListItemIcon>{props.icon}</ListItemIcon>
-      {props.primarylabel ? (
-        <ListItemText primary={props.primarylabel} />
-      ) : null}
+      <StyledBox>
+        <SvgIconStyleOverride>{props.icon}</SvgIconStyleOverride>
+        {props.primarylabel ? (
+          <ListItemTextStyleOverride primary={props.primarylabel} />
+        ) : null}
+      </StyledBox>
     </CoreListItem>
   );
 }
+
+// When list item does NOT have a primarylabel (i.e. icons only list),
+// removes default paddingRight so icons can be centered
+const SvgIconStyleOverride = withStyles({
+  root: {
+    margin: '0px'
+    // FIXME: @kellie
+  }
+})(SvgIcon);
+
+// When list item DOES have a primarylabel (i.e. icons with labels list),
+// adds padding between icon and primarylabel
+const ListItemTextStyleOverride = withStyles({
+  root: {
+    paddingLeft: '20px'
+  }
+})(ListItemText);
+
+const StyledBox = styled(Box)({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  paddingLeft: '10px',
+  paddingRight: '10px'
+});
