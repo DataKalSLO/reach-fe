@@ -40,26 +40,22 @@ export default function StorySidebar() {
       </Typography>
       <List>
         <ListItemButton
-          primarylabel={'Text'}
-          aria-label={'Text'}
+          text={'Text'}
           icon={<TextFields />}
           onClick={() => dispatch(createEmptyTextBlock())}
         />
         <ListItemButton
-          primarylabel={'Graph'}
-          aria-label={'Graph'}
+          text={'Graph'}
           icon={<InsertChart />}
           onClick={() => alert('Not implemented')}
         />
         <ListItemButton
-          primarylabel={'Map'}
-          aria-label={'Map'}
+          text={'Map'}
           icon={<Map />}
           onClick={() => alert('Not implemented')}
         />
         <ListItemButton
-          primarylabel={'Image'}
-          aria-label={'Image'}
+          text={'Image'}
           icon={<InsertPhoto />}
           onClick={() => alert('Not implemented')}
         />
@@ -67,17 +63,11 @@ export default function StorySidebar() {
       <Divider />
       <List>
         <ListItemButton
-          primarylabel={previewSelected ? 'Edit' : 'Preview'}
-          aria-label={previewSelected ? 'Edit' : 'Preview'}
+          text={previewSelected ? 'Edit' : 'Preview'}
           icon={previewSelected ? <Edit /> : <Visibility />}
           onClick={handleTogglePreview}
         />
-        <ListItemButton
-          primarylabel={'Save'}
-          aria-label={'Save'}
-          icon={<Save />}
-          onClick={handleSave}
-        />
+        <ListItemButton text={'Save'} icon={<Save />} onClick={handleSave} />
       </List>
     </Drawer>
   );

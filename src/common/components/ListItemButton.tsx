@@ -10,26 +10,18 @@ import React from 'react';
 import { theme } from '../../theme/theme';
 
 interface Props {
-  'aria-label': string;
   icon: JSX.Element;
-  primarylabel?: string;
+  text: string;
   // This extra parameter is necessary to allow other props to be passed through
   [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 export default function ListItemButton(props: Props) {
   return (
-    <CoreListItem
-      button
-      aria-label={props['aria-label']}
-      key={props['aria-label']}
-      {...props}
-    >
+    <CoreListItem button aria-label={props.text} key={props.text} {...props}>
       <StyledBox>
         <SvgIconStyleOverride>{props.icon}</SvgIconStyleOverride>
-        {props.primarylabel ? (
-          <ListItemTextStyleOverride primary={props.primarylabel} />
-        ) : null}
+        <ListItemTextStyleOverride primary={props.text} />
       </StyledBox>
     </CoreListItem>
   );
