@@ -1,6 +1,4 @@
 import { Divider, Typography } from '@material-ui/core';
-import Drawer from '@material-ui/core/Drawer';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
   Edit,
   InsertChart,
@@ -12,26 +10,16 @@ import {
 } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Sidebar from '../common/components/Sidebar';
 import { List, ListItemButton } from '../reach-ui/core';
 import { createEmptyTextBlock } from '../redux/story/actions';
 import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    drawerPaper: {
-      zIndex: 0, // to place drawer behind appbar
-      backgroundColor: theme.palette.secondary.light,
-      paddingTop: 100 // padding to place buttons beneath app bar
-    }
-  })
-);
-
 export function StoryToolbar() {
   const storyBuilderState = useSelector(getStoryBuilder);
   const previewSelected = storyBuilderState.isPreviewSelected;
   const dispatch = useDispatch();
-  const classes = useStyles();
 
   const handleTogglePreview = () => {
     // TODO: @kellie add form validation here
@@ -44,16 +32,7 @@ export function StoryToolbar() {
   };
 
   return (
-    <Drawer
-      variant="permanent"
-      anchor="left"
-      classes={{
-        // styling for drawer must be done with drawer's child paper element,
-        // and cannot be done with styled components
-        // https://material-ui.com/guides/interoperability/#deeper-elements-3
-        paper: classes.drawerPaper
-      }}
-    >
+    <Sidebar>
       <Typography variant="subtitle1" align="center">
         <b>Add Block</b>
       </Typography>
@@ -98,8 +77,9 @@ export function StoryToolbar() {
           onClick={handleSave}
         />
       </List>
-    </Drawer>
+    </Sidebar>
   );
 }
 
+// FIXME: @kellie get rid of this business. prob with storybuilder margin
 export const STORY_TOOLBAR_WIDTH = 150;
