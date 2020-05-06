@@ -1,6 +1,6 @@
 import { Box, styled } from '@material-ui/core';
 import { Editor, EditorState, RichUtils } from 'draft-js';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { KEY_COMMAND_FAILURE, KEY_COMMAND_SUCCESS } from './DraftJSCommands';
 import EditorToolbar from './EditorToolbar';
 import { HyperlinkDecorator } from './HyperlinkDecorator';
