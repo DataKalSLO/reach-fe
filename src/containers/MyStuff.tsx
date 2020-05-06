@@ -1,5 +1,7 @@
 import React from 'react';
 
-export default function MyStuff() {
+function MyStuff() {
   return <div />;
 }
+
+export default MyStuff;
