@@ -16,6 +16,7 @@ import { wrapWithCatch } from '../api/base';
 import { useHistory } from 'react-router-dom';
 import { HOME } from '../nav/constants';
 import BoxCenter from '../common/components/BoxCenter';
+import { theme } from '../theme/theme';
 
 interface ConfirmDeleteProps {
   isConfirmDelete: boolean;
@@ -57,7 +58,7 @@ function ConfirmDeleteAccount(props: ConfirmDeleteProps) {
   return (
     <Dialog open={isConfirmDelete} onClose={handleClose}>
       <DialogTitle>
-        Are you sure you want to delete your REACH Account?
+        Are you sure you want to delete your REACH account?
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
@@ -78,7 +79,7 @@ function ConfirmDeleteAccount(props: ConfirmDeleteProps) {
 }
 
 const DeleteButton = styled(Button)({
-  color: 'red'
+  color: theme.palette.error.main
 });
 
 const PaddedBoxCenter = styled(BoxCenter)({
