@@ -1,4 +1,4 @@
-import { Box, styled, TextField, Typography } from '@material-ui/core';
+import { TextField, Typography } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateDescription, updateTitle } from '../redux/story/actions';
@@ -22,10 +22,10 @@ export default function StoryForm() {
 
   // TODO: add validation of required fields
   if (previewSelected) {
-    return <StyledBox>{convertStoryToJSX(story)}</StyledBox>;
+    return <div>{convertStoryToJSX(story)}</div>;
   } else {
     return (
-      <StyledBox>
+      <div>
         <Typography variant="h3">StoryBuilder</Typography>
         <p>
           Tell us a compelling story using data. Use the toolbar on the left to
@@ -33,7 +33,7 @@ export default function StoryForm() {
           follow along with your findings and conclusions. Use the drag handles
           to the left of each component if you want to reorder them.
         </p>
-        <StyledTextField
+        <TextField
           id="story-title-field"
           label="Title"
           variant="outlined"
@@ -45,7 +45,7 @@ export default function StoryForm() {
           onChange={event => dispatch(updateTitle(event.target.value))}
           defaultValue={story ? story.title : ''}
         />
-        <StyledTextField
+        <TextField
           id="story-description-field"
           label="Description"
           variant="outlined"
@@ -63,15 +63,7 @@ export default function StoryForm() {
         />
 
         <SortableList storyBlocks={story.storyBlocks} />
-      </StyledBox>
+      </div>
     );
   }
 }
-
-const StyledBox = styled(Box)({
-  margin: '20px 10px 20px 10px'
-});
-
-const StyledTextField = styled(TextField)({
-  margin: '10px 10px 10px 0px'
-});

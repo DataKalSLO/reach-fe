@@ -16,6 +16,8 @@ import { createEmptyTextBlock } from '../redux/story/actions';
 import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
 
+const STORY_SIDEBAR_WIDTH = 165;
+
 export default function StorySidebar() {
   const storyBuilderState = useSelector(getStoryBuilder);
   const previewSelected = storyBuilderState.isPreviewSelected;
@@ -32,7 +34,7 @@ export default function StorySidebar() {
   };
 
   return (
-    <Drawer>
+    <Drawer width={STORY_SIDEBAR_WIDTH}>
       <Typography variant="subtitle1" align="center">
         <b>Add Block</b>
       </Typography>
@@ -80,6 +82,3 @@ export default function StorySidebar() {
     </Drawer>
   );
 }
-
-// FIXME: @kellie get rid of this business. prob with storybuilder margin
-export const STORY_TOOLBAR_WIDTH = 150;

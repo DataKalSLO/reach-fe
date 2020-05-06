@@ -1,20 +1,29 @@
-import { Box, Container } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { styled } from '@material-ui/styles';
 import React from 'react';
 import StoryForm from '../stories/StoryForm';
-import StorySidebar, { STORY_TOOLBAR_WIDTH } from '../stories/StorySidebar';
+import StorySidebar from '../stories/StorySidebar';
+import { theme } from '../theme/theme';
 
 export default function StoryBuilder() {
   return (
-    <Container>
+    <StyledBox>
       <StorySidebar />
-      <StoryFormContainer>
+      <StoryFormBox>
         <StoryForm />
-      </StoryFormContainer>
-    </Container>
+      </StoryFormBox>
+    </StyledBox>
   );
 }
 
-const StoryFormContainer = styled(Box)({
-  marginLeft: STORY_TOOLBAR_WIDTH
+const StyledBox = styled(Box)({
+  display: 'flex'
+});
+
+const StoryFormBox = styled(Box)({
+  flexGrow: 1,
+  paddingTop: theme.spacing(3),
+  paddingBottom: theme.spacing(3),
+  paddingLeft: theme.spacing(12),
+  paddingRight: theme.spacing(12)
 });
