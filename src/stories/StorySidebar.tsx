@@ -10,13 +10,13 @@ import {
 } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Sidebar from '../common/components/Sidebar';
+import Drawer from '../common/components/Drawer';
 import { List, ListItemButton } from '../reach-ui/core';
 import { createEmptyTextBlock } from '../redux/story/actions';
 import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
 
-export function StoryToolbar() {
+export default function StorySidebar() {
   const storyBuilderState = useSelector(getStoryBuilder);
   const previewSelected = storyBuilderState.isPreviewSelected;
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ export function StoryToolbar() {
   };
 
   return (
-    <Sidebar>
+    <Drawer>
       <Typography variant="subtitle1" align="center">
         <b>Add Block</b>
       </Typography>
@@ -77,7 +77,7 @@ export function StoryToolbar() {
           onClick={handleSave}
         />
       </List>
-    </Sidebar>
+    </Drawer>
   );
 }
 

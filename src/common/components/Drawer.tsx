@@ -1,4 +1,4 @@
-import Drawer from '@material-ui/core/Drawer';
+import { Drawer as CoreDrawer } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import React from 'react';
 
@@ -16,10 +16,10 @@ interface Props {
   children: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
-export default function Sidebar(props: Props) {
+export default function Drawer(props: Props) {
   const classes = useStyles();
   return (
-    <Drawer
+    <CoreDrawer
       variant="permanent"
       anchor="left"
       classes={{
@@ -30,6 +30,6 @@ export default function Sidebar(props: Props) {
       }}
     >
       {props.children}
-    </Drawer>
+    </CoreDrawer>
   );
 }
