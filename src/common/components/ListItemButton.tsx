@@ -7,7 +7,6 @@ import {
   withStyles
 } from '@material-ui/core';
 import React from 'react';
-import { theme } from '../../theme/theme';
 
 interface Props {
   'aria-label': string;
