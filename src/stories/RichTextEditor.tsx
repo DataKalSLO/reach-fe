@@ -48,7 +48,7 @@ const paddingDefault = '10px';
 
 //TODO: @tan refactor into StoryBlockWrapper
 export const StyledBox = styled(Box)({
-  width: '100%',
+  // width: '100%',
   minHeight: '100px',
   minWidth: '510px',
   border: '1px solid #cbcbcb', // same border style is used in EditorToolbar
