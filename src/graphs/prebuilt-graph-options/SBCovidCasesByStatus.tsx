@@ -1,93 +1,184 @@
 const categories = [
-    '4/1',
-    '4/2',
-    '4/3',
-    '4/4',
-    '4/5',
-    '4/6',
-    '4/7',
-    '4/8',
-    '4/9',
-    '4/10',
-    '4/11',
-    '4/12',
-    '4/13',
-    '4/14',
-    '4/15',
-    '4/16',
-    '4/17',
-    '4/18',
-    '4/19',
-    '4/20',
-    '4/21',
-    '4/22',
-    '4/23',
-    '4/24',
-    '4/25',
-    '4/26',
-    '4/27',
-    '4/28',
-    '4/29',
-    '4/30',
-  ];
-  
-  const data = [
-    [ 23, 26, 27, 28, 31, 34, 41, 42, 40, 42, 40, 42, 42, 42, 37, 37, 36, 31, 29, 30, 26, 25, 24, 21, 23, 24, 26, 27, 28, 26],
-    [ 15, 18, 18, 18, 18, 19, 23, 19, 20, 19, 21, 21, 21, 19, 17, 16, 16, 15, 16, 20, 13, 13, 13, 12, 16, 12, 12, 12, 12, 13],
-    [ 0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 4, 4, 4, 5, 5, 5, 6, 7, 7, 7, 7, 8, 8]
-    
-  ];
-  
-  export const SBCovidCasesByStatusOptions: Highcharts.Options = {
-    tooltip: {
-      valueDecimals: 2,
-      valuePrefix: '',
-      valueSuffix: ''
-    },
-    chart: {
-      height: '70%',
-      zoomType: 'xy',
-      panning: { enabled: true },
-      panKey: 'shift'
-    },
+  '4/1',
+  '4/2',
+  '4/3',
+  '4/4',
+  '4/5',
+  '4/6',
+  '4/7',
+  '4/8',
+  '4/9',
+  '4/10',
+  '4/11',
+  '4/12',
+  '4/13',
+  '4/14',
+  '4/15',
+  '4/16',
+  '4/17',
+  '4/18',
+  '4/19',
+  '4/20',
+  '4/21',
+  '4/22',
+  '4/23',
+  '4/24',
+  '4/25',
+  '4/26',
+  '4/27',
+  '4/28',
+  '4/29',
+  '4/30'
+];
+
+const data = [
+  [
+    23,
+    26,
+    27,
+    28,
+    31,
+    34,
+    41,
+    42,
+    40,
+    42,
+    40,
+    42,
+    42,
+    42,
+    37,
+    37,
+    36,
+    31,
+    29,
+    30,
+    26,
+    25,
+    24,
+    21,
+    23,
+    24,
+    26,
+    27,
+    28,
+    26
+  ],
+  [
+    15,
+    18,
+    18,
+    18,
+    18,
+    19,
+    23,
+    19,
+    20,
+    19,
+    21,
+    21,
+    21,
+    19,
+    17,
+    16,
+    16,
+    15,
+    16,
+    20,
+    13,
+    13,
+    13,
+    12,
+    16,
+    12,
+    12,
+    12,
+    12,
+    13
+  ],
+  [
+    0,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    3,
+    4,
+    4,
+    4,
+    5,
+    5,
+    5,
+    6,
+    7,
+    7,
+    7,
+    7,
+    8,
+    8
+  ]
+];
+
+export const SBCovidCasesByStatusOptions: Highcharts.Options = {
+  tooltip: {
+    valueDecimals: 2,
+    valuePrefix: '',
+    valueSuffix: ''
+  },
+  chart: {
+    height: '70%',
+    zoomType: 'xy',
+    panning: { enabled: true },
+    panKey: 'shift'
+  },
+  title: {
+    text: 'Covid-19 Cases by Status in Santa Barbara County'
+  },
+  xAxis: {
+    type: 'category',
+    categories: categories
+  },
+  yAxis: {
     title: {
-      text: 'Covid-19 Cases by Status in Santa Barbara County'
+      text: 'Cases'
+    }
+  },
+  plotOptions: {
+    series: {
+      allowPointSelect: true,
+      stacking: 'normal'
     },
-    xAxis: {
-      type: 'category',
-      categories: categories
+    column: {
+      allowPointSelect: true,
+      stacking: 'normal'
+    }
+  },
+  series: [
+    {
+      name: 'Covid-19 Positive Patients',
+      type: 'column',
+      data: data[0]
     },
-    yAxis: {
-      title: {
-        text: 'Cases'
-      }
+    {
+      name: ' ICU Covid-19 Positive Patients',
+      type: 'column',
+      data: data[1]
     },
-    plotOptions: {
-      series: {
-        allowPointSelect: true,
-        stacking: 'normal'
-      },
-      column: {
-        allowPointSelect: true,
-        stacking: 'normal'
-      }
-    },
-    series: [
-      {
-        name: 'Covid-19 Positive Patients',
-        type: 'column',
-        data: data[0]
-      },
-      {
-        name: ' ICU Covid-19 Positive Patients',
-        type: 'column',
-        data: data[1]
-      },
-      {
-        name: 'Death',
-        type: 'column',
-        data: data[2]
-      }
-    ]
-  };
-  
+    {
+      name: 'Death',
+      type: 'column',
+      data: data[2]
+    }
+  ]
+};

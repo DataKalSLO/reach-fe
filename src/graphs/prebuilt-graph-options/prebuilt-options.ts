@@ -46,4 +46,4 @@ export const SBCovidCasesGraphOptions = SBCovidCasesOptions;
 export const SBCovidCasesByStatusGraphOptions = SBCovidCasesByStatusOptions;
 export const SBCovidCasesBycityGraphOptions = SBCovidCasesBycityOptions;
 export const SBCovidCasesByAgeGraphOptions = SBCovidCasesByAgeOptions;
-export const SBHealthCareFacityBedGraphOptions =SBHealthCareFacityBedOptions;
+export const SBHealthCareFacityBedGraphOptions = SBHealthCareFacityBedOptions;
