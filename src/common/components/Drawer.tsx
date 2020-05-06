@@ -5,7 +5,7 @@ import React from 'react';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     drawerPaper: {
-      zIndex: 0, // to place drawer behind app bar
+      zIndex: 2, // to place drawer behind app bar and in front of page contents
       backgroundColor: theme.palette.secondary.light,
       paddingTop: 100 // padding to place buttons beneath app
     }
