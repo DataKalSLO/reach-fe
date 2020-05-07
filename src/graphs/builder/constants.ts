@@ -1,7 +1,6 @@
 /*
  * General Graph Options Constants
  */
-export const EMPTY_TEXT = '';
 export const DEFAULT_TITLE = 'Chart';
 export const DEFAULT_SUBTITLE = '';
 export const GRAPH_HEIGHT = '100%';
