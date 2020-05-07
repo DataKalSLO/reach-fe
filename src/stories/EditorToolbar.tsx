@@ -189,8 +189,7 @@ const Toolbar = styled(Box)({
   width: '100%',
   borderBottom: borderStyle,
   marginBottom: '10px',
-  padding: '5px 0px 5px 0px',
-  minWidth: '440px'
+  padding: '5px 0px 5px 0px'
 });
 
 // Adds vertical bar on the rhs of the group
