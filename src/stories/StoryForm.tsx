@@ -1,11 +1,68 @@
-import { Box, styled, TextField, Typography } from '@material-ui/core';
+import { Box, styled, Typography } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { object, string } from 'yup';
 import { updateDescription, updateTitle } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
 import SortableList from '../stories/SortableList';
+import { MetaField } from './MetaField';
 import { convertStoryToJSX } from './StoryConverter';
+import {
+  Story,
+  UpdateTitleAction,
+  UpdateDescriptionAction
+} from '../redux/story/types';
+
+const TITLE_CHAR_LIMIT = 100;
+const DESCRIPTION_CHAR_LIMIT = 250;
+
+const metaSchema = object().shape({
+  title: string()
+    .required()
+    .trim()
+    .max(TITLE_CHAR_LIMIT),
+  description: string()
+    .required()
+    .trim()
+    .max(DESCRIPTION_CHAR_LIMIT)
+});
+
+const areValidMetaFields = (title: string, description: string) => {
+  return metaSchema.isValidSync({ title: title, description: description });
+};
+
+interface Props {
+  story: Story;
+  onChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => UpdateTitleAction | UpdateDescriptionAction;
+}
+
+const TitleField = (props: Props) => {
+  return (
+    <MetaField
+      content={props.story.title}
+      id="story-title"
+      label="Title"
+      maxLength={TITLE_CHAR_LIMIT}
+      {...props}
+    />
+  );
+};
+
+const DescriptionField = (props: Props) => {
+  return (
+    <MetaField
+      content={props.story.description}
+      id="story-description"
+      label="Description"
+      maxLength={DESCRIPTION_CHAR_LIMIT}
+      multiline
+      {...props}
+    />
+  );
+};
 
 export default function StoryForm() {
   const dispatch = useDispatch();
@@ -13,14 +70,6 @@ export default function StoryForm() {
   const storyBuilderState = useSelector(getStoryBuilder);
   const previewSelected = storyBuilderState.isPreviewSelected;
 
-  const TITLE_CHAR_LIMIT = 100;
-  const DESCRIPTION_CHAR_LIMIT = 250;
-
-  function createCharCounter(currentText: string, maxLength: number) {
-    return `${currentText.length}/${maxLength}`;
-  }
-
-  // TODO: add validation of required fields
   if (previewSelected) {
     return <StyledBox>{convertStoryToJSX(story)}</StyledBox>;
   } else {
@@ -33,33 +82,15 @@ export default function StoryForm() {
           follow along with your findings and conclusions. Use the drag handles
           to the left of each component if you want to reorder them.
         </p>
-        <StyledTextField
-          id="story-title-field"
-          label="Title"
-          variant="outlined"
-          fullWidth
-          required
-          margin="dense"
-          helperText={createCharCounter(story.title, TITLE_CHAR_LIMIT)}
-          inputProps={{ maxLength: TITLE_CHAR_LIMIT }}
+
+        <TitleField
+          story={story}
           onChange={event => dispatch(updateTitle(event.target.value))}
-          defaultValue={story ? story.title : ''}
         />
-        <StyledTextField
-          id="story-description-field"
-          label="Description"
-          variant="outlined"
-          multiline
-          fullWidth
-          required
-          margin="dense"
-          helperText={createCharCounter(
-            story.description,
-            DESCRIPTION_CHAR_LIMIT
-          )}
-          inputProps={{ maxLength: DESCRIPTION_CHAR_LIMIT }}
+
+        <DescriptionField
+          story={story}
           onChange={event => dispatch(updateDescription(event.target.value))}
-          defaultValue={story ? story.description : ''}
         />
 
         <SortableList storyBlocks={story.storyBlocks} />
@@ -68,10 +99,8 @@ export default function StoryForm() {
   }
 }
 
+export { areValidMetaFields };
+
 const StyledBox = styled(Box)({
   margin: '20px 10px 20px 10px'
-});
-
-const StyledTextField = styled(TextField)({
-  margin: '10px 10px 10px 0px'
 });
