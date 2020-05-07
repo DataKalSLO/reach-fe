@@ -3,38 +3,36 @@ import chroma from 'chroma-js';
 import _ from 'lodash';
 import React, { useEffect } from 'react';
 import ReactMapGL, { Layer, Source } from 'react-map-gl';
+import { useDispatch } from 'react-redux';
 import mapOutline from '../common/assets/Local Data/census/b25053';
 import noData from '../common/assets/Local Data/census/noHeatMap';
+import { updateColorAssociation } from '../redux/map/actions';
 import {
+  HEAT_MAP_COLOR,
   NUM_QUANTILES,
   PLACER,
   SLO_LATITUDE,
   SLO_LONGITUDE,
-  ZIP_TABULATION,
-  HEAT_MAP_COLOR,
-  MARKER_ONE_COLOR,
-  MARKER_TWO_COLOR
+  ZIP_TABULATION
 } from './constants';
 import { mapMarkers } from './MapMarker';
 import Popups from './MapPopups';
 import {
-  ColorAssociation,
-  LocationFeatures,
-  PrepGeoObject,
-  HeatMapSelection,
-  MarkerSelection,
-  SelectedMarker
-} from './types';
-import {
   getStat,
   onHover,
+  position,
   prepGeo,
-  quantileMaker,
-  position
+  quantileMaker
 } from './MapViewHelpers';
 import Tooltip from './Tooltip';
-import { useDispatch } from 'react-redux';
-import { updateColorAssociation } from '../redux/map/actions';
+import {
+  ColorAssociation,
+  HeatMapSelection,
+  LocationFeatures,
+  MarkerSelection,
+  PrepGeoObject,
+  SelectedMarker
+} from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
@@ -109,16 +107,7 @@ function MapView(props: MapViewProps) {
   const x = React.useRef(0);
   const y = React.useRef(0);
 
-  const markerColors = [
-    { color: MARKER_ONE_COLOR },
-    { color: MARKER_TWO_COLOR }
-  ];
-
   useEffect(() => {
-    const newColorAssociation: ColorAssociation = {};
-    markerSelection.forEach((marker, index) => {
-      newColorAssociation[marker.name] = markerColors[index];
-    });
     dispatch(updateColorAssociation());
     // This disable prevents an eslint quickfix from createing a circular dependency and freezeing the screen
     // eslint-disable-next-line

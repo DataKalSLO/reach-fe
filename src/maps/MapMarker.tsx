@@ -3,6 +3,8 @@ import { styled } from '@material-ui/core/styles';
 import RoomIcon from '@material-ui/icons/Room';
 import React from 'react';
 import { Marker } from 'react-map-gl';
+import { useDispatch } from 'react-redux';
+import { updateSelectedMarker } from '../redux/map/actions';
 import { ICON_HEIGHT, ICON_WIDTH } from './constants';
 import {
   ColorAssociation,
@@ -10,8 +12,6 @@ import {
   MarkerSelection,
   SelectedMarker
 } from './types';
-import { useDispatch } from 'react-redux';
-import { updateSelectedMarker } from '../redux/map/actions';
 
 // call Markers on each marker in markerSelection
 export function mapMarkers(

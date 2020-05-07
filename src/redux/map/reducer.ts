@@ -1,15 +1,15 @@
-import { blue, purple, red } from '@material-ui/core/colors';
 import medianHouseholdIncomeHeatMap from '../../common/assets/Local Data/census/median_income_data';
 import { markerData } from '../../common/assets/Local Data/MockMarkerData';
+import { MARKER_ONE_COLOR, MARKER_TWO_COLOR } from '../../maps/constants';
 import { ColorAssociation } from '../../maps/types';
 import {
   MapActionTypes,
+  MapState,
   UPDATE_BOUND_SELECTION,
   UPDATE_COLOR_ASSOCIATION,
   UPDATE_HEAT_MAP_SELECTION,
   UPDATE_MARKER_SELECTION,
-  UPDATE_SELECTED_MARKER,
-  MapState
+  UPDATE_SELECTED_MARKER
 } from './types';
 
 const initialState: MapState = {
@@ -24,9 +24,8 @@ const initialState: MapState = {
 // TODO: is there a way to do this which keeps the previous color assoc?
 function updateColorAssociationHelper(state: MapState) {
   const markerColors = [
-    { color: red[500] },
-    { color: blue[500] },
-    { color: purple[500] }
+    { color: MARKER_ONE_COLOR },
+    { color: MARKER_TWO_COLOR }
   ];
   const newColorAssociation: ColorAssociation = {};
   state.markerSelection.forEach((marker, index) => {

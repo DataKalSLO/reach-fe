@@ -2,15 +2,15 @@ import {
   Box,
   Card,
   CardContent,
+  fade,
   Link,
-  Typography,
   styled,
-  fade
+  Typography
 } from '@material-ui/core';
 import React from 'react';
-import { MarkerSelection, HeatMapSelection, ColorAssociation } from './types';
 import { theme } from '../theme/theme';
 import { HEAT_MAP_COLOR } from './constants';
+import { ColorAssociation, HeatMapSelection, MarkerSelection } from './types';
 
 // populate legend using data selected in the layers component
 // legend has name of data set, color association, vintage, and source of data

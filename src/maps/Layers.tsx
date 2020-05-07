@@ -6,6 +6,8 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { flatten } from 'lodash';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'redux';
 import kitchenFaciltiesHeatMap from '../common/assets/Local Data/census/b25053.js';
 import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/median_income_data.js';
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
@@ -23,8 +25,6 @@ import {
   SelectedMarker,
   Selections
 } from './types';
-import { Dispatch } from 'redux';
-import { useDispatch } from 'react-redux';
 
 // number of allowed selections, subject to change based on ui/ux and graph team suggestions
 const ALLOWED_MARKERS = 2;
