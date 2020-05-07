@@ -16,7 +16,7 @@ export const StyledMapContainer = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  alignItems: 'center',
+  alignItems: 'left',
   height: '100%',
   width: '97%',
   marginLeft: '10px',
