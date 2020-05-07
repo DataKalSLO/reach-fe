@@ -26,6 +26,8 @@ import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
 import { saveStory } from './StoryAPIConnector';
 
+const successfulStoryCreationMessage = 'Story Created!';
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     drawerPaper: {
@@ -152,11 +154,15 @@ async function saveStoryButtonAction(story: Story) {
   //TODO: Add Loading bar while waiting for request.
   await saveStory(story)
     .then(res => {
-      console.log('Story Created');
+      console.log(successfulStoryCreationMessage);
     })
     .catch(e => {
-      console.log(e);
-      alert('An Error occurred while saving a Story. Story was not created.');
+      //TODO: Remove check after BEND has changed to return JSON instead of string response
+      if (e instanceof SyntaxError) console.log(successfulStoryCreationMessage);
+      else {
+        console.log('Error: ' + e);
+        alert('An Error occurred while saving a Story. Story was not created.');
+      }
     });
 }
 
