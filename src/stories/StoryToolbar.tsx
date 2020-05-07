@@ -14,8 +14,11 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { List, ListItemButton } from '../reach-ui/core';
 import { createEmptyTextBlock } from '../redux/story/actions';
+import { getStory } from '../redux/story/selectors';
 import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
+import { StoryBuilderActionType } from '../redux/storybuilder/types';
+import { areValidMetaFields } from './StoryForm';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,16 +35,25 @@ const useStyles = makeStyles((theme: Theme) =>
 export function StoryToolbar() {
   const storyBuilderState = useSelector(getStoryBuilder);
   const previewSelected = storyBuilderState.isPreviewSelected;
+  const story = useSelector(getStory);
   const dispatch = useDispatch();
   const classes = useStyles();
 
+  const checkValidMetaFields = (onSuccess: () => StoryBuilderActionType) => {
+    if (areValidMetaFields(story.title, story.description)) {
+      dispatch(onSuccess());
+    } else {
+      alert('Please complete the required fields.');
+    }
+  };
+
   const handleTogglePreview = () => {
-    // TODO: @kellie add form validation here
-    dispatch(togglePreview());
+    checkValidMetaFields(togglePreview);
   };
 
   const handleSave = () => {
-    // TODO: @kellie add form validation here
+    // TODO: @berto call checkValidMetaFields and pass in your onSuccess func
+    // Model this func after handleTogglePreview
     alert('Save Stories is not implemented');
   };
 
