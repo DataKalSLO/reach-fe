@@ -1,10 +1,4 @@
-import {
-  Box,
-  IconButton,
-  MenuItem,
-  styled,
-  TextField
-} from '@material-ui/core';
+import { Box, MenuItem, styled, TextField } from '@material-ui/core';
 import {
   Code,
   Done,
@@ -19,8 +13,17 @@ import {
 } from '@material-ui/icons';
 import { EditorState, RichUtils } from 'draft-js';
 import React, { useState } from 'react';
+import {
+  IconButton,
+  Props as IconButtonProps
+} from '../common/components/IconButton';
+import { CollapsibleItem, CollapsibleMenu } from './CollapsibleToolbar';
 import { DraftJSBlockType, DraftJSInlineType } from './DraftJSCommands';
 import { HyperlinkPlugin } from './HyperlinkPlugin';
+
+const ToolbarButton = (props: IconButtonProps) => {
+  return <IconButton size="small" color="default" {...props} />;
+};
 
 interface Props {
   editorState: EditorState;
@@ -40,21 +43,7 @@ const EditorToolbar = (props: Props) => {
     setURLValue
   );
 
-  // connect icon buttons in the toolbar to the state updates for inline styles
-  const onClickInlineStyle = (buttonName: DraftJSInlineType) => {
-    props.setEditorState(
-      RichUtils.toggleInlineStyle(props.editorState, buttonName)
-    );
-  };
-
-  // connect icon buttons and heading select in the toolbar to the state updates for block styles
-  const onClickBlockType = (buttonName: DraftJSBlockType) => {
-    props.setEditorState(
-      RichUtils.toggleBlockType(props.editorState, buttonName)
-    );
-  };
-
-  let urlInputUI;
+  let urlInputUI: {} | undefined;
   if (showURLInput) {
     urlInputUI = (
       <URLInputBox>
@@ -70,82 +59,126 @@ const EditorToolbar = (props: Props) => {
           value={urlValue}
           variant="outlined"
         />
-        <IconButton edge="start" onMouseDown={hyperlinkPlugin.confirmLink}>
-          <Done />
-        </IconButton>
-        {/* TODO: @kellie add cancel button */}
-        {/* <IconButton edge="start">
-          <Clear />
-        </IconButton> */}
+        <ToolbarButton
+          aria-label="Confirm Hyperlink"
+          icon={<Done />}
+          onClick={hyperlinkPlugin.confirmLink}
+          edge="start"
+          color="primary"
+        />
       </URLInputBox>
     );
   }
+  // connect icon buttons in the toolbar to the state updates for inline styles
+  const onClickInlineStyle = (buttonName: DraftJSInlineType) => {
+    props.setEditorState(
+      RichUtils.toggleInlineStyle(props.editorState, buttonName)
+    );
+  };
+
+  // connect icon buttons and heading select in the toolbar to the state updates for block styles
+  const onClickBlockType = (buttonName: DraftJSBlockType) => {
+    props.setEditorState(
+      RichUtils.toggleBlockType(props.editorState, buttonName)
+    );
+  };
 
   return (
     <Toolbar>
-      {/* text styles */}
-      <FormatButtonGroup>
-        <StyledTextField
-          id="heading-style-select"
-          select
-          label="Heading Style"
-          variant="outlined"
-          margin="dense"
-          value={RichUtils.getCurrentBlockType(props.editorState)}
-          onChange={value =>
-            onClickBlockType(value.target.value as DraftJSBlockType)
-          }
-          defaultValue={'unstyled'}
-        >
-          <MenuItem value={'unstyled'}>Normal text</MenuItem>
-          <MenuItem value={'header-one'}>Heading 1</MenuItem>
-          <MenuItem value={'header-two'}>Heading 2</MenuItem>
-          <MenuItem value={'header-three'}>Heading 3</MenuItem>
-          <MenuItem value={'header-four'}>Heading 4</MenuItem>
-          <MenuItem value={'header-five'}>Heading 5</MenuItem>
-          <MenuItem value={'header-six'}>Heading 6</MenuItem>
-        </StyledTextField>
+      <CollapsibleMenu>
+        {/* text styles */}
+        <CollapsibleItem hideWidth={DEFAULT_HIDE_WIDTH}>
+          <FormatButtonGroup>
+            <StyledTextField
+              id="heading-style-select"
+              select
+              label="Heading Style"
+              variant="outlined"
+              margin="dense"
+              value={RichUtils.getCurrentBlockType(props.editorState)}
+              onChange={value =>
+                onClickBlockType(value.target.value as DraftJSBlockType)
+              }
+              defaultValue={'unstyled'}
+            >
+              <MenuItem value={'unstyled'}>Normal text</MenuItem>
+              <MenuItem value={'header-one'}>Heading 1</MenuItem>
+              <MenuItem value={'header-two'}>Heading 2</MenuItem>
+              <MenuItem value={'header-three'}>Heading 3</MenuItem>
+              <MenuItem value={'header-four'}>Heading 4</MenuItem>
+              <MenuItem value={'header-five'}>Heading 5</MenuItem>
+              <MenuItem value={'header-six'}>Heading 6</MenuItem>
+            </StyledTextField>
 
-        {/* TODO: refactor these to use the common IconButton */}
-        <IconButton onClick={() => onClickInlineStyle('BOLD')}>
-          <FormatBold />
-        </IconButton>
-        <IconButton onClick={() => onClickInlineStyle('ITALIC')}>
-          <FormatItalic />
-        </IconButton>
-        <IconButton onClick={() => onClickInlineStyle('UNDERLINE')}>
-          <FormatUnderlined />
-        </IconButton>
-        <IconButton onClick={() => onClickInlineStyle('STRIKETHROUGH')}>
-          <StrikethroughS />
-        </IconButton>
-        <IconButton onClick={() => onClickInlineStyle('CODE')}>
-          <Code />
-        </IconButton>
-      </FormatButtonGroup>
+            <ToolbarButton
+              aria-label="Bold"
+              icon={<FormatBold />}
+              onClick={() => onClickInlineStyle('BOLD')}
+            />
+            <ToolbarButton
+              aria-label="Italic"
+              icon={<FormatItalic />}
+              onClick={() => onClickInlineStyle('ITALIC')}
+            />
+            <ToolbarButton
+              aria-label="Underline"
+              icon={<FormatUnderlined />}
+              onClick={() => onClickInlineStyle('UNDERLINE')}
+            />
+            <ToolbarButton
+              aria-label="Strikethrough"
+              icon={<StrikethroughS />}
+              onClick={() => onClickInlineStyle('STRIKETHROUGH')}
+            />
+            <ToolbarButton
+              aria-label="Monospace"
+              icon={<Code />}
+              onClick={() => onClickInlineStyle('CODE')}
+            />
+          </FormatButtonGroup>
+        </CollapsibleItem>
 
-      {/* list styles */}
-      <FormatButtonGroup>
-        <IconButton onClick={() => onClickBlockType('unordered-list-item')}>
-          <FormatListBulleted />
-        </IconButton>
-        <IconButton onClick={() => onClickBlockType('ordered-list-item')}>
-          <FormatListNumbered />
-        </IconButton>
-      </FormatButtonGroup>
+        {/* list styles */}
+        <CollapsibleItem hideWidth={LIST_STYLE_HIDE_WIDTH}>
+          <FormatButtonGroup>
+            <ToolbarButton
+              aria-label="Unordered List"
+              icon={<FormatListBulleted />}
+              onClick={() => onClickBlockType('unordered-list-item')}
+            />
+            <ToolbarButton
+              aria-label="Ordered List"
+              icon={<FormatListNumbered />}
+              onClick={() => onClickBlockType('ordered-list-item')}
+            />
+          </FormatButtonGroup>
+        </CollapsibleItem>
 
-      <FormatButtonGroup>
-        <IconButton onClick={hyperlinkPlugin.promptForLink}>
-          <Link />
-        </IconButton>
-        <IconButton onClick={hyperlinkPlugin.removeLink}>
-          <LinkOff />
-        </IconButton>
-        {urlInputUI}
-      </FormatButtonGroup>
+        {/* link styles */}
+        <CollapsibleItem hideWidth={LINK_STYLE_HIDE_WIDTH}>
+          <FormatButtonGroup>
+            <ToolbarButton
+              aria-label="Add Hyperlink"
+              icon={<Link />}
+              onClick={hyperlinkPlugin.promptForLink}
+            />
+            <ToolbarButton
+              aria-label="Remove Hyperlink"
+              icon={<LinkOff />}
+              onClick={hyperlinkPlugin.removeLink}
+            />
+            {urlInputUI}
+          </FormatButtonGroup>
+        </CollapsibleItem>
+      </CollapsibleMenu>
     </Toolbar>
   );
 };
+
+// Screenwidth when a group of items to become hidden in the collapsible menu
+const DEFAULT_HIDE_WIDTH = 0;
+const LIST_STYLE_HIDE_WIDTH = 800;
+const LINK_STYLE_HIDE_WIDTH = 900;
 
 const borderStyle = '1px solid #cbcbcb';
 const paddingDefault = '10px';
@@ -153,11 +186,14 @@ const paddingDefault = '10px';
 const Toolbar = styled(Box)({
   display: 'flex',
   flexDirection: 'row',
+  width: '100%',
   borderBottom: borderStyle,
   marginBottom: '10px',
-  padding: '5px 0px 5px 0px'
+  padding: '5px 0px 5px 0px',
+  minWidth: '440px'
 });
 
+// Adds vertical bar on the rhs of the group
 const FormatButtonGroup = styled(Box)({
   display: 'flex',
   alignItems: 'center',
