@@ -1,6 +1,6 @@
 import { Drawer as CoreDrawer, List } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { ChevronLeft, Menu } from '@material-ui/icons';
+import { ChevronLeft, ChevronRight, Menu } from '@material-ui/icons';
 import clsx from 'clsx';
 import React, { useState } from 'react';
 import { theme } from '../../theme/theme';
@@ -56,13 +56,18 @@ export default function Drawer(props: Props) {
 
   const CollapsibleIcon = () => {
     if (props.collapsible) {
+      const chevronIcon =
+        props.anchor === 'right' ? <ChevronRight /> : <ChevronLeft />;
+      const chevronPosition = props.anchor === 'right' ? 'right' : 'left';
+
       return (
         <List>
           <IconButton
             aria-label={'test'}
             color={'default'}
-            icon={open ? <ChevronLeft /> : <Menu />}
+            icon={open ? chevronIcon : <Menu />}
             onClick={toggleDrawer}
+            style={{ float: chevronPosition }}
           />
         </List>
       );
@@ -84,6 +89,7 @@ export default function Drawer(props: Props) {
           [classes.drawerClose]: !open
         })
       }}
+      {...props}
     >
       <CollapsibleIcon />
       {props.children}
