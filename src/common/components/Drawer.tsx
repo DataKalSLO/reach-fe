@@ -44,11 +44,9 @@ interface Props {
   [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
-const IS_DRAWER_OPEN_DEFAULT = true;
-
 export default function Drawer(props: Props) {
   const classes = useStyles(props);
-  const [open, setOpen] = useState(IS_DRAWER_OPEN_DEFAULT);
+  const [open, setOpen] = useState(true); // drawer is open by default
 
   const toggleDrawer = () => {
     setOpen(!open);
