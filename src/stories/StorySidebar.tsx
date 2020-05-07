@@ -30,7 +30,7 @@ const STORY_CREATION_SUCCESS_MESSAGE = 'Story created!';
 const STORY_CREATION_FAILURE_MESSAGE =
   'An Error occurred while saving a Story. Story was not created.';
 
-function sendAndRespondToSaveStory(story: Story): TogglePreviewAction {
+function callAndRespondToSaveStory(story: Story): TogglePreviewAction {
   saveStory(story)
     .then(res => {
       console.log(STORY_CREATION_SUCCESS_MESSAGE);
@@ -39,7 +39,7 @@ function sendAndRespondToSaveStory(story: Story): TogglePreviewAction {
       //TODO: Remove `if` after BEND has changed to return JSON instead of string response
       if (e instanceof SyntaxError) console.log(STORY_CREATION_SUCCESS_MESSAGE);
       else {
-        console.log('Error: ' + e);
+        console.log('Save Story Error: ' + e);
         alert(STORY_CREATION_FAILURE_MESSAGE);
       }
     });
@@ -70,7 +70,7 @@ export default function StorySidebar() {
   const handleSave = () => {
     story.userID = 'test1@test.com'; //TODO: Remove authentication API function exist
     checkValidMetaFields(
-      (): TogglePreviewAction => sendAndRespondToSaveStory(story)
+      (): TogglePreviewAction => callAndRespondToSaveStory(story)
     );
     //TODO: Add Loading bar while waiting for request.
   };
