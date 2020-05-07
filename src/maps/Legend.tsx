@@ -15,7 +15,7 @@ import { theme } from '../theme/theme';
 // since the color association is handled differently,
 // markers and heat maps need to be parsed separately
 function populateLegendData(
-  heatMapSelection: HeatMapSelection,
+  heatMapSelection: HeatMapSelection | {},
   colorAssociation: ColorAssociation,
   markerSelection: MarkerSelection[],
   legendData: {
@@ -27,15 +27,16 @@ function populateLegendData(
   }[]
 ) {
   // add heat map selection to legend if it exists
-  if (heatMapSelection.name !== undefined) {
+  if (Object.keys(heatMapSelection).length > 0) {
+    const heatMap = heatMapSelection as HeatMapSelection;
     // TODO: once we are using DB instead of local data, the concat below will
     // likely be removed
     const prefix = 'https://www.';
-    const link = prefix.concat(heatMapSelection.source);
+    const link = prefix.concat(heatMap.source);
     const heatMapLegend = {
       key: legendData.length,
-      label: heatMapSelection.name,
-      vintage: heatMapSelection.vintage,
+      label: heatMap.name,
+      vintage: heatMap.vintage,
       source: link,
       color: 'green'
     };
@@ -95,7 +96,7 @@ function getCards(data: {
 }
 
 interface LegendProps {
-  heatMapSelection: HeatMapSelection;
+  heatMapSelection: HeatMapSelection | {};
   colorAssociation: ColorAssociation;
   markerSelection: MarkerSelection[];
 }

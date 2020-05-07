@@ -14,14 +14,16 @@ import {
 
 // I think these are the functions we will need?
 // possibly need to have remove/add for each of these
-export function updateMarkerSelection(markerSelection: MarkerSelection) {
+export function updateMarkerSelection(markerSelection: MarkerSelection[]) {
   return {
     type: UPDATE_MARKER_SELECTION,
     payload: markerSelection
   };
 }
 
-export function updateHeatMapSelection(heatMapSelection: HeatMapSelection) {
+export function updateHeatMapSelection(
+  heatMapSelection: HeatMapSelection | {}
+) {
   return {
     type: UPDATE_HEAT_MAP_SELECTION,
     payload: heatMapSelection

@@ -6,10 +6,10 @@ import {
   BoundSelection
 } from '../../maps/types';
 
-export interface Map {
-  markerSelection: [MarkerSelection];
-  heatMapSelection: HeatMapSelection;
-  selectedMarker: [SelectedMarker];
+export interface MapState {
+  markerSelection: MarkerSelection[];
+  heatMapSelection: HeatMapSelection | {};
+  selectedMarker: SelectedMarker;
   boundSelection: BoundSelection;
   colorAssociation: ColorAssociation;
 }
@@ -18,14 +18,14 @@ export const UPDATE_MARKER_SELECTION = 'UPDATE_MARKER_SELECTION';
 
 interface UpdateMarkerSelection {
   type: typeof UPDATE_MARKER_SELECTION;
-  payload: MarkerSelection;
+  payload: MarkerSelection[];
 }
 
 export const UPDATE_HEAT_MAP_SELECTION = 'UPDATE_HEAT_MAP_SELECTION';
 
 interface UpdateHeatMapSelection {
   type: typeof UPDATE_HEAT_MAP_SELECTION;
-  payload: HeatMapSelection;
+  payload: HeatMapSelection | {};
 }
 
 export const UPDATE_SELECTED_MARKER = 'UPDATE_SELECTED_MARKER';

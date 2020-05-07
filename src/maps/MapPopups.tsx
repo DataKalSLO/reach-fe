@@ -1,13 +1,15 @@
 import React from 'react';
 import { Popup } from 'react-map-gl';
 import { POPUP_OFFSET_LEFT } from './constants';
-import { LocationFeatures, SelectedMarker, SetSelectedMarker } from './types';
+import { LocationFeatures, SelectedMarker } from './types';
+import { useDispatch } from 'react-redux';
+import { updateSelectedMarker } from '../redux/map/actions';
 
 export default function Popups(
   marker: LocationFeatures,
-  setSelectedMarker: SetSelectedMarker,
   selectedMarker: SelectedMarker
 ) {
+  const dispatch = useDispatch();
   return (
     <Popup
       key={marker.properties.name}
@@ -15,15 +17,7 @@ export default function Popups(
       longitude={marker.geometry.coordinates[1]}
       anchor="bottom"
       onClose={() => {
-        setSelectedMarker(
-          selectedMarker.filter(
-            (obj: {
-              type: string;
-              geometry: { type: string; coordinates: number[] };
-              properties: { name: string };
-            }) => obj !== marker
-          )
-        );
+        dispatch(updateSelectedMarker(selectedMarker));
       }}
       closeOnClick={false}
       sortByDepth={true}

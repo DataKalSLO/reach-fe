@@ -4,11 +4,10 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { styled } from '@material-ui/core/styles';
 import React from 'react';
 import { theme } from '../theme/theme';
-import { BoundSelection, SetBoundSelection } from './types';
+import { BoundSelection } from './types';
 
 interface GeoFilterProps {
   boundSelection: BoundSelection;
-  setBoundSelection: SetBoundSelection;
 }
 
 // TODO: get coordinates for other bound types, change outlines according to button clicked

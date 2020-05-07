@@ -21,9 +21,7 @@ import {
   PrepGeoObject,
   HeatMapSelection,
   MarkerSelection,
-  SelectedMarker,
-  SetSelectedMarker,
-  SetColorAssociation
+  SelectedMarker
 } from './types';
 import {
   getStat,
@@ -33,6 +31,8 @@ import {
   position
 } from './MapViewHelpers';
 import Tooltip from './Tooltip';
+import { useDispatch } from 'react-redux';
+import { updateColorAssociation } from '../redux/map/actions';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
@@ -47,11 +47,9 @@ const defaultHoveredLocation = {
 
 interface MapViewProps {
   markerSelection: MarkerSelection[];
-  heatMapSelection: HeatMapSelection;
+  heatMapSelection: HeatMapSelection | {};
   selectedMarker: SelectedMarker;
-  setSelectedMarker: SetSelectedMarker;
   colorAssociation: ColorAssociation;
-  setColorAssociation: SetColorAssociation;
 }
 
 function MapView(props: MapViewProps) {
@@ -59,16 +57,16 @@ function MapView(props: MapViewProps) {
     markerSelection,
     heatMapSelection,
     selectedMarker,
-    setSelectedMarker,
-    colorAssociation,
-    setColorAssociation
+    colorAssociation
   } = props;
+  const dispatch = useDispatch();
   // heat map prepped here
   let heatMapFeatures: PrepGeoObject[] | null = null;
   let valueKey = '';
   if (Object.keys(heatMapSelection).length) {
-    heatMapFeatures = heatMapSelection.features;
-    valueKey = heatMapSelection.valueKey;
+    const heatMap = heatMapSelection as HeatMapSelection;
+    heatMapFeatures = heatMap.features;
+    valueKey = heatMap.valueKey;
   } else {
     heatMapFeatures = noData.features;
     valueKey = noData.valueKey;
@@ -120,8 +118,7 @@ function MapView(props: MapViewProps) {
     markerSelection.forEach((marker, index) => {
       newColorAssociation[marker.name] = markerColors[index];
     });
-
-    setColorAssociation(newColorAssociation);
+    dispatch(updateColorAssociation());
     // This disable prevents an eslint quickfix from createing a circular dependency and freezeing the screen
     // eslint-disable-next-line
   }, [markerSelection]);
@@ -220,14 +217,9 @@ function MapView(props: MapViewProps) {
           </Source>
 
           {renderTooltip()}
-          {mapMarkers(
-            markerSelection,
-            setSelectedMarker,
-            selectedMarker,
-            colorAssociation
-          )}
+          {mapMarkers(markerSelection, selectedMarker, colorAssociation)}
           {selectedMarker.map((selected: LocationFeatures) => {
-            return Popups(selected, setSelectedMarker, selectedMarker);
+            return Popups(selected, selectedMarker);
           })}
         </ReactMapGL>
       </div>

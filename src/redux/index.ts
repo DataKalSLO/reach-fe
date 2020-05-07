@@ -1,12 +1,12 @@
 import { connectRouter, RouterState } from 'connected-react-router';
 import { History } from 'history';
-import { MapState } from 'react-map-gl';
 import { combineReducers } from 'redux';
 import { graphReducer } from './graphs/reducer';
 import { GraphState } from './graphs/types';
 import { userReducer } from './login/reducer';
 import { User } from './login/types';
 import { mapReducer } from './map/reducer';
+import { MapState } from './map/types';
 import { sampleReducer } from './sample/reducer';
 import { Sample } from './sample/types';
 import { storyReducer } from './story/reducer';

@@ -1,55 +1,28 @@
 import { blue, purple, red } from '@material-ui/core/colors';
 import medianHouseholdIncomeHeatMap from '../../common/assets/Local Data/census/median_income_data';
 import { markerData } from '../../common/assets/Local Data/MockMarkerData';
+import { ColorAssociation } from '../../maps/types';
 import {
-  ColorAssociation,
-  MarkerSelection,
-  SelectedMarker
-} from '../../maps/types';
-import {
-  Map,
   MapActionTypes,
   UPDATE_BOUND_SELECTION,
   UPDATE_COLOR_ASSOCIATION,
   UPDATE_HEAT_MAP_SELECTION,
   UPDATE_MARKER_SELECTION,
-  UPDATE_SELECTED_MARKER
+  UPDATE_SELECTED_MARKER,
+  MapState
 } from './types';
 
-const initialMap: Map = {
+const initialState: MapState = {
   markerSelection: [markerData[0]],
   heatMapSelection: medianHouseholdIncomeHeatMap,
-  selectedMarker: [markerData[0].features[0]],
+  selectedMarker: markerData[0].features[0],
   boundSelection: 'Zip Code',
   colorAssociation: {}
 };
 
-// adds marker to list if it isn't there, removes it if it is
-function updateMarkerHelper(markerSelection: MarkerSelection, state: Map) {
-  if (state.markerSelection.includes(markerSelection)) {
-    state.markerSelection.filter(item => item !== markerSelection);
-  } else {
-    state.markerSelection.push(markerSelection);
-  }
-  return state.markerSelection;
-}
-
-// adds marker to selected markers if it isn't there, removes it if it is
-function updateSelectedMarkerHelper(
-  selectedMarker: SelectedMarker,
-  state: Map
-) {
-  if (state.selectedMarker.includes(selectedMarker)) {
-    state.selectedMarker.filter(item => item !== selectedMarker);
-  } else {
-    state.selectedMarker.push(selectedMarker);
-  }
-  return state.selectedMarker;
-}
-
 // sets up the color association based on the markers
 // TODO: is there a way to do this which keeps the previous color assoc?
-function updateColorAssociationHelper(state: Map) {
+function updateColorAssociationHelper(state: MapState) {
   const markerColors = [
     { color: red[500] },
     { color: blue[500] },
@@ -62,12 +35,15 @@ function updateColorAssociationHelper(state: Map) {
   return newColorAssociation;
 }
 
-export function mapReducer(state = initialMap, action: MapActionTypes): Map {
+export function mapReducer(
+  state = initialState,
+  action: MapActionTypes
+): MapState {
   switch (action.type) {
     case UPDATE_MARKER_SELECTION:
       return {
         ...state,
-        markerSelection: updateMarkerHelper(action.payload, state)
+        markerSelection: action.payload
       };
     case UPDATE_HEAT_MAP_SELECTION:
       return {
@@ -77,7 +53,7 @@ export function mapReducer(state = initialMap, action: MapActionTypes): Map {
     case UPDATE_SELECTED_MARKER:
       return {
         ...state,
-        selectedMarker: updateSelectedMarkerHelper(action.payload, state)
+        selectedMarker: action.payload
       };
     case UPDATE_BOUND_SELECTION:
       return {

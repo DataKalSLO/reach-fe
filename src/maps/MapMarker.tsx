@@ -7,14 +7,14 @@ import {
   ColorAssociation,
   LocationFeatures,
   MarkerSelection,
-  SelectedMarker,
-  SetSelectedMarker
+  SelectedMarker
 } from './types';
+import { useDispatch } from 'react-redux';
+import { updateSelectedMarker } from '../redux/map/actions';
 
 // call Markers on each marker in markerSelection
 export function mapMarkers(
   markerSelection: MarkerSelection[],
-  setSelectedMarker: SetSelectedMarker,
   selectedMarker: SelectedMarker,
   colorAssociation: ColorAssociation
 ) {
@@ -27,7 +27,6 @@ export function mapMarkers(
       }) => {
         return Markers(
           collection.features,
-          setSelectedMarker,
           selectedMarker,
           colorAssociation,
           collection.name
@@ -45,11 +44,11 @@ export function mapMarkers(
 // element in the local data array.
 export default function Markers(
   features: LocationFeatures[][],
-  setSelectedMarker: SetSelectedMarker,
   selectedMarker: SelectedMarker,
   colorAssociation: { [name: string]: { [color: string]: string } },
   layer: string
 ) {
+  const dispatch = useDispatch();
   return features.map((location: LocationFeatures[]) => {
     const datapoint = location[0];
     return (
@@ -62,15 +61,19 @@ export default function Markers(
           onClick={event => {
             event.preventDefault();
             if (!selectedMarker.includes(location[0])) {
-              setSelectedMarker(selectedMarker.concat(location[0]));
+              dispatch(
+                updateSelectedMarker(selectedMarker.concat(location[0]))
+              );
             } else {
-              setSelectedMarker(
-                selectedMarker.filter(
-                  (obj: {
-                    type: string;
-                    geometry: { type: string; coordinates: number[] };
-                    properties: { name: string };
-                  }) => obj !== datapoint
+              dispatch(
+                updateSelectedMarker(
+                  selectedMarker.filter(
+                    (obj: {
+                      type: string;
+                      geometry: { type: string; coordinates: number[] };
+                      properties: { name: string };
+                    }) => obj !== datapoint
+                  )
                 )
               );
             }

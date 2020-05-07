@@ -1,60 +1,34 @@
-import React, { useState } from 'react';
-import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/median_income_data.js';
-import { markerData } from '../common/assets/Local Data/MockMarkerData';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { getMap } from '../redux/map/selector';
 import GeoFilter from './GeoFilter';
 import Layers from './Layers';
-import { BoundSelection, ColorAssociation } from './types.js';
-import MapView from './MapView';
 import Legend from './Legend';
+import MapView from './MapView';
 
 // TODO: save to stories
-// TODO: use redux store instead of state
-
-const defaultMarkerSelection = markerData[0];
-const defaultHeatMapSelection = medianHouseholdIncomeHeatMap;
-const defaultBoundsSelection: BoundSelection = 'Zip Code';
-const defaultColorAssociation: ColorAssociation = {};
+// TODO: connect to DB!
 
 function Map() {
-  const [markerSelection, setMarkerSelection] = useState([
-    defaultMarkerSelection
-  ]);
-  const [heatMapSelection, setHeatMapSelection] = useState(
-    defaultHeatMapSelection
-  );
-  const [selectedMarker, setSelectedMarker] = useState(
-    defaultMarkerSelection.features[0]
-  );
-  const [colorAssociation, setColorAssociation] = useState(
-    defaultColorAssociation
-  );
-  const [boundSelection, setBoundSelection] = useState(defaultBoundsSelection);
+  const mapState = useSelector(getMap);
   return (
     <div>
       <Layers
-        markerSelection={markerSelection}
-        setMarkerSelection={setMarkerSelection}
-        heatMapSelection={heatMapSelection}
-        setHeatMapSelection={setHeatMapSelection}
-        selectedMarker={selectedMarker}
-        setSelectedMarker={setSelectedMarker}
+        markerSelection={mapState.markerSelection}
+        heatMapSelection={mapState.heatMapSelection}
+        selectedMarker={mapState.selectedMarker}
       />
       <MapView
-        markerSelection={markerSelection}
-        heatMapSelection={heatMapSelection}
-        selectedMarker={selectedMarker}
-        setSelectedMarker={setSelectedMarker}
-        colorAssociation={colorAssociation}
-        setColorAssociation={setColorAssociation}
+        markerSelection={mapState.markerSelection}
+        heatMapSelection={mapState.heatMapSelection}
+        selectedMarker={mapState.selectedMarker}
+        colorAssociation={mapState.colorAssociation}
       />
-      <GeoFilter
-        boundSelection={boundSelection}
-        setBoundSelection={setBoundSelection}
-      />
+      <GeoFilter boundSelection={mapState.boundSelection} />
       <Legend
-        heatMapSelection={heatMapSelection}
-        colorAssociation={colorAssociation}
-        markerSelection={markerSelection}
+        heatMapSelection={mapState.heatMapSelection}
+        colorAssociation={mapState.colorAssociation}
+        markerSelection={mapState.markerSelection}
       />
     </div>
   );

@@ -4,23 +4,27 @@ import { Box } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import React from 'react';
 import { flatten } from 'lodash';
+import React from 'react';
 import kitchenFaciltiesHeatMap from '../common/assets/Local Data/census/b25053.js';
 import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/median_income_data.js';
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
+import {
+  updateHeatMapSelection,
+  updateMarkerSelection,
+  updateSelectedMarker
+} from '../redux/map/actions';
 import { theme } from '../theme/theme';
 import {
   FeatureProperty,
   HeatMapSelection,
   LocationFeatures,
-  Selections,
   MarkerSelection,
   SelectedMarker,
-  SetHeatMapSelection,
-  SetMarkerSelection,
-  SetSelectedMarker
+  Selections
 } from './types';
+import { Dispatch } from 'redux';
+import { useDispatch } from 'react-redux';
 
 // number of allowed selections, subject to change based on ui/ux and graph team suggestions
 const ALLOWED_MARKERS = 2;
@@ -38,18 +42,16 @@ const showAll: Selections = [];
 // ensures that popups will not stay when their markers disappear
 export function handleChange(
   value: Selections,
-  setMarkerSelection: SetMarkerSelection,
-  setHeatMapSelection: SetHeatMapSelection,
-  setSelectedMarker: SetSelectedMarker,
-  selectedMarker: SelectedMarker
+  selectedMarker: SelectedMarker,
+  dispatch: Dispatch
 ) {
-  const newMarkers: MarkerSelection[] = [];
   let newHeatMap: {} | HeatMapSelection = {};
   const allSelections: string[] = [];
+  const allMarkers: MarkerSelection[] = [];
   value.forEach((table: MarkerSelection | HeatMapSelection) => {
     if (table.type === 'FeatureCollection') {
       const marker = table as MarkerSelection;
-      newMarkers.push(marker);
+      allMarkers.push(marker);
       marker.features.forEach((items: FeatureProperty[]) => {
         items.forEach((selection: FeatureProperty) => {
           allSelections.push(selection.properties.name);
@@ -60,11 +62,16 @@ export function handleChange(
       newHeatMap = heatMap;
     }
   });
-  setHeatMapSelection(newHeatMap);
-  setMarkerSelection(newMarkers);
-  setSelectedMarker(
-    selectedMarker.filter(
-      (obj: LocationFeatures) => obj.properties.name in allSelections
+  dispatch(updateHeatMapSelection(newHeatMap));
+  // allMarkers.forEach((marker: MarkerSelection) => {
+  //   dispatch(updateMarkerSelection(marker));
+  // });
+  dispatch(updateMarkerSelection(allMarkers));
+  dispatch(
+    updateSelectedMarker(
+      selectedMarker.filter(
+        (obj: LocationFeatures) => obj.properties.name in allSelections
+      )
     )
   );
 }
@@ -75,7 +82,7 @@ export function handleDisable(
   // eslint-disable-next-line
   allData: any[],
   markerSelection: MarkerSelection[],
-  heatMapSelection: HeatMapSelection,
+  heatMapSelection: HeatMapSelection | {},
   // TODO: fix type errors here, I am unable to use the MarkerOrHeatMap type
   // eslint-disable-next-line
   option: any
@@ -100,23 +107,14 @@ export function handleDisable(
 
 interface LayersProps {
   markerSelection: MarkerSelection[];
-  setMarkerSelection: SetMarkerSelection;
-  heatMapSelection: HeatMapSelection;
-  setHeatMapSelection: SetHeatMapSelection;
+  heatMapSelection: HeatMapSelection | {};
   selectedMarker: SelectedMarker;
-  setSelectedMarker: SetSelectedMarker;
 }
 
 // this function creates the multi-seletion autocomplete component
 export default function Layers(props: LayersProps) {
-  const {
-    markerSelection,
-    setMarkerSelection,
-    heatMapSelection,
-    setHeatMapSelection,
-    selectedMarker,
-    setSelectedMarker
-  } = props;
+  const { markerSelection, heatMapSelection, selectedMarker } = props;
+  const dispatch = useDispatch();
   return (
     <StyledBox>
       <Autocomplete
@@ -133,13 +131,7 @@ export default function Layers(props: LayersProps) {
         filterSelectedOptions
         // informs the layerSelection variable with the user's selection
         onChange={(event, value) =>
-          handleChange(
-            value,
-            setMarkerSelection,
-            setHeatMapSelection,
-            setSelectedMarker,
-            selectedMarker
-          )
+          handleChange(value, selectedMarker, dispatch)
         }
         renderInput={params => (
           <TextField
