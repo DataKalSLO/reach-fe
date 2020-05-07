@@ -1,4 +1,4 @@
-import { areValidMetaFields } from '../MetaField';
+import { areValidMetaFields } from '../StoryForm';
 
 describe('Meta fields validation', () => {
   const goodMetas = [
