@@ -15,11 +15,39 @@ import { List, ListItemButton } from '../reach-ui/core';
 import { createEmptyTextBlock } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import { togglePreview } from '../redux/storybuilder/actions';
+import { Story } from '../redux/story/types';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
-import { StoryBuilderActionType } from '../redux/storybuilder/types';
+import {
+  StoryBuilderActionType,
+  TOGGLE_PREVIEW,
+  TogglePreviewAction
+} from '../redux/storybuilder/types';
 import { areValidMetaFields } from './StoryForm';
+import { saveStory } from './StoryAPIConnector';
 
 const STORY_SIDEBAR_WIDTH = 165;
+const STORY_CREATION_SUCCESS_MESSAGE = 'Story created!';
+const STORY_CREATION_FAILURE_MESSAGE =
+  'An Error occurred while saving a Story. Story was not created.';
+
+function sendAndRespondToSaveStory(story: Story): TogglePreviewAction {
+  saveStory(story)
+    .then(res => {
+      console.log(STORY_CREATION_SUCCESS_MESSAGE);
+    })
+    .catch(e => {
+      //TODO: Remove `if` after BEND has changed to return JSON instead of string response
+      if (e instanceof SyntaxError) console.log(STORY_CREATION_SUCCESS_MESSAGE);
+      else {
+        console.log('Error: ' + e);
+        alert(STORY_CREATION_FAILURE_MESSAGE);
+      }
+    });
+  return {
+    type: TOGGLE_PREVIEW,
+    payload: null
+  };
+}
 
 export default function StorySidebar() {
   const storyBuilderState = useSelector(getStoryBuilder);
@@ -40,9 +68,11 @@ export default function StorySidebar() {
   };
 
   const handleSave = () => {
-    // TODO: @berto call checkValidMetaFields and pass in your onSuccess func
-    // Model this func after handleTogglePreview
-    alert('Save Stories is not implemented');
+    story.userID = 'test1@test.com'; //TODO: Remove authentication API function exist
+    checkValidMetaFields(
+      (): TogglePreviewAction => sendAndRespondToSaveStory(story)
+    );
+    //TODO: Add Loading bar while waiting for request.
   };
 
   return (
