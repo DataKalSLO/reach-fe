@@ -43,41 +43,42 @@ export default function ExploreGrid2() {
 
   dispatch(fetchAllStories());
 
-  const DisplayStories = (props : StoryCardProps) => {
+  const DisplayStories = (props : Array<Story>) => {
     return (
       <Grid container className={classes.root} spacing={2}>
         <Grid item xs={12}>
           <Grid container justify="center" spacing={spacing}>
             <Grid item xs={3}>
               <StoryCard
-                id={props.data[0].id}
-                userID={props.data[0].userID}
-                description={props.data[0].description}
-                title={props.data[0].title}
-                storyBlocks={props.data[0].storyBlocks}
+                id={props[0].id}
+                userID={props[0].userID}
+                description={props[0].description}
+                title={props[0].title}
+                storyBlocks={props[0].storyBlocks}
+              />
+            </Grid>
+            {/* <Grid item xs={3}>
+              <StoryCard
+                id={props[1].id}
+                userID={props[1].userID}
+                description={props[1].description}
+                title={props[1].title}
+                storyBlocks={props[1].storyBlocks}
               />
             </Grid>
             <Grid item xs={3}>
               <StoryCard
-                id={props.data[1].id}
-                userID={props.data[1].userID}
-                description={props.data[1].description}
-                title={props.data[1].title}
-                storyBlocks={props.data[1].storyBlocks}
+                id={props[2].id}
+                userID={props[2].userID}
+                description={props[2].description}
+                title={props[2].title}
+                storyBlocks={props[2].storyBlocks}
               />
-            </Grid>
-            <Grid item xs={3}>
-              <StoryCard
-                id={props.data[2].id}
-                userID={props.data[2].userID}
-                description={props.data[2].description}
-                title={props.data[2].title}
-                storyBlocks={props.data[2].storyBlocks}
-              />
-            </Grid>
+            </Grid> */}
           </Grid>
         </Grid>
       </Grid>
     );
   }
+  return < DisplayStories { ...explore.data }  />
 }

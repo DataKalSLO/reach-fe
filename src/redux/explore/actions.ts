@@ -27,6 +27,6 @@ export function fetchAllStories() {
 export function receiveAllStories(json: string) {
   return {
     type: FETCH_ALL_STORIES,
-    payload: { query: '', data: JSON.parse(json) as Story[] }
+    payload: { data: JSON.parse(json) as Story[] }
   };
 }
