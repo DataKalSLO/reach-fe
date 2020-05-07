@@ -15,7 +15,7 @@ interface AccountDropdownProps {
 function AccountDropdown(props: AccountDropdownProps) {
   const history = useHistory();
   const user = useSelector(getUser);
-  const navigateTo = (route: string) => () => history.push(route);
+  const navigateTo = (route: string) => history.push(route);
   const handleClose = () => {
     props.setAnchorEl(null);
   };
@@ -23,6 +23,10 @@ function AccountDropdown(props: AccountDropdownProps) {
   const logout = () => {
     props.setAnchorEl(null);
     dispatch(logoutAction());
+  };
+  const navigateAndCloseDropdown = (route: string) => () => {
+    navigateTo(route);
+    handleClose();
   };
 
   return (
@@ -36,7 +40,9 @@ function AccountDropdown(props: AccountDropdownProps) {
         Signed in as <br /> {user.email}
       </StyledMenuItem>
       <Divider />
-      <StyledMenuItem onClick={navigateTo(SETTINGS)}>Settings</StyledMenuItem>
+      <StyledMenuItem onClick={navigateAndCloseDropdown(SETTINGS)}>
+        Settings
+      </StyledMenuItem>
       <Divider />
       <StyledMenuItem onClick={logout}>Logout</StyledMenuItem>
     </StyledMenu>
