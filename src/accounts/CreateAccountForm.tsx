@@ -187,7 +187,6 @@ function CreateAccountForm() {
                 role: BASE_USER,
                 occupation: occupation,
                 notificationsEnabled: emailNotificationEnabled
-
               } as RegisterData),
               handleAccountError,
               () => history.push(HOME)
