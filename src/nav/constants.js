@@ -12,6 +12,7 @@ export const SAMPLE = '/sample';
 export const CREATE_ACCOUNT = '/create-account';
 export const SETTINGS = '/settings';
 export const ADMIN = '/admin';
+export const FORGOT_PASSWORD = '/forgot-password';
 
 // Names of routes in the navigation bar
 export const HOME_NAME = 'Reach';

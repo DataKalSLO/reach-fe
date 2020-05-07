@@ -13,7 +13,8 @@ import {
   ADMIN,
   MY_STUFF_CHARTS,
   MY_STUFF_MAPS,
-  MY_STUFF_STORIES
+  MY_STUFF_STORIES,
+  FORGOT_PASSWORD
 } from './nav/constants';
 import ProtectedRoute from './nav/ProtectedRoute';
 import AdminProtectedRoute from './nav/AdminProtectedRoute';
@@ -30,6 +31,9 @@ import { Switch, Route } from 'react-router-dom';
 
 // Link routing and store
 import { ConnectedRouter } from 'connected-react-router';
+
+// Allow query params with router
+import { QueryParamProvider } from 'use-query-params';
 
 // Store
 //  https://react-redux.js.org/introduction/quick-start
@@ -50,6 +54,7 @@ import Sample from './containers/Sample';
 import CreateAccount from './containers/CreateAccount';
 import Settings from './containers/Settings';
 import Admin from './containers/Admin';
+import ForgotPassword from './accounts/ForgotPassword';
 import { PersistGate } from 'redux-persist/integration/react';
 
 const home = (
@@ -117,13 +122,19 @@ const sample = (
     <Sample />
   </Route>
 );
+const forgotPassword = (
+  <Route path={FORGOT_PASSWORD}>
+    <ForgotPassword />
+  </Route>
+);
 
 function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <ConnectedRouter history={history}>
-          <ThemeProvider theme={theme}>
+          <QueryParamProvider ReactRouterRoute={Route}>
+            <ThemeProvider theme={theme}>
             <AppBar />
             <Switch>
               {home}
@@ -139,8 +150,10 @@ function App() {
               {sample}
               {admin}
               {settings}
+              {forgotPassword}
             </Switch>
           </ThemeProvider>
+          </QueryParamProvider>
         </ConnectedRouter>
       </PersistGate>
     </Provider>
