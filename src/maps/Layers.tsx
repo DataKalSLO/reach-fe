@@ -137,8 +137,8 @@ export default function Layers(props: LayersProps) {
           <TextField
             {...params}
             variant="standard"
-            label="Layers"
-            placeholder="Select up to Two Layers"
+            label="Select up to Two Layers"
+            placeholder="Layers"
             fullWidth
           />
         )}

@@ -6,7 +6,7 @@ async function tryFetch(url: string, request: RequestInit) {
   const response = await fetch(url, request);
   const body = await response.json();
   if (response.ok) {
-    return body;
+    return body || {};
   } else {
     throw errorTranslate(body.tag, navigator.language);
   }

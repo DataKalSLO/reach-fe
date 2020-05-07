@@ -1,5 +1,4 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { blue, purple, red } from '@material-ui/core/colors';
 import chroma from 'chroma-js';
 import _ from 'lodash';
 import React, { useEffect } from 'react';
@@ -11,7 +10,10 @@ import {
   PLACER,
   SLO_LATITUDE,
   SLO_LONGITUDE,
-  ZIP_TABULATION
+  ZIP_TABULATION,
+  HEAT_MAP_COLOR,
+  MARKER_ONE_COLOR,
+  MARKER_TWO_COLOR
 } from './constants';
 import { mapMarkers } from './MapMarker';
 import Popups from './MapPopups';
@@ -108,9 +110,8 @@ function MapView(props: MapViewProps) {
   const y = React.useRef(0);
 
   const markerColors = [
-    { color: red[500] },
-    { color: blue[500] },
-    { color: purple[500] }
+    { color: MARKER_ONE_COLOR },
+    { color: MARKER_TWO_COLOR }
   ];
 
   useEffect(() => {
@@ -137,7 +138,7 @@ function MapView(props: MapViewProps) {
     const minVal = getStat(heatMapFeatures, _.minBy, valueKey);
     const maxVal = getStat(heatMapFeatures, _.maxBy, valueKey);
     const quantiles_ = NUM_QUANTILES;
-    const colorScale_ = chroma.scale(['white', 'green']).domain([0, 1]);
+    const colorScale_ = chroma.scale(['white', HEAT_MAP_COLOR]).domain([0, 1]);
     const stops = quantileMaker(colorScale_, quantiles_, minVal, maxVal);
     setLayer({
       id: 'data',

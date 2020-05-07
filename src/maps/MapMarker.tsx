@@ -3,6 +3,7 @@ import { styled } from '@material-ui/core/styles';
 import RoomIcon from '@material-ui/icons/Room';
 import React from 'react';
 import { Marker } from 'react-map-gl';
+import { ICON_HEIGHT, ICON_WIDTH } from './constants';
 import {
   ColorAssociation,
   LocationFeatures,
@@ -56,6 +57,8 @@ export default function Markers(
         key={datapoint.properties.name}
         latitude={datapoint.geometry.coordinates[0]}
         longitude={datapoint.geometry.coordinates[1]}
+        offsetLeft={-ICON_WIDTH / 2}
+        offsetTop={-ICON_HEIGHT}
       >
         <MarkerButton
           onClick={event => {

@@ -9,6 +9,7 @@ import {
   TextBlockType,
   TEXT_BLOCK_TYPE
 } from '../redux/story/types';
+import GraphBlock from './GraphBlock';
 import RichTextEditor from './RichTextEditor';
 
 interface StoryBlockProps {
@@ -31,7 +32,7 @@ export const StoryBlock = (props: StoryBlockProps): JSX.Element => {
         />
       );
     case GRAPH_BLOCK_TYPE:
-      throw new Error('TODO: Graph Block type');
+      return <GraphBlock />;
     case MAP_BLOCK_TYPE:
       throw new Error('TODO: Map Block type');
     default:

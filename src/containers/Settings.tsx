@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import {
   Paper,
   Typography,
@@ -8,35 +8,21 @@ import {
   Button,
   styled
 } from '@material-ui/core';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getUser } from '../redux/login/selectors';
-import { deleteUser } from '../redux/login/actions';
-import { wrapWithCatch } from '../api/base';
-import { useHistory } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import EditIcon from '@material-ui/icons/Edit';
 import IndividualSetting from './IndividualSetting';
-import { HOME } from '../nav/constants';
+import ConfirmDeleteAccount from '../accounts/ConfirmDeleteAccount';
 
 function Settings() {
   const user = useSelector(getUser);
-  const dispatch = useDispatch();
-  const history = useHistory();
   const [displayError, setDisplayError] = useState(false);
+  const [isConfirmDelete, setIsConfirmDelete] = useState(false);
 
-  const handleDeleteAccountError = useCallback(() => {
-    setDisplayError(true);
-  }, [setDisplayError]);
-
-  const handleDeleteAccount = useCallback(() => {
-    dispatch(
-      wrapWithCatch(
-        deleteUser(user.email, user.token),
-        handleDeleteAccountError,
-        () => history.push(HOME)
-      )
-    );
-  }, [dispatch, handleDeleteAccountError, history, user.email, user.token]);
+  const handleDeleteAccount = () => {
+    setIsConfirmDelete(true);
+  };
 
   return (
     <React.Fragment>
@@ -51,7 +37,10 @@ function Settings() {
         <Divider variant="middle" />
         <IndividualSetting settingName="Name" userInfo={user.name} />
         <IndividualSetting settingName="Email" userInfo={user.email} />
-        <IndividualSetting settingName="Occupation" userInfo={user.role} />
+        <IndividualSetting
+          settingName="Occupation"
+          userInfo={user.occupation}
+        />
         <IndividualSetting settingName="Email Notifications" userInfo="" />
         <CenterBox>
           <SettingsButton variant="outlined">Reset Password</SettingsButton>
@@ -61,6 +50,11 @@ function Settings() {
           >
             Delete Account
           </SettingsDeleteButton>
+          <ConfirmDeleteAccount
+            isConfirmDelete={isConfirmDelete}
+            setIsConfirmDelete={setIsConfirmDelete}
+            setDisplayError={setDisplayError}
+          ></ConfirmDeleteAccount>
         </CenterBox>
         {displayError ? (
           <Typography variant="body1" color="error" align="center">

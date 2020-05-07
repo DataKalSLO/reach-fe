@@ -4,11 +4,13 @@ import {
   CardContent,
   Link,
   Typography,
-  styled
+  styled,
+  fade
 } from '@material-ui/core';
 import React from 'react';
 import { MarkerSelection, HeatMapSelection, ColorAssociation } from './types';
 import { theme } from '../theme/theme';
+import { HEAT_MAP_COLOR } from './constants';
 
 // populate legend using data selected in the layers component
 // legend has name of data set, color association, vintage, and source of data
@@ -38,7 +40,7 @@ function populateLegendData(
       label: heatMap.name,
       vintage: heatMap.vintage,
       source: link,
-      color: 'green'
+      color: HEAT_MAP_COLOR
     };
     legendData.push(heatMapLegend);
   }
@@ -74,8 +76,8 @@ function getCards(data: {
   return (
     <StyledCard
       key={data.key}
-      variant="outlined"
-      style={{ borderColor: data.color }}
+      elevation={0}
+      style={{ backgroundColor: fade(data.color, 0.5) }}
     >
       <StyledCardContent>
         <Typography variant="body2" display="block">
@@ -86,7 +88,12 @@ function getCards(data: {
         </Typography>
         <Typography variant="caption" display="block">
           {'Source: '}
-          <Link href={data.source} rel="noopener noreferrer" target="_blank">
+          <Link
+            href={data.source}
+            rel="noopener noreferrer"
+            target="_blank"
+            color="initial"
+          >
             {data.source}
           </Link>
         </Typography>
@@ -117,7 +124,10 @@ export default function Legend(props: LegendProps) {
     markerSelection,
     legendData
   );
-
+  // do not render legend component if no data is displayed on map
+  if (legendData.length === 0) {
+    return null;
+  }
   return (
     <StyledBox>
       <Typography variant="caption" color="textSecondary" display="block">
@@ -150,7 +160,8 @@ const StyledBox = styled(Box)({
 
 const StyledCard = styled(Card)({
   display: 'inline-block',
-  margin: theme.spacing(0.5)
+  margin: theme.spacing(0.5),
+  padding: theme.spacing(0.5)
 });
 
 const StyledCardContent = styled(CardContent)({
