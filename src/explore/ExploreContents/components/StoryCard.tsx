@@ -6,9 +6,8 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import { red } from '@material-ui/core/colors';
 import Typography from '@material-ui/core/Typography';
-import StoryCardProps from './ExploreGrid';
 import { Link, useHistory } from 'react-router-dom';
-
+import { Story } from '../../../redux/explore/types';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -35,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function StoryCard(props: StoryCardProps) {
+export default function StoryCard(props: Story) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -44,12 +43,11 @@ export default function StoryCard(props: StoryCardProps) {
       <CardHeader title={props.title} />
       <CardMedia
         className={classes.media}
-        image={props.image}
-        title={props.hover}
+        title={props.description}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          {props.content}
+          {props.description}
         </Typography>
       </CardContent>
     </Card>

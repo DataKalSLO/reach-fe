@@ -4,11 +4,16 @@ import {
   FETCH_TOP_RESULTS,
   FETCH_ALL_STORIES
 } from './constants';
-import { Story } from '../story/types';
+import { Story } from './types';
 
 const initialExploreState: ExploreState = {
-  query: '',
-  data: [] as Array<Story>
+  data: [{
+    id: '',
+    userID: '',
+    title: '',
+    description: '',
+    storyBlocks: []
+  }] as Array<Story>
 };
 
 export function exploreReducer(
@@ -18,10 +23,10 @@ export function exploreReducer(
   switch (action.type) {
     case FETCH_ALL_STORIES:
       return action.payload;
-    case FETCH_ALL_RESULTS:
-      return action.payload;
-    case FETCH_TOP_RESULTS:
-      return action.payload;
+    // case FETCH_ALL_RESULTS:
+    //   return action.payload;
+    // case FETCH_TOP_RESULTS:
+    //   return action.payload;
     default:
       return state;
   }

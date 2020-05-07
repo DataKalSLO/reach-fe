@@ -11,6 +11,10 @@ import housingImage from '../images/housing.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { getExplore } from '../../../redux/explore/selector';
 import { fetchAllStories } from '../../../redux/explore/actions';
+import { 
+  Story,
+  FetchAllStories
+ } from '../../../redux/explore/types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,11 +31,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default interface StoryCardProps {
-  title: string;
-  hover: string;
-  content: string;
-  image: string;
+interface StoryCardProps {
+  data: Array<Story>;
+  onChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => FetchAllStories;
 }
 
 export default function ExploreGrid() {
@@ -40,73 +44,75 @@ export default function ExploreGrid() {
 
   const explore = useSelector(getExplore);
   const dispatch = useDispatch();
-  dispatch(fetchAllStories());
-  const storyArray = explore.data;
 
-  return (
-    <Grid container className={classes.root} spacing={2}>
-      <Grid item xs={12}>
-        <Grid container justify="center" spacing={spacing}>
-          <Grid item xs={3}>
-            <StoryCard
-              title={storyArray[1].title}
-              hover="hover"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-              nisi ut aliquip ex ea commodo consequat."
-              image={commuteImage}
-            />
+  dispatch(fetchAllStories());
+
+  const DisplayStories = (props : StoryCardProps) => {
+    return (
+      <Grid container className={classes.root} spacing={2}>
+        <Grid item xs={12}>
+          <Grid container justify="center" spacing={spacing}>
+            <Grid item xs={3}>
+              <StoryCard
+                id={props.data[0].id}
+                userID={props.data[0].userID}
+                description={props.data[0].description}
+                title={props.data[0].title}
+                storyBlocks={props.data[0].storyBlocks}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <StoryCard
+                id={props.data[1].id}
+                userID={props.data[1].userID}
+                description={props.data[1].description}
+                title={props.data[1].title}
+                storyBlocks={props.data[1].storyBlocks}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <StoryCard
+                id={props.data[2].id}
+                userID={props.data[2].userID}
+                description={props.data[2].description}
+                title={props.data[2].title}
+                storyBlocks={props.data[2].storyBlocks}
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={3}>
-            <StoryCard
-              title="Graduation Rates in Santa Maria"
-              hover="hover"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-              nisi ut aliquip ex ea commodo consequat."
-              image={gradImage}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <StoryCard
-              title="Housing Prices Rise in SLO County"
-              hover="hover"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-              nisi ut aliquip ex ea commodo consequat."
-              image={housingImage}
-            />
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container justify="center" spacing={spacing}>
+            <Grid item xs={3}>
+              <StoryCard
+                id={props.data[3].id}
+                userID={props.data[3].userID}
+                description={props.data[3].description}
+                title={props.data[3].title}
+                storyBlocks={props.data[3].storyBlocks}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <StoryCard
+                id={props.data[4].id}
+                userID={props.data[4].userID}
+                description={props.data[4].description}
+                title={props.data[4].title}
+                storyBlocks={props.data[4].storyBlocks}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <StoryCard
+                id={props.data[5].id}
+                userID={props.data[5].userID}
+                description={props.data[5].description}
+                title={props.data[5].title}
+                storyBlocks={props.data[5].storyBlocks}
+              />
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={12}>
-        <Grid container justify="center" spacing={spacing}>
-          <Grid item xs={3}>
-            <StoryCard
-              title="Cal Poly Admissions Increasing"
-              hover="hover"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-              nisi ut aliquip ex ea commodo consequat."
-              image={campusImage}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <StoryCard
-              title="Moving Your Business to the Central Coast"
-              hover="hover"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-              nisi ut aliquip ex ea commodo consequat."
-              image={propertyImage}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <StoryCard
-              title="Water Resources of Atascedero"
-              hover="hover"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-              nisi ut aliquip ex ea commodo consequat."
-              image={waterImage}
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
-  );
+    );
+  }
 }

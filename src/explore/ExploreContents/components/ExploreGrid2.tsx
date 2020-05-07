@@ -5,6 +5,13 @@ import StoryCard from './StoryCard';
 import barImage from '../images/bar.png';
 import electionImage from '../images/election.jpg';
 import engineeringImage from '../images/engineering.jpeg';
+import { useDispatch, useSelector } from 'react-redux';
+import { getExplore } from '../../../redux/explore/selector';
+import { fetchAllStories } from '../../../redux/explore/actions';
+import { 
+  Story,
+  FetchAllStories
+ } from '../../../redux/explore/types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,50 +28,56 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default interface StoryCardProps {
-  title: string;
-  hover: string;
-  content: string;
-  image: string;
+interface StoryCardProps {
+  data: Array<Story>;
+  onChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => FetchAllStories;
 }
-
 export default function ExploreGrid2() {
   const [spacing] = React.useState<GridSpacing>(2);
   const classes = useStyles();
 
-  return (
-    <Grid container className={classes.root} spacing={2}>
-      <Grid item xs={12}>
-        <Grid container justify="center" spacing={spacing}>
-          <Grid item xs={3}>
-            <StoryCard
-              title="CENG Admission Rates"
-              hover="hover"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt  
-              nisi ut aliquip ex ea commodo consequat."
-              image={engineeringImage}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <StoryCard
-              title="Population Increases"
-              hover="hover"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt  
-              nisi ut aliquip ex ea commodo consequat."
-              image={barImage}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <StoryCard
-              title="Voter Turnout"
-              hover="hover"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt  
-              nisi ut aliquip ex ea commodo consequat."
-              image={electionImage}
-            />
+  const explore = useSelector(getExplore);
+  const dispatch = useDispatch();
+
+  dispatch(fetchAllStories());
+
+  const DisplayStories = (props : StoryCardProps) => {
+    return (
+      <Grid container className={classes.root} spacing={2}>
+        <Grid item xs={12}>
+          <Grid container justify="center" spacing={spacing}>
+            <Grid item xs={3}>
+              <StoryCard
+                id={props.data[0].id}
+                userID={props.data[0].userID}
+                description={props.data[0].description}
+                title={props.data[0].title}
+                storyBlocks={props.data[0].storyBlocks}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <StoryCard
+                id={props.data[1].id}
+                userID={props.data[1].userID}
+                description={props.data[1].description}
+                title={props.data[1].title}
+                storyBlocks={props.data[1].storyBlocks}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <StoryCard
+                id={props.data[2].id}
+                userID={props.data[2].userID}
+                description={props.data[2].description}
+                title={props.data[2].title}
+                storyBlocks={props.data[2].storyBlocks}
+              />
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
-    </Grid>
-  );
+    );
+  }
 }
