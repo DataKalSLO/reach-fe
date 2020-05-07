@@ -13,10 +13,9 @@ import { createStore } from 'redux';
 import { getExplore } from '../../../redux/explore/selector';
 import { fetchAllStories } from '../../../redux/explore/actions';
 import { exploreReducer } from '../../../redux/explore/reducer';
-import { 
-  Story,
-  FetchAllStories
- } from '../../../redux/explore/types';
+import { ExploreState } from '../../../redux/explore/types';
+import { FetchAllStories } from '../../../redux/explore/types';
+import { Story } from '../../../redux/story/types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,73 +47,25 @@ export default function ExploreGrid() {
 
   dispatch(fetchAllStories());
 
-  const DisplayStories = (props : Array<Story>) => {
+  const DisplayStories = ( props : ExploreState ) => {
     return (
       <Grid container className={classes.root} spacing={2}>
         <Grid item xs={12}>
           <Grid container justify="center" spacing={spacing}>
             <Grid item xs={3}>
-              <StoryCard
-                id={props[0].id}
-                userID={props[0].userID}
-                description={props[0].description}
-                title={props[0].title}
-                storyBlocks={props[0].storyBlocks}
-              />
-            </Grid>
-            {/* <Grid item xs={3}>
-              <StoryCard
-                id={props[1].id}
-                userID={props[1].userID}
-                description={props[1].description}
-                title={props[1].title}
-                storyBlocks={props[1].storyBlocks}
-              />
+              <StoryCard {...props.data[0]} />
             </Grid>
             <Grid item xs={3}>
-              <StoryCard
-                id={props[2].id}
-                userID={props[2].userID}
-                description={props[2].description}
-                title={props[2].title}
-                storyBlocks={props[2].storyBlocks}
-              />
-            </Grid> */}
+              <StoryCard { ...props.data[1] }/>
+            </Grid>
+            <Grid item xs={3}>
+              <StoryCard { ...props.data[2] }/>
+            </Grid>
           </Grid>
         </Grid>
-        {/* <Grid item xs={12}>
-          <Grid container justify="center" spacing={spacing}>
-            <Grid item xs={3}>
-              <StoryCard
-                id={props[3].id}
-                userID={props[3].userID}
-                description={props[3].description}
-                title={props[3].title}
-                storyBlocks={props[3].storyBlocks}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <StoryCard
-                id={props[4].id}
-                userID={props[4].userID}
-                description={props[4].description}
-                title={props[4].title}
-                storyBlocks={props[4].storyBlocks}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <StoryCard
-                id={props[5].id}
-                userID={props[5].userID}
-                description={props[5].description}
-                title={props[5].title}
-                storyBlocks={props[5].storyBlocks}
-              />
-            </Grid>
-          </Grid>
-        </Grid> */}
       </Grid>
     );
   }
-  return < DisplayStories { ...explore.data }  />
+
+  return < DisplayStories { ...explore }  />
 }

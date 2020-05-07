@@ -1,22 +1,12 @@
 import { FETCH_ALL_STORIES } from './constants';
+import { Story } from '../story/types';
 
-export interface Story {
-  id: string;
-  userID: string;
-  title: string;
-  description: string;
-  storyBlocks: Array<string>;
-}
 //Search
 export interface ExploreState {
   data: Array<Story>;
 }
 
-// NOT IMPLENTED YET //
-// export interface FetchAllResults {
-//   type: typeof FETCH_ALL_RESULTS;
-//   payload: { data: Array<Story> };
-// }
+// NOT IMPLEMENTED YET //
 
 // export interface FetchTopResults {
 //   type: typeof FETCH_TOP_RESULTS;

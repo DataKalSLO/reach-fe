@@ -8,10 +8,8 @@ import engineeringImage from '../images/engineering.jpeg';
 import { useDispatch, useSelector } from 'react-redux';
 import { getExplore } from '../../../redux/explore/selector';
 import { fetchAllStories } from '../../../redux/explore/actions';
-import { 
-  Story,
-  FetchAllStories
- } from '../../../redux/explore/types';
+import {  FetchAllStories} from '../../../redux/explore/types';
+import { Story } from '../../../redux/story/types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,24 +55,6 @@ export default function ExploreGrid2() {
                 storyBlocks={props[0].storyBlocks}
               />
             </Grid>
-            {/* <Grid item xs={3}>
-              <StoryCard
-                id={props[1].id}
-                userID={props[1].userID}
-                description={props[1].description}
-                title={props[1].title}
-                storyBlocks={props[1].storyBlocks}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <StoryCard
-                id={props[2].id}
-                userID={props[2].userID}
-                description={props[2].description}
-                title={props[2].title}
-                storyBlocks={props[2].storyBlocks}
-              />
-            </Grid> */}
           </Grid>
         </Grid>
       </Grid>

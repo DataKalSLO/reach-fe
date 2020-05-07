@@ -7,7 +7,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import { red } from '@material-ui/core/colors';
 import Typography from '@material-ui/core/Typography';
 import { Link, useHistory } from 'react-router-dom';
-import { Story } from '../../../redux/explore/types';
+import { Story } from '../../../redux/story/types';
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {

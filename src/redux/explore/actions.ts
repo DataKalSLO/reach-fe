@@ -1,7 +1,7 @@
 import { FETCH_ALL_STORIES } from './constants';
 import { Dispatch } from 'redux';
-import { Story } from './types';
 import { get } from '../../api/base';
+import { Story } from '../story/types';
 
 // export function topResultsQuery(query: string, json : string) {
 //     return {
@@ -27,6 +27,11 @@ export function fetchAllStories() {
 export function receiveAllStories(json: string) {
   return {
     type: FETCH_ALL_STORIES,
-    payload: { data: JSON.parse(json) as Story[] }
+    payload: { data: JSON.parse(json) }
   };
+}
+
+function stringToStoryList(json: string) {
+  return {
+  }
 }
