@@ -16,8 +16,6 @@ import { theme } from '../theme/theme.js';
 export const StyledBox = styled(Box)({
   width: '100%',
   height: '100%',
-  scrollSnapAlign: 'center',
-  scrollSnapStop: 'always',
   maxWidth: 'calc(100vw/2)'
 });
 
@@ -25,7 +23,7 @@ export const StyledCard = styled(Card)({
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'center',
+  justifyContent: 'left',
   alignItems: 'space-around',
   height: '98%',
   boxShadow: theme.shadows[5],

@@ -49,20 +49,6 @@ describe('<Popups /> with props', () => {
   });
 });
 
-// TODO: Test Markers, getting a declaration error. I think it's because the return calls map.
-// // Testing Marker
-// describe('<Markers /> with props', () => {
-//   const container = Markers(
-//     testFeatures,
-//     setTestedMarker,
-//     testPopups,
-//     testColorAssociation,
-//     testLayer
-//   );
-
-//   it('default props are set', () => {});
-// });
-
 // Quantile Maker from old project.
 describe('quantileMaker function', () => {
   const colorScale = chroma.scale(['white', 'black']).domain([0, 1]);

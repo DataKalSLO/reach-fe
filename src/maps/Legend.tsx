@@ -143,14 +143,7 @@ const StyledBox = styled(Box)({
     justifyContent: 'left',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    padding: theme.spacing(1),
-    margin: theme.spacing(1),
-    '& > *': {
-      margin: theme.spacing(1)
-    },
-    '& > * + *': {
-      marginTop: theme.spacing(1)
-    }
+    padding: theme.spacing(1)
   }
 });
 
