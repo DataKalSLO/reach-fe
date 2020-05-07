@@ -2,9 +2,10 @@ import chroma from 'chroma-js';
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
+import { POPUP_OFFSET_LEFT, POPUP_OFFSET_TOP } from './constants';
 import Popups from './MapPopups';
-import { LocationFeatures } from './MapTypes';
 import { quantileMaker } from './MapViewHelpers';
+import { LocationFeatures } from './types';
 
 React.useLayoutEffect = React.useEffect;
 
@@ -41,8 +42,8 @@ describe('<Popups /> with props', () => {
 
   it('default props are set', () => {
     expect(container.props.anchor).toEqual('bottom');
-    expect(container.props.offsetLeft).toEqual(10);
-    expect(container.props.offsetTop).toEqual(0);
+    expect(container.props.offsetLeft).toEqual(POPUP_OFFSET_LEFT);
+    expect(container.props.offsetTop).toEqual(POPUP_OFFSET_TOP);
     expect(container.props.closeOnClick).toEqual(false);
     expect(container.props.sortByDepth).toEqual(true);
   });

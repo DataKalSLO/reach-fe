@@ -13,7 +13,7 @@ function VizBuilder() {
   return (
     <Fragment>
       <StyledContainer maxWidth={'xl'}>
-        <SplitterLayout>
+        <SplitterLayout primaryMinSize={5} secondaryMinSize={5}>
           <StyledGrid item xs={12}>
             <LeftArrow fontSize={'large'} />
             <Map />

@@ -3,28 +3,14 @@ import { styled } from '@material-ui/core/styles';
 import RoomIcon from '@material-ui/icons/Room';
 import React from 'react';
 import { Marker } from 'react-map-gl';
+import { ICON_HEIGHT, ICON_WIDTH } from './constants';
 import {
   ColorAssociation,
   LocationFeatures,
   MarkerSelection,
   SelectedMarker,
   SetSelectedMarker
-} from './MapTypes';
-
-const MarkerButton = styled(Button)({
-  background: 'none',
-  border: 'none',
-  // More magic numbers to size the marker
-  cursor: 'pointer',
-  minWidth: '20px',
-  maxWidth: '20px',
-  minHeight: '30px',
-  maxHeight: '25px',
-  textTransform: 'none',
-  '&:hover': {
-    backgroundColor: 'transparent'
-  }
-});
+} from './types';
 
 // call Markers on each marker in markerSelection
 export function mapMarkers(
@@ -72,12 +58,24 @@ export default function Markers(
         key={datapoint.properties.name}
         latitude={datapoint.geometry.coordinates[0]}
         longitude={datapoint.geometry.coordinates[1]}
+        offsetLeft={-ICON_WIDTH / 2}
+        offsetTop={-ICON_HEIGHT}
       >
         <MarkerButton
           onClick={event => {
             event.preventDefault();
             if (!selectedMarker.includes(location[0])) {
               setSelectedMarker(selectedMarker.concat(location[0]));
+            } else {
+              setSelectedMarker(
+                selectedMarker.filter(
+                  (obj: {
+                    type: string;
+                    geometry: { type: string; coordinates: number[] };
+                    properties: { name: string };
+                  }) => obj !== datapoint
+                )
+              );
             }
           }}
         >
@@ -89,3 +87,18 @@ export default function Markers(
     );
   });
 }
+
+const MarkerButton = styled(Button)({
+  background: 'none',
+  border: 'none',
+  // More magic numbers to size the marker
+  cursor: 'pointer',
+  minWidth: '20px',
+  maxWidth: '20px',
+  minHeight: '30px',
+  maxHeight: '25px',
+  textTransform: 'none',
+  '&:hover': {
+    backgroundColor: 'transparent'
+  }
+});

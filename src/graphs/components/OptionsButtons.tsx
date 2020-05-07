@@ -2,6 +2,7 @@ import {
   BusinessCenterOutlined,
   EmojiTransportation,
   HouseOutlined,
+  LocalHospital,
   PeopleAltOutlined,
   SchoolOutlined
 } from '@material-ui/icons';
@@ -13,6 +14,7 @@ import {
   ASSETS,
   DEMOGRAPHICS,
   EDUCATION,
+  HEALTH,
   HOUSING,
   INDUSTRY
 } from '../../redux/graphs/constants';
@@ -46,6 +48,10 @@ function OptionsButtons() {
     {
       name: HOUSING,
       icon: <HouseOutlined key={uuid()} fontSize="large" />
+    },
+    {
+      name: HEALTH,
+      icon: <LocalHospital key={uuid()} fontSize="large" />
     }
   ];
 

@@ -30,7 +30,7 @@ export default function RichTextEditor(props: Props) {
   };
 
   return (
-    <StyledBox width="100%">
+    <StyledBox>
       <EditorToolbar
         editorState={editorState}
         setEditorState={setEditorState}
@@ -46,9 +46,9 @@ export default function RichTextEditor(props: Props) {
 
 const paddingDefault = '10px';
 
-const StyledBox = styled(Box)({
+//TODO: @tan refactor into StoryBlockWrapper
+export const StyledBox = styled(Box)({
   minHeight: '100px',
-  minWidth: '510px',
   border: '1px solid #cbcbcb', // same border style is used in EditorToolbar
   borderRadius: '4px',
   paddingLeft: paddingDefault,

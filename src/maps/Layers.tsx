@@ -13,16 +13,14 @@ import { theme } from '../theme/theme';
 import {
   FeatureProperty,
   HeatMapSelection,
-  LayersComponentProps,
   LocationFeatures,
-  MarkerOrHeatMap,
+  Selections,
   MarkerSelection,
   SelectedMarker,
-  SetDataSources,
   SetHeatMapSelection,
   SetMarkerSelection,
   SetSelectedMarker
-} from './MapTypes';
+} from './types';
 
 // number of allowed selections, subject to change based on ui/ux and graph team suggestions
 const ALLOWED_MARKERS = 2;
@@ -33,42 +31,25 @@ const ALLOWED_BOTH = 2;
 const heatMapData = [medianHouseholdIncomeHeatMap, kitchenFaciltiesHeatMap];
 export const allData = flatten([markerData as any, heatMapData]);
 
-const StyleBox = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'left',
-  '& > *': {
-    margin: theme.spacing(1)
-  },
-  '& > * + *': {
-    marginTop: theme.spacing(3)
-  }
-});
-
 // this is how we show everything in options (disable none)
-const showAll: MarkerOrHeatMap = [];
+const showAll: Selections = [];
 
 // handles change of selection
 // ensures that popups will not stay when their markers disappear
 export function handleChange(
-  value: MarkerOrHeatMap,
+  value: Selections,
   setMarkerSelection: SetMarkerSelection,
   setHeatMapSelection: SetHeatMapSelection,
   setSelectedMarker: SetSelectedMarker,
-  selectedMarker: SelectedMarker,
-  setDataSources: SetDataSources
+  selectedMarker: SelectedMarker
 ) {
   const newMarkers: MarkerSelection[] = [];
   let newHeatMap: {} | HeatMapSelection = {};
   const allSelections: string[] = [];
-  const allDataSources: string[] = [];
-  // TODO: fix type errors here, I am unable to use the MarkerOrHeatMap type
-  // eslint-disable-next-line
   value.forEach((table: MarkerSelection | HeatMapSelection) => {
     if (table.type === 'FeatureCollection') {
       const marker = table as MarkerSelection;
       newMarkers.push(marker);
-      allDataSources.push(marker.source);
       marker.features.forEach((items: FeatureProperty[]) => {
         items.forEach((selection: FeatureProperty) => {
           allSelections.push(selection.properties.name);
@@ -77,7 +58,6 @@ export function handleChange(
     } else if (table.type === 'HeatMap') {
       const heatMap = table as HeatMapSelection;
       newHeatMap = heatMap;
-      allDataSources.push(heatMap.source);
     }
   });
   setHeatMapSelection(newHeatMap);
@@ -87,14 +67,6 @@ export function handleChange(
       (obj: LocationFeatures) => obj.properties.name in allSelections
     )
   );
-  const dataSourceDict: {
-    key: number;
-    label: string;
-  }[] = [];
-  allDataSources.forEach((source: string, i: number) => {
-    dataSourceDict.push({ key: i, label: source });
-  });
-  setDataSources(dataSourceDict);
 }
 
 // handles disabling options, only two markers or one marker & one heat map allowed
@@ -126,19 +98,27 @@ export function handleDisable(
   return showAll.includes(option);
 }
 
+interface LayersProps {
+  markerSelection: MarkerSelection[];
+  setMarkerSelection: SetMarkerSelection;
+  heatMapSelection: HeatMapSelection;
+  setHeatMapSelection: SetHeatMapSelection;
+  selectedMarker: SelectedMarker;
+  setSelectedMarker: SetSelectedMarker;
+}
+
 // this function creates the multi-seletion autocomplete component
-export default function LayersComponent(props: LayersComponentProps) {
+export default function Layers(props: LayersProps) {
   const {
     markerSelection,
     setMarkerSelection,
     heatMapSelection,
     setHeatMapSelection,
     selectedMarker,
-    setSelectedMarker,
-    setDataSources
+    setSelectedMarker
   } = props;
   return (
-    <StyleBox>
+    <StyledBox>
       <Autocomplete
         multiple
         id="tags-outlined"
@@ -158,8 +138,7 @@ export default function LayersComponent(props: LayersComponentProps) {
             setMarkerSelection,
             setHeatMapSelection,
             setSelectedMarker,
-            selectedMarker,
-            setDataSources
+            selectedMarker
           )
         }
         renderInput={params => (
@@ -172,6 +151,18 @@ export default function LayersComponent(props: LayersComponentProps) {
           />
         )}
       />
-    </StyleBox>
+    </StyledBox>
   );
 }
+
+const StyledBox = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'left',
+  '& > *': {
+    margin: theme.spacing(1)
+  },
+  '& > * + *': {
+    marginTop: theme.spacing(3)
+  }
+});

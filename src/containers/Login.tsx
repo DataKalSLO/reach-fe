@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Typography,
   Link,
   Divider,
   Button,
-  styled
+  styled,
+  Dialog,
+  DialogTitle
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import ReachSignIn from './ReachSignIn';
-import ThirdPartySignIn from './ThirdPartySignIn';
+import ReachSignIn from '../accounts/ReachSignIn';
+import ThirdPartySignIn from '../accounts/ThirdPartySignIn';
 import { HOME, CREATE_ACCOUNT } from '../nav/constants';
 import BoxCenter from '../common/components/BoxCenter';
 
@@ -26,6 +28,16 @@ const ReachLogoBlack = () => {
 function Login() {
   const history = useHistory();
   const navigateTo = (route: string) => () => history.push(route);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
 
   return (
     <Box>
@@ -45,7 +57,10 @@ function Login() {
       </SignInOptionsBox>
 
       <BoxPaddedTop>
-        <Link onClick={navigateTo(HOME)}>CAN&apos;T LOG IN?</Link>
+        <Link onClick={handleClickOpen}>CAN&apos;T LOG IN?</Link>
+        <Dialog open={isOpen} onClose={handleClose}>
+          <DialogTitle>Account recovery not implemented.</DialogTitle>
+        </Dialog>
       </BoxPaddedTop>
     </Box>
   );
