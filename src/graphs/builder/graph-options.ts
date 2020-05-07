@@ -7,10 +7,12 @@ import Highcharts, {
   ChartOptions,
   ExportingOptions,
   PlotOptions,
+  PositionObject,
   ResponsiveOptions,
   SubtitleOptions,
   TitleOptions,
   TooltipOptions,
+  TooltipPositionerCallbackFunction,
   XAxisLabelsOptions,
   XAxisOptions,
   YAxisOptions
@@ -31,6 +33,8 @@ import {
   GRAPH_SYNCH_TOOLTIP_BORDER_WIDTH,
   GRAPH_SYNCH_TOOLTIP_HEADER_FORMAT,
   GRAPH_SYNCH_TOOLTIP_POINT_FORMAT,
+  GRAPH_SYNCH_TOOLTIP_REFERENCE_POINT_X,
+  GRAPH_SYNCH_TOOLTIP_REFERENCE_POINT_Y,
   GRAPH_SYNCH_TRIGGER,
   GRAPH_ZOOM_TYPE,
   RESPONSIVE_LEGEND_ALIGNMENT,
@@ -161,6 +165,18 @@ export const xAxisLabels3D: XAxisLabelsOptions = {
 };
 
 /*
+ * This changes the tooltip default position.
+ * - see https://api.highcharts.com/highcharts/tooltip.positioner
+ *   for more information
+ */
+export const tooltipPositioner: TooltipPositionerCallbackFunction = function(): PositionObject {
+  return {
+    x: GRAPH_SYNCH_TOOLTIP_REFERENCE_POINT_X,
+    y: GRAPH_SYNCH_TOOLTIP_REFERENCE_POINT_Y
+  };
+};
+
+/*
  * The tooltip for the synchronized chart
  * - only applies to synchronized charts
  */
@@ -172,9 +188,7 @@ export const syncToolTip: TooltipOptions = {
   pointFormat: GRAPH_SYNCH_TOOLTIP_POINT_FORMAT,
   shadow: false,
   split: false,
-  positioner: function() {
-    return { x: 10, y: 35 };
-  }
+  positioner: tooltipPositioner
 };
 
 /*
@@ -184,7 +198,6 @@ export const syncToolTip: TooltipOptions = {
  * - see https://www.highcharts.com/demo/synchronized-charts
  *   for more information about the syncExtremes function
  */
-
 export const syncExtremes: AxisSetExtremesEventCallbackFunction = function(
   this: Axis,
   event: AxisSetExtremesEventObject

@@ -30,6 +30,8 @@ export const GRAPH_3D_PLOT_DEPTH = 40;
  */
 export const GRAPH_SYNCH_TOOLTIP_BORDER_WIDTH = 0;
 export const GRAPH_SYNCH_TOOLTIP_BORDER_RADIUS = 0;
+export const GRAPH_SYNCH_TOOLTIP_REFERENCE_POINT_X = 10;
+export const GRAPH_SYNCH_TOOLTIP_REFERENCE_POINT_Y = 35;
 export const GRAPH_SYNCH_TOOLTIP_BACKGROUND_COLOR = 'white';
 export const GRAPH_SYNCH_TOOLTIP_HEADER_FORMAT = '{point.key} ';
 export const GRAPH_SYNCH_TRIGGER = 'syncExtremes';
