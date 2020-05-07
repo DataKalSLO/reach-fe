@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core';
+import { Box, Card } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import React, { useState } from 'react';
 import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/median_income_data.js';
@@ -8,9 +8,30 @@ import Layers from './Layers';
 import { BoundSelection, ColorAssociation } from './types.js';
 import MapView from './MapView';
 import Legend from './Legend';
+import { theme } from '../theme/theme.js';
 
 // TODO: save to stories
 // TODO: use redux store instead of state
+
+export const StyledBox = styled(Box)({
+  width: '100%',
+  height: '100%',
+  scrollSnapAlign: 'center',
+  scrollSnapStop: 'always',
+  maxWidth: 'calc(100vw/2)'
+});
+
+export const StyledCard = styled(Card)({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'space-around',
+  height: '98%',
+  boxShadow: theme.shadows[5],
+  marginLeft: '15px',
+  margin: '10px'
+});
 
 export const StyledMapContainer = styled(Box)({
   display: 'flex',
@@ -56,33 +77,37 @@ function Map() {
   );
   const [boundSelection, setBoundSelection] = useState(defaultBoundsSelection);
   return (
-    <StyledMapContainer>
-      <Layers
-        markerSelection={markerSelection}
-        setMarkerSelection={setMarkerSelection}
-        heatMapSelection={heatMapSelection}
-        setHeatMapSelection={setHeatMapSelection}
-        selectedMarker={selectedMarker}
-        setSelectedMarker={setSelectedMarker}
-      />
-      <MapView
-        markerSelection={markerSelection}
-        heatMapSelection={heatMapSelection}
-        selectedMarker={selectedMarker}
-        setSelectedMarker={setSelectedMarker}
-        colorAssociation={colorAssociation}
-        setColorAssociation={setColorAssociation}
-      />
-      <GeoFilter
-        boundSelection={boundSelection}
-        setBoundSelection={setBoundSelection}
-      />
-      <Legend
-        heatMapSelection={heatMapSelection}
-        colorAssociation={colorAssociation}
-        markerSelection={markerSelection}
-      />
-    </StyledMapContainer>
+    <StyledBox>
+      <StyledCard>
+        <StyledMapContainer>
+          <Layers
+            markerSelection={markerSelection}
+            setMarkerSelection={setMarkerSelection}
+            heatMapSelection={heatMapSelection}
+            setHeatMapSelection={setHeatMapSelection}
+            selectedMarker={selectedMarker}
+            setSelectedMarker={setSelectedMarker}
+          />
+          <MapView
+            markerSelection={markerSelection}
+            heatMapSelection={heatMapSelection}
+            selectedMarker={selectedMarker}
+            setSelectedMarker={setSelectedMarker}
+            colorAssociation={colorAssociation}
+            setColorAssociation={setColorAssociation}
+          />
+          <GeoFilter
+            boundSelection={boundSelection}
+            setBoundSelection={setBoundSelection}
+          />
+          <Legend
+            heatMapSelection={heatMapSelection}
+            colorAssociation={colorAssociation}
+            markerSelection={markerSelection}
+          />
+        </StyledMapContainer>
+      </StyledCard>
+    </StyledBox>
   );
 }
 export default Map;

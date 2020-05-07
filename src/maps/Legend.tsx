@@ -143,18 +143,25 @@ const StyledBox = styled(Box)({
     justifyContent: 'left',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    padding: theme.spacing(0.5)
+    padding: theme.spacing(1),
+    margin: theme.spacing(1),
+    '& > *': {
+      margin: theme.spacing(1)
+    },
+    '& > * + *': {
+      marginTop: theme.spacing(1)
+    }
   }
 });
 
 const StyledCard = styled(Card)({
   display: 'inline-block',
-  margin: theme.spacing(0.5)
+  margin: theme.spacing(1)
 });
 
 const StyledCardContent = styled(CardContent)({
-  padding: theme.spacing(0.5),
+  padding: theme.spacing(1),
   '&:last-child': {
-    paddingBottom: theme.spacing(0.5)
+    paddingBottom: theme.spacing(1)
   }
 });
