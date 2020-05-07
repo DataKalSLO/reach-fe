@@ -6,21 +6,24 @@ describe('user reducer', () => {
     email: '',
     token: '',
     name: '',
-    role: ''
+    occupation: '',
+    role: -1
   };
 
   const dummyUser: User = {
     email: 'fake.email@hourglassproject.org',
     token: 'gibberish',
     name: 'dummy',
-    role: ''
+    occupation: '',
+    role: -1
   };
 
   const differentDummyUser: User = {
     email: 'different.fake.email@hourglassproject.org',
     token: 'different_gibberish',
     name: 'dummy1',
-    role: ''
+    occupation: '',
+    role: -1
   };
 
   it('does nothing when logging out before logging in', () => {
