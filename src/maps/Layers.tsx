@@ -123,6 +123,7 @@ export default function Layers(props: LayersProps) {
     <StyledBox>
       <Autocomplete
         multiple
+        disableListWrap
         id="tags-outlined"
         options={allData}
         // TODO: make sure this handles data not existing once we are pulling from DB
@@ -132,7 +133,7 @@ export default function Layers(props: LayersProps) {
           handleDisable(allData, markerSelection, heatMapSelection, option)
         }
         // adjust autocomplete size here
-        style={{ minWidth: '75px' }}
+        style={{ minWidth: '75px', marginTop: theme.spacing(1) }}
         getOptionLabel={option => option.name}
         filterSelectedOptions
         // informs the layerSelection variable with the user's selection
@@ -160,7 +161,6 @@ export default function Layers(props: LayersProps) {
 }
 
 const StyledBox = styled(Box)({
-  display: 'flex',
   flexDirection: 'column',
   minWidth: '75%',
   alignItems: 'left',

@@ -16,23 +16,23 @@ import { theme } from '../theme/theme.js';
 export const StyledBox = styled(Box)({
   width: '100%',
   height: '100%',
-  maxWidth: 'calc(100vw/2)'
+  maxWidth: 'calc(100vw/2)',
+  overflow: 'none'
 });
 
 export const StyledCard = styled(Card)({
   position: 'relative',
-  display: 'flex',
   flexDirection: 'column',
   justifyContent: 'left',
   alignItems: 'space-around',
   height: '98%',
   boxShadow: theme.shadows[5],
   marginLeft: '15px',
-  margin: '10px'
+  margin: '10px',
+  overflow: 'none'
 });
 
 export const StyledMapContainer = styled(Box)({
-  display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'left',
