@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { LoginData, RegisterData } from '../redux/login/types';
 import { loginUser, register } from '../redux/login/actions';
 import { wrapWithCatch } from '../api/base';
-import { HOME } from '../nav/constants';
+import { HOME, BASE_USER, ADMIN_USER } from '../nav/constants';
 import './GoogleAuth.scss';
 
 export enum GoogleAuthButtonType {
@@ -14,8 +14,8 @@ export enum GoogleAuthButtonType {
 }
 
 export enum UserRoles {
-  defaultRole = 'BaseUser',
-  adminRole = 'Admin'
+  defaultRole = BASE_USER,
+  adminRole = ADMIN_USER
 }
 
 const GoogleAuth = (props: { style: GoogleAuthButtonType }) => {
@@ -30,7 +30,7 @@ const GoogleAuth = (props: { style: GoogleAuthButtonType }) => {
   };
 
   const registerAccount = useCallback(
-    (email: string, password: string, name: string, role: string) =>
+    (email: string, password: string, name: string, role: number) =>
       register({
         email,
         password,
@@ -50,7 +50,7 @@ const GoogleAuth = (props: { style: GoogleAuthButtonType }) => {
   );
 
   const registerThenLogin = useCallback(
-    (email: string, password: string, name: string, role: string) => {
+    (email: string, password: string, name: string, role: number) => {
       dispatch(registerAccount(email, password, name, role));
       dispatch(loginAccount(email, password));
     },
