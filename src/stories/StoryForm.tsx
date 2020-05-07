@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { object, string } from 'yup';
 import { updateDescription, updateTitle } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
+import {
+  Story,
+  UpdateDescriptionAction,
+  UpdateTitleAction
+} from '../redux/story/types';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
 import SortableList from '../stories/SortableList';
 import { MetaField } from './MetaField';
 import { convertStoryToJSX } from './StoryConverter';
-import {
-  Story,
-  UpdateTitleAction,
-  UpdateDescriptionAction
-} from '../redux/story/types';
 
 const TITLE_CHAR_LIMIT = 100;
 const DESCRIPTION_CHAR_LIMIT = 250;
@@ -39,36 +39,36 @@ interface Props {
   ) => UpdateTitleAction | UpdateDescriptionAction;
 }
 
-const TitleField = (props: Props) => {
-  return (
-    <MetaField
-      content={props.story.title}
-      id="story-title"
-      label="Title"
-      maxLength={TITLE_CHAR_LIMIT}
-      {...props}
-    />
-  );
-};
-
-const DescriptionField = (props: Props) => {
-  return (
-    <MetaField
-      content={props.story.description}
-      id="story-description"
-      label="Description"
-      maxLength={DESCRIPTION_CHAR_LIMIT}
-      multiline
-      {...props}
-    />
-  );
-};
-
 export default function StoryForm() {
   const dispatch = useDispatch();
   const story = useSelector(getStory);
   const storyBuilderState = useSelector(getStoryBuilder);
   const previewSelected = storyBuilderState.isPreviewSelected;
+
+  const TitleField = (props: Props) => {
+    return (
+      <MetaField
+        content={props.story.title}
+        id="story-title"
+        label="Title"
+        maxLength={TITLE_CHAR_LIMIT}
+        {...props}
+      />
+    );
+  };
+
+  const DescriptionField = (props: Props) => {
+    return (
+      <MetaField
+        content={props.story.description}
+        id="story-description"
+        label="Description"
+        maxLength={DESCRIPTION_CHAR_LIMIT}
+        multiline
+        {...props}
+      />
+    );
+  };
 
   if (previewSelected) {
     return <StyledBox>{convertStoryToJSX(story)}</StyledBox>;
