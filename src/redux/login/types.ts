@@ -9,6 +9,7 @@ export interface RegisterData {
   name: string;
   role: string;
   occupation: string;
+  notificationsEnabled: boolean;
 }
 
 export interface User {
