@@ -28,6 +28,7 @@ const initialState: GraphState = {
       prebuilt.medianSaleGraphOptions,
       prebuilt.medianListGraphOptions
     ],
+    [consts.CREATE_GRAPH]: [prebuilt.EmptyGraphOptions],
     [consts.HEALTH]: [
       prebuilt.covidCasesGraphOptions,
       prebuilt.unemploymentInsuranceClaimGraphOption,
@@ -62,6 +63,11 @@ export function graphReducer(
       return {
         ...state,
         graphs: utils.getGraphsWithout(action.payload, state.graphs)
+      };
+    case consts.CREATING_GRAPH:
+      return {
+        ...state,
+        graphs: utils.createGraph(action.payload, state.graphs)
       };
     default:
       return state;

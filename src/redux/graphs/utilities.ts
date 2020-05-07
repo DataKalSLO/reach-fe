@@ -25,7 +25,11 @@ export function getGraphWithIds(
 ): types.GraphRecord[] {
   const graphs: types.GraphRecord[] = [];
   graphOptions.forEach((options: Highcharts.Options) => {
-    const graphRecord = { id: uuid(), options: cloneDeep(options) };
+    const graphRecord = {
+      id: uuid(),
+      options: cloneDeep(options),
+      isEditing: false
+    };
     graphs.push(graphRecord);
   });
   return graphs;
@@ -39,7 +43,11 @@ export function addDuplicateToGraphs(
   graphs: types.GraphRecord[]
 ): types.GraphRecord[] {
   const newGraphs = cloneDeep(graphs);
-  newGraphs.push({ id: uuid(), options: cloneDeep(graphOptions) });
+  newGraphs.push({
+    id: uuid(),
+    options: cloneDeep(graphOptions),
+    isEditing: false
+  });
   return newGraphs;
 }
 
@@ -53,4 +61,18 @@ export function getGraphsWithout(
 ): types.GraphRecord[] {
   const newGraphs = cloneDeep(graphs);
   return newGraphs.filter(graphRecord => graphRecord.id !== id);
+}
+
+export function createGraph(
+  id: string,
+  graphs: types.GraphRecord[]
+): types.GraphRecord[] {
+  return graphs.map(graphRecord => {
+    if (id === graphRecord.id) {
+      //      const newRecord = cloneDeep(graphRecord)
+      //      newRecord.options.title = { text: 'Hello World' };
+      return { ...graphRecord, isEditing: !graphRecord.isEditing };
+    }
+    return graphRecord;
+  });
 }

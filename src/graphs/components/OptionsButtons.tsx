@@ -6,6 +6,7 @@ import {
   PeopleAltOutlined,
   SchoolOutlined
 } from '@material-ui/icons';
+import CreateIcon from '@material-ui/icons/Create';
 import React, { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 import { uuid } from 'uuidv4';
@@ -14,6 +15,7 @@ import {
   ASSETS,
   DEMOGRAPHICS,
   EDUCATION,
+  CREATE_GRAPH,
   HEALTH,
   HOUSING,
   INDUSTRY

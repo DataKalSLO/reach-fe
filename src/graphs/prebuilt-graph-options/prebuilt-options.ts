@@ -16,6 +16,7 @@ import { CovidCasesBycityOptions } from './SLOCovidCasesByCity';
 import { CovidCasesByRegionOptions } from './SLOCovidCasesByRegion';
 import { CovidCasesByAgeOptions } from './SLOCovidCasesByAge';
 import { HealthCareFacityBedOptions } from './SLOCovidBedCapacity';
+import { EmptyOptions } from './Empty_Graph';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 export const dodGraphOptions = require('./DoDDrilldown2018.json');
@@ -37,3 +38,4 @@ export const covidCasesByCityGraphOptions = CovidCasesBycityOptions;
 export const covidCasesByRegionGraphOptions = CovidCasesByRegionOptions;
 export const covidCasesByAgeGraphOptions = CovidCasesByAgeOptions;
 export const HealthCareFacityBedGraphOptions = HealthCareFacityBedOptions;
+export const EmptyGraphOptions = EmptyOptions;

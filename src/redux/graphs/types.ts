@@ -8,6 +8,7 @@ import * as consts from './constants';
 export interface GraphRecord {
   id: string;
   options: Highcharts.Options;
+  isEditing: boolean;
 }
 
 export interface GraphState {
@@ -23,6 +24,7 @@ export interface InitiativeGraphs {
   [consts.EDUCATION]: Highcharts.Options[];
   [consts.HOUSING]: Highcharts.Options[];
   [consts.HEALTH]: Highcharts.Options[];
+  [consts.CREATE_GRAPH]: any;
 }
 
 /*
@@ -45,10 +47,16 @@ export interface DeleteGraphAction {
   payload: string;
 }
 
+export interface CreatingGraphAction {
+  type: typeof consts.CREATING_GRAPH;
+  payload: string;
+}
+
 export type GraphActionTypes =
   | AddGraphsForInitiativeAction
   | DuplicateGraphAction
-  | DeleteGraphAction;
+  | DeleteGraphAction
+  | CreatingGraphAction;
 
 /*
  * The following type aliases/interfaces are used to restrict a
@@ -61,7 +69,8 @@ export const initiativeNames = [
   consts.ASSETS,
   consts.EDUCATION,
   consts.HOUSING,
-  consts.HEALTH
+  consts.HEALTH,
+  consts.CREATE_GRAPH
 ] as const;
 
 export type InitiativeLiteral = typeof initiativeNames[number];

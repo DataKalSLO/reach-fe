@@ -214,3 +214,14 @@ export function HealthCareFacityBedOptions() {
     />
   );
 }
+
+// Covid-19 health care facity bed capacity
+
+export function EmptyOptions() {
+  return (
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={prebuilt.EmptyGraphOptions}
+    />
+  );
+}
