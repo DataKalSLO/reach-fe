@@ -9,11 +9,11 @@ import {
   GRAPH_BLOCK_TYPE,
   MapBlockType,
   MAP_BLOCK_TYPE,
+  Story,
   StoryBlockType,
   TextBlockType,
   TEXT_BLOCK_TYPE
 } from '../redux/story/types';
-import { Story } from '../redux/story/types';
 
 export function convertStoryToJSX(story: Story): JSX.Element {
   const createPublicationDateString = () => {
@@ -71,15 +71,17 @@ function convertTextBlockToJSX(textBlock: TextBlockType): JSX.Element {
     textBlock.editorState.getCurrentContent()
   );
   const markup = draftToHtml(rawContentState);
-  return <div> {ReactHtmlParser(markup)} </div>;
+  return <div key={textBlock.id}> {ReactHtmlParser(markup)} </div>;
 }
 
 function convertGraphBlockToJSX(graphBlock: GraphBlockType): JSX.Element {
-  return <div>Graph Block conversion not yet implemented</div>;
+  return (
+    <div key={graphBlock.id}>Graph Block conversion not yet implemented</div>
+  );
 }
 
 function convertMapBlockToJSX(mapBlock: MapBlockType): JSX.Element {
-  return <div>Map Block conversion not yet implemented</div>;
+  return <div key={mapBlock.id}>Map Block conversion not yet implemented</div>;
 }
 
 const StyledBox = styled(Box)({

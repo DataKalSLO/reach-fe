@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Redirect } from 'react-router';
-import { LOGIN } from './constants';
+import { HOME, ADMIN_USER } from './constants';
 import { getUser } from '../redux/login/selectors';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -11,11 +11,12 @@ interface ProtectedRouteProps {
 
 function ProtectedRoute(props: ProtectedRouteProps) {
   const user = useSelector(getUser);
-  const redirect = user.email ? (
-    props.componentPage
-  ) : (
-    <Redirect to={{ pathname: LOGIN }} />
-  );
+  const redirect =
+    user.role === ADMIN_USER ? (
+      props.componentPage
+    ) : (
+      <Redirect to={{ pathname: HOME }} />
+    );
 
   return redirect;
 }
