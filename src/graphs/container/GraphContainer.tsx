@@ -4,7 +4,7 @@ import { addGraphsForInitiativeAction } from '../../redux/graphs/actions';
 import { HEALTH } from '../../redux/graphs/constants';
 import { getGraphs } from '../../redux/graphs/selector';
 import GraphPrebuilt from '../components/GraphPrebuilt';
-import { StyledGraphComponent, StyledGraphContainer } from './styles';
+import { StyledGridContainer, StyledGridItem } from './styles';
 
 /*
  * Renders a list of graphs.
@@ -26,13 +26,15 @@ function GraphContainer() {
    */
   const getGraphComponents = () => {
     return graphState.graphs.map((graph, index) => (
-      <StyledGraphComponent key={index}>
+      <StyledGridItem item key={index}>
         <GraphPrebuilt graph={graph} />
-      </StyledGraphComponent>
+      </StyledGridItem>
     ));
   };
 
-  return <StyledGraphContainer>{getGraphComponents()}</StyledGraphContainer>;
+  return (
+    <StyledGridContainer container>{getGraphComponents()}</StyledGridContainer>
+  );
 }
 
 export default GraphContainer;
