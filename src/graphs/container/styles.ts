@@ -1,44 +1,27 @@
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { styled } from '@material-ui/core/styles';
-import { Box } from '@material-ui/core';
+import { BottomNavigation, Grid, Typography } from '@material-ui/core';
 import Popover from '@material-ui/core/Popover';
-import { BottomNavigation, Typography } from '@material-ui/core';
+import {
+  createStyles,
+  makeStyles,
+  styled,
+  Theme
+} from '@material-ui/core/styles';
 import { theme } from '../../theme/theme';
 
 /*
  * Graph Container styles
  */
 
-export const StyledGraphContainer = styled(Box)({
-  display: 'flex',
-  flexWrap: 'wrap',
+export const StyledGridContainer = styled(Grid)({
   justifyContent: 'center',
-  alignItems: 'center',
-  height: '100%',
-  width: '97%',
-  marginLeft: '15px',
   overflow: 'scroll',
-  scrollSnapType: 'y mandatory',
-  '&::-webkit-scrollbar': {
-    width: '0.5em'
-  },
-  '&::-webkit-scrollbar-track': {
-    boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
-    webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
-  },
-  '&::-webkit-scrollbar-thumb': {
-    borderRadius: '10px',
-    backgroundColor: 'rgba(0,0,0,.3)',
-    outline: '1px solid slategrey'
-  }
+  padding: '10px 0px 10px 0px'
 });
 
-export const StyledGraphComponent = styled(Box)({
-  width: '100%',
-  height: '95%',
-  scrollSnapAlign: 'center',
-  scrollSnapStop: 'always',
-  maxWidth: 'calc(100vw/2.2)'
+export const StyledGridItem = styled(Grid)({
+  width: '95%',
+  maxWidth: 'calc(100vw/2.2)',
+  padding: '10px 10px 10px 20px'
 });
 
 /*
