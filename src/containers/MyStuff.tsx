@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryCard } from '../stories/StoryCard';
+import StoryCard from '../stories/StoryCard';
 import { Story } from '../redux/story/types';
 
 export const initialStory: Story = {

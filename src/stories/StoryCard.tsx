@@ -1,21 +1,25 @@
-import React from 'react';
-import { Story } from '../redux/story/types';
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
-import { IconButton as CustomIconButton } from '../common/components/IconButton';
-import { Button } from '../common/components/Button';
 import { Delete, Edit, Note } from '@material-ui/icons';
+import React from 'react';
+import { Button } from '../common/components/Button';
+import { IconButton } from '../common/components/IconButton';
+import { Story } from '../redux/story/types';
 import { theme } from '../theme/theme';
 
 const PLACEHOLDER_AUTHOR_NAME = 'Bill Writer';
 const PLACEHOLDER_DATE = '1/1/20';
+const PLACEHOLDER_IMAGE_URL =
+  'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fi.stack.imgur.com%2FLuPIV.png&f=1&nofb=1';
 
-export interface StoryCardProps {
+interface StoryCardProps {
   story: Story;
 }
 
@@ -43,7 +47,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const StoryCard = (props: StoryCardProps): JSX.Element => {
+export default function StoryCard(props: StoryCardProps): JSX.Element {
   const classes = useStyles();
 
   return (
@@ -57,14 +61,14 @@ export const StoryCard = (props: StoryCardProps): JSX.Element => {
           endIcon={<Note />}
           label="Draft"
         />
-        <CustomIconButton
+        <IconButton
           onClick={() => alert('delete!')}
           edge="end"
           aria-label="Delete block"
           style={{ color: theme.palette.primary.main }}
           icon={<Edit />}
         />
-        <CustomIconButton
+        <IconButton
           onClick={() => alert('delete!')}
           edge="end"
           aria-label="Delete block"
@@ -91,10 +95,10 @@ export const StoryCard = (props: StoryCardProps): JSX.Element => {
         </Box>
         <CardMedia
           className={classes.media}
-          image="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fi.stack.imgur.com%2FLuPIV.png&f=1&nofb=1"
+          image={PLACEHOLDER_IMAGE_URL}
           title={props.story.title}
         />
       </CardContent>
     </Card>
   );
-};
+}
