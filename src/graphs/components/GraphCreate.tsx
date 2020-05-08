@@ -5,7 +5,7 @@ import { GraphHeaderProps } from './types';
 import { StyledBox } from '../../stories/RichTextEditor';
 import GraphCreateForm from './GraphCreateForm';
 
-function GraphCreate({ graph }: GraphHeaderProps) {
+function GraphCreate() {
   const dispatch = useDispatch();
   const classes = useGraphEditStyles();
   const state = {
