@@ -15,7 +15,7 @@ export const data = [
 
 export const NetMigrationOptions: Highcharts.Options = {
   chart: {
-    height: '80%',
+    height: '100%',
     zoomType: 'xy',
     panning: {
       enabled: true

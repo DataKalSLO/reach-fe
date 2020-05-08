@@ -7,7 +7,7 @@ export const CovidCasesByAgeOptions: Highcharts.Options = {
     valueSuffix: ' '
   },
   chart: {
-    height: '70%',
+    height: '100%',
     zoomType: 'xy',
     panning: { enabled: true },
     panKey: 'shift'

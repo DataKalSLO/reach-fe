@@ -306,7 +306,7 @@ export const defenseOptions: Highcharts.Options = {
     valueSuffix: ' USD'
   },
   chart: {
-    height: '80%',
+    height: '100%',
     zoomType: 'xy',
     panning: {
       enabled: true

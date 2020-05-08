@@ -21,7 +21,7 @@ export const wagesOptions: Highcharts.Options = {
     valueDecimals: 2
   },
   chart: {
-    height: '80%',
+    height: '100%',
     zoomType: 'xy',
     panning: {
       enabled: true

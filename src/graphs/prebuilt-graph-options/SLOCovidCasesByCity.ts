@@ -20,7 +20,7 @@ export const CovidCasesBycityOptions: Highcharts.Options = {
     valueSuffix: ' '
   },
   chart: {
-    height: '70%',
+    height: '100%',
     zoomType: 'xy',
     panning: { enabled: true },
     panKey: 'shift'
@@ -53,5 +53,14 @@ export const CovidCasesBycityOptions: Highcharts.Options = {
       type: 'bar',
       data: data[0]
     }
-  ]
+  ],
+  exporting: {
+    buttons: {
+      contextButton: {
+        theme: {
+          padding: 10
+        }
+      }
+    }
+  }
 };
