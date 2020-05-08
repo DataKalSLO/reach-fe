@@ -7,74 +7,71 @@ import {
   duplicateGraphAction
 } from '../../redux/graphs/actions';
 import {
-  DEFAULT_KEY,
   DELETE_LABEL,
   DUPLICATE_LABEL,
   EDIT_LABEL,
   SAVE_LABEL
 } from './constants';
-import { StyledHeaderGrid } from './styles';
+import { StyledToolbar } from './styles';
 import { GraphHeaderProps } from './types';
 
 /*
  * Contains the buttons rendered on the header of a graph.
- * Note: defaultFlag is only used to prevent the user from
- *       deleting and duplicating the default graph. This
- *       will get removed when we connect to the backend.
  */
 
 function GraphHeader({ graph }: GraphHeaderProps) {
   const dispatch = useDispatch();
-  // TODO: change the way default graphs are handled
-  const defaultFlag = graph.id === DEFAULT_KEY;
-
-  return (
-    <StyledHeaderGrid container>
+  const getHeaderButtons = (): JSX.Element[] => {
+    return [
       <Button
+        key={DELETE_LABEL}
         label={DELETE_LABEL}
         color="default"
         variant="text"
         startIcon={<Delete color="error" />}
         onClick={() => {
-          if (!defaultFlag) {
-            dispatch(deleteGraphAction(graph.id));
-          }
+          dispatch(deleteGraphAction(graph.id));
         }}
-      />
+      />,
       <Button
+        key={SAVE_LABEL}
         label={SAVE_LABEL}
         variant="text"
         color="default"
         startIcon={<Save />}
         onClick={() => alert('Not implemented')}
-      />
+      />,
       <Button
+        key={EDIT_LABEL}
         label={EDIT_LABEL}
         variant="text"
         color="default"
         startIcon={<Edit />}
         onClick={() => alert('Not implemented')}
-      />
+      />,
       <Button
+        key={DUPLICATE_LABEL}
         label={DUPLICATE_LABEL}
         variant="text"
         color="default"
         startIcon={<FileCopy />}
         onClick={() => {
-          if (!defaultFlag) {
-            dispatch(duplicateGraphAction(graph.options));
-          }
+          dispatch(duplicateGraphAction(graph.options));
         }}
-      />
+      />,
       <Button
+        key={'Share'}
         label="Share"
         variant="text"
         color="default"
         startIcon={<Share />}
         onClick={() => alert('Not implemented')}
       />
-    </StyledHeaderGrid>
-  );
+    ];
+  };
+
+  // TODO: Collapse toolbar when width is too small
+  return <StyledToolbar>{getHeaderButtons()}</StyledToolbar>;
 }
 
 export default GraphHeader;
