@@ -4,12 +4,7 @@ import drilldown from 'highcharts/modules/drilldown';
 import exporting from 'highcharts/modules/exporting';
 import React from 'react';
 import GraphHeader from './GraphHeader';
-import {
-  StyledGraph,
-  StyledGraphBox,
-  StyledGraphCard,
-  useGraphStyles
-} from './styles';
+import { StyledGraphDivider, StyledGraphPaper, useGraphStyles } from './styles';
 import { GraphPrebuiltProps } from './types';
 
 exporting(Highcharts);
@@ -24,21 +19,17 @@ drilldown(Highcharts);
 
 function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
   const classes = useGraphStyles();
-
   return (
-    <StyledGraphBox>
-      <StyledGraphCard>
-        <GraphHeader graph={graph} />
-        <StyledGraph>
-          <HighchartsReact
-            highcharts={Highcharts}
-            immutable={true}
-            options={graph.options}
-            containerProps={{ className: classes.highcharts }}
-          />
-        </StyledGraph>
-      </StyledGraphCard>
-    </StyledGraphBox>
+    <StyledGraphPaper variant="outlined">
+      <GraphHeader graph={graph} />
+      <StyledGraphDivider light />
+      <HighchartsReact
+        highcharts={Highcharts}
+        immutable={true}
+        options={graph.options}
+        containerProps={{ className: classes.highcharts }}
+      />
+    </StyledGraphPaper>
   );
 }
 
