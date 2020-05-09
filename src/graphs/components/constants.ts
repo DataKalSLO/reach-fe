@@ -11,3 +11,4 @@ export const SHARE_LABEL = 'Share';
  * Graph Default Constants
  */
 export const DEFAULT_KEY = 'default';
+export const CHART_WIDTH_SCALE = 1 / 2.2;

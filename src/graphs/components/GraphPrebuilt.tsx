@@ -2,11 +2,12 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import drilldown from 'highcharts/modules/drilldown';
 import exporting from 'highcharts/modules/exporting';
-import React, { useState, useEffect, useCallback } from 'react';
-import GraphHeader from './GraphHeader';
-import { StyledGraphDivider, StyledGraphPaper, useGraphStyles } from './styles';
-import { GraphPrebuiltProps } from './types';
+import React, { useEffect, useState } from 'react';
 import { isUndefined } from 'util';
+import { CHART_WIDTH_SCALE } from './constants';
+import GraphHeader from './GraphHeader';
+import { StyledGraphPaper, useGraphStyles } from './styles';
+import { GraphPrebuiltProps } from './types';
 
 exporting(Highcharts);
 drilldown(Highcharts);
@@ -38,7 +39,7 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
    *     charts are re-rendered in that smaller parent container the width will
    *     again be set, but it will no longer be able to expand when the parent
    *     container expands. Therefore, the width is initially set to a fraction
-   *     of the window width. The chart will be given this width, and then
+   *     of the window width. The chart will be given this width, and then will
    *     automatically resize based on the parent. The chart can then also expand
    *     to to the given width when the parent expands. This happens on both
    *     resize and re-rendering, giving the desired behavior.
@@ -55,7 +56,7 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
   });
 
   if (!isUndefined(graph.options.chart) && !isUndefined(windowWidth)) {
-    graph.options.chart.width = windowWidth / 2.2;
+    graph.options.chart.width = windowWidth * CHART_WIDTH_SCALE;
   }
 
   return (
