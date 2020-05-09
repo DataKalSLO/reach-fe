@@ -48,7 +48,7 @@ export const StyledBottomNav = styled(BottomNavigationAction)({
  * Highcharts styles
  * These classes are passed down as arguments to Highcharts.
  * They are used to make the chart responsive to the size
- * fo the parent container.
+ * to the parent container.
  */
 
 export const useGraphStyles = makeStyles((theme: Theme) =>
@@ -65,9 +65,9 @@ export const useGraphStyles = makeStyles((theme: Theme) =>
         height: 'auto !important'
       },
       '& svg': {
-        height: 'auto',
         width: '100%',
-        minWidth: '300px'
+        minWidth: '300px',
+        height: 'auto !important'
       }
     }
   })
