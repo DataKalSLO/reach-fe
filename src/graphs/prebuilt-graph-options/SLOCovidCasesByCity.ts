@@ -53,14 +53,5 @@ export const CovidCasesBycityOptions: Highcharts.Options = {
       type: 'bar',
       data: data[0]
     }
-  ],
-  exporting: {
-    buttons: {
-      contextButton: {
-        theme: {
-          padding: 10
-        }
-      }
-    }
-  }
+  ]
 };
