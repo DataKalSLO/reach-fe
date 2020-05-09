@@ -70,7 +70,6 @@ export const statsOfBusinessOptions: Highcharts.Options = {
     }
   },
   chart: {
-    height: '100%',
     zoomType: 'x',
     panning: { enabled: true },
     panKey: 'shift'

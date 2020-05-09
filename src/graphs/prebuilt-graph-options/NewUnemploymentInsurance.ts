@@ -27,7 +27,6 @@ export const unemploymentInsuranceClaimOptions: Highcharts.Options = {
     valueSuffix: ' '
   },
   chart: {
-    height: '100%',
     zoomType: 'xy',
     panning: { enabled: true },
     panKey: 'shift'

@@ -16,7 +16,6 @@ export const highschoolOptions: Highcharts.Options = {
     valueDecimals: 2
   },
   chart: {
-    height: '100%',
     zoomType: 'xy',
     panning: {
       enabled: true
