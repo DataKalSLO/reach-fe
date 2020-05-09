@@ -54,6 +54,10 @@ function OptionsButtons() {
     {
       name: HEALTH,
       icon: <LocalHospital key={uuid()} fontSize="large" />
+    },
+    {
+      name: CREATE_GRAPH,
+      icon: <CreateIcon key={uuid()} fontSize="large" />
     }
   ];
 

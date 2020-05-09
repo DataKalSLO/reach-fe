@@ -8,17 +8,12 @@ import {
   FormControlLabel,
   FormLabel,
   FormGroup,
-  MenuItem,
-  Menu,
-  InputLabel,
-  Select,
-  FormControl
+  MenuItem
 } from '@material-ui/core';
 import { SliderPicker } from 'react-color';
-import { Button } from '../../common/components/Button';
 import { uuid } from 'uuidv4';
 
-function GraphCreateForm() {
+function GraphCreateFormOptions() {
   const classes = useStyles();
   const TITLE_CHAR_LIMIT = 100;
 
@@ -34,46 +29,6 @@ function GraphCreateForm() {
         size="small"
         inputProps={{ maxLength: TITLE_CHAR_LIMIT }}
       />
-    );
-  };
-
-  const getListTables = (label: string) => {
-    return (
-      <Select
-        labelId="select-filled-label"
-        id="select-filled"
-        value={type}
-        onChange={handleChange}
-        label="Table name"
-      >
-        <MenuItem value="Type of Graph">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={1}>DOD Contracts</MenuItem>
-        <MenuItem value={2}>Education</MenuItem>
-        <MenuItem value={3}>Health</MenuItem>
-        <MenuItem value={4}>Covid-19</MenuItem>
-      </Select>
-    );
-  };
-
-  const getListItem = (label: string) => {
-    return (
-      <Select
-        labelId="select-filled-label"
-        id="select-filled"
-        value={type}
-        onChange={handleChange}
-        label="Type of Chart"
-      >
-        <MenuItem value="Type of Graph">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={1}>Line</MenuItem>
-        <MenuItem value={2}>Bar</MenuItem>
-        <MenuItem value={3}>Column</MenuItem>
-        <MenuItem value={4}>Pie</MenuItem>
-      </Select>
     );
   };
 
@@ -99,16 +54,6 @@ function GraphCreateForm() {
 
   return (
     <form className={classes.root}>
-      <FormLabel>Groupe 0</FormLabel>
-      <StyledFormGroup>
-        <StyledFormGroup row={true}>
-          {getTextField('Table Name')}
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel id="select-label">Table Name</InputLabel>
-            {getListTables('Table Name')}
-          </FormControl>
-        </StyledFormGroup>
-      </StyledFormGroup>
       <FormLabel>Group 1</FormLabel>
       <StyledFormGroup row={true}>
         {getTextField('Title')}
@@ -131,26 +76,14 @@ function GraphCreateForm() {
       <StyledFormGroup>
         <StyledFormGroup row={true}>
           {getTextField('Series Name')}
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel id="select-label">Type of Chart</InputLabel>
-            {getListItem('Type of Graph')}
-          </FormControl>
         </StyledFormGroup>
         <SliderPicker onChangeComplete={handleChangeComplete} />
-      </StyledFormGroup>
-      <StyledFormGroup row={true}>
-        <Button
-          label="Update Graph"
-          variant="text"
-          color="default"
-          onClick={() => alert('Not implemented')}
-        />
       </StyledFormGroup>
     </form>
   );
 }
 
-export default GraphCreateForm;
+export default GraphCreateFormOptions;
 
 const StyledBox = styled(Box)({
   margin: '10px 10px 10px 0px',

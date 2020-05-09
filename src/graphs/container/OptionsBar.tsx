@@ -1,4 +1,4 @@
-import { BottomNavigationAction, Drawer} from '@material-ui/core';
+import { BottomNavigationAction, Drawer } from '@material-ui/core';
 import { ArrowUpward, Close } from '@material-ui/icons';
 import clsx from 'clsx';
 import React, { Fragment } from 'react';
@@ -11,10 +11,6 @@ import {
   StyledTypography,
   useOptionsStyles
 } from './styles';
-import { Button } from '../../common/components/Button';
-import { CREATE_LABEL } from '../components/constants';
-import { createGraphAction } from '../../redux/graphs/actions';
-import { useDispatch } from 'react-redux';
 
 /*
  * The toolbar that displays a button for each initiative.
@@ -24,7 +20,6 @@ import { useDispatch } from 'react-redux';
  */
 
 function OptionsBar() {
-  const dispatch = useDispatch();
   const classes = useOptionsStyles();
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
@@ -80,15 +75,6 @@ function OptionsBar() {
             icon={<Close fontSize="large" color="error" />}
           />
           <OptionsButtons />
-          <Button
-            label={CREATE_LABEL}
-            variant="text"
-            color="default"
-            //startIcon={<Edit />}
-            onClick={() => {
-              dispatch(createGraphAction('1'));
-            }}
-      />
         </StyledBottomNav>
       </Drawer>
     </Fragment>

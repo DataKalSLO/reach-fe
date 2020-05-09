@@ -5,7 +5,7 @@ import { HEALTH } from '../../redux/graphs/constants';
 import { getGraphs } from '../../redux/graphs/selector';
 import GraphPrebuilt from '../components/GraphPrebuilt';
 import { StyledGraphComponent, StyledGraphContainer } from './styles';
-import GraphCreate from '../components/GraphCreate';
+import FormCreate from '../components/FormCreate';
 
 /*
  * Renders a list of graphs.
@@ -33,10 +33,12 @@ function GraphContainer() {
     ));
   };
 
-  return <StyledGraphContainer>
+  return (
+    <StyledGraphContainer>
       {getGraphComponents()}
-      <GraphCreate/>
-    </StyledGraphContainer>;
+      <FormCreate />
+    </StyledGraphContainer>
+  );
 }
 
 export default GraphContainer;
