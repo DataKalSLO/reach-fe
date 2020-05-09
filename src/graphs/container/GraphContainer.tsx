@@ -37,6 +37,7 @@ function GraphContainer() {
     <StyledGraphContainer>
       {getGraphComponents()}
       <FormCreate />
+      <FormCreate />
     </StyledGraphContainer>
   );
 }

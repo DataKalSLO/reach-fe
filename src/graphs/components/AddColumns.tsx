@@ -44,14 +44,15 @@ function AddColumns() {
     setType(event.target.value as string);
   };
 
+
   return (
     <form className={classes.root}>
-      <FormLabel>First Column</FormLabel>
+      <FormLabel>X-axis column</FormLabel>
       <StyledFormGroup row={true}>
         {getListItem('List of Columns')}
       </StyledFormGroup>
 
-      <FormLabel>Second Column</FormLabel>
+      <FormLabel>Y-axis column</FormLabel>
       <StyledFormGroup row={true}>
         {getListItem('List of Columns')}
       </StyledFormGroup>

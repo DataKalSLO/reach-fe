@@ -12,6 +12,7 @@ import AddDataSet from './AddDataSet';
 import AddColumns from './AddColumns';
 import AddChartType from './AddChartType';
 import GraphCreateFormOptions from './GraphCreateFormOptions';
+import { StyledGraphContainer, StyledGraphComponent } from '../container/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,10 +34,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function getSteps() {
   return [
-    'Select a DataSet to create a graph',
-    'Select columns',
-    'Select chart type',
-    'Select options'
+    'Please select a DataSet from the list bellow to create your chart ',
+    'Please select two columns',
+    'Please select a chart type',
+    'Please select more options'
   ];
 }
 
