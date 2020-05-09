@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { isUndefined } from 'util';
 import { CHART_WIDTH_SCALE } from './constants';
 import GraphHeader from './GraphHeader';
-import { StyledGraphPaper, useGraphStyles } from './styles';
+import { StyledGraphPaper, useGraphStyles, StyledGraphDivider } from './styles';
 import { GraphPrebuiltProps } from './types';
 
 exporting(Highcharts);
@@ -57,11 +57,13 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
 
   if (!isUndefined(graph.options.chart) && !isUndefined(windowWidth)) {
     graph.options.chart.width = windowWidth * CHART_WIDTH_SCALE;
+    graph.options.chart.height = '80%';
   }
 
   return (
     <StyledGraphPaper variant="outlined">
       <GraphHeader graph={graph} />
+      <StyledGraphDivider light />
       <HighchartsReact
         highcharts={Highcharts}
         immutable={true}
