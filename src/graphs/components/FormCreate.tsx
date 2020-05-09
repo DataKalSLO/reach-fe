@@ -12,7 +12,6 @@ import AddDataSet from './AddDataSet';
 import AddColumns from './AddColumns';
 import AddChartType from './AddChartType';
 import GraphCreateFormOptions from './GraphCreateFormOptions';
-import { StyledGraphContainer, StyledGraphComponent } from '../container/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     resetContainer: {
       padding: theme.spacing(3)
-    },
+    }
   })
 );
 
@@ -36,7 +35,6 @@ function getSteps() {
   return [
     'Please select a DataSet from the list bellow to create your chart ',
     'Please select two columns',
-    'Please select a chart type',
     'Please select more options'
   ];
 }
@@ -48,8 +46,6 @@ function getStepContent(step: number) {
     case 1:
       return <AddColumns />;
     case 2:
-      return <AddChartType />;
-    case 3:
       return <GraphCreateFormOptions />;
     default:
       return 'Unknown step';

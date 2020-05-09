@@ -8,7 +8,10 @@ import {
   FormControlLabel,
   FormLabel,
   FormGroup,
-  MenuItem
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel
 } from '@material-ui/core';
 import { SliderPicker } from 'react-color';
 import { uuid } from 'uuidv4';
@@ -32,6 +35,29 @@ function GraphCreateFormOptions() {
     );
   };
 
+  const getListItem = (label: string) => {
+    return (
+      <Select
+        labelId="select-filled-label"
+        id="select-filled"
+        value={type}
+        onChange={handleSerieChange}
+        label="Type of Chart"
+      >
+        <MenuItem value="Type of Graph">
+          <em>None</em>
+        </MenuItem>
+        <MenuItem value={1}>Line</MenuItem>
+        <MenuItem value={2}>Bar</MenuItem>
+        <MenuItem value={3}>Column</MenuItem>
+        <MenuItem value={4}>Pie</MenuItem>
+      </Select>
+    );
+  };
+
+  const handleSerieChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setType(event.target.value as string);
+  };
   const getSwitch = (name: string) => {
     return (
       <FormControlLabel control={<Switch color="primary" />} label={name} />
@@ -76,6 +102,12 @@ function GraphCreateFormOptions() {
       <StyledFormGroup>
         <StyledFormGroup row={true}>
           {getTextField('Series Name')}
+        </StyledFormGroup>
+        <StyledFormGroup row={true}>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel id="select-label">Type of Chart</InputLabel>
+            {getListItem('Type of Graph')}
+          </FormControl>
         </StyledFormGroup>
         <SliderPicker onChangeComplete={handleChangeComplete} />
       </StyledFormGroup>

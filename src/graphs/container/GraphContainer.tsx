@@ -26,6 +26,9 @@ function GraphContainer() {
    * the chart itself, and the header with a set of options.
    */
   const getGraphComponents = () => {
+    if (graphState.graphs.length === 0) {
+      return <FormCreate />;
+    }
     return graphState.graphs.map((graph, index) => (
       <StyledGraphComponent key={index}>
         <GraphPrebuilt graph={graph} />
@@ -33,13 +36,7 @@ function GraphContainer() {
     ));
   };
 
-  return (
-    <StyledGraphContainer>
-      {getGraphComponents()}
-      <FormCreate />
-      <FormCreate />
-    </StyledGraphContainer>
-  );
+  return <StyledGraphContainer>{getGraphComponents()}</StyledGraphContainer>;
 }
 
 export default GraphContainer;

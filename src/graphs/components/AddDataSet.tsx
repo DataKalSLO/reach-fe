@@ -19,19 +19,6 @@ function AddDataSet() {
   const [type, setType] = React.useState('');
   const [state, setState] = React.useState('');
 
-  const getTextField = (label: string) => {
-    return (
-      <StyledTextField
-        id="graph-title-field"
-        label={label}
-        variant="outlined"
-        size="small"
-        inputProps={{ maxLength: TITLE_CHAR_LIMIT }}
-      />
-    );
-  };
-
-  
   const getListTables = (label: string) => {
     return (
       <Select
