@@ -209,7 +209,7 @@ function MapView(props: MapViewProps) {
           {renderTooltip()}
           {mapMarkers(markerSelection, selectedMarker, colorAssociation)}
           {selectedMarker.map((selected: LocationFeatures) => {
-            return Popups(selected, selectedMarker);
+            return Popups(selected, selectedMarker, dispatch);
           })}
         </ReactMapGL>
       </div>

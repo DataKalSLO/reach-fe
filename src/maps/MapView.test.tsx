@@ -25,9 +25,6 @@ const testPopup = {
   }
 };
 const testPopups = Array<LocationFeatures>();
-function setTestedMarker(location: any) {
-  testPopups.concat(location);
-}
 
 // Values are for Marker testing
 const testFeatures = Array<LocationFeatures[]>();
@@ -38,7 +35,8 @@ const testLayer = 'testing Marker';
 
 // Testing basic props of Popups, still do not know how to test clicks and similar events.
 describe('<Popups /> with props', () => {
-  const container = Popups(testPopup, setTestedMarker, testPopups);
+  const dispatch = jest.fn();
+  const container = Popups(testPopup, testPopups, dispatch);
 
   it('default props are set', () => {
     expect(container.props.anchor).toEqual('bottom');

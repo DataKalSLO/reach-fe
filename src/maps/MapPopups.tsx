@@ -1,15 +1,15 @@
 import React from 'react';
 import { Popup } from 'react-map-gl';
-import { useDispatch } from 'react-redux';
 import { updateSelectedMarker } from '../redux/map/actions';
 import { POPUP_OFFSET_LEFT, POPUP_OFFSET_TOP } from './constants';
 import { LocationFeatures, SelectedMarker } from './types';
+import { Dispatch } from 'redux';
 
 export default function Popups(
   marker: LocationFeatures,
-  selectedMarker: SelectedMarker
+  selectedMarker: SelectedMarker,
+  dispatch: Dispatch
 ) {
-  const dispatch = useDispatch();
   return (
     <Popup
       key={marker.properties.name}
@@ -19,6 +19,7 @@ export default function Popups(
       onClose={() => {
         dispatch(updateSelectedMarker(selectedMarker));
       }}
+      closeButton={false}
       closeOnClick={false}
       sortByDepth={true}
       offsetLeft={POPUP_OFFSET_LEFT}
