@@ -2,7 +2,8 @@ import {
   BottomNavigationAction,
   Divider,
   Paper,
-  Toolbar
+  Toolbar,
+  Box
 } from '@material-ui/core';
 import {
   createStyles,
@@ -14,6 +15,11 @@ import {
 /*
  * Graph Header Styles
  */
+
+export const StyledBox = styled(Box)({
+  display: 'inline-block',
+  width: '100%'
+});
 
 export const StyledToolbar = styled(Toolbar)({
   overflow: 'scroll',

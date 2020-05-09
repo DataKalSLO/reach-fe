@@ -12,7 +12,7 @@ import {
   EDIT_LABEL,
   SAVE_LABEL
 } from './constants';
-import { StyledToolbar } from './styles';
+import { StyledToolbar, StyledBox } from './styles';
 import { GraphHeaderProps } from './types';
 
 /*
@@ -71,7 +71,11 @@ function GraphHeader({ graph }: GraphHeaderProps) {
   };
 
   // TODO: Collapse toolbar when width is too small
-  return <StyledToolbar>{getHeaderButtons()}</StyledToolbar>;
+  return (
+    <StyledBox>
+      <StyledToolbar>{getHeaderButtons()}</StyledToolbar>
+    </StyledBox>
+  );
 }
 
 export default GraphHeader;
