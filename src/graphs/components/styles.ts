@@ -55,19 +55,15 @@ export const useGraphStyles = makeStyles((theme: Theme) =>
   createStyles({
     highcharts: {
       display: 'flex',
-      height: 'auto !important',
       '& .highcharts-container': {
-        display: 'flex',
-        height: 'auto !important'
+        height: '100% !important'
       },
       '& .highcharts-root': {
-        display: 'flex',
-        height: 'auto !important'
+        height: '100%'
       },
       '& svg': {
         width: '100%',
-        minWidth: '300px',
-        height: 'auto !important'
+        minWidth: '300px'
       }
     }
   })
