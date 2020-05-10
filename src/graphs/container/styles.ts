@@ -1,4 +1,4 @@
-import { BottomNavigation, Grid, Typography } from '@material-ui/core';
+import { BottomNavigation, Typography } from '@material-ui/core';
 import Popover from '@material-ui/core/Popover';
 import {
   createStyles,
@@ -7,22 +7,6 @@ import {
   Theme
 } from '@material-ui/core/styles';
 import { theme } from '../../theme/theme';
-
-/*
- * Graph Container styles
- */
-
-export const StyledGridContainer = styled(Grid)({
-  justifyContent: 'center',
-  overflow: 'scroll',
-  padding: '10px 0px 10px 0px'
-});
-
-export const StyledGridItem = styled(Grid)({
-  width: '95%',
-  maxWidth: 'calc(100vw/2.2)',
-  padding: '10px 10px 10px 20px'
-});
 
 /*
  * Options Bar Container styles
