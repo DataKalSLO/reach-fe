@@ -30,7 +30,7 @@ function GraphToolbar({ graph }: GraphHeaderProps) {
   // TODO: Collapse toolbar when width is too small
   return (
     <GraphStyledToolbar>
-      <GraphButtonGroup>
+      <ToolbarButtonGroup>
         <ToolbarButton
           label={DELETE_LABEL}
           startIcon={<Delete color="error" />}
@@ -62,7 +62,7 @@ function GraphToolbar({ graph }: GraphHeaderProps) {
           startIcon={<Share />}
           onClick={() => alert('Not implemented')}
         />
-      </GraphButtonGroup>
+      </ToolbarButtonGroup>
     </GraphStyledToolbar>
   );
 }
@@ -77,6 +77,6 @@ const GraphStyledToolbar = styled(Toolbar)({
   margin: '0px 10px 0px 10px'
 });
 
-const GraphButtonGroup = styled(Box)({
+const ToolbarButtonGroup = styled(Box)({
   display: 'flex'
 });
