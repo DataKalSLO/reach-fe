@@ -12,3 +12,4 @@ export const SHARE_LABEL = 'Share';
  */
 export const DEFAULT_KEY = 'default';
 export const CHART_WIDTH_SCALE = 1 / 2.2;
+export const CHART_HEIGHT_PERCENT = '80%';
