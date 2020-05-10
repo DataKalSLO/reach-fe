@@ -18,24 +18,33 @@ import Highcharts, {
   YAxisOptions
 } from 'highcharts';
 import {
+  ACCESSIBILITY_ANNOUNCE_NEW_DATA_ENABLED,
   DEFAULT_SUBTITLE,
   DEFAULT_TITLE,
   GRAPH_3D_ALPHA,
   GRAPH_3D_BETA,
   GRAPH_3D_DEPTH,
+  GRAPH_3D_ENABLED,
   GRAPH_3D_PLOT_DEPTH,
+  GRAPH_3D_SKEWED_X_AXIS_LABELS_ENABLED,
   GRAPH_3D_VIEW_DISTANCE,
   GRAPH_HEIGHT,
   GRAPH_MAX_WIDTH,
+  GRAPH_PANNING_ENABLED,
   GRAPH_PANNING_KEY,
-  GRAPH_SYNCH_TOOLTIP_BACKGROUND_COLOR,
-  GRAPH_SYNCH_TOOLTIP_BORDER_RADIUS,
-  GRAPH_SYNCH_TOOLTIP_BORDER_WIDTH,
-  GRAPH_SYNCH_TOOLTIP_HEADER_FORMAT,
-  GRAPH_SYNCH_TOOLTIP_POINT_FORMAT,
-  GRAPH_SYNCH_TOOLTIP_REFERENCE_POINT_X,
-  GRAPH_SYNCH_TOOLTIP_REFERENCE_POINT_Y,
-  GRAPH_SYNCH_TRIGGER,
+  GRAPH_SERIES_ALLOW_POINT_SELECT,
+  GRAPH_SERIES_DATA_LABELS_ENABLED,
+  GRAPH_SYNC_TOOLTIP_BACKGROUND_COLOR,
+  GRAPH_SYNC_TOOLTIP_BORDER_RADIUS,
+  GRAPH_SYNC_TOOLTIP_BORDER_WIDTH,
+  GRAPH_SYNC_TOOLTIP_HEADER_FORMAT,
+  GRAPH_SYNC_TOOLTIP_POINT_FORMAT,
+  GRAPH_SYNC_TOOLTIP_REFERENCE_POINT_X,
+  GRAPH_SYNC_TOOLTIP_REFERENCE_POINT_Y,
+  GRAPH_SYNC_TRIGGER,
+  GRAPH_SYNC_TOOLTIP_SHADOW_ENABLED,
+  GRAPH_SYNC_TOOLTIP_SPLIT_ENABLED,
+  GRAPH_X_AXIS_CROSSHAIR_ENABLED,
   GRAPH_ZOOM_TYPE,
   RESPONSIVE_LEGEND_ALIGNMENT,
   RESPONSIVE_LEGEND_LAYOUT,
@@ -61,7 +70,7 @@ export const title: TitleOptions = { text: DEFAULT_TITLE };
 
 /*
  * The subtitle of the chart
- * - can be applied to all charts
+//  * - can be applied to all chart
  */
 export const subtitle: SubtitleOptions = { text: DEFAULT_SUBTITLE };
 
@@ -73,7 +82,7 @@ export const chartOptions: ChartOptions = {
   height: GRAPH_HEIGHT,
   zoomType: GRAPH_ZOOM_TYPE,
   panKey: GRAPH_PANNING_KEY,
-  panning: { enabled: true }
+  panning: { enabled: GRAPH_PANNING_ENABLED }
 };
 
 /*
@@ -81,7 +90,7 @@ export const chartOptions: ChartOptions = {
  * - can be applied to all charts
  */
 export const plotOptions: PlotOptions = {
-  series: { allowPointSelect: true },
+  series: { allowPointSelect: GRAPH_SERIES_ALLOW_POINT_SELECT },
   column: { depth: GRAPH_3D_PLOT_DEPTH },
   bar: { depth: GRAPH_3D_PLOT_DEPTH },
   pie: { depth: GRAPH_3D_PLOT_DEPTH }
@@ -92,7 +101,7 @@ export const plotOptions: PlotOptions = {
  * - can be applied to all charts
  */
 export const xAxis: XAxisOptions = {
-  crosshair: true
+  crosshair: GRAPH_X_AXIS_CROSSHAIR_ENABLED
 };
 
 /*
@@ -129,7 +138,7 @@ export const responsiveOptions: ResponsiveOptions = {
  * - can be applied to all charts
  */
 export const accessibilityOptions: AccessibilityOptions = {
-  announceNewData: { enabled: true }
+  announceNewData: { enabled: ACCESSIBILITY_ANNOUNCE_NEW_DATA_ENABLED }
 };
 
 /*
@@ -139,7 +148,7 @@ export const accessibilityOptions: AccessibilityOptions = {
 export const exportingOptions: ExportingOptions = {
   chartOptions: {
     plotOptions: {
-      series: { dataLabels: { enabled: true } }
+      series: { dataLabels: { enabled: GRAPH_SERIES_DATA_LABELS_ENABLED } }
     }
   }
 };
@@ -149,7 +158,7 @@ export const exportingOptions: ExportingOptions = {
  * - only applies to 3D charts
  */
 export const chartOptions3D: Chart3dOptions = {
-  enabled: true,
+  enabled: GRAPH_3D_ENABLED,
   alpha: GRAPH_3D_ALPHA,
   beta: GRAPH_3D_BETA,
   viewDistance: GRAPH_3D_VIEW_DISTANCE,
@@ -161,7 +170,7 @@ export const chartOptions3D: Chart3dOptions = {
  * - only applies to 3D charts
  */
 export const xAxisLabels3D: XAxisLabelsOptions = {
-  skew3d: true
+  skew3d: GRAPH_3D_SKEWED_X_AXIS_LABELS_ENABLED
 };
 
 /*
@@ -171,8 +180,8 @@ export const xAxisLabels3D: XAxisLabelsOptions = {
  */
 export const tooltipPositioner: TooltipPositionerCallbackFunction = function(): PositionObject {
   return {
-    x: GRAPH_SYNCH_TOOLTIP_REFERENCE_POINT_X,
-    y: GRAPH_SYNCH_TOOLTIP_REFERENCE_POINT_Y
+    x: GRAPH_SYNC_TOOLTIP_REFERENCE_POINT_X,
+    y: GRAPH_SYNC_TOOLTIP_REFERENCE_POINT_Y
   };
 };
 
@@ -181,13 +190,13 @@ export const tooltipPositioner: TooltipPositionerCallbackFunction = function(): 
  * - only applies to synchronized charts
  */
 export const syncToolTip: TooltipOptions = {
-  backgroundColor: GRAPH_SYNCH_TOOLTIP_BACKGROUND_COLOR,
-  borderWidth: GRAPH_SYNCH_TOOLTIP_BORDER_WIDTH,
-  borderRadius: GRAPH_SYNCH_TOOLTIP_BORDER_RADIUS,
-  headerFormat: GRAPH_SYNCH_TOOLTIP_HEADER_FORMAT,
-  pointFormat: GRAPH_SYNCH_TOOLTIP_POINT_FORMAT,
-  shadow: false,
-  split: false,
+  backgroundColor: GRAPH_SYNC_TOOLTIP_BACKGROUND_COLOR,
+  borderWidth: GRAPH_SYNC_TOOLTIP_BORDER_WIDTH,
+  borderRadius: GRAPH_SYNC_TOOLTIP_BORDER_RADIUS,
+  headerFormat: GRAPH_SYNC_TOOLTIP_HEADER_FORMAT,
+  pointFormat: GRAPH_SYNC_TOOLTIP_POINT_FORMAT,
+  shadow: GRAPH_SYNC_TOOLTIP_SHADOW_ENABLED,
+  split: GRAPH_SYNC_TOOLTIP_SPLIT_ENABLED,
   positioner: tooltipPositioner
 };
 
@@ -204,14 +213,14 @@ export const syncExtremes: AxisSetExtremesEventCallbackFunction = function(
 ): void {
   const thisChart = this.chart;
   // for each synchronized chart, set the extremes if not already set
-  if (event.trigger !== GRAPH_SYNCH_TRIGGER) {
+  if (event.trigger !== GRAPH_SYNC_TRIGGER) {
     // prevent feedback loop
     Highcharts.each(Highcharts.charts, function(chart: Highcharts.Chart) {
       if (chart !== thisChart) {
         if (chart.xAxis[0].setExtremes) {
           // It is null while updating
           chart.xAxis[0].setExtremes(event.min, event.max, undefined, false, {
-            trigger: GRAPH_SYNCH_TRIGGER
+            trigger: GRAPH_SYNC_TRIGGER
           });
         }
       }
