@@ -7,7 +7,7 @@ export interface RegisterData {
   email: string;
   password: string;
   name: string;
-  role: string;
+  role: number;
   occupation: string;
   notificationsEnabled: boolean;
 }
@@ -16,7 +16,8 @@ export interface User {
   email: string;
   token: string;
   name: string;
-  role: string;
+  role: number;
+  occupation: string;
 }
 
 export const LOGIN = 'LOGIN';

@@ -1,4 +1,4 @@
-import { Box, styled, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { object, string } from 'yup';
@@ -71,10 +71,10 @@ export default function StoryForm() {
   };
 
   if (previewSelected) {
-    return <StyledBox>{convertStoryToJSX(story)}</StyledBox>;
+    return <div>{convertStoryToJSX(story)}</div>;
   } else {
     return (
-      <StyledBox>
+      <div>
         <Typography variant="h3">StoryBuilder</Typography>
         <p>
           Tell us a compelling story using data. Use the toolbar on the left to
@@ -94,13 +94,9 @@ export default function StoryForm() {
         />
 
         <SortableList storyBlocks={story.storyBlocks} />
-      </StyledBox>
+      </div>
     );
   }
 }
 
 export { areValidMetaFields };
-
-const StyledBox = styled(Box)({
-  margin: '20px 10px 20px 10px'
-});
