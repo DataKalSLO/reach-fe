@@ -16,7 +16,6 @@ import { createEmptyTextBlock } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
-import { StoryBuilderActionType } from '../redux/storybuilder/types';
 import { areValidMetaFields } from './StoryForm';
 import { saveStoryAndHandleResponse } from '../api/stories/operationHandlers';
 
@@ -31,26 +30,21 @@ export default function StorySidebar() {
   const story = useSelector(getStory);
   const dispatch = useDispatch();
 
-  const metaFieldsAreValid = () => {
-    return areValidMetaFields(story.title, story.description);
-  };
-
-  const checkValidMetaFields = (onSuccess: () => StoryBuilderActionType) => {
-    if (metaFieldsAreValid()) {
-      dispatch(onSuccess());
+  function checkValidMetaFields<T>(onSuccess: () => T) {
+    if (areValidMetaFields(story.title, story.description)) {
+      onSuccess();
     } else {
       alert('Please complete the required fields.');
     }
-  };
+  }
 
   const handleTogglePreview = () => {
-    checkValidMetaFields(togglePreview);
+    checkValidMetaFields(() => dispatch(togglePreview));
   };
 
   const handleSave = () => {
     story.userID = 'test1@test.com'; //TODO: Remove authentication API function exist
-    if (metaFieldsAreValid()) saveStoryAndHandleResponse(story);
-    else alert('Please complete the required fields.');
+    checkValidMetaFields(() => saveStoryAndHandleResponse(story));
     //TODO: Add Loading bar while waiting for request.
   };
 
