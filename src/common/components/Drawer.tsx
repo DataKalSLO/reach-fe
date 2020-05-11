@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ChevronLeft, ChevronRight, Menu } from '@material-ui/icons';
 import clsx from 'clsx';
 import React, { useState } from 'react';
+import { IconButton } from '../../reach-ui/core';
 import { theme } from '../../theme/theme';
-import { IconButton } from './IconButton';
 
 // drawerOpen and drawerClose styling copied from Material UI demo
 // https://material-ui.com/components/drawers/#mini-variant-drawer

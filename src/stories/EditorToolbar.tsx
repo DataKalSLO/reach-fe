@@ -13,8 +13,7 @@ import {
 } from '@material-ui/icons';
 import { EditorState, RichUtils } from 'draft-js';
 import React, { useState } from 'react';
-import {
-  IconButton,
+import IconButton, {
   Props as IconButtonProps
 } from '../common/components/IconButton';
 import { CollapsibleItem, CollapsibleMenu } from './CollapsibleToolbar';
