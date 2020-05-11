@@ -2,16 +2,17 @@ const categories = [
   'Paso Robles',
   'Atascadero',
   'Arroyo Grande',
-  'Nipomo',
   'San Luis Obispo (City)',
-  'Templeton',
+  'Nipomo',
+  'CA Mens Colony (inmates)',
   'San Miguel',
+  'Templeton',
   'Pismo Beach',
   'Morro Bay',
   'Other'
 ];
 
-const data = [[54, 28, 19, 14, 14, 7, 7, 7, 6, 13]];
+const data = [[82, 34, 19, 17, 16, 11, 8, 7, 7, 7, 12]];
 
 export const CovidCasesBycityOptions: Highcharts.Options = {
   tooltip: {

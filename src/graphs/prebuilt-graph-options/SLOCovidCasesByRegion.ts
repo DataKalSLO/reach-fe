@@ -1,6 +1,6 @@
 const categories = ['North County', 'South County', 'Coastal', 'Central'];
 
-const data = [[98, 42, 11, 18]];
+const data = [[133, 45, 12, 30]];
 
 export const CovidCasesByRegionOptions: Highcharts.Options = {
   tooltip: {

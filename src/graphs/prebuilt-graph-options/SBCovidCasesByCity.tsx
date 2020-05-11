@@ -13,7 +13,10 @@ const categories = [
   'others'
 ];
 
-const data = [[22, 59, 7, 1, 14, 5, 84, 106, 141, 37, 25, 5]];
+const data = [
+  [23, 67, 10, 1, 15, 7, 91, 854, 170, 39, 25, 6],
+  [0, 1, 2, 0, 1, 0, 2, 2, 2, 0, 1, 0]
+];
 
 export const SBCovidCasesBycityOptions: Highcharts.Options = {
   tooltip: {
@@ -54,6 +57,11 @@ export const SBCovidCasesBycityOptions: Highcharts.Options = {
       name: 'City or town',
       type: 'bar',
       data: data[0]
+    },
+    {
+      name: 'Number of Death by county',
+      type: 'line',
+      data: data[1]
     }
   ]
 };

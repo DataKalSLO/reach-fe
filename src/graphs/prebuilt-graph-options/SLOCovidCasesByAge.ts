@@ -1,4 +1,4 @@
-const categories = ['65+ years', '50-64 years', '19-49 years', '0-17 years'];
+const categories = ['65+ years', '50-64 years', '18-49 years', '0-17 years'];
 
 export const CovidCasesByAgeOptions: Highcharts.Options = {
   tooltip: {
@@ -47,19 +47,19 @@ export const CovidCasesByAgeOptions: Highcharts.Options = {
       data: [
         {
           name: '65+ years',
-          y: 43
+          y: 45
         },
         {
           name: '50-64 years',
-          y: 51
+          y: 60
         },
         {
           name: '18-49 years',
-          y: 64
+          y: 95
         },
         {
           name: '0-17 years',
-          y: 11
+          y: 20
         }
       ],
       showInLegend: true,
