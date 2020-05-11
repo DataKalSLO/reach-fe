@@ -13,7 +13,7 @@ const STORY_DELETION_SUCCESS_MESSAGE = 'Story deleted!';
 const STORY_DELETION_FAILURE_MESSAGE =
   'An Error occurred while deleting a Story. Story was not deleted.';
 const STORY_RETRIEVAL_SUCCESS_MESSAGE = 'Story retrieved!';
-const STORY_RETRIEVA_FAILURE_MESSAGE =
+const STORY_RETRIEVAL_FAILURE_MESSAGE =
   'An Error occurred while retrieving a Story.';
 
 export async function saveStoryAndHandleResponse(
@@ -45,7 +45,7 @@ export async function getStoryWIthIdAndHandleResponse(
     storyId,
     getStoryWithStoryID,
     STORY_RETRIEVAL_SUCCESS_MESSAGE,
-    STORY_RETRIEVA_FAILURE_MESSAGE
+    STORY_RETRIEVAL_FAILURE_MESSAGE
   ).catch(e => undefined);
 }
 
@@ -56,7 +56,7 @@ export async function getAllStoriesAndHandleResponse(): Promise<
     undefined,
     getAllStories,
     STORY_RETRIEVAL_SUCCESS_MESSAGE,
-    STORY_RETRIEVA_FAILURE_MESSAGE
+    STORY_RETRIEVAL_FAILURE_MESSAGE
   ).catch(e => undefined);
 }
 
