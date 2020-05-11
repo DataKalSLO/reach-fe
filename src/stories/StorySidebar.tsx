@@ -15,48 +15,28 @@ import { List, ListItemButton } from '../reach-ui/core';
 import { createEmptyTextBlock } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import { togglePreview } from '../redux/storybuilder/actions';
-import { Story } from '../redux/story/types';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
-import {
-  StoryBuilderActionType,
-  TOGGLE_PREVIEW,
-  TogglePreviewAction
-} from '../redux/storybuilder/types';
+import { StoryBuilderActionType } from '../redux/storybuilder/types';
 import { areValidMetaFields } from './StoryForm';
-import { saveStory } from './StoryAPIConnector';
+import { saveStoryAndHandleResponse } from '../api/stories/operationHandlers';
 
 const STORY_SIDEBAR_WIDTH = 165;
-const STORY_CREATION_SUCCESS_MESSAGE = 'Story created!';
-const STORY_CREATION_FAILURE_MESSAGE =
-  'An Error occurred while saving a Story. Story was not created.';
 
-function callAndRespondToSaveStory(story: Story): TogglePreviewAction {
-  saveStory(story)
-    .then(res => {
-      console.log(STORY_CREATION_SUCCESS_MESSAGE);
-    })
-    .catch(e => {
-      //TODO: Remove `if` after BEND has changed to return JSON instead of string response
-      if (e instanceof SyntaxError) console.log(STORY_CREATION_SUCCESS_MESSAGE);
-      else {
-        console.log('Save Story Error: ' + e);
-        alert(STORY_CREATION_FAILURE_MESSAGE);
-      }
-    });
-  return {
-    type: TOGGLE_PREVIEW,
-    payload: null
-  };
-}
-
+// To test the API funcitonality please change the .env file path to: http://localhost:5000/
+// And run the command `dotnet run` in hourglass-be/HourglassServer folder with the BEND
+// branch: story-include-refactor-2
 export default function StorySidebar() {
   const storyBuilderState = useSelector(getStoryBuilder);
   const previewSelected = storyBuilderState.isPreviewSelected;
   const story = useSelector(getStory);
   const dispatch = useDispatch();
 
+  const metaFieldsAreValid = () => {
+    return areValidMetaFields(story.title, story.description);
+  };
+
   const checkValidMetaFields = (onSuccess: () => StoryBuilderActionType) => {
-    if (areValidMetaFields(story.title, story.description)) {
+    if (metaFieldsAreValid()) {
       dispatch(onSuccess());
     } else {
       alert('Please complete the required fields.');
@@ -69,9 +49,8 @@ export default function StorySidebar() {
 
   const handleSave = () => {
     story.userID = 'test1@test.com'; //TODO: Remove authentication API function exist
-    checkValidMetaFields(
-      (): TogglePreviewAction => callAndRespondToSaveStory(story)
-    );
+    if (metaFieldsAreValid()) saveStoryAndHandleResponse(story);
+    else alert('Please complete the required fields.');
     //TODO: Add Loading bar while waiting for request.
   };
 
