@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { theme } from '../../theme/theme';
 import { IconButton } from './IconButton';
 
-// drawerOpen and drawerClode styling copied from material ui demo
+// drawerOpen and drawerClose styling copied from Material UI demo
 // https://material-ui.com/components/drawers/#mini-variant-drawer
 const useStyles = makeStyles({
   drawer: {
@@ -38,8 +38,9 @@ const useStyles = makeStyles({
 
 interface Props {
   width: number;
-  children: any;
-  collapsible?: boolean;
+  children: JSX.Element | JSX.Element[];
+  isCollapsible?: boolean;
+  anchor?: 'left' | 'right';
   // This extra parameter is necessary to allow other props to be passed through
   [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
@@ -52,13 +53,17 @@ export default function Drawer(props: Props) {
     setOpen(!open);
   };
 
+  // icon used to open/close the drawer
   const CollapsibleIcon = () => {
-    if (props.collapsible) {
+    if (props.isCollapsible) {
+      // selects the chevron with the apprpriate direction
+      // based on which side side of the screen the drawer is anchored
       const chevronIcon =
         props.anchor === 'right' ? <ChevronRight /> : <ChevronLeft />;
       const chevronPosition = props.anchor === 'right' ? 'right' : 'left';
 
       return (
+        // wrapped in List Component so ripple formatting on icon doesn't get distored
         <List>
           <IconButton
             aria-label={'test'}
@@ -71,6 +76,9 @@ export default function Drawer(props: Props) {
       );
     } else return null;
   };
+
+  // non-standard props filtered out so otherProps can be passed Material UI Drawer component
+  const { isCollapsible, ...otherProps } = props;
 
   return (
     <CoreDrawer
@@ -87,7 +95,7 @@ export default function Drawer(props: Props) {
           [classes.drawerClose]: !open
         })
       }}
-      {...props}
+      {...otherProps}
     >
       <CollapsibleIcon />
       {props.children}

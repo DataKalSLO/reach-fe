@@ -45,7 +45,7 @@ export default function StorySidebar() {
   };
 
   return (
-    <Drawer width={STORY_SIDEBAR_WIDTH} collapsible={true}>
+    <Drawer width={STORY_SIDEBAR_WIDTH} isCollapsible={true}>
       <Typography variant="subtitle1" align="center">
         <b>Add Block</b>
       </Typography>
