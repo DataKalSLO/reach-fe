@@ -1,4 +1,9 @@
-import { del, get, post, put } from '../base';
+import {
+  authenticatedGet,
+  authenticatedDel,
+  authenticatedPost,
+  authenticatedPut
+} from '../authenticatedApi/operations';
 import { Story } from '../../redux/story/types';
 import { DatabaseStory } from './types';
 import {
@@ -26,7 +31,9 @@ export function deleteStoryById(storyId: string): Promise<string> {
 }
 
 export async function getStoryWithStoryID(storyID: string): Promise<Story> {
-  return transformAPIResponseToStory(get(['story', storyID].join('/')));
+  return transformAPIResponseToStory(
+    authenticatedGet(['story', storyID].join('/'))
+  );
 }
 
 export async function getAllStories(): Promise<Story[]> {
@@ -71,16 +78,16 @@ async function storyHttp(
   let response: unknown;
   switch (actionType) {
     case StoryActions.CREATE:
-      response = post('story', payload as object);
+      response = authenticatedPost('story', payload as object);
       break;
     case StoryActions.UPDATE:
-      response = put('story', payload as object);
+      response = authenticatedPut('story', payload as object);
       break;
     case StoryActions.GET_ALL_STORIES:
-      response = get('story');
+      response = authenticatedGet('story');
       break;
     case StoryActions.DELETE_WITH_ID:
-      response = del('story/' + payload);
+      response = authenticatedDel('story/' + payload);
       break;
     default:
       throw new Error('Unimplemented mutation action on Story: ' + actionType);
