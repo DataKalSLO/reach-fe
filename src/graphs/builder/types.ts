@@ -66,7 +66,7 @@ export type GraphDataYValue = number;
  * - for more information about the series data property
  *   see https://api.highcharts.com/highcharts/series.column.data
  */
-export type GraphData = [number | string, number][];
+export type GraphData = [GraphDataXValue, GraphDataYValue][];
 
 /*
  * The x-axis data type
