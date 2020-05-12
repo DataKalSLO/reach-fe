@@ -47,33 +47,14 @@ export default function StoryCard(props: StoryCardProps): JSX.Element {
   // TODO: this should take a user object. name and picture will be refactored to come from user
   const Author = (props: { name: string; picture: JSX.Element }) => {
     return (
-      <Grid container alignItems="center" spacing={1}>
+      <React.Fragment>
         <Grid item>{props.picture}</Grid>
         <Grid item>
           <Typography variant="subtitle1" color="textSecondary">
             {props.name}
           </Typography>
         </Grid>
-      </Grid>
-    );
-  };
-
-  const AuthorDateMetadata = (props: {
-    name: string;
-    picture: JSX.Element;
-    date: string;
-  }) => {
-    return (
-      <Grid container alignItems="center" justify="space-between" spacing={0}>
-        <Grid item>
-          <Author name={props.name} picture={props.picture} />
-        </Grid>
-        <Grid item>
-          <Typography variant="subtitle1" color="textSecondary">
-            {props.date}
-          </Typography>
-        </Grid>
-      </Grid>
+      </React.Fragment>
     );
   };
 
@@ -81,18 +62,23 @@ export default function StoryCard(props: StoryCardProps): JSX.Element {
     <Card className={classes.root} variant="outlined">
       <CardHeader title={PLACEHOLDER_TITLE} />
       <CardContent>
-        <Grid container direction="column" justify="flex-start" spacing={3}>
+        <Grid container direction="column" justify="flex-start" spacing={2}>
           <Grid item>
             <Typography variant="subtitle2">
               {PLACEHOLDER_DESCRIPTION}
             </Typography>
           </Grid>
 
-          <AuthorDateMetadata
-            name={PLACEHOLDER_AUTHOR}
-            picture={<AccountCircle />}
-            date={PLACEHOLDER_DATE}
-          />
+          <Grid container item wrap="nowrap">
+            <Grid container item spacing={1}>
+              <Author name={PLACEHOLDER_AUTHOR} picture={<AccountCircle />} />
+            </Grid>
+            <Grid item>
+              <Typography variant="subtitle1" color="textSecondary">
+                {PLACEHOLDER_DATE}
+              </Typography>
+            </Grid>
+          </Grid>
 
           <CardMedia
             className={classes.media}
