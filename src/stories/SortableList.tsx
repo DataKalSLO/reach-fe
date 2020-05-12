@@ -2,7 +2,7 @@ import { Box, IconButton, styled } from '@material-ui/core';
 import { DeleteForever } from '@material-ui/icons';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   SortableContainer,
   SortableElement,
@@ -11,7 +11,6 @@ import {
 import { Dispatch } from 'redux';
 import { IconButton as CustomIconButton } from '../common/components/IconButton';
 import { deleteBlock, swapBlocks } from '../redux/story/actions';
-import { getStory } from '../redux/story/selectors';
 import { StoryBlockType, TEXT_BLOCK_TYPE } from '../redux/story/types';
 import { theme } from '../theme/theme';
 import { StoryBlock } from './StoryBlock';
@@ -50,7 +49,7 @@ const deleteButtonAction = (
   index: number,
   dispatch: Dispatch
 ): void => {
-  //Dont ask for delete confirmation with empty text blocks
+  //Dont ask for delete confirmation for empty text blocks
   if (
     storyBlock.type === TEXT_BLOCK_TYPE &&
     !storyBlock.editorState.getCurrentContent().hasText()
