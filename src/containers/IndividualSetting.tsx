@@ -42,23 +42,27 @@ function IndividualSetting(props: IndividualSettingProps) {
       <IconButton onClick={() => saveSetting()}>{editIcon}</IconButton>
     );
 
-  const saveSetting = useCallback(
-    () => {
-      setEditMode(!editMode);
-      if (editMode) {
-        if (props.settingName === 'Name') {
-          props.settings.name = userInfo;
-        } else if (props.settingName === 'Occupation') {
-          props.settings.occupation = userInfo;
-        } else if (props.settingName === 'Email Notifications') {
-          //add later
-        }
-        console.log(props.settings);
-        dispatch(updateUserSettings(props.email, props.settings));
+  const saveSetting = useCallback(() => {
+    setEditMode(!editMode);
+    if (editMode) {
+      if (props.settingName === 'Name') {
+        props.settings.name = userInfo;
+      } else if (props.settingName === 'Occupation') {
+        props.settings.occupation = userInfo;
+      } else if (props.settingName === 'Email Notifications') {
+        //add later
       }
-    },
-    [editMode, props.settingName, props.email, props.settings, userInfo, dispatch]
-  );
+      console.log(props.settings);
+      dispatch(updateUserSettings(props.email, props.settings));
+    }
+  }, [
+    editMode,
+    props.settingName,
+    props.email,
+    props.settings,
+    userInfo,
+    dispatch
+  ]);
 
   const leftSettingsVal = editMode ? (
     <TextField
