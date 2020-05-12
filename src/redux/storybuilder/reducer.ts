@@ -1,6 +1,6 @@
 import {
-  StoryBuilderState,
   StoryBuilderActionType,
+  StoryBuilderState,
   TOGGLE_PREVIEW
 } from './types';
 
