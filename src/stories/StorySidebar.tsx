@@ -43,7 +43,7 @@ export default function StorySidebar() {
   };
 
   const handleSave = () => {
-    story.userID = 'test1@test.com'; //TODO: Remove authentication API function exist
+    story.userID = 'test1@test.com'; //TODO: Remove when API functions access auth token
     checkValidMetaFields(() => saveStoryAndHandleResponse(story));
     //TODO: Add Loading bar while waiting for request.
   };
