@@ -2,7 +2,7 @@ import { Box, IconButton, styled } from '@material-ui/core';
 import { DeleteForever } from '@material-ui/icons';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   SortableContainer,
   SortableElement,
@@ -11,7 +11,8 @@ import {
 import { Dispatch } from 'redux';
 import { IconButton as CustomIconButton } from '../common/components/IconButton';
 import { deleteBlock, swapBlocks } from '../redux/story/actions';
-import { StoryBlockType } from '../redux/story/types';
+import { getStory } from '../redux/story/selectors';
+import { StoryBlockType, TEXT_BLOCK_TYPE } from '../redux/story/types';
 import { theme } from '../theme/theme';
 import { StoryBlock } from './StoryBlock';
 
@@ -35,6 +36,7 @@ interface SortableStoryContainerProps {
 interface DeleteButtonProps {
   index: number;
   dispatch: Dispatch;
+  block: StoryBlockType;
 }
 
 const DragHandle = SortableHandle(() => (
@@ -43,9 +45,26 @@ const DragHandle = SortableHandle(() => (
   </IconButton>
 ));
 
+const deleteButtonAction = (
+  storyBlock: StoryBlockType,
+  index: number,
+  dispatch: Dispatch
+): void => {
+  //Dont ask for delete confirmation with empty text blocks
+  if (
+    storyBlock.type === TEXT_BLOCK_TYPE &&
+    !storyBlock.editorState.getCurrentContent().hasText()
+  ) {
+    dispatch(deleteBlock(index));
+  } else {
+    if (window.confirm('Are you sure you wish to delete this item?'))
+      dispatch(deleteBlock(index));
+  }
+};
+
 const DeleteButton = (props: DeleteButtonProps) => (
   <CustomIconButton
-    onClick={() => props.dispatch(deleteBlock(props.index))}
+    onClick={() => deleteButtonAction(props.block, props.index, props.dispatch)}
     edge="end"
     aria-label="Delete block"
     style={{ color: theme.palette.error.main }}
@@ -64,7 +83,11 @@ const SortableStoryBlock = SortableElement((props: SortableItemProps) => (
         dispatch={props.dispatch}
       />
     </Box>
-    <DeleteButton index={props.myIndex} dispatch={props.dispatch} />
+    <DeleteButton
+      index={props.myIndex}
+      dispatch={props.dispatch}
+      block={props.block}
+    />
   </StoryBlockBox>
 ));
 
