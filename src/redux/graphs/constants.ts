@@ -15,4 +15,4 @@ export const ASSETS = 'Assets';
 export const HOUSING = 'Housing and Living';
 export const EDUCATION = 'Education';
 export const HEALTH = 'Health';
-export const CREATE_GRAPH = 'Create_Graph';
+export const CREATE_GRAPH = 'Create a Graph';

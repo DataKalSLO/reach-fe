@@ -111,9 +111,7 @@ function AddColumns() {
       </StyledFormGroup>
       <StyledFormGroup row={false}>
         <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel id="select-label">
-            Choose your Y-axis
-          </InputLabel>
+          <InputLabel id="select-label">Choose your Y-axis</InputLabel>
           {getYAxisList('List of Columns')}
         </FormControl>
       </StyledFormGroup>
