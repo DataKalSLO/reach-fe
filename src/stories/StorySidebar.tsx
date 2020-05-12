@@ -21,9 +21,6 @@ import { saveStoryAndHandleResponse } from '../api/stories/operationHandlers';
 
 const STORY_SIDEBAR_WIDTH = 165;
 
-// To test the API funcitonality please change the .env file path to: http://localhost:5000/
-// And run the command `dotnet run` in hourglass-be/HourglassServer folder with the BEND
-// branch: story-include-refactor-2
 export default function StorySidebar() {
   const storyBuilderState = useSelector(getStoryBuilder);
   const previewSelected = storyBuilderState.isPreviewSelected;
