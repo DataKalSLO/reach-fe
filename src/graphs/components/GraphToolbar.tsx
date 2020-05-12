@@ -1,4 +1,4 @@
-import { Box, styled, Toolbar } from '@material-ui/core';
+import { Toolbar } from '@material-ui/core';
 import { Delete, Edit, FileCopy, Save, Share } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -29,54 +29,40 @@ function GraphToolbar({ graph }: GraphHeaderProps) {
 
   // TODO: Collapse toolbar when width is too small
   return (
-    <GraphStyledToolbar>
-      <ToolbarButtonGroup>
-        <ToolbarButton
-          label={DELETE_LABEL}
-          startIcon={<Delete color="error" />}
-          onClick={() => {
-            dispatch(deleteGraphAction(graph.id));
-          }}
-        />
-        <ToolbarButton
-          label={SAVE_LABEL}
-          startIcon={<Save />}
-          onClick={() => alert('Not implemented')}
-        />
-        <ToolbarButton
-          label={EDIT_LABEL}
-          variant="text"
-          color="default"
-          startIcon={<Edit />}
-          onClick={() => alert('Not implemented')}
-        />
-        <ToolbarButton
-          label={DUPLICATE_LABEL}
-          startIcon={<FileCopy />}
-          onClick={() => {
-            dispatch(duplicateGraphAction(graph.options));
-          }}
-        />
-        <ToolbarButton
-          label={SHARE_LABEL}
-          startIcon={<Share />}
-          onClick={() => alert('Not implemented')}
-        />
-      </ToolbarButtonGroup>
-    </GraphStyledToolbar>
+    <Toolbar>
+      <ToolbarButton
+        label={DELETE_LABEL}
+        startIcon={<Delete color="error" />}
+        onClick={() => {
+          dispatch(deleteGraphAction(graph.id));
+        }}
+      />
+      <ToolbarButton
+        label={SAVE_LABEL}
+        startIcon={<Save />}
+        onClick={() => alert('Not implemented')}
+      />
+      <ToolbarButton
+        label={EDIT_LABEL}
+        variant="text"
+        color="default"
+        startIcon={<Edit />}
+        onClick={() => alert('Not implemented')}
+      />
+      <ToolbarButton
+        label={DUPLICATE_LABEL}
+        startIcon={<FileCopy />}
+        onClick={() => {
+          dispatch(duplicateGraphAction(graph.options));
+        }}
+      />
+      <ToolbarButton
+        label={SHARE_LABEL}
+        startIcon={<Share />}
+        onClick={() => alert('Not implemented')}
+      />
+    </Toolbar>
   );
 }
 
 export default GraphToolbar;
-
-/*
- * Styles
- */
-const GraphStyledToolbar = styled(Toolbar)({
-  overflow: 'scroll',
-  margin: '0px 10px 0px 10px'
-});
-
-const ToolbarButtonGroup = styled(Box)({
-  display: 'flex'
-});

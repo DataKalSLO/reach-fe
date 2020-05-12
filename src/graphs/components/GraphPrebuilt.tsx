@@ -1,4 +1,10 @@
-import { Divider, Paper, styled } from '@material-ui/core';
+import {
+  Card,
+  CardActions,
+  CardContent,
+  Divider,
+  styled
+} from '@material-ui/core';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import drilldown from 'highcharts/modules/drilldown';
@@ -43,18 +49,22 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
   }
 
   return (
-    <GraphPaper variant="outlined">
-      <GraphToolbar graph={graph} />
+    <GraphCard variant="outlined">
+      <GraphCardActions>
+        <GraphToolbar graph={graph} />
+      </GraphCardActions>
       <GraphDivider light />
-      <HighchartsReact
-        highcharts={Highcharts}
-        immutable={true}
-        options={graph.options}
-        containerProps={{
-          className: classes.highcharts
-        }}
-      />
-    </GraphPaper>
+      <CardContent>
+        <HighchartsReact
+          highcharts={Highcharts}
+          immutable={true}
+          options={graph.options}
+          containerProps={{
+            className: classes.highcharts
+          }}
+        />
+      </CardContent>
+    </GraphCard>
   );
 }
 
@@ -63,8 +73,12 @@ export default GraphPrebuilt;
 /*
  * Styles
  */
-const GraphPaper = styled(Paper)({
+const GraphCard = styled(Card)({
   borderWidth: '2px'
+});
+
+const GraphCardActions = styled(CardActions)({
+  padding: '0px'
 });
 
 const GraphDivider = styled(Divider)({
