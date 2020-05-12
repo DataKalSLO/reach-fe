@@ -22,3 +22,4 @@ export const ADMIN_NAME = 'Admin';
 export const ADMIN_USER = 1;
 export const BASE_USER = 0;
 export const UNDEFINED_USER = -1;
+export const EMPTY_TOKEN = '';
