@@ -22,7 +22,6 @@ export const StyledBox = styled(Box)({
 
 export const StyledCard = styled(Card)({
   position: 'relative',
-  flexDirection: 'column',
   justifyContent: 'left',
   alignItems: 'space-around',
   height: '98%',

@@ -149,7 +149,6 @@ export default function Legend(props: LegendProps) {
 
 const StyledBox = styled(Box)({
   root: {
-    display: 'flex',
     justifyContent: 'left',
     flexWrap: 'wrap',
     flexDirection: 'row',

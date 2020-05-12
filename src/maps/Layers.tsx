@@ -132,8 +132,12 @@ export default function Layers(props: LayersProps) {
         getOptionDisabled={option =>
           handleDisable(allData, markerSelection, heatMapSelection, option)
         }
-        // adjust autocomplete size here
-        style={{ minWidth: '75px', marginTop: theme.spacing(1) }}
+        // adjust autocomplete size here, some magic numbers
+        style={{
+          minWidth: '75px',
+          marginTop: theme.spacing(1),
+          minHeight: '55px'
+        }}
         getOptionLabel={option => option.name}
         filterSelectedOptions
         // informs the layerSelection variable with the user's selection
