@@ -42,9 +42,30 @@ export interface GraphOptionsGeneral {
  *  2. DataValue -> GraphDataYValue
  *  3. GraphDataXValue, GraphDataYValue -> GraphData
  */
+
+/*
+ * Possible value types that can exist in a column in a dataset.
+ * This type should correspond to the data values retrieved from
+ * the backend when accessing columns in a dataset.
+ */
 export type DataValue = string | number | Date;
+
+/*
+ * Highcharts requires x-axis values to be either numbers or strings
+ */
 export type GraphDataXValue = number | string;
+
+/*
+ * Highcharts requires y-axis values to be numbers
+ */
 export type GraphDataYValue = number;
+
+/*
+ * Array of tuples containing both the x and y values.
+ * Subset of Highcharts series data type
+ * - for more information about the series data property
+ *   see https://api.highcharts.com/highcharts/series.column.data
+ */
 export type GraphData = [number | string, number][];
 
 /*
