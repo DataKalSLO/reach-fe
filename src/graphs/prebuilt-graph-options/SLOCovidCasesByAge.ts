@@ -47,7 +47,7 @@ export const CovidCasesByAgeOptions: Highcharts.Options = {
       data: [
         {
           name: '65+ years',
-          y: 45
+          y: 47
         },
         {
           name: '50-64 years',
@@ -55,11 +55,11 @@ export const CovidCasesByAgeOptions: Highcharts.Options = {
         },
         {
           name: '18-49 years',
-          y: 95
+          y: 98
         },
         {
           name: '0-17 years',
-          y: 20
+          y: 21
         }
       ],
       showInLegend: true,

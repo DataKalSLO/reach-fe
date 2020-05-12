@@ -53,19 +53,19 @@ export const SBCovidCasesByAgeOptions: Highcharts.Options = {
       data: [
         {
           name: '70+ years',
-          y: 70
+          y: 72
         },
         {
           name: '50-69 years',
-          y: 410
+          y: 423
         },
         {
           name: '30-49 years',
-          y: 606
+          y: 632
         },
         {
           name: '18-29 years',
-          y: 197
+          y: 210
         },
         {
           name: '0-17 years',
