@@ -43,7 +43,7 @@ function ReachSignIn() {
         wrapWithCatch(
           loginUser({ email, password } as LoginData),
           handleLoginError,
-          () => history.push(HOME)
+          () => history.goBack()
         )
       );
     },

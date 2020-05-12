@@ -76,7 +76,7 @@ const GoogleAuth = (props: { style: GoogleAuthButtonType }) => {
           )
         );
       }
-      history.push(HOME);
+      history.goBack();
     },
     [
       dispatch,
