@@ -73,8 +73,9 @@ async function handleApiOperation<P, R>(
     })
     .catch(e => {
       //TODO: Remove `if` after BEND has changed to return JSON instead of string response
-      if (e instanceof SyntaxError) console.log(successMessage);
-      else {
+      if (e instanceof SyntaxError) {
+        console.log(successMessage);
+      } else {
         alert(failureMessage);
       }
       throw new Error(failureMessage);
