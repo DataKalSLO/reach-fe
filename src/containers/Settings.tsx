@@ -14,11 +14,17 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import EditIcon from '@material-ui/icons/Edit';
 import IndividualSetting from './IndividualSetting';
 import ConfirmDeleteAccount from '../accounts/ConfirmDeleteAccount';
+import { UserSettings } from '../redux/login/types';
 
 function Settings() {
   const user = useSelector(getUser);
   const [displayError, setDisplayError] = useState(false);
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
+  const settings: UserSettings = {
+    name: user.name,
+    occupation: user.occupation,
+    notificationsEnabled: user.notificationsEnabled
+  };
 
   const handleDeleteAccount = () => {
     setIsConfirmDelete(true);
@@ -35,13 +41,30 @@ function Settings() {
           </IconButton>
         </SettingsBox>
         <Divider variant="middle" />
-        <IndividualSetting settingName="Name" userInfo={user.name} />
-        <IndividualSetting settingName="Email" userInfo={user.email} />
+        <IndividualSetting
+          settingName="Name"
+          userInfo={user.name}
+          email={user.email}
+          settings={settings}
+        />
+        <IndividualSetting
+          settingName="Email"
+          userInfo={user.email}
+          email={user.email}
+          settings={settings}
+        />
         <IndividualSetting
           settingName="Occupation"
           userInfo={user.occupation}
+          email={user.email}
+          settings={settings}
         />
-        <IndividualSetting settingName="Email Notifications" userInfo="" />
+        <IndividualSetting
+          settingName="Email Notifications"
+          userInfo=""
+          email={user.email}
+          settings={settings}
+        />
         <CenterBox>
           <SettingsButton variant="outlined">Reset Password</SettingsButton>
           <SettingsDeleteButton

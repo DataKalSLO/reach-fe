@@ -10,13 +10,19 @@ import {
 } from '@material-ui/core';
 import { Edit, Done } from '@material-ui/icons';
 import PropTypes from 'prop-types';
+import { UserSettings } from '../redux/login/types';
+import { updateUserSettings } from '../redux/login/actions';
+import { useDispatch } from 'react-redux';
 
 interface IndividualSettingProps {
   settingName: string;
   userInfo: string;
+  email: string;
+  settings: UserSettings;
 }
 
 function IndividualSetting(props: IndividualSettingProps) {
+  const dispatch = useDispatch();
   const [editMode, setEditMode] = useState(false);
   const [userInfo, setUserInfo] = useState(props.userInfo);
 
@@ -33,8 +39,26 @@ function IndividualSetting(props: IndividualSettingProps) {
     props.userInfo === '' ? (
       <Switch />
     ) : (
-      <IconButton onClick={() => setEditMode(!editMode)}>{editIcon}</IconButton>
+      <IconButton onClick={() => saveSetting()}>{editIcon}</IconButton>
     );
+
+  const saveSetting = useCallback(
+    () => {
+      setEditMode(!editMode);
+      if (editMode) {
+        if (props.settingName === 'Name') {
+          props.settings.name = userInfo;
+        } else if (props.settingName === 'Occupation') {
+          props.settings.occupation = userInfo;
+        } else if (props.settingName === 'Email Notifications') {
+          //add later
+        }
+        console.log(props.settings);
+        dispatch(updateUserSettings(props.email, props.settings));
+      }
+    },
+    [editMode, props.settingName, props.email, props.settings, userInfo, dispatch]
+  );
 
   const leftSettingsVal = editMode ? (
     <TextField
@@ -73,7 +97,8 @@ const SettingsBox = styled(Box)({
 
 IndividualSetting.propTypes = {
   settingName: PropTypes.element.isRequired,
-  userInfo: PropTypes.element.isRequired
+  userInfo: PropTypes.element.isRequired,
+  email: PropTypes.element.isRequired
 };
 
 export default IndividualSetting;
