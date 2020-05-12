@@ -4,6 +4,7 @@ import {
   getStoryWithStoryID,
   getAllStories
 } from './operations';
+import { NO_AUTHENTICATION_TOKEN_ERROR } from '../authenticatedApi/constants';
 import { Story } from '../../redux/story/types';
 
 const STORY_CREATION_SUCCESS_MESSAGE = 'Story created!';
@@ -15,7 +16,8 @@ const STORY_DELETION_FAILURE_MESSAGE =
 const STORY_RETRIEVAL_SUCCESS_MESSAGE = 'Story retrieved!';
 const STORY_RETRIEVAL_FAILURE_MESSAGE =
   'An Error occurred while retrieving a Story.';
-
+const UNAUTHORIZED_STORY_ACTION_MESSAGE =
+  'This action on stories requires a user to sign in';
 export async function saveStoryAndHandleResponse(
   story: Story
 ): Promise<string | undefined> {
@@ -75,9 +77,11 @@ async function handleApiOperation<P, R>(
       //TODO: Remove `if` after BEND has changed to return JSON instead of string response
       if (e instanceof SyntaxError) {
         console.log(successMessage);
+      } else if (e.name === NO_AUTHENTICATION_TOKEN_ERROR) {
+        console.log(UNAUTHORIZED_STORY_ACTION_MESSAGE);
       } else {
         alert(failureMessage);
       }
-      throw new Error(failureMessage);
+      throw new Error(e);
     });
 }
