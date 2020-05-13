@@ -1,8 +1,8 @@
 import { Box, styled } from '@material-ui/core';
 import { MoreHorizRounded } from '@material-ui/icons';
 import { useWindowWidth } from '@react-hook/window-size/throttled';
-import React, { useState, useEffect } from 'react';
-import { IconButton } from '../common/components/IconButton';
+import React, { useEffect, useState } from 'react';
+import { IconButton } from '../reach-ui/core';
 
 interface CollapsibleItemProps {
   hideWidth: number; // determines when an item will be moved to the hidden menu

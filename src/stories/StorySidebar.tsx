@@ -12,15 +12,14 @@ import {
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveStoryAndHandleResponse } from '../api/stories/operationHandlers';
-import Drawer from '../common/components/Drawer';
-import { List, ListItemButton } from '../reach-ui/core';
+import { Drawer, List, ListItemButton } from '../reach-ui/core';
 import { createEmptyTextBlock } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
 import { areValidMetaFields } from './StoryForm';
 
-const STORY_SIDEBAR_WIDTH = 175;
+const STORY_SIDEBAR_WIDTH = 190;
 
 export default function StorySidebar() {
   const storyBuilderState = useSelector(getStoryBuilder);
@@ -47,7 +46,7 @@ export default function StorySidebar() {
   };
 
   return (
-    <Drawer width={STORY_SIDEBAR_WIDTH}>
+    <Drawer width={STORY_SIDEBAR_WIDTH} isCollapsible={true}>
       <Typography variant="subtitle1" align="center">
         <b>Add Block</b>
       </Typography>
@@ -80,10 +79,6 @@ export default function StorySidebar() {
           icon={previewSelected ? <Edit /> : <Visibility />}
           onClick={handleTogglePreview}
         />
-
-        {/* A dirty hack to make the List think it has multiple children, as required.
-        Easiest way to keep the styling and spacing consistent. */}
-        <></>
       </List>
       <Divider />
       <List>
