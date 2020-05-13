@@ -26,7 +26,7 @@ const testPopup = {
 };
 const testPopups = Array<LocationFeatures>();
 // TODO: fix type errors here
-// eslint-disable-next-line
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function setTestedMarker(location: any) {
   testPopups.concat(location);
 }

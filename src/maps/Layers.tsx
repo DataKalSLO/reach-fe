@@ -30,7 +30,7 @@ const ALLOWED_BOTH = 2;
 // TODO: pull this from backend! need distinct split between marker & heat map
 const heatMapData = [medianHouseholdIncomeHeatMap, kitchenFaciltiesHeatMap];
 // TODO: fix type errors here, can't figure out what it expects
-// eslint-disable-next-line
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const allData = flatten([markerData as any, heatMapData]);
 
 // this is how we show everything in options (disable none)
@@ -74,12 +74,12 @@ export function handleChange(
 // handles disabling options, only two markers or one marker & one heat map allowed
 export function handleDisable(
   // TODO: fix type errors here, I am unable to use the MarkerOrHeatMap type
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   allData: any[],
   markerSelection: MarkerSelection[],
   heatMapSelection: HeatMapSelection,
   // TODO: fix type errors here, I am unable to use the MarkerOrHeatMap type
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   option: any
 ) {
   // disable all options if max number of markers are already selected

@@ -129,7 +129,7 @@ function MapView(props: MapViewProps) {
   }, [markerSelection]);
 
   // TODO: going to solve "any" errors at a later time
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [viewport, setViewport]: any = React.useState({
     width: '100%',
     height: '45vh',
