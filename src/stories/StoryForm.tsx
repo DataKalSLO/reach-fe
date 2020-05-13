@@ -45,31 +45,6 @@ export default function StoryForm() {
   const storyBuilderState = useSelector(getStoryBuilder);
   const previewSelected = storyBuilderState.isPreviewSelected;
 
-  const TitleField = (props: Props) => {
-    return (
-      <MetaField
-        content={props.story.title}
-        id="story-title"
-        label="Title"
-        maxLength={TITLE_CHAR_LIMIT}
-        {...props}
-      />
-    );
-  };
-
-  const DescriptionField = (props: Props) => {
-    return (
-      <MetaField
-        content={props.story.description}
-        id="story-description"
-        label="Description"
-        maxLength={DESCRIPTION_CHAR_LIMIT}
-        multiline
-        {...props}
-      />
-    );
-  };
-
   if (previewSelected) {
     return <div>{convertStoryToJSX(story)}</div>;
   } else {
@@ -83,12 +58,21 @@ export default function StoryForm() {
           to the left of each component if you want to reorder them.
         </p>
 
-        <TitleField
+        <MetaField
+          content={story.title}
+          id="story-title"
+          label="Title"
+          maxLength={TITLE_CHAR_LIMIT}
           story={story}
           onChange={event => dispatch(updateTitle(event.target.value))}
         />
 
-        <DescriptionField
+        <MetaField
+          content={story.description}
+          id="story-description"
+          label="Description"
+          maxLength={DESCRIPTION_CHAR_LIMIT}
+          multiline
           story={story}
           onChange={event => dispatch(updateDescription(event.target.value))}
         />

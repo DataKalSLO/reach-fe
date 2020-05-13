@@ -31,12 +31,17 @@ const initialState: GraphState = {
     [consts.CREATE_GRAPH]: [],
     [consts.HEALTH]: [
       prebuilt.covidCasesGraphOptions,
-      prebuilt.unemploymentInsuranceClaimGraphOption,
+      prebuilt.SBCovidCasesGraphOptions,
       prebuilt.covidCasesByStatusGraphOptions,
+      prebuilt.SBCovidCasesByStatusGraphOptions,
       prebuilt.covidCasesByCityGraphOptions,
-      prebuilt.covidCasesByRegionGraphOptions,
+      prebuilt.SBCovidCasesBycityGraphOptions,
       prebuilt.covidCasesByAgeGraphOptions,
-      prebuilt.HealthCareFacityBedGraphOptions
+      prebuilt.SBCovidCasesByAgeGraphOptions,
+      prebuilt.HealthCareFacityBedGraphOptions,
+      prebuilt.SBHealthCareFacityBedGraphOptions,
+      prebuilt.covidCasesByRegionGraphOptions,
+      prebuilt.unemploymentInsuranceClaimGraphOption
     ]
   }
 };

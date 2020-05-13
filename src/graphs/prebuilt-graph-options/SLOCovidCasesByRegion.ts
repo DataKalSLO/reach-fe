@@ -1,6 +1,6 @@
 const categories = ['North County', 'South County', 'Coastal', 'Central'];
 
-const data = [[98, 42, 11, 18]];
+const data = [[137, 47, 12, 30]];
 
 export const CovidCasesByRegionOptions: Highcharts.Options = {
   tooltip: {
@@ -9,7 +9,6 @@ export const CovidCasesByRegionOptions: Highcharts.Options = {
     valueSuffix: ' '
   },
   chart: {
-    height: '70%',
     zoomType: 'xy',
     panning: { enabled: true },
     panKey: 'shift'
@@ -17,13 +16,16 @@ export const CovidCasesByRegionOptions: Highcharts.Options = {
   title: {
     text: ' Covid-19 Cases by Region in San Luis Obispo County'
   },
+  subtitle: {
+    text: 'as of May 11th, 2020'
+  },
   xAxis: {
     type: 'category',
     categories: categories
   },
   yAxis: {
     title: {
-      text: 'Region'
+      text: 'Number of Cases'
     }
   },
   plotOptions: {
