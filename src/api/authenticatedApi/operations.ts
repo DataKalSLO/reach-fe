@@ -2,7 +2,7 @@ import { store, history } from '../../redux/store';
 import { EMPTY_TOKEN } from '../../nav/constants';
 import { get, del, put, post } from '../base';
 import { LOGIN } from '../../nav/constants';
-import { UnauthorizedError } from './constants';
+import { UnauthorizedAOperationError } from './constants';
 
 export function authenticatedGet(endpoint: string): Promise<object> {
   return getUserTokenOrRedirect(token => get(endpoint, token));
@@ -32,7 +32,7 @@ function getUserTokenOrRedirect<T>(
   const token = store.getState().user.token; // TODO: Replace with mapStateToProps
   if (token === EMPTY_TOKEN) {
     history.push(LOGIN);
-    throw UnauthorizedError;
+    throw UnauthorizedAOperationError;
   } else {
     return route(token);
   }

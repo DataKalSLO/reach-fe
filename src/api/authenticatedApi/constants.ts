@@ -1,10 +1,9 @@
-export const NO_AUTHENTICATION_TOKEN_ERROR =
-  'Action required user token. Redirecting to login';
+export const UNAUTHORIZED_OPERATION_ERROR = 'UNAUTHORIZED_OPERATION_ERROR';
 
-export const NO_AUTHENTICATION_TOKEN_MESSAGE =
-  'No token found. User is not signed in.';
+export const UNAUTHORIZED_OPERATION_ERROR_MESSAGE =
+  'Operation requires authentication token. Redirecting to login.';
 
-export const UnauthorizedError = {
-  name: NO_AUTHENTICATION_TOKEN_ERROR,
-  message: NO_AUTHENTICATION_TOKEN_MESSAGE
+export const UnauthorizedAOperationError = {
+  name: UNAUTHORIZED_OPERATION_ERROR,
+  message: UNAUTHORIZED_OPERATION_ERROR_MESSAGE
 };
