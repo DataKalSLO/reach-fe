@@ -19,7 +19,7 @@ import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
 import { areValidMetaFields } from './StoryForm';
 
-const STORY_SIDEBAR_WIDTH = 175;
+const STORY_SIDEBAR_WIDTH = 190;
 
 export default function StorySidebar() {
   const storyBuilderState = useSelector(getStoryBuilder);
@@ -79,10 +79,6 @@ export default function StorySidebar() {
           icon={previewSelected ? <Edit /> : <Visibility />}
           onClick={handleTogglePreview}
         />
-
-        {/* A dirty hack to make the List think it has multiple children, as required.
-        Easiest way to keep the styling and spacing consistent. */}
-        <></>
       </List>
       <Divider />
       <List>
