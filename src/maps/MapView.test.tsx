@@ -25,16 +25,11 @@ const testPopup = {
   }
 };
 const testPopups = Array<LocationFeatures>();
+// TODO: fix type errors here
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function setTestedMarker(location: any) {
   testPopups.concat(location);
 }
-
-// Values are for Marker testing
-const testFeatures = Array<LocationFeatures[]>();
-const testColorAssociation: {
-  [name: string]: { [color: string]: string };
-} = {};
-const testLayer = 'testing Marker';
 
 // Testing basic props of Popups, still do not know how to test clicks and similar events.
 describe('<Popups /> with props', () => {
@@ -54,20 +49,6 @@ describe('<Popups /> with props', () => {
     expect(container.props.longitude).toEqual(-40.88);
   });
 });
-
-// TODO: Test Markers, getting a declaration error. I think it's because the return calls map.
-// // Testing Marker
-// describe('<Markers /> with props', () => {
-//   const container = Markers(
-//     testFeatures,
-//     setTestedMarker,
-//     testPopups,
-//     testColorAssociation,
-//     testLayer
-//   );
-
-//   it('default props are set', () => {});
-// });
 
 // Quantile Maker from old project.
 describe('quantileMaker function', () => {
