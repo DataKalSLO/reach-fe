@@ -18,10 +18,18 @@ export interface User {
   name: string;
   role: number;
   occupation: string;
+  notificationsEnabled: boolean;
+}
+
+export interface UserSettings {
+  name: string;
+  occupation: string;
+  notificationsEnabled: boolean;
 }
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const UPDATE_SETTINGS = 'UPDATE_SETTINGS';
 
 interface LoginUserAction {
   type: typeof LOGIN;
@@ -32,4 +40,12 @@ interface LogoutUserAction {
   type: typeof LOGOUT;
 }
 
-export type UserActionTypes = LoginUserAction | LogoutUserAction;
+interface UpdateUserSettingsAction {
+  type: typeof UPDATE_SETTINGS;
+  payload: UserSettings;
+}
+
+export type UserActionTypes =
+  | LoginUserAction
+  | LogoutUserAction
+  | UpdateUserSettingsAction;

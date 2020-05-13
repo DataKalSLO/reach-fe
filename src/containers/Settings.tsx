@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   Paper,
   Typography,
@@ -6,23 +6,84 @@ import {
   Divider,
   Box,
   Button,
+  TextField,
+  Switch,
   styled
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { getUser } from '../redux/login/selectors';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import EditIcon from '@material-ui/icons/Edit';
-import IndividualSetting from './IndividualSetting';
+import { Edit, Done } from '@material-ui/icons';
 import ConfirmDeleteAccount from '../accounts/ConfirmDeleteAccount';
+import { UserSettings } from '../redux/login/types';
+import { updateUserSettings } from '../redux/login/actions';
+import { useDispatch } from 'react-redux';
+import { OccupationDropdown } from './OccupationDropdown';
 
 function Settings() {
   const user = useSelector(getUser);
+  const dispatch = useDispatch();
+  const [editNameMode, setEditNameMode] = useState(false);
+  const [editOccMode, setOccEditMode] = useState(false);
   const [displayError, setDisplayError] = useState(false);
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
+  const [occupation, setOccupation] = useState(user.occupation);
+  const settings: UserSettings = {
+    name: user.name,
+    occupation: user.occupation,
+    notificationsEnabled: user.notificationsEnabled
+  };
+
+  const saveNameSetting = useCallback(() => {
+    setEditNameMode(!editNameMode);
+    if (editNameMode) {
+      settings.name = user.name;
+      dispatch(updateUserSettings(user.email, settings));
+    }
+  }, [editNameMode, settings, user.name, user.email, dispatch]);
+
+  const saveOccSetting = useCallback(() => {
+    setOccEditMode(!editOccMode);
+    if (editOccMode) {
+      settings.occupation = occupation;
+      dispatch(updateUserSettings(user.email, settings));
+    }
+  }, [editOccMode, user.email, settings, occupation, dispatch]);
+
+  const saveEmailNotifSetting = useCallback(() => {
+    settings.notificationsEnabled = !user.notificationsEnabled;
+    dispatch(updateUserSettings(user.email, settings));
+  }, [user.email, settings, dispatch, user.notificationsEnabled]);
 
   const handleDeleteAccount = () => {
     setIsConfirmDelete(true);
   };
+
+  const editNameIcon = editNameMode ? <Done /> : <Edit />;
+  const editOccIcon = editOccMode ? <Done /> : <Edit />;
+
+  const handleInputChangeName = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      user.name = event.target.value;
+    },
+    [user]
+  );
+
+  const nameVal = editNameMode ? (
+    <TextField
+      label="Name"
+      defaultValue={user.name}
+      onChange={handleInputChangeName}
+    />
+  ) : (
+    <Typography>Name: {user.name}</Typography>
+  );
+
+  const occupationVal = editOccMode ? (
+    <OccupationDropdown occupation={occupation} setOccupation={setOccupation} />
+  ) : (
+    <Typography>Occupation: {occupation}</Typography>
+  );
 
   return (
     <React.Fragment>
@@ -30,18 +91,39 @@ function Settings() {
       <SettingsPaper elevation={8}>
         <SettingsBox>
           <AccountCircle fontSize="large" />
-          <IconButton>
-            <EditIcon />
+          <IconButton disabled>
+            <Edit />
           </IconButton>
         </SettingsBox>
         <Divider variant="middle" />
-        <IndividualSetting settingName="Name" userInfo={user.name} />
-        <IndividualSetting settingName="Email" userInfo={user.email} />
-        <IndividualSetting
-          settingName="Occupation"
-          userInfo={user.occupation}
-        />
-        <IndividualSetting settingName="Email Notifications" userInfo="" />
+        <SettingsBox>
+          {nameVal}
+          <IconButton onClick={() => saveNameSetting()}>
+            {editNameIcon}
+          </IconButton>
+        </SettingsBox>
+        <Divider variant="middle" />
+        <SettingsBox>
+          <Typography>Email: {user.email}</Typography>
+          <IconButton disabled>
+            <Edit />
+          </IconButton>
+        </SettingsBox>
+        <Divider variant="middle" />
+        <SettingsBox>
+          {occupationVal}
+          <IconButton onClick={() => saveOccSetting()}>
+            {editOccIcon}
+          </IconButton>
+        </SettingsBox>
+        <Divider variant="middle" />
+        <SettingsBox>
+          <Typography>Email Notifications:</Typography>
+          <Switch
+            checked={user.notificationsEnabled || false}
+            onChange={saveEmailNotifSetting}
+          />
+        </SettingsBox>
         <CenterBox>
           <SettingsButton variant="outlined">Reset Password</SettingsButton>
           <SettingsDeleteButton
