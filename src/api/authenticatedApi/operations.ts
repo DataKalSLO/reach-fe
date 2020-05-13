@@ -5,35 +5,33 @@ import { LOGIN } from '../../nav/constants';
 import { UnauthorizedAOperationError } from './constants';
 
 export function authenticatedGet(endpoint: string): Promise<object> {
-  return getUserTokenOrRedirect(token => get(endpoint, token));
+  return performActionWithToken(token => get(endpoint, token));
 }
 
 export function authenticatedDel(endpoint: string): Promise<object> {
-  return getUserTokenOrRedirect(token => del(endpoint, token));
+  return performActionWithToken(token => del(endpoint, token));
 }
 
 export function authenticatedPut(
   endpoint: string,
   body: object
 ): Promise<object> {
-  return getUserTokenOrRedirect(token => put(endpoint, body, token));
+  return performActionWithToken(token => put(endpoint, body, token));
 }
 
 export function authenticatedPost(
   endpoint: string,
   body: object
 ): Promise<object> {
-  return getUserTokenOrRedirect(token => post(endpoint, body, token));
+  return performActionWithToken(token => post(endpoint, body, token));
 }
 
-function getUserTokenOrRedirect<T>(
-  route: (token: string) => Promise<T>
-): Promise<T> {
-  const token = store.getState().user.token; // TODO: Replace with mapStateToProps
+function performActionWithToken<T>(action: (token: string) => T): T {
+  const token = store.getState().user.token;
   if (token === EMPTY_TOKEN) {
     history.push(LOGIN);
     throw UnauthorizedAOperationError;
   } else {
-    return route(token);
+    return action(token);
   }
 }
