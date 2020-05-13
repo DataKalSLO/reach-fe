@@ -2,7 +2,7 @@ import chroma from 'chroma-js';
 import { zip } from 'lodash';
 import React from 'react';
 
-// TODO: Had trouble creating an interface for featureCollection, doing it next quarter
+// TODO: Had trouble creating an interface for featureCollection
 // Tried to create an interface using the type from features on line 34
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function prepGeo(featureCollection: any) {
