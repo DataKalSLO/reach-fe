@@ -1,5 +1,6 @@
 import { Divider, Typography } from '@material-ui/core';
 import {
+  ChatBubble,
   Edit,
   InsertChart,
   InsertPhoto,
@@ -10,6 +11,7 @@ import {
 } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { saveStoryAndHandleResponse } from '../api/stories/operationHandlers';
 import Drawer from '../common/components/Drawer';
 import { List, ListItemButton } from '../reach-ui/core';
 import { createEmptyTextBlock } from '../redux/story/actions';
@@ -17,9 +19,8 @@ import { getStory } from '../redux/story/selectors';
 import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
 import { areValidMetaFields } from './StoryForm';
-import { saveStoryAndHandleResponse } from '../api/stories/operationHandlers';
 
-const STORY_SIDEBAR_WIDTH = 165;
+const STORY_SIDEBAR_WIDTH = 175;
 
 export default function StorySidebar() {
   const storyBuilderState = useSelector(getStoryBuilder);
@@ -79,7 +80,19 @@ export default function StorySidebar() {
           icon={previewSelected ? <Edit /> : <Visibility />}
           onClick={handleTogglePreview}
         />
+
+        {/* A dirty hack to make the List think it has multiple children, as required.
+        Easiest way to keep the styling and spacing consistent. */}
+        <></>
+      </List>
+      <Divider />
+      <List>
         <ListItemButton text={'Save'} icon={<Save />} onClick={handleSave} />
+        <ListItemButton
+          text={'Submit for Review'}
+          icon={<ChatBubble />}
+          onClick={() => alert('Not yet implemented')}
+        />
       </List>
     </Drawer>
   );
