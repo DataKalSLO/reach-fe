@@ -21,6 +21,9 @@ export const SBCovidCasesByAgeOptions: Highcharts.Options = {
   title: {
     text: ' Covid-19 Cases by Age in Santa Barbara County'
   },
+  subtitle: {
+    text: 'as of May 11th, 2020'
+  },
   xAxis: {
     type: 'category',
     categories: categories

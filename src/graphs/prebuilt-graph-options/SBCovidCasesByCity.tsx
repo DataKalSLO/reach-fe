@@ -25,13 +25,15 @@ export const SBCovidCasesBycityOptions: Highcharts.Options = {
     valueSuffix: ' '
   },
   chart: {
-    height: '70%',
     zoomType: 'xy',
     panning: { enabled: true },
     panKey: 'shift'
   },
   title: {
     text: ' Covid-19 Cases by City or Town in Santa Barbara County'
+  },
+  subtitle: {
+    text: 'as of May 11th, 2020'
   },
   xAxis: {
     type: 'category',

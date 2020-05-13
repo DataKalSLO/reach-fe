@@ -328,6 +328,9 @@ export const CovidCasesByStatusOptions: Highcharts.Options = {
   title: {
     text: 'Covid-19 Cases by Status in San Luis Obispo County'
   },
+  subtitle: {
+    text: 'as of May 11th, 2020'
+  },
   xAxis: {
     type: 'category',
     categories: categories

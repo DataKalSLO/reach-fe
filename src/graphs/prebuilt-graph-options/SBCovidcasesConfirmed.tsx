@@ -135,7 +135,6 @@ export const SBCovidCasesOptions: Highcharts.Options = {
     valueSuffix: ''
   },
   chart: {
-    height: '70%',
     zoomType: 'xy',
     panning: { enabled: true },
     panKey: 'shift'
@@ -143,6 +142,9 @@ export const SBCovidCasesOptions: Highcharts.Options = {
   title: {
     text: 'Covid-19 Total Confirmed Cases in Santa Barbara County',
     widthAdjust: -100
+  },
+  subtitle: {
+    text: 'as of May 11th, 2020'
   },
   xAxis: {
     type: 'category',

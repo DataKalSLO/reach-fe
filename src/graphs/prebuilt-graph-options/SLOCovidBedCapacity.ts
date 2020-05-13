@@ -94,6 +94,9 @@ export const HealthCareFacityBedOptions: Highcharts.Options = {
       'Licensed and Certified Healthcare Facility Bed Types and Counts in SLO County',
     widthAdjust: -100
   },
+  subtitle: {
+    text: 'as of April 6th, 2020'
+  },
   xAxis: {
     type: 'category',
     categories: categories
