@@ -2,7 +2,7 @@ import { BottomNavigationAction, Drawer } from '@material-ui/core';
 import { ArrowUpward, Close } from '@material-ui/icons';
 import clsx from 'clsx';
 import React, { Fragment } from 'react';
-import { IconButton } from '../../common/components/IconButton';
+import { IconButton } from '../../reach-ui/core';
 import OptionsButtons from '../components/OptionsButtons';
 import { INITIATIVE_DESC } from './constants';
 import {
