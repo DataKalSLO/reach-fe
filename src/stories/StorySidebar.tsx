@@ -16,8 +16,8 @@ import { createEmptyTextBlock } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
-import { StoryBuilderActionType } from '../redux/storybuilder/types';
 import { areValidMetaFields } from './StoryForm';
+import { saveStoryAndHandleResponse } from '../api/stories/operationHandlers';
 
 const STORY_SIDEBAR_WIDTH = 165;
 
@@ -27,22 +27,22 @@ export default function StorySidebar() {
   const story = useSelector(getStory);
   const dispatch = useDispatch();
 
-  const checkValidMetaFields = (onSuccess: () => StoryBuilderActionType) => {
+  function checkValidMetaFields<T>(onSuccess: () => T) {
     if (areValidMetaFields(story.title, story.description)) {
-      dispatch(onSuccess());
+      onSuccess();
     } else {
       alert('Please complete the required fields.');
     }
-  };
+  }
 
   const handleTogglePreview = () => {
-    checkValidMetaFields(togglePreview);
+    checkValidMetaFields(() => dispatch(togglePreview));
   };
 
   const handleSave = () => {
-    // TODO: @berto call checkValidMetaFields and pass in your onSuccess func
-    // Model this func after handleTogglePreview
-    alert('Save Stories is not implemented');
+    story.userID = 'test1@test.com'; //TODO: Remove when API functions access auth token
+    checkValidMetaFields(() => saveStoryAndHandleResponse(story));
+    //TODO: Add Loading bar while waiting for request.
   };
 
   return (

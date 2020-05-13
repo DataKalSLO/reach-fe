@@ -15,12 +15,14 @@ export const UPDATE_TITLE = 'UPDATE_TITLE';
 export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
 
 //Story-related types
-
-export interface Story {
+export interface StoryMetaInformation {
   id: string;
   userID: string;
   title: string;
   description: string;
+}
+
+export interface Story extends StoryMetaInformation {
   storyBlocks: Array<StoryBlockType>;
 }
 
