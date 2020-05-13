@@ -36,6 +36,9 @@ export const unemploymentInsuranceClaimOptions: Highcharts.Options = {
       'Number of Weekly New Unemployment Insurance (UI) Claims for San Luis Obispo County During Covid-19',
     widthAdjust: -200
   },
+  subtitle: {
+    text: 'as of April 11th, 2020'
+  },
   xAxis: {
     type: 'category',
     categories: categories

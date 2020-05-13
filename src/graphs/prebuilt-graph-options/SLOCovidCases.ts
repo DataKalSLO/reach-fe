@@ -43,7 +43,21 @@ const categories = [
   '4/24',
   '4/25',
   '4/26',
-  '4/27'
+  '4/27',
+  '4/28',
+  '4/29',
+  '4/30',
+  '5/1',
+  '5/2',
+  '5/3',
+  '5/4',
+  '5/5',
+  '5/6',
+  '5/7',
+  '5/8',
+  '5/9',
+  '5/10',
+  '5/11'
 ];
 
 const data = [
@@ -92,7 +106,21 @@ const data = [
     14,
     2,
     1,
-    3
+    3,
+    4,
+    8,
+    3,
+    4,
+    8,
+    5,
+    1,
+    2,
+    4,
+    3,
+    1,
+    2,
+    6,
+    6
   ],
   [
     1,
@@ -139,7 +167,21 @@ const data = [
     163,
     165,
     166,
-    169
+    169,
+    173,
+    181,
+    184,
+    188,
+    196,
+    201,
+    202,
+    204,
+    208,
+    211,
+    212,
+    214,
+    220,
+    226
   ]
 ];
 
@@ -157,6 +199,9 @@ export const CovidCasesOptions: Highcharts.Options = {
   title: {
     text: 'Covid-19 New vs. Total Confirmed Cases in San Luis Obispo',
     widthAdjust: -100
+  },
+  subtitle: {
+    text: 'as of May 11th, 2020'
   },
   xAxis: {
     type: 'category',
