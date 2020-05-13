@@ -104,7 +104,6 @@ export const SBHealthCareFacityBedOptions: Highcharts.Options = {
     valueSuffix: ' '
   },
   chart: {
-    height: '70%',
     zoomType: 'xy',
     panning: { enabled: true },
     panKey: 'shift'
@@ -113,9 +112,6 @@ export const SBHealthCareFacityBedOptions: Highcharts.Options = {
     text:
       'Licensed and Certified Healthcare Facility Bed Types and Counts in Santa Barbara County',
     widthAdjust: -100
-  },
-  subtitle: {
-    text: 'as of April 6th, 2020'
   },
   xAxis: {
     type: 'category',
