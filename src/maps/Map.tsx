@@ -29,7 +29,7 @@ const BOX_WIDTH = '100%';
 const BOX_HEIGHT = '100%';
 const BOX_MAX_WIDTH = 'calc(100vw/2)';
 
-const CARD_HEIGHT = '96%';
+const CARD_HEIGHT = '95%';
 const CARD_MARGIN = '15px';
 
 const MAP_HEIGHT = '100%';
