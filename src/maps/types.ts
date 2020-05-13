@@ -85,9 +85,3 @@ export type Selections = MarkerSelection[] | HeatMapSelection[];
 export interface FeatureProperty {
   properties: { name: string };
 }
-
-export interface LegendProps {
-  heatMapSelection: HeatMapSelection;
-  colorAssociation: ColorAssociation;
-  markerSelection: MarkerSelection[];
-}

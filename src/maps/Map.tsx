@@ -8,51 +8,17 @@ import Layers from './Layers';
 import { BoundSelection, ColorAssociation } from './types.js';
 import MapView from './MapView';
 import Legend from './Legend';
-import { theme } from '../theme/theme.js';
+import {
+  SCROLL_SNAP_TYPE,
+  SCROLLBAR_WIDTH,
+  SCROLLBAR_WEBKIT_BOX_SHADOW,
+  WEBKIT_BORDER_RADIUS,
+  WEBKIT_BACKGROUND_COLOR,
+  WEBKIT_OUTLINE
+} from '../theme/theme.js';
 
 // TODO: save to stories
 // TODO: use redux store instead of state
-
-export const StyledBox = styled(Box)({
-  width: '100%',
-  height: '100%',
-  maxWidth: 'calc(100vw/2)',
-  overflow: 'none'
-});
-
-export const StyledCard = styled(Card)({
-  position: 'relative',
-  justifyContent: 'left',
-  alignItems: 'space-around',
-  height: '98%',
-  boxShadow: theme.shadows[5],
-  marginLeft: '15px',
-  margin: '10px',
-  overflow: 'none'
-});
-
-export const StyledMapContainer = styled(Box)({
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'left',
-  height: '100%',
-  width: '97%',
-  marginLeft: '10px',
-  overflow: 'scroll',
-  scrollSnapType: 'y mandatory',
-  '&::-webkit-scrollbar': {
-    width: '0.5em'
-  },
-  '&::-webkit-scrollbar-track': {
-    boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
-    webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
-  },
-  '&::-webkit-scrollbar-thumb': {
-    borderRadius: '10px',
-    backgroundColor: 'rgba(0,0,0,.3)',
-    outline: '1px solid slategrey'
-  }
-});
 
 const defaultMarkerSelection = markerData[0];
 const defaultHeatMapSelection = medianHouseholdIncomeHeatMap;
@@ -107,4 +73,42 @@ function Map() {
     </StyledBox>
   );
 }
+
+const StyledBox = styled(Box)({
+  width: '100%',
+  height: '100%',
+  maxWidth: 'calc(100vw/2)'
+});
+
+const StyledCard = styled(Card)({
+  position: 'relative',
+  height: '98%',
+  marginLeft: '15px',
+  margin: '10px',
+  overflow: 'none'
+});
+
+const StyledMapContainer = styled(Box)({
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'left',
+  height: '100%',
+  width: '97%',
+  marginLeft: '10px',
+  overflow: 'scroll',
+  scrollSnapType: SCROLL_SNAP_TYPE,
+  '&::-webkit-scrollbar': {
+    width: SCROLLBAR_WIDTH
+  },
+  '&::-webkit-scrollbar-track': {
+    boxShadow: SCROLLBAR_WEBKIT_BOX_SHADOW,
+    webkitBoxShadow: SCROLLBAR_WEBKIT_BOX_SHADOW
+  },
+  '&::-webkit-scrollbar-thumb': {
+    borderRadius: WEBKIT_BORDER_RADIUS,
+    backgroundColor: WEBKIT_BACKGROUND_COLOR,
+    outline: WEBKIT_OUTLINE
+  }
+});
+
 export default Map;
