@@ -11,7 +11,7 @@ import { theme } from '../../theme/theme';
 const useStyles = makeStyles({
   drawer: {
     flexShrink: 0,
-    zIndex: 0 // to place drawer behind app bar
+    zIndex: 2 // to place drawer behind app bar and in front of page content
   },
   drawerPaper: {
     backgroundColor: theme.palette.secondary.light,
@@ -56,14 +56,14 @@ export default function Drawer(props: Props) {
   // icon used to open/close the drawer
   const CollapsibleIcon = () => {
     if (props.isCollapsible) {
-      // selects the chevron with the apprpriate direction
+      // selects the chevron with the appropriate direction
       // based on which side side of the screen the drawer is anchored
       const chevronIcon =
         props.anchor === 'right' ? <ChevronRight /> : <ChevronLeft />;
       const chevronPosition = props.anchor === 'right' ? 'right' : 'left';
 
       return (
-        // wrapped in List Component so ripple formatting on icon doesn't get distored
+        // wrapped in List component so ripple formatting on icon doesn't get distorted
         <List>
           <IconButton
             aria-label={'test'}
