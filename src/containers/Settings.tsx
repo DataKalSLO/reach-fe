@@ -7,13 +7,13 @@ import {
   Box,
   Button,
   TextField,
+  Switch,
   styled
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { getUser } from '../redux/login/selectors';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Edit, Done } from '@material-ui/icons';
-import IndividualSetting from './IndividualSetting';
 import ConfirmDeleteAccount from '../accounts/ConfirmDeleteAccount';
 import { UserSettings } from '../redux/login/types';
 import { updateUserSettings } from '../redux/login/actions';
@@ -40,7 +40,7 @@ function Settings() {
       settings.name = user.name;
       dispatch(updateUserSettings(user.email, settings));
     }
-  }, [editNameMode, user.email, settings, dispatch]);
+  }, [editNameMode, settings, user.name, user.email, dispatch]);
 
   const saveOccSetting = useCallback(() => {
     setOccEditMode(!editOccMode);
@@ -49,6 +49,11 @@ function Settings() {
       dispatch(updateUserSettings(user.email, settings));
     }
   }, [editOccMode, user.email, settings, occupation, dispatch]);
+
+  const saveEmailNotifSetting = useCallback(() => {
+    settings.notificationsEnabled = !user.notificationsEnabled;
+    dispatch(updateUserSettings(user.email, settings));
+  }, [user.email, settings, dispatch, user.notificationsEnabled]);
 
   const handleDeleteAccount = () => {
     setIsConfirmDelete(true);
@@ -75,7 +80,7 @@ function Settings() {
   );
 
   const occupationVal = editOccMode ? (
-    <OccupationDropdown occupation={occupation} setOccupation={setOccupation}/>
+    <OccupationDropdown occupation={occupation} setOccupation={setOccupation} />
   ) : (
     <Typography>Occupation: {occupation}</Typography>
   );
@@ -86,33 +91,39 @@ function Settings() {
       <SettingsPaper elevation={8}>
         <SettingsBox>
           <AccountCircle fontSize="large" />
-          <IconButton>
+          <IconButton disabled>
             <Edit />
           </IconButton>
         </SettingsBox>
         <Divider variant="middle" />
         <SettingsBox>
           {nameVal}
-          <IconButton onClick={() => saveNameSetting()}>{editNameIcon}</IconButton>
+          <IconButton onClick={() => saveNameSetting()}>
+            {editNameIcon}
+          </IconButton>
         </SettingsBox>
         <Divider variant="middle" />
-        <IndividualSetting
-          settingName="Email"
-          userInfo={user.email}
-          email={user.email}
-          settings={settings}
-        />
+        <SettingsBox>
+          <Typography>Email: {user.email}</Typography>
+          <IconButton disabled>
+            <Edit />
+          </IconButton>
+        </SettingsBox>
+        <Divider variant="middle" />
         <SettingsBox>
           {occupationVal}
-          <IconButton onClick={() => saveOccSetting()}>{editOccIcon}</IconButton>
+          <IconButton onClick={() => saveOccSetting()}>
+            {editOccIcon}
+          </IconButton>
         </SettingsBox>
         <Divider variant="middle" />
-        <IndividualSetting
-          settingName="Email Notifications"
-          userInfo=""
-          email={user.email}
-          settings={settings}
-        />
+        <SettingsBox>
+          <Typography>Email Notifications:</Typography>
+          <Switch
+            checked={user.notificationsEnabled || false}
+            onChange={saveEmailNotifSetting}
+          />
+        </SettingsBox>
         <CenterBox>
           <SettingsButton variant="outlined">Reset Password</SettingsButton>
           <SettingsDeleteButton
