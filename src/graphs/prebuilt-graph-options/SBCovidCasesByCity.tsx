@@ -41,7 +41,7 @@ export const SBCovidCasesBycityOptions: Highcharts.Options = {
   },
   yAxis: {
     title: {
-      text: 'Ciy or town'
+      text: 'Number of Cases'
     }
   },
   plotOptions: {

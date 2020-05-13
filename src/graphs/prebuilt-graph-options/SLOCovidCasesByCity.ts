@@ -37,7 +37,7 @@ export const CovidCasesBycityOptions: Highcharts.Options = {
   },
   yAxis: {
     title: {
-      text: 'Ciy or town'
+      text: 'Number of cases'
     }
   },
   plotOptions: {

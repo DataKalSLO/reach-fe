@@ -25,7 +25,7 @@ export const CovidCasesByRegionOptions: Highcharts.Options = {
   },
   yAxis: {
     title: {
-      text: 'Region'
+      text: 'Number of Cases'
     }
   },
   plotOptions: {
