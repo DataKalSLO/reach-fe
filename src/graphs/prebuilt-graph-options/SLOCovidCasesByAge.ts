@@ -67,7 +67,7 @@ export const CovidCasesByAgeOptions: Highcharts.Options = {
       showInLegend: true,
       dataLabels: {
         enabled: true,
-        useHTML: true
+        useHTML: false
       }
     }
   ]
