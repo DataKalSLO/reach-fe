@@ -42,7 +42,7 @@ export function onHover(
   setHoveredLocation: any,
   // TODO: going to solve "any" errors at a later time, ignoring for demo
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  event: any, 
+  event: any,
   x: React.MutableRefObject<number>,
   y: React.MutableRefObject<number>,
   dims: { width: number; height: number },
@@ -87,7 +87,7 @@ export function quantileMaker(
     .map(
       // TODO: going to solve "any" errors at a later time, ignoring for demo
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      function (this: any, val: number, idx: number) {
+      function(this: any, val: number, idx: number) {
         return idx === 0 ? min : (this.acc += bucket);
       },
       { acc: min }
