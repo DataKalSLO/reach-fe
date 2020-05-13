@@ -53,7 +53,7 @@ function Map() {
   const [boundSelection, setBoundSelection] = useState(defaultBoundsSelection);
   return (
     <StyledBox>
-      <StyledCard>
+      <StyledCard variant="outlined">
         <StyledMapContainer>
           <Layers
             markerSelection={markerSelection}
