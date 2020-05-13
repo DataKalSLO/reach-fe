@@ -48,11 +48,8 @@
     "lodash": "^4.17.15",
     "node-sass": "^4.13.1",
     "react": "^16.12.0",
-<<<<<<< HEAD
     "react-color": "^2.18.1",
-=======
     "react-csv": "^2.0.3",
->>>>>>> afb3a9d109ba550b9e88ac1081fd1763dff0d955
     "react-dom": "^16.12.0",
     "react-dropzone-uploader": "^2.11.0",
     "react-facebook-login": "^4.1.1",
