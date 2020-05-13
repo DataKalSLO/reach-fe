@@ -25,6 +25,18 @@ const defaultHeatMapSelection = medianHouseholdIncomeHeatMap;
 const defaultBoundsSelection: BoundSelection = 'Zip Code';
 const defaultColorAssociation: ColorAssociation = {};
 
+const BOX_WIDTH = '100%';
+const BOX_HEIGHT = '100%';
+const BOX_MAX_WIDTH = 'calc(100vw/2)';
+
+const CARD_HEIGHT = '98%';
+const CARD_MARGIN = '15px';
+
+const MAP_HEIGHT = '100%';
+const MAP_WIDTH = '97%';
+const MAP_MARGIN_LEFT = '10px';
+const MAP_OVERFLOW = 'scroll';
+
 function Map() {
   const [markerSelection, setMarkerSelection] = useState([
     defaultMarkerSelection
@@ -75,27 +87,21 @@ function Map() {
 }
 
 const StyledBox = styled(Box)({
-  width: '100%',
-  height: '100%',
-  maxWidth: 'calc(100vw/2)'
+  width: BOX_WIDTH,
+  height: BOX_HEIGHT,
+  maxWidth: BOX_MAX_WIDTH
 });
 
 const StyledCard = styled(Card)({
-  position: 'relative',
-  height: '98%',
-  marginLeft: '15px',
-  margin: '10px',
-  overflow: 'none'
+  height: CARD_HEIGHT,
+  margin: CARD_MARGIN
 });
 
 const StyledMapContainer = styled(Box)({
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'left',
-  height: '100%',
-  width: '97%',
-  marginLeft: '10px',
-  overflow: 'scroll',
+  height: MAP_HEIGHT,
+  width: MAP_WIDTH,
+  marginLeft: MAP_MARGIN_LEFT,
+  overflow: MAP_OVERFLOW,
   scrollSnapType: SCROLL_SNAP_TYPE,
   '&::-webkit-scrollbar': {
     width: SCROLLBAR_WIDTH

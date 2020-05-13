@@ -79,6 +79,12 @@ function MapView(props: MapViewProps) {
   const prepped = prepGeo(heatMapFeatures);
   const data = GeoJSON.parse(prepped, { GeoJSON: 'geometry' });
 
+  const VIEWPORT_WIDTH = '100%';
+  const VIEWPORT_HEIGHT = '45vh';
+  const VIEWPORT_DISPLAY = 'flex';
+  const VIEWPORT_FLEX_FLOW = 'row';
+  const VIEWPORT_ZOOM = 8;
+
   // map outlines
   const outlinesPrepped = prepGeo(mapOutline.features);
   const outlineData = GeoJSON.parse(outlinesPrepped, { GeoJSON: 'geometry' });
@@ -131,13 +137,13 @@ function MapView(props: MapViewProps) {
   // TODO: going to solve "any" errors at a later time
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [viewport, setViewport]: any = React.useState({
-    width: '100%',
-    height: '45vh',
-    display: 'flex',
-    flexFlow: 'row',
+    width: VIEWPORT_WIDTH,
+    height: VIEWPORT_HEIGHT,
+    display: VIEWPORT_DISPLAY,
+    flexFlow: VIEWPORT_FLEX_FLOW,
     latitude: SLO_LATITUDE,
     longitude: SLO_LONGITUDE,
-    zoom: 8
+    zoom: VIEWPORT_ZOOM
   });
 
   useEffect(() => {
