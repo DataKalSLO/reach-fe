@@ -36,7 +36,7 @@ export default function StorySidebar() {
   }
 
   const handleTogglePreview = () => {
-    checkValidMetaFields(() => dispatch(togglePreview));
+    checkValidMetaFields(() => dispatch(togglePreview()));
   };
 
   const handleSave = () => {
