@@ -31,22 +31,15 @@ function GraphToolbar({ graph }: GraphHeaderProps) {
   return (
     <Toolbar>
       <ToolbarButton
-        label={DELETE_LABEL}
-        startIcon={<Delete color="error" />}
-        onClick={() => {
-          dispatch(deleteGraphAction(graph.id));
-        }}
-      />
-      <ToolbarButton
-        label={SAVE_LABEL}
-        startIcon={<Save />}
-        onClick={() => alert('Not implemented')}
-      />
-      <ToolbarButton
         label={EDIT_LABEL}
         variant="text"
         color="default"
         startIcon={<Edit />}
+        onClick={() => alert('Not implemented')}
+      />
+      <ToolbarButton
+        label={SAVE_LABEL}
+        startIcon={<Save />}
         onClick={() => alert('Not implemented')}
       />
       <ToolbarButton
@@ -60,6 +53,13 @@ function GraphToolbar({ graph }: GraphHeaderProps) {
         label={SHARE_LABEL}
         startIcon={<Share />}
         onClick={() => alert('Not implemented')}
+      />
+      <ToolbarButton
+        label={DELETE_LABEL}
+        startIcon={<Delete color="error" />}
+        onClick={() => {
+          dispatch(deleteGraphAction(graph.id));
+        }}
       />
     </Toolbar>
   );
