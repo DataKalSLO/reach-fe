@@ -66,7 +66,7 @@ export default function Drawer(props: Props) {
         // wrapped in List component so ripple formatting on icon doesn't get distorted
         <List>
           <IconButton
-            aria-label={'test'}
+            aria-label={'toggle drawer'}
             color={'default'}
             icon={open ? chevronIcon : <Menu />}
             onClick={toggleDrawer}
