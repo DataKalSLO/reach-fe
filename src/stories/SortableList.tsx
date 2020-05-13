@@ -9,7 +9,7 @@ import {
   SortableHandle
 } from 'react-sortable-hoc';
 import { Dispatch } from 'redux';
-import { IconButton as CustomIconButton } from '../common/components/IconButton';
+import { IconButton as CustomIconButton } from '../reach-ui/core';
 import { deleteBlock, swapBlocks } from '../redux/story/actions';
 import { StoryBlockType } from '../redux/story/types';
 import { theme } from '../theme/theme';
