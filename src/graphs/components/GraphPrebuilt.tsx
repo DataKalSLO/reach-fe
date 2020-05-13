@@ -49,7 +49,7 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
   }
 
   return (
-    <GraphCard variant="outlined">
+    <Card variant="outlined">
       <GraphCardActions>
         <GraphToolbar graph={graph} />
       </GraphCardActions>
@@ -64,7 +64,7 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
           }}
         />
       </CardContent>
-    </GraphCard>
+    </Card>
   );
 }
 
@@ -73,15 +73,10 @@ export default GraphPrebuilt;
 /*
  * Styles
  */
-const GraphCard = styled(Card)({
-  borderWidth: '2px'
-});
-
 const GraphCardActions = styled(CardActions)({
   padding: '0px'
 });
 
 const GraphDivider = styled(Divider)({
-  height: '2px',
   marginBottom: '10px'
 });
