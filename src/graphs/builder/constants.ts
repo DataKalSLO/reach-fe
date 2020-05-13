@@ -3,6 +3,8 @@
  */
 export const DEFAULT_TITLE = 'Chart';
 export const DEFAULT_SUBTITLE = '';
+export const DEFAULT_STACK_TYPE = 'normal';
+export const DEFAULT_SUBTITLE_WITH_SOURCE = 'Source: ';
 export const GRAPH_HEIGHT = '100%';
 export const GRAPH_MAX_WIDTH = 500;
 export const GRAPH_ZOOM_TYPE = 'x';
@@ -11,6 +13,21 @@ export const GRAPH_PANNING_ENABLED = true;
 export const GRAPH_SERIES_ALLOW_POINT_SELECT = true;
 export const GRAPH_X_AXIS_CROSSHAIR_ENABLED = true;
 export const GRAPH_SERIES_DATA_LABELS_ENABLED = true;
+
+/*
+ * Axis Options Constants
+ */
+export const X_AXIS_CATEGORY_TYPE = 'category';
+export const X_AXIS_DATETIME_TYPE = 'datetime';
+export const X_AXIS_LINEAR_TYPE = 'linear';
+
+/*
+ * Tooltip Options Constants
+ */
+export const TOOLTIP_STACK_FOOTER_PREFIX = 'Stack: ';
+export const TOOLTIP_STACK_FOOTER_VALUE = '({series.userOptions.stack})';
+export const TOOLTIP_DEFAULT_HIGHCHARTS_POINT_FORMAT =
+  '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b><br/>';
 
 /*
  * Accessibility Options Constants
@@ -36,8 +53,21 @@ export const GRAPH_3D_VIEW_DISTANCE = 25;
 export const GRAPH_3D_PLOT_DEPTH = 40;
 
 /*
+ * Combined Graph Options Constants
+ * These are for the Pie Series inside a
+ * combined graph.
+ */
+export const GRAPH_COMBINED_CENTER_X = 100;
+export const GRAPH_COMBINED_CENTER_Y = 80;
+export const GRAPH_COMBINED_SIZE = 100;
+
+/*
  * Synchronized Graph Options Constants
  */
+export const GRAPH_SYNC_ID = 'sync';
+export const GRAPH_SYNC_MARGIN_LEFT = 40;
+export const GRAPH_SYNC_SPACING_TOP = 10;
+export const GRAPH_SYNC_SPACING_BOTTOM = 20;
 export const GRAPH_SYNC_TOOLTIP_SHADOW_ENABLED = false;
 export const GRAPH_SYNC_TOOLTIP_SPLIT_ENABLED = false;
 export const GRAPH_SYNC_TOOLTIP_BORDER_WIDTH = 0;

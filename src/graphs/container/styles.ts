@@ -1,45 +1,12 @@
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { styled } from '@material-ui/core/styles';
-import { Box } from '@material-ui/core';
-import Popover from '@material-ui/core/Popover';
 import { BottomNavigation, Typography } from '@material-ui/core';
+import Popover from '@material-ui/core/Popover';
+import {
+  createStyles,
+  makeStyles,
+  styled,
+  Theme
+} from '@material-ui/core/styles';
 import { theme } from '../../theme/theme';
-
-/*
- * Graph Container styles
- */
-
-export const StyledGraphContainer = styled(Box)({
-  display: 'flex',
-  flexWrap: 'wrap',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: '100%',
-  width: '97%',
-  marginLeft: '15px',
-  overflow: 'scroll',
-  scrollSnapType: 'y mandatory',
-  '&::-webkit-scrollbar': {
-    width: '0.5em'
-  },
-  '&::-webkit-scrollbar-track': {
-    boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
-    webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
-  },
-  '&::-webkit-scrollbar-thumb': {
-    borderRadius: '10px',
-    backgroundColor: 'rgba(0,0,0,.3)',
-    outline: '1px solid slategrey'
-  }
-});
-
-export const StyledGraphComponent = styled(Box)({
-  width: '100%',
-  height: '95%',
-  scrollSnapAlign: 'center',
-  scrollSnapStop: 'always',
-  maxWidth: 'calc(100vw/2.2)'
-});
 
 /*
  * Options Bar Container styles
