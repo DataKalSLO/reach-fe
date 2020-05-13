@@ -217,13 +217,12 @@ export function HealthCareFacityBedOptions() {
   );
 }
 
-<<<<<<< HEAD
 // Covid-19 health care facity bed capacity
 
 export function EmptyOptions() {
   return <FormCreate />;
-=======
-// Covid-19 health care confirmed cases SB
+  // Covid-19 health care confirmed cases SB
+}
 
 export function SBCovidCasesOptions() {
   return (
@@ -275,5 +274,4 @@ export function SBHealthCareFacityBedOptions() {
       options={prebuilt.SBHealthCareFacityBedGraphOptions}
     />
   );
->>>>>>> afb3a9d109ba550b9e88ac1081fd1763dff0d955
 }

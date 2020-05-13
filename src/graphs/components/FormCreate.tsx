@@ -12,6 +12,7 @@ import AddDataSet from './AddDataSet';
 import AddColumns from './AddColumns';
 import AddChartType from './AddChartType';
 import GraphCreateFormOptions from './GraphCreateFormOptions';
+import AddCategoryTypeforGraph from './AddCategoryTypeforGraph';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function getSteps() {
   return [
+    'Please select a graph Category',
     'Please select a DataSet from the list bellow to create your chart ',
     'Please select two columns',
     'Please select more options'
@@ -42,10 +44,12 @@ function getSteps() {
 function getStepContent(step: number) {
   switch (step) {
     case 0:
-      return <AddDataSet />;
+      return <AddCategoryTypeforGraph />;
     case 1:
-      return <AddColumns />;
+      return <AddDataSet />;
     case 2:
+      return <AddColumns />;
+    case 3:
       return <GraphCreateFormOptions />;
     default:
       return 'Unknown step';

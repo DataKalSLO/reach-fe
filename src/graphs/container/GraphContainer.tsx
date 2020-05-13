@@ -5,11 +5,7 @@ import { addGraphsForInitiativeAction } from '../../redux/graphs/actions';
 import { HEALTH } from '../../redux/graphs/constants';
 import { getGraphs } from '../../redux/graphs/selector';
 import GraphPrebuilt from '../components/GraphPrebuilt';
-<<<<<<< HEAD
-import { StyledGraphComponent, StyledGraphContainer } from './styles';
 import FormCreate from '../components/FormCreate';
-=======
->>>>>>> afb3a9d109ba550b9e88ac1081fd1763dff0d955
 
 /*
  * Renders a list of graphs.

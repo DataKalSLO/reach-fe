@@ -16,15 +16,11 @@ import { CovidCasesBycityOptions } from './SLOCovidCasesByCity';
 import { CovidCasesByRegionOptions } from './SLOCovidCasesByRegion';
 import { CovidCasesByAgeOptions } from './SLOCovidCasesByAge';
 import { HealthCareFacityBedOptions } from './SLOCovidBedCapacity';
-<<<<<<< HEAD
-import { EmptyOptions } from './Empty_Graph';
-=======
 import { SBCovidCasesOptions } from './SBCovidcasesConfirmed';
 import { SBCovidCasesByStatusOptions } from './SBCovidCasesByStatus';
 import { SBCovidCasesBycityOptions } from './SBCovidCasesByCity';
 import { SBCovidCasesByAgeOptions } from './SBCovidCasesbyAge';
 import { SBHealthCareFacityBedOptions } from './SBCovidBedCapacity';
->>>>>>> afb3a9d109ba550b9e88ac1081fd1763dff0d955
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 export const dodGraphOptions = require('./DoDDrilldown2018.json');
@@ -46,12 +42,8 @@ export const covidCasesByCityGraphOptions = CovidCasesBycityOptions;
 export const covidCasesByRegionGraphOptions = CovidCasesByRegionOptions;
 export const covidCasesByAgeGraphOptions = CovidCasesByAgeOptions;
 export const HealthCareFacityBedGraphOptions = HealthCareFacityBedOptions;
-<<<<<<< HEAD
-export const EmptyGraphOptions = EmptyOptions;
-=======
 export const SBCovidCasesGraphOptions = SBCovidCasesOptions;
 export const SBCovidCasesByStatusGraphOptions = SBCovidCasesByStatusOptions;
 export const SBCovidCasesBycityGraphOptions = SBCovidCasesBycityOptions;
 export const SBCovidCasesByAgeGraphOptions = SBCovidCasesByAgeOptions;
 export const SBHealthCareFacityBedGraphOptions = SBHealthCareFacityBedOptions;
->>>>>>> afb3a9d109ba550b9e88ac1081fd1763dff0d955
