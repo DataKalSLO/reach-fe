@@ -128,7 +128,6 @@ export const milesTraveledOptions: Highcharts.Options = {
     valueSuffix: 'K Miles'
   },
   chart: {
-    height: '70%',
     zoomType: 'xy',
     panning: { enabled: true },
     panKey: 'shift'

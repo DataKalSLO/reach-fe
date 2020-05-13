@@ -1,7 +1,7 @@
 import { Button as CoreButton } from '@material-ui/core';
 import React from 'react';
 
-interface Props {
+export interface Props {
   edge?: 'start' | 'end' | false; // Adjusts the left and right margins
   label: string;
   onClick: () => void;
