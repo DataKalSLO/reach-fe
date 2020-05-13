@@ -1,41 +1,103 @@
-import { Drawer as CoreDrawer } from '@material-ui/core';
+import { Drawer as CoreDrawer, List } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
+import { ChevronLeft, ChevronRight, Menu } from '@material-ui/icons';
+import clsx from 'clsx';
+import React, { useState } from 'react';
+import { IconButton } from '../../reach-ui/core';
 import { theme } from '../../theme/theme';
 
-interface Props {
-  width: number;
-  children: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-}
-
-// styling for drawer must be done with drawer's child paper element,
-// and cannot be done with styled components
-// https://material-ui.com/guides/interoperability/#deeper-elements-3
+// drawerOpen and drawerClose styling copied from Material UI demo
+// https://material-ui.com/components/drawers/#mini-variant-drawer
 const useStyles = makeStyles({
   drawer: {
-    width: (props: Props) => props.width,
-    flexShrink: 0
+    flexShrink: 0,
+    zIndex: 2 // to place drawer behind app bar and in front of page content
   },
   drawerPaper: {
-    width: props => props.width,
-    zIndex: 0, // to place drawer behind app bar
     backgroundColor: theme.palette.secondary.light,
-    paddingTop: 100 // padding to place buttons beneath app bar
+    paddingTop: 75 // padding to place buttons beneath app bar
+  },
+  drawerOpen: {
+    width: (props: Props) => props.width,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen
+    })
+  },
+  drawerClose: {
+    width: theme.spacing(7) + 1,
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing(9) + 1
+    },
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    })
   }
 });
 
+interface Props {
+  width: number;
+  children: JSX.Element | JSX.Element[];
+  isCollapsible?: boolean;
+  anchor?: 'left' | 'right';
+  // This extra parameter is necessary to allow other props to be passed through
+  [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+}
+
 export default function Drawer(props: Props) {
   const classes = useStyles(props);
+  const [open, setOpen] = useState(true); // drawer is open by default
+
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
+  // icon used to open/close the drawer
+  const CollapsibleIcon = () => {
+    if (props.isCollapsible) {
+      // selects the chevron with the appropriate direction
+      // based on which side side of the screen the drawer is anchored
+      const chevronIcon =
+        props.anchor === 'right' ? <ChevronRight /> : <ChevronLeft />;
+      const chevronPosition = props.anchor === 'right' ? 'right' : 'left';
+
+      return (
+        // wrapped in List component so ripple formatting on icon doesn't get distorted
+        <List>
+          <IconButton
+            aria-label={'toggle drawer'}
+            color={'default'}
+            icon={open ? chevronIcon : <Menu />}
+            onClick={toggleDrawer}
+            style={{ float: chevronPosition }}
+          />
+        </List>
+      );
+    } else return null;
+  };
+
+  // non-standard props filtered out so otherProps can be passed Material UI Drawer component
+  const { isCollapsible, ...otherProps } = props;
 
   return (
     <CoreDrawer
       variant="permanent"
       anchor="left"
-      className={classes.drawer}
+      className={clsx(classes.drawer, {
+        [classes.drawerOpen]: open,
+        [classes.drawerClose]: !open
+      })}
       classes={{
-        paper: classes.drawerPaper
+        paper: clsx({
+          [classes.drawerPaper]: true, // using true so this style is always applied
+          [classes.drawerOpen]: open,
+          [classes.drawerClose]: !open
+        })
       }}
+      {...otherProps}
     >
+      <CollapsibleIcon />
       {props.children}
     </CoreDrawer>
   );
