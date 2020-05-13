@@ -1,18 +1,25 @@
-const categories = ['65+ years', '50-64 years', '18-49 years', '0-17 years'];
+const categories = [
+  '70+ years',
+  '50-69 years',
+  '30-49 years',
+  '18-29 years',
+  '0-17 years'
+];
 
-export const CovidCasesByAgeOptions: Highcharts.Options = {
+export const SBCovidCasesByAgeOptions: Highcharts.Options = {
   tooltip: {
-    valueDecimals: 2,
+    valueDecimals: 0,
     valuePrefix: '',
     valueSuffix: ' '
   },
   chart: {
+    height: '70%',
     zoomType: 'xy',
     panning: { enabled: true },
     panKey: 'shift'
   },
   title: {
-    text: ' Covid-19 Cases by Age in San Luis Obispo County'
+    text: ' Covid-19 Cases by Age in Santa Barbara County'
   },
   subtitle: {
     text: 'as of May 11th, 2020'
@@ -48,20 +55,24 @@ export const CovidCasesByAgeOptions: Highcharts.Options = {
       type: 'pie',
       data: [
         {
-          name: '65+ years',
-          y: 47
+          name: '70+ years',
+          y: 72
         },
         {
-          name: '50-64 years',
-          y: 60
+          name: '50-69 years',
+          y: 423
         },
         {
-          name: '18-49 years',
-          y: 98
+          name: '30-49 years',
+          y: 632
+        },
+        {
+          name: '18-29 years',
+          y: 210
         },
         {
           name: '0-17 years',
-          y: 21
+          y: 25
         }
       ],
       showInLegend: true,
