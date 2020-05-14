@@ -75,7 +75,7 @@ async function handleApiOperation<P, R>(
     .catch(e => {
       if (e.name === UNAUTHORIZED_OPERATION_ERROR) {
         // Avoiding alert because user is redirected to login, they know something went wrong
-        console.log(e.message);
+        console.error(e.message);
       } else {
         alert(failureMessage);
       }
