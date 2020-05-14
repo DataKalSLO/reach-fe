@@ -2,6 +2,7 @@ import { GraphRecord } from '../../redux/graphs/types';
 
 export interface GraphHeaderProps {
   graph: GraphRecord;
+  handleEdit: () => void;
 }
 
 export interface GraphPrebuiltProps {

@@ -54,3 +54,16 @@ export function getGraphsWithout(
   const newGraphs = cloneDeep(graphs);
   return newGraphs.filter(graphRecord => graphRecord.id !== id);
 }
+
+export function updateGraph(
+  newGraph: types.GraphRecord,
+  graphs: types.GraphRecord[]
+): types.GraphRecord[] {
+  const newGraphs = graphs.map(graph => {
+    if (graph.id === newGraph.id) {
+      return newGraph;
+    }
+    return graph;
+  });
+  return newGraphs;
+}
