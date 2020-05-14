@@ -189,10 +189,7 @@ function CreateAccountForm() {
                 notificationsEnabled: emailNotificationEnabled
               } as RegisterData),
               handleAccountError,
-              () => {
-                history.goBack(); //login page
-                history.goBack(); //page user was on before login
-              }
+              () => history.go(-2)
             )
           );
         }}
