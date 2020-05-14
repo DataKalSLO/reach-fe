@@ -130,14 +130,15 @@ describe('withYAxis(): add y-axis properties', () => {
 });
 
 describe('withStack(): enable stacking', () => {
+  const mockData = ['1', 2];
   it('should add the default stacking property', () => {
-    optionsBuilder.withStack();
+    optionsBuilder.withStack(mockData);
     expect(optionsBuilder.getOptions().plotOptions.series?.stacking).toEqual(
       DEFAULT_STACK_TYPE
     );
   });
   it('should not override any current settings', () => {
-    optionsBuilder.withStack();
+    optionsBuilder.withStack(mockData);
     expect(optionsBuilder.getOptions().plotOptions.series).toMatchObject(
       plotOptions.series as Highcharts.PlotSeriesOptions
     );
@@ -161,8 +162,9 @@ describe('withStackOptions(): add stack properties for data', () => {
   });
 
   it('should change the stack type if given', () => {
+    const mockData = ['1', 2];
     // add the default stack type
-    optionsBuilder.withStack();
+    optionsBuilder.withStack(mockData);
     // should not change the stack type if undefined
     optionsBuilder.withStackOptions(getStackConfigurationMock());
     expect(optionsBuilder.getOptions().plotOptions.series?.stacking).toEqual(

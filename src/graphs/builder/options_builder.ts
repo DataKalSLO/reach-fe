@@ -32,7 +32,8 @@ import {
   GraphOptionsGeneral,
   StackConfiguration,
   XAxisConfiguration,
-  YAxisConfiguration
+  YAxisConfiguration,
+  DataValue
 } from './types';
 import { getEmptyStringIfUndefined } from './utilities';
 
@@ -71,12 +72,17 @@ export default class OptionsBuilder {
     };
   }
 
-  public withGraphTitle(title: string) {
-    this.generalGraphOptions.title.text = title;
+  public withGraphTitle(title?: string) {
+    if (!isUndefined(title)) {
+      this.generalGraphOptions.title.text = title;
+    }
   }
 
-  public withGraphSourceURL(url: string) {
-    this.generalGraphOptions.subtitle.text = DEFAULT_SUBTITLE_WITH_SOURCE + url;
+  public withGraphSourceURL(url?: string) {
+    if (!isUndefined(url)) {
+      this.generalGraphOptions.subtitle.text =
+        DEFAULT_SUBTITLE_WITH_SOURCE + url;
+    }
   }
 
   /*
@@ -92,38 +98,16 @@ export default class OptionsBuilder {
     };
   }
 
-  public withXAxis(xConfig: XAxisConfiguration) {
-    const title = getEmptyStringIfUndefined(xConfig.title);
-    const valuePrefix = getEmptyStringIfUndefined(xConfig.valuePrefix);
-    const valueSuffix = getEmptyStringIfUndefined(xConfig.valueSuffix);
-    this.generalGraphOptions.xAxis = {
-      ...this.generalGraphOptions.xAxis, // do not override existing options
-      title: { text: title },
-      labels: {
-        // add the prefix/suffix the x-axis labels
-        formatter: function() {
-          return (
-            valuePrefix +
-            // use the automatic formatting provided by highcharts
-            this.axis.defaultLabelFormatter.call(this) +
-            valueSuffix
-          );
-        }
-      }
-    };
-  }
-
-  // TODO: support multiple y-axis
-  public withYAxis(yConfig: YAxisConfiguration) {
-    const title = getEmptyStringIfUndefined(yConfig.title);
-    const valuePrefix = getEmptyStringIfUndefined(yConfig.valuePrefix);
-    const valueSuffix = getEmptyStringIfUndefined(yConfig.valueSuffix);
-    // this is a list since highcharts supports multiple y-axes
-    this.generalGraphOptions.yAxis = [
-      {
+  public withXAxis(xConfig?: XAxisConfiguration) {
+    if (!isUndefined(xConfig)) {
+      const title = getEmptyStringIfUndefined(xConfig.title);
+      const valuePrefix = getEmptyStringIfUndefined(xConfig.valuePrefix);
+      const valueSuffix = getEmptyStringIfUndefined(xConfig.valueSuffix);
+      this.generalGraphOptions.xAxis = {
+        ...this.generalGraphOptions.xAxis, // do not override existing options
         title: { text: title },
         labels: {
-          // add the prefix/suffix to the y-axis labels
+          // add the prefix/suffix the x-axis labels
           formatter: function() {
             return (
               valuePrefix +
@@ -133,47 +117,78 @@ export default class OptionsBuilder {
             );
           }
         }
-      }
-    ];
-    // add the prefix/suffix to the tooltip
-    this.generalGraphOptions.tooltip = {
-      ...this.generalGraphOptions.tooltip, // do not override existing options
-      valuePrefix: valuePrefix,
-      valueSuffix: valueSuffix
-    };
+      };
+    }
+  }
+
+  // TODO: support multiple y-axis
+  public withYAxis(yConfig?: YAxisConfiguration) {
+    if (!isUndefined(yConfig)) {
+      const title = getEmptyStringIfUndefined(yConfig.title);
+      const valuePrefix = getEmptyStringIfUndefined(yConfig.valuePrefix);
+      const valueSuffix = getEmptyStringIfUndefined(yConfig.valueSuffix);
+      // this is a list since highcharts supports multiple y-axes
+      this.generalGraphOptions.yAxis = [
+        {
+          title: { text: title },
+          labels: {
+            // add the prefix/suffix to the y-axis labels
+            formatter: function() {
+              return (
+                valuePrefix +
+                // use the automatic formatting provided by highcharts
+                this.axis.defaultLabelFormatter.call(this) +
+                valueSuffix
+              );
+            }
+          }
+        }
+      ];
+      // add the prefix/suffix to the tooltip
+      this.generalGraphOptions.tooltip = {
+        ...this.generalGraphOptions.tooltip, // do not override existing options
+        valuePrefix: valuePrefix,
+        valueSuffix: valueSuffix
+      };
+    }
+    return this;
   }
 
   /*
    * Enable stacking
    */
-  public withStack() {
-    this.generalGraphOptions.plotOptions.series = {
-      ...plotOptions.series, // do not override existing options
-      stacking: DEFAULT_STACK_TYPE
-    };
+  public withStack(stackData?: DataValue[]) {
+    if (!isUndefined(stackData)) {
+      this.generalGraphOptions.plotOptions.series = {
+        ...plotOptions.series, // do not override existing options
+        stacking: DEFAULT_STACK_TYPE
+      };
+    }
   }
 
   /*
    * Modify the tooltip and stack type with the information
    * provided in the stack configuration.
    */
-  public withStackOptions(stackConfig: StackConfiguration) {
-    // change tooltip format to include stack information in the footer
-    let tooltipPrefix = TOOLTIP_STACK_FOOTER_PREFIX;
-    const tooltipLabel = TOOLTIP_STACK_FOOTER_VALUE;
-    if (!isUndefined(stackConfig.title)) {
-      tooltipPrefix = stackConfig.title;
-    }
-    this.generalGraphOptions.tooltip = {
-      ...this.generalGraphOptions.tooltip, // do not override existing options
-      footerFormat: tooltipPrefix + tooltipLabel
-    };
-    // change stack type
-    if (!isUndefined(stackConfig.type)) {
-      this.generalGraphOptions.plotOptions.series = {
-        ...this.generalGraphOptions.plotOptions.series,
-        stacking: stackConfig.type
+  public withStackOptions(stackConfig?: StackConfiguration) {
+    if (!isUndefined(stackConfig)) {
+      // change tooltip format to include stack information in the footer
+      let tooltipPrefix = TOOLTIP_STACK_FOOTER_PREFIX;
+      const tooltipLabel = TOOLTIP_STACK_FOOTER_VALUE;
+      if (!isUndefined(stackConfig.title)) {
+        tooltipPrefix = stackConfig.title;
+      }
+      this.generalGraphOptions.tooltip = {
+        ...this.generalGraphOptions.tooltip, // do not override existing options
+        footerFormat: tooltipPrefix + tooltipLabel
       };
+      // change stack type
+      if (!isUndefined(stackConfig.type)) {
+        this.generalGraphOptions.plotOptions.series = {
+          ...this.generalGraphOptions.plotOptions.series,
+          stacking: stackConfig.type
+        };
+      }
     }
   }
 
