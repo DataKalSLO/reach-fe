@@ -11,8 +11,10 @@ async function tryFetch(url: string, request: RequestInit) {
   const body = await response.json();
   if (response.ok) {
     return body || {};
-  } else {
+  } else if (response.status === 400) {
     throw errorTranslate(body.tag, navigator.language);
+  } else {
+    throw response.status;
   }
 }
 
