@@ -1,11 +1,43 @@
-import { Box, styled, TextField, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { object, string } from 'yup';
 import { updateDescription, updateTitle } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
+import {
+  Story,
+  UpdateDescriptionAction,
+  UpdateTitleAction
+} from '../redux/story/types';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
 import SortableList from '../stories/SortableList';
+import { MetaField } from './MetaField';
 import { convertStoryToJSX } from './StoryConverter';
+
+const TITLE_CHAR_LIMIT = 100;
+const DESCRIPTION_CHAR_LIMIT = 250;
+
+const metaSchema = object().shape({
+  title: string()
+    .required()
+    .trim()
+    .max(TITLE_CHAR_LIMIT),
+  description: string()
+    .required()
+    .trim()
+    .max(DESCRIPTION_CHAR_LIMIT)
+});
+
+const areValidMetaFields = (title: string, description: string) => {
+  return metaSchema.isValidSync({ title: title, description: description });
+};
+
+interface Props {
+  story: Story;
+  onChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => UpdateTitleAction | UpdateDescriptionAction;
+}
 
 export default function StoryForm() {
   const dispatch = useDispatch();
@@ -13,19 +45,11 @@ export default function StoryForm() {
   const storyBuilderState = useSelector(getStoryBuilder);
   const previewSelected = storyBuilderState.isPreviewSelected;
 
-  const TITLE_CHAR_LIMIT = 100;
-  const DESCRIPTION_CHAR_LIMIT = 250;
-
-  function createCharCounter(currentText: string, maxLength: number) {
-    return `${currentText.length}/${maxLength}`;
-  }
-
-  // TODO: add validation of required fields
   if (previewSelected) {
-    return <StyledBox>{convertStoryToJSX(story)}</StyledBox>;
+    return <div>{convertStoryToJSX(story)}</div>;
   } else {
     return (
-      <StyledBox>
+      <div>
         <Typography variant="h3">StoryBuilder</Typography>
         <p>
           Tell us a compelling story using data. Use the toolbar on the left to
@@ -33,45 +57,30 @@ export default function StoryForm() {
           follow along with your findings and conclusions. Use the drag handles
           to the left of each component if you want to reorder them.
         </p>
-        <StyledTextField
-          id="story-title-field"
+
+        <MetaField
+          content={story.title}
+          id="story-title"
           label="Title"
-          variant="outlined"
-          fullWidth
-          required
-          margin="dense"
-          helperText={createCharCounter(story.title, TITLE_CHAR_LIMIT)}
-          inputProps={{ maxLength: TITLE_CHAR_LIMIT }}
+          maxLength={TITLE_CHAR_LIMIT}
+          story={story}
           onChange={event => dispatch(updateTitle(event.target.value))}
-          defaultValue={story ? story.title : ''}
         />
-        <StyledTextField
-          id="story-description-field"
+
+        <MetaField
+          content={story.description}
+          id="story-description"
           label="Description"
-          variant="outlined"
+          maxLength={DESCRIPTION_CHAR_LIMIT}
           multiline
-          fullWidth
-          required
-          margin="dense"
-          helperText={createCharCounter(
-            story.description,
-            DESCRIPTION_CHAR_LIMIT
-          )}
-          inputProps={{ maxLength: DESCRIPTION_CHAR_LIMIT }}
+          story={story}
           onChange={event => dispatch(updateDescription(event.target.value))}
-          defaultValue={story ? story.description : ''}
         />
 
         <SortableList storyBlocks={story.storyBlocks} />
-      </StyledBox>
+      </div>
     );
   }
 }
 
-const StyledBox = styled(Box)({
-  margin: '20px 10px 20px 10px'
-});
-
-const StyledTextField = styled(TextField)({
-  margin: '10px 10px 10px 0px'
-});
+export { areValidMetaFields };

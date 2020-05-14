@@ -13,16 +13,14 @@ import { theme } from '../theme/theme';
 import {
   FeatureProperty,
   HeatMapSelection,
-  LayersComponentProps,
   LocationFeatures,
-  MarkerOrHeatMap,
+  Selections,
   MarkerSelection,
   SelectedMarker,
-  SetDataSources,
   SetHeatMapSelection,
   SetMarkerSelection,
   SetSelectedMarker
-} from './MapTypes';
+} from './types';
 
 // number of allowed selections, subject to change based on ui/ux and graph team suggestions
 const ALLOWED_MARKERS = 2;
@@ -31,44 +29,29 @@ const ALLOWED_BOTH = 2;
 // all of the local data we have available
 // TODO: pull this from backend! need distinct split between marker & heat map
 const heatMapData = [medianHouseholdIncomeHeatMap, kitchenFaciltiesHeatMap];
+// TODO: fix type errors here, can't figure out what it expects
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const allData = flatten([markerData as any, heatMapData]);
 
-const StyleBox = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'left',
-  '& > *': {
-    margin: theme.spacing(1)
-  },
-  '& > * + *': {
-    marginTop: theme.spacing(3)
-  }
-});
-
 // this is how we show everything in options (disable none)
-const showAll: MarkerOrHeatMap = [];
+const showAll: Selections = [];
 
 // handles change of selection
 // ensures that popups will not stay when their markers disappear
 export function handleChange(
-  value: MarkerOrHeatMap,
+  value: Selections,
   setMarkerSelection: SetMarkerSelection,
   setHeatMapSelection: SetHeatMapSelection,
   setSelectedMarker: SetSelectedMarker,
-  selectedMarker: SelectedMarker,
-  setDataSources: SetDataSources
+  selectedMarker: SelectedMarker
 ) {
   const newMarkers: MarkerSelection[] = [];
   let newHeatMap: {} | HeatMapSelection = {};
   const allSelections: string[] = [];
-  const allDataSources: string[] = [];
-  // TODO: fix type errors here, I am unable to use the MarkerOrHeatMap type
-  // eslint-disable-next-line
   value.forEach((table: MarkerSelection | HeatMapSelection) => {
     if (table.type === 'FeatureCollection') {
       const marker = table as MarkerSelection;
       newMarkers.push(marker);
-      allDataSources.push(marker.source);
       marker.features.forEach((items: FeatureProperty[]) => {
         items.forEach((selection: FeatureProperty) => {
           allSelections.push(selection.properties.name);
@@ -77,7 +60,6 @@ export function handleChange(
     } else if (table.type === 'HeatMap') {
       const heatMap = table as HeatMapSelection;
       newHeatMap = heatMap;
-      allDataSources.push(heatMap.source);
     }
   });
   setHeatMapSelection(newHeatMap);
@@ -87,25 +69,17 @@ export function handleChange(
       (obj: LocationFeatures) => obj.properties.name in allSelections
     )
   );
-  const dataSourceDict: {
-    key: number;
-    label: string;
-  }[] = [];
-  allDataSources.forEach((source: string, i: number) => {
-    dataSourceDict.push({ key: i, label: source });
-  });
-  setDataSources(dataSourceDict);
 }
 
 // handles disabling options, only two markers or one marker & one heat map allowed
 export function handleDisable(
   // TODO: fix type errors here, I am unable to use the MarkerOrHeatMap type
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   allData: any[],
   markerSelection: MarkerSelection[],
   heatMapSelection: HeatMapSelection,
   // TODO: fix type errors here, I am unable to use the MarkerOrHeatMap type
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   option: any
 ) {
   // disable all options if max number of markers are already selected
@@ -126,21 +100,30 @@ export function handleDisable(
   return showAll.includes(option);
 }
 
+interface LayersProps {
+  markerSelection: MarkerSelection[];
+  setMarkerSelection: SetMarkerSelection;
+  heatMapSelection: HeatMapSelection;
+  setHeatMapSelection: SetHeatMapSelection;
+  selectedMarker: SelectedMarker;
+  setSelectedMarker: SetSelectedMarker;
+}
+
 // this function creates the multi-seletion autocomplete component
-export default function LayersComponent(props: LayersComponentProps) {
+export default function Layers(props: LayersProps) {
   const {
     markerSelection,
     setMarkerSelection,
     heatMapSelection,
     setHeatMapSelection,
     selectedMarker,
-    setSelectedMarker,
-    setDataSources
+    setSelectedMarker
   } = props;
   return (
-    <StyleBox>
+    <StyledBox>
       <Autocomplete
         multiple
+        disableListWrap
         id="tags-outlined"
         options={allData}
         // TODO: make sure this handles data not existing once we are pulling from DB
@@ -149,6 +132,12 @@ export default function LayersComponent(props: LayersComponentProps) {
         getOptionDisabled={option =>
           handleDisable(allData, markerSelection, heatMapSelection, option)
         }
+        // adjust autocomplete size here, some magic numbers
+        style={{
+          minWidth: '75px',
+          marginTop: theme.spacing(1),
+          minHeight: '55px'
+        }}
         getOptionLabel={option => option.name}
         filterSelectedOptions
         // informs the layerSelection variable with the user's selection
@@ -158,20 +147,32 @@ export default function LayersComponent(props: LayersComponentProps) {
             setMarkerSelection,
             setHeatMapSelection,
             setSelectedMarker,
-            selectedMarker,
-            setDataSources
+            selectedMarker
           )
         }
         renderInput={params => (
           <TextField
             {...params}
             variant="standard"
-            label="Layers"
-            placeholder="Select up to Two Layers"
+            label="Select up to Two Layers"
+            placeholder="Layers"
             fullWidth
           />
         )}
       />
-    </StyleBox>
+    </StyledBox>
   );
 }
+
+const StyledBox = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  minWidth: '75%',
+  alignItems: 'left',
+  '& > *': {
+    margin: theme.spacing(1)
+  },
+  '& > * + *': {
+    marginTop: theme.spacing(3)
+  }
+});

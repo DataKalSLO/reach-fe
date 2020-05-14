@@ -7,6 +7,7 @@ export const MAP_BLOCK_TYPE = 'Map';
 
 //Action names
 export const CREATE_EMPTY_TEXT_BLOCK = 'CREATE_EMPTY_TEXT_BLOCK';
+export const CREATE_GRAPH_BLOCK = 'CREATE_GRAPH_BLOCK';
 export const UPDATE_TEXT_BLOCK = 'UPDATE_TEXT_BLOCK';
 export const DELETE_BLOCK = 'DELETE_BLOCK';
 export const SWAP_BLOCKS = 'SWAP_BLOCKS';
@@ -14,12 +15,14 @@ export const UPDATE_TITLE = 'UPDATE_TITLE';
 export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
 
 //Story-related types
-
-export interface Story {
+export interface StoryMetaInformation {
   id: string;
   userID: string;
   title: string;
   description: string;
+}
+
+export interface Story extends StoryMetaInformation {
   storyBlocks: Array<StoryBlockType>;
 }
 
@@ -51,6 +54,11 @@ export type StoryBlockType = TextBlockType | GraphBlockType | MapBlockType;
 export interface CreateEmptyTextBlockAction {
   type: typeof CREATE_EMPTY_TEXT_BLOCK;
   payload: { block: TextBlockType };
+}
+
+export interface CreateGraphBlockAction {
+  type: typeof CREATE_GRAPH_BLOCK;
+  payload: { block: GraphBlockType };
 }
 
 export interface UpdateTextBlockAction {
@@ -87,6 +95,7 @@ export type UpdateBlockType = UpdateTextBlockAction;
 // used by reducer function (reducer.ts)
 export type StoryActionType =
   | CreateEmptyTextBlockAction
+  | CreateGraphBlockAction
   | UpdateTextBlockAction
   | DeleteBlockAction
   | SwapBlocksAction

@@ -1,5 +1,4 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { blue, purple, red } from '@material-ui/core/colors';
 import chroma from 'chroma-js';
 import _ from 'lodash';
 import React, { useEffect } from 'react';
@@ -11,20 +10,32 @@ import {
   PLACER,
   SLO_LATITUDE,
   SLO_LONGITUDE,
-  ZIP_TABULATION
+  ZIP_TABULATION,
+  HEAT_MAP_COLOR,
+  MARKER_ONE_COLOR,
+  MARKER_TWO_COLOR
 } from './constants';
-import { ChipLegend } from './Legend';
 import { mapMarkers } from './MapMarker';
 import Popups from './MapPopups';
 import {
   ColorAssociation,
   LocationFeatures,
-  MapViewProps,
   PrepGeoObject,
+  HeatMapSelection,
+  MarkerSelection,
+  SelectedMarker,
+  SetSelectedMarker,
   SetColorAssociation
-} from './MapTypes';
-import { getStat, onHover, prepGeo, quantileMaker } from './MapViewHelpers';
+} from './types';
+import {
+  getStat,
+  onHover,
+  prepGeo,
+  quantileMaker,
+  position
+} from './MapViewHelpers';
 import Tooltip from './Tooltip';
+import { Grid } from '@material-ui/core';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
@@ -37,12 +48,23 @@ const defaultHoveredLocation = {
   noLocation: true
 };
 
+interface MapViewProps {
+  markerSelection: MarkerSelection[];
+  heatMapSelection: HeatMapSelection;
+  selectedMarker: SelectedMarker;
+  setSelectedMarker: SetSelectedMarker;
+  colorAssociation: ColorAssociation;
+  setColorAssociation: SetColorAssociation;
+}
+
 function MapView(props: MapViewProps) {
   const {
     markerSelection,
     heatMapSelection,
     selectedMarker,
-    setSelectedMarker
+    setSelectedMarker,
+    colorAssociation,
+    setColorAssociation
   } = props;
   // heat map prepped here
   let heatMapFeatures: PrepGeoObject[] | null = null;
@@ -57,11 +79,18 @@ function MapView(props: MapViewProps) {
   const prepped = prepGeo(heatMapFeatures);
   const data = GeoJSON.parse(prepped, { GeoJSON: 'geometry' });
 
+  const VIEWPORT_WIDTH = '100%';
+  const VIEWPORT_HEIGHT = '45vh';
+  const VIEWPORT_DISPLAY = 'flex';
+  const VIEWPORT_FLEX_FLOW = 'row';
+  const VIEWPORT_ZOOM = 8;
+
   // map outlines
   const outlinesPrepped = prepGeo(mapOutline.features);
   const outlineData = GeoJSON.parse(outlinesPrepped, { GeoJSON: 'geometry' });
 
   // React-Map-GL State
+  const [dims, setDims] = React.useState({ height: 0, width: 0 });
   const [layer, setLayer] = React.useState({
     id: 'data',
     type: 'fill',
@@ -90,15 +119,9 @@ function MapView(props: MapViewProps) {
   const y = React.useRef(0);
 
   const markerColors = [
-    { color: red[500] },
-    { color: blue[500] },
-    { color: purple[500] }
+    { color: MARKER_ONE_COLOR },
+    { color: MARKER_TWO_COLOR }
   ];
-
-  const [colorAssociation, setColorAssociation]: [
-    ColorAssociation,
-    SetColorAssociation
-  ] = React.useState({});
 
   useEffect(() => {
     const newColorAssociation: ColorAssociation = {};
@@ -112,20 +135,22 @@ function MapView(props: MapViewProps) {
   }, [markerSelection]);
 
   // TODO: going to solve "any" errors at a later time
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [viewport, setViewport]: any = React.useState({
-    width: '90%',
-    height: '60vh',
+    width: VIEWPORT_WIDTH,
+    height: VIEWPORT_HEIGHT,
+    display: VIEWPORT_DISPLAY,
+    flexFlow: VIEWPORT_FLEX_FLOW,
     latitude: SLO_LATITUDE,
     longitude: SLO_LONGITUDE,
-    zoom: 8
+    zoom: VIEWPORT_ZOOM
   });
 
   useEffect(() => {
     const minVal = getStat(heatMapFeatures, _.minBy, valueKey);
     const maxVal = getStat(heatMapFeatures, _.maxBy, valueKey);
     const quantiles_ = NUM_QUANTILES;
-    const colorScale_ = chroma.scale(['white', 'green']).domain([0, 1]);
+    const colorScale_ = chroma.scale(['white', HEAT_MAP_COLOR]).domain([0, 1]);
     const stops = quantileMaker(colorScale_, quantiles_, minVal, maxVal);
     setLayer({
       id: 'data',
@@ -153,12 +178,21 @@ function MapView(props: MapViewProps) {
     }
     const zipsValue = hoveredLocation.properties[valueKey];
     const zipCode = hoveredLocation.properties[ZIP_TABULATION];
+
+    const map = document.getElementById('map');
+    if (!map) {
+      return;
+    }
+    const bounds = map.getBoundingClientRect();
+    const left = position(bounds.left, bounds.right, dims.width, x.current);
+    const top = position(bounds.top, bounds.bottom, dims.height, y.current);
+
     return (
       <div
-        className="tooltip"
+        id="map-tooltip"
         style={{
-          left: x.current,
-          top: y.current,
+          top,
+          left,
           zIndex: 999,
           pointerEvents: 'none',
           position: 'absolute'
@@ -171,38 +205,42 @@ function MapView(props: MapViewProps) {
 
   if (Object.keys(data).length > 0) {
     return (
-      <ReactMapGL
-        mapboxApiAccessToken={process.env.REACT_APP_TOKEN}
-        {...viewport}
-        onViewportChange={viewport => setViewport(viewport)}
-        onHover={event =>
-          onHover(defaultHoveredLocation, setHoveredLocation, event, x, y)
-        }
-      >
-        <Source type="geojson" data={data}>
-          <Layer {...layer} />
-        </Source>
-        <Source type="geojson" data={outlineData}>
-          <Layer {...outline} />
-        </Source>
+      <Grid container id="map">
+        <ReactMapGL
+          mapboxApiAccessToken={process.env.REACT_APP_TOKEN}
+          {...viewport}
+          onViewportChange={viewport => setViewport(viewport)}
+          onHover={event =>
+            onHover(
+              defaultHoveredLocation,
+              setHoveredLocation,
+              event,
+              x,
+              y,
+              dims,
+              setDims
+            )
+          }
+        >
+          <Source type="geojson" data={data}>
+            <Layer {...layer} />
+          </Source>
+          <Source type="geojson" data={outlineData}>
+            <Layer {...outline} />
+          </Source>
 
-        {renderTooltip()}
-        {mapMarkers(
-          markerSelection,
-          setSelectedMarker,
-          selectedMarker,
-          colorAssociation
-        )}
-        {selectedMarker.map((selected: LocationFeatures) => {
-          return Popups(selected, setSelectedMarker, selectedMarker);
-        })}
-        <ChipLegend
-          valueKey={valueKey}
-          heatMapSelection={heatMapSelection}
-          colorAssociation={colorAssociation}
-          markerSelection={markerSelection}
-        />
-      </ReactMapGL>
+          {renderTooltip()}
+          {mapMarkers(
+            markerSelection,
+            setSelectedMarker,
+            selectedMarker,
+            colorAssociation
+          )}
+          {selectedMarker.map((selected: LocationFeatures) => {
+            return Popups(selected, setSelectedMarker, selectedMarker);
+          })}
+        </ReactMapGL>
+      </Grid>
     );
   } else {
     return (
@@ -212,6 +250,7 @@ function MapView(props: MapViewProps) {
           height: viewport.height,
           backgroundColor: 'grey',
           display: 'flex',
+          flexFlow: 'row',
           alignItems: 'center',
           justifyContent: 'center'
         }}

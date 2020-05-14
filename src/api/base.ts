@@ -6,9 +6,11 @@ async function tryFetch(url: string, request: RequestInit) {
   const response = await fetch(url, request);
   const body = await response.json();
   if (response.ok) {
-    return body;
-  } else {
+    return body || {};
+  } else if (response.status === 400) {
     throw errorTranslate(body.tag, navigator.language);
+  } else {
+    throw response.status;
   }
 }
 

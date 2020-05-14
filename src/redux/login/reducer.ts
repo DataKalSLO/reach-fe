@@ -1,10 +1,12 @@
 import { LOGIN, LOGOUT, UserActionTypes, User } from './types';
+import { UNDEFINED_USER } from '../../nav/constants';
 
 const initialState: User = {
   email: '',
   token: '',
   name: '',
-  role: ''
+  role: UNDEFINED_USER,
+  occupation: ''
 };
 export function userReducer(
   state = initialState,
@@ -14,7 +16,13 @@ export function userReducer(
     case LOGIN:
       return action.payload;
     case LOGOUT:
-      return { email: '', token: '', name: '', role: '' };
+      return {
+        email: '',
+        token: '',
+        name: '',
+        occupation: '',
+        role: UNDEFINED_USER
+      };
     default:
       return state;
   }

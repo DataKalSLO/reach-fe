@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { Route, Redirect } from 'react-router';
+import { Redirect } from 'react-router';
 import { LOGIN } from './constants';
 import { getUser } from '../redux/login/selectors';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 interface ProtectedRouteProps {
-  routeConstant: string;
   componentPage: JSX.Element;
 }
 
@@ -18,11 +17,10 @@ function ProtectedRoute(props: ProtectedRouteProps) {
     <Redirect to={{ pathname: LOGIN }} />
   );
 
-  return <Route path={props.routeConstant}>{redirect}</Route>;
+  return redirect;
 }
 
 ProtectedRoute.propTypes = {
-  routeConstant: PropTypes.element.isRequired,
   componentPage: PropTypes.element.isRequired
 };
 

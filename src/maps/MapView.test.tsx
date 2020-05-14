@@ -2,9 +2,10 @@ import chroma from 'chroma-js';
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
+import { POPUP_OFFSET_LEFT, POPUP_OFFSET_TOP } from './constants';
 import Popups from './MapPopups';
-import { LocationFeatures } from './MapTypes';
 import { quantileMaker } from './MapViewHelpers';
+import { LocationFeatures } from './types';
 
 React.useLayoutEffect = React.useEffect;
 
@@ -24,16 +25,11 @@ const testPopup = {
   }
 };
 const testPopups = Array<LocationFeatures>();
+// TODO: fix type errors here
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function setTestedMarker(location: any) {
   testPopups.concat(location);
 }
-
-// Values are for Marker testing
-const testFeatures = Array<LocationFeatures[]>();
-const testColorAssociation: {
-  [name: string]: { [color: string]: string };
-} = {};
-const testLayer = 'testing Marker';
 
 // Testing basic props of Popups, still do not know how to test clicks and similar events.
 describe('<Popups /> with props', () => {
@@ -41,8 +37,8 @@ describe('<Popups /> with props', () => {
 
   it('default props are set', () => {
     expect(container.props.anchor).toEqual('bottom');
-    expect(container.props.offsetLeft).toEqual(10);
-    expect(container.props.offsetTop).toEqual(0);
+    expect(container.props.offsetLeft).toEqual(POPUP_OFFSET_LEFT);
+    expect(container.props.offsetTop).toEqual(POPUP_OFFSET_TOP);
     expect(container.props.closeOnClick).toEqual(false);
     expect(container.props.sortByDepth).toEqual(true);
   });
@@ -53,20 +49,6 @@ describe('<Popups /> with props', () => {
     expect(container.props.longitude).toEqual(-40.88);
   });
 });
-
-// TODO: Test Markers, getting a declaration error. I think it's because the return calls map.
-// // Testing Marker
-// describe('<Markers /> with props', () => {
-//   const container = Markers(
-//     testFeatures,
-//     setTestedMarker,
-//     testPopups,
-//     testColorAssociation,
-//     testLayer
-//   );
-
-//   it('default props are set', () => {});
-// });
 
 // Quantile Maker from old project.
 describe('quantileMaker function', () => {

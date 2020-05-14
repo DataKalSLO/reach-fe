@@ -9,9 +9,11 @@ import {
   LOGIN,
   SAMPLE,
   CREATE_ACCOUNT,
-  SETTINGS
+  SETTINGS,
+  ADMIN
 } from './nav/constants';
 import ProtectedRoute from './nav/ProtectedRoute';
+import AdminProtectedRoute from './nav/AdminProtectedRoute';
 
 // Material UI's theming/styling solution
 //  https://material-ui.com/styles/basics/
@@ -41,6 +43,7 @@ import Login from './containers/Login';
 import Sample from './containers/Sample';
 import CreateAccount from './containers/CreateAccount';
 import Settings from './containers/Settings';
+import Admin from './containers/Admin';
 import { PersistGate } from 'redux-persist/integration/react';
 
 const home = (
@@ -79,7 +82,14 @@ const createAccount = (
   </Route>
 );
 const settings = (
-  <ProtectedRoute routeConstant={SETTINGS} componentPage={<Settings />} />
+  <Route path={SETTINGS}>
+    <ProtectedRoute componentPage={<Settings />} />
+  </Route>
+);
+const admin = (
+  <Route path={ADMIN}>
+    <AdminProtectedRoute componentPage={<Admin />} />
+  </Route>
 );
 const sample = (
   <Route path={SAMPLE}>
@@ -103,6 +113,7 @@ function App() {
               {login}
               {createAccount}
               {sample}
+              {admin}
               {settings}
             </Switch>
           </ThemeProvider>
