@@ -63,9 +63,6 @@ export function handleChange(
     }
   });
   dispatch(updateHeatMapSelection(newHeatMap));
-  // allMarkers.forEach((marker: MarkerSelection) => {
-  //   dispatch(updateMarkerSelection(marker));
-  // });
   dispatch(updateMarkerSelection(allMarkers));
   dispatch(
     updateSelectedMarker(

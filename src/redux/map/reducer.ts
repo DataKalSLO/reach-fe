@@ -12,6 +12,7 @@ import {
   UPDATE_SELECTED_MARKER
 } from './types';
 
+// TODO: connect to DB!
 const initialState: MapState = {
   markerSelection: [markerData[0]],
   heatMapSelection: medianHouseholdIncomeHeatMap,

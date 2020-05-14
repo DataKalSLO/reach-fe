@@ -7,7 +7,6 @@ import Legend from './Legend';
 import MapView from './MapView';
 
 // TODO: save to stories
-// TODO: connect to DB!
 
 function Map() {
   const mapState = useSelector(getMap);
