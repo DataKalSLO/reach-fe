@@ -26,22 +26,6 @@ describe('<Layers/> with no props should render', () => {
   afterEach(() => {
     console.error = originalConsoleError;
   });
-  // TODO: we need to figure out a better way to render the component without
-  // using snapshots, since they break in prod environment
-  // const props = {
-  //   markerSelection: [],
-  //   setMarkerSelection: jest.fn().mockResolvedValue([]),
-  //   heatMapSelection: medianHouseholdIncomeHeatMap,
-  //   setHeatMapSelection: jest.fn().mockResolvedValue([]),
-  //   selectedMarker: [],
-  //   setSelectedMarker: jest.fn().mockResolvedValue([]),
-  //   setDataSources: jest.fn().mockResolvedValue([])
-  // };
-  // const container = shallow(<LayersComponent {...props} />);
-
-  // it('layers component should match with snapshot', () => {
-  //   expect(container.html()).toMatchSnapshot();
-  // });
 });
 
 describe('handleDisable() should filter the values that the user can select', () => {
