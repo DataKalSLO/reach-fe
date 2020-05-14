@@ -1,23 +1,13 @@
 import React from 'react';
 import { List, ListItem, ListItemText } from '@material-ui/core';
+import { ElasticSearchResultObject } from '../redux/search/types';
 
-export type SourceObject = {
-  title: string;
-};
-
-export type ResultObject = {
-  _index: string;
-  _type: string;
-  _id: string;
-  _score: number;
-  _source: SourceObject;
-};
-
-export type SearchResultProps = {
-  hits: Array<ResultObject>;
+interface SearchResultProps {
+  hits: Array<ElasticSearchResultObject>;
   qry: string;
-};
+}
 
+// Starter file: will be modified for use in graph blocks
 function SearchResults(props: SearchResultProps) {
   const makeList = () => {
     return props.hits.map(item => {

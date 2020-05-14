@@ -2,23 +2,26 @@ import React, { useState } from 'react';
 import Container from '@material-ui/core/Container';
 import SearchBar from '../search/SearchBar';
 import SearchResults from '../search/SearchResults';
-import { esQuery } from '../api/search';
+import { fetchSearchResults } from '../redux/search/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSearch } from '../redux/search/selectors';
 
 function Search() {
-  const [hits, setHits] = useState([]);
-  const [qry, setQry] = useState('');
+  const [showResults, setShowResults] = useState(false);
+  const dispatch = useDispatch();
+  const searchState = useSelector(getSearch);
+  const hits = searchState.hits;
+  const qry = searchState.qry;
 
   const handleSearch = (qry: string) => {
-    setQry(qry);
-    esQuery(qry).then(data => {
-      setHits(data.hits.hits);
-    });
+    dispatch(fetchSearchResults(qry));
+    setShowResults(true);
   };
 
   return (
     <Container>
-      <SearchBar searchCb={handleSearch} />
-      <SearchResults hits={hits} qry={qry} />
+      <SearchBar searchCallback={handleSearch} />
+      {showResults ? <SearchResults hits={hits} qry={qry} /> : ''}
     </Container>
   );
 }

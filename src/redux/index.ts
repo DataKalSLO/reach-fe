@@ -13,6 +13,8 @@ import { GraphState } from './graphs/types';
 import { graphReducer } from './graphs/reducer';
 import { VizState } from './vizbuilder/types';
 import { vizReducer } from './vizbuilder/reducer';
+import { searchReducer } from './search/reducer';
+import { SearchState } from './search/types';
 
 function createRootReducer(history: History) {
   return combineReducers({
@@ -22,6 +24,7 @@ function createRootReducer(history: History) {
     user: userReducer,
     graph: graphReducer,
     vizbuilder: vizReducer,
+    search: searchReducer,
     router: connectRouter(history)
   });
 }
@@ -34,6 +37,7 @@ export interface RootState {
   graph: GraphState;
   vizbuilder: VizState;
   router: RouterState;
+  search: SearchState;
 }
 
 export default createRootReducer;

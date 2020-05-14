@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
-import { InputBase, IconButton, Box, styled, Paper } from '@material-ui/core';
+import { Box, styled, Paper } from '@material-ui/core';
+import IconButton from '../common/components/IconButton';
+import SearchInputBase from '../common/components/SearchInputBase';
 import SearchIcon from '@material-ui/icons/Search';
 
 const SearchBarBox = styled(Box)({
   paddingTop: '20px'
-});
-
-const StyledIconButton = styled(IconButton)({
-  padding: 10
-});
-
-const StyledInput = styled(InputBase)({
-  spacing: 1,
-  flex: 1
 });
 
 const StyledPaper = styled(Paper)({
@@ -22,9 +15,9 @@ const StyledPaper = styled(Paper)({
   width: 600
 });
 
-export type SearchBarProps = {
-  searchCb: (qry: string) => void;
-};
+interface SearchBarProps {
+  searchCallback: (qry: string) => void;
+}
 
 function SearchBar(props: SearchBarProps) {
   const [text, setText] = useState('');
@@ -32,7 +25,7 @@ function SearchBar(props: SearchBarProps) {
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      props.searchCb(text);
+      props.searchCallback(text);
     }
   };
 
@@ -45,14 +38,16 @@ function SearchBar(props: SearchBarProps) {
   return (
     <SearchBarBox>
       <StyledPaper component="form">
-        <StyledInput
+        <SearchInputBase
           placeholder="Search graphs, stories"
           onChange={e => handleChange(e)}
           onKeyPress={handleKeyPress}
         />
-        <StyledIconButton onClick={() => props.searchCb(text)}>
-          <SearchIcon />
-        </StyledIconButton>
+        <IconButton
+          onClick={() => props.searchCallback(text)}
+          icon={<SearchIcon />}
+          aria-label="Search graphs, stories"
+        />
       </StyledPaper>
     </SearchBarBox>
   );
