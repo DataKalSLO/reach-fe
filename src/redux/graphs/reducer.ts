@@ -74,6 +74,11 @@ export function graphReducer(
         ...state,
         graphs: utils.createGraph(action.payload, state.graphs)
       };
+    case consts.SYNC_GRAPH:
+      return {
+        ...state,
+        //graphs: utils.syncGraph(action.payload, state.graphs)
+      };
     default:
       return state;
   }

@@ -1,18 +1,21 @@
 import { Toolbar } from '@material-ui/core';
 import { Delete, Edit, FileCopy, Save, Share } from '@material-ui/icons';
+import SyncIcon from '@material-ui/icons/Sync';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Button, Props as ButtonProps } from '../../common/components/Button';
 import {
   deleteGraphAction,
-  duplicateGraphAction
+  duplicateGraphAction,
+  syncGraphAction
 } from '../../redux/graphs/actions';
 import {
   DELETE_LABEL,
   DUPLICATE_LABEL,
   EDIT_LABEL,
   SAVE_LABEL,
-  SHARE_LABEL
+  SHARE_LABEL,
+  SYNCHRONIZE_MAP,
 } from './constants';
 import { GraphHeaderProps } from './types';
 
@@ -30,6 +33,16 @@ function GraphToolbar({ graph }: GraphHeaderProps) {
   // TODO: Collapse toolbar when width is too small
   return (
     <Toolbar>
+      <ToolbarButton
+        label={SYNCHRONIZE_MAP}
+        variant="text"
+        color="default"
+        startIcon={<SyncIcon />}
+        onClick={() => {
+          console.log(graph.id)
+          console.log(graph.options.series)
+        }}
+      />
       <ToolbarButton
         label={EDIT_LABEL}
         variant="text"

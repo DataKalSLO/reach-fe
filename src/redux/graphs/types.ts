@@ -52,15 +52,21 @@ export interface CreatingGraphAction {
   payload: string;
 }
 
+export interface SyncGraphAction {
+  type: typeof consts.SYNC_GRAPH;
+  payload: string;
+}
+
 export type GraphActionTypes =
   | AddGraphsForInitiativeAction
   | DuplicateGraphAction
   | DeleteGraphAction
-  | CreatingGraphAction;
+  | CreatingGraphAction
+  | SyncGraphAction;
 
 /*
  * The following type aliases/interfaces are used to restrict a
- * string to the 5 initiative names.
+ * string to the 6 initiative names.
  */
 
 export const initiativeNames = [

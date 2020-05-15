@@ -1,6 +1,7 @@
 import { cloneDeep } from 'lodash';
 import { uuid } from 'uuidv4';
 import * as types from './types';
+import { identifier } from '@babel/types';
 
 /*
  * Gets the set of graphs associated with a given industry.
@@ -75,4 +76,11 @@ export function createGraph(
     }
     return graphRecord;
   });
+}
+
+export function syncGraph(
+  id: string,
+  graphs: types.GraphRecord[]
+): string{
+return id;
 }
