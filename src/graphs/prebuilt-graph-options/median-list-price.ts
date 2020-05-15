@@ -176,7 +176,6 @@ export const medianListOptions: Highcharts.Options = {
     valueSuffix: ' USD'
   },
   chart: {
-    height: '80%',
     zoomType: 'xy',
     panning: {
       enabled: true

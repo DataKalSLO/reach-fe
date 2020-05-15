@@ -35,6 +35,7 @@ import {
   position
 } from './MapViewHelpers';
 import Tooltip from './Tooltip';
+import { Grid } from '@material-ui/core';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
@@ -77,6 +78,12 @@ function MapView(props: MapViewProps) {
   }
   const prepped = prepGeo(heatMapFeatures);
   const data = GeoJSON.parse(prepped, { GeoJSON: 'geometry' });
+
+  const VIEWPORT_WIDTH = '100%';
+  const VIEWPORT_HEIGHT = '45vh';
+  const VIEWPORT_DISPLAY = 'flex';
+  const VIEWPORT_FLEX_FLOW = 'row';
+  const VIEWPORT_ZOOM = 8;
 
   // map outlines
   const outlinesPrepped = prepGeo(mapOutline.features);
@@ -128,13 +135,15 @@ function MapView(props: MapViewProps) {
   }, [markerSelection]);
 
   // TODO: going to solve "any" errors at a later time
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [viewport, setViewport]: any = React.useState({
-    width: '90%',
-    height: '60vh',
+    width: VIEWPORT_WIDTH,
+    height: VIEWPORT_HEIGHT,
+    display: VIEWPORT_DISPLAY,
+    flexFlow: VIEWPORT_FLEX_FLOW,
     latitude: SLO_LATITUDE,
     longitude: SLO_LONGITUDE,
-    zoom: 8
+    zoom: VIEWPORT_ZOOM
   });
 
   useEffect(() => {
@@ -196,7 +205,7 @@ function MapView(props: MapViewProps) {
 
   if (Object.keys(data).length > 0) {
     return (
-      <div id="map">
+      <Grid container id="map">
         <ReactMapGL
           mapboxApiAccessToken={process.env.REACT_APP_TOKEN}
           {...viewport}
@@ -231,7 +240,7 @@ function MapView(props: MapViewProps) {
             return Popups(selected, setSelectedMarker, selectedMarker);
           })}
         </ReactMapGL>
-      </div>
+      </Grid>
     );
   } else {
     return (
@@ -241,6 +250,7 @@ function MapView(props: MapViewProps) {
           height: viewport.height,
           backgroundColor: 'grey',
           display: 'flex',
+          flexFlow: 'row',
           alignItems: 'center',
           justifyContent: 'center'
         }}

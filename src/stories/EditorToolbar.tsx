@@ -13,8 +13,7 @@ import {
 } from '@material-ui/icons';
 import { EditorState, RichUtils } from 'draft-js';
 import React, { useState } from 'react';
-import {
-  IconButton,
+import IconButton, {
   Props as IconButtonProps
 } from '../common/components/IconButton';
 import { CollapsibleItem, CollapsibleMenu } from './CollapsibleToolbar';
@@ -177,8 +176,8 @@ const EditorToolbar = (props: Props) => {
 
 // Screenwidth when a group of items to become hidden in the collapsible menu
 const DEFAULT_HIDE_WIDTH = 0;
-const LIST_STYLE_HIDE_WIDTH = 800;
-const LINK_STYLE_HIDE_WIDTH = 900;
+const LIST_STYLE_HIDE_WIDTH = 970;
+const LINK_STYLE_HIDE_WIDTH = 1020;
 
 const borderStyle = '1px solid #cbcbcb';
 const paddingDefault = '10px';
