@@ -17,7 +17,7 @@ import { GraphRecord } from '../../redux/graphs/types';
 import { GraphPrebuiltProps } from './types';
 import { isUndefined, isNull } from 'util';
 import {
-  PlotSeriesDataLabelsOptions,
+  DataLabelsOptionsObject,
   YAxisOptions,
   XAxisOptions,
   TitleOptions,
@@ -491,7 +491,7 @@ const createFormatOptions = (graph: GraphRecord): FormatOptions => {
     if (!isUndefined(graph.options.plotOptions.series)) {
       if (!isUndefined(graph.options.plotOptions.series.dataLabels)) {
         const dataLabels = graph.options.plotOptions.series
-          .dataLabels as PlotSeriesDataLabelsOptions;
+          .dataLabels as DataLabelsOptionsObject;
         if (!isUndefined(dataLabels.enabled)) {
           graphOptions.dataLabels = dataLabels.enabled;
         }

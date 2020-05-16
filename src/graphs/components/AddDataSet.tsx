@@ -1,87 +1,47 @@
-import React from 'react';
-import {
-  Box,
-  styled,
-  TextField,
-  makeStyles,
-  FormLabel,
-  FormGroup,
-  MenuItem,
-  InputLabel,
-  Select,
-  FormControl
-} from '@material-ui/core';
+import React, { useState, Fragment } from 'react';
+import { Box, styled, Divider } from '@material-ui/core';
+import FormBlock from './FormBlock';
+import { FormSelectionField } from './FormSelectionField';
+
+const datasets = [
+  'slo_airports',
+  'dod_contracts',
+  'covid-19-slo',
+  'covid-19-sb',
+  'median-income'
+];
+
+const DATASET_LABEL = 'Choose a Dataset:';
 
 function AddDataSet() {
-  const classes = useStyles();
-  const TITLE_CHAR_LIMIT = 100;
+  const [dataState, setDataState] = useState({
+    dataset: datasets[0]
+  });
 
-  const [type, setType] = React.useState('');
-  const [state, setState] = React.useState('');
-
-  const getListTables = (label: string) => {
-    return (
-      <Select
-        labelId="select-filled-label"
-        id="select-filled"
-        value={type}
-        onChange={handleChange}
-        label="Table name"
-      >
-        <MenuItem value="Type of Graph">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={1}>DOD Contracts</MenuItem>
-        <MenuItem value={2}>Education</MenuItem>
-        <MenuItem value={3}>Health</MenuItem>
-        <MenuItem value={4}>Covid-19</MenuItem>
-      </Select>
-    );
-  };
-
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setType(event.target.value as string);
+  const handleDatasetChange = (id: string, selectedDataset: string) => {
+    setDataState({ ...dataState, dataset: selectedDataset });
   };
 
   return (
-    <form className={classes.root}>
-      <FormLabel>First DataSet</FormLabel>
-      <StyledFormGroup>
-        <StyledFormGroup row={true}>
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel id="select-label">Table Name</InputLabel>
-            {getListTables('Table Name')}
-          </FormControl>
-        </StyledFormGroup>
-      </StyledFormGroup>
-    </form>
+    <Fragment>
+      <FormBlock label={DATASET_LABEL}>
+        <FormSelectionField
+          fullWidth
+          required
+          id="Dataset"
+          label="Dataset"
+          value={dataState.dataset}
+          data={datasets}
+          handleChange={handleDatasetChange}
+        />
+      </FormBlock>
+      <FormDivider light />
+    </Fragment>
   );
 }
 
 export default AddDataSet;
 
-const StyledBox = styled(Box)({
-  margin: '10px 10px 10px 0px',
-  border: '1px solid red'
+const FormDivider = styled(Divider)({
+  margin: '10px 0px 10px 0px'
 });
-
-const StyledTextField = styled(TextField)({
-  margin: '0px'
-});
-
-const StyledFormGroup = styled(FormGroup)({
-  margin: '10px 10px 10px 0px'
-});
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '15ch'
-    }
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 155
-  }
-}));

@@ -27,7 +27,11 @@ function GraphContainer() {
    */
   const getGraphComponents = () => {
     if (graphState.graphs.length === 0) {
-      return <FormCreate />;
+      return (
+        <GridItem item>
+          <FormCreate />
+        </GridItem>
+      );
     }
     return graphState.graphs.map((graph, index) => (
       <GridItem item key={index}>

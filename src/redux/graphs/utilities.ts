@@ -46,8 +46,8 @@ export function addDuplicateToGraphs(
   const newGraphs = cloneDeep(graphs);
   newGraphs.push({
     id: uuid(),
-    options: cloneDeep(graphOptions),
-    isEditing: false
+    options: cloneDeep(graphOptions)
+    //isEditing: false
   });
   return newGraphs;
 }
@@ -72,7 +72,7 @@ export function createGraph(
     if (id === graphRecord.id) {
       //      const newRecord = cloneDeep(graphRecord)
       //      newRecord.options.title = { text: 'Hello World' };
-      return { ...graphRecord, isEditing: !graphRecord.isEditing };
+      return { ...graphRecord };
     }
     return graphRecord;
   });

@@ -10,9 +10,10 @@ import Typography from '@material-ui/core/Typography';
 import { StyledBox } from '../../stories/RichTextEditor';
 import AddDataSet from './AddDataSet';
 import AddColumns from './AddColumns';
-import AddChartType from './AddChartType';
 import GraphCreateFormOptions from './GraphCreateFormOptions';
 import AddCategoryTypeforGraph from './AddCategoryTypeforGraph';
+import { EmptyOptions } from '../prebuilt-graph-options/Empty_Graph';
+import { uuid } from 'uuidv4';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,6 +33,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const graph = { id: 'a1', options: EmptyOptions };
+
 function getSteps() {
   return [
     'Please select a graph Category',
@@ -50,7 +53,7 @@ function getStepContent(step: number) {
     case 2:
       return <AddColumns />;
     case 3:
-      return <GraphCreateFormOptions />;
+      return <GraphCreateFormOptions graph={graph} />;
     default:
       return 'Unknown step';
   }
@@ -97,7 +100,9 @@ export default function FormCreate() {
                       onClick={handleNext}
                       className={classes.button}
                     >
-                      {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                      {activeStep === steps.length - 1
+                        ? 'Create Graph'
+                        : 'Next'}
                     </Button>
                   </div>
                 </div>

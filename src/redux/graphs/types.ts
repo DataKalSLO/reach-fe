@@ -8,7 +8,7 @@ import * as consts from './constants';
 export interface GraphRecord {
   id: string;
   options: Highcharts.Options;
-  isEditing: boolean;
+  //isEditing: boolean;
 }
 
 export interface GraphState {
