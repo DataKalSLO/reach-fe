@@ -55,6 +55,7 @@ export default class SeriesBuilder {
     this.graphXData = dataConfig.xAxisData;
     this.graphYData = dataConfig.yAxisData;
     this.graphStackData = dataConfig.stackData;
+    return this;
   }
 
   /*
