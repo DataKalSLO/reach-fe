@@ -26,7 +26,7 @@ export function deleteStoryById(storyId: string): Promise<string> {
 }
 
 export async function getStoryWithStoryID(storyID: string): Promise<Story> {
-  return transformAPIResponseToStory(get(['story', storyID].join('/')));
+  return transformAPIResponseToStory(await get(['story', storyID].join('/')));
 }
 
 export async function getAllStories(): Promise<Story[]> {
