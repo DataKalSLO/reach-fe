@@ -44,6 +44,7 @@ import Sample from './containers/Sample';
 import CreateAccount from './containers/CreateAccount';
 import Settings from './containers/Settings';
 import Admin from './containers/Admin';
+import StoryView from './containers/StoryView';
 import { PersistGate } from 'redux-persist/integration/react';
 
 const home = (
@@ -96,6 +97,11 @@ const sample = (
     <Sample />
   </Route>
 );
+const stories = (
+  <Route path="/stories/:storyId">
+    <StoryView />
+  </Route>
+);
 
 function App() {
   return (
@@ -115,6 +121,7 @@ function App() {
               {sample}
               {admin}
               {settings}
+              {stories}
             </Switch>
           </ThemeProvider>
         </ConnectedRouter>
