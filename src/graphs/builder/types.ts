@@ -104,11 +104,10 @@ export type PrimarySeries =
 /*
  * Each of the graph types consists of a different subset of series
  * types, each of which are rendered on a chart.
- * There are four main graph types:
+ * There are three main graph types:
  *  1. Basic Graph: Multiple Primary Series or 1 Secondary Series
- *  2. 3D Graph: Multiple Primary Series or 1 Secondary Series
- *  3. Combined Graph: Multiple Primary Series & 1 Secondary Series
- *  4. Synchronized Graph: Multiple Primary Series
+ *  2. Combined Graph: Multiple Primary Series & 1 Secondary Series
+ *  3. Synchronized Graph: Multiple Primary Series
  */
 
 /*
@@ -116,12 +115,6 @@ export type PrimarySeries =
  * Basic Graph: Multiple Primary Series or 1 Secondary Series
  */
 export type SeriesListBasic = PrimarySeries[] | [SecondarySeries];
-
-/*
- * The series (highcharts property) type for a "3D" graph
- * 3D Graph: Multiple Primary Series or 1 Secondary Series
- */
-export type SeriesList3D = PrimarySeries[] | [SecondarySeries];
 
 /*
  * The series (highcharts property) type for a "Combined" graph
