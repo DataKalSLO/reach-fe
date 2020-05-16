@@ -57,6 +57,15 @@ export enum seriesTypesEnum {
 export type SeriesTypes = keyof typeof seriesTypesEnum;
 
 /*
+ * The series types are grouped as either primary or secondary types
+ * as secondary types may have incompatible property types. For instance,
+ * a pie series is the only type that contains the size property as
+ * well as the only type that does not contain the stacking property.
+ *  1. Primary Series Types: line, spline, column, bar, area, areaspline
+ *  2. Secondary Series Types: pie
+ */
+
+/*
  * Primary Series Types
  * Enums are used for runtime type checking
  */
@@ -73,7 +82,7 @@ export type SecondarySeriesTypes = keyof typeof secondarySeriesTypesEnum;
 
 /*
  * The following type aliases/interfaces represent the type
- * of "series" which is a property in the Highcharts options object.
+ * of "series", which is a property in the Highcharts options object.
  * Note: the "series" property is a list of SeriesOptions, a type
  *       defined by Highcharts
  * - for more information about the series property
@@ -91,6 +100,16 @@ export type PrimarySeries =
   | SeriesBarOptions
   | SeriesAreaOptions
   | SeriesAreasplineOptions;
+
+/*
+ * Each of the graph types consists of a different subset of series
+ * types, each of which are rendered on a chart.
+ * There are four main graph types:
+ *  1. Basic Graph: Multiple Primary Series or 1 Secondary Series
+ *  2. 3D Graph: Multiple Primary Series or 1 Secondary Series
+ *  3. Combined Graph: Multiple Primary Series & 1 Secondary Series
+ *  4. Synchronized Graph: Multiple Primary Series
+ */
 
 /*
  * The series (highcharts property) type for a "Basic" graph.
