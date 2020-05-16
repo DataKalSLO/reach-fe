@@ -1,14 +1,14 @@
 import {
-  zipData,
+  PrimarySeriesTypes,
+  SecondarySeriesTypes,
+  SeriesTypes
+} from '../types';
+import {
+  getEmptyStringIfUndefined,
   isPrimarySeriesType,
   isSecondarySeriesType,
-  getEmptyStringIfUndefined
+  zipData
 } from '../utilities';
-import {
-  PrimarySeriesTypes,
-  SeriesTypes,
-  SecondarySeriesTypes
-} from '../types';
 
 const mockDataStr = ['1', '2', '3'];
 const mockDataNum = [1, 2, 3];

@@ -1,9 +1,9 @@
 import {
   DataConfiguration,
+  SeriesConfiguration,
   StackConfiguration,
   XAxisConfiguration,
-  YAxisConfiguration,
-  SeriesConfiguration
+  YAxisConfiguration
 } from '../types';
 
 /*

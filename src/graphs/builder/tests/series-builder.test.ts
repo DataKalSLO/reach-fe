@@ -1,6 +1,6 @@
+import { SeriesPieOptions } from 'highcharts';
 import SeriesBuilder from '../series-builder';
 import { getSeriesConfigurationMock } from './mock-factory';
-import { SeriesPieOptions } from 'highcharts';
 
 /*
  * Test the Series Builder functionality.

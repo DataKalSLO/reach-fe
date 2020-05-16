@@ -1,22 +1,22 @@
+import { GRAPH_COMBINED_SIZE } from './constants';
 import {
-  zipData,
-  isPrimarySeriesType,
-  isSecondarySeriesType
-} from './utilities';
-import {
-  PrimarySeries,
-  SecondarySeries,
+  DataConfiguration,
   GraphDataXValue,
   GraphDataYValue,
-  SeriesListBasic,
-  SeriesListCombined,
-  SeriesListSynchronized,
+  PrimarySeries,
   PrimarySeriesTypes,
+  SecondarySeries,
   SecondarySeriesTypes,
   SeriesConfiguration,
-  DataConfiguration
+  SeriesListBasic,
+  SeriesListCombined,
+  SeriesListSynchronized
 } from './types';
-import { GRAPH_COMBINED_SIZE } from './constants';
+import {
+  isPrimarySeriesType,
+  isSecondarySeriesType,
+  zipData
+} from './utilities';
 
 /*
  * This class is responsible for creating the graph

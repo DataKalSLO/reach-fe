@@ -1,8 +1,8 @@
 import { isUndefined } from 'util';
 import {
+  GraphData,
   GraphDataXValue,
   GraphDataYValue,
-  GraphData,
   PrimarySeriesTypes,
   primarySeriesTypesEnum,
   SecondarySeriesTypes,

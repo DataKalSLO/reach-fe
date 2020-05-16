@@ -5,18 +5,18 @@ import {
   ExportingOptions,
   PlotOptions,
   ResponsiveOptions,
+  SeriesAreaOptions,
+  SeriesAreasplineOptions,
+  SeriesBarOptions,
+  SeriesColumnOptions,
+  SeriesLineOptions,
+  SeriesPieOptions,
+  SeriesSplineOptions,
   SubtitleOptions,
   TitleOptions,
   TooltipOptions,
   XAxisOptions,
-  YAxisOptions,
-  SeriesPieOptions,
-  SeriesLineOptions,
-  SeriesSplineOptions,
-  SeriesColumnOptions,
-  SeriesBarOptions,
-  SeriesAreaOptions,
-  SeriesAreasplineOptions
+  YAxisOptions
 } from 'highcharts';
 import {
   X_AXIS_CATEGORY_TYPE,
