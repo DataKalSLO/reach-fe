@@ -1,5 +1,4 @@
 import { Box, IconButton, styled } from '@material-ui/core';
-import { DeleteForever } from '@material-ui/icons';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -9,10 +8,9 @@ import {
   SortableHandle
 } from 'react-sortable-hoc';
 import { Dispatch } from 'redux';
-import { IconButton as CustomIconButton } from '../common/components/IconButton';
-import { deleteBlock, swapBlocks } from '../redux/story/actions';
-import { StoryBlockType, TEXT_BLOCK_TYPE } from '../redux/story/types';
-import { theme } from '../theme/theme';
+import { swapBlocks } from '../redux/story/actions';
+import { StoryBlockType } from '../redux/story/types';
+import DeleteStoryButton from './DeleteStoryButton';
 import { StoryBlock } from './StoryBlock';
 
 // The input to the sortable list, objects to be converted into JSX.Elements
@@ -32,44 +30,11 @@ interface SortableStoryContainerProps {
   children: Array<JSX.Element>;
 }
 
-interface DeleteButtonProps {
-  index: number;
-  dispatch: Dispatch;
-  block: StoryBlockType;
-}
-
 const DragHandle = SortableHandle(() => (
   <IconButton color="primary" edge="start" aria-label="Drag Handle">
     <DragHandleIcon />
   </IconButton>
 ));
-
-const deleteButtonAction = (
-  storyBlock: StoryBlockType,
-  index: number,
-  dispatch: Dispatch
-): void => {
-  //Dont ask for delete confirmation for empty text blocks
-  if (
-    storyBlock.type === TEXT_BLOCK_TYPE &&
-    !storyBlock.editorState.getCurrentContent().hasText()
-  ) {
-    dispatch(deleteBlock(index));
-  } else {
-    if (window.confirm('Are you sure you wish to delete this item?'))
-      dispatch(deleteBlock(index));
-  }
-};
-
-const DeleteButton = (props: DeleteButtonProps) => (
-  <CustomIconButton
-    onClick={() => deleteButtonAction(props.block, props.index, props.dispatch)}
-    edge="end"
-    aria-label="Delete block"
-    style={{ color: theme.palette.error.main }}
-    icon={<DeleteForever />}
-  />
-);
 
 // Component that determines what is in each draggable block
 const SortableStoryBlock = SortableElement((props: SortableItemProps) => (
@@ -82,7 +47,7 @@ const SortableStoryBlock = SortableElement((props: SortableItemProps) => (
         dispatch={props.dispatch}
       />
     </Box>
-    <DeleteButton
+    <DeleteStoryButton
       index={props.myIndex}
       dispatch={props.dispatch}
       block={props.block}
