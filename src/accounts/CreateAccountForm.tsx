@@ -10,7 +10,7 @@ import BoxCenter from '../common/components/BoxCenter';
 import AccountTextField from '../common/components/AccountTextField';
 import { OccupationDropdown } from '../containers/OccupationDropdown';
 import { useHistory } from 'react-router-dom';
-import { HOME, BASE_USER } from '../nav/constants';
+import { BASE_USER } from '../nav/constants';
 import { useDispatch } from 'react-redux';
 import { register } from '../redux/login/actions';
 import { RegisterData } from '../redux/login/types';
@@ -189,7 +189,7 @@ function CreateAccountForm() {
                 notificationsEnabled: emailNotificationEnabled
               } as RegisterData),
               handleAccountError,
-              () => history.go(-2)
+              () => history.go(-2) // returns user back to previous non-login page
             )
           );
         }}

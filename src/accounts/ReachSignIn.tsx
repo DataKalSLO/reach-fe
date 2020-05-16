@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom';
 import { LoginData } from '../redux/login/types';
 import { loginUser } from '../redux/login/actions';
 import { wrapWithCatch } from '../api/base';
-import { HOME } from '../nav/constants';
 
 function ReachSignIn() {
   const dispatch = useDispatch();

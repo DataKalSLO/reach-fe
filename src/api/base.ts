@@ -4,7 +4,8 @@ const baseURL = process.env.REACT_APP_API_URL;
 
 async function tryFetch(url: string, request: RequestInit) {
   const response = await fetch(url, request);
-  const body = await response.json();
+  const responseText = await response.text();
+  const body = responseText === '' ? {} : JSON.parse(responseText);
   if (response.ok) {
     return body || {};
   } else if (response.status === 400) {

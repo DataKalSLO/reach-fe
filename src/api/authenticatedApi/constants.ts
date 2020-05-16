@@ -1,6 +1,6 @@
 export const UNAUTHORIZED_OPERATION_ERROR = 'UNAUTHORIZED_OPERATION_ERROR';
 
-export const UNAUTHORIZED_OPERATION_ERROR_MESSAGE =
+const UNAUTHORIZED_OPERATION_ERROR_MESSAGE =
   'Operation requires authentication token. Redirecting to login.';
 
 export const UnauthorizedAOperationError = {
