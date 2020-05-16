@@ -49,10 +49,9 @@ export function syncGraphAction(id: string) {
   return graphDeletionAction(id);
 }
 
-export function graphSyncAction(payload: string): types.SyncGraphAction{
+export function graphSyncAction(payload: string): types.SyncGraphAction {
   return {
     type: consts.SYNC_GRAPH,
     payload: payload
   };
 }
-

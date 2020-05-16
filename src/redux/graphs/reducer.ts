@@ -76,7 +76,7 @@ export function graphReducer(
       };
     case consts.SYNC_GRAPH:
       return {
-        ...state,
+        ...state
         //graphs: utils.syncGraph(action.payload, state.graphs)
       };
     default:

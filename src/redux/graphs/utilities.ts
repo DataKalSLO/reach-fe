@@ -78,9 +78,6 @@ export function createGraph(
   });
 }
 
-export function syncGraph(
-  id: string,
-  graphs: types.GraphRecord[]
-): string{
-return id;
+export function syncGraph(id: string, graphs: types.GraphRecord[]): string {
+  return id;
 }

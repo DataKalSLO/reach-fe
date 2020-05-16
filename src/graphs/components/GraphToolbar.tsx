@@ -15,7 +15,7 @@ import {
   EDIT_LABEL,
   SAVE_LABEL,
   SHARE_LABEL,
-  SYNCHRONIZE_MAP,
+  SYNCHRONIZE_MAP
 } from './constants';
 import { GraphHeaderProps } from './types';
 
@@ -39,8 +39,8 @@ function GraphToolbar({ graph }: GraphHeaderProps) {
         color="default"
         startIcon={<SyncIcon />}
         onClick={() => {
-          console.log(graph.id)
-          console.log(graph.options.series)
+          console.log(graph.id);
+          console.log(graph.options.series);
         }}
       />
       <ToolbarButton
