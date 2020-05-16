@@ -2,8 +2,23 @@ import {
   DataConfiguration,
   StackConfiguration,
   XAxisConfiguration,
-  YAxisConfiguration
+  YAxisConfiguration,
+  SeriesConfiguration
 } from '../types';
+
+/*
+ * Mock an object of the SeriesConfiguration Interface
+ */
+const getDefaultSeriesConfiguration = (): SeriesConfiguration => ({
+  seriesType: 'line'
+});
+
+export const getSeriesConfigurationMock = (
+  p?: Partial<SeriesConfiguration>
+): SeriesConfiguration => ({
+  ...getDefaultSeriesConfiguration(),
+  ...p
+});
 
 /*
  * Mock an object of the XAxisConfiguration Interface
