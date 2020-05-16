@@ -27,7 +27,7 @@ const ToolbarButton = (props: ButtonProps) => {
   return <Button variant="text" color="default" {...props} />;
 };
 
-function GraphToolbar({ graph }: GraphHeaderProps) {
+function GraphToolbar({ graph, handleEdit }: GraphHeaderProps) {
   const dispatch = useDispatch();
 
   // TODO: Collapse toolbar when width is too small
@@ -48,7 +48,7 @@ function GraphToolbar({ graph }: GraphHeaderProps) {
         variant="text"
         color="default"
         startIcon={<Edit />}
-        onClick={() => alert('Not implemented')}
+        onClick={() => handleEdit()}
       />
       <ToolbarButton
         label={SAVE_LABEL}

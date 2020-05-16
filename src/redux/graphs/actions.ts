@@ -27,6 +27,19 @@ export function graphDuplicationAction(
   };
 }
 
+export function updateGraphAction(graphRecord: types.GraphRecord) {
+  return graphUpdateAction(graphRecord);
+}
+
+export function graphUpdateAction(
+  payload: types.GraphRecord
+): types.UpdateGraphAction {
+  return {
+    type: consts.UPDATE_GRAPH,
+    payload: payload
+  };
+}
+
 export function deleteGraphAction(id: string) {
   return graphDeletionAction(id);
 }

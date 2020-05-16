@@ -3,7 +3,8 @@ import {
   CardActions,
   CardContent,
   Divider,
-  styled
+  styled,
+  Collapse
 } from '@material-ui/core';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
@@ -15,7 +16,10 @@ import { CHART_HEIGHT_PERCENT, CHART_WIDTH_SCALE } from './constants';
 import GraphToolbar from './GraphToolbar';
 import { useGraphStyles } from './styles';
 import { GraphPrebuiltProps } from './types';
+import GraphEditForm from './GraphEditForm';
+import highcharts3d from 'highcharts/highcharts-3d';
 
+highcharts3d(Highcharts);
 exporting(Highcharts);
 drilldown(Highcharts);
 
@@ -28,6 +32,7 @@ drilldown(Highcharts);
 function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
   const classes = useGraphStyles();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [expanded, setExpanded] = useState(false);
 
   /*
    * Set the graph width when the window resizes
@@ -40,6 +45,10 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
     };
   });
 
+  useEffect(() => {
+    setExpanded(false);
+  }, [graph]);
+
   /*
    * Allow graph to resize to the dimensions of parent container
    */
@@ -48,10 +57,14 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
     graph.options.chart.height = CHART_HEIGHT_PERCENT;
   }
 
+  function handleEdit() {
+    setExpanded(!expanded);
+  }
+
   return (
     <Card variant="outlined">
       <GraphCardActions>
-        <GraphToolbar graph={graph} />
+        <GraphToolbar graph={graph} handleEdit={handleEdit} />
       </GraphCardActions>
       <GraphDivider light />
       <CardContent>
@@ -64,6 +77,12 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
           }}
         />
       </CardContent>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <GraphDivider light />
+        <CardContent>
+          <GraphEditForm graph={graph} />
+        </CardContent>
+      </Collapse>
     </Card>
   );
 }

@@ -59,6 +59,11 @@ export function graphReducer(
           utils.getGraphsForInitiative(action.payload, state.initiatives)
         )
       };
+    case consts.UPDATE_GRAPH:
+      return {
+        ...state,
+        graphs: utils.updateGraph(action.payload, state.graphs)
+      };
     case consts.DUPLICATE_GRAPH:
       return {
         ...state,

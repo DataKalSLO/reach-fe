@@ -42,6 +42,11 @@ export interface DuplicateGraphAction {
   payload: Highcharts.Options;
 }
 
+export interface UpdateGraphAction {
+  type: typeof consts.UPDATE_GRAPH;
+  payload: GraphRecord;
+}
+
 export interface DeleteGraphAction {
   type: typeof consts.DELETE_GRAPH;
   payload: string;
@@ -62,7 +67,9 @@ export type GraphActionTypes =
   | DuplicateGraphAction
   | DeleteGraphAction
   | CreatingGraphAction
-  | SyncGraphAction;
+  | SyncGraphAction
+  | UpdateGraphAction
+  | DeleteGraphAction;
 
 /*
  * The following type aliases/interfaces are used to restrict a
