@@ -48,6 +48,7 @@ export default class SeriesBuilder {
     this.graphYData = [];
     this.graphStackData = [];
   }
+
   /*
    * Set the data given for a graph
    */
@@ -59,15 +60,15 @@ export default class SeriesBuilder {
   }
 
   /*
-   * Create a series for each SeriesConfiguration, which
+   * Create a series for each SeriesConfiguration, which each
    * correspond to one set of data. These series are built
    * for graphs that can contain either a primary or secondary
    * series but not both.
    */
   public withBasicSeries(seriesConfigs: SeriesConfiguration[]) {
     seriesConfigs.forEach((seriesConfig, index) => {
-      // need to type cast seriesType to pass as argument
       const { seriesType, ...otherSeriesInfo } = seriesConfig;
+      // need to type cast seriesType to pass as argument
       if (isPrimarySeriesType(seriesType)) {
         this.primarySeries.push(
           this.createSeriesForPrimaryType(seriesType, otherSeriesInfo, index)
@@ -82,7 +83,7 @@ export default class SeriesBuilder {
   }
 
   /*
-   * Create a series for each SeriesConfiguration, which
+   * Create a series for each SeriesConfiguration, which each
    * correspond to one set of data. These series are built
    * for graphs that can contain both a primary and a secondary series.
    * Therefore, extra options have to be passed to the secondary series
@@ -90,8 +91,8 @@ export default class SeriesBuilder {
    */
   public withCombinedSeries(seriesConfigs: SeriesConfiguration[]) {
     seriesConfigs.forEach((seriesConfig, index) => {
-      // need to type cast seriesType to pass as argument
       const { seriesType, ...otherSeriesInfo } = seriesConfig;
+      // need to type cast seriesType to pass as argument
       if (isPrimarySeriesType(seriesType)) {
         this.primarySeries.push(
           this.createSeriesForPrimaryType(seriesType, otherSeriesInfo, index)
@@ -124,7 +125,7 @@ export default class SeriesBuilder {
     if (this.secondarySeries.length === 1 && this.primarySeries.length === 0) {
       finishedSeries = [this.secondarySeries[0]];
     } else {
-      finishedSeries = this.primarySeries;
+      finishedSeries = [...this.primarySeries];
     }
     this.resetSeries();
     return finishedSeries;
@@ -149,6 +150,7 @@ export default class SeriesBuilder {
    * Synchronized Graph: Multiple Primary Series
    */
   public getSynchronizedSeries(): SeriesListSynchronized {
+    // synchronized graphs can only contain one primary series
     const finishedSeries: SeriesListSynchronized = [this.primarySeries[0]];
     this.resetSeries();
     return finishedSeries;
@@ -176,7 +178,7 @@ export default class SeriesBuilder {
   ): SecondarySeries {
     return {
       type: seriesType,
-      name: partialSeriesConfig.name,
+      name: partialSeriesConfig.name, // Highcharts adds default value if undefined
       data: zipData(this.graphXData, this.graphYData[index]),
       ...extraSeriesOptions
     };
