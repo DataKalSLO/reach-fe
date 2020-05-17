@@ -4,6 +4,7 @@ import {
   authenticatedPost,
   authenticatedPut
 } from '../authenticatedApi/operations';
+import { get } from '../base';
 import { Story } from '../../redux/story/types';
 import { DatabaseStory } from './types';
 import {
@@ -84,7 +85,7 @@ async function storyHttp(
       response = authenticatedPut('story', payload as object);
       break;
     case StoryActions.GET_ALL_STORIES:
-      response = authenticatedGet('story');
+      response = get('story'); // no token required so don't prompt for login
       break;
     case StoryActions.DELETE_WITH_ID:
       response = authenticatedDel('story/' + payload);
