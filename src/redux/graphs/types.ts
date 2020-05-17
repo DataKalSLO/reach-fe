@@ -59,7 +59,8 @@ export interface CreatingGraphAction {
 
 export interface SyncGraphAction {
   type: typeof consts.SYNC_GRAPH;
-  payload: string;
+  datasetName: string,
+  columnNames:string[],
 }
 
 export type GraphActionTypes =

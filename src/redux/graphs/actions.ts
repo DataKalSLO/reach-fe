@@ -58,13 +58,13 @@ export function createGraphAction(id: string): types.CreatingGraphAction {
   };
 }
 
-export function syncGraphAction(id: string) {
-  return graphDeletionAction(id);
-}
-
-export function graphSyncAction(payload: string): types.SyncGraphAction {
+export function syncGraphAction(
+  datasetName: string,
+  columnNames:string[],
+): types.SyncGraphAction{
   return {
     type: consts.SYNC_GRAPH,
-    payload: payload
+    datasetName: datasetName,
+    columnNames: columnNames
   };
 }
