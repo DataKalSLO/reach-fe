@@ -21,7 +21,11 @@ import {
 
 const mockDataStr = ['1', '2', '3'];
 const mockDataNum = [1, 2, 3];
-const mockDataDate = [new Date('2000'), new Date('2001'), new Date('2002')];
+const mockDataDate = [
+  new Date('2019-01-01T00:00:00'),
+  new Date('2019-02-01T00:00:00'),
+  new Date('2019-03-01T00:00:00')
+];
 const mockDataSeries = [
   [1, 1, 1],
   [2, 2, 2],
@@ -45,12 +49,10 @@ const mockSeriesTypeChecker = (series: SeriesTypes) => {
 
 describe('getXAxisDataType(): get the graph data type for the x-axis', () => {
   it('should return either "category", "datetime", or "linear"', () => {
-    expect(getXAxisDataType([1, 2, 3])).toEqual(X_AXIS_LINEAR_TYPE);
+    expect(getXAxisDataType(mockDataNum)).toEqual(X_AXIS_LINEAR_TYPE);
+    expect(getXAxisDataType(mockDataStr)).toEqual(X_AXIS_CATEGORY_TYPE);
+    expect(getXAxisDataType(mockDataDate)).toEqual(X_AXIS_DATETIME_TYPE);
     expect(getXAxisDataType([1, 2, 'a'])).toEqual(X_AXIS_CATEGORY_TYPE);
-    expect(getXAxisDataType(['1', '2', '3'])).toEqual(X_AXIS_CATEGORY_TYPE);
-    expect(getXAxisDataType([new Date('2012'), new Date('2013')])).toEqual(
-      X_AXIS_DATETIME_TYPE
-    );
     expect(getXAxisDataType([1, 2, new Date('2012')])).toEqual(
       X_AXIS_CATEGORY_TYPE
     );
@@ -63,16 +65,19 @@ describe('convertXData(): converts graph x-axis data value types', () => {
     expect(convertXData(X_AXIS_CATEGORY_TYPE, mockDataStr)).toEqual(
       mockDataStr
     );
-    expect(convertXData(X_AXIS_DATETIME_TYPE, mockDataDate)).toEqual([
-      946684800000,
-      978307200000,
-      1009843200000
-    ]);
+    /*
+     * Only check that the returned values are integers, actual values may var
+     * due to different date conversions (e.g. 2012 -> Dec 31, 2011 or Jan 1, 2012)
+     */
+    const timestamps = convertXData(X_AXIS_DATETIME_TYPE, mockDataDate);
+    expect(
+      timestamps.every(timestamp => typeof timestamp === 'number')
+    ).toBeTruthy();
   });
   it('should convert mixed value types to strings', () => {
     expect(
-      convertXData(X_AXIS_CATEGORY_TYPE, [1, 2, 'a', new Date('2002')])
-    ).toEqual(['1', '2', 'a', 'Mon Dec 31 2001']);
+      convertXData(X_AXIS_CATEGORY_TYPE, [1, 2, 'a', new Date('02 Feb, 1996')])
+    ).toEqual(['1', '2', 'a', 'Fri Feb 02 1996']);
   });
 });
 
@@ -92,11 +97,14 @@ describe('convertStackData(): converts graph stack data value types', () => {
     expect(convertStackData(mockDataSeries.length, mockDataStr)).toEqual(
       mockDataStr
     );
-    expect(convertStackData(mockDataSeries.length, mockDataDate)).toEqual([
-      'Fri Dec 31 1999',
-      'Sun Dec 31 2000',
-      'Mon Dec 31 2001'
-    ]);
+    /*
+     * Only check that the returned values are strings, actual values may var
+     * due to different date conversions (e.g. 2012 -> Dec 31, 2011 or Jan 1, 2012)
+     */
+    const timeStrings = convertStackData(mockDataSeries.length, mockDataDate);
+    expect(
+      timeStrings.every(timeString => typeof timeString === 'string')
+    ).toBeTruthy();
   });
 
   it('should fill stack array with incrementing values if none are given', () => {
