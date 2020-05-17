@@ -16,7 +16,8 @@ import {
   TitleOptions,
   TooltipOptions,
   XAxisOptions,
-  YAxisOptions
+  YAxisOptions,
+  ColorString
 } from 'highcharts';
 import {
   X_AXIS_CATEGORY_TYPE,
@@ -37,6 +38,7 @@ export interface GraphOptionsGeneral {
   exporting: ExportingOptions;
   xAxis: XAxisOptions;
   yAxis: YAxisOptions[];
+  colors: ColorString[];
   tooltip?: TooltipOptions;
   drilldown?: DrilldownOptions;
 }

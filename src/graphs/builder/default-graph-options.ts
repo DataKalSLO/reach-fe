@@ -15,7 +15,8 @@ import Highcharts, {
   TooltipPositionerCallbackFunction,
   XAxisLabelsOptions,
   XAxisOptions,
-  YAxisOptions
+  YAxisOptions,
+  ColorString
 } from 'highcharts';
 import {
   ACCESSIBILITY_ANNOUNCE_NEW_DATA_ENABLED,
@@ -73,6 +74,22 @@ export const title: TitleOptions = { text: DEFAULT_TITLE };
 //  * - can be applied to all chart
  */
 export const subtitle: SubtitleOptions = { text: DEFAULT_SUBTITLE };
+
+/*
+ * The colors of the chart
+//  * - can be applied to all chart
+ */
+export const colors: ColorString[] = [
+  '#4572A7',
+  '#AA4643',
+  '#89A54E',
+  '#80699B',
+  '#3D96AE',
+  '#DB843D',
+  '#92A8CD',
+  '#A47D7C',
+  '#B5CA92'
+];
 
 /*
  * The global options for a chart

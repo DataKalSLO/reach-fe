@@ -25,7 +25,8 @@ import {
   title,
   xAxis,
   xAxisLabels3D,
-  yAxis
+  yAxis,
+  colors
 } from './default-graph-options';
 import {
   DataConfiguration,
@@ -68,7 +69,8 @@ export default class OptionsBuilder {
       accessibility: { ...accessibilityOptions },
       exporting: { ...exportingOptions },
       xAxis: { ...xAxis },
-      yAxis: [...yAxis]
+      yAxis: [...yAxis],
+      colors: colors
     };
   }
 
