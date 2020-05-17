@@ -1,10 +1,8 @@
-import GraphCreator from '../graph-creator';
-import { getGraphConfigurationMock } from './mock-factory';
-import { GraphConfiguration } from '../types';
 import { DEFAULT_SUBTITLE_WITH_SOURCE } from '../constants';
-import OptionsBuilder from '../options_builder';
-import SeriesBuilder from '../series-builder';
 import { colors } from '../default-graph-options';
+import GraphCreator from '../graph-creator';
+import { GraphConfiguration } from '../types';
+import { getGraphConfigurationMock } from './mock-factory';
 
 /*
  * Test the Graph Creator functionality

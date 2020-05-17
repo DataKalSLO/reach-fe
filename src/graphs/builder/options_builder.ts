@@ -16,6 +16,7 @@ import {
   accessibilityOptions,
   chartOptions,
   chartOptions3D,
+  colors,
   exportingOptions,
   plotOptions,
   responsiveOptions,
@@ -25,16 +26,15 @@ import {
   title,
   xAxis,
   xAxisLabels3D,
-  yAxis,
-  colors
+  yAxis
 } from './default-graph-options';
 import {
   DataConfiguration,
+  DataValue,
   GraphOptionsGeneral,
   StackConfiguration,
   XAxisConfiguration,
-  YAxisConfiguration,
-  DataValue
+  YAxisConfiguration
 } from './types';
 import { getEmptyStringIfUndefined } from './utilities';
 

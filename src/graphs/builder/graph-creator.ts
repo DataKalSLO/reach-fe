@@ -1,12 +1,20 @@
-import SeriesBuilder from './series-builder';
-import OptionsBuilder from './options_builder';
 import { isUndefined } from 'util';
-import * as types from './types';
+import OptionsBuilder from './options_builder';
+import SeriesBuilder from './series-builder';
 import {
-  getXAxisDataType,
+  DataConfiguration,
+  Graph,
+  GraphConfiguration,
+  GraphOptionsBasic,
+  GraphOptionsCombined,
+  GraphOptionsSynchronized,
+  GraphOptionsType
+} from './types';
+import {
+  convertStackData,
   convertXData,
   convertYData,
-  convertStackData
+  getXAxisDataType
 } from './utilities';
 
 /*
@@ -18,8 +26,8 @@ import {
  * can contain a different set of options. Each creation
  * method returns a Graph object containing the options
  * object, the x-axis data type, and the supported series
- * types for that graph type.
- * - refer to the Graph interface in ./types.ts
+ * for that graph type.
+ * - refer to the Graph interface in ./ts
  *   for more information about the return type
  */
 
@@ -32,14 +40,14 @@ export default class GraphCreator {
     this.optionsBuilder = new OptionsBuilder();
   }
 
-  public createBasicGraph(config: types.GraphConfiguration): types.Graph {
+  public createBasicGraph(config: GraphConfiguration): Graph {
     const dataConfig = this.getDataConfiguration(config);
     this.createGeneralOptions(config, dataConfig);
     this.createStackingOptions(config);
     this.seriesBuilder
       .withData(dataConfig)
       .withBasicSeries(config.seriesConfigs);
-    const options: types.GraphOptionsBasic = {
+    const options: GraphOptionsBasic = {
       ...this.optionsBuilder.getOptions(),
       series: this.seriesBuilder.getBasicSeries()
     };
@@ -49,14 +57,14 @@ export default class GraphCreator {
     };
   }
 
-  public create3DGraph(config: types.GraphConfiguration): types.Graph {
+  public create3DGraph(config: GraphConfiguration): Graph {
     const dataConfig = this.getDataConfiguration(config);
     this.createGeneralOptions(config, dataConfig);
     this.createStackingOptions(config);
     this.seriesBuilder
       .withData(dataConfig)
       .withBasicSeries(config.seriesConfigs);
-    const options: types.GraphOptionsBasic = {
+    const options: GraphOptionsBasic = {
       ...this.optionsBuilder.with3DOptions().getOptions(),
       series: this.seriesBuilder.getBasicSeries()
     };
@@ -66,14 +74,14 @@ export default class GraphCreator {
     };
   }
 
-  public createCombinedGraph(config: types.GraphConfiguration): types.Graph {
+  public createCombinedGraph(config: GraphConfiguration): Graph {
     const dataConfig = this.getDataConfiguration(config);
     this.createGeneralOptions(config, dataConfig);
     this.createStackingOptions(config);
     this.seriesBuilder
       .withData(dataConfig)
       .withCombinedSeries(config.seriesConfigs);
-    const options: types.GraphOptionsCombined = {
+    const options: GraphOptionsCombined = {
       ...this.optionsBuilder.withCombinedOptions().getOptions(),
       series: this.seriesBuilder.getCombinedSeries()
     };
@@ -90,10 +98,8 @@ export default class GraphCreator {
    * as every creation method can be expected to return a list of
    * graph options.
    */
-  public createSynchronizedGraph(
-    config: types.GraphConfiguration
-  ): types.Graph {
-    const graphOptions: types.GraphOptionsType[] = [];
+  public createSynchronizedGraph(config: GraphConfiguration): Graph {
+    const graphOptions: GraphOptionsType[] = [];
     const dataConfig = this.getDataConfiguration(config);
     // create a graph for every series
     config.seriesConfigs.forEach((seriesConfig, index) => {
@@ -104,7 +110,7 @@ export default class GraphCreator {
         yAxisData: [dataConfig.yAxisData[index]]
       };
       this.createGeneralOptions(config, dataConfigForOneSeries);
-      const options: types.GraphOptionsSynchronized = {
+      const options: GraphOptionsSynchronized = {
         ...this.optionsBuilder.withSynchronizedOptions().getOptions(),
         series: this.seriesBuilder
           .withData(dataConfigForOneSeries)
@@ -129,8 +135,8 @@ export default class GraphCreator {
    * Build the general options that apply to every chart
    */
   private createGeneralOptions(
-    config: types.GraphConfiguration,
-    dataConfig: types.DataConfiguration
+    config: GraphConfiguration,
+    dataConfig: DataConfiguration
   ) {
     this.optionsBuilder
       .withGraphTitle(config.title)
@@ -143,7 +149,7 @@ export default class GraphCreator {
   /*
    * Enable stacking if stacking data is given
    */
-  private createStackingOptions(config: types.GraphConfiguration) {
+  private createStackingOptions(config: GraphConfiguration) {
     this.optionsBuilder
       .withStack(config.stackData)
       .withStackOptions(config.stackConfig);
@@ -152,13 +158,11 @@ export default class GraphCreator {
   /*
    * This function has 2 responsibilities
    *  1. Get the x-axis data type
-   *  2. Convert all the data to the appropriate types.
+   *  2. Convert all the data to the appropriate
    * These responsibilities were merged into one function
    * since converting the data relies on the x-axis data type.
    */
-  private getDataConfiguration(
-    config: types.GraphConfiguration
-  ): types.DataConfiguration {
+  private getDataConfiguration(config: GraphConfiguration): DataConfiguration {
     const seriesLength = config.seriesConfigs.length;
     const xAxisDataType = getXAxisDataType(config.xAxisData);
     const convertedXAxisData = convertXData(xAxisDataType, config.xAxisData);

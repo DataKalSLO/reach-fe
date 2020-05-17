@@ -1,10 +1,10 @@
 import {
   DataConfiguration,
+  GraphConfiguration,
   SeriesConfiguration,
   StackConfiguration,
   XAxisConfiguration,
-  YAxisConfiguration,
-  GraphConfiguration
+  YAxisConfiguration
 } from '../types';
 
 /*

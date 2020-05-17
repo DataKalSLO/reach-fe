@@ -5,6 +5,7 @@ import Highcharts, {
   AxisSetExtremesEventObject,
   Chart3dOptions,
   ChartOptions,
+  ColorString,
   ExportingOptions,
   PlotOptions,
   PositionObject,
@@ -15,8 +16,7 @@ import Highcharts, {
   TooltipPositionerCallbackFunction,
   XAxisLabelsOptions,
   XAxisOptions,
-  YAxisOptions,
-  ColorString
+  YAxisOptions
 } from 'highcharts';
 import {
   ACCESSIBILITY_ANNOUNCE_NEW_DATA_ENABLED,
@@ -42,9 +42,9 @@ import {
   GRAPH_SYNC_TOOLTIP_POINT_FORMAT,
   GRAPH_SYNC_TOOLTIP_REFERENCE_POINT_X,
   GRAPH_SYNC_TOOLTIP_REFERENCE_POINT_Y,
-  GRAPH_SYNC_TRIGGER,
   GRAPH_SYNC_TOOLTIP_SHADOW_ENABLED,
   GRAPH_SYNC_TOOLTIP_SPLIT_ENABLED,
+  GRAPH_SYNC_TRIGGER,
   GRAPH_X_AXIS_CROSSHAIR_ENABLED,
   GRAPH_ZOOM_TYPE,
   RESPONSIVE_LEGEND_ALIGNMENT,

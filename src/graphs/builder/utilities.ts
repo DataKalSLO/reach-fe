@@ -1,5 +1,11 @@
 import { isUndefined } from 'util';
 import {
+  X_AXIS_CATEGORY_TYPE,
+  X_AXIS_DATETIME_TYPE,
+  X_AXIS_LINEAR_TYPE
+} from './constants';
+import {
+  DataValue,
   GraphData,
   GraphDataXValue,
   GraphDataYValue,
@@ -7,14 +13,8 @@ import {
   primarySeriesTypesEnum,
   SecondarySeriesTypes,
   secondarySeriesTypesEnum,
-  DataValue,
   XAxisDataType
 } from './types';
-import {
-  X_AXIS_DATETIME_TYPE,
-  X_AXIS_LINEAR_TYPE,
-  X_AXIS_CATEGORY_TYPE
-} from './constants';
 
 /*
  * Gets the x-axis data type

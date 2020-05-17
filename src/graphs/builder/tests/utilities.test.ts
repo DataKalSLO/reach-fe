@@ -1,23 +1,23 @@
 import {
+  X_AXIS_CATEGORY_TYPE,
+  X_AXIS_DATETIME_TYPE,
+  X_AXIS_LINEAR_TYPE
+} from '../constants';
+import {
   PrimarySeriesTypes,
   SecondarySeriesTypes,
   SeriesTypes
 } from '../types';
 import {
-  getEmptyStringIfUndefined,
-  isPrimarySeriesType,
-  isSecondarySeriesType,
-  zipData,
-  getXAxisDataType,
+  convertStackData,
   convertXData,
   convertYData,
-  convertStackData
+  getEmptyStringIfUndefined,
+  getXAxisDataType,
+  isPrimarySeriesType,
+  isSecondarySeriesType,
+  zipData
 } from '../utilities';
-import {
-  X_AXIS_LINEAR_TYPE,
-  X_AXIS_CATEGORY_TYPE,
-  X_AXIS_DATETIME_TYPE
-} from '../constants';
 
 const mockDataStr = ['1', '2', '3'];
 const mockDataNum = [1, 2, 3];

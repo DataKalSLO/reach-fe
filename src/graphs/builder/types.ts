@@ -1,6 +1,7 @@
 import {
   AccessibilityOptions,
   ChartOptions,
+  ColorString,
   DrilldownOptions,
   ExportingOptions,
   PlotOptions,
@@ -16,8 +17,7 @@ import {
   TitleOptions,
   TooltipOptions,
   XAxisOptions,
-  YAxisOptions,
-  ColorString
+  YAxisOptions
 } from 'highcharts';
 import {
   X_AXIS_CATEGORY_TYPE,
