@@ -31,8 +31,8 @@ export function deleteStoryById(storyId: string): Promise<string> {
 }
 
 export async function getStoryWithStoryID(storyID: string): Promise<Story> {
-  return transformAPIResponseToStory(await get(['story', storyID].join('/')));
-    authenticatedGet(['story', storyID].join('/'))
+  return transformAPIResponseToStory(
+    await authenticatedGet(['story', storyID].join('/'))
   );
 }
 
