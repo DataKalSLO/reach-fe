@@ -165,6 +165,7 @@ export default class SeriesBuilder {
       type: seriesType,
       name: partialSeriesConfig.name, // Highcharts adds default value if undefined
       color: partialSeriesConfig.color, // Highcharts adds default value if undefined
+      dataLabels: { enabled: partialSeriesConfig.dataLabels }, // Highcharts adds default value if undefined
       data: zipData(this.graphXData, this.graphYData[index]),
       stack: this.graphStackData[index]
     };
@@ -179,6 +180,7 @@ export default class SeriesBuilder {
     return {
       type: seriesType,
       name: partialSeriesConfig.name, // Highcharts adds default value if undefined
+      dataLabels: { enabled: partialSeriesConfig.dataLabels }, // Highcharts adds default value if undefined
       data: zipData(this.graphXData, this.graphYData[index]),
       ...extraSeriesOptions
     };

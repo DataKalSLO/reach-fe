@@ -238,6 +238,7 @@ export interface SeriesConfiguration {
   seriesType: string;
   name?: string;
   color?: string;
+  dataLabels?: boolean;
 }
 
 export interface XAxisConfiguration {
