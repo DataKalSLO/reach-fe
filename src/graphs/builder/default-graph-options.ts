@@ -29,6 +29,7 @@ import {
   GRAPH_3D_PLOT_DEPTH,
   GRAPH_3D_SKEWED_X_AXIS_LABELS_ENABLED,
   GRAPH_3D_VIEW_DISTANCE,
+  GRAPH_COLORS,
   GRAPH_HEIGHT,
   GRAPH_MAX_WIDTH,
   GRAPH_PANNING_ENABLED,
@@ -79,17 +80,7 @@ export const subtitle: SubtitleOptions = { text: DEFAULT_SUBTITLE };
  * The colors of the chart
 //  * - can be applied to all chart
  */
-export const colors: ColorString[] = [
-  '#4572A7',
-  '#AA4643',
-  '#89A54E',
-  '#80699B',
-  '#3D96AE',
-  '#DB843D',
-  '#92A8CD',
-  '#A47D7C',
-  '#B5CA92'
-];
+export const colors: ColorString[] = GRAPH_COLORS;
 
 /*
  * The global options for a chart

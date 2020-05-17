@@ -13,6 +13,18 @@ export const GRAPH_PANNING_ENABLED = true;
 export const GRAPH_SERIES_ALLOW_POINT_SELECT = true;
 export const GRAPH_X_AXIS_CROSSHAIR_ENABLED = true;
 export const GRAPH_SERIES_DATA_LABELS_ENABLED = true;
+export const GRAPH_COLORS = [
+  '#7cb5ec',
+  '#434348',
+  '#90ed7d',
+  '#f7a35c',
+  '#8085e9',
+  '#f15c80',
+  '#e4d354',
+  '#2b908f',
+  '#f45b5b',
+  '#91e8e1'
+];
 
 /*
  * Axis Options Constants
