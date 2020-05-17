@@ -117,16 +117,45 @@ export type PrimarySeries =
 export type SeriesListBasic = PrimarySeries[] | [SecondarySeries];
 
 /*
+ * The highcharts options object type for a "Basic" graph
+ */
+export interface GraphOptionsBasic extends GraphOptionsGeneral {
+  series: SeriesListBasic;
+}
+
+/*
  * The series (highcharts property) type for a "Combined" graph
  * Combined Graph: Multiple Primary Series & 1 Secondary Series
  */
 export type SeriesListCombined = (PrimarySeries | SecondarySeries)[];
 
 /*
+ * The highcharts options object type for a "Combined" graph
+ */
+export interface GraphOptionsCombined extends GraphOptionsGeneral {
+  series: SeriesListCombined;
+}
+
+/*
  * The series (highcharts property) type for a "Synchronized" graph
  * Synchronized Graph: Multiple Primary Series
  */
 export type SeriesListSynchronized = [PrimarySeries];
+
+/*
+ * The highcharts options object type for a "Synchronized" graph
+ */
+export interface GraphOptionsSynchronized extends GraphOptionsGeneral {
+  series: SeriesListSynchronized;
+}
+
+/*
+ * Any of the supported options object types
+ */
+export type GraphOptionsType =
+  | GraphOptionsBasic
+  | GraphOptionsCombined
+  | GraphOptionsSynchronized;
 
 /*
  * The following type aliases/interfaces correspond to the
@@ -224,4 +253,19 @@ export interface YAxisConfiguration {
 export interface StackConfiguration {
   type?: 'percent' | 'normal';
   title?: string;
+}
+
+/*
+ * The final Graph object outputted by the Graph Creator;
+ */
+export interface Graph {
+  /*
+   * The options object passed into highcharts
+   */
+  graphOptions: GraphOptionsType[];
+  /*
+   * The x-axis data type that determined the
+   * chart constructor (highchart or highstocks)
+   */
+  xAxisDataType: XAxisDataType;
 }
