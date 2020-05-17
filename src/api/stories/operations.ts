@@ -19,19 +19,22 @@ enum StoryActions {
   GET_ALL_STORIES
 }
 
-type StoryApiResponse = string | Story | Array<Story>;
+type StoryApiResponse = Story | Array<Story>;
 type StoryApiPayload = string | DatabaseStory | undefined;
 
-export async function saveOrUpdateExistingStory(story: Story): Promise<string> {
+export async function saveOrUpdateExistingStory(
+  story: Story
+): Promise<boolean> {
   const databaseStory = transformStoryToDatabaseStory(story);
-  return httpRequestWithStringResponse(StoryActions.CREATE, databaseStory);
+  return httpRequestWithEmptyResponse(StoryActions.CREATE, databaseStory);
 }
 
-export function deleteStoryById(storyId: string): Promise<string> {
-  return httpRequestWithStringResponse(StoryActions.DELETE_WITH_ID, storyId);
+export function deleteStoryById(storyId: string): Promise<boolean> {
+  return httpRequestWithEmptyResponse(StoryActions.DELETE_WITH_ID, storyId);
 }
 
 export async function getStoryWithStoryID(storyID: string): Promise<Story> {
+  // draft stories require token, published don't. Sending token harmless in latter.
   return transformAPIResponseToStory(
     await authenticatedGet(['story', storyID].join('/'))
   );
@@ -58,18 +61,16 @@ async function httpRequestWithStoryArrayResponse(
   }
 }
 
-async function httpRequestWithStringResponse(
+async function httpRequestWithEmptyResponse(
   actionType: StoryActions,
   payload: StoryApiPayload
-): Promise<string> {
-  const response: StoryApiResponse = await storyHttp(actionType, payload);
-  if (response as string) {
-    return response as string;
-  } else {
-    throw new Error(
-      'Expected a string to be returned by call story action: ' + actionType
-    );
-  }
+): Promise<boolean> {
+  return storyHttp(actionType, payload)
+    .then(res => true)
+    .catch(e => {
+      console.error(e);
+      return false;
+    });
 }
 
 async function storyHttp(

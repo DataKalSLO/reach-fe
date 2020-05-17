@@ -7,6 +7,10 @@ import {
 import { UNAUTHORIZED_OPERATION_ERROR } from '../authenticatedApi/constants';
 import { Story } from '../../redux/story/types';
 
+/* These functions are meant to be wrappers for accessing the Story API.
+ * They are meant to be used when you don't want to handle when an API
+ * fails.
+ */
 const STORY_CREATION_SUCCESS_MESSAGE = 'Story created!';
 const STORY_CREATION_FAILURE_MESSAGE =
   'An Error occurred while saving a Story. Story was not created.';
@@ -19,24 +23,24 @@ const STORY_RETRIEVAL_FAILURE_MESSAGE =
 
 export async function saveStoryAndHandleResponse(
   story: Story
-): Promise<string | undefined> {
+): Promise<boolean> {
   return await handleApiOperation(
     story,
     saveOrUpdateExistingStory,
     STORY_CREATION_SUCCESS_MESSAGE,
     STORY_CREATION_FAILURE_MESSAGE
-  ).catch(e => undefined);
+  ).catch(e => false);
 }
 
 export async function deleteStoryByIdAndHandleResponse(
   storyId: string
-): Promise<string | undefined> {
+): Promise<boolean> {
   return await handleApiOperation(
     storyId,
     deleteStoryById,
     STORY_DELETION_SUCCESS_MESSAGE,
     STORY_DELETION_FAILURE_MESSAGE
-  ).catch(e => undefined);
+  ).catch(e => false);
 }
 
 export async function getStoryWIthIdAndHandleResponse(
@@ -77,6 +81,7 @@ async function handleApiOperation<P, R>(
         // Avoiding alert because user is redirected to login, they know something went wrong
         console.error(e.message);
       } else {
+        console.error(e);
         alert(failureMessage);
       }
       throw new Error(e);
