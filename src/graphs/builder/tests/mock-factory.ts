@@ -3,8 +3,27 @@ import {
   SeriesConfiguration,
   StackConfiguration,
   XAxisConfiguration,
-  YAxisConfiguration
+  YAxisConfiguration,
+  GraphConfiguration
 } from '../types';
+
+/*
+ * Mock an object of the GraphConfiguration Interface
+ */
+const getDefaultGraphConfiguration = (): GraphConfiguration => ({
+  title: 'title',
+  xAxisData: ['x1'],
+  yAxisData: [[1, 2]],
+  seriesConfigs: [{ seriesType: 'line' }]
+});
+
+// function that adds specific property values to the mock object
+export const getGraphConfigurationMock = (
+  p?: Partial<GraphConfiguration>
+): GraphConfiguration => ({
+  ...getDefaultGraphConfiguration(),
+  ...p
+});
 
 /*
  * Mock an object of the SeriesConfiguration Interface
