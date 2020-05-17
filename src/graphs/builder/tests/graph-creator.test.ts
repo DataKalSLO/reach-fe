@@ -4,6 +4,7 @@ import { GraphConfiguration } from '../types';
 import { DEFAULT_SUBTITLE_WITH_SOURCE } from '../constants';
 import OptionsBuilder from '../options_builder';
 import SeriesBuilder from '../series-builder';
+import { colors } from '../default-graph-options';
 
 /*
  * Test the Graph Creator functionality
@@ -98,8 +99,7 @@ describe('Graph Creator Methods', () => {
       expect(graphOptionsWithAllProps.series.length).toEqual(2);
     });
     it('should set the array of colors', () => {
-      // The actual values may change over time, just make sure they are defined
-      expect(graphOptionsWithAllProps.colors).toBeDefined();
+      expect(graphOptionsWithAllProps.colors).toEqual(colors);
     });
   });
 
@@ -163,8 +163,7 @@ describe('Graph Creator Methods', () => {
       expect(graphOptionsWithAllProps.series.length).toEqual(2);
     });
     it('should set the array of colors', () => {
-      // The actual values may change over time, just make sure they are defined
-      expect(graphOptionsWithAllProps.colors).toBeDefined();
+      expect(graphOptionsWithAllProps.colors).toEqual(colors);
     });
   });
 
@@ -225,8 +224,7 @@ describe('Graph Creator Methods', () => {
       expect(graphOptionsWithRequiredProps.series.length).toEqual(1);
     });
     it('should set the array of colors', () => {
-      // The actual values may change over time, just make sure they are defined
-      expect(graphOptionsWithAllProps.colors).toBeDefined();
+      expect(graphOptionsWithAllProps.colors).toEqual(colors);
     });
   });
 
@@ -286,8 +284,7 @@ describe('Graph Creator Methods', () => {
       expect(graphWithSecondaryGraphType.graphOptions.length).toEqual(0);
     });
     it('should set the array of colors', () => {
-      // The actual values may change over time, just make sure they are defined
-      expect(graphOptionsWithAllProps.colors).toBeDefined();
+      expect(graphOptionsWithAllProps.colors).toEqual(colors);
     });
   });
 });
