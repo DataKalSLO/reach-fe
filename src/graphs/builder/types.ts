@@ -5,6 +5,13 @@ import {
   ExportingOptions,
   PlotOptions,
   ResponsiveOptions,
+  SeriesAreaOptions,
+  SeriesAreasplineOptions,
+  SeriesBarOptions,
+  SeriesColumnOptions,
+  SeriesLineOptions,
+  SeriesPieOptions,
+  SeriesSplineOptions,
   SubtitleOptions,
   TitleOptions,
   TooltipOptions,
@@ -33,6 +40,93 @@ export interface GraphOptionsGeneral {
   tooltip?: TooltipOptions;
   drilldown?: DrilldownOptions;
 }
+
+/*
+ * All the supported series types
+ * Enums are used for runtime type checking
+ */
+export enum seriesTypesEnum {
+  line = 'line',
+  spline = 'spline',
+  column = 'column',
+  bar = 'bar',
+  area = 'area',
+  areaspline = 'areaspline',
+  pie = 'pie'
+}
+export type SeriesTypes = keyof typeof seriesTypesEnum;
+
+/*
+ * The series types are grouped as either primary or secondary types
+ * as secondary types may have incompatible property types. For instance,
+ * a pie series is the only type that contains the size property as
+ * well as the only type that does not contain the stacking property.
+ *  1. Primary Series Types: line, spline, column, bar, area, areaspline
+ *  2. Secondary Series Types: pie
+ */
+
+/*
+ * Primary Series Types
+ * Enums are used for runtime type checking
+ */
+const { pie, ...primarySeriesTypesEnum } = seriesTypesEnum;
+export { primarySeriesTypesEnum };
+export type PrimarySeriesTypes = keyof typeof primarySeriesTypesEnum;
+
+/*
+ * Secondary Series Types
+ * Enums are used for runtime type checking
+ */
+export const secondarySeriesTypesEnum = { pie: seriesTypesEnum.pie };
+export type SecondarySeriesTypes = keyof typeof secondarySeriesTypesEnum;
+
+/*
+ * The following type aliases/interfaces represent the type
+ * of "series", which is a property in the Highcharts options object.
+ * Note: the "series" property is a list of SeriesOptions, a type
+ *       defined by Highcharts
+ * - for more information about the series property
+ *   see https://api.highcharts.com/highcharts/series
+ */
+
+/*
+ * The specific SeriesOptions for each series group type
+ */
+export type SecondarySeries = SeriesPieOptions;
+export type PrimarySeries =
+  | SeriesLineOptions
+  | SeriesSplineOptions
+  | SeriesColumnOptions
+  | SeriesBarOptions
+  | SeriesAreaOptions
+  | SeriesAreasplineOptions;
+
+/*
+ * Each of the graph types consists of a different subset of series
+ * types, each of which are rendered on a chart.
+ * There are three main graph types:
+ *  1. Basic Graph: Multiple Primary Series or 1 Secondary Series
+ *  2. Combined Graph: Multiple Primary Series & 1 Secondary Series
+ *  3. Synchronized Graph: Multiple Primary Series
+ */
+
+/*
+ * The series (highcharts property) type for a "Basic" graph.
+ * Basic Graph: Multiple Primary Series or 1 Secondary Series
+ */
+export type SeriesListBasic = PrimarySeries[] | [SecondarySeries];
+
+/*
+ * The series (highcharts property) type for a "Combined" graph
+ * Combined Graph: Multiple Primary Series & 1 Secondary Series
+ */
+export type SeriesListCombined = (PrimarySeries | SecondarySeries)[];
+
+/*
+ * The series (highcharts property) type for a "Synchronized" graph
+ * Synchronized Graph: Multiple Primary Series
+ */
+export type SeriesListSynchronized = [PrimarySeries];
 
 /*
  * The following type aliases/interfaces correspond to the
@@ -110,8 +204,9 @@ export interface GraphConfiguration {
 }
 
 export interface SeriesConfiguration {
-  type: string;
+  seriesType: string;
   name?: string;
+  color?: string;
 }
 
 export interface XAxisConfiguration {
