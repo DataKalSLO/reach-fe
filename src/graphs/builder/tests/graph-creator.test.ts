@@ -73,11 +73,12 @@ describe('Graph Creator Methods', () => {
       );
     });
     it('should only add the x-axis title if given, it is not required', () => {
-      expect(graphOptionsWithRequiredProps.xAxis.title).toBeUndefined();
+      expect(graphOptionsWithRequiredProps.xAxis.title?.text).toEqual('');
       expect(graphOptionsWithAllProps.xAxis.title?.text).toEqual('x-axis');
     });
     it('should only add the y-axis property if given, it is not required', () => {
-      expect(graphOptionsWithRequiredProps.yAxis[0]).toEqual({});
+      // The actual values may change over time, just make sure they are defined
+      expect(graphOptionsWithRequiredProps.yAxis[0]).toBeDefined();
       expect(graphOptionsWithAllProps.yAxis[0].title?.text).toEqual('y-axis');
     });
     it('should only add the stack properties if given, it is not required', () => {
@@ -95,6 +96,10 @@ describe('Graph Creator Methods', () => {
     });
     it('should ignore secondary graph types if primary graph types are given', () => {
       expect(graphOptionsWithAllProps.series.length).toEqual(2);
+    });
+    it('should set the array of colors', () => {
+      // The actual values may change over time, just make sure they are defined
+      expect(graphOptionsWithAllProps.colors).toBeDefined();
     });
   });
 
@@ -122,11 +127,12 @@ describe('Graph Creator Methods', () => {
       );
     });
     it('should only add the x-axis title if given, it is not required', () => {
-      expect(graphOptionsWithRequiredProps.xAxis.title).toBeUndefined();
+      expect(graphOptionsWithRequiredProps.xAxis.title?.text).toEqual('');
       expect(graphOptionsWithAllProps.xAxis.title?.text).toEqual('x-axis');
     });
     it('should only add the y-axis property if given, it is not required', () => {
-      expect(graphOptionsWithRequiredProps.yAxis[0]).toEqual({});
+      // The actual values may change over time, just make sure they are defined
+      expect(graphOptionsWithRequiredProps.yAxis[0]).toBeDefined();
       expect(graphOptionsWithAllProps.yAxis[0].title?.text).toEqual('y-axis');
     });
     it('should only add the stack properties if given, it is not required', () => {
@@ -156,6 +162,10 @@ describe('Graph Creator Methods', () => {
     it('should ignore secondary graph types if primary graph types are given', () => {
       expect(graphOptionsWithAllProps.series.length).toEqual(2);
     });
+    it('should set the array of colors', () => {
+      // The actual values may change over time, just make sure they are defined
+      expect(graphOptionsWithAllProps.colors).toBeDefined();
+    });
   });
 
   describe('createCombinedGraph(): creates the graph options for a basic graph', () => {
@@ -182,11 +192,12 @@ describe('Graph Creator Methods', () => {
       );
     });
     it('should only add the x-axis title if given, it is not required', () => {
-      expect(graphOptionsWithRequiredProps.xAxis.title).toBeUndefined();
+      expect(graphOptionsWithRequiredProps.xAxis.title?.text).toEqual('');
       expect(graphOptionsWithAllProps.xAxis.title?.text).toEqual('x-axis');
     });
     it('should only add the y-axis property if given, it is not required', () => {
-      expect(graphOptionsWithRequiredProps.yAxis[0]).toEqual({});
+      // The actual values may change over time, just make sure they are defined
+      expect(graphOptionsWithRequiredProps.yAxis[0]).toBeDefined();
       expect(graphOptionsWithAllProps.yAxis[0].title?.text).toEqual('y-axis');
     });
     it('should only add the stack properties if given, it is not required', () => {
@@ -212,6 +223,10 @@ describe('Graph Creator Methods', () => {
     it('should create a series for both secondary and primary graph types', () => {
       expect(graphOptionsWithAllProps.series.length).toEqual(3);
       expect(graphOptionsWithRequiredProps.series.length).toEqual(1);
+    });
+    it('should set the array of colors', () => {
+      // The actual values may change over time, just make sure they are defined
+      expect(graphOptionsWithAllProps.colors).toBeDefined();
     });
   });
 
@@ -241,11 +256,12 @@ describe('Graph Creator Methods', () => {
       );
     });
     it('should only add the x-axis title if given, it is not required', () => {
-      expect(graphOptionsWithRequiredProps.xAxis.title).toBeUndefined();
+      expect(graphOptionsWithRequiredProps.xAxis.title?.text).toEqual('');
       expect(graphOptionsWithAllProps.xAxis.title?.text).toEqual('x-axis');
     });
     it('should only add the y-axis property if given, it is not required', () => {
-      expect(graphOptionsWithRequiredProps.yAxis[0]).toEqual({});
+      // The actual values may change over time, just make sure they are defined
+      expect(graphOptionsWithRequiredProps.yAxis[0]).toBeDefined();
       expect(graphOptionsWithAllProps.yAxis[0].title?.text).toEqual('y-axis');
     });
     it('should not add any stack properties, it is not required', () => {
@@ -268,6 +284,10 @@ describe('Graph Creator Methods', () => {
         })
       );
       expect(graphWithSecondaryGraphType.graphOptions.length).toEqual(0);
+    });
+    it('should set the array of colors', () => {
+      // The actual values may change over time, just make sure they are defined
+      expect(graphOptionsWithAllProps.colors).toBeDefined();
     });
   });
 });

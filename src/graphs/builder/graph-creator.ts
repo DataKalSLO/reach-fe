@@ -36,8 +36,9 @@ export default class GraphCreator {
     const dataConfig = this.getDataConfiguration(config);
     this.createGeneralOptions(config, dataConfig);
     this.createStackingOptions(config);
-    this.seriesBuilder.withData(dataConfig);
-    this.seriesBuilder.withBasicSeries(config.seriesConfigs);
+    this.seriesBuilder
+      .withData(dataConfig)
+      .withBasicSeries(config.seriesConfigs);
     const options: types.GraphOptionsBasic = {
       ...this.optionsBuilder.getOptions(),
       series: this.seriesBuilder.getBasicSeries()
@@ -52,11 +53,11 @@ export default class GraphCreator {
     const dataConfig = this.getDataConfiguration(config);
     this.createGeneralOptions(config, dataConfig);
     this.createStackingOptions(config);
-    this.optionsBuilder.with3DOptions();
-    this.seriesBuilder.withData(dataConfig);
-    this.seriesBuilder.withBasicSeries(config.seriesConfigs);
+    this.seriesBuilder
+      .withData(dataConfig)
+      .withBasicSeries(config.seriesConfigs);
     const options: types.GraphOptionsBasic = {
-      ...this.optionsBuilder.getOptions(),
+      ...this.optionsBuilder.with3DOptions().getOptions(),
       series: this.seriesBuilder.getBasicSeries()
     };
     return {
@@ -69,11 +70,11 @@ export default class GraphCreator {
     const dataConfig = this.getDataConfiguration(config);
     this.createGeneralOptions(config, dataConfig);
     this.createStackingOptions(config);
-    this.optionsBuilder.withCombinedOptions();
-    this.seriesBuilder.withData(dataConfig);
-    this.seriesBuilder.withCombinedSeries(config.seriesConfigs);
+    this.seriesBuilder
+      .withData(dataConfig)
+      .withCombinedSeries(config.seriesConfigs);
     const options: types.GraphOptionsCombined = {
-      ...this.optionsBuilder.getOptions(),
+      ...this.optionsBuilder.withCombinedOptions().getOptions(),
       series: this.seriesBuilder.getCombinedSeries()
     };
     return {
@@ -103,12 +104,12 @@ export default class GraphCreator {
         yAxisData: [dataConfig.yAxisData[index]]
       };
       this.createGeneralOptions(config, dataConfigForOneSeries);
-      this.optionsBuilder.withSynchronizedOptions();
-      this.seriesBuilder.withData(dataConfigForOneSeries);
-      this.seriesBuilder.withBasicSeries([seriesConfig]);
       const options: types.GraphOptionsSynchronized = {
-        ...this.optionsBuilder.getOptions(),
-        series: this.seriesBuilder.getSynchronizedSeries()
+        ...this.optionsBuilder.withSynchronizedOptions().getOptions(),
+        series: this.seriesBuilder
+          .withData(dataConfigForOneSeries)
+          .withBasicSeries([seriesConfig])
+          .getSynchronizedSeries()
       };
       /*
        * This an be undefined if the series is a secondary typed series.
@@ -131,26 +132,21 @@ export default class GraphCreator {
     config: types.GraphConfiguration,
     dataConfig: types.DataConfiguration
   ) {
-    this.optionsBuilder.withGraphTitle(config.title);
-    if (!isUndefined(config.sourceUrl))
-      this.optionsBuilder.withGraphSourceURL(config.sourceUrl);
-    if (!isUndefined(config.yConfig))
-      this.optionsBuilder.withYAxis(config.yConfig);
-    if (!isUndefined(config.xConfig)) {
-      this.optionsBuilder.withXAxisDataType(dataConfig);
-      this.optionsBuilder.withXAxis(config.xConfig);
-    }
+    this.optionsBuilder
+      .withGraphTitle(config.title)
+      .withGraphSourceURL(config.sourceUrl)
+      .withYAxis(config.yConfig)
+      .withXAxisDataType(dataConfig)
+      .withXAxis(config.xConfig);
   }
 
   /*
    * Enable stacking if stacking data is given
    */
   private createStackingOptions(config: types.GraphConfiguration) {
-    if (!isUndefined(config.stackData)) {
-      this.optionsBuilder.withStack(config.stackData);
-    }
-    if (!isUndefined(config.stackConfig))
-      this.optionsBuilder.withStackOptions(config.stackConfig);
+    this.optionsBuilder
+      .withStack(config.stackData)
+      .withStackOptions(config.stackConfig);
   }
 
   /*
