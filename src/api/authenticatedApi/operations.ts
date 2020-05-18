@@ -2,7 +2,10 @@ import { store, history } from '../../redux/store';
 import { EMPTY_TOKEN } from '../../nav/constants';
 import { get, del, put, post } from '../base';
 import { LOGIN } from '../../nav/constants';
-import { UnauthorizedAOperationError } from './constants';
+import {
+  UnauthorizedAOperationError,
+  CONFIRM_REDIRECT_TO_LOGIN_PROMPT
+} from './constants';
 
 export function authenticatedGet(endpoint: string): Promise<object> {
   return performActionWithToken(token => get(endpoint, token));
@@ -29,7 +32,9 @@ export function authenticatedPost(
 function performActionWithToken<T>(action: (token: string) => T): T {
   const token = store.getState().user.token;
   if (token === EMPTY_TOKEN) {
-    history.push(LOGIN);
+    if (window.confirm(CONFIRM_REDIRECT_TO_LOGIN_PROMPT)) {
+      history.push(LOGIN);
+    }
     throw UnauthorizedAOperationError;
   } else {
     return action(token);
