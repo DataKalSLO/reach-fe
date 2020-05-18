@@ -51,8 +51,10 @@ export default function StorySidebar() {
 
   const handleSubmitForReview = () => {
     checkValidMetaFields(async () => {
-      await saveStoryAndHandleResponse(story);
-      if (submitStoryForReview(story)) {
+      if (
+        (await saveStoryAndHandleResponse(story)) &&
+        (await submitStoryForReview(story))
+      ) {
         dispatch(updatePublicationStatus(PublicationStatus.REVIEW));
       }
     });
