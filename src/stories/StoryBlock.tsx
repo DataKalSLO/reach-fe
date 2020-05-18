@@ -11,7 +11,7 @@ import {
 } from '../redux/story/types';
 import GraphBlock from './GraphBlock';
 import RichTextEditor from './RichTextEditor';
-import DeleteStoryButton from './DeleteStoryButton';
+import StoryBlockDeleteButton from './StoryBlockDeleteButton';
 import { Box, styled } from '@material-ui/core';
 
 interface StoryBlockProps {
@@ -47,7 +47,7 @@ export const StoryBlock = (props: StoryBlockProps): JSX.Element => {
   return (
     <StoryBlockBox>
       <StoryBlockBody {...props} />
-      <DeleteStoryButton {...props} />
+      <StoryBlockDeleteButton {...props} />
     </StoryBlockBox>
   );
 };

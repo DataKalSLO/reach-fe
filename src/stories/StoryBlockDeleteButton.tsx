@@ -1,18 +1,18 @@
 import { DeleteForever } from '@material-ui/icons';
 import React from 'react';
 import { Dispatch } from 'redux';
-import { IconButton } from '../common/components/IconButton';
+import IconButton from '../common/components/IconButton';
 import { deleteBlock } from '../redux/story/actions';
 import { StoryBlockType, TEXT_BLOCK_TYPE } from '../redux/story/types';
 import { theme } from '../theme/theme';
 
-interface DeleteButtonProps {
+interface StoryBlockDeleteButtonProps {
   index: number;
   dispatch: Dispatch;
   block: StoryBlockType;
 }
 
-const deleteButtonAction = (
+const storyBlockDeleteButtonAction = (
   storyBlock: StoryBlockType,
   index: number,
   dispatch: Dispatch
@@ -34,9 +34,11 @@ const deleteButtonAction = (
   }
 };
 
-const DeleteStoryButton = (props: DeleteButtonProps) => (
+const StoryBlockDeleteButton = (props: StoryBlockDeleteButtonProps) => (
   <IconButton
-    onClick={() => deleteButtonAction(props.block, props.index, props.dispatch)}
+    onClick={() =>
+      storyBlockDeleteButtonAction(props.block, props.index, props.dispatch)
+    }
     edge="end"
     aria-label="Delete block"
     style={{ color: theme.palette.error.main }}
@@ -44,4 +46,4 @@ const DeleteStoryButton = (props: DeleteButtonProps) => (
   />
 );
 
-export default DeleteStoryButton;
+export default StoryBlockDeleteButton;
