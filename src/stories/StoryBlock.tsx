@@ -46,9 +46,7 @@ const StoryBlockBody = (props: StoryBlockProps): JSX.Element => {
 export const StoryBlock = (props: StoryBlockProps): JSX.Element => {
   return (
     <StoryBlockBox>
-      <Box flexGrow={2}>
-        <StoryBlockBody {...props} />
-      </Box>
+      <StoryBlockBody {...props} />
       <DeleteStoryButton {...props} />
     </StoryBlockBox>
   );
@@ -59,5 +57,5 @@ const StoryBlockBox = styled(Box)({
   flexDirection: 'row',
   alignItems: 'center',
   flexWrap: 'nowrap',
-  flexGrow: 2
+  width: '100%'
 });
