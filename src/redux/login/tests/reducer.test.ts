@@ -7,7 +7,8 @@ describe('user reducer', () => {
     token: '',
     name: '',
     occupation: '',
-    role: -1
+    role: -1,
+    notificationsEnabled: false
   };
 
   const dummyUser: User = {
@@ -15,7 +16,8 @@ describe('user reducer', () => {
     token: 'gibberish',
     name: 'dummy',
     occupation: '',
-    role: -1
+    role: -1,
+    notificationsEnabled: false
   };
 
   const differentDummyUser: User = {
@@ -23,7 +25,8 @@ describe('user reducer', () => {
     token: 'different_gibberish',
     name: 'dummy1',
     occupation: '',
-    role: -1
+    role: -1,
+    notificationsEnabled: false
   };
 
   it('does nothing when logging out before logging in', () => {
