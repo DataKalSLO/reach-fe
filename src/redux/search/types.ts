@@ -20,11 +20,11 @@ export interface ReceiveSearchResultsAction {
   payload: Array<ElasticSearchResultObject>;
 }
 
-/* 
+/*
  * The following interfaces are the default structure of the response
  * object sent by the ElasticSearch API. The meta-properties are denoted with
  * an underscore, and I ordered them in order of nesting (outside->inside)
-*/
+ */
 
 export interface ElasticSearchResponseObject {
   hits: ElasticSearchHitsObject;

@@ -3,7 +3,7 @@ import { Paper, InputBase } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 // taken from material UI docs: https://material-ui.com/components/text-fields/
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     padding: '2px 4px',
     display: 'flex',
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     marginLeft: theme.spacing(1),
-    flex: 1,
+    flex: 1
   }
 }));
 
@@ -25,7 +25,9 @@ interface Props {
   // Optional properties that gave me a TS error when I removed them from this interface
 
   // Function that is called when input value changes
-  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
+  onChange?: (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => void;
   // Function that is called when key is pressed
   onKeyPress?: (e: React.KeyboardEvent) => void;
   button?: JSX.Element; // Button that will show up at end of text field
