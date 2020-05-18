@@ -73,13 +73,13 @@ export const title: TitleOptions = { text: DEFAULT_TITLE };
 
 /*
  * The subtitle of the chart
-//  * - can be applied to all chart
+ * - can be applied to all charts
  */
 export const subtitle: SubtitleOptions = { text: DEFAULT_SUBTITLE };
 
 /*
  * The colors of the chart
-//  * - can be applied to all chart
+ * - can be applied to all charts
  */
 export const colors: ColorString[] = GRAPH_COLORS;
 
