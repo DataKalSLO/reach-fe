@@ -4,6 +4,7 @@ import {
   getStoryWithStoryID,
   getAllStories
 } from './operations';
+import { UNAUTHORIZED_OPERATION_ERROR } from '../authenticatedApi/constants';
 import { Story } from '../../redux/story/types';
 
 const STORY_CREATION_SUCCESS_MESSAGE = 'Story created!';
@@ -72,12 +73,9 @@ async function handleApiOperation<P, R>(
       return res;
     })
     .catch(e => {
-      //TODO: Remove `if` after BEND has changed to return JSON instead of string response
-      if (e instanceof SyntaxError) {
-        console.log(successMessage);
-      } else {
+      if (e.name !== UNAUTHORIZED_OPERATION_ERROR) {
         alert(failureMessage);
       }
-      throw new Error(failureMessage);
+      throw new Error(e);
     });
 }
