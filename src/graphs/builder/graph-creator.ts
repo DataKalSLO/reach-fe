@@ -26,7 +26,7 @@ import {
  * method returns a Graph object containing the options
  * object, the x-axis data type, and the supported series
  * for that graph type.
- * - refer to the Graph interface in ./ts
+ * - refer to the Graph interface in types.ts
  *   for more information about the return type
  */
 
@@ -41,10 +41,11 @@ export default class GraphCreator {
 
   public createBasicGraph(config: GraphConfiguration): Graph {
     const dataConfig = this.getDataConfiguration(config);
-    this.withGeneralOptions(config, dataConfig);
-    this.withStackingOptions(config);
     const options: GraphOptionsBasic = {
-      ...this.optionsBuilder.getOptions(),
+      ...this.withGeneralOptions(config, dataConfig)
+        .withStack(config.stackData)
+        .withStackOptions(config.stackConfig)
+        .getOptions(),
       series: this.seriesBuilder
         .withData(dataConfig)
         .withBasicSeries(config.seriesConfigs)
@@ -58,10 +59,12 @@ export default class GraphCreator {
 
   public create3DGraph(config: GraphConfiguration): Graph {
     const dataConfig = this.getDataConfiguration(config);
-    this.withGeneralOptions(config, dataConfig);
-    this.withStackingOptions(config);
     const options: GraphOptionsBasic = {
-      ...this.optionsBuilder.with3DOptions().getOptions(),
+      ...this.withGeneralOptions(config, dataConfig)
+        .withStack(config.stackData)
+        .withStackOptions(config.stackConfig)
+        .with3DOptions()
+        .getOptions(),
       series: this.seriesBuilder
         .withData(dataConfig)
         .withBasicSeries(config.seriesConfigs)
@@ -75,10 +78,12 @@ export default class GraphCreator {
 
   public createCombinedGraph(config: GraphConfiguration): Graph {
     const dataConfig = this.getDataConfiguration(config);
-    this.withGeneralOptions(config, dataConfig);
-    this.withStackingOptions(config);
     const options: GraphOptionsCombined = {
-      ...this.optionsBuilder.withCombinedOptions().getOptions(),
+      ...this.withGeneralOptions(config, dataConfig)
+        .withStack(config.stackData)
+        .withStackOptions(config.stackConfig)
+        .withCombinedOptions()
+        .getOptions(),
       series: this.seriesBuilder
         .withData(dataConfig)
         .withCombinedSeries(config.seriesConfigs)
@@ -108,9 +113,10 @@ export default class GraphCreator {
         // get y-axis data for one series
         yAxisData: [dataConfig.yAxisData[index]]
       };
-      this.withGeneralOptions(config, dataConfigForOneSeries);
       const options: GraphOptionsSynchronized = {
-        ...this.optionsBuilder.withSynchronizedOptions().getOptions(),
+        ...this.withGeneralOptions(config, dataConfigForOneSeries)
+          .withSynchronizedOptions()
+          .getOptions(),
         series: this.seriesBuilder
           .withData(dataConfigForOneSeries)
           .withBasicSeries([seriesConfig])
@@ -143,15 +149,7 @@ export default class GraphCreator {
       .withYAxis(config.yConfig)
       .withXAxisDataType(dataConfig)
       .withXAxis(config.xConfig);
-  }
-
-  /*
-   * Enable stacking if stacking data is given
-   */
-  private withStackingOptions(config: GraphConfiguration) {
-    this.optionsBuilder
-      .withStack(config.stackData)
-      .withStackOptions(config.stackConfig);
+    return this.optionsBuilder;
   }
 
   /*
@@ -164,14 +162,12 @@ export default class GraphCreator {
   private getDataConfiguration(config: GraphConfiguration): DataConfiguration {
     const seriesLength = config.seriesConfigs.length;
     const xAxisDataConfig = getXAxisTypeAndConvertedData(config.xAxisData);
-    const convertedYAxisData = convertYData(config.yAxisData);
-    const convertedStackData = convertStackData(seriesLength, config.stackData);
     return {
       seriesLength: seriesLength,
       xAxisType: xAxisDataConfig.xAxisType,
       xAxisData: xAxisDataConfig.xAxisData,
-      yAxisData: convertedYAxisData,
-      stackData: convertedStackData
+      yAxisData: convertYData(config.yAxisData),
+      stackData: convertStackData(seriesLength, config.stackData)
     };
   }
 }
