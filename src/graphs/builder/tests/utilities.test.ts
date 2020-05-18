@@ -1,8 +1,4 @@
-import {
-  X_AXIS_CATEGORY_TYPE,
-  X_AXIS_DATETIME_TYPE,
-  X_AXIS_LINEAR_TYPE
-} from '../constants';
+import { isNumber, isString } from 'util';
 import {
   PrimarySeriesTypes,
   SecondarySeriesTypes,
@@ -10,12 +6,13 @@ import {
 } from '../types';
 import {
   convertStackData,
-  convertXData,
   convertYData,
   getEmptyStringIfUndefined,
-  getXAxisDataType,
+  getXAxisTypeAndConvertedData,
   isPrimarySeriesType,
   isSecondarySeriesType,
+  isXAxisDatetime,
+  isXAxisLinear,
   zipData
 } from '../utilities';
 
@@ -47,37 +44,67 @@ const mockSeriesTypeChecker = (series: SeriesTypes) => {
   }
 };
 
-describe('getXAxisDataType(): get the graph data type for the x-axis', () => {
-  it('should return either "category", "datetime", or "linear"', () => {
-    expect(getXAxisDataType(mockDataNum)).toEqual(X_AXIS_LINEAR_TYPE);
-    expect(getXAxisDataType(mockDataStr)).toEqual(X_AXIS_CATEGORY_TYPE);
-    expect(getXAxisDataType(mockDataDate)).toEqual(X_AXIS_DATETIME_TYPE);
-    expect(getXAxisDataType([1, 2, 'a'])).toEqual(X_AXIS_CATEGORY_TYPE);
-    expect(getXAxisDataType([1, 2, new Date('2012')])).toEqual(
-      X_AXIS_CATEGORY_TYPE
-    );
+describe('isXAxisLinear(): X-Axis Linear Typ Guard', () => {
+  it('should return true if given only numeric values', () => {
+    expect(isXAxisLinear(mockDataNum)).toBeTruthy();
+    expect(isXAxisLinear(mockDataStr)).toBeFalsy();
+    expect(isXAxisLinear(mockDataDate)).toBeFalsy();
+  });
+  it('should return false if there are any null values', () => {
+    expect(isXAxisLinear([...mockDataNum, null])).toBeFalsy();
   });
 });
 
-describe('convertXData(): converts graph x-axis data value types', () => {
-  it('should only convert x-axis date values to unix timestamps', () => {
-    expect(convertXData(X_AXIS_LINEAR_TYPE, mockDataNum)).toEqual(mockDataNum);
-    expect(convertXData(X_AXIS_CATEGORY_TYPE, mockDataStr)).toEqual(
-      mockDataStr
-    );
+describe('isXAxisDatetime(): X-Axis Datetime Typ Guard', () => {
+  it('should return true if given only Date values', () => {
+    expect(isXAxisDatetime(mockDataDate)).toBeTruthy();
+    expect(isXAxisDatetime(mockDataStr)).toBeFalsy();
+    expect(isXAxisDatetime(mockDataNum)).toBeFalsy();
+  });
+  it('should return false if there are any null values', () => {
+    expect(isXAxisDatetime([...mockDataDate, null])).toBeFalsy();
+  });
+});
+
+describe('getXAxisTypeAndConvertedData(): get the x-axis data type and the converted data values', () => {
+  it('should return the "linear" type and the data values should be all numbers', () => {
+    expect(getXAxisTypeAndConvertedData(mockDataNum)).toEqual({
+      xAxisType: 'linear',
+      xAxisData: mockDataNum
+    });
+  });
+  it('should return the "datetime" type and the data values should be all numbers', () => {
+    const returnValue = getXAxisTypeAndConvertedData(mockDataDate);
+    expect(returnValue.xAxisType).toEqual('datetime');
     /*
-     * Only check that the returned values are integers, actual values may var
+     * Only check that the returned values are strings, actual values may var
      * due to different date conversions (e.g. 2012 -> Dec 31, 2011 or Jan 1, 2012)
      */
-    const timestamps = convertXData(X_AXIS_DATETIME_TYPE, mockDataDate);
-    expect(
-      timestamps.every(timestamp => typeof timestamp === 'number')
-    ).toBeTruthy();
+    expect(returnValue.xAxisData.every(value => isNumber(value))).toBeTruthy();
   });
-  it('should convert mixed value types to strings', () => {
-    expect(
-      convertXData(X_AXIS_CATEGORY_TYPE, [1, 2, 'a', new Date('02 Feb, 1996')])
-    ).toEqual(['1', '2', 'a', 'Fri Feb 02 1996']);
+  it('should return the "category" type and the data values should be all numbers', () => {
+    expect(getXAxisTypeAndConvertedData(mockDataStr)).toEqual({
+      xAxisType: 'category',
+      xAxisData: mockDataStr
+    });
+  });
+  it('should convert mixed value types to strings and return the "category" type', () => {
+    // check null values
+    const returnValue1 = getXAxisTypeAndConvertedData([1, 2, 3, null]);
+    expect(returnValue1.xAxisType).toEqual('category');
+    // The actual values may vary, just make sure they are strings
+    expect(returnValue1.xAxisData.every(value => isString(value))).toBeTruthy();
+
+    // check mixed values
+    const returnValue2 = getXAxisTypeAndConvertedData([
+      new Date('2012'),
+      2,
+      '1',
+      null
+    ]);
+    expect(returnValue2.xAxisType).toEqual('category');
+    // The actual values may vary, just make sure they are strings
+    expect(returnValue2.xAxisData.every(value => isString(value))).toBeTruthy();
   });
 });
 
@@ -86,6 +113,9 @@ describe('convertYData(): converts graph y-axis data value types', () => {
     expect(convertYData([mockDataDate])).toEqual([[0, 0, 0]]);
     expect(convertYData([mockDataStr])).toEqual([[0, 0, 0]]);
     expect(convertYData(mockDataSeries)).toEqual(mockDataSeries);
+  });
+  it('should leave null values as null', () => {
+    expect(convertYData([['1', 2, null, '3']])).toEqual([[0, 2, null, 0]]);
   });
 });
 
@@ -101,14 +131,27 @@ describe('convertStackData(): converts graph stack data value types', () => {
      * Only check that the returned values are strings, actual values may var
      * due to different date conversions (e.g. 2012 -> Dec 31, 2011 or Jan 1, 2012)
      */
-    const timeStrings = convertStackData(mockDataSeries.length, mockDataDate);
     expect(
-      timeStrings.every(timeString => typeof timeString === 'string')
+      convertStackData(mockDataSeries.length, mockDataDate).every(
+        timeString => typeof timeString === 'string'
+      )
     ).toBeTruthy();
   });
+  it('should leave null values as null', () => {
+    expect(
+      convertStackData(mockDataSeries.length, [...mockDataNum, null])
+    ).toEqual([...mockDataNum, undefined]);
+    expect(
+      convertStackData(mockDataSeries.length, [...mockDataStr, null])
+    ).toEqual([...mockDataStr, undefined]);
+  });
 
-  it('should fill stack array with incrementing values if none are given', () => {
-    expect(convertStackData(mockDataSeries.length)).toEqual([1, 2, 3]);
+  it('should fill stack array with undefined values if none are given', () => {
+    expect(convertStackData(mockDataSeries.length)).toEqual([
+      undefined,
+      undefined,
+      undefined
+    ]);
   });
 });
 

@@ -12,7 +12,9 @@ export const GRAPH_PANNING_KEY = 'shift';
 export const GRAPH_PANNING_ENABLED = true;
 export const GRAPH_SERIES_ALLOW_POINT_SELECT = true;
 export const GRAPH_X_AXIS_CROSSHAIR_ENABLED = true;
+export const GRAPH_X_AXIS_UNIQUE_NAMES_ENABLED = false;
 export const GRAPH_SERIES_DATA_LABELS_ENABLED = true;
+export const GRAPH_UNDEFINED_CATEGORY_VALUE = 'N/A';
 export const GRAPH_COLORS = [
   '#7cb5ec',
   '#434348',

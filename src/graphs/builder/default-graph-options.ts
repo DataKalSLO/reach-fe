@@ -47,6 +47,7 @@ import {
   GRAPH_SYNC_TOOLTIP_SPLIT_ENABLED,
   GRAPH_SYNC_TRIGGER,
   GRAPH_X_AXIS_CROSSHAIR_ENABLED,
+  GRAPH_X_AXIS_UNIQUE_NAMES_ENABLED,
   GRAPH_ZOOM_TYPE,
   RESPONSIVE_LEGEND_ALIGNMENT,
   RESPONSIVE_LEGEND_LAYOUT,
@@ -109,7 +110,8 @@ export const plotOptions: PlotOptions = {
  * - can be applied to all charts
  */
 export const xAxis: XAxisOptions = {
-  crosshair: GRAPH_X_AXIS_CROSSHAIR_ENABLED
+  crosshair: GRAPH_X_AXIS_CROSSHAIR_ENABLED,
+  uniqueNames: GRAPH_X_AXIS_UNIQUE_NAMES_ENABLED
 };
 
 /*

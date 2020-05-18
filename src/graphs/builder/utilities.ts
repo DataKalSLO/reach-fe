@@ -1,5 +1,6 @@
-import { isUndefined } from 'util';
+import { isDate, isNull, isNumber, isUndefined } from 'util';
 import {
+  GRAPH_UNDEFINED_CATEGORY_VALUE,
   X_AXIS_CATEGORY_TYPE,
   X_AXIS_DATETIME_TYPE,
   X_AXIS_LINEAR_TYPE
@@ -7,54 +8,63 @@ import {
 import {
   DataValue,
   GraphData,
+  GraphDataStackValue,
   GraphDataXValue,
   GraphDataYValue,
   PrimarySeriesTypes,
   primarySeriesTypesEnum,
   SecondarySeriesTypes,
   secondarySeriesTypesEnum,
-  XAxisDataType
+  XAxisDataConfig
 } from './types';
 
 /*
- * Gets the x-axis data type
- * This is extracted for 2 reasons
- *  1. Know which chart constructor to use (highchart or highstock)
- *  2. The highcharts categories property needs to be used for categorial values
- *  - for more information about the categories property
- *    see https://api.highcharts.com/highcharts/xAxis.categories
- */
-export function getXAxisDataType(data: DataValue[]): XAxisDataType {
-  if (data.every(value => value instanceof Date)) {
-    return X_AXIS_DATETIME_TYPE;
-  } else if (data.every(value => typeof value === 'number')) {
-    return X_AXIS_LINEAR_TYPE;
-  }
-  // data with mixed types or strings will default to the categorical type
-  return X_AXIS_CATEGORY_TYPE;
+ * Linear X-Axis Type Guard
+ * Null values are not accepted since they cannot be assigned
+ * a concrete value
+ * */
+export function isXAxisLinear(data: DataValue[]): data is number[] {
+  return data.every(value => isNumber(value));
 }
 
 /*
- * Convert the x-axis data to the appropriate type depending on the
- * x-axis data type.
- *  - datetime: convert dates to timestamps
- *  - linear: leave as numbers
- *  - categorical: convert all to strings
+ * Datetime X-Axis Type Guard
+ * Null values are not accepted since they cannot be assigned
+ * a concrete value
  */
-export function convertXData(
-  type: XAxisDataType,
+export function isXAxisDatetime(data: DataValue[]): data is Date[] {
+  return data.every(value => isDate(value));
+}
+
+/*
+ * Gets the x-axis data type and convert to the appropriate type.
+ * Mixed value types and nulls will all be converted to strings
+ * and used as categorical types.
+ * The x-axis data type is extracted for 2 reasons
+ *  1. Know which chart constructor to use (highchart or highstock)
+ *  2. The highcharts categories property needs to be used for categorical values
+ *  - for more information about the categories property
+ *    see https://api.highcharts.com/highcharts/xAxis.categories
+ */
+export function getXAxisTypeAndConvertedData(
   data: DataValue[]
-): GraphDataXValue[] {
-  switch (type) {
-    case X_AXIS_DATETIME_TYPE:
-      return data.map(value => value.valueOf());
-    case X_AXIS_LINEAR_TYPE:
-      return data as number[];
-    default:
-      return data.map(value =>
-        value instanceof Date ? value.toDateString() : value.toString()
-      );
+): XAxisDataConfig {
+  if (isXAxisLinear(data)) {
+    return { xAxisType: X_AXIS_LINEAR_TYPE, xAxisData: data };
+  } else if (isXAxisDatetime(data)) {
+    return {
+      xAxisType: X_AXIS_DATETIME_TYPE,
+      xAxisData: data.map(value => value.valueOf())
+    };
   }
+  return {
+    xAxisType: X_AXIS_CATEGORY_TYPE,
+    xAxisData: data.map(value => {
+      if (isNull(value)) return GRAPH_UNDEFINED_CATEGORY_VALUE;
+      if (isDate(value)) return value.toDateString();
+      return value.toString();
+    })
+  };
 }
 
 /*
@@ -63,36 +73,29 @@ export function convertXData(
 export function convertYData(data: DataValue[][]): GraphDataYValue[][] {
   return data.map(series =>
     series.map(value => {
-      // Convert non-numeric values to 0
-      if (typeof value !== 'number') {
-        return 0;
-      }
+      if (isNull(value)) return null; // keep null values
+      if (!isNumber(value)) return 0;
       return value;
     })
   );
 }
 
 /*
- * Convert the stack data to either strings or numbers
+ * Convert the stack data to either strings, numbers or undefined.
  * Series with the same stack value will be stacked.
- * Therefore, if the given stack data is null, then
- * simply add unique values to ensure that the data
- * is not stacked.
  */
 export function convertStackData(
   seriesCount: number,
   data?: DataValue[]
-): GraphDataXValue[] {
+): GraphDataStackValue[] {
   if (!isUndefined(data)) {
-    return data.map(value =>
-      // convert dates to strings
-      value instanceof Date ? value.toDateString() : value
-    );
+    return data.map(value => {
+      if (isNull(value)) return undefined; // convert nulls to undefined
+      return isDate(value) ? value.toDateString() : value;
+    });
   }
-  // if no stack is given, use the index as the series key
-  return Array(seriesCount)
-    .fill(0)
-    .map((_, index) => index + 1);
+  // if no stack is given, use undefined values
+  return Array(seriesCount).fill(undefined);
 }
 
 /*

@@ -173,17 +173,22 @@ export type GraphOptionsType =
  * This type should correspond to the data values retrieved from
  * the backend when accessing columns in a dataset.
  */
-export type DataValue = string | number | Date;
+export type DataValue = string | number | Date | null;
 
 /*
- * Highcharts requires x-axis values to be either numbers or strings
+ * Highcharts x-axis value type constraints
  */
 export type GraphDataXValue = number | string;
 
 /*
- * Highcharts requires y-axis values to be numbers
+ * Highcharts stack value type constraints
  */
-export type GraphDataYValue = number;
+export type GraphDataStackValue = number | string | undefined;
+
+/*
+ * Highcharts y-axis value type constraints
+ */
+export type GraphDataYValue = number | null;
 
 /*
  * Array of tuples containing both the x and y values.
@@ -203,6 +208,16 @@ export type XAxisDataType =
   | typeof X_AXIS_LINEAR_TYPE;
 
 /*
+ * The x-axis data information
+ * This is used as an intermediary configuration to pass both the x-axis
+ * data type and the converted x-axis data
+ */
+export interface XAxisDataConfig {
+  xAxisType: XAxisDataType;
+  xAxisData: GraphDataXValue[];
+}
+
+/*
  * Used as an intermediary configuration to
  * convert the data to the data type that
  * is expected by highcharts.
@@ -212,7 +227,7 @@ export interface DataConfiguration {
   xAxisType: XAxisDataType;
   xAxisData: GraphDataXValue[];
   yAxisData: GraphDataYValue[][];
-  stackData: GraphDataXValue[];
+  stackData: GraphDataStackValue[];
 }
 
 /*

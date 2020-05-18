@@ -12,9 +12,8 @@ import {
 } from './types';
 import {
   convertStackData,
-  convertXData,
   convertYData,
-  getXAxisDataType
+  getXAxisTypeAndConvertedData
 } from './utilities';
 
 /*
@@ -158,20 +157,19 @@ export default class GraphCreator {
   /*
    * This function has 2 responsibilities
    *  1. Get the x-axis data type
-   *  2. Convert all the data to the appropriate
+   *  2. Convert all the data to the appropriate types
    * These responsibilities were merged into one function
    * since converting the data relies on the x-axis data type.
    */
   private getDataConfiguration(config: GraphConfiguration): DataConfiguration {
     const seriesLength = config.seriesConfigs.length;
-    const xAxisDataType = getXAxisDataType(config.xAxisData);
-    const convertedXAxisData = convertXData(xAxisDataType, config.xAxisData);
+    const xAxisDataConfig = getXAxisTypeAndConvertedData(config.xAxisData);
     const convertedYAxisData = convertYData(config.yAxisData);
     const convertedStackData = convertStackData(seriesLength, config.stackData);
     return {
       seriesLength: seriesLength,
-      xAxisType: xAxisDataType,
-      xAxisData: convertedXAxisData,
+      xAxisType: xAxisDataConfig.xAxisType,
+      xAxisData: xAxisDataConfig.xAxisData,
       yAxisData: convertedYAxisData,
       stackData: convertedStackData
     };

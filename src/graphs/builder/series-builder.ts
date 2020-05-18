@@ -1,6 +1,7 @@
 import { GRAPH_COMBINED_SIZE } from './constants';
 import {
   DataConfiguration,
+  GraphDataStackValue,
   GraphDataXValue,
   GraphDataYValue,
   PrimarySeries,
@@ -35,7 +36,7 @@ export default class SeriesBuilder {
   private secondarySeries!: SecondarySeries[];
   private graphXData!: GraphDataXValue[];
   private graphYData!: GraphDataYValue[][];
-  private graphStackData!: GraphDataXValue[];
+  private graphStackData!: GraphDataStackValue[];
 
   constructor() {
     this.resetSeries();
