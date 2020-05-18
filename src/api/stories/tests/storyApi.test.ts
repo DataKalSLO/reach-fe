@@ -1,7 +1,8 @@
 import {
   Story,
   StoryBlockType,
-  TextBlockType
+  TextBlockType,
+  PublicationStatus
 } from '../../../redux/story/types';
 import { store } from '../../../redux/store';
 import { uuid } from 'uuidv4';
@@ -23,6 +24,7 @@ describe('Story API', () => {
     'This tests that FEND can successfully retrieve, create, delete, and modify stories.';
   const userID = 'berto@bert1.com';
   const userPassword = 'abc123#';
+  const publicationStatus = PublicationStatus.DRAFT;
   const textBlock: TextBlockType = emptyTextBlock();
   const storyBlocks: StoryBlockType[] = [textBlock];
   const story: Story = {
@@ -30,6 +32,7 @@ describe('Story API', () => {
     title,
     description,
     userID,
+    publicationStatus,
     storyBlocks
   };
 
@@ -41,34 +44,42 @@ describe('Story API', () => {
     store.getState().user = user;
   });
 
-  test('get all stories', async done => {
-    const stories = await getAllStoriesAndHandleResponse();
-    if (stories) {
-      expect(stories.length).toBeGreaterThan(0);
+  test(
+    'get all stories',
+    async done => {
+      const stories = await getAllStoriesAndHandleResponse();
+      if (stories) {
+        expect(stories.length).toBeGreaterThan(0);
+        done();
+      } else {
+        expect(stories).toBeDefined();
+        done();
+      }
+    },
+    15 * 1000
+  );
+
+  test(
+    'create, update, retrieve, and delete story',
+    async done => {
+      const newTitle = 'new title who this';
+
+      // Create
+      await saveStoryAndHandleResponse(story);
+
+      // Update
+      story.title = newTitle;
+      await saveStoryAndHandleResponse(story);
+
+      // Retrieve
+      const storyRetrieved: Story = await getStoryWithStoryID(story.id);
+      expect(storyRetrieved.id).toEqual(id);
+      expect(storyRetrieved.title).toEqual(newTitle);
+
+      // Delete
+      await deleteStoryByIdAndHandleResponse(id);
       done();
-    } else {
-      expect(stories).toBeDefined();
-      done();
-    }
-  }, 5000);
-
-  test('create, update, retrieve, and delete story', async done => {
-    const newTitle = 'new title who this';
-
-    // Create
-    expect(await saveStoryAndHandleResponse(story)).toEqual(true);
-
-    // Update
-    story.title = newTitle;
-    expect(await saveStoryAndHandleResponse(story)).toEqual(true);
-
-    // Retrieve
-    const storyRetrieved: Story = await getStoryWithStoryID(story.id);
-    expect(storyRetrieved.id).toEqual(id);
-    expect(storyRetrieved.title).toEqual(newTitle);
-
-    // Delete
-    expect(await deleteStoryByIdAndHandleResponse(id)).toEqual(true);
-    done();
-  }, 20000);
+    },
+    20 * 1000
+  );
 });
