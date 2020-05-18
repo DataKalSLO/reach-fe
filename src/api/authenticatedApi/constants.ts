@@ -7,3 +7,6 @@ export const UnauthorizedAOperationError = {
   name: UNAUTHORIZED_OPERATION_ERROR,
   message: UNAUTHORIZED_OPERATION_ERROR_MESSAGE
 };
+
+export const CONFIRM_REDIRECT_TO_LOGIN_PROMPT =
+  'An account is required to proceed. Would you like to login?';

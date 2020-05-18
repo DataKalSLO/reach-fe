@@ -2,10 +2,10 @@ import { store, history } from '../../redux/store';
 import { EMPTY_TOKEN } from '../../nav/constants';
 import { get, del, put, post } from '../base';
 import { LOGIN } from '../../nav/constants';
-import { UnauthorizedAOperationError } from './constants';
-
-const CONFIRM_REDIRECT_TO_LOGIN_PROMPT =
-  'An account is required to proceed. Would you like to login?';
+import {
+  UnauthorizedAOperationError,
+  CONFIRM_REDIRECT_TO_LOGIN_PROMPT
+} from './constants';
 
 export function authenticatedGet(endpoint: string): Promise<object> {
   return performActionWithToken(token => get(endpoint, token));
