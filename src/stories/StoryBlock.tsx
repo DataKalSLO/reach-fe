@@ -30,7 +30,6 @@ const StoryBlockBody = (props: StoryBlockProps): JSX.Element => {
           setEditorState={(editorState: EditorState) =>
             props.dispatch(updateTextBlock(props.index, editorState))
           }
-          flex-grow={1}
         />
       );
     case GRAPH_BLOCK_TYPE:
