@@ -41,14 +41,14 @@ export default class GraphCreator {
 
   public createBasicGraph(config: GraphConfiguration): Graph {
     const dataConfig = this.getDataConfiguration(config);
-    this.createGeneralOptions(config, dataConfig);
-    this.createStackingOptions(config);
-    this.seriesBuilder
-      .withData(dataConfig)
-      .withBasicSeries(config.seriesConfigs);
+    this.withGeneralOptions(config, dataConfig);
+    this.withStackingOptions(config);
     const options: GraphOptionsBasic = {
       ...this.optionsBuilder.getOptions(),
-      series: this.seriesBuilder.getBasicSeries()
+      series: this.seriesBuilder
+        .withData(dataConfig)
+        .withBasicSeries(config.seriesConfigs)
+        .getBasicSeries()
     };
     return {
       graphOptions: [options],
@@ -58,14 +58,14 @@ export default class GraphCreator {
 
   public create3DGraph(config: GraphConfiguration): Graph {
     const dataConfig = this.getDataConfiguration(config);
-    this.createGeneralOptions(config, dataConfig);
-    this.createStackingOptions(config);
-    this.seriesBuilder
-      .withData(dataConfig)
-      .withBasicSeries(config.seriesConfigs);
+    this.withGeneralOptions(config, dataConfig);
+    this.withStackingOptions(config);
     const options: GraphOptionsBasic = {
       ...this.optionsBuilder.with3DOptions().getOptions(),
-      series: this.seriesBuilder.getBasicSeries()
+      series: this.seriesBuilder
+        .withData(dataConfig)
+        .withBasicSeries(config.seriesConfigs)
+        .getBasicSeries()
     };
     return {
       graphOptions: [options],
@@ -75,14 +75,14 @@ export default class GraphCreator {
 
   public createCombinedGraph(config: GraphConfiguration): Graph {
     const dataConfig = this.getDataConfiguration(config);
-    this.createGeneralOptions(config, dataConfig);
-    this.createStackingOptions(config);
-    this.seriesBuilder
-      .withData(dataConfig)
-      .withCombinedSeries(config.seriesConfigs);
+    this.withGeneralOptions(config, dataConfig);
+    this.withStackingOptions(config);
     const options: GraphOptionsCombined = {
       ...this.optionsBuilder.withCombinedOptions().getOptions(),
-      series: this.seriesBuilder.getCombinedSeries()
+      series: this.seriesBuilder
+        .withData(dataConfig)
+        .withCombinedSeries(config.seriesConfigs)
+        .getCombinedSeries()
     };
     return {
       graphOptions: [options],
@@ -108,7 +108,7 @@ export default class GraphCreator {
         // get y-axis data for one series
         yAxisData: [dataConfig.yAxisData[index]]
       };
-      this.createGeneralOptions(config, dataConfigForOneSeries);
+      this.withGeneralOptions(config, dataConfigForOneSeries);
       const options: GraphOptionsSynchronized = {
         ...this.optionsBuilder.withSynchronizedOptions().getOptions(),
         series: this.seriesBuilder
@@ -117,7 +117,7 @@ export default class GraphCreator {
           .getSynchronizedSeries()
       };
       /*
-       * This an be undefined if the series is a secondary typed series.
+       * This can be undefined if the series is a secondary typed series.
        * A synchronized graph cannot contain a secondary series type.
        */
       if (!isUndefined(options.series[0])) {
@@ -133,7 +133,7 @@ export default class GraphCreator {
   /*
    * Build the general options that apply to every chart
    */
-  private createGeneralOptions(
+  private withGeneralOptions(
     config: GraphConfiguration,
     dataConfig: DataConfiguration
   ) {
@@ -148,7 +148,7 @@ export default class GraphCreator {
   /*
    * Enable stacking if stacking data is given
    */
-  private createStackingOptions(config: GraphConfiguration) {
+  private withStackingOptions(config: GraphConfiguration) {
     this.optionsBuilder
       .withStack(config.stackData)
       .withStackOptions(config.stackConfig);
