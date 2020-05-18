@@ -10,7 +10,6 @@ import {
 import { Dispatch } from 'redux';
 import { swapBlocks } from '../redux/story/actions';
 import { StoryBlockType } from '../redux/story/types';
-import DeleteStoryButton from './DeleteStoryButton';
 import { StoryBlock } from './StoryBlock';
 
 // The input to the sortable list, objects to be converted into JSX.Elements
@@ -38,21 +37,14 @@ const DragHandle = SortableHandle(() => (
 
 // Component that determines what is in each draggable block
 const SortableStoryBlock = SortableElement((props: SortableItemProps) => (
-  <StoryBlockBox>
+  <SortableBox>
     <DragHandle />
-    <Box flexGrow={2}>
-      <StoryBlock
-        block={props.block}
-        myIndex={props.myIndex}
-        dispatch={props.dispatch}
-      />
-    </Box>
-    <DeleteStoryButton
+    <StoryBlock
+      block={props.block}
       index={props.myIndex}
       dispatch={props.dispatch}
-      block={props.block}
     />
-  </StoryBlockBox>
+  </SortableBox>
 ));
 
 // Container for all sortable story blocks
@@ -87,9 +79,8 @@ const SortableList = (props: SortableListProps) => {
 
 export default SortableList;
 
-const StoryBlockBox = styled(Box)({
+const SortableBox = styled(Box)({
   display: 'flex',
   flexDirection: 'row',
-  alignItems: 'center',
-  flexWrap: 'nowrap'
+  alignItems: 'center'
 });

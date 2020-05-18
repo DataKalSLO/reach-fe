@@ -1,7 +1,7 @@
 import { DeleteForever } from '@material-ui/icons';
 import React from 'react';
 import { Dispatch } from 'redux';
-import { IconButton as CustomIconButton } from '../common/components/IconButton';
+import { IconButton } from '../common/components/IconButton';
 import { deleteBlock } from '../redux/story/actions';
 import { StoryBlockType, TEXT_BLOCK_TYPE } from '../redux/story/types';
 import { theme } from '../theme/theme';
@@ -24,13 +24,18 @@ const deleteButtonAction = (
   ) {
     dispatch(deleteBlock(index));
   } else {
-    if (window.confirm('Are you sure you wish to delete this item?'))
+    if (
+      window.confirm(
+        'Are you sure you wish to delete this item?\n' +
+          'This action cannot be undone.'
+      )
+    )
       dispatch(deleteBlock(index));
   }
 };
 
 const DeleteStoryButton = (props: DeleteButtonProps) => (
-  <CustomIconButton
+  <IconButton
     onClick={() => deleteButtonAction(props.block, props.index, props.dispatch)}
     edge="end"
     aria-label="Delete block"

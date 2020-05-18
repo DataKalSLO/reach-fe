@@ -11,15 +11,16 @@ import {
 } from '../redux/story/types';
 import GraphBlock from './GraphBlock';
 import RichTextEditor from './RichTextEditor';
+import DeleteStoryButton from './DeleteStoryButton';
+import { Box, styled } from '@material-ui/core';
 
 interface StoryBlockProps {
   block: StoryBlockType;
-  myIndex: number;
+  index: number;
   dispatch: Dispatch;
 }
 
-// Convert a block object into its corresponding React component to be displayed
-export const StoryBlock = (props: StoryBlockProps): JSX.Element => {
+const StoryBlockBody = (props: StoryBlockProps): JSX.Element => {
   switch (props.block.type) {
     case TEXT_BLOCK_TYPE:
       return (
@@ -27,8 +28,9 @@ export const StoryBlock = (props: StoryBlockProps): JSX.Element => {
           key={props.block.id}
           editorState={(props.block as TextBlockType).editorState}
           setEditorState={(editorState: EditorState) =>
-            props.dispatch(updateTextBlock(props.myIndex, editorState))
+            props.dispatch(updateTextBlock(props.index, editorState))
           }
+          flex-grow={1}
         />
       );
     case GRAPH_BLOCK_TYPE:
@@ -39,3 +41,23 @@ export const StoryBlock = (props: StoryBlockProps): JSX.Element => {
       throw new Error('TODO: Block type not implemented');
   }
 };
+
+// Convert a block object into its corresponding React component to be displayed
+export const StoryBlock = (props: StoryBlockProps): JSX.Element => {
+  return (
+    <StoryBlockBox>
+      <Box flexGrow={2}>
+        <StoryBlockBody {...props} />
+      </Box>
+      <DeleteStoryButton {...props} />
+    </StoryBlockBox>
+  );
+};
+
+const StoryBlockBox = styled(Box)({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  flexWrap: 'nowrap',
+  flexGrow: 2
+});
