@@ -9,14 +9,14 @@ import {
 import { esQuery } from '../../api/search';
 import { Dispatch } from 'redux';
 
-export function requestSearchResults(qry: string): RequestSearchResultsAction {
+function requestSearchResults(qry: string): RequestSearchResultsAction {
   return {
     type: REQUEST_SEARCH_RESULTS,
     payload: qry
   };
 }
 
-export function receiveSearchResults(
+function receiveSearchResults(
   data: Array<ElasticSearchResultObject>
 ): ReceiveSearchResultsAction {
   return {

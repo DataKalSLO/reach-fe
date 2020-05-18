@@ -3,8 +3,7 @@ import { Dispatch } from 'redux';
 const baseURL = process.env.REACT_APP_API_URL;
 
 // TEMPORARY: will access ES index from backend in future, for now accessing ES directly from client
-const searchURL =
-  'https://search-hourglass-search-test-boatibipr2tvrekti6tuz7pghi.us-east-2.es.amazonaws.com/';
+const searchURL = process.env.REACT_APP_SEARCH_URL;
 
 async function tryFetch(url: string, request: RequestInit) {
   const response = await fetch(url, request);

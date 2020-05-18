@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
-import { Box, styled, Paper } from '@material-ui/core';
+import { Box, styled } from '@material-ui/core';
 import IconButton from '../common/components/IconButton';
-import SearchInputBase from '../common/components/SearchInputBase';
+import TextField from '../common/components/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 
 const SearchBarBox = styled(Box)({
   paddingTop: '20px'
-});
-
-const StyledPaper = styled(Paper)({
-  padding: '2px 4px',
-  display: 'flex',
-  alignItems: 'center',
-  width: 600
 });
 
 interface SearchBarProps {
@@ -37,18 +30,19 @@ function SearchBar(props: SearchBarProps) {
 
   return (
     <SearchBarBox>
-      <StyledPaper component="form">
-        <SearchInputBase
-          placeholder="Search graphs, stories"
-          onChange={e => handleChange(e)}
-          onKeyPress={handleKeyPress}
-        />
-        <IconButton
-          onClick={() => props.searchCallback(text)}
-          icon={<SearchIcon />}
-          aria-label="Search graphs, stories"
-        />
-      </StyledPaper>
+      <TextField
+        aria-label="Search graphs, stories"
+        placeholder="Search graphs, stories"
+        onChange={e => handleChange(e)}
+        onKeyPress={handleKeyPress}
+        button={
+          <IconButton
+            onClick={() => props.searchCallback(text)}
+            icon={<SearchIcon />}
+            aria-label="Search graphs, stories"
+          />
+        }
+      />
     </SearchBarBox>
   );
 }
