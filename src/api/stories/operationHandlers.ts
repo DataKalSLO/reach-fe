@@ -21,26 +21,24 @@ const STORY_RETRIEVAL_SUCCESS_MESSAGE = 'Story retrieved!';
 const STORY_RETRIEVAL_FAILURE_MESSAGE =
   'An Error occurred while retrieving a Story.';
 
-export async function saveStoryAndHandleResponse(
-  story: Story
-): Promise<boolean> {
-  return await handleApiOperation(
+export async function saveStoryAndHandleResponse(story: Story): Promise<void> {
+  await handleApiOperation(
     story,
     saveOrUpdateExistingStory,
     STORY_CREATION_SUCCESS_MESSAGE,
     STORY_CREATION_FAILURE_MESSAGE
-  ).catch(e => false);
+  ).catch(e => console.error(e));
 }
 
 export async function deleteStoryByIdAndHandleResponse(
   storyId: string
-): Promise<boolean> {
-  return await handleApiOperation(
+): Promise<void> {
+  await handleApiOperation(
     storyId,
     deleteStoryById,
     STORY_DELETION_SUCCESS_MESSAGE,
     STORY_DELETION_FAILURE_MESSAGE
-  ).catch(e => false);
+  );
 }
 
 export async function getStoryWIthIdAndHandleResponse(
