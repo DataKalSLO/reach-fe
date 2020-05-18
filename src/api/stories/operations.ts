@@ -19,18 +19,16 @@ enum StoryActions {
   GET_ALL_STORIES
 }
 
-type StoryApiResponse = Story | Array<Story>;
+type StoryApiResponse = void | Story | Array<Story>;
 type StoryApiPayload = string | DatabaseStory | undefined;
 
-export async function saveOrUpdateExistingStory(
-  story: Story
-): Promise<boolean> {
+export async function saveOrUpdateExistingStory(story: Story): Promise<void> {
   const databaseStory = transformStoryToDatabaseStory(story);
-  return httpRequestWithEmptyResponse(StoryActions.CREATE, databaseStory);
+  return storyHttp(StoryActions.CREATE, databaseStory) as Promise<void>;
 }
 
-export function deleteStoryById(storyId: string): Promise<boolean> {
-  return httpRequestWithEmptyResponse(StoryActions.DELETE_WITH_ID, storyId);
+export function deleteStoryById(storyId: string): Promise<void> {
+  return storyHttp(StoryActions.DELETE_WITH_ID, storyId) as Promise<void>;
 }
 
 export async function getStoryWithStoryID(storyID: string): Promise<Story> {
@@ -59,18 +57,6 @@ async function httpRequestWithStoryArrayResponse(
       'Expected a string to be returned by call story action: ' + actionType
     );
   }
-}
-
-async function httpRequestWithEmptyResponse(
-  actionType: StoryActions,
-  payload: StoryApiPayload
-): Promise<boolean> {
-  return storyHttp(actionType, payload)
-    .then(res => true)
-    .catch(e => {
-      console.error(e);
-      return false;
-    });
 }
 
 async function storyHttp(
