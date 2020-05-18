@@ -114,6 +114,7 @@ const errMap: errMapType = {
     noOldPwd: 'Change of password requires an old password',
     oldPwdMismatch: 'Old password that was provided is incorrect.',
     forbiddenField: 'Field in body not allowed.',
-    queryFailed: 'Query failed (server problem).'
+    queryFailed: 'Query failed (server problem).',
+    notOwner: 'Authenticated user is not owner of content item.'
   }
 };
