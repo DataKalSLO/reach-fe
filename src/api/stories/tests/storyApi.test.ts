@@ -18,7 +18,6 @@ import { emptyTextBlock } from '../../../redux/story/reducer';
 
 describe('Story API', () => {
   const id = uuid();
-
   const title = 'This is a unit tests for FEND story api.';
   const description =
     'This tests that FEND can successfully retrieve, create, delete, and modify stories.';
@@ -65,11 +64,11 @@ describe('Story API', () => {
       const newTitle = 'new title who this';
 
       // Create
-      await saveStoryAndHandleResponse(story);
+      expect(await saveStoryAndHandleResponse(story)).toBeTruthy();
 
       // Update
       story.title = newTitle;
-      await saveStoryAndHandleResponse(story);
+      expect(await saveStoryAndHandleResponse(story)).toBeTruthy();
 
       // Retrieve
       const storyRetrieved: Story = await getStoryWithStoryID(story.id);
@@ -77,7 +76,7 @@ describe('Story API', () => {
       expect(storyRetrieved.title).toEqual(newTitle);
 
       // Delete
-      await deleteStoryByIdAndHandleResponse(id);
+      expect(await deleteStoryByIdAndHandleResponse(id)).toBeTruthy();
       done();
     },
     20 * 1000
