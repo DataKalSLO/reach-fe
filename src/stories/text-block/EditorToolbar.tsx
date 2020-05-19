@@ -15,8 +15,8 @@ import { EditorState, RichUtils } from 'draft-js';
 import React, { useState } from 'react';
 import IconButton, {
   Props as IconButtonProps
-} from '../common/components/IconButton';
-import { CollapsibleItem, CollapsibleMenu } from './CollapsibleToolbar';
+} from '../../common/components/IconButton';
+import { CollapsibleItem, CollapsibleMenu } from '../CollapsibleToolbar';
 import { DraftJSBlockType, DraftJSInlineType } from './DraftJSCommands';
 import { HyperlinkPlugin } from './HyperlinkPlugin';
 

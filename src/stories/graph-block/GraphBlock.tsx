@@ -1,8 +1,8 @@
 import { Grid, Paper, styled } from '@material-ui/core';
 import React from 'react';
-import Gallery from '../common/components/Gallery';
-import { useGraphs } from '../graphs/components/Accessor';
-import { GalleryPreviewCard } from './GalleryPreviewCard';
+import Gallery from '../../common/components/Gallery';
+import { useGraphs } from '../../graphs/components/Accessor';
+import { GalleryPreviewCard } from '../GalleryPreviewCard';
 
 export default function GraphBlock() {
   const graphs = useGraphs();

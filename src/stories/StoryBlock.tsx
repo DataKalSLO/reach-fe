@@ -9,8 +9,8 @@ import {
   TextBlockType,
   TEXT_BLOCK_TYPE
 } from '../redux/story/types';
-import GraphBlock from './GraphBlock';
-import RichTextEditor from './RichTextEditor';
+import GraphBlock from './graph-block/GraphBlock';
+import RichTextEditor from './text-block/RichTextEditor';
 
 interface StoryBlockProps {
   block: StoryBlockType;

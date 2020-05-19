@@ -1,7 +1,7 @@
 import { Box } from '@material-ui/core';
 import { styled } from '@material-ui/styles';
 import React from 'react';
-import StoryForm from '../stories/StoryForm';
+import StoryEditor from '../stories/StoryEditor';
 import StorySidebar from '../stories/StorySidebar';
 import { theme } from '../theme/theme';
 
@@ -10,7 +10,7 @@ export default function StoryBuilder() {
     <StyledBox>
       <StorySidebar />
       <StoryFormBox>
-        <StoryForm />
+        <StoryEditor />
       </StoryFormBox>
     </StyledBox>
   );
