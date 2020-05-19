@@ -1,28 +1,44 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import PropTypes from 'prop-types';
-import Dropzone, { IDropzoneProps } from 'react-dropzone-uploader';
+import Dropzone from 'react-dropzone';
 import 'react-dropzone-uploader/dist/styles.css';
+import * as csv from 'csv';
+import csv2json from 'csvtojson';
 
-interface FileUploadProps {
-  handleChangeStatus: IDropzoneProps['onChangeStatus'];
-  handleSubmit: IDropzoneProps['onSubmit'];
-  accept: string;
-}
+function FileUpload() {
+  const handleDrop = useCallback((acceptedFiles: any) => {
+    acceptedFiles.forEach((file: any) => {
+      const reader = new FileReader();
 
-function FileUpload(props: FileUploadProps) {
+      reader.onabort = () => console.log('file reading was aborted');
+      reader.onerror = () => console.log('file reading has failed');
+      reader.onload = () => {
+        const csvStr = "1,2,3,4,5,6,7,8,9";
+        csv2json({
+          noheader:true,
+          output: "csv"
+      })
+      .fromString(csvStr)
+      .then((csvRow)=>{ 
+          console.log(csvRow) // => [["1","2","3"], ["4","5","6"], ["7","8","9"]]
+      })
+    };
+      reader.readAsArrayBuffer(file);
+    });
+  }, []);
+
   return (
-    <Dropzone
-      onChangeStatus={props.handleChangeStatus}
-      onSubmit={props.handleSubmit}
-      accept={props.accept}
-    />
+    <Dropzone onDrop={handleDrop} accept=".csv">
+          {({ getRootProps, getInputProps }) => (
+            <section>
+              <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                <p>Drag n drop some files here, or click to select files</p>
+              </div>
+            </section>
+          )}
+        </Dropzone>
   );
 }
-
-FileUpload.propTypes = {
-  handleChangeStatus: PropTypes.element.isRequired,
-  handleSubmit: PropTypes.element.isRequired,
-  accept: PropTypes.element.isRequired
-};
 
 export default FileUpload;

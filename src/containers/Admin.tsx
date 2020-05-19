@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import FileUpload from '../common/components/FileUpload';
 import CSVTemplate from '../admin/CSVTemplate';
 import { Paper, Typography, Box, styled } from '@material-ui/core';
 import { csv } from 'd3';
 import { IDropzoneProps } from 'react-dropzone-uploader';
+import csv2json from 'csvtojson';
+import CSVReader from 'react-csv-reader';
+import Dropzone from 'react-dropzone';
 
 function Admin() {
   const [csvData, setCsvData]: any = useState([]);
@@ -13,25 +16,61 @@ function Admin() {
 
   //currently removes files, will be changed later
   const handleSubmit: IDropzoneProps['onSubmit'] = (files, allFiles) => {
-    console.log(files.map(f => f.meta));
-    allFiles.forEach(f => f.remove());
+    console.log(files, allFiles);
   };
 
   const handleChangeStatus: IDropzoneProps['onChangeStatus'] = (
     { meta },
     status
   ) => {
-    console.log(status, meta);
+    //console.log(status, meta);
   };
+
+  const handleForce = (data : Array<any>) => {
+    console.log(data.toString());
+    console.log(data);
+    console.log(JSON.stringify(data));
+    csv2json({
+      noheader: true,
+      output: "json"
+    })
+    .fromString("1 2 3, 3 4 5")
+    .then((jsonObj)=>{
+      console.log(jsonObj);
+  })
+  };
+
+  const handleDrop = useCallback((acceptedFiles: any) => {
+    acceptedFiles.forEach((file: any) => {
+      const reader = new FileReader();
+
+      reader.onabort = () => console.log('file reading was aborted');
+      reader.onerror = () => console.log('file reading has failed');
+      reader.onload = () => {
+        // Do whatever you want with the file contents
+        const binaryStr: string = reader.result as string;
+        /*csv2json({
+          noheader: true,
+          output: "csv"
+        })
+        .fromString(binaryStr)
+        .then((csvRow)=>{ 
+          console.log(csvRow)
+      })*/
+        console.log(binaryStr);
+      };
+      reader.readAsArrayBuffer(file);
+    });
+  }, []);
 
   return (
     <React.Fragment>
       <UploadBox>
         <Typography variant="h5">Upload Your Data</Typography>
-        <FileUpload
-          handleChangeStatus={handleChangeStatus}
-          handleSubmit={handleSubmit}
-          accept=".csv"
+        <CSVReader
+          cssClass="react-csv-input"
+          label="Select CSV with secret Death Star statistics"
+          onFileLoaded={handleForce}
         />
       </UploadBox>
       <DownloadPaper variant="outlined">
