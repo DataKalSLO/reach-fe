@@ -17,7 +17,7 @@ import {
 
 export default function StoryView(props: { story: Story }): JSX.Element {
   const createPublicationDateString = () => {
-    // FIXME: should pull the user's name
+    // TODO: should pull the user's name
     const username = 'Business Owner';
     return `By ${username} on ${new Date().toDateString()}`;
   };

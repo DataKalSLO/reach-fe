@@ -9,9 +9,9 @@ export default function StoryBuilder() {
   return (
     <StyledBox>
       <StorySidebar />
-      <StoryFormBox>
+      <ContentBox>
         <StoryEditor />
-      </StoryFormBox>
+      </ContentBox>
     </StyledBox>
   );
 }
@@ -20,7 +20,7 @@ const StyledBox = styled(Box)({
   display: 'flex'
 });
 
-const StoryFormBox = styled(Box)({
+const ContentBox = styled(Box)({
   flexGrow: 1,
   paddingTop: theme.spacing(3),
   paddingBottom: theme.spacing(3),
