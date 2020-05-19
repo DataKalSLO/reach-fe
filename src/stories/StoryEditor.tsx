@@ -50,7 +50,9 @@ export default function StoryEditor() {
   } else {
     return (
       <div>
-        <Typography variant="h3">StoryBuilder</Typography>
+        <Typography variant="h3" component="h1">
+          StoryBuilder
+        </Typography>
         <p>
           Tell us a compelling story using data. Use the toolbar on the left to
           add text blocks, graphs, images, and dataset snippets to help readers
