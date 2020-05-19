@@ -50,7 +50,7 @@ export default function ExploreGrid2() {
     });
   };
 
-  const DisplayStories = (props: Array<Story>) => {
+  const DisplayStories = () => {
     return (
       <Grid container className={classes.root} spacing={2}>
         <Grid item xs={12}>
@@ -61,5 +61,5 @@ export default function ExploreGrid2() {
       </Grid>
     );
   };
-  return <DisplayStories {...stories} />;
+  return <DisplayStories />;
 }
