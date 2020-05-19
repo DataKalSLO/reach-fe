@@ -10,9 +10,9 @@ import {
   UpdateTitleAction
 } from '../redux/story/types';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
-import SortableList from '../stories/SortableList';
 import { MetaField } from './MetaField';
-import { convertStoryToJSX } from './StoryConverter';
+import SortableList from './SortableList';
+import StoryView from './StoryView';
 
 const TITLE_CHAR_LIMIT = 100;
 const DESCRIPTION_CHAR_LIMIT = 250;
@@ -39,14 +39,14 @@ interface Props {
   ) => UpdateTitleAction | UpdateDescriptionAction;
 }
 
-export default function StoryForm() {
+export default function StoryEditor() {
   const dispatch = useDispatch();
   const story = useSelector(getStory);
   const storyBuilderState = useSelector(getStoryBuilder);
   const previewSelected = storyBuilderState.isPreviewSelected;
 
   if (previewSelected) {
-    return <div>{convertStoryToJSX(story)}</div>;
+    return <StoryView story={story} />;
   } else {
     return (
       <div>

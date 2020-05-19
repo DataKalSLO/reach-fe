@@ -1,7 +1,7 @@
 import { arrayMove } from 'react-sortable-hoc';
 import { uuid } from 'uuidv4';
 import { removeObjectAtIndex } from '../../common/util/arrayTools';
-import { emptyEditorState } from '../../stories/RichTextEditor';
+import { emptyEditorState } from '../../stories/text-block/RichTextEditor';
 import {
   CREATE_EMPTY_TEXT_BLOCK,
   CREATE_GRAPH_BLOCK,
