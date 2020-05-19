@@ -29,7 +29,9 @@ export async function saveStoryAndHandleResponse(
     saveOrUpdateExistingStory,
     STORY_CREATION_SUCCESS_MESSAGE,
     STORY_CREATION_FAILURE_MESSAGE
-  );
+  )
+    .then(res => true)
+    .catch(e => false);
 }
 
 export async function deleteStoryByIdAndHandleResponse(
@@ -40,7 +42,9 @@ export async function deleteStoryByIdAndHandleResponse(
     deleteStoryById,
     STORY_DELETION_SUCCESS_MESSAGE,
     STORY_DELETION_FAILURE_MESSAGE
-  );
+  )
+    .then(res => true)
+    .catch(e => false);
 }
 
 export async function getStoryWIthIdAndHandleResponse(

@@ -22,19 +22,13 @@ enum StoryActions {
 type StoryApiResponse = void | Story | Array<Story>;
 type StoryApiPayload = string | DatabaseStory | undefined;
 
-export async function saveOrUpdateExistingStory(
-  story: Story
-): Promise<boolean> {
+export async function saveOrUpdateExistingStory(story: Story): Promise<void> {
   const databaseStory = transformStoryToDatabaseStory(story);
-  return storyHttp(StoryActions.CREATE, databaseStory)
-    .then(res => true)
-    .catch(e => false);
+  return storyHttp(StoryActions.CREATE, databaseStory) as Promise<void>;
 }
 
-export function deleteStoryById(storyId: string): Promise<boolean> {
-  return storyHttp(StoryActions.DELETE_WITH_ID, storyId)
-    .then(res => true)
-    .catch(e => false);
+export function deleteStoryById(storyId: string): Promise<void> {
+  return storyHttp(StoryActions.DELETE_WITH_ID, storyId) as Promise<void>;
 }
 
 export async function getStoryWithStoryID(storyID: string): Promise<Story> {
@@ -86,5 +80,5 @@ async function storyHttp(
     default:
       throw new Error('Unimplemented mutation action on Story: ' + actionType);
   }
-  return response as StoryApiResponse;
+  return response as Promise<StoryApiResponse>;
 }
