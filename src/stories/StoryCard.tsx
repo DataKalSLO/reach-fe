@@ -1,5 +1,7 @@
 import {
   Card,
+  CardActionArea,
+  CardActions,
   CardContent,
   CardHeader,
   CardMedia,
@@ -20,27 +22,32 @@ const PLACEHOLDER_DATE = '1/1/20';
 const PLACEHOLDER_IMAGE_URL =
   'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fi.stack.imgur.com%2FLuPIV.png&f=1&nofb=1';
 
+const SAMPLE_STORY: Story = {
+  id: '0',
+  userID: '0',
+  title: PLACEHOLDER_TITLE,
+  description: PLACEHOLDER_DESCRIPTION,
+  storyBlocks: []
+};
+
 interface StoryCardProps {
   story: Story;
 }
 
 const useStyles = makeStyles({
-  root: {
-    width: '20%',
-    minWidth: 250,
-    maxWidth: 400,
-    height: '20%',
-    minHeight: 150,
-    maxHeight: 350,
+  card: {
+    maxWidth: 500,
     margin: 10,
-    padding: 2
+    padding: 2,
+    display: 'flex'
   },
   header: {
     paddingBottom: 0
   },
   media: {
-    height: 150,
-    width: '100%',
+    height: 200,
+    width: 200,
+    justifyContent: 'center',
     marginTop: theme.spacing(0),
     marginBottom: theme.spacing(0)
   }
@@ -63,41 +70,46 @@ export default function StoryCard(props: StoryCardProps): JSX.Element {
     );
   };
 
-  return (
-    <Card className={classes.root} variant="outlined">
-      <CardHeader
-        className={classes.header}
-        title={PLACEHOLDER_TITLE}
-        titleTypographyProps={{ variant: 'h6', component: 'h1' }}
-      />
-      <CardContent>
-        <Grid container direction="column" justify="flex-start" spacing={1}>
-          <Grid item>
-            <Typography variant="subtitle2" component="body" display="block">
-              {PLACEHOLDER_DESCRIPTION}
-            </Typography>
-          </Grid>
-
-          <Grid container item wrap="nowrap">
-            <Grid container item alignItems="center" spacing={1}>
-              <Author name={PLACEHOLDER_AUTHOR} picture={<AccountCircle />} />
-            </Grid>
-            <Grid item>
-              <Typography variant="subtitle1" color="textSecondary">
-                {PLACEHOLDER_DATE}
-              </Typography>
-            </Grid>
-          </Grid>
-
-          <Grid container item alignItems="flex-start" justify="center">
-            <CardMedia
-              className={classes.media}
-              image={PLACEHOLDER_IMAGE_URL}
-              title={props.story.title}
-            />
-          </Grid>
+  const FormattedAuthorDate = () => {
+    return (
+      <Grid container item wrap="nowrap">
+        <Grid container item alignItems="center" spacing={1}>
+          <Author name={PLACEHOLDER_AUTHOR} picture={<AccountCircle />} />
         </Grid>
-      </CardContent>
+        <Grid item>
+          <Typography variant="subtitle1" color="textSecondary">
+            {PLACEHOLDER_DATE}
+          </Typography>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  return (
+    <Card className={classes.card}>
+      <CardActions>{/*TODO: Add buttons*/}</CardActions>
+
+      <CardActionArea>
+        <CardContent>
+          <Typography gutterBottom variant="h6" component="h1">
+            {SAMPLE_STORY.title}
+          </Typography>
+          <Typography
+            variant="subtitle2"
+            component="body"
+            display="block"
+            style={{ marginBottom: '5px' }}
+          >
+            {SAMPLE_STORY.description}
+          </Typography>
+          <FormattedAuthorDate />
+          <CardMedia
+            className={classes.media}
+            image={PLACEHOLDER_IMAGE_URL}
+            title={props.story.title}
+          />
+        </CardContent>
+      </CardActionArea>
     </Card>
   );
 }
