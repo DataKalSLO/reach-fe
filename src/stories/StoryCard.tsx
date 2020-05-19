@@ -33,7 +33,7 @@ interface StoryCardProps {
 
 const useStyles = makeStyles({
   card: {
-    width: '35%',
+    width: '30%',
     minWidth: 250,
     maxWidth: 500,
     height: '20%',
@@ -47,9 +47,9 @@ const useStyles = makeStyles({
   media: {
     height: 0,
     width: '100%',
-    paddingTop: '40%'
+    paddingTop: '60%'
     // DO NOT add margin or padding on the left or right.
-    // It will cause the image to be un-centered
+    // It will cause the image to be off-center
   }
 });
 
@@ -98,10 +98,10 @@ export default function StoryCard(props: StoryCardProps): JSX.Element {
             {SAMPLE_STORY.title}
           </Typography>
           <Typography
+            paragraph
             variant="subtitle2"
             component="body"
             display="block"
-            style={{ marginBottom: 10 }}
           >
             {SAMPLE_STORY.description}
           </Typography>
