@@ -1,9 +1,7 @@
 import {
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
-  CardHeader,
   CardMedia,
   Grid,
   Typography
@@ -12,7 +10,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AccountCircle } from '@material-ui/icons';
 import React from 'react';
 import { Story } from '../redux/story/types';
-import { theme } from '../theme/theme';
 
 const PLACEHOLDER_TITLE = 'High School Graduation Rates on the Central Coast';
 const PLACEHOLDER_DESCRIPTION =
@@ -36,7 +33,10 @@ interface StoryCardProps {
 
 const useStyles = makeStyles({
   card: {
+    width: '35%',
+    minWidth: 250,
     maxWidth: 500,
+    height: '20%',
     margin: 10,
     padding: 2,
     display: 'flex'
@@ -45,11 +45,11 @@ const useStyles = makeStyles({
     paddingBottom: 0
   },
   media: {
-    height: 200,
-    width: 200,
-    justifyContent: 'center',
-    marginTop: theme.spacing(0),
-    marginBottom: theme.spacing(0)
+    height: 0,
+    width: '100%',
+    paddingTop: '40%'
+    // DO NOT add margin or padding on the left or right.
+    // It will cause the image to be un-centered
   }
 });
 
@@ -86,10 +86,13 @@ export default function StoryCard(props: StoryCardProps): JSX.Element {
   };
 
   return (
-    <Card className={classes.card}>
-      <CardActions>{/*TODO: Add buttons*/}</CardActions>
-
+    <Card className={classes.card} variant="outlined">
       <CardActionArea>
+        <CardMedia
+          className={classes.media}
+          image={PLACEHOLDER_IMAGE_URL}
+          title={props.story.title}
+        />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h1">
             {SAMPLE_STORY.title}
@@ -98,16 +101,11 @@ export default function StoryCard(props: StoryCardProps): JSX.Element {
             variant="subtitle2"
             component="body"
             display="block"
-            style={{ marginBottom: '5px' }}
+            style={{ marginBottom: 10 }}
           >
             {SAMPLE_STORY.description}
           </Typography>
           <FormattedAuthorDate />
-          <CardMedia
-            className={classes.media}
-            image={PLACEHOLDER_IMAGE_URL}
-            title={props.story.title}
-          />
         </CardContent>
       </CardActionArea>
     </Card>
