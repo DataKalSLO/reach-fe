@@ -8,8 +8,13 @@ import csv2json from 'csvtojson';
 import CSVReader from 'react-csv-reader';
 import Dropzone from 'react-dropzone';
 
+interface JSONVal {
+  [key: string]: any;
+}
+
 function Admin() {
   const [csvData, setCsvData]: any = useState([]);
+  const [jsonData, setJsonData] = useState({});
   useEffect(() => {
     csv('./Sample.csv').then(data => setCsvData(data));
   });
@@ -26,19 +31,32 @@ function Admin() {
     //console.log(status, meta);
   };
 
-  const handleForce = (data : Array<any>) => {
+  const handleForce = useCallback((data: Array<any>) => {
     console.log(data.toString());
     console.log(data);
     console.log(JSON.stringify(data));
-    csv2json({
+    var jsonStr = '{"data":[]}';
+    var obj = JSON.parse(jsonStr);
+    for (let i = 1, len = data.length; i < len; i++) {
+      const jsonObj: JSONVal = {};
+      for (let j = 0, len1 = data[0].length; j < len1; j++) {
+        jsonObj[data[0][j]] = data[i][j];
+      }
+      obj['data'].push(jsonObj);
+      jsonStr = JSON.stringify(obj);
+      console.log(jsonStr);
+    }
+    console.log(obj);
+    //setJsonData(jsonObj);
+    /*csv2json({
       noheader: true,
       output: "json"
     })
     .fromString("1 2 3, 3 4 5")
     .then((jsonObj)=>{
       console.log(jsonObj);
-  })
-  };
+  })*/
+  }, [setJsonData, jsonData]);
 
   const handleDrop = useCallback((acceptedFiles: any) => {
     acceptedFiles.forEach((file: any) => {
@@ -73,6 +91,7 @@ function Admin() {
           onFileLoaded={handleForce}
         />
       </UploadBox>
+      <div>{jsonData.toString()}</div>
       <DownloadPaper variant="outlined">
         <Typography variant="h5">Download Your CSV Templates</Typography>
         <Box>
