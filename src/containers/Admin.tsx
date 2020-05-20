@@ -15,14 +15,20 @@ function Admin() {
     csv('./Sample.csv').then(data => setCsvData(data));
   });
 
-  const handleForce = useCallback(
+  const convertCsv2Json = useCallback(
     (data: Array<any>) => {
       let jsonStr = '{"' + data[0][0] + '":[]}';
       const obj = JSON.parse(jsonStr);
       for (let i = 4, len = data.length; i < len; i++) {
         const jsonObj: JSONVal = {};
         for (let j = 0, len1 = data[1].length; j < len1; j++) {
-          jsonObj[data[1][j]] = data[i][j];
+          let insertedVal = data[i][j];
+          if (data[2][j] === 'integer') {
+            insertedVal = parseInt(insertedVal, 10);
+          } else if (data[2][j] === 'decimal') {
+            insertedVal = parseFloat(insertedVal);
+          }
+          jsonObj[data[1][j]] = insertedVal;
         }
         obj[data[0][0]].push(jsonObj);
         jsonStr = JSON.stringify(obj);
@@ -37,7 +43,7 @@ function Admin() {
     <React.Fragment>
       <UploadBox>
         <Typography variant="h5">Upload Your Data</Typography>
-        <CSVReader cssClass="react-csv-input" onFileLoaded={handleForce} />
+        <CSVReader cssClass="react-csv-input" onFileLoaded={convertCsv2Json} />
       </UploadBox>
       <DownloadPaper variant="outlined">
         <Typography variant="h5">Download Your CSV Templates</Typography>
