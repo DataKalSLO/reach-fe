@@ -17,7 +17,7 @@ import { createEmptyTextBlock } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
-import { areValidMetaFields } from './StoryForm';
+import { areValidMetaFields } from './StoryEditor';
 
 const STORY_SIDEBAR_WIDTH = 190;
 
