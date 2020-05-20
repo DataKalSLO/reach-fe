@@ -35,14 +35,15 @@ function Admin() {
     console.log(data.toString());
     console.log(data);
     console.log(JSON.stringify(data));
-    var jsonStr = '{"data":[]}';
-    var obj = JSON.parse(jsonStr);
-    for (let i = 1, len = data.length; i < len; i++) {
+    let jsonStr = '{"' + data[0][0] + '":[]}';
+    console.log(jsonStr);
+    const obj = JSON.parse(jsonStr);
+    for (let i = 4, len = data.length; i < len; i++) {
       const jsonObj: JSONVal = {};
-      for (let j = 0, len1 = data[0].length; j < len1; j++) {
-        jsonObj[data[0][j]] = data[i][j];
+      for (let j = 0, len1 = data[1].length; j < len1; j++) {
+        jsonObj[data[1][j]] = data[i][j];
       }
-      obj['data'].push(jsonObj);
+      obj[data[0][0]].push(jsonObj);
       jsonStr = JSON.stringify(obj);
       console.log(jsonStr);
     }
@@ -56,7 +57,7 @@ function Admin() {
     .then((jsonObj)=>{
       console.log(jsonObj);
   })*/
-  }, [setJsonData, jsonData]);
+  }, []);
 
   const handleDrop = useCallback((acceptedFiles: any) => {
     acceptedFiles.forEach((file: any) => {
@@ -91,7 +92,6 @@ function Admin() {
           onFileLoaded={handleForce}
         />
       </UploadBox>
-      <div>{jsonData.toString()}</div>
       <DownloadPaper variant="outlined">
         <Typography variant="h5">Download Your CSV Templates</Typography>
         <Box>
