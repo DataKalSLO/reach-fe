@@ -11,21 +11,12 @@ import { AccountCircle } from '@material-ui/icons';
 import React from 'react';
 import { Story } from '../redux/story/types';
 
-const PLACEHOLDER_TITLE = 'High School Graduation Rates on the Central Coast';
-const PLACEHOLDER_DESCRIPTION =
-  "High school graduation rates are a critical metric of the effectiveness of our local high schools, as well as our students' college preparedness.";
+//TODO: Add a way to get author, date, and image url from passed in props
 const PLACEHOLDER_AUTHOR = 'Bill Writer';
+const PLACEHOLDER_USER_PICTURE = <AccountCircle />;
 const PLACEHOLDER_DATE = '1/1/20';
 const PLACEHOLDER_IMAGE_URL =
   'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fi.stack.imgur.com%2FLuPIV.png&f=1&nofb=1';
-
-const SAMPLE_STORY: Story = {
-  id: '0',
-  userID: '0',
-  title: PLACEHOLDER_TITLE,
-  description: PLACEHOLDER_DESCRIPTION,
-  storyBlocks: []
-};
 
 interface StoryCardProps {
   story: Story;
@@ -48,15 +39,12 @@ const useStyles = makeStyles({
     height: 0,
     width: '100%',
     paddingTop: '60%'
-    // DO NOT add margin or padding on the left or right.
-    // It will cause the image to be off-center
   }
 });
 
 export default function StoryCard(props: StoryCardProps): JSX.Element {
   const classes = useStyles();
 
-  // TODO: this should take a user object. name and picture will be refactored to come from user
   const Author = (props: { name: string; picture: JSX.Element }) => {
     return (
       <React.Fragment>
@@ -74,7 +62,10 @@ export default function StoryCard(props: StoryCardProps): JSX.Element {
     return (
       <Grid container item wrap="nowrap">
         <Grid container item alignItems="center" spacing={1}>
-          <Author name={PLACEHOLDER_AUTHOR} picture={<AccountCircle />} />
+          <Author
+            name={PLACEHOLDER_AUTHOR}
+            picture={PLACEHOLDER_USER_PICTURE}
+          />
         </Grid>
         <Grid item>
           <Typography variant="subtitle1" color="textSecondary">
@@ -95,7 +86,7 @@ export default function StoryCard(props: StoryCardProps): JSX.Element {
         />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h1">
-            {SAMPLE_STORY.title}
+            {props.story.title}
           </Typography>
           <Typography
             paragraph
@@ -103,7 +94,7 @@ export default function StoryCard(props: StoryCardProps): JSX.Element {
             component="body"
             display="block"
           >
-            {SAMPLE_STORY.description}
+            {props.story.description}
           </Typography>
           <FormattedAuthorDate />
         </CardContent>
