@@ -1,5 +1,4 @@
 import { Box, IconButton, styled } from '@material-ui/core';
-import { DeleteForever } from '@material-ui/icons';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -9,10 +8,8 @@ import {
   SortableHandle
 } from 'react-sortable-hoc';
 import { Dispatch } from 'redux';
-import { IconButton as CustomIconButton } from '../common/components/IconButton';
-import { deleteBlock, swapBlocks } from '../redux/story/actions';
+import { swapBlocks } from '../redux/story/actions';
 import { StoryBlockType } from '../redux/story/types';
-import { theme } from '../theme/theme';
 import { StoryBlock } from './StoryBlock';
 
 // The input to the sortable list, objects to be converted into JSX.Elements
@@ -32,40 +29,22 @@ interface SortableStoryContainerProps {
   children: Array<JSX.Element>;
 }
 
-interface DeleteButtonProps {
-  index: number;
-  dispatch: Dispatch;
-}
-
 const DragHandle = SortableHandle(() => (
   <IconButton color="primary" edge="start" aria-label="Drag Handle">
     <DragHandleIcon />
   </IconButton>
 ));
 
-const DeleteButton = (props: DeleteButtonProps) => (
-  <CustomIconButton
-    onClick={() => props.dispatch(deleteBlock(props.index))}
-    edge="end"
-    aria-label="Delete block"
-    style={{ color: theme.palette.error.main }}
-    icon={<DeleteForever />}
-  />
-);
-
 // Component that determines what is in each draggable block
 const SortableStoryBlock = SortableElement((props: SortableItemProps) => (
-  <StoryBlockBox>
+  <SortableBox>
     <DragHandle />
-    <Box flexGrow={2}>
-      <StoryBlock
-        block={props.block}
-        myIndex={props.myIndex}
-        dispatch={props.dispatch}
-      />
-    </Box>
-    <DeleteButton index={props.myIndex} dispatch={props.dispatch} />
-  </StoryBlockBox>
+    <StoryBlock
+      block={props.block}
+      index={props.myIndex}
+      dispatch={props.dispatch}
+    />
+  </SortableBox>
 ));
 
 // Container for all sortable story blocks
@@ -100,9 +79,8 @@ const SortableList = (props: SortableListProps) => {
 
 export default SortableList;
 
-const StoryBlockBox = styled(Box)({
+const SortableBox = styled(Box)({
   display: 'flex',
   flexDirection: 'row',
-  alignItems: 'center',
-  flexWrap: 'nowrap'
+  alignItems: 'center'
 });

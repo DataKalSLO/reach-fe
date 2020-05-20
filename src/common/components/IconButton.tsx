@@ -8,7 +8,7 @@ export interface Props {
   [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
-const IconButton = (props: Props) => {
+export default function IconButton(props: Props) {
   // These default settings will be overriden if different props are passed in
   return (
     <PaddedIconButton
@@ -19,9 +19,7 @@ const IconButton = (props: Props) => {
       {props.icon}
     </PaddedIconButton>
   );
-};
-
-export { IconButton };
+}
 
 const PaddedIconButton = styled(CoreIconButton)({
   margin: '10px'

@@ -1,8 +1,8 @@
 import { Box, styled } from '@material-ui/core';
 import { MoreHorizRounded } from '@material-ui/icons';
 import { useWindowWidth } from '@react-hook/window-size/throttled';
-import React, { useState, useEffect } from 'react';
-import { IconButton } from '../common/components/IconButton';
+import React, { useEffect, useState } from 'react';
+import { IconButton, Popper } from '../../reach-ui/core';
 
 interface CollapsibleItemProps {
   hideWidth: number; // determines when an item will be moved to the hidden menu
@@ -23,7 +23,8 @@ const CollapsibleMenu = (props: CollapsibleMenuProps) => {
   );
   const maxNumVisibleItems = props.children.length;
   const [numVisibleItems, setNumVisibleItems] = useState(maxNumVisibleItems);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isPopperOpen, setIsPopperOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isCollapsed, setIsCollapsed] = useState(
     numVisibleItems < maxNumVisibleItems
   );
@@ -33,20 +34,33 @@ const CollapsibleMenu = (props: CollapsibleMenuProps) => {
     // check if more items should be visible
     if (hideWidths[numVisibleItems] < windowWidth) {
       setNumVisibleItems(numVisibleItems + 1);
-      setIsMenuOpen(false);
+      setIsPopperOpen(false);
     }
 
     // check if less items should be visible
     if (hideWidths[numVisibleItems - 1] > windowWidth) {
       setNumVisibleItems(numVisibleItems - 1);
-      setIsMenuOpen(false);
+      setIsPopperOpen(false);
+    }
+
+    // check if page resized and popper closed but didn't unset anchor
+    if (anchorEl && !isPopperOpen) {
+      setAnchorEl(null);
     }
 
     setIsCollapsed(numVisibleItems < maxNumVisibleItems);
-  }, [hideWidths, maxNumVisibleItems, numVisibleItems, windowWidth]);
+  }, [
+    hideWidths,
+    maxNumVisibleItems,
+    numVisibleItems,
+    windowWidth,
+    anchorEl,
+    isPopperOpen
+  ]);
 
-  function toggleMenu() {
-    setIsMenuOpen(!isMenuOpen);
+  function toggleMenu(event: React.MouseEvent<HTMLElement>) {
+    setIsPopperOpen(!isPopperOpen);
+    setAnchorEl(anchorEl ? null : event.currentTarget);
   }
 
   function getVisibleItems() {
@@ -54,7 +68,7 @@ const CollapsibleMenu = (props: CollapsibleMenuProps) => {
   }
 
   function getHiddenItems() {
-    if (isMenuOpen) {
+    if (isPopperOpen) {
       return props.children.slice(numVisibleItems, maxNumVisibleItems);
     } else return null;
   }
@@ -65,6 +79,7 @@ const CollapsibleMenu = (props: CollapsibleMenuProps) => {
         <IconButton
           aria-label={'more editor options'}
           onClick={toggleMenu}
+          color={'default'}
           icon={<MoreHorizRounded />}
         />
       );
@@ -77,8 +92,9 @@ const CollapsibleMenu = (props: CollapsibleMenuProps) => {
         {getVisibleItems()}
         {showMoreIcon()}
       </StyledBox>
-      {/* TODO: @daniel add floating menu here */}
-      <StyledBox>{getHiddenItems()}</StyledBox>
+      <Popper open={isPopperOpen} anchorEl={anchorEl}>
+        {getHiddenItems()}
+      </Popper>
     </div>
   );
 };

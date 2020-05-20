@@ -13,13 +13,13 @@ import {
 } from '@material-ui/icons';
 import { EditorState, RichUtils } from 'draft-js';
 import React, { useState } from 'react';
-import {
-  IconButton,
+import IconButton, {
   Props as IconButtonProps
-} from '../common/components/IconButton';
-import { CollapsibleItem, CollapsibleMenu } from './CollapsibleToolbar';
+} from '../../common/components/IconButton';
+import { CollapsibleItem, CollapsibleMenu } from '../../reach-ui/core';
 import { DraftJSBlockType, DraftJSInlineType } from './DraftJSCommands';
 import { HyperlinkPlugin } from './HyperlinkPlugin';
+import { TOOLBAR_BORDER } from '../../theme/theme';
 
 const ToolbarButton = (props: IconButtonProps) => {
   return <IconButton size="small" color="default" {...props} />;
@@ -177,10 +177,10 @@ const EditorToolbar = (props: Props) => {
 
 // Screenwidth when a group of items to become hidden in the collapsible menu
 const DEFAULT_HIDE_WIDTH = 0;
-const LIST_STYLE_HIDE_WIDTH = 800;
-const LINK_STYLE_HIDE_WIDTH = 900;
+const LIST_STYLE_HIDE_WIDTH = 970;
+const LINK_STYLE_HIDE_WIDTH = 1020;
 
-const borderStyle = '1px solid #cbcbcb';
+const borderStyle = TOOLBAR_BORDER;
 const paddingDefault = '10px';
 
 const Toolbar = styled(Box)({
@@ -208,7 +208,8 @@ const StyledTextField = styled(TextField)({
 const URLInputBox = styled(Box)({
   display: 'flex',
   alignItems: 'center',
-  margin: '1px'
+  margin: '1px',
+  minWidth: '150px'
 });
 
 const URLInputField = styled(TextField)({

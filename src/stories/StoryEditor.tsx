@@ -10,9 +10,9 @@ import {
   UpdateTitleAction
 } from '../redux/story/types';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
-import SortableList from '../stories/SortableList';
 import { MetaField } from './MetaField';
-import { convertStoryToJSX } from './StoryConverter';
+import SortableList from './SortableList';
+import StoryView from './StoryView';
 
 const TITLE_CHAR_LIMIT = 100;
 const DESCRIPTION_CHAR_LIMIT = 150;
@@ -39,43 +39,20 @@ interface Props {
   ) => UpdateTitleAction | UpdateDescriptionAction;
 }
 
-export default function StoryForm() {
+export default function StoryEditor() {
   const dispatch = useDispatch();
   const story = useSelector(getStory);
   const storyBuilderState = useSelector(getStoryBuilder);
   const previewSelected = storyBuilderState.isPreviewSelected;
 
-  const TitleField = (props: Props) => {
-    return (
-      <MetaField
-        content={props.story.title}
-        id="story-title"
-        label="Title"
-        maxLength={TITLE_CHAR_LIMIT}
-        {...props}
-      />
-    );
-  };
-
-  const DescriptionField = (props: Props) => {
-    return (
-      <MetaField
-        content={props.story.description}
-        id="story-description"
-        label="Description"
-        maxLength={DESCRIPTION_CHAR_LIMIT}
-        multiline
-        {...props}
-      />
-    );
-  };
-
   if (previewSelected) {
-    return <div>{convertStoryToJSX(story)}</div>;
+    return <StoryView story={story} />;
   } else {
     return (
       <div>
-        <Typography variant="h3">StoryBuilder</Typography>
+        <Typography variant="h3" component="h1">
+          StoryBuilder
+        </Typography>
         <p>
           Tell us a compelling story using data. Use the toolbar on the left to
           add text blocks, graphs, images, and dataset snippets to help readers
@@ -83,12 +60,21 @@ export default function StoryForm() {
           to the left of each component if you want to reorder them.
         </p>
 
-        <TitleField
+        <MetaField
+          content={story.title}
+          id="story-title"
+          label="Title"
+          maxLength={TITLE_CHAR_LIMIT}
           story={story}
           onChange={event => dispatch(updateTitle(event.target.value))}
         />
 
-        <DescriptionField
+        <MetaField
+          content={story.description}
+          id="story-description"
+          label="Description"
+          maxLength={DESCRIPTION_CHAR_LIMIT}
+          multiline
           story={story}
           onChange={event => dispatch(updateDescription(event.target.value))}
         />

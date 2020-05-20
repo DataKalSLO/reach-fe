@@ -2,13 +2,13 @@ import chroma from 'chroma-js';
 import { zip } from 'lodash';
 import React from 'react';
 
-// TODO: Had trouble creating an interface for featureCollection, doing it next quarter
+// TODO: Had trouble creating an interface for featureCollection
 // Tried to create an interface using the type from features on line 34
-// eslint-disable-next-line
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function prepGeo(featureCollection: any) {
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const prepped: any = [];
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   featureCollection.forEach((feature: any) => {
     prepped.push({
       geometry: feature.geometry,
@@ -19,10 +19,10 @@ export function prepGeo(featureCollection: any) {
 }
 
 // TODO: going to solve "any" errors at a later time, ignoring for demo
-// eslint-disable-next-line
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getStat(features: any, extractionFunc: any, selection: string) {
   // TODO: going to solve "any" errors at a later time, ignoring for demo
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const stat = extractionFunc(features, (o: any) => {
     return o.properties[selection];
   });
@@ -38,11 +38,11 @@ export function onHover(
     noLocation: boolean;
   },
   // TODO: going to solve "any" errors at a later time, ignoring for demo
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setHoveredLocation: any,
   // TODO: going to solve "any" errors at a later time, ignoring for demo
-  // eslint-disable-next-line
-  event: any, 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  event: any,
   x: React.MutableRefObject<number>,
   y: React.MutableRefObject<number>,
   dims: { width: number; height: number },
@@ -51,7 +51,7 @@ export function onHover(
   const { features, point } = event;
   const hoveredLocation =
     // TODO: going to solve "any" errors at a later time, ignoring for demo
-    // eslint-disable-next-line
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     features && features.find((f: any) => f.layer.id === 'data');
   if (!hoveredLocation) {
     setHoveredLocation(defaultHoveredLocation);
@@ -86,8 +86,8 @@ export function quantileMaker(
     .map(Number.prototype.valueOf, 0)
     .map(
       // TODO: going to solve "any" errors at a later time, ignoring for demo
-      // eslint-disable-next-line
-      function (this: any, val: number, idx: number) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      function(this: any, val: number, idx: number) {
         return idx === 0 ? min : (this.acc += bucket);
       },
       { acc: min }
