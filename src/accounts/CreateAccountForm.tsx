@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux';
 import { register } from '../redux/login/actions';
 import { RegisterData } from '../redux/login/types';
 import { wrapWithCatch } from '../api/base';
-import { validateInputEmail, validateInputPassword } from './InputValidator';
+import { isValidEmail, isValidPassword } from './InputValidator';
 
 function CreateAccountForm() {
   const [name, setName] = useState('');
@@ -41,7 +41,7 @@ function CreateAccountForm() {
 
   const validateEmail = useCallback(
     (emailName: string) => {
-      const isValid = validateInputEmail(emailName);
+      const isValid = isValidEmail(emailName);
       const errorMessage = isValid
         ? ''
         : 'You must enter a valid email address';
@@ -53,7 +53,7 @@ function CreateAccountForm() {
 
   const validatePassword = useCallback(
     (passwordVal: string) => {
-      const isValid = validateInputPassword(passwordVal);
+      const isValid = isValidPassword(passwordVal);
       const errorMessage = isValid
         ? ''
         : 'Your password must be at at least 6 characters, contain 1 number, and contain 1 special symbol';

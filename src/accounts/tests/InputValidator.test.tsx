@@ -1,21 +1,29 @@
-import { validateInputEmail, validateInputPassword } from '../InputValidator';
+import { isValidEmail, isValidPassword } from '../InputValidator';
 
 describe('validateInputEmail', () => {
   it('succeed for valid email', () => {
-    expect(validateInputEmail('test@gmail.com')).toEqual(true);
+    expect(isValidEmail('test@gmail.com')).toEqual(true);
   });
 
   it('fails for invalid email', () => {
-    expect(validateInputEmail('invalid...')).toEqual(false);
+    expect(isValidEmail('invalid...')).toEqual(false);
+  });
+
+  it('fails for invalid email', () => {
+    expect(isValidEmail('invalid@com')).toEqual(false);
+  });
+
+  it('fails for invalid email', () => {
+    expect(isValidEmail('invalid.com')).toEqual(false);
   });
 });
 
 describe('validateInputPassword', () => {
   it('succeed for valid password', () => {
-    expect(validateInputPassword('abc456!')).toEqual(true);
+    expect(isValidPassword('abc456!')).toEqual(true);
   });
 
   it('fails for invalid password', () => {
-    expect(validateInputPassword('password')).toEqual(false);
+    expect(isValidPassword('password')).toEqual(false);
   });
 });
