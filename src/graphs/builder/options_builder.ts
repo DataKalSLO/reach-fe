@@ -16,6 +16,7 @@ import {
   accessibilityOptions,
   chartOptions,
   chartOptions3D,
+  colors,
   exportingOptions,
   plotOptions,
   responsiveOptions,
@@ -29,11 +30,11 @@ import {
 } from './default-graph-options';
 import {
   DataConfiguration,
+  DataValue,
   GraphOptionsGeneral,
   StackConfiguration,
   XAxisConfiguration,
-  YAxisConfiguration,
-  DataValue
+  YAxisConfiguration
 } from './types';
 import { getEmptyStringIfUndefined } from './utilities';
 
@@ -68,7 +69,8 @@ export default class OptionsBuilder {
       accessibility: { ...accessibilityOptions },
       exporting: { ...exportingOptions },
       xAxis: { ...xAxis },
-      yAxis: [...yAxis]
+      yAxis: [...yAxis],
+      colors: colors
     };
   }
 

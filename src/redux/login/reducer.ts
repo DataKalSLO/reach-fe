@@ -1,9 +1,9 @@
 import { LOGIN, LOGOUT, UserActionTypes, User, UPDATE_SETTINGS } from './types';
-import { UNDEFINED_USER } from '../../nav/constants';
+import { UNDEFINED_USER, EMPTY_TOKEN } from '../../nav/constants';
 
 const initialState: User = {
   email: '',
-  token: '',
+  token: EMPTY_TOKEN,
   name: '',
   role: UNDEFINED_USER,
   occupation: '',

@@ -4,6 +4,7 @@ import React from 'react';
 import { KEY_COMMAND_FAILURE, KEY_COMMAND_SUCCESS } from './DraftJSCommands';
 import EditorToolbar from './EditorToolbar';
 import { HyperlinkDecorator } from './HyperlinkDecorator';
+import { TOOLBAR_BORDER } from '../../theme/theme';
 
 interface Props {
   editorState: EditorState;
@@ -48,8 +49,9 @@ const paddingDefault = '10px';
 
 //TODO: @tan refactor into StoryBlockWrapper
 export const StyledBox = styled(Box)({
+  width: '100%',
   minHeight: '100px',
-  border: '1px solid #cbcbcb', // same border style is used in EditorToolbar
+  border: TOOLBAR_BORDER,
   borderRadius: '4px',
   paddingLeft: paddingDefault,
   paddingBottom: paddingDefault,
