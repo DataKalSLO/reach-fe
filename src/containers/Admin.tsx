@@ -3,6 +3,7 @@ import CSVTemplate from '../admin/CSVTemplate';
 import { Paper, Typography, Box, styled } from '@material-ui/core';
 import { csv } from 'd3';
 import CSVReader from 'react-csv-reader';
+import { convertCsv2Json } from '../common/util/csvToJson';
 
 interface JSONVal {
   [key: string]: any;
@@ -21,52 +22,34 @@ function Admin() {
   const [jsonData, setJsonData] = useState({});
 
   useEffect(() => {
-      Promise.all([
-        csv('./Airports.csv'),
-        csv('./CommuteTimes.csv'),
-        csv('./CovidUnemployment.csv'),
-        csv('./IncomeInequalitySlo.csv'),
-        csv('./MeanRealWages.csv'),
-        csv('./NetMigration.csv'),
-        csv('./SloAirports.csv'),
-        csv('./UniversityInfo.csv'),
-        csv('./WaterSources.csv')
-      ]).then(function(data) {
-        setCsvAirportData(data[0]);
-        setCsvCommuteData(data[1]);
-        setCsvCovidData(data[2]);;
-        setCsvIncomeData(data[3]);
-        setCsvWagesData(data[4]);
-        setCsvMigrationData(data[5]);
-        setCsvSloAirportsData(data[6]);
-        setCsvUniversityData(data[7]);
-        setCsvWaterData(data[8]);
-      });
-    },[setCsvAirportData, setCsvCommuteData, setCsvCovidData]
-  );
+    Promise.all([
+      csv('./Airports.csv'),
+      csv('./CommuteTimes.csv'),
+      csv('./CovidUnemployment.csv'),
+      csv('./IncomeInequalitySlo.csv'),
+      csv('./MeanRealWages.csv'),
+      csv('./NetMigration.csv'),
+      csv('./SloAirports.csv'),
+      csv('./UniversityInfo.csv'),
+      csv('./WaterSources.csv')
+    ]).then(function(data) {
+      setCsvAirportData(data[0]);
+      setCsvCommuteData(data[1]);
+      setCsvCovidData(data[2]);
+      setCsvIncomeData(data[3]);
+      setCsvWagesData(data[4]);
+      setCsvMigrationData(data[5]);
+      setCsvSloAirportsData(data[6]);
+      setCsvUniversityData(data[7]);
+      setCsvWaterData(data[8]);
+    });
+  }, [setCsvAirportData, setCsvCommuteData, setCsvCovidData]);
 
-  const convertCsv2Json = useCallback(
+  const setJsonFromCsv = useCallback(
     (data: Array<any>) => {
-      const firstRowOfData = 3;
-      const firstCol = 1;
-      let jsonStr = '{"' + data[0][0] + '":[]}';
-      const obj = JSON.parse(jsonStr);
-      for (let i = firstRowOfData, numRows = data.length; i < numRows; i++) {
-        const jsonObj: JSONVal = {};
-        for (let j = firstCol, numCols = data[1].length ; j < numCols; j++) {
-          let insertedVal = data[i][j];
-          if (data[1][j] === 'integer') {
-            insertedVal = parseInt(insertedVal, 10);
-          } else if (data[1][j] === 'decimal') {
-            insertedVal = parseFloat(insertedVal);
-          }
-          jsonObj[data[0][j]] = insertedVal;
-        }
-        obj[data[0][0]].push(jsonObj);
-        jsonStr = JSON.stringify(obj);
-      }
-      console.log(obj);
-      setJsonData(obj);
+      const jsonObj = convertCsv2Json(data);
+      console.log(jsonObj);
+      setJsonData(jsonObj);
     },
     [setJsonData]
   );
@@ -75,7 +58,7 @@ function Admin() {
     <React.Fragment>
       <UploadBox>
         <Typography variant="h5">Upload Your Data</Typography>
-        <CSVReader cssClass="react-csv-input" onFileLoaded={convertCsv2Json} />
+        <CSVReader cssClass="react-csv-input" onFileLoaded={setJsonFromCsv} />
       </UploadBox>
       <DownloadPaper variant="outlined">
         <Typography variant="h5">Download Your CSV Templates</Typography>
