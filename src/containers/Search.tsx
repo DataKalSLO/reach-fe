@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
 import Container from '@material-ui/core/Container';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSearchResults } from '../redux/search/actions';
+import { getSearch } from '../redux/search/selectors';
 import SearchBar from '../search/SearchBar';
 import SearchResults from '../search/SearchResults';
-import { fetchSearchResults } from '../redux/search/actions';
-import { useDispatch, useSelector } from 'react-redux';
-import { getSearch } from '../redux/search/selectors';
 
 function Search() {
   const [showResults, setShowResults] = useState(false);

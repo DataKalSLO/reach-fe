@@ -1,5 +1,5 @@
-import React from 'react';
 import { OutlinedInput as CoreOutlinedInput, styled } from '@material-ui/core';
+import React from 'react';
 
 // Takes optional width prop and injects into styling
 const StyledCoreOutlinedInput = styled(({ width, ...other }: Props) => (
@@ -10,18 +10,16 @@ const StyledCoreOutlinedInput = styled(({ width, ...other }: Props) => (
 });
 
 interface Props {
-  'aria-label': string; // Accessible label that describes button's purpose
-  placeholder: string; // Placeholder text that appears while out of focus
+  'aria-label': string;
+  placeholder: string;
   // This extra parameter is necessary to allow other props to be passed through
   [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   // Optional properties that gave me a TS error when I removed them from this interface
 
-  // Function that is called when input value changes
   onChange?: (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
-  // Function that is called when key is pressed
   onKeyPress?: (e: React.KeyboardEvent) => void;
   button?: JSX.Element; // Button that will show up at end of text field
   width?: number | string; // CSS width, e.g. "100px" or 100

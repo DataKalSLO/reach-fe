@@ -1,13 +1,13 @@
-import {
-  RequestSearchResultsAction,
-  ReceiveSearchResultsAction,
-  REQUEST_SEARCH_RESULTS,
-  RECEIVE_SEARCH_RESULTS,
-  ElasticSearchResultObject,
-  ElasticSearchResponseObject
-} from './types';
-import { esQuery } from '../../api/search';
 import { Dispatch } from 'redux';
+import { esQuery } from '../../api/search';
+import {
+  ElasticSearchResponseObject,
+  ElasticSearchResultObject,
+  ReceiveSearchResultsAction,
+  RECEIVE_SEARCH_RESULTS,
+  RequestSearchResultsAction,
+  REQUEST_SEARCH_RESULTS
+} from './types';
 
 function requestSearchResults(qry: string): RequestSearchResultsAction {
   return {
