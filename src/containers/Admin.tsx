@@ -3,11 +3,7 @@ import CSVTemplate from '../admin/CSVTemplate';
 import { Paper, Typography, Box, styled } from '@material-ui/core';
 import { csv } from 'd3';
 import CSVReader from 'react-csv-reader';
-import { convertCsv2Json } from '../common/util/csvToJson';
-
-interface JSONVal {
-  [key: string]: any;
-}
+import { convertCsvToJson } from '../common/util/csvToJson';
 
 function Admin() {
   const [csvAirportData, setCsvAirportData]: any = useState([]);
@@ -47,7 +43,7 @@ function Admin() {
 
   const setJsonFromCsv = useCallback(
     (data: Array<any>) => {
-      const jsonObj = convertCsv2Json(data);
+      const jsonObj = convertCsvToJson(data);
       console.log(jsonObj);
       setJsonData(jsonObj);
     },
