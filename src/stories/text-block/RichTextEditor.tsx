@@ -4,7 +4,7 @@ import React from 'react';
 import { KEY_COMMAND_FAILURE, KEY_COMMAND_SUCCESS } from './DraftJSCommands';
 import EditorToolbar from './EditorToolbar';
 import { HyperlinkDecorator } from './HyperlinkDecorator';
-import { TOOLBAR_BORDER } from '../../theme/theme';
+import { BORDER } from '../../theme/theme';
 
 interface Props {
   editorState: EditorState;
@@ -51,7 +51,7 @@ const paddingDefault = '10px';
 export const StyledBox = styled(Box)({
   width: '100%',
   minHeight: '100px',
-  border: TOOLBAR_BORDER,
+  border: BORDER,
   borderRadius: '4px',
   paddingLeft: paddingDefault,
   paddingBottom: paddingDefault,

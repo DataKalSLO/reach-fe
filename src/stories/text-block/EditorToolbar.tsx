@@ -22,6 +22,7 @@ import {
 import { TOOLBAR_BORDER } from '../../theme/theme';
 import { DraftJSBlockType, DraftJSInlineType } from './DraftJSCommands';
 import { HyperlinkPlugin } from './HyperlinkPlugin';
+import { BORDER } from '../../theme/theme';
 
 const ToolbarButton = (props: IconButtonProps) => {
   return <IconButton size="small" color="default" {...props} />;
@@ -182,7 +183,7 @@ const DEFAULT_HIDE_WIDTH = 0;
 const LIST_STYLE_HIDE_WIDTH = 970;
 const LINK_STYLE_HIDE_WIDTH = 1020;
 
-const borderStyle = TOOLBAR_BORDER;
+const borderStyle = BORDER;
 const paddingDefault = '10px';
 
 const Toolbar = styled(Box)({

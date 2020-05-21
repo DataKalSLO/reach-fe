@@ -24,7 +24,8 @@ export const emptyTextBlock = (): TextBlockType => ({
   type: TEXT_BLOCK_TYPE
 });
 
-const initialStory: Story = {
+//TODO: Turn this into a function. Currently will stay same for every new story created in the same session.
+export const initialStory: Story = {
   id: uuid(),
   userID: 'USER-ID', // TODO: replace placeholder value
   title: '',
