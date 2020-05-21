@@ -1,9 +1,9 @@
-import React, { ChangeEvent } from 'react';
 import {
-  TextField as CoreTextField,
   MenuItem,
-  styled
+  styled,
+  TextField as CoreTextField
 } from '@material-ui/core';
+import React from 'react';
 
 export interface Props {
   value: string;

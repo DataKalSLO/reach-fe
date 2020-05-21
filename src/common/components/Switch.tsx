@@ -1,9 +1,9 @@
-import React, { ReactNode, ChangeEvent } from 'react';
 import {
   FormControlLabel,
-  Switch as CoreSwitch,
-  styled
+  styled,
+  Switch as CoreSwitch
 } from '@material-ui/core';
+import React, { ChangeEvent } from 'react';
 
 export interface Props {
   label: string;

@@ -1,7 +1,6 @@
+import { FormLabel, Grid, styled } from '@material-ui/core';
 import React from 'react';
-import { FormLabel, styled, Box, Grid } from '@material-ui/core';
 import { isUndefined } from 'util';
-import { theme } from '../../theme/theme';
 
 interface Props {
   children: JSX.Element[] | JSX.Element;

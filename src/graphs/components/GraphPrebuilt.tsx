@@ -1,13 +1,7 @@
-import {
-  Card,
-  CardActions,
-  CardContent,
-  Divider,
-  styled,
-  Collapse
-} from '@material-ui/core';
+import { Card, CardActions, CardContent, Collapse, Divider, styled } from '@material-ui/core';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import highcharts3d from 'highcharts/highcharts-3d';
 import drilldown from 'highcharts/modules/drilldown';
 import exporting from 'highcharts/modules/exporting';
 import React, { useEffect, useState } from 'react';
@@ -16,8 +10,6 @@ import { CHART_HEIGHT_PERCENT, CHART_WIDTH_SCALE } from './constants';
 import GraphToolbar from './GraphToolbar';
 import { useGraphStyles } from './styles';
 import { GraphPrebuiltProps } from './types';
-import GraphEditForm from './GraphEditForm';
-import highcharts3d from 'highcharts/highcharts-3d';
 
 highcharts3d(Highcharts);
 exporting(Highcharts);
@@ -79,7 +71,6 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
       </CardContent>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <FormCardContent>
-          <GraphEditForm graph={graph} />
         </FormCardContent>
       </Collapse>
     </Card>

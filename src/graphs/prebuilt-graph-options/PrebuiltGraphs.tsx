@@ -1,7 +1,7 @@
-import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import exporting from 'highcharts/modules/exporting';
+import React from 'react';
 import * as prebuilt from './prebuilt-options';
 
 exporting(Highcharts);
@@ -217,11 +217,6 @@ export function HealthCareFacityBedOptions() {
 }
 
 // Covid-19 health care facity bed capacity
-
-export function EmptyOptions() {
-  
-}
-
 export function SBCovidCasesOptions() {
   return (
     <HighchartsReact

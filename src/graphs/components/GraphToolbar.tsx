@@ -6,8 +6,7 @@ import { useDispatch } from 'react-redux';
 import Button, { Props as ButtonProps } from '../../common/components/Button';
 import {
   deleteGraphAction,
-  duplicateGraphAction,
-  syncGraphAction
+  duplicateGraphAction
 } from '../../redux/graphs/actions';
 import {
   DELETE_LABEL,

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { ColorResult } from 'react-color';
-import ColorPicker from '../ColorPicker';
 import { Button, styled } from '@material-ui/core';
-import LensIcon from '@material-ui/icons/Lens';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import LensIcon from '@material-ui/icons/Lens';
+import React, { useState } from 'react';
+import { ColorResult } from 'react-color';
 import { isNull } from 'util';
+import ColorPicker from '../../common/components/ColorPicker';
 
 interface Props {
   initialColor: string;

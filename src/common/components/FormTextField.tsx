@@ -1,5 +1,5 @@
+import { styled, TextField as CoreTextField } from '@material-ui/core';
 import React from 'react';
-import { TextField as CoreTextField, styled } from '@material-ui/core';
 
 interface Props {
   // This extra parameter is necessary to allow other props to be passed through
