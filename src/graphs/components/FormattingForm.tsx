@@ -1,7 +1,7 @@
 import React, { useState, Fragment, ChangeEvent, useEffect } from 'react';
 import FormTextField from './FormTextField';
 import FormBlock from './FormBlock';
-import { Button } from '../../common/components/Button';
+
 import {
   Grid,
   Switch,
@@ -26,6 +26,7 @@ import {
 import { theme } from '../../theme/theme';
 import { updateGraphAction } from '../../redux/graphs/actions';
 import { useDispatch } from 'react-redux';
+import Button from '../../common/components/Button';
 
 interface SeriesProps {
   title: string;

@@ -7,13 +7,13 @@ import StepContent from '@material-ui/core/StepContent';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { StyledBox } from '../../stories/RichTextEditor';
 import AddDataSet from './AddDataSet';
 import AddColumns from './AddColumns';
 import GraphCreateFormOptions from './GraphCreateFormOptions';
 import AddCategoryTypeforGraph from './AddCategoryTypeforGraph';
 import { EmptyOptions } from '../prebuilt-graph-options/Empty_Graph';
 import { uuid } from 'uuidv4';
+import { StyledBox } from '../../stories/text-block/RichTextEditor';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

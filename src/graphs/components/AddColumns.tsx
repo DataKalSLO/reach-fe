@@ -12,11 +12,11 @@ import {
   Divider
 } from '@material-ui/core';
 import FormBlock from './FormBlock';
-import { Button } from '../../common/components/Button';
 import { FormSelectionField } from './FormSelectionField';
 import { Delete } from '@material-ui/icons';
 import IconButton from '../../common/components/IconButton';
 import AddIcon from '@material-ui/icons/Add';
+import Button from '../../common/components/Button';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
