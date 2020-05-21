@@ -1,4 +1,11 @@
-import { Card, CardActions, CardContent, Collapse, Divider, styled } from '@material-ui/core';
+import {
+  Card,
+  CardActions,
+  CardContent,
+  Collapse,
+  Divider,
+  styled
+} from '@material-ui/core';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import highcharts3d from 'highcharts/highcharts-3d';
@@ -47,10 +54,6 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
   if (!isUndefined(graph.options.chart) && !isUndefined(windowWidth)) {
     graph.options.chart.width = windowWidth * CHART_WIDTH_SCALE;
     graph.options.chart.height = CHART_HEIGHT_PERCENT;
-  }
-
-  function handleEdit() {
-    setExpanded(!expanded);
   }
 
   return (

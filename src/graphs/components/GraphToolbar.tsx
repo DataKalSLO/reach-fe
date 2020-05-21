@@ -3,8 +3,17 @@ import { Delete, Edit, FileCopy, Save, Share } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import Button, { Props as ButtonProps } from '../../common/components/Button';
-import { deleteGraphAction, duplicateGraphAction } from '../../redux/graphs/actions';
-import { DELETE_LABEL, DUPLICATE_LABEL, EDIT_LABEL, SAVE_LABEL, SHARE_LABEL } from './constants';
+import {
+  deleteGraphAction,
+  duplicateGraphAction
+} from '../../redux/graphs/actions';
+import {
+  DELETE_LABEL,
+  DUPLICATE_LABEL,
+  EDIT_LABEL,
+  SAVE_LABEL,
+  SHARE_LABEL
+} from './constants';
 import { GraphHeaderProps } from './types';
 
 /*

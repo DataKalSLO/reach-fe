@@ -48,7 +48,7 @@ export interface DeleteGraphAction {
 export type GraphActionTypes =
   | AddGraphsForInitiativeAction
   | DuplicateGraphAction
-  | DeleteGraphAction
+  | DeleteGraphAction;
 
 /*
  * The following type aliases/interfaces are used to restrict a
@@ -61,7 +61,7 @@ export const initiativeNames = [
   consts.ASSETS,
   consts.EDUCATION,
   consts.HOUSING,
-  consts.HEALTH,
+  consts.HEALTH
 ] as const;
 
 export type InitiativeLiteral = typeof initiativeNames[number];
