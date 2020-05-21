@@ -5,6 +5,7 @@ import Highcharts, {
   AxisSetExtremesEventObject,
   Chart3dOptions,
   ChartOptions,
+  ColorString,
   ExportingOptions,
   PlotOptions,
   PositionObject,
@@ -28,6 +29,7 @@ import {
   GRAPH_3D_PLOT_DEPTH,
   GRAPH_3D_SKEWED_X_AXIS_LABELS_ENABLED,
   GRAPH_3D_VIEW_DISTANCE,
+  GRAPH_COLORS,
   GRAPH_HEIGHT,
   GRAPH_MAX_WIDTH,
   GRAPH_PANNING_ENABLED,
@@ -41,10 +43,11 @@ import {
   GRAPH_SYNC_TOOLTIP_POINT_FORMAT,
   GRAPH_SYNC_TOOLTIP_REFERENCE_POINT_X,
   GRAPH_SYNC_TOOLTIP_REFERENCE_POINT_Y,
-  GRAPH_SYNC_TRIGGER,
   GRAPH_SYNC_TOOLTIP_SHADOW_ENABLED,
   GRAPH_SYNC_TOOLTIP_SPLIT_ENABLED,
+  GRAPH_SYNC_TRIGGER,
   GRAPH_X_AXIS_CROSSHAIR_ENABLED,
+  GRAPH_X_AXIS_UNIQUE_NAMES_ENABLED,
   GRAPH_ZOOM_TYPE,
   RESPONSIVE_LEGEND_ALIGNMENT,
   RESPONSIVE_LEGEND_LAYOUT,
@@ -70,9 +73,15 @@ export const title: TitleOptions = { text: DEFAULT_TITLE };
 
 /*
  * The subtitle of the chart
-//  * - can be applied to all chart
+ * - can be applied to all charts
  */
 export const subtitle: SubtitleOptions = { text: DEFAULT_SUBTITLE };
+
+/*
+ * The colors of the chart
+ * - can be applied to all charts
+ */
+export const colors: ColorString[] = GRAPH_COLORS;
 
 /*
  * The global options for a chart
@@ -101,7 +110,8 @@ export const plotOptions: PlotOptions = {
  * - can be applied to all charts
  */
 export const xAxis: XAxisOptions = {
-  crosshair: GRAPH_X_AXIS_CROSSHAIR_ENABLED
+  crosshair: GRAPH_X_AXIS_CROSSHAIR_ENABLED,
+  uniqueNames: GRAPH_X_AXIS_UNIQUE_NAMES_ENABLED
 };
 
 /*
