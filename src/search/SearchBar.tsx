@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
 import { Box } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
+import React, { useState } from 'react';
 import IconButton from '../common/components/IconButton';
 import OutlinedInput from '../common/components/OutlinedInput';
-import SearchIcon from '@material-ui/icons/Search';
 
 interface SearchBarProps {
   searchCallback: (qry: string) => void;
@@ -31,6 +31,7 @@ function SearchBar(props: SearchBarProps) {
         placeholder="Search graphs, stories"
         onChange={e => handleChange(e)}
         onKeyPress={handleKeyPress}
+        width={500}
         button={
           <IconButton
             onClick={() => props.searchCallback(text)}
@@ -39,7 +40,6 @@ function SearchBar(props: SearchBarProps) {
             size="small"
           />
         }
-        width={500}
       />
     </Box>
   );
