@@ -1,13 +1,12 @@
 import React from 'react';
 import { OutlinedInput as CoreOutlinedInput, styled } from '@material-ui/core';
 
-// Added optional props for height/width
+// Added optional props for width
 const StyledCoreOutlinedInput = styled(({ width, ...other }: Props) => (
   <CoreOutlinedInput {...other} />
 ))({
-  // If given width/height prop, use that, otherwise default
-  width: (props: Props) => (props.width ? props.width : 'auto'),
-  height: (props: Props) => (props.height ? props.height : 'auto')
+  // If given width prop, use that, otherwise default
+  width: (props: Props) => (props.width ? props.width : 'auto')
 });
 
 interface Props {
@@ -26,7 +25,6 @@ interface Props {
   onKeyPress?: (e: React.KeyboardEvent) => void;
   button?: JSX.Element; // Button that will show up at end of text field
   width?: number | string; // CSS width, e.g. "100px" or 100
-  height?: number | string; // CSS height, e.g. "100px" or 100
 }
 
 export default function OutlinedInput(props: Props) {
