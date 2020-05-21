@@ -1,4 +1,11 @@
-import { Card, CardActions, CardContent, Collapse, Divider, styled } from '@material-ui/core';
+import {
+  Card,
+  CardActions,
+  CardContent,
+  Collapse,
+  Divider,
+  styled
+} from '@material-ui/core';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import highcharts3d from 'highcharts/highcharts-3d';
@@ -70,8 +77,7 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
         />
       </CardContent>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <FormCardContent>
-        </FormCardContent>
+        <FormCardContent></FormCardContent>
       </Collapse>
     </Card>
   );
