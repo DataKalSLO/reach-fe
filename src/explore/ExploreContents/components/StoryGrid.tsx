@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid, { GridSpacing } from '@material-ui/core/Grid';
 import StoryCard from './StoryCard';
-import { fetchAllStories } from '../../../api/explore';
-import { Story } from '../types';
+import { getAllStories } from '../../../api/stories/operations';
+import { Story } from '../../../redux/story/types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,31 +20,20 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function ExploreGrid2() {
+export default function StoryGrid() {
   const [spacing] = React.useState<GridSpacing>(2);
   const classes = useStyles();
-  const [stories, setStories] = React.useState([]);
+  const [stories, setStories] = React.useState([] as Story[]);
 
   useEffect(() => {
-    fetchAllStories().then(function(storydata) {
-      console.log(storydata);
-      setStories(storydata);
-      console.log(stories);
-      return storydata;
-    });
+    getAllStories().then(storydata => setStories(storydata));
   });
 
   const makeStories = () => {
     return stories.map((storyInfo: Story) => {
       return (
         <Grid key={storyInfo.id} item xs={3}>
-          <StoryCard
-            id={storyInfo.id}
-            userID={storyInfo.userID}
-            description={storyInfo.description}
-            title={storyInfo.title}
-            storyBlocks={storyInfo.storyBlocks}
-          />
+          <StoryCard {...storyInfo} />
         </Grid>
       );
     });

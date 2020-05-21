@@ -7,7 +7,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import { red } from '@material-ui/core/colors';
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
-import { Story } from '../types';
+import { Story } from '../../../redux/story/types';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+// This is a placeholder Story Card. TO DO: Implement universal Story Card
 export default function StoryCard(props: Story) {
   const classes = useStyles();
   const history = useHistory();

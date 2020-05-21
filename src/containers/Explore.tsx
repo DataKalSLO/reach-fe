@@ -1,8 +1,24 @@
 import React from 'react';
-import ExploreLanding from '../explore/ExploreLanding';
+import { Typography, Box, styled } from '@material-ui/core';
+import StoryGrid from '../explore/ExploreContents/components/StoryGrid';
+
+const StyledBox = styled(Box)({
+  textAlign: 'center'
+});
 
 function Explore() {
-  return <ExploreLanding></ExploreLanding>;
+  return (
+    <StyledBox>
+      <Typography variant="h3" component="h1">
+        Trending Stories
+      </Typography>
+      <StoryGrid />
+      <Typography variant="h3" component="h1">
+        New Publications
+      </Typography>
+      <StoryGrid />
+    </StyledBox>
+  );
 }
 
 export default Explore;
