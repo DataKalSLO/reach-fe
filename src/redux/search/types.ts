@@ -14,7 +14,6 @@ export interface RequestSearchResultsAction {
   payload: string;
 }
 
-// Redux action dispatched when search results are received
 export interface ReceiveSearchResultsAction {
   type: typeof RECEIVE_SEARCH_RESULTS;
   payload: Array<ElasticSearchResultObject>;
