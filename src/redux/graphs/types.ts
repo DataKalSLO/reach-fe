@@ -8,7 +8,6 @@ import * as consts from './constants';
 export interface GraphRecord {
   id: string;
   options: Highcharts.Options;
-  //isEditing: boolean;
 }
 
 export interface GraphState {
@@ -24,7 +23,6 @@ export interface InitiativeGraphs {
   [consts.EDUCATION]: Highcharts.Options[];
   [consts.HOUSING]: Highcharts.Options[];
   [consts.HEALTH]: Highcharts.Options[];
-  [consts.CREATE_GRAPH]: any;
 }
 
 /*
@@ -42,39 +40,19 @@ export interface DuplicateGraphAction {
   payload: Highcharts.Options;
 }
 
-export interface UpdateGraphAction {
-  type: typeof consts.UPDATE_GRAPH;
-  payload: GraphRecord;
-}
-
 export interface DeleteGraphAction {
   type: typeof consts.DELETE_GRAPH;
   payload: string;
-}
-
-export interface CreatingGraphAction {
-  type: typeof consts.CREATING_GRAPH;
-  payload: string;
-}
-
-export interface SyncGraphAction {
-  type: typeof consts.SYNC_GRAPH;
-  datasetName: string;
-  columnNames: string[];
 }
 
 export type GraphActionTypes =
   | AddGraphsForInitiativeAction
   | DuplicateGraphAction
   | DeleteGraphAction
-  | CreatingGraphAction
-  | SyncGraphAction
-  | UpdateGraphAction
-  | DeleteGraphAction;
 
 /*
  * The following type aliases/interfaces are used to restrict a
- * string to the 6 initiative names.
+ * string to the 5 initiative names.
  */
 
 export const initiativeNames = [
@@ -84,7 +62,6 @@ export const initiativeNames = [
   consts.EDUCATION,
   consts.HOUSING,
   consts.HEALTH,
-  consts.CREATE_GRAPH
 ] as const;
 
 export type InitiativeLiteral = typeof initiativeNames[number];

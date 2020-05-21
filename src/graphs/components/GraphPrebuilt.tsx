@@ -1,11 +1,4 @@
-import {
-  Card,
-  CardActions,
-  CardContent,
-  Collapse,
-  Divider,
-  styled
-} from '@material-ui/core';
+import { Card, CardActions, CardContent, Collapse, Divider, styled } from '@material-ui/core';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import highcharts3d from 'highcharts/highcharts-3d';
@@ -63,7 +56,7 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
   return (
     <Card variant="outlined">
       <GraphCardActions>
-        <GraphToolbar graph={graph} handleEdit={handleEdit} />
+        <GraphToolbar graph={graph} />
       </GraphCardActions>
       <GraphDivider light />
       <CardContent>

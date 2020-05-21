@@ -217,6 +217,7 @@ export function HealthCareFacityBedOptions() {
 }
 
 // Covid-19 health care facity bed capacity
+
 export function SBCovidCasesOptions() {
   return (
     <HighchartsReact

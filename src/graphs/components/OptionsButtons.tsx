@@ -1,25 +1,9 @@
-import {
-  BusinessCenterOutlined,
-  EmojiTransportation,
-  HouseOutlined,
-  LocalHospital,
-  PeopleAltOutlined,
-  SchoolOutlined
-} from '@material-ui/icons';
-import CreateIcon from '@material-ui/icons/Create';
+import { BusinessCenterOutlined, EmojiTransportation, HouseOutlined, LocalHospital, PeopleAltOutlined, SchoolOutlined } from '@material-ui/icons';
 import React, { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 import { uuid } from 'uuidv4';
 import { addGraphsForInitiativeAction } from '../../redux/graphs/actions';
-import {
-  ASSETS,
-  DEMOGRAPHICS,
-  EDUCATION,
-  CREATE_GRAPH,
-  HEALTH,
-  HOUSING,
-  INDUSTRY
-} from '../../redux/graphs/constants';
+import { ASSETS, DEMOGRAPHICS, EDUCATION, HEALTH, HOUSING, INDUSTRY } from '../../redux/graphs/constants';
 import { StyledBottomNav } from './styles';
 import { InitiativeIcon } from './types';
 
@@ -54,10 +38,6 @@ function OptionsButtons() {
     {
       name: HEALTH,
       icon: <LocalHospital key={uuid()} fontSize="large" />
-    },
-    {
-      name: CREATE_GRAPH,
-      icon: <CreateIcon key={uuid()} fontSize="large" />
     }
   ];
 

@@ -28,7 +28,6 @@ const initialState: GraphState = {
       prebuilt.medianSaleGraphOptions,
       prebuilt.medianListGraphOptions
     ],
-    [consts.CREATE_GRAPH]: [],
     [consts.HEALTH]: [
       prebuilt.covidCasesGraphOptions,
       prebuilt.SBCovidCasesGraphOptions,
@@ -59,11 +58,6 @@ export function graphReducer(
           utils.getGraphsForInitiative(action.payload, state.initiatives)
         )
       };
-    case consts.UPDATE_GRAPH:
-      return {
-        ...state,
-        graphs: utils.updateGraph(action.payload, state.graphs)
-      };
     case consts.DUPLICATE_GRAPH:
       return {
         ...state,
@@ -73,11 +67,6 @@ export function graphReducer(
       return {
         ...state,
         graphs: utils.getGraphsWithout(action.payload, state.graphs)
-      };
-    case consts.SYNC_GRAPH:
-      return {
-        ...state
-        //graphs: utils.syncGraph(action.payload, state.graphs)
       };
     default:
       return state;
