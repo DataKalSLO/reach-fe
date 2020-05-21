@@ -39,4 +39,4 @@ export const WEBKIT_BACKGROUND_COLOR = 'rgba(0,0,0,.3)';
 export const WEBKIT_OUTLINE = '1px solid slategrey';
 
 // Constants for styling Toolbars
-export const TOOLBAR_BORDER = '1px solid #cbcbcb';
+export const BORDER = '1px solid #cbcbcb'; // TODO: import into EditorToolbar and RichTextEditor

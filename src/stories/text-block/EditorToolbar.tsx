@@ -19,7 +19,7 @@ import {
   CollapsibleMenu,
   IconButton
 } from '../../reach-ui/core';
-import { TOOLBAR_BORDER } from '../../theme/theme';
+import { BORDER } from '../../theme/theme';
 import { DraftJSBlockType, DraftJSInlineType } from './DraftJSCommands';
 import { HyperlinkPlugin } from './HyperlinkPlugin';
 
@@ -182,7 +182,7 @@ const DEFAULT_HIDE_WIDTH = 0;
 const LIST_STYLE_HIDE_WIDTH = 970;
 const LINK_STYLE_HIDE_WIDTH = 1020;
 
-const borderStyle = TOOLBAR_BORDER;
+const borderStyle = BORDER;
 const paddingDefault = '10px';
 
 const Toolbar = styled(Box)({
