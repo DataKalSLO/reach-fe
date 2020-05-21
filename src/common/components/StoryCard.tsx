@@ -9,7 +9,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import { AccountCircle } from '@material-ui/icons';
 import React from 'react';
-import { Story } from '../redux/story/types';
+import { Story } from '../../redux/story/types';
 
 //TODO: Add a way to get author, date, and image url from passed in props
 const PLACEHOLDER_AUTHOR = 'Bill Writer';
@@ -45,7 +45,10 @@ const useStyles = makeStyles({
 export default function StoryCard(props: StoryCardProps): JSX.Element {
   const classes = useStyles();
 
-  const Author = (props: { name: string; picture: JSX.Element }) => {
+  const AuthorWithProfilePhoto = (props: {
+    name: string;
+    picture: JSX.Element;
+  }) => {
     return (
       <React.Fragment>
         <Grid item>{props.picture}</Grid>
@@ -58,11 +61,11 @@ export default function StoryCard(props: StoryCardProps): JSX.Element {
     );
   };
 
-  const FormattedAuthorDate = () => {
+  const AuthorDate = () => {
     return (
       <Grid container item wrap="nowrap">
         <Grid container item alignItems="center" spacing={1}>
-          <Author
+          <AuthorWithProfilePhoto
             name={PLACEHOLDER_AUTHOR}
             picture={PLACEHOLDER_USER_PICTURE}
           />
@@ -96,7 +99,7 @@ export default function StoryCard(props: StoryCardProps): JSX.Element {
           >
             {props.story.description}
           </Typography>
-          <FormattedAuthorDate />
+          <AuthorDate />
         </CardContent>
       </CardActionArea>
     </Card>

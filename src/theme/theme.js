@@ -28,7 +28,6 @@ export const theme = responsiveFontSizes(
   })
 );
 
-export const BORDER = '1px solid #cbcbcb'; // TODO: import into EditorToolbar and RichTextEditor
 export const NAV_BAR_COLOR = '#133F4D';
 
 // Constants for styling the scroll bar
@@ -40,4 +39,4 @@ export const WEBKIT_BACKGROUND_COLOR = 'rgba(0,0,0,.3)';
 export const WEBKIT_OUTLINE = '1px solid slategrey';
 
 // Constants for styling Toolbars
-export const TOOLBAR_BORDER = '1px solid #cbcbcb';
+export const BORDER = '1px solid #cbcbcb'; // TODO: import into EditorToolbar and RichTextEditor
