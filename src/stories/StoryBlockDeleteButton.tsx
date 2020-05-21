@@ -1,7 +1,7 @@
 import { DeleteForever } from '@material-ui/icons';
 import React from 'react';
 import { Dispatch } from 'redux';
-import IconButton from '../common/components/IconButton';
+import { IconButton } from '../reach-ui/core';
 import { deleteBlock } from '../redux/story/actions';
 import { StoryBlockType, TEXT_BLOCK_TYPE } from '../redux/story/types';
 import { theme } from '../theme/theme';

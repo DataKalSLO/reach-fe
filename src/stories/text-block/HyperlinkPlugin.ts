@@ -1,6 +1,6 @@
 import { EditorState, RichUtils } from 'draft-js';
 import React from 'react';
-import { isValidURL, recoverURL } from '../common/util/urlValidation';
+import { isValidURL, recoverURL } from '../../common/util/urlValidation';
 
 // all hyperlink functionality copied from https://github.com/facebook/draft-js/blob/master/examples/draft-0-10-0/link/link.html
 

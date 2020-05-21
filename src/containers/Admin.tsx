@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import CSVUpload from '../admin/CSVUpload';
+import FileUpload from '../common/components/FileUpload';
 import CSVTemplate from '../admin/CSVTemplate';
 import { Paper, Typography, Box, styled } from '@material-ui/core';
-import { csv, DSVRowArray } from 'd3';
+import { csv } from 'd3';
+import { IDropzoneProps } from 'react-dropzone-uploader';
 
 function Admin() {
   const [csvData, setCsvData]: any = useState([]);
@@ -10,11 +11,28 @@ function Admin() {
     csv('./Sample.csv').then(data => setCsvData(data));
   });
 
+  //currently removes files, will be changed later
+  const handleSubmit: IDropzoneProps['onSubmit'] = (files, allFiles) => {
+    console.log(files.map(f => f.meta));
+    allFiles.forEach(f => f.remove());
+  };
+
+  const handleChangeStatus: IDropzoneProps['onChangeStatus'] = (
+    { meta },
+    status
+  ) => {
+    console.log(status, meta);
+  };
+
   return (
     <React.Fragment>
       <UploadBox>
         <Typography variant="h5">Upload Your Data</Typography>
-        <CSVUpload />
+        <FileUpload
+          handleChangeStatus={handleChangeStatus}
+          handleSubmit={handleSubmit}
+          accept=".csv"
+        />
       </UploadBox>
       <DownloadPaper variant="outlined">
         <Typography variant="h5">Download Your CSV Templates</Typography>
