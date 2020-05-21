@@ -1,28 +1,24 @@
-import React from 'react';
-import { Box, Typography } from '@material-ui/core';
+import { Box } from '@material-ui/core';
+import React, { ReactNode } from 'react';
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: any;
-  value: any;
+export interface Props {
+  index: string | number;
+  value: string | number;
+  children: ReactNode;
+  // This extra parameter is necessary to allow other props to be passed through
+  [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
-export default function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
+export default function TabPanel(props: Props) {
+  const { index, value, children, ...other } = props;
   return (
     <div
       role="tabpanel"
+      id={`tabpanel-${index}`}
       hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box p={3}>{children}</Box>}
     </div>
   );
 }

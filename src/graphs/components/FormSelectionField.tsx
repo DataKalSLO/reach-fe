@@ -1,41 +1,41 @@
-import React, { useState } from 'react';
-import { TextField, MenuItem, styled } from '@material-ui/core';
+import React, { ChangeEvent } from 'react';
+import {
+  TextField as CoreTextField,
+  MenuItem,
+  styled
+} from '@material-ui/core';
 
-export interface FormSelectionProps {
-  id: string;
+export interface Props {
   value: string;
   data: string[];
-  handleChange: (id: string, value: string) => void;
-  [x: string]: any;
+  // This extra parameter is necessary to allow other props to be passed through
+  [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
-const FormSelectionField = (props: FormSelectionProps) => {
-  const { id, value, data, handleChange, ...otherProps } = props;
-
+export function TextFieldSelect(props: Props) {
+  const { value, data, ...otherProps } = props;
   return (
-    <FormTextField
+    <FormTextFieldSelect
       select
       variant="outlined"
       margin="dense"
       value={value}
-      defaultValue={value}
-      onChange={value => handleChange(id, value.target.value)}
       {...otherProps}
     >
-      {data.map((value, index) => {
+      {data.map((dataValue, index) => {
         return (
-          <MenuItem key={index} value={value}>
-            {value}
+          <MenuItem key={index} value={dataValue}>
+            {dataValue}
           </MenuItem>
         );
       })}
-    </FormTextField>
+    </FormTextFieldSelect>
   );
-};
+}
 
-export { FormSelectionField };
-
-const FormTextField = styled(TextField)({
-  minWidth: '100px',
-  marginRight: '10px'
+const FormTextFieldSelect = styled(CoreTextField)({
+  margin: '10px',
+  display: 'flex',
+  flex: '1 1 130px',
+  minWidth: '130px'
 });

@@ -1,30 +1,38 @@
 import React from 'react';
 import { FormLabel, styled, Box, Grid } from '@material-ui/core';
 import { isUndefined } from 'util';
+import { theme } from '../../theme/theme';
 
 interface Props {
   children: JSX.Element[] | JSX.Element;
   label?: string;
-  inline?: boolean;
-  [x: string]: any;
+  // This extra parameter is necessary to allow other props to be passed through
+  innerBlockProps?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  // This extra parameter is necessary to allow other props to be passed through
+  [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 export default function FormBlock(props: Props) {
-  const { children, label, ...otherProps } = props;
+  const { children, label, innerBlockProps, ...otherProps } = props;
   return (
-    <FormGridContainer container direction="column" {...otherProps}>
+    <OuterGridContainer container {...otherProps}>
       {isUndefined(label) ? null : <StyledFormLabel>{label}</StyledFormLabel>}
-      <Grid item style={{ width: '100%' }}>
+      <InnerGridContainer container {...innerBlockProps}>
         {children}
-      </Grid>
-    </FormGridContainer>
+      </InnerGridContainer>
+    </OuterGridContainer>
   );
 }
 
-const FormGridContainer = styled(Grid)({
-  width: '100%'
+const OuterGridContainer = styled(Grid)({
+  flexDirection: 'column'
+});
+
+const InnerGridContainer = styled(Grid)({
+  flexDirection: 'row',
+  alignItems: 'center'
 });
 
 const StyledFormLabel = styled(FormLabel)({
-  margin: '0px 10px 10px 0px'
+  margin: '10px'
 });

@@ -1,31 +1,23 @@
-import React, { useState, Fragment, ChangeEvent, useEffect } from 'react';
-import FormTextField from './FormTextField';
-import FormBlock from './FormBlock';
-import { Button } from '../../common/components/Button';
-import {
-  Grid,
-  Switch,
-  FormControlLabel,
-  styled,
-  Box,
-  Divider
-} from '@material-ui/core';
-import { FormSelectionField } from './FormSelectionField';
-import ColorPicker from './ColorPicker';
-import { ColorResult, ColorChangeHandler } from 'react-color';
-import { GraphRecord } from '../../redux/graphs/types';
-import { GraphPrebuiltProps } from './types';
-import { isUndefined, isNull } from 'util';
+import { Box, Divider, styled } from '@material-ui/core';
 import {
   PlotSeriesDataLabelsOptions,
-  YAxisOptions,
+  SeriesOptionsType,
   XAxisOptions,
-  TitleOptions,
-  SeriesOptionsType
+  YAxisOptions
 } from 'highcharts';
-import { theme } from '../../theme/theme';
-import { updateGraphAction } from '../../redux/graphs/actions';
+import React, { ChangeEvent, Fragment, useEffect, useState } from 'react';
+import { ColorResult } from 'react-color';
 import { useDispatch } from 'react-redux';
+import { isUndefined } from 'util';
+import { Button } from '../../common/components/Button';
+import { updateGraphAction } from '../../redux/graphs/actions';
+import { GraphRecord } from '../../redux/graphs/types';
+import FormBlock from './FormBlock';
+import { TextFieldSelect } from './FormSelectionField';
+import { TextField } from './FormTextField';
+import FormColorPicker from './tests/FormColorPicker';
+import { Switch } from './tests/Switch';
+import { GraphPrebuiltProps } from './types';
 
 interface SeriesProps {
   title: string;
@@ -43,11 +35,11 @@ interface SeriesProps {
   stack: { name: string; type: string };
 }
 
-const GRAPH_LABEL = 'Graph Formatting:';
-const X_LABEL = 'X-Axis Formatting:';
-const Y_LABEL = 'Y-Axis Formatting:';
-const SERIES_LABEL = 'Series Formatting:';
-const STACK_LABEL = 'Stack Formatting:';
+const GRAPH_LABEL = 'Chart';
+const X_LABEL = 'X-Axis';
+const Y_LABEL = 'Y-Axis';
+const SERIES_LABEL = 'Series';
+const STACK_LABEL = 'Stacking';
 const types = ['line', 'pie', 'bar', 'column'];
 
 export default function FormattingForm({ graph }: GraphPrebuiltProps) {
@@ -156,7 +148,7 @@ export default function FormattingForm({ graph }: GraphPrebuiltProps) {
 
   const handleColorChange = (id: string, color: ColorResult) => {
     const newSeries = formatState.series.map(serie => {
-      if (serie.seriesId == id) {
+      if (serie.seriesId === id) {
         return { ...serie, seriesColor: color.hex };
       }
       return serie;
@@ -167,7 +159,6 @@ export default function FormattingForm({ graph }: GraphPrebuiltProps) {
   const handleCancel = () => {
     setFormatState(createFormatOptions(graph));
   };
-
   const handleUpdate = () => {
     const newGraphOptions = { ...graph.options };
 
@@ -257,8 +248,6 @@ export default function FormattingForm({ graph }: GraphPrebuiltProps) {
           <FormTextField
             label="Title"
             value={formatState.title}
-            defaultValue={formatState.title}
-            style={{ width: '40%' }}
             onChange={(value: React.ChangeEvent<HTMLInputElement>) =>
               handleTitleChange(value.target.value)
             }
@@ -266,8 +255,6 @@ export default function FormattingForm({ graph }: GraphPrebuiltProps) {
           <FormTextField
             label="Subtitle"
             value={formatState.subtitle}
-            defaultValue={formatState.subtitle}
-            style={{ width: '40%' }}
             onChange={(value: React.ChangeEvent<HTMLInputElement>) =>
               handleSubtitleChange(value.target.value)
             }
@@ -278,28 +265,22 @@ export default function FormattingForm({ graph }: GraphPrebuiltProps) {
       <FormBlock label={X_LABEL}>
         <FormBlock direction="row">
           <FormTextField
-            label="Name"
+            label="Title"
             value={formatState.xAxis.name}
-            defaultValue={formatState.xAxis.name}
-            style={{ width: '30%' }}
             onChange={(value: React.ChangeEvent<HTMLInputElement>) =>
               handleXTitleChange(value.target.value)
             }
           />
           <FormTextField
-            label="Prefix"
+            label="Value Prefix"
             value={formatState.xAxis.prefix}
-            defaultValue={formatState.xAxis.prefix}
-            style={{ width: '20%' }}
             onChange={(value: React.ChangeEvent<HTMLInputElement>) =>
               handleXPrefixChange(value.target.value)
             }
           />
           <FormTextField
-            label="Suffix"
+            label="Value Suffix"
             value={formatState.xAxis.suffix}
-            defaultValue={formatState.xAxis.suffix}
-            style={{ width: '20%' }}
             onChange={(value: React.ChangeEvent<HTMLInputElement>) =>
               handleXSuffixChange(value.target.value)
             }
@@ -310,28 +291,22 @@ export default function FormattingForm({ graph }: GraphPrebuiltProps) {
       <FormBlock label={Y_LABEL}>
         <FormBlock direction="row">
           <FormTextField
-            label="Name"
+            label="Title"
             value={formatState.yAxis.name}
-            defaultValue={formatState.yAxis.name}
-            style={{ width: '30%' }}
             onChange={(value: React.ChangeEvent<HTMLInputElement>) =>
               handleYTitleChange(value.target.value)
             }
           />
           <FormTextField
-            label="Prefix"
+            label="Value Prefix"
             value={formatState.yAxis.prefix}
-            defaultValue={formatState.yAxis.prefix}
-            style={{ width: '20%' }}
             onChange={(value: React.ChangeEvent<HTMLInputElement>) =>
               handleYPrefixChange(value.target.value)
             }
           />
           <FormTextField
-            label="Suffix"
+            label="Value Suffix"
             value={formatState.yAxis.suffix}
-            defaultValue={formatState.yAxis.suffix}
-            style={{ width: '20%' }}
             onChange={(value: React.ChangeEvent<HTMLInputElement>) =>
               handleYSuffixChange(value.target.value)
             }
@@ -339,40 +314,44 @@ export default function FormattingForm({ graph }: GraphPrebuiltProps) {
         </FormBlock>
       </FormBlock>
       <FormDivider light />
-      <FormBlock label={SERIES_LABEL} direction="row" alignItems="center">
+      <FormBlock>
         {formatState.series.map((serie, index) => {
           return (
-            <FormBlock
-              key={index}
-              label={serie.seriesTitle}
-              direction="row"
-              alignItems="center"
-              style={{ marginTop: '10px' }}
-            >
+            <FormBlock key={index} label={`Series ${index + 1}`}>
               <FormTextField
-                label="Name"
+                label="Title"
                 value={serie.seriesName}
-                defaultValue={serie.seriesName}
-                style={{ width: '25%' }}
                 onChange={(value: React.ChangeEvent<HTMLInputElement>) =>
                   handleSeriesNameChange(serie.seriesId, value.target.value)
                 }
               />
-              <FormSelectionField
-                required
-                id={serie.seriesId}
+              <FormSelection
                 label="Type"
                 value={serie.seriesType}
                 data={types}
-                style={{ width: '25%' }}
-                handleChange={handleSeriesTypeChange}
-              />
-              <ColorPicker
-                color={serie.seriesColor}
-                handleChange={(color: ColorResult) =>
-                  handleColorChange(serie.seriesId, color)
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  handleSeriesTypeChange(serie.seriesId, e.target.value)
                 }
               />
+              <FormBlock
+                innerBlockProps={{
+                  style: {
+                    justifyContent: 'space-between'
+                  }
+                }}
+              >
+                <FormColorPicker
+                  initialColor={serie.seriesColor}
+                  handleChange={(color: ColorResult) =>
+                    handleColorChange(serie.seriesId, color)
+                  }
+                />
+                <Switch
+                  label="Data Labels"
+                  checked={formatState.dataLabels}
+                  onChange={handleDataLabelsChange}
+                />
+              </FormBlock>
             </FormBlock>
           );
         })}
@@ -381,44 +360,29 @@ export default function FormattingForm({ graph }: GraphPrebuiltProps) {
       <FormBlock label={STACK_LABEL}>
         <FormBlock direction="row">
           <FormTextField
-            label="Name"
+            label="Title"
             value={formatState.stack.name}
-            defaultValue={formatState.stack.name}
-            style={{ width: '40%' }}
             onChange={(value: React.ChangeEvent<HTMLInputElement>) =>
               handleStackNameChange(value.target.value)
             }
           />
-          <FormSelectionField
-            id="Type"
+          <FormSelection
             label="Type"
             value={formatState.stack.type}
             data={['normal', 'percent']}
-            style={{ width: '40%' }}
-            handleChange={handleStackTypeChange}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              handleStackTypeChange('Type', e.target.value)
+            }
           />
         </FormBlock>
       </FormBlock>
       <FormDivider light />
       <FormBlock label="Other">
         <FormBlock direction="row">
-          <FormControlLabel
-            control={<Switch checked={formatState.allow3d} name="Enable 3D" />}
+          <Switch
             label="Enable 3D"
-            labelPlacement="bottom"
-            onChange={(event: ChangeEvent<{}>, checked: boolean) =>
-              handle3DChange()
-            }
-          />
-          <FormControlLabel
-            control={
-              <Switch checked={formatState.dataLabels} name="Data Labels" />
-            }
-            label="Data Labels"
-            labelPlacement="bottom"
-            onChange={(event: ChangeEvent<{}>, checked: boolean) =>
-              handleDataLabelsChange()
-            }
+            checked={formatState.allow3d}
+            onChange={handle3DChange}
           />
         </FormBlock>
       </FormBlock>
@@ -558,4 +522,12 @@ const createFormatOptions = (graph: GraphRecord): FormatOptions => {
 
 const FormDivider = styled(Divider)({
   margin: '10px 0px 10px 0px'
+});
+
+const FormSelection = styled(TextFieldSelect)({
+  marginRight: '10px'
+});
+
+const FormTextField = styled(TextField)({
+  marginRight: '10px'
 });
