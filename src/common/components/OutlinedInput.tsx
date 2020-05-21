@@ -1,16 +1,14 @@
 import React from 'react';
 import { OutlinedInput as CoreOutlinedInput, styled } from '@material-ui/core';
 
-
 // Added optional props for height/width
-const StyledCoreOutlinedInput = styled(
-  ({ width, ...other }: Props) => <CoreOutlinedInput {...other} />)({
-    // If user gives width/height prop, use that, otherwise default
-    width: (props: Props) =>
-      props.width? props.width : "auto",
-    height: (props: Props) =>
-      props.height? props.height : "auto"
-  })
+const StyledCoreOutlinedInput = styled(({ width, ...other }: Props) => (
+  <CoreOutlinedInput {...other} />
+))({
+  // If given width/height prop, use that, otherwise default
+  width: (props: Props) => (props.width ? props.width : 'auto'),
+  height: (props: Props) => (props.height ? props.height : 'auto')
+});
 
 interface Props {
   'aria-label': string; // Accessible label that describes button's purpose
@@ -32,7 +30,6 @@ interface Props {
 }
 
 export default function OutlinedInput(props: Props) {
-
   return (
     <StyledCoreOutlinedInput
       placeholder={props.placeholder}
@@ -42,5 +39,5 @@ export default function OutlinedInput(props: Props) {
       color="primary"
       {...props}
     />
-  )
+  );
 }
