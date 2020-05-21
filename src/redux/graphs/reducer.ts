@@ -74,11 +74,6 @@ export function graphReducer(
         ...state,
         graphs: utils.getGraphsWithout(action.payload, state.graphs)
       };
-    case consts.CREATING_GRAPH:
-      return {
-        ...state,
-        graphs: utils.createGraph(action.payload, state.graphs)
-      };
     case consts.SYNC_GRAPH:
       return {
         ...state

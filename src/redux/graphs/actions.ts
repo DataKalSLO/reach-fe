@@ -51,13 +51,6 @@ export function graphDeletionAction(payload: string): types.DeleteGraphAction {
   };
 }
 
-export function createGraphAction(id: string): types.CreatingGraphAction {
-  return {
-    type: consts.CREATING_GRAPH,
-    payload: id
-  };
-}
-
 export function syncGraphAction(
   datasetName: string,
   columnNames: string[]

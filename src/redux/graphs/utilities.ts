@@ -1,7 +1,6 @@
 import { cloneDeep } from 'lodash';
 import { uuid } from 'uuidv4';
 import * as types from './types';
-import { identifier } from '@babel/types';
 
 /*
  * Gets the set of graphs associated with a given industry.
@@ -62,20 +61,6 @@ export function getGraphsWithout(
 ): types.GraphRecord[] {
   const newGraphs = cloneDeep(graphs);
   return newGraphs.filter(graphRecord => graphRecord.id !== id);
-}
-
-export function createGraph(
-  id: string,
-  graphs: types.GraphRecord[]
-): types.GraphRecord[] {
-  return graphs.map(graphRecord => {
-    if (id === graphRecord.id) {
-      //      const newRecord = cloneDeep(graphRecord)
-      //      newRecord.options.title = { text: 'Hello World' };
-      return { ...graphRecord };
-    }
-    return graphRecord;
-  });
 }
 
 export function syncGraph(id: string, graphs: types.GraphRecord[]): string {
