@@ -15,7 +15,7 @@ import SortableList from './SortableList';
 import StoryView from './StoryView';
 
 const TITLE_CHAR_LIMIT = 100;
-const DESCRIPTION_CHAR_LIMIT = 250;
+const DESCRIPTION_CHAR_LIMIT = 150;
 
 const metaSchema = object().shape({
   title: string()

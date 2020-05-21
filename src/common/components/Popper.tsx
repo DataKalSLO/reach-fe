@@ -1,6 +1,6 @@
 import { Box, styled, Popper as CorePopper } from '@material-ui/core';
 import React from 'react';
-import { TOOLBAR_BORDER, theme } from '../../theme/theme';
+import { BORDER, theme } from '../../theme/theme';
 
 interface Props {
   open: boolean;
@@ -31,7 +31,7 @@ const StyledBox = styled(Box)({
   display: 'flex',
   alignItems: 'right',
   background: '#ffffff',
-  border: TOOLBAR_BORDER,
+  border: BORDER,
   borderRadius: '5px',
   margin: '-10px',
   boxShadow: theme.shadows[1]
