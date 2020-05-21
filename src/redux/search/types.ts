@@ -8,7 +8,7 @@ export interface SearchState {
   isFetching: boolean;
 }
 
-// Redux action dispatched when user utilizes search
+// Redux actions
 export interface RequestSearchResultsAction {
   type: typeof REQUEST_SEARCH_RESULTS;
   payload: string;
