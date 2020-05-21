@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, styled } from '@material-ui/core';
 import IconButton from '../common/components/IconButton';
-import TextField from '../common/components/TextField';
+import OutlinedInput from '../common/components/OutlinedInput';
 import SearchIcon from '@material-ui/icons/Search';
 
 const SearchBarBox = styled(Box)({
@@ -30,7 +30,7 @@ function SearchBar(props: SearchBarProps) {
 
   return (
     <SearchBarBox>
-      <TextField
+      <OutlinedInput
         aria-label="Search graphs, stories"
         placeholder="Search graphs, stories"
         onChange={e => handleChange(e)}
@@ -42,6 +42,7 @@ function SearchBar(props: SearchBarProps) {
             aria-label="Search graphs, stories"
           />
         }
+        width={500}
       />
     </SearchBarBox>
   );
