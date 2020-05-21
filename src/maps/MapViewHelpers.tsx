@@ -45,8 +45,8 @@ export function onHover(
   event: any,
   x: React.MutableRefObject<number>,
   y: React.MutableRefObject<number>,
-  dims: { width: number; height: number },
-  setDims: (dims: { width: number; height: number }) => void
+  dims: DOMRect,
+  setDims: (dims: DOMRect) => void
 ) {
   const { features, point } = event;
   const hoveredLocation =
@@ -57,19 +57,16 @@ export function onHover(
     setHoveredLocation(defaultHoveredLocation);
     return;
   }
+  x.current = point[0];
+  y.current = point[1];
   const tooltipDiv = document.getElementById('map-tooltip');
-  let newDims = { height: 0, width: 0 };
-  if (tooltipDiv) {
-    newDims = {
-      height: tooltipDiv.offsetHeight,
-      width: tooltipDiv.offsetWidth
-    };
+  if (!tooltipDiv) {
+    return;
   }
+  const newDims = tooltipDiv.getBoundingClientRect();
   if (JSON.stringify(dims) !== JSON.stringify(newDims)) {
     setDims(newDims);
   }
-  x.current = point[0];
-  y.current = point[1];
   setHoveredLocation(hoveredLocation);
 }
 
@@ -111,4 +108,24 @@ export function position(
   const mid = (containerUpperBound - containerLowerBound) / 2;
   const inLowerHalf = cursor < mid;
   return inLowerHalf ? cursor : cursor - elementLength;
+}
+
+function getPopupBounds() {
+  const popups = document.getElementsByClassName('mapboxgl-popup-content');
+  const popupsArr = Array.from(popups);
+  return popupsArr.map(popup => popup.getBoundingClientRect());
+}
+
+function rectsOverlap(r1: DOMRect, r2: DOMRect) {
+  return !(
+    r1.left >= r2.right ||
+    r2.left >= r1.right ||
+    r1.top >= r2.bottom ||
+    r2.top >= r1.bottom
+  );
+}
+
+export function tooltipOverlapsMarkers(tooltipBounds: DOMRect) {
+  const popupBounds = getPopupBounds();
+  return popupBounds.some(bounds => rectsOverlap(tooltipBounds, bounds));
 }

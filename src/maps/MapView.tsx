@@ -32,7 +32,8 @@ import {
   onHover,
   prepGeo,
   quantileMaker,
-  position
+  position,
+  tooltipOverlapsMarkers
 } from './MapViewHelpers';
 import Tooltip from './Tooltip';
 import { Grid } from '@material-ui/core';
@@ -90,7 +91,7 @@ function MapView(props: MapViewProps) {
   const outlineData = GeoJSON.parse(outlinesPrepped, { GeoJSON: 'geometry' });
 
   // React-Map-GL State
-  const [dims, setDims] = React.useState({ height: 0, width: 0 });
+  const [dims, setDims] = React.useState(new DOMRect(0, 0, 0, 0));
   const [layer, setLayer] = React.useState({
     id: 'data',
     type: 'fill',
@@ -173,24 +174,29 @@ function MapView(props: MapViewProps) {
   }, [heatMapFeatures, valueKey]);
 
   const renderTooltip = () => {
-    if (hoveredLocation.noLocation) {
-      return;
-    }
-    const zipsValue = hoveredLocation.properties[valueKey];
-    const zipCode = hoveredLocation.properties[ZIP_TABULATION];
+    let opacity = 1;
 
     const map = document.getElementById('map');
     if (!map) {
       return;
     }
+
+    if (hoveredLocation.noLocation || tooltipOverlapsMarkers(dims)) {
+      opacity = 0;
+    }
+
     const bounds = map.getBoundingClientRect();
     const left = position(bounds.left, bounds.right, dims.width, x.current);
     const top = position(bounds.top, bounds.bottom, dims.height, y.current);
+
+    const zipsValue = hoveredLocation.properties[valueKey];
+    const zipCode = hoveredLocation.properties[ZIP_TABULATION];
 
     return (
       <div
         id="map-tooltip"
         style={{
+          opacity,
           top,
           left,
           zIndex: 999,
