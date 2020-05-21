@@ -40,6 +40,7 @@ function SearchBar(props: SearchBarProps) {
             onClick={() => props.searchCallback(text)}
             icon={<SearchIcon />}
             aria-label="Search graphs, stories"
+            size="small"
           />
         }
         width={500}
