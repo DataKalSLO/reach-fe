@@ -1,7 +1,7 @@
 import React from 'react';
 import { OutlinedInput as CoreOutlinedInput, styled } from '@material-ui/core';
 
-// Added optional props for width
+// Takes optional width prop and injects into styling
 const StyledCoreOutlinedInput = styled(({ width, ...other }: Props) => (
   <CoreOutlinedInput {...other} />
 ))({

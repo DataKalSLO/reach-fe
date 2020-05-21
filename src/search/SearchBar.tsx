@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import { Box, styled } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import IconButton from '../common/components/IconButton';
 import OutlinedInput from '../common/components/OutlinedInput';
 import SearchIcon from '@material-ui/icons/Search';
-
-const SearchBarBox = styled(Box)({
-  paddingTop: '20px'
-});
 
 interface SearchBarProps {
   searchCallback: (qry: string) => void;
@@ -29,7 +25,7 @@ function SearchBar(props: SearchBarProps) {
   };
 
   return (
-    <SearchBarBox>
+    <Box>
       <OutlinedInput
         aria-label="Search graphs, stories"
         placeholder="Search graphs, stories"
@@ -45,7 +41,7 @@ function SearchBar(props: SearchBarProps) {
         }
         width={500}
       />
-    </SearchBarBox>
+    </Box>
   );
 }
 
