@@ -19,10 +19,9 @@ import {
   CollapsibleMenu,
   IconButton
 } from '../../reach-ui/core';
-import { TOOLBAR_BORDER } from '../../theme/theme';
+import { BORDER } from '../../theme/theme';
 import { DraftJSBlockType, DraftJSInlineType } from './DraftJSCommands';
 import { HyperlinkPlugin } from './HyperlinkPlugin';
-import { BORDER } from '../../theme/theme';
 
 const ToolbarButton = (props: IconButtonProps) => {
   return <IconButton size="small" color="default" {...props} />;
