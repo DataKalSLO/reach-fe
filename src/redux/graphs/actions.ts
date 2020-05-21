@@ -60,8 +60,8 @@ export function createGraphAction(id: string): types.CreatingGraphAction {
 
 export function syncGraphAction(
   datasetName: string,
-  columnNames:string[],
-): types.SyncGraphAction{
+  columnNames: string[]
+): types.SyncGraphAction {
   return {
     type: consts.SYNC_GRAPH,
     datasetName: datasetName,
