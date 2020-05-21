@@ -78,10 +78,9 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
         />
       </CardContent>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <GraphDivider light />
-        <CardContent>
+        <FormCardContent>
           <GraphEditForm graph={graph} />
-        </CardContent>
+        </FormCardContent>
       </Collapse>
     </Card>
   );
@@ -98,4 +97,8 @@ const GraphCardActions = styled(CardActions)({
 
 const GraphDivider = styled(Divider)({
   marginBottom: '10px'
+});
+
+const FormCardContent = styled(CardContent)({
+  padding: '0px'
 });

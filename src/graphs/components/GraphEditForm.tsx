@@ -49,10 +49,10 @@ export default function GraphEditForm({ graph }: GraphPrebuiltProps) {
       </Paper>
       <Divider light />
       <FormGrid>
-        <TabPanel value={selectedIndex} index={0}>
+        <TabPanel aria-label={'hello'} value={selectedIndex} index={0}>
           <FormattingForm graph={graph} />
         </TabPanel>
-        <TabPanel value={selectedIndex} index={1}>
+        <TabPanel aria-label={'hello'} value={selectedIndex} index={1}>
           <DataForm />
         </TabPanel>
       </FormGrid>

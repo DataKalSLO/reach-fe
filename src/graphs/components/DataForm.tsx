@@ -1,5 +1,5 @@
-import React, { useState, Fragment } from 'react';
-import { FormSelectionField } from './FormSelectionField';
+import React, { useState, Fragment, ChangeEvent } from 'react';
+import { TextFieldSelect } from './FormSelectionField';
 import { styled, Box, Divider, Typography } from '@material-ui/core';
 import FormBlock from './FormBlock';
 import IconButton from '../../common/components/IconButton';
@@ -24,10 +24,10 @@ interface SeriesProps {
   seriesColumn: string;
 }
 
-const DATASET_LABEL = 'Choose a Dataset:';
-const X_AXIS_LABEL = 'Choose the X-Axis Data Column:';
+const DATASET_LABEL = 'Dataset';
+const X_AXIS_LABEL = 'X-Axis';
 const Y_AXIS_LABEL = 'Choose the Y-Axis Data Columns:';
-const SERIES_LABEL = 'Series:';
+const SERIES_LABEL = 'Series';
 const STACK_LABEL = 'Choose the Stacking Data Column';
 
 export default function DataForm() {
@@ -93,45 +93,38 @@ export default function DataForm() {
   return (
     <Fragment>
       <FormBlock label={DATASET_LABEL}>
-        <FormSelectionField
-          fullWidth
-          required
-          id="Dataset"
-          label="Dataset"
+        <FormTextField
+          label="Name"
           value={dataState.dataset}
           data={datasets}
-          handleChange={handleDatasetChange}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            handleDatasetChange('dataset', e.target.value)
+          }
         />
       </FormBlock>
       <FormDivider light />
       <FormBlock label={X_AXIS_LABEL}>
-        <FormSelectionField
-          fullWidth
-          required
-          id="Column"
+        <FormTextField
           label="Column"
           value={dataState.xColumn}
           data={columns}
-          handleChange={handleXAxisColumnChange}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            handleXAxisColumnChange('Column', e.target.value)
+          }
         />
       </FormBlock>
       <FormDivider light />
-      <FormBlock label={Y_AXIS_LABEL}>
-        {dataState.yColumns.map(series => {
+      <FormBlock label={SERIES_LABEL}>
+        {dataState.yColumns.map((series, index) => {
           return (
-            <FormBlock
-              label={series.seriesName}
-              key={series.seriesId}
-              style={{ marginTop: '10px' }}
-            >
-              <FormSelectionField
-                required
-                id={series.seriesId}
-                label="Column"
+            <FormBlock key={series.seriesId}>
+              <FormTextField
+                label={`Series ${index + 1}`}
                 value={series.seriesColumn}
                 data={columns}
-                style={{ width: '75%' }}
-                handleChange={handleYAxisColumnChange}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  handleYAxisColumnChange(series.seriesId, e.target.value)
+                }
               />
               <IconButton
                 size="small"
@@ -154,18 +147,6 @@ export default function DataForm() {
           onClick={() => handleAddYAxisColumn()}
         />
       </FormBox>
-      <FormDivider light />
-      <FormBlock label={STACK_LABEL}>
-        <FormSelectionField
-          fullWidth
-          required
-          id="stack"
-          label="Column"
-          value={dataState.stackColumn}
-          data={['None', ...columns]}
-          handleChange={handleStackColumnChange}
-        />
-      </FormBlock>
       <FormFooter>
         <Button
           size="large"
@@ -203,4 +184,8 @@ const FormBox = styled(Box)({
   display: 'flex',
   justifyContent: 'center',
   minWidth: '300px'
+});
+
+const FormTextField = styled(TextFieldSelect)({
+  marginRight: '10px'
 });

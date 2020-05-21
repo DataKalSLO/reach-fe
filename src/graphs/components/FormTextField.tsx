@@ -1,15 +1,20 @@
 import React from 'react';
-import { TextField, styled } from '@material-ui/core';
+import { TextField as CoreTextField, styled } from '@material-ui/core';
 
 interface Props {
+  // This extra parameter is necessary to allow other props to be passed through
   [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
-export default function FormTextField(props: Props) {
-  return <StyledTextField variant="outlined" margin="dense" {...props} />;
+export function TextField(props: Props) {
+  return (
+    <FormTextField size="small" variant="outlined" margin="dense" {...props} />
+  );
 }
 
-const StyledTextField = styled(TextField)({
-  marginRight: '10px',
-  minWidth: '100px'
+const FormTextField = styled(CoreTextField)({
+  margin: '10px',
+  display: 'flex',
+  flex: '1 1 130px',
+  minWidth: '130px'
 });
