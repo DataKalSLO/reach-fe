@@ -2,9 +2,12 @@ interface JSONVal {
   [key: string]: any;
 }
 
-function convertCsv2Json(data: Array<any>) {
+export function convertCsvToJson(data: Array<any>) {
   const firstRowOfData = 3;
   const firstCol = 1;
+  if (data.length < 3) {
+    return {};
+  }
   let jsonStr = '{"' + data[0][0] + '":[]}';
   const obj = JSON.parse(jsonStr);
   for (let i = firstRowOfData, numRows = data.length; i < numRows; i++) {
@@ -23,5 +26,3 @@ function convertCsv2Json(data: Array<any>) {
   }
   return obj;
 }
-
-export { convertCsv2Json };
