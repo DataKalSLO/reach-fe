@@ -1,6 +1,6 @@
 import { Box, Divider, styled } from '@material-ui/core';
 import {
-  PlotSeriesDataLabelsOptions,
+  DataLabelsOptionsObject,
   SeriesOptionsType,
   XAxisOptions,
   YAxisOptions
@@ -9,7 +9,6 @@ import React, { ChangeEvent, Fragment, useEffect, useState } from 'react';
 import { ColorResult } from 'react-color';
 import { useDispatch } from 'react-redux';
 import { isUndefined } from 'util';
-import { Button } from '../../common/components/Button';
 import { updateGraphAction } from '../../redux/graphs/actions';
 import { GraphRecord } from '../../redux/graphs/types';
 import FormBlock from './FormBlock';
@@ -18,6 +17,7 @@ import { TextField } from './FormTextField';
 import FormColorPicker from './tests/FormColorPicker';
 import { Switch } from './tests/Switch';
 import { GraphPrebuiltProps } from './types';
+import Button from '../../common/components/Button';
 
 interface SeriesProps {
   title: string;

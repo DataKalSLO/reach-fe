@@ -5,7 +5,6 @@ import { addGraphsForInitiativeAction } from '../../redux/graphs/actions';
 import { HEALTH } from '../../redux/graphs/constants';
 import { getGraphs } from '../../redux/graphs/selector';
 import GraphPrebuilt from '../components/GraphPrebuilt';
-import FormCreate from '../components/FormCreate';
 
 /*
  * Renders a list of graphs.
@@ -26,13 +25,6 @@ function GraphContainer() {
    * the graph itself, and the toolbar.
    */
   const getGraphComponents = () => {
-    if (graphState.graphs.length === 0) {
-      return (
-        <GridItem item>
-          <FormCreate />
-        </GridItem>
-      );
-    }
     return graphState.graphs.map((graph, index) => (
       <GridItem item key={index}>
         <GraphPrebuilt graph={graph} />

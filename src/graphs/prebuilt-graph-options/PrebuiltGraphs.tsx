@@ -3,7 +3,6 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import exporting from 'highcharts/modules/exporting';
 import * as prebuilt from './prebuilt-options';
-import FormCreate from '../components/FormCreate';
 
 exporting(Highcharts);
 
@@ -220,8 +219,7 @@ export function HealthCareFacityBedOptions() {
 // Covid-19 health care facity bed capacity
 
 export function EmptyOptions() {
-  return <FormCreate />;
-  // Covid-19 health care confirmed cases SB
+  
 }
 
 export function SBCovidCasesOptions() {
