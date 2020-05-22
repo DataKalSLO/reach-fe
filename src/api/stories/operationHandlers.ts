@@ -61,7 +61,7 @@ export async function getAllStoriesAndHandleResponse(): Promise<
   ).catch(e => undefined);
 }
 
-async function handleApiOperation<P, R>(
+export async function handleApiOperation<P, R>(
   payload: P,
   operation: (payload: P) => Promise<R>,
   successMessage: string,
