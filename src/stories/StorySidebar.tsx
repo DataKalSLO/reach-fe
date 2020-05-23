@@ -18,6 +18,7 @@ import {
   createEmptyTextBlock,
   updatePublicationStatus
 } from '../redux/story/actions';
+import { PublicationStatus } from '../redux/story/types';
 import { getStory } from '../redux/story/selectors';
 import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
