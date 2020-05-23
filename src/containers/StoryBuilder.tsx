@@ -1,7 +1,7 @@
 import { Box } from '@material-ui/core';
 import { styled } from '@material-ui/styles';
 import React from 'react';
-import StoryForm from '../stories/StoryForm';
+import StoryEditor from '../stories/StoryEditor';
 import StorySidebar from '../stories/StorySidebar';
 import { theme } from '../theme/theme';
 
@@ -9,9 +9,9 @@ export default function StoryBuilder() {
   return (
     <StyledBox>
       <StorySidebar />
-      <StoryFormBox>
-        <StoryForm />
-      </StoryFormBox>
+      <ContentBox>
+        <StoryEditor />
+      </ContentBox>
     </StyledBox>
   );
 }
@@ -20,7 +20,7 @@ const StyledBox = styled(Box)({
   display: 'flex'
 });
 
-const StoryFormBox = styled(Box)({
+const ContentBox = styled(Box)({
   flexGrow: 1,
   paddingTop: theme.spacing(3),
   paddingBottom: theme.spacing(3),

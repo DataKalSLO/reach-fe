@@ -31,7 +31,7 @@ const generateMargins = (edge: 'start' | 'end' | false) => {
   return margins;
 };
 
-const Button = (props: Props) => {
+export default function Button(props: Props) {
   return (
     // These default settings will be overriden if different props are passed in
     <CoreButton
@@ -43,6 +43,4 @@ const Button = (props: Props) => {
       {props.label}
     </CoreButton>
   );
-};
-
-export { Button };
+}

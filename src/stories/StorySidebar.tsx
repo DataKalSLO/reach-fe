@@ -21,8 +21,7 @@ import {
 import { getStory } from '../redux/story/selectors';
 import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
-import { areValidMetaFields } from './StoryForm';
-import { PublicationStatus } from '../redux/story/types';
+import { areValidMetaFields } from './StoryEditor';
 
 const STORY_SIDEBAR_WIDTH = 190;
 

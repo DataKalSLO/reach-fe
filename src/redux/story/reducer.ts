@@ -1,7 +1,7 @@
 import { arrayMove } from 'react-sortable-hoc';
 import { uuid } from 'uuidv4';
 import { removeObjectAtIndex } from '../../common/util/arrayTools';
-import { emptyEditorState } from '../../stories/RichTextEditor';
+import { emptyEditorState } from '../../stories/text-block/RichTextEditor';
 import {
   CREATE_EMPTY_TEXT_BLOCK,
   CREATE_GRAPH_BLOCK,
@@ -26,7 +26,8 @@ export const emptyTextBlock = (): TextBlockType => ({
   type: TEXT_BLOCK_TYPE
 });
 
-const initialStory: Story = {
+//TODO: Turn this into a function. Currently will stay same for every new story created in the same session.
+export const initialStory: Story = {
   id: uuid(),
   userID: '',
   title: '',

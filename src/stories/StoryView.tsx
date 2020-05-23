@@ -15,9 +15,9 @@ import {
   TEXT_BLOCK_TYPE
 } from '../redux/story/types';
 
-export function convertStoryToJSX(story: Story): JSX.Element {
+export default function StoryView(props: { story: Story }): JSX.Element {
   const createPublicationDateString = () => {
-    // FIXME: should pull the user's name
+    // TODO: should pull the user's name
     const username = 'Business Owner';
     return `By ${username} on ${new Date().toDateString()}`;
   };
@@ -25,9 +25,11 @@ export function convertStoryToJSX(story: Story): JSX.Element {
   return (
     <StyledBox>
       <TitleBox>
-        <WrappingTypography variant="h3">{story.title}</WrappingTypography>
+        <WrappingTypography variant="h3">
+          {props.story.title}
+        </WrappingTypography>
         <WrappingTypography variant="subtitle1">
-          {story.description}
+          {props.story.description}
         </WrappingTypography>
       </TitleBox>
 
@@ -50,7 +52,7 @@ export function convertStoryToJSX(story: Story): JSX.Element {
 
       {/* TODO: add backgrounds to rich text editors so they don't peek through when dragged over each other */}
       {/* TODO: add bounding box so blocks cannot be dragged out of sortable area */}
-      {story.storyBlocks.map(block => convertBlockToJSX(block))}
+      {props.story.storyBlocks.map(block => convertBlockToJSX(block))}
     </StyledBox>
   );
 }

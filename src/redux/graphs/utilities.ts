@@ -25,7 +25,10 @@ export function getGraphWithIds(
 ): types.GraphRecord[] {
   const graphs: types.GraphRecord[] = [];
   graphOptions.forEach((options: Highcharts.Options) => {
-    const graphRecord = { id: uuid(), options: cloneDeep(options) };
+    const graphRecord = {
+      id: uuid(),
+      options: cloneDeep(options)
+    };
     graphs.push(graphRecord);
   });
   return graphs;
@@ -39,7 +42,10 @@ export function addDuplicateToGraphs(
   graphs: types.GraphRecord[]
 ): types.GraphRecord[] {
   const newGraphs = cloneDeep(graphs);
-  newGraphs.push({ id: uuid(), options: cloneDeep(graphOptions) });
+  newGraphs.push({
+    id: uuid(),
+    options: cloneDeep(graphOptions)
+  });
   return newGraphs;
 }
 
