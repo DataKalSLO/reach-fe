@@ -1,16 +1,12 @@
 import { BottomNavigationAction, Drawer } from '@material-ui/core';
 import { ArrowUpward, Close } from '@material-ui/icons';
+import AddIcon from '@material-ui/icons/Add';
 import clsx from 'clsx';
 import React, { Fragment } from 'react';
 import { IconButton } from '../../reach-ui/core';
 import OptionsButtons from '../components/OptionsButtons';
 import { INITIATIVE_DESC } from './constants';
-import {
-  StyledBottomNav,
-  StyledPopover,
-  StyledTypography,
-  useOptionsStyles
-} from './styles';
+import { StyledBottomNav, StyledPopover, StyledTypography, useOptionsStyles } from './styles';
 
 /*
  * The toolbar that displays a button for each initiative.
@@ -75,6 +71,12 @@ function OptionsBar() {
             icon={<Close fontSize="large" color="error" />}
           />
           <OptionsButtons />
+          <BottomNavigationAction
+            color="error"
+            onClick={() => alert('not implemented')}
+            label="Create Graph"
+            icon={<AddIcon fontSize="large" />}
+          />
         </StyledBottomNav>
       </Drawer>
     </Fragment>
