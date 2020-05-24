@@ -1,7 +1,4 @@
-import {
-  DataSource,
-  PartialGraphConfigurationWithoutData
-} from '../../redux/graphs/types';
+import { DataSource, GraphMetaDataApiPayload } from '../../redux/graphs/types';
 
 export enum GraphActions {
   CREATE,
@@ -13,15 +10,6 @@ export enum GraphActions {
 }
 
 export interface DatabaseGraphMetaData {
-  GraphId: string | null;
-  GraphCategory: string | null;
-  GraphTitle: string;
-  DataSources: DataSource[];
-  GraphOptions: PartialGraphConfigurationWithoutData;
-  GraphSVG: string;
-}
-
-export interface ApiGraphMetaData {
   graphId: string;
   userId: string;
   timestamp: number;
@@ -35,8 +23,8 @@ export interface ApiGraphConfirmationResponse {
   graphId: string;
 }
 
-export type GraphApiPayload = DatabaseGraphMetaData | string | undefined;
+export type GraphApiPayload = GraphMetaDataApiPayload | string | undefined;
 export type GraphApiResponse =
-  | ApiGraphMetaData
-  | ApiGraphMetaData[]
+  | DatabaseGraphMetaData
+  | DatabaseGraphMetaData[]
   | ApiGraphConfirmationResponse;

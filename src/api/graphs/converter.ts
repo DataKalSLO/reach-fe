@@ -1,27 +1,11 @@
-import {
-  GraphMetaData,
-  GraphMetaDataApiPayload
-} from '../../redux/graphs/types';
-import { ApiGraphMetaData, DatabaseGraphMetaData } from './types';
+import { GraphMetaData } from '../../redux/graphs/types';
+import { DatabaseGraphMetaData } from './types';
 
-export function transformGraphMetaDataToDatabaseGraphMetaData(
-  graphMetaDataPayload: GraphMetaDataApiPayload
-): DatabaseGraphMetaData {
-  return {
-    GraphId: graphMetaDataPayload.graphId,
-    GraphCategory: graphMetaDataPayload.graphCategory,
-    GraphTitle: graphMetaDataPayload.metaData.graphTitle,
-    DataSources: graphMetaDataPayload.metaData.dataSources,
-    GraphOptions: graphMetaDataPayload.metaData.graphOptions,
-    GraphSVG: graphMetaDataPayload.graphSVG
-  };
-}
-
-export function transformApiGraphMetaDataToGraphMetaData(
-  apiGraphMetaData: ApiGraphMetaData
+export function transformDatabaseGraphMetaDataToGraphMetaData(
+  databaseGraphMetaData: DatabaseGraphMetaData
 ): GraphMetaData {
   return {
-    ...apiGraphMetaData,
-    graphOptions: JSON.parse(apiGraphMetaData.graphOptions)
+    ...databaseGraphMetaData,
+    graphOptions: JSON.parse(databaseGraphMetaData.graphOptions)
   };
 }

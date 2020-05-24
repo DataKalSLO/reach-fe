@@ -116,6 +116,8 @@ export type PartialGraphConfigurationWithoutData = Omit<
 export interface GraphMetaDataApiPayload {
   graphId: string | null;
   graphCategory: string | null;
+  graphTitle: string;
+  dataSources: DataSource[];
+  graphOptions: PartialGraphConfigurationWithoutData;
   graphSVG: string;
-  metaData: Pick<GraphMetaData, 'graphTitle' | 'dataSources' | 'graphOptions'>;
 }

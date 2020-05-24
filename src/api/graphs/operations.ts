@@ -9,13 +9,10 @@ import {
   authenticatedPut
 } from '../authenticatedApi/operations';
 import { get } from '../base';
-import {
-  transformApiGraphMetaDataToGraphMetaData,
-  transformGraphMetaDataToDatabaseGraphMetaData
-} from './converter';
+import { transformDatabaseGraphMetaDataToGraphMetaData } from './converter';
 import {
   ApiGraphConfirmationResponse,
-  ApiGraphMetaData,
+  DatabaseGraphMetaData,
   GraphActions,
   GraphApiPayload,
   GraphApiResponse
@@ -24,24 +21,18 @@ import {
 export async function saveGraph(
   graphMetaData: GraphMetaDataApiPayload
 ): Promise<GraphMetaData> {
-  const databaseGraphMetaData = transformGraphMetaDataToDatabaseGraphMetaData(
-    graphMetaData
-  );
   return httpRequestWithGraphMetaDataResponse(
     GraphActions.CREATE,
-    databaseGraphMetaData
+    graphMetaData
   );
 }
 
 export async function updateExistingGraph(
   graphMetaData: GraphMetaDataApiPayload
 ): Promise<GraphMetaData> {
-  const databaseGraphMetaData = transformGraphMetaDataToDatabaseGraphMetaData(
-    graphMetaData
-  );
   return httpRequestWithGraphMetaDataResponse(
     GraphActions.UPDATE,
-    databaseGraphMetaData
+    graphMetaData
   );
 }
 
@@ -79,9 +70,9 @@ export async function httpRequestWithGraphMetaDataResponse(
   payload: GraphApiPayload
 ): Promise<GraphMetaData> {
   const response: GraphApiResponse = await graphHttp(actionType, payload);
-  if (response as ApiGraphMetaData) {
-    return transformApiGraphMetaDataToGraphMetaData(
-      response as ApiGraphMetaData
+  if (response as DatabaseGraphMetaData) {
+    return transformDatabaseGraphMetaDataToGraphMetaData(
+      response as DatabaseGraphMetaData
     );
   } else {
     throw new Error(
@@ -96,9 +87,9 @@ export async function httpRequestWithGraphMetaDataArrayResponse(
   payload: GraphApiPayload
 ): Promise<GraphMetaData[]> {
   const response: GraphApiResponse = await graphHttp(actionType, payload);
-  if (response as ApiGraphMetaData[]) {
-    return (response as ApiGraphMetaData[]).map(graphMetaData =>
-      transformApiGraphMetaDataToGraphMetaData(graphMetaData)
+  if (response as DatabaseGraphMetaData[]) {
+    return (response as DatabaseGraphMetaData[]).map(graphMetaData =>
+      transformDatabaseGraphMetaDataToGraphMetaData(graphMetaData)
     );
   } else {
     throw new Error(
