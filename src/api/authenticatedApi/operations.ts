@@ -29,7 +29,7 @@ export function authenticatedPost(
   return performActionWithToken(token => post(endpoint, body, token));
 }
 
-function performActionWithToken<T>(action: (token: string) => T): T {
+export function performActionWithToken<T>(action: (token: string) => T): T {
   const token = store.getState().user.token;
   if (token === EMPTY_TOKEN) {
     if (window.confirm(CONFIRM_REDIRECT_TO_LOGIN_PROMPT)) {
