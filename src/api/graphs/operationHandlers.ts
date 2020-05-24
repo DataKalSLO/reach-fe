@@ -2,7 +2,7 @@ import {
   GraphMetaData,
   GraphMetaDataApiPayload
 } from '../../redux/graphs/types';
-import { handleApiOperation } from '../stories/operationHandlers';
+import { handleApiOperation } from '../operations';
 import {
   DEFAULT_GRAPHS_RETRIEVAL_FAILURE_MESSAGE,
   DEFAULT_GRAPHS_RETRIEVAL_SUCCESS_MESSAGE,
