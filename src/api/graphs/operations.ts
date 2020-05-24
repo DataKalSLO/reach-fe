@@ -65,7 +65,7 @@ export async function getDefaultGraphsByCategory(
   );
 }
 
-export async function httpRequestWithGraphMetaDataResponse(
+async function httpRequestWithGraphMetaDataResponse(
   actionType: GraphActions,
   payload: GraphApiPayload
 ): Promise<GraphMetaData> {
@@ -82,7 +82,7 @@ export async function httpRequestWithGraphMetaDataResponse(
   }
 }
 
-export async function httpRequestWithGraphMetaDataArrayResponse(
+async function httpRequestWithGraphMetaDataArrayResponse(
   actionType: GraphActions,
   payload: GraphApiPayload
 ): Promise<GraphMetaData[]> {
@@ -99,7 +99,7 @@ export async function httpRequestWithGraphMetaDataArrayResponse(
   }
 }
 
-export async function httpRequestWithConfirmationResponse(
+async function httpRequestWithConfirmationResponse(
   actionType: GraphActions,
   payload: GraphApiPayload
 ): Promise<ApiGraphConfirmationResponse> {

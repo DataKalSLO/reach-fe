@@ -84,35 +84,6 @@ export interface GraphMetaData extends BaseGraphMetaData {
 }
 
 /*
- * Indicates which axis a data source corresponds to
- */
-export enum DataSourceTypesEnum {
-  X_AXIS = 'X_AXIS',
-  Y_AXIS = 'Y_AXIS',
-  STACK = 'STACK'
-}
-
-export type DataSourceType = keyof typeof DataSourceTypesEnum;
-
-/*
- * Data sources used for one of the axes.
- */
-export interface DataSource {
-  datasetName: string;
-  columnNames: string[];
-  seriesType: DataSourceType;
-}
-
-/*
- * Remove properties that store data, as the data values
- * are not stored in the database graph metadata.
- */
-export type PartialGraphConfigurationWithoutData = Omit<
-  GraphConfiguration,
-  'title' | 'xAxisData' | 'yAxisData' | 'stackData'
->;
-
-/*
  * Graph metadata that is sent to the backend in an API
  * call.
  */
@@ -124,3 +95,32 @@ export interface GraphMetaDataApiPayload {
   graphOptions: PartialGraphConfigurationWithoutData;
   graphSVG: string;
 }
+
+/*
+ * Indicates which axis a data source corresponds to
+ */
+enum DataSourceTypesEnum {
+  X_AXIS = 'X_AXIS',
+  Y_AXIS = 'Y_AXIS',
+  STACK = 'STACK'
+}
+
+type DataSourceType = keyof typeof DataSourceTypesEnum;
+
+/*
+ * Data sources used for one of the axes.
+ */
+interface DataSource {
+  datasetName: string;
+  columnNames: string[];
+  seriesType: DataSourceType;
+}
+
+/*
+ * Remove properties that store data, as the data values
+ * are not stored in the database graph metadata.
+ */
+type PartialGraphConfigurationWithoutData = Omit<
+  GraphConfiguration,
+  'title' | 'xAxisData' | 'yAxisData' | 'stackData'
+>;
