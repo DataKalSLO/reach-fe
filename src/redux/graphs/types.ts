@@ -70,13 +70,16 @@ export type InitiativeLiteral = typeof initiativeNames[number];
 /*
  * Graph MetaData
  */
-export interface GraphMetaData {
+export interface BaseGraphMetaData {
   graphId: string;
   userId: string;
   timestamp: number;
   graphTitle: string;
   snapshotUrl: string;
   dataSources: DataSource[];
+}
+
+export interface GraphMetaData extends BaseGraphMetaData {
   graphOptions: PartialGraphConfigurationWithoutData;
 }
 

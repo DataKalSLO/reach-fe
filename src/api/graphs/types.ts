@@ -1,4 +1,7 @@
-import { DataSource, GraphMetaDataApiPayload } from '../../redux/graphs/types';
+import {
+  BaseGraphMetaData,
+  GraphMetaDataApiPayload
+} from '../../redux/graphs/types';
 
 export enum GraphActions {
   CREATE,
@@ -9,13 +12,7 @@ export enum GraphActions {
   GET_DEFAULT_GRAPHS_BY_CATEGORY
 }
 
-export interface DatabaseGraphMetaData {
-  graphId: string;
-  userId: string;
-  timestamp: number;
-  graphTitle: string;
-  snapshotUrl: string;
-  dataSources: DataSource[];
+export interface DatabaseGraphMetaData extends BaseGraphMetaData {
   graphOptions: string;
 }
 
