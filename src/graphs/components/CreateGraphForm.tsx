@@ -6,7 +6,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Stepper from '@material-ui/core/Stepper';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyledBox } from '../../stories/text-block/RichTextEditor';
 import AddCategoryType from './AddCategorytype';
 import AddColumns from './AddColumns';
@@ -30,13 +30,47 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const [StepperState, setStepperState] = useState
+({
+    graphCategory: '',
+    datasetName: '',
+    XAxis: '',
+    YAxis: [],
+    graphOption: 
+    {
+      title: '',
+      subtitle: '',
+      allow_3d: false,
+      dataLabels: false,
+      xAxis: 
+      { 
+        name: '',
+        prefix: '',
+        suffix: ''
+      },
+      yAxis: 
+      {
+        title:' ',
+        name: ' ',
+        prefix: ' ',
+        suffix: ' ',
+        color: ' '
+      },
+      stack: 
+      { 
+        name: '',
+        type: ''
+      }
+    }
+  }
+);
 
 function getSteps() {
   return [
     'Please select a graph Category',
     'Please select a DataSet from the list bellow to create your chart ',
     'Please select two columns',
-    'Please select more options'
+    //'Please select more options'
   ];
 }
 
