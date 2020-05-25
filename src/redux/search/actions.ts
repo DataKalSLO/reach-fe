@@ -25,10 +25,10 @@ function receiveSearchResults(
   };
 }
 
-export function fetchSearchResults(qry: string) {
+export function fetchSearchResults(qry: string, index: string) {
   return async (dispatch: Dispatch) => {
     dispatch(requestSearchResults(qry));
-    return esQuery(qry).then((res: ElasticSearchResponseObject) => {
+    return esQuery(qry, index).then((res: ElasticSearchResponseObject) => {
       dispatch(receiveSearchResults(res.hits.hits));
     });
   };

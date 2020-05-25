@@ -1,12 +1,21 @@
 import Container from '@material-ui/core/Container';
-import React, { useState } from 'react';
+import React, { useState, ReactNode } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSearchResults } from '../redux/search/actions';
 import { getSearch } from '../redux/search/selectors';
 import SearchBar from '../search/SearchBar';
 import SearchResults from '../search/SearchResults';
 
-function Search() {
+interface SearchProps {
+  // ES index to query ("GRAPHS", "STORIES", "ALL", etc.)
+  index: string;
+  // component shown on empty result list
+  emptyResultsComponent?: React.ReactNode;
+  // component shown before query is made
+  beforeQueryComponent?: React.ReactNode;
+}
+
+function Search(props: SearchProps) {
   const [showResults, setShowResults] = useState(false);
   const dispatch = useDispatch();
   const searchState = useSelector(getSearch);
@@ -14,14 +23,32 @@ function Search() {
   const qry = searchState.qry;
 
   const handleSearch = (qry: string) => {
-    dispatch(fetchSearchResults(qry));
+    dispatch(fetchSearchResults(qry, props.index));
     setShowResults(true);
+  };
+
+  const selectComponentShown = () => {
+    if (showResults && hits.length) {
+      return <SearchResults hits={hits} qry={qry} />;
+    } else if (showResults && !hits.length) {
+      return props.emptyResultsComponent ? (
+        props.emptyResultsComponent
+      ) : (
+        <div>No results found.</div>
+      );
+    } else {
+      return props.beforeQueryComponent ? (
+        props.beforeQueryComponent
+      ) : (
+        <div>No query has been made.</div>
+      );
+    }
   };
 
   return (
     <Container>
       <SearchBar searchCallback={handleSearch} />
-      {showResults ? <SearchResults hits={hits} qry={qry} /> : ''}
+      {selectComponentShown()}
     </Container>
   );
 }
