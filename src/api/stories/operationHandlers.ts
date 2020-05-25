@@ -64,8 +64,8 @@ export async function saveStoryAndHandleResponse(
     successMessage,
     failureMessage
   )
-    .then(res => true)
-    .catch(e => false);
+    .then(() => true)
+    .catch(() => false);
 }
 
 export async function deleteStoryByIdAndHandleResponse(
@@ -77,8 +77,8 @@ export async function deleteStoryByIdAndHandleResponse(
     STORY_DELETION_SUCCESS_MESSAGE,
     STORY_DELETION_FAILURE_MESSAGE
   )
-    .then(res => true)
-    .catch(e => false);
+    .then(() => true)
+    .catch(() => false);
 }
 
 export async function getStoryWIthIdAndHandleResponse(
@@ -89,7 +89,7 @@ export async function getStoryWIthIdAndHandleResponse(
     getStoryWithStoryID,
     STORY_RETRIEVAL_SUCCESS_MESSAGE,
     STORY_RETRIEVAL_FAILURE_MESSAGE
-  ).catch(e => undefined);
+  ).catch(() => undefined);
 }
 
 export async function getAllStoriesAndHandleResponse(): Promise<
@@ -100,7 +100,7 @@ export async function getAllStoriesAndHandleResponse(): Promise<
     getAllStories,
     STORY_RETRIEVAL_SUCCESS_MESSAGE,
     STORY_RETRIEVAL_FAILURE_MESSAGE
-  ).catch(e => undefined);
+  ).catch(() => undefined);
 }
 
 async function handleApiOperation<P, R>(
