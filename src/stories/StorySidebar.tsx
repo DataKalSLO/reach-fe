@@ -11,8 +11,10 @@ import {
 } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { saveStoryAndHandleResponse } from '../api/stories/operationHandlers';
-import { submitStoryForReview } from '../api/stories/statusChangeOperations';
+import {
+  saveStoryAndHandleResponse,
+  submitStoryForReviewAndHandleResponse
+} from '../api/stories/operationHandlers';
 import { Drawer, List, ListItemButton } from '../reach-ui/core';
 import {
   createEmptyTextBlock,
@@ -53,7 +55,7 @@ export default function StorySidebar() {
     checkValidMetaFields(async () => {
       if (
         (await saveStoryAndHandleResponse(story)) &&
-        (await submitStoryForReview(story))
+        (await submitStoryForReviewAndHandleResponse(story))
       ) {
         dispatch(updatePublicationStatus(PublicationStatus.REVIEW));
       }
