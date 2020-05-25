@@ -1,10 +1,9 @@
+import { FETCH_ALL_METADATA } from './constants';
 import { VizActionTypes, VizState } from './types';
-import { FETCH_ALL_METADATA, FETCH_ENTIRE_DATASET } from './constants';
-import { getMetadataFor, convertToDataset } from './utilities';
+import { isUndefined } from 'util';
 
 const initialState: VizState = {
-  metadataForAllDatasets: [],
-  dataset: { name: '', columns: [] }
+  metadataForAllDatasets: []
 };
 
 export function vizReducer(
@@ -15,15 +14,9 @@ export function vizReducer(
     case FETCH_ALL_METADATA:
       return {
         ...state,
-        metadataForAllDatasets: action.payload
-      };
-    case FETCH_ENTIRE_DATASET:
-      return {
-        ...state,
-        dataset: convertToDataset(
-          getMetadataFor(action.datasetName, state.metadataForAllDatasets),
-          action.payload
-        )
+        metadataForAllDatasets: !isUndefined(action.payload)
+          ? action.payload
+          : []
       };
     default:
       return state;

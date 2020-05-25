@@ -145,7 +145,7 @@ export default class GraphCreator {
   ) {
     this.optionsBuilder
       .withGraphTitle(config.title)
-      .withGraphSourceURL(config.sourceUrl)
+      .withGraphSubtitle(config.subtitle)
       .withYAxis(config.yConfig)
       .withXAxisDataType(dataConfig)
       .withXAxis(config.xConfig);

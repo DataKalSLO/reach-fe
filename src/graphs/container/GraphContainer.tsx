@@ -1,10 +1,13 @@
 import { Grid, styled } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addGraphsForInitiativeAction } from '../../redux/graphs/actions';
-import { HEALTH } from '../../redux/graphs/constants';
-import { getGraphs } from '../../redux/graphs/selector';
+import {
+  getAllUserGraphs,
+  getDefaultGraphs
+} from '../../redux/graphbuilder/actions';
+import { getGraphsMetaData } from '../../redux/graphbuilder/selector';
 import GraphPrebuilt from '../components/GraphPrebuilt';
+import FormCreate from '../forms/CreateGraphForm';
 
 /*
  * Renders a list of graphs.
@@ -12,12 +15,12 @@ import GraphPrebuilt from '../components/GraphPrebuilt';
  *       when the backend is connected.
  */
 function GraphContainer() {
-  const graphState = useSelector(getGraphs);
+  const graphState = useSelector(getGraphsMetaData);
   const dispatch = useDispatch();
 
   // Use the prebuilt health graphs as the default graphs
   useEffect(() => {
-    dispatch(addGraphsForInitiativeAction(HEALTH));
+    dispatch(getAllUserGraphs());
   }, [dispatch]);
 
   /*
@@ -27,12 +30,16 @@ function GraphContainer() {
   const getGraphComponents = () => {
     return graphState.graphs.map((graph, index) => (
       <GridItem item key={index}>
-        <GraphPrebuilt graph={graph} />
+        <GraphPrebuilt graph={graph} index={index} />
       </GridItem>
     ));
   };
 
-  return <GridContainer container>{getGraphComponents()}</GridContainer>;
+  return (
+    <GridContainer container>
+      {graphState.isCreating ? <FormCreate /> : getGraphComponents()}
+    </GridContainer>
+  );
 }
 
 export default GraphContainer;

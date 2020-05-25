@@ -2,7 +2,7 @@ import { get } from './base';
 import { METADATA_ROUTE, DATASET_ROUTE } from './constants';
 
 export async function fetchAllMetaData() {
-  return await get(METADATA_ROUTE);
+  return await get('MetaData/');
 }
 
 export async function fetchEntireDataset(datasetName: string) {

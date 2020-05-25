@@ -1,4 +1,3 @@
-import { DEFAULT_SUBTITLE_WITH_SOURCE } from '../constants';
 import { colors } from '../default-graph-options';
 import GraphCreator from '../graph-creator';
 import { GraphConfiguration } from '../types';
@@ -14,7 +13,7 @@ import { getGraphConfigurationMock } from './mock-factory';
 
 const graphCreator = new GraphCreator();
 const title = 'title';
-const sourceURL = 'url';
+const subtitle = 'subtitle';
 const seriesConfig = [
   { seriesType: 'pie', name: 'series1' },
   { seriesType: 'area', name: 'series2' },
@@ -36,7 +35,7 @@ const yConfig = {
 const stackConfig = { title: 'stack' };
 const mockGraphConfigWithAllProps: GraphConfiguration = {
   title: title,
-  sourceUrl: sourceURL,
+  subtitle: subtitle,
   xAxisData: mockXData,
   yAxisData: mockYData,
   seriesConfigs: seriesConfig,
@@ -64,10 +63,8 @@ describe('createBasicGraph(): creates the graph options for a basic graph', () =
   it('should add a title', () => {
     expect(graphOptionsWithAllProps.title.text).toEqual(title);
   });
-  it('should add a subtitle with the data source url', () => {
-    expect(graphOptionsWithAllProps.subtitle.text).toEqual(
-      DEFAULT_SUBTITLE_WITH_SOURCE + sourceURL
-    );
+  it('should add a subtitle', () => {
+    expect(graphOptionsWithAllProps.subtitle.text).toEqual(subtitle);
   });
   it('should only add the x-axis title if given, it is not required', () => {
     expect(graphOptionsWithRequiredProps.xAxis.title?.text).toEqual('');
@@ -116,10 +113,8 @@ describe('create3DGraph(): creates the graph options for a basic graph', () => {
   it('should add a title', () => {
     expect(graphOptionsWithAllProps.title.text).toEqual(title);
   });
-  it('should add a subtitle with the data source url', () => {
-    expect(graphOptionsWithAllProps.subtitle.text).toEqual(
-      DEFAULT_SUBTITLE_WITH_SOURCE + sourceURL
-    );
+  it('should add a subtitle', () => {
+    expect(graphOptionsWithAllProps.subtitle.text).toEqual(subtitle);
   });
   it('should only add the x-axis title if given, it is not required', () => {
     expect(graphOptionsWithRequiredProps.xAxis.title?.text).toEqual('');
@@ -179,10 +174,8 @@ describe('createCombinedGraph(): creates the graph options for a basic graph', (
   it('should add a title', () => {
     expect(graphOptionsWithAllProps.title.text).toEqual(title);
   });
-  it('should add a subtitle with the data source url', () => {
-    expect(graphOptionsWithAllProps.subtitle.text).toEqual(
-      DEFAULT_SUBTITLE_WITH_SOURCE + sourceURL
-    );
+  it('should add a subtitle', () => {
+    expect(graphOptionsWithAllProps.subtitle.text).toEqual(subtitle);
   });
   it('should only add the x-axis title if given, it is not required', () => {
     expect(graphOptionsWithRequiredProps.xAxis.title?.text).toEqual('');
@@ -239,10 +232,8 @@ describe('createSynchronizedGraph(): creates the graph options for a basic graph
   it('should add a title', () => {
     expect(graphOptionsWithAllProps.title.text).toEqual(title);
   });
-  it('should add a subtitle with the data source url', () => {
-    expect(graphOptionsWithAllProps.subtitle.text).toEqual(
-      DEFAULT_SUBTITLE_WITH_SOURCE + sourceURL
-    );
+  it('should add a subtitle', () => {
+    expect(graphOptionsWithAllProps.subtitle.text).toEqual(subtitle);
   });
   it('should only add the x-axis title if given, it is not required', () => {
     expect(graphOptionsWithRequiredProps.xAxis.title?.text).toEqual('');

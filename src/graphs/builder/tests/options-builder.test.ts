@@ -1,7 +1,6 @@
 import Highcharts from 'highcharts';
 import {
   DEFAULT_STACK_TYPE,
-  DEFAULT_SUBTITLE_WITH_SOURCE,
   TOOLTIP_STACK_FOOTER_PREFIX,
   TOOLTIP_STACK_FOOTER_VALUE
 } from '../constants';
@@ -36,16 +35,16 @@ describe('withGraphTitle(): adds a title to a graph', () => {
   });
 });
 
-describe('withGraphSourceURL(): adds the data source in the subtitle', () => {
+describe('withGraphSubtitle(): adds the subtitle to a graph', () => {
   it('should add an empty subtitle if one is not passed', () => {
     expect(
-      optionsBuilder.withGraphSourceURL().getOptions().subtitle.text
+      optionsBuilder.withGraphSubtitle().getOptions().subtitle.text
     ).toEqual('');
   });
-  it('should add a subtitle with the data source url', () => {
+  it('should add a subtitle', () => {
     expect(
-      optionsBuilder.withGraphSourceURL(mockText).getOptions().subtitle.text
-    ).toEqual(DEFAULT_SUBTITLE_WITH_SOURCE + mockText);
+      optionsBuilder.withGraphSubtitle(mockText).getOptions().subtitle.text
+    ).toEqual(mockText);
   });
 });
 

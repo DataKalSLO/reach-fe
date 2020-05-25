@@ -1,12 +1,7 @@
 import { Dispatch } from 'redux';
-import { FETCH_ALL_METADATA, FETCH_ENTIRE_DATASET } from './constants';
-import {
-  Metadata,
-  PayloadDataset,
-  FetchMetadataAction,
-  FetchDatasetAction
-} from './types';
-import { fetchAllMetaData, fetchEntireDataset } from '../../api/vizbuilder';
+import { getDatasetMetaDataAndHandleResponse } from '../../api/vizbuilder/operationHandlers';
+import { FETCH_ALL_METADATA } from './constants';
+import { GetAllMetadataAction, Metadata } from './types';
 
 /*
  * Every Asynchoronous Action has three parts.
@@ -21,34 +16,18 @@ import { fetchAllMetaData, fetchEntireDataset } from '../../api/vizbuilder';
  *      (e.g. metadataAction)
  */
 
-export function fetchAllMetadataAction() {
+export function getAllMetadata() {
   return async (dispatch: Dispatch) => {
-    const payload = await fetchAllMetaData();
-    dispatch(metadataAction(payload));
+    const payload = await getDatasetMetaDataAndHandleResponse();
+    dispatch(getAllMetadataAction(payload));
   };
 }
 
-export function metadataAction(payload: Metadata[]): FetchMetadataAction {
+export function getAllMetadataAction(
+  payload: Metadata[] | undefined
+): GetAllMetadataAction {
   return {
     type: FETCH_ALL_METADATA,
-    payload: payload
-  };
-}
-
-export function fetchEntireDatasetAction(datasetName: string) {
-  return async (dispatch: Dispatch) => {
-    const payload = await fetchEntireDataset(datasetName);
-    dispatch(datasetAction(datasetName, payload));
-  };
-}
-
-export function datasetAction(
-  datasetName: string,
-  payload: PayloadDataset
-): FetchDatasetAction {
-  return {
-    type: FETCH_ENTIRE_DATASET,
-    datasetName: datasetName,
     payload: payload
   };
 }

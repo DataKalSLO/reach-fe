@@ -81,10 +81,9 @@ export default class OptionsBuilder {
     return this;
   }
 
-  public withGraphSourceURL(url?: string) {
-    if (!isUndefined(url)) {
-      this.generalGraphOptions.subtitle.text =
-        DEFAULT_SUBTITLE_WITH_SOURCE + url;
+  public withGraphSubtitle(subtitle?: string) {
+    if (!isUndefined(subtitle)) {
+      this.generalGraphOptions.subtitle.text = subtitle;
     }
     return this;
   }

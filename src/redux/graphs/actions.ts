@@ -1,5 +1,13 @@
-import * as consts from './constants';
-import * as types from './types';
+import {
+  DELETE_GRAPH,
+  ADD_GRAPH_FOR_INITIATIVE,
+  DUPLICATE_GRAPH
+} from './constants';
+import {
+  AddGraphsForInitiativeAction,
+  DuplicateGraphAction,
+  DeleteGraphAction
+} from './types';
 
 export function addGraphsForInitiativeAction(initiative: string) {
   return graphForInitiativeAction(initiative);
@@ -7,22 +15,9 @@ export function addGraphsForInitiativeAction(initiative: string) {
 
 export function graphForInitiativeAction(
   payload: string
-): types.AddGraphsForInitiativeAction {
+): AddGraphsForInitiativeAction {
   return {
-    type: consts.ADD_GRAPH_FOR_INITIATIVE,
-    payload: payload
-  };
-}
-
-export function duplicateGraphAction(graphOptions: Highcharts.Options) {
-  return graphDuplicationAction(graphOptions);
-}
-
-export function graphDuplicationAction(
-  payload: Highcharts.Options
-): types.DuplicateGraphAction {
-  return {
-    type: consts.DUPLICATE_GRAPH,
+    type: ADD_GRAPH_FOR_INITIATIVE,
     payload: payload
   };
 }
@@ -31,9 +26,18 @@ export function deleteGraphAction(id: string) {
   return graphDeletionAction(id);
 }
 
-export function graphDeletionAction(payload: string): types.DeleteGraphAction {
+export function graphDeletionAction(payload: string): DeleteGraphAction {
   return {
-    type: consts.DELETE_GRAPH,
+    type: DELETE_GRAPH,
+    payload: payload
+  };
+}
+
+export function duplicateGraphAction(
+  payload: Highcharts.Options
+): DuplicateGraphAction {
+  return {
+    type: DUPLICATE_GRAPH,
     payload: payload
   };
 }

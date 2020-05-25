@@ -10,7 +10,9 @@ import { Story } from './story/types';
 import { StoryBuilderState } from './storybuilder/types';
 import { storyReducer } from './story/reducer';
 import { GraphState } from './graphs/types';
+import { GraphBuilderState } from './graphbuilder/types';
 import { graphReducer } from './graphs/reducer';
+import { graphbuilderReducer } from './graphbuilder/reducer';
 import { VizState } from './vizbuilder/types';
 import { vizReducer } from './vizbuilder/reducer';
 
@@ -21,6 +23,7 @@ function createRootReducer(history: History) {
     storybuilder: storyBuilderReducer,
     user: userReducer,
     graph: graphReducer,
+    graphbuilder: graphbuilderReducer,
     vizbuilder: vizReducer,
     router: connectRouter(history)
   });
@@ -32,6 +35,7 @@ export interface RootState {
   storybuilder: StoryBuilderState;
   user: User;
   graph: GraphState;
+  graphbuilder: GraphBuilderState;
   vizbuilder: VizState;
   router: RouterState;
 }

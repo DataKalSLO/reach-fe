@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 
-const baseURL = process.env.REACT_APP_API_URL;
+const baseURL = 'http://localhost:5000/';
 
 async function tryFetch(url: string, request: RequestInit) {
   const response = await fetch(url, request);
