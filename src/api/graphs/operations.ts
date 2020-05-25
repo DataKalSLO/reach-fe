@@ -51,7 +51,7 @@ export async function deleteGraphById(
 
 export async function getAllGraphsByUser(): Promise<GraphMetaData[]> {
   return httpRequestWithGraphMetaDataArrayResponse(
-    GraphActions.GET_ALL_GRAPHS_BY_ID,
+    GraphActions.GET_ALL_GRAPHS_BY_USER,
     undefined
   );
 }
@@ -131,7 +131,7 @@ async function graphHttp(
     case GraphActions.DELETE_BY_ID:
       response = authenticatedDel('graph/' + payload);
       break;
-    case GraphActions.GET_ALL_GRAPHS_BY_ID:
+    case GraphActions.GET_ALL_GRAPHS_BY_USER:
       response = authenticatedGet('graph/UserGraphs/');
       break;
     case GraphActions.GET_DEFAULT_GRAPHS_BY_CATEGORY:
