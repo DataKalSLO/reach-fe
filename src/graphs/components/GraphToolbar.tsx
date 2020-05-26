@@ -2,7 +2,7 @@ import { Toolbar } from '@material-ui/core';
 import { Delete, Edit, FileCopy, Save, Share } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Button, Props as ButtonProps } from '../../common/components/Button';
+import Button, { Props as ButtonProps } from '../../common/components/Button';
 import {
   deleteGraphAction,
   duplicateGraphAction

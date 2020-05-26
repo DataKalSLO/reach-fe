@@ -1,7 +1,7 @@
 import { Grid, Paper, styled } from '@material-ui/core';
 import React from 'react';
-import Gallery from '../../common/components/Gallery';
 import { useGraphs } from '../../graphs/components/Accessor';
+import { Gallery } from '../../reach-ui/core';
 import { GalleryPreviewCard } from '../GalleryPreviewCard';
 
 export default function GraphBlock() {
