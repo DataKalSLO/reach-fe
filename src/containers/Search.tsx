@@ -1,14 +1,15 @@
 import Container from '@material-ui/core/Container';
-import React, { useState, ReactNode } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSearchResults } from '../redux/search/actions';
 import { getSearch } from '../redux/search/selectors';
+import { SearchIndexFilter } from '../redux/search/types';
 import SearchBar from '../search/SearchBar';
 import SearchResults from '../search/SearchResults';
 
 interface SearchProps {
   // ES index to query ("GRAPHS", "STORIES", "ALL", etc.)
-  index: string;
+  index: SearchIndexFilter;
   // component shown on empty result list
   emptyResultsComponent?: React.ReactNode;
   // component shown before query is made
@@ -27,7 +28,7 @@ function Search(props: SearchProps) {
     setShowResults(true);
   };
 
-  const selectComponentShown = () => {
+  const resultsContainer = () => {
     if (showResults && hits.length) {
       return <SearchResults hits={hits} qry={qry} />;
     } else if (showResults && !hits.length) {
@@ -48,7 +49,7 @@ function Search(props: SearchProps) {
   return (
     <Container>
       <SearchBar searchCallback={handleSearch} />
-      {selectComponentShown()}
+      {resultsContainer()}
     </Container>
   );
 }

@@ -1,6 +1,8 @@
 export const REQUEST_SEARCH_RESULTS = 'REQUEST_SEARCH_RESULTS';
 export const RECEIVE_SEARCH_RESULTS = 'RECEIVE_SEARCH_RESULTS';
 
+export type SearchIndexFilter = 'GRAPHS' | 'STORIES' | 'ALL';
+
 // State structure in Redux store
 export interface SearchState {
   qry: string;
