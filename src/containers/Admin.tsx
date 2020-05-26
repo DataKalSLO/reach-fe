@@ -4,6 +4,7 @@ import { Paper, Typography, Box, styled } from '@material-ui/core';
 import { csv } from 'd3';
 import CSVReader from 'react-csv-reader';
 import { convertCsvToJson } from '../common/util/csvToJson';
+import Button from '../common/components/Button';
 
 function Admin() {
   const [csvAirportData, setCsvAirportData]: any = useState([]);
@@ -16,6 +17,7 @@ function Admin() {
   const [csvUniversityData, setCsvUniversityData]: any = useState([]);
   const [csvWaterData, setCsvWaterData]: any = useState([]);
   const [jsonData, setJsonData] = useState({});
+  const [uploadDisabled, setUploadDisabled] = useState(true);
 
   useEffect(() => {
     Promise.all([
@@ -44,10 +46,17 @@ function Admin() {
   const setJsonFromCsv = useCallback(
     (data: Array<any>) => {
       const jsonObj = convertCsvToJson(data);
-      console.log(jsonObj);
       setJsonData(jsonObj);
+      setUploadDisabled(false);
     },
-    [setJsonData]
+    [setJsonData, setUploadDisabled]
+  );
+
+  const upload = useCallback(
+    () => {
+      console.log(jsonData);
+    },
+    [jsonData]
   );
 
   return (
@@ -55,6 +64,7 @@ function Admin() {
       <UploadBox>
         <Typography variant="h5">Upload Your Data</Typography>
         <CSVReader cssClass="react-csv-input" onFileLoaded={setJsonFromCsv} />
+        <Button label="Upload Data" onClick={upload} disabled={uploadDisabled}/>
       </UploadBox>
       <DownloadPaper variant="outlined">
         <Typography variant="h5">Download Your CSV Templates</Typography>
