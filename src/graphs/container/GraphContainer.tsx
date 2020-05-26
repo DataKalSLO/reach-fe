@@ -1,10 +1,7 @@
 import { Grid, styled } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getAllUserGraphs,
-  getDefaultGraphs
-} from '../../redux/graphbuilder/actions';
+import { getAllUserGraphs } from '../../redux/graphbuilder/actions';
 import { getGraphsMetaData } from '../../redux/graphbuilder/selector';
 import GraphPrebuilt from '../components/GraphPrebuilt';
 import FormCreate from '../forms/CreateGraphForm';
@@ -37,7 +34,9 @@ function GraphContainer() {
 
   return (
     <GridContainer container>
-      {graphState.isCreating ? <FormCreate /> : getGraphComponents()}
+      <GridItem>
+        {graphState.isCreating ? <FormCreate /> : getGraphComponents()}
+      </GridItem>
     </GridContainer>
   );
 }
@@ -54,7 +53,7 @@ const GridContainer = styled(Grid)({
 });
 
 const GridItem = styled(Grid)({
-  width: '95%',
+  width: '90%',
   maxWidth: 'calc(100vw/2.2)',
   padding: '10px 10px 10px 20px'
 });

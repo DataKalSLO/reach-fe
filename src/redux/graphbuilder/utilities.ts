@@ -34,3 +34,7 @@ export function duplicateGraph(
   };
   return insertIfDefinedAtIndex(graphs, newGraph.index, newGraphWithoutId);
 }
+
+export function syncGraph(id: string): string {
+  return id;
+}
