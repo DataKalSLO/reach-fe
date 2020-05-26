@@ -15,7 +15,7 @@ import SortableList from './SortableList';
 import StoryView from './StoryView';
 
 const TITLE_CHAR_LIMIT = 100;
-const DESCRIPTION_CHAR_LIMIT = 250;
+const DESCRIPTION_CHAR_LIMIT = 150;
 
 const metaSchema = object().shape({
   title: string()
@@ -50,7 +50,9 @@ export default function StoryEditor() {
   } else {
     return (
       <div>
-        <Typography variant="h3">StoryBuilder</Typography>
+        <Typography variant="h3" component="h1">
+          StoryBuilder
+        </Typography>
         <p>
           Tell us a compelling story using data. Use the toolbar on the left to
           add text blocks, graphs, images, and dataset snippets to help readers
