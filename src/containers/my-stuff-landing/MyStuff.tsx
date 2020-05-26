@@ -2,10 +2,11 @@ import React from 'react';
 import { SidebarListOrder } from '../../my-stuff/MyStuffSidebar';
 import MyStuffWrapper from '../../my-stuff/MyStuffWrapper';
 import StoryCard from '../../common/components/StoryCard';
-import { Story } from '../../redux/story/types';
+import { Story, PublicationStatus } from '../../redux/story/types';
 
 const sampleStory: Story = {
   id: '12345',
+  publicationStatus: PublicationStatus.DRAFT,
   userID: 'USER-ID', // TODO: replace placeholder value
   title: 'High School Graduation Rates on the Central Coast',
   description:

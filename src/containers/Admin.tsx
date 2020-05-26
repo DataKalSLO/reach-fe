@@ -4,7 +4,9 @@ import { Paper, Typography, Box, styled } from '@material-ui/core';
 import { csv } from 'd3';
 import CSVReader from 'react-csv-reader';
 import { convertCsvToJson } from '../common/util/csvToJson';
+import { upload } from '../api/upload';
 import Button from '../common/components/Button';
+
 
 function Admin() {
   const [csvAirportData, setCsvAirportData]: any = useState([]);
@@ -52,20 +54,23 @@ function Admin() {
     [setJsonData, setUploadDisabled]
   );
 
-  const upload = useCallback(
-    () => {
-      console.log(jsonData);
-    },
-    [jsonData]
-  );
+  const uploadData = useCallback(() => {
+    upload(jsonData);
+  }, [jsonData]);
 
   return (
     <React.Fragment>
-      <UploadBox>
+      <UploadPaper variant="outlined">
         <Typography variant="h5">Upload Your Data</Typography>
+        <UploadBox>
         <CSVReader cssClass="react-csv-input" onFileLoaded={setJsonFromCsv} />
-        <Button label="Upload Data" onClick={upload} disabled={uploadDisabled}/>
-      </UploadBox>
+        <Button
+          label="Upload Data"
+          onClick={uploadData}
+          disabled={uploadDisabled}
+        />
+        </UploadBox>
+      </UploadPaper>
       <DownloadPaper variant="outlined">
         <Typography variant="h5">Download Your CSV Templates</Typography>
         <Box>
@@ -120,11 +125,21 @@ function Admin() {
   );
 }
 
-const UploadBox = styled(Box)({
+const UploadPaper = styled(Paper)({
   marginLeft: '300px',
   marginRight: '300px',
   marginTop: '100px'
 });
+
+const UploadBox = styled(Box)({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyItems: 'center',
+  justifyContent: 'space-between',
+});
+
+
 const DownloadPaper = styled(Paper)({
   marginLeft: '300px',
   marginRight: '300px',

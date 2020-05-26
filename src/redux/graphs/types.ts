@@ -1,5 +1,6 @@
-import * as consts from './constants';
 import { GraphConfiguration } from '../../graphs/builder/types';
+import { DataValue } from '../vizbuilder/types';
+import * as consts from './constants';
 
 /*
  * The following type aliases/interfaces are used to create the
@@ -99,18 +100,18 @@ export interface GraphMetaDataApiPayload {
 /*
  * Indicates which axis a data source corresponds to
  */
-enum DataSourceTypesEnum {
+export enum DataSourceTypesEnum {
   X_AXIS = 'X_AXIS',
   Y_AXIS = 'Y_AXIS',
   STACK = 'STACK'
 }
 
-type DataSourceType = keyof typeof DataSourceTypesEnum;
+export type DataSourceType = keyof typeof DataSourceTypesEnum;
 
 /*
  * Data sources used for one of the axes.
  */
-interface DataSource {
+export interface DataSource {
   datasetName: string;
   columnNames: string[];
   seriesType: DataSourceType;
@@ -120,7 +121,13 @@ interface DataSource {
  * Remove properties that store data, as the data values
  * are not stored in the database graph metadata.
  */
-type PartialGraphConfigurationWithoutData = Omit<
+export type PartialGraphConfigurationWithoutData = Omit<
   GraphConfiguration,
   'title' | 'xAxisData' | 'yAxisData' | 'stackData'
 >;
+
+export interface GraphData {
+  xAxisData: DataValue[];
+  yAxisData: DataValue[][];
+  stackData?: DataValue[];
+}
