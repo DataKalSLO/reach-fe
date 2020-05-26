@@ -33,7 +33,8 @@ import {
   prepGeo,
   quantileMaker,
   position,
-  tooltipOverlapsMarkers
+  tooltipOverlapsMarkers,
+  cursorWithinBounds
 } from './MapViewHelpers';
 import Tooltip from './Tooltip';
 import { Grid } from '@material-ui/core';
@@ -109,6 +110,7 @@ function MapView(props: MapViewProps) {
   });
 
   // Tooltip State
+  const [opacity, setOpacity] = React.useState(0);
   const [hoveredLocation, setHoveredLocation] = React.useState({
     properties: {
       [valueKey]: '1',
@@ -147,6 +149,28 @@ function MapView(props: MapViewProps) {
     zoom: VIEWPORT_ZOOM
   });
 
+  const handleMouseMove = (event: MouseEvent) => {
+    const map = document.getElementById('map');
+    if (
+      !map ||
+      (!cursorWithinBounds(
+        event.pageX,
+        event.pageY,
+        map.getBoundingClientRect()
+      ) &&
+        opacity !== 0)
+    ) {
+      setOpacity(0);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
+  });
+
   useEffect(() => {
     const minVal = getStat(heatMapFeatures, _.minBy, valueKey);
     const maxVal = getStat(heatMapFeatures, _.maxBy, valueKey);
@@ -174,18 +198,17 @@ function MapView(props: MapViewProps) {
   }, [heatMapFeatures, valueKey]);
 
   const renderTooltip = () => {
-    let opacity = 1;
-
     const map = document.getElementById('map');
     if (!map) {
       return;
     }
 
-    if (hoveredLocation.noLocation || tooltipOverlapsMarkers(dims)) {
-      opacity = 0;
-    }
-
     const bounds = map.getBoundingClientRect();
+    const properOpacity =
+      hoveredLocation.noLocation || tooltipOverlapsMarkers(dims) ? 0 : 1;
+    if (opacity !== properOpacity) {
+      setOpacity(properOpacity);
+    }
     const left = position(bounds.left, bounds.right, dims.width, x.current);
     const top = position(bounds.top, bounds.bottom, dims.height, y.current);
 

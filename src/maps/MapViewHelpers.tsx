@@ -129,3 +129,12 @@ export function tooltipOverlapsMarkers(tooltipBounds: DOMRect) {
   const popupBounds = getPopupBounds();
   return popupBounds.some(bounds => rectsOverlap(tooltipBounds, bounds));
 }
+
+export function cursorWithinBounds(x: number, y: number, bounds: DOMRect) {
+  return (
+    x >= bounds.right &&
+    x <= bounds.left &&
+    y >= bounds.top &&
+    y <= bounds.bottom
+  );
+}
