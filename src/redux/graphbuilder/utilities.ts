@@ -25,7 +25,7 @@ export function duplicateGraph(
     ...newGraph.graph,
     graphMetaData: { ...newGraph.graph.graphMetaData, graphId: '' }
   };
-  return insertIfDefinedAtIndex(
+  return insertAtIndexIfDefined(
     graphs,
     newGraph.index,
     false,
@@ -37,9 +37,9 @@ export function duplicateGraph(
  * Add an element at the index position of an array if
  * its defined. If withReplacement is true, the existing
  * element at the given index is replaced. A copy of the
- * original array is made to prevent mutability.
+ * original array is made to prevent mutations.
  */
-export function insertIfDefinedAtIndex<T>(
+export function insertAtIndexIfDefined<T>(
   items: Array<T>,
   index: number,
   withReplacement: boolean,

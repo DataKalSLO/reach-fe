@@ -12,7 +12,7 @@ import {
 import { GraphActionTypes, GraphBuilderState } from './types';
 import {
   duplicateGraph,
-  insertIfDefinedAtIndex,
+  insertAtIndexIfDefined,
   replaceGraph
 } from './utilities';
 
@@ -29,7 +29,7 @@ export function graphBuilderReducer(
     case SAVE_GRAPH:
       return {
         ...state,
-        graphs: insertIfDefinedAtIndex(state.graphs, 0, true, action.payload)
+        graphs: insertAtIndexIfDefined(state.graphs, 0, false, action.payload)
       };
     case UPDATE_GRAPH:
       return {
@@ -46,7 +46,7 @@ export function graphBuilderReducer(
     case GET_GRAPH:
       return {
         ...state,
-        graphs: insertIfDefinedAtIndex(state.graphs, 0, false, action.payload)
+        graphs: insertAtIndexIfDefined(state.graphs, 0, false, action.payload)
       };
     case GET_ALL_USER_GRAPHS:
       return {
