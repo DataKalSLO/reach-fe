@@ -1,37 +1,37 @@
-import { GraphMetaDataApiPayload, GraphMetaData } from '../graphs/types';
 import { Dispatch } from 'redux';
+import { isUndefined } from 'util';
 import {
-  saveGraphAndHandleResponse,
-  updateGraphAndHandleResponse,
   deleteGraphAndHandleResponse,
-  getGraphAndHandleResponse,
   getAllGraphsAndHandleResponse,
-  getDefaultGraphForCategoryAndHandleResponse
+  getDefaultGraphForCategoryAndHandleResponse,
+  getGraphAndHandleResponse,
+  saveGraphAndHandleResponse,
+  updateGraphAndHandleResponse
 } from '../../api/graphs/operationHandlers';
+import { ApiGraphConfirmationResponse } from '../../api/graphs/types';
+import { getDataColumnsForDataSourcesAndHandleResponse } from '../../api/vizbuilder/operationHandlers';
+import { GraphMetaData, GraphMetaDataApiPayload } from '../graphs/types';
 import {
+  CREATE_GRAPH,
+  DELETE_GRAPH,
+  DUPLICATE_GRAPH,
+  GET_ALL_USER_GRAPHS,
+  GET_DEFAULT_GRAPHS_FOR_CATEGORY,
+  GET_GRAPH,
+  SAVE_GRAPH,
+  UPDATE_GRAPH,
+  UPDATE_LOCAL_GRAPH
+} from './constants';
+import {
+  CreateGraphAction,
+  DeleteGraphAction,
+  DuplicateGraphAction,
+  GetGraphAction,
   Graph,
   SaveGraphAction,
   UpdateGraphAction,
-  UpdateLocalGraph,
-  GetGraphAction,
-  CreateGraphAction,
-  DeleteGraphAction,
-  DuplicateGraphAction
+  UpdateLocalGraph
 } from './types';
-import {
-  SAVE_GRAPH,
-  UPDATE_GRAPH,
-  UPDATE_LOCAL_GRAPH,
-  GET_GRAPH,
-  GET_ALL_USER_GRAPHS,
-  GET_DEFAULT_GRAPHS_FOR_CATEGORY,
-  CREATE_GRAPH,
-  DELETE_GRAPH,
-  DUPLICATE_GRAPH
-} from './constants';
-import { ApiGraphConfirmationResponse } from '../../api/graphs/types';
-import { isUndefined } from 'util';
-import { getDataColumnsForDataSourcesAndHandleResponse } from '../../api/vizbuilder/operationHandlers';
 
 export function saveGraph(graphMetaData: GraphMetaDataApiPayload) {
   return async (dispatch: Dispatch) => {
