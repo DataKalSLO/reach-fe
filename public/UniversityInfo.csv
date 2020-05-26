@@ -1,0 +1,3 @@
+universityInfo,idGender,gender,idUniversity,university,completions,county,idGeography,year
+,integer,text,integer,text,integer,text,text,integer
+,ex: 1,ex: Men,ex: 454786,ex: Laurus College,ex: 78,ex: San Luis Obispo,ex: 05000US06079,ex: 2016
