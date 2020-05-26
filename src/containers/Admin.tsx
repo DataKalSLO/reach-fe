@@ -4,6 +4,7 @@ import { Paper, Typography, Box, styled } from '@material-ui/core';
 import { csv } from 'd3';
 import CSVReader from 'react-csv-reader';
 import { convertCsvToJson } from '../common/util/csvToJson';
+import { upload } from '../api/upload';
 
 function Admin() {
   const [csvAirportData, setCsvAirportData]: any = useState([]);
@@ -44,7 +45,7 @@ function Admin() {
   const setJsonFromCsv = useCallback(
     (data: Array<any>) => {
       const jsonObj = convertCsvToJson(data);
-      console.log(jsonObj);
+      upload(jsonObj);
       setJsonData(jsonObj);
     },
     [setJsonData]
