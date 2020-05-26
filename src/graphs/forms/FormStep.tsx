@@ -9,10 +9,7 @@ export function FormStep(props: Props) {
   return (
     <Fragment>
       {props.children.filter((child, index) => {
-        if (index === props.step) {
-          return child;
-        }
-        return null;
+        return (index === props.step) ? child :null;
       })}
     </Fragment>
   );
