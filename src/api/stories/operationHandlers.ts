@@ -1,11 +1,11 @@
-import {
-  saveOrUpdateExistingStory,
-  deleteStoryById,
-  getStoryWithStoryID,
-  getAllStories
-} from './operations';
-import { UNAUTHORIZED_OPERATION_ERROR } from '../authenticatedApi/constants';
 import { Story } from '../../redux/story/types';
+import { handleApiOperation } from '../operations';
+import {
+  deleteStoryById,
+  getAllStories,
+  getStoryWithStoryID,
+  saveOrUpdateExistingStory
+} from './operations';
 
 const STORY_CREATION_SUCCESS_MESSAGE = 'Story created!';
 const STORY_CREATION_FAILURE_MESSAGE =
@@ -59,23 +59,4 @@ export async function getAllStoriesAndHandleResponse(): Promise<
     STORY_RETRIEVAL_SUCCESS_MESSAGE,
     STORY_RETRIEVAL_FAILURE_MESSAGE
   ).catch(e => undefined);
-}
-
-async function handleApiOperation<P, R>(
-  payload: P,
-  operation: (payload: P) => Promise<R>,
-  successMessage: string,
-  failureMessage: string
-): Promise<R> {
-  return await operation(payload)
-    .then(res => {
-      console.log(successMessage);
-      return res;
-    })
-    .catch(e => {
-      if (e.name !== UNAUTHORIZED_OPERATION_ERROR) {
-        alert(failureMessage);
-      }
-      throw new Error(e);
-    });
 }
