@@ -31,7 +31,7 @@ export const sampleMetadataPayload: Metadata[] = [
       'award_type',
       'award_description'
     ],
-    columnTypes: [
+    dataTypes: [
       'int',
       'double',
       'double',
