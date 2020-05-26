@@ -1,4 +1,6 @@
-import { PayloadDataset, Metadata, Dataset, Column } from './types';
+import moment from 'moment';
+import { isString } from 'util';
+import { Column, Dataset, DataValue, Metadata, PayloadDataset } from './types';
 
 /*
  * Creates the Column objects for each of the columns specified
@@ -52,4 +54,11 @@ export function getMetadataFor(
   return meatadataList.filter(
     metadata => metadata.tableName === datasetName
   )[0];
+}
+
+export function isDateType(value: DataValue): boolean {
+  return (
+    isString(value) &&
+    moment(value, moment.ISO_8601, true).format() !== 'Invalid date'
+  );
 }
