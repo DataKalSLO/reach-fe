@@ -37,9 +37,9 @@ const SettingsBox = styled(Box)({
 });
 
 CSVTemplate.propTypes = {
-  templateName: PropTypes.element.isRequired,
-  csvData: PropTypes.element.isRequired,
-  filename: PropTypes.element.isRequired
+  templateName: PropTypes.string.isRequired,
+  csvData: PropTypes.array.isRequired,
+  filename: PropTypes.string.isRequired
 };
 
 export default CSVTemplate;
