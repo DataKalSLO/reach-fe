@@ -38,3 +38,7 @@ export const CATEGORY_LABEL = 'Choose an Initiative';
 export const INPUT_CATEGORY_LABEL = 'Category';
 export const X_AXIS_CREATE_LABEL = 'Choose the X-Axis Data Column';
 export const Y_AXIS_CREATE_LABEL = 'Choose the Y-Axis Data Columns';
+export const CATEGORY_STEP = 'Please select a Chart Category';
+export const DATA_STEP_LABEL = 'Chart Data Sources';
+export const FORMAT_STEP_LABEL = 'Chart Formatting';
+export const FINISH_STEP_LABEL = "All steps completed - you're finished";

@@ -5,6 +5,7 @@ import { getAllUserGraphs } from '../../redux/graphbuilder/actions';
 import { getGraphsMetaData } from '../../redux/graphbuilder/selector';
 import GraphPrebuilt from '../components/GraphPrebuilt';
 import FormCreate from '../forms/CreateGraphForm';
+import { GraphCreateForm } from '../forms/GraphCreateForm';
 
 /*
  * Renders a list of graphs.
@@ -35,7 +36,7 @@ function GraphContainer() {
   return (
     <GridContainer container>
       <GridItem>
-        {graphState.isCreating ? <FormCreate /> : getGraphComponents()}
+        {graphState.isCreating ? <GraphCreateForm /> : getGraphComponents()}
       </GridItem>
     </GridContainer>
   );
