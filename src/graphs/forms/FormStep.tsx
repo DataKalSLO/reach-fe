@@ -1,12 +1,11 @@
-import { Fragment, ReactNode } from 'react';
-import React from 'react';
+import React, { Fragment, ReactNode } from 'react';
 
 interface Props {
   step: number;
   children: ReactNode[];
 }
 
-export function FormCreateStep(props: Props) {
+export function FormStep(props: Props) {
   return (
     <Fragment>
       {props.children.filter((child, index) => {

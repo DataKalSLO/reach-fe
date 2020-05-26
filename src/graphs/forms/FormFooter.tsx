@@ -17,18 +17,18 @@ export function FormFooter(props: Props) {
   return (
     <FooterBox>
       <Button
-        label={FORM_CANCEL_LABEL}
-        size="large"
-        color="default"
-        variant="text"
-        onClick={props.handleCancel}
-      />
-      <Button
         label={FORM_RESET_LABEL}
         size="large"
         color="default"
         variant="text"
         onClick={props.handleReset}
+      />
+      <Button
+        label={FORM_CANCEL_LABEL}
+        size="large"
+        color="default"
+        variant="text"
+        onClick={props.handleCancel}
       />
       <Button
         label={FORM_UPDATE_LABEL}

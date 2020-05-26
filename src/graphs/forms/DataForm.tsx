@@ -5,11 +5,16 @@ import { Graph } from '../../redux/graphbuilder/types';
 import { getVizbuilder } from '../../redux/vizbuilder/selector';
 import { GRAPH_COLORS } from '../builder/constants';
 import { SeriesConfiguration } from '../builder/types';
-import { DATASET_LABEL, X_AXIS_LABEL, Y_AXIS_LABEL } from './constants';
-import { FormDatasetSelection } from './FormDatasetSelection';
+import {
+  DATASET_LABEL,
+  INPUT_COLUMN_LABEL,
+  INPUT_NAME_LABEL,
+  X_AXIS_LABEL,
+  Y_AXIS_LABEL
+} from './constants';
+import { FormDataSelection } from './FormDataSelection';
 import { FormFooter } from './FormFooter';
-import { FormXSelection } from './FormXColumnSelection';
-import { FormYSelection } from './FormYColumnSelection';
+import { FormSeriesSelection } from './FormSeriesSelection';
 import { FormProps, GraphDataFormState } from './types';
 import {
   convertDataSourcesToFormDataState,
@@ -111,23 +116,23 @@ export default function DataForm(props: FormProps) {
 
   return (
     <Fragment>
-      {console.log(datasetsInfo.xAxisColumnNames)}
-      {console.log(dataState.datasetName)}
-      <FormDatasetSelection
+      <FormDataSelection
         label={DATASET_LABEL}
-        datasetName={dataState.datasetName}
-        datasetNames={datasetsInfo.datasetNames}
+        inputLabel={INPUT_NAME_LABEL}
+        value={dataState.datasetName}
+        data={datasetsInfo.datasetNames}
         handleChange={handleDatasetChange}
       />
       <FormDivider light />
-      <FormXSelection
+      <FormDataSelection
         label={X_AXIS_LABEL}
-        columnName={dataState.xAxisColumnName}
-        columnNames={datasetsInfo.xAxisColumnNames[dataState.datasetName]}
+        inputLabel={INPUT_COLUMN_LABEL}
+        value={dataState.xAxisColumnName}
+        data={datasetsInfo.xAxisColumnNames[dataState.datasetName]}
         handleChange={handleXAxisColumnChange}
       />
       <FormDivider light />
-      <FormYSelection
+      <FormSeriesSelection
         label={Y_AXIS_LABEL}
         selectedColumnNames={dataState.yAxisColumnNames}
         columnNames={datasetsInfo.yAxisColumnNames[dataState.datasetName]}

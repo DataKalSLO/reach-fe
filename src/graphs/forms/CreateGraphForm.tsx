@@ -13,7 +13,7 @@ import AddCategoryType from './AddCategorytype';
 import DataForm from './DataForm';
 import { emptyGraph } from './EmptyGraph';
 import FormattingForm from './FormattingForm';
-import { FormCreateStep } from './FormCreateStep';
+import { FormStep } from './FormStep';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,7 +80,7 @@ export default function FormCreate() {
               <StepLabel>{label}</StepLabel>
               <StepContent>
                 <Typography>
-                  <FormCreateStep step={activeStep}>
+                  <FormStep step={activeStep}>
                     <AddCategoryType
                       category="HEALTH"
                       handleChange={handleCategoryChange}
@@ -97,7 +97,7 @@ export default function FormCreate() {
                       handleCancel={handleFormCancel}
                       handleUpdate={handleFormUpdate}
                     />
-                  </FormCreateStep>
+                  </FormStep>
                 </Typography>
                 <div className={classes.actionsContainer}>
                   <div>

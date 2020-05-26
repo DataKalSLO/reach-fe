@@ -1,4 +1,4 @@
-import { styled, Box } from '@material-ui/core';
+import { Box, styled } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import AddIcon from '@material-ui/icons/Add';
 import React, { ChangeEvent, Fragment } from 'react';
@@ -17,7 +17,7 @@ interface Props {
   handleAdd: () => void;
 }
 
-export function FormYSelection(props: Props) {
+export function FormSeriesSelection(props: Props) {
   return (
     <Fragment>
       <FormBlock label={props.label}>

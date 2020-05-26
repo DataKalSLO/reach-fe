@@ -1,32 +1,23 @@
 import { Divider, styled } from '@material-ui/core';
-import React, { ChangeEvent, Fragment, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { ColorResult } from 'react-color';
-import { useDispatch } from 'react-redux';
-import { isUndefined } from 'util';
 import FormBlock from '../../common/components/FormBlock';
-import { TextFieldSelect } from '../../common/components/FormSelectionField';
 import { TextField } from '../../common/components/FormTextField';
 import { Switch } from '../../common/components/Switch';
-import { editGraph, updateLocalGraph } from '../../redux/graphbuilder/actions';
 import { GraphMetaData } from '../../redux/graphbuilder/types';
-import { GRAPH_COLORS } from '../builder/constants';
-import { seriesTypesEnum } from '../builder/types';
 import {
   GRAPH_LABEL,
   INPUT_3D_LABEL,
-  INPUT_DATA_LABELS_LABEL,
   INPUT_PREFIX_LABEL,
   INPUT_SUBTITLE_LABEL,
   INPUT_SUFFIX_LABEL,
   INPUT_TITLE_LABEL,
-  INPUT_TYPE_LABEL,
-  SERIES_LABEL,
   X_AXIS_LABEL,
   Y_AXIS_LABEL
 } from './constants';
-import FormColorPicker from './FormColorPicker';
 import { FormFooter } from './FormFooter';
-import { GraphFormProps, FormProps } from './types';
+import { FormSeriesFormatter } from './FormSeriesFormatter';
+import { FormProps } from './types';
 
 export default function FormattingForm(props: FormProps) {
   const { graph, index, handleCancel, handleUpdate } = props;
@@ -52,7 +43,10 @@ export default function FormattingForm(props: FormProps) {
   const handleXTitleChange = (title: string) => {
     setFormatState({
       ...formatState,
-      graphOptions: { ...formatState.graphOptions, xConfig: { title: title } }
+      graphOptions: {
+        ...formatState.graphOptions,
+        xConfig: { ...formatState.graphOptions.xConfig, title: title }
+      }
     });
   };
 
@@ -61,7 +55,7 @@ export default function FormattingForm(props: FormProps) {
       ...formatState,
       graphOptions: {
         ...formatState.graphOptions,
-        xConfig: { valuePrefix: prefix }
+        xConfig: { ...formatState.graphOptions.xConfig, valuePrefix: prefix }
       }
     });
   };
@@ -71,7 +65,7 @@ export default function FormattingForm(props: FormProps) {
       ...formatState,
       graphOptions: {
         ...formatState.graphOptions,
-        xConfig: { valueSuffix: suffix }
+        xConfig: { ...formatState.graphOptions.xConfig, valueSuffix: suffix }
       }
     });
   };
@@ -81,7 +75,7 @@ export default function FormattingForm(props: FormProps) {
       ...formatState,
       graphOptions: {
         ...formatState.graphOptions,
-        yConfig: { title: title }
+        yConfig: { ...formatState.graphOptions.yConfig, title: title }
       }
     });
   };
@@ -91,7 +85,7 @@ export default function FormattingForm(props: FormProps) {
       ...formatState,
       graphOptions: {
         ...formatState.graphOptions,
-        yConfig: { valuePrefix: prefix }
+        yConfig: { ...formatState.graphOptions.yConfig, valuePrefix: prefix }
       }
     });
   };
@@ -101,7 +95,7 @@ export default function FormattingForm(props: FormProps) {
       ...formatState,
       graphOptions: {
         ...formatState.graphOptions,
-        yConfig: { valueSuffix: suffix }
+        yConfig: { ...formatState.graphOptions.yConfig, valueSuffix: suffix }
       }
     });
   };
@@ -228,7 +222,7 @@ export default function FormattingForm(props: FormProps) {
           />
           <FormTextField
             label={INPUT_SUFFIX_LABEL}
-            value={formatState.graphOptions.yConfig?.valueSuffix}
+            value={formatState.graphOptions.xConfig?.valueSuffix}
             onChange={(value: React.ChangeEvent<HTMLInputElement>) =>
               handleXSuffixChange(value.target.value)
             }
@@ -262,56 +256,13 @@ export default function FormattingForm(props: FormProps) {
         </FormBlock>
       </FormBlock>
       <FormDivider light />
-      <FormBlock>
-        {formatState.graphOptions.seriesConfigs.map((seriesConfig, index) => {
-          return (
-            <FormBlock key={index} label={`${SERIES_LABEL} ${index + 1}`}>
-              <FormTextField
-                label={INPUT_TITLE_LABEL}
-                value={seriesConfig.name}
-                onChange={(value: React.ChangeEvent<HTMLInputElement>) =>
-                  handleSeriesNameChange(index, value.target.value)
-                }
-              />
-              <FormSelection
-                label={INPUT_TYPE_LABEL}
-                value={seriesConfig.seriesType}
-                data={Object.keys(seriesTypesEnum)}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  handleSeriesTypeChange(index, e.target.value)
-                }
-              />
-              <FormColorPicker
-                initialColor={
-                  !isUndefined(seriesConfig.color)
-                    ? seriesConfig.color
-                    : GRAPH_COLORS[index]
-                }
-                handleChange={(color: ColorResult) =>
-                  handleColorChange(index, color)
-                }
-              />
-              <FormBlock
-                innerBlockProps={{
-                  style: {
-                    justifyContent: 'space-between'
-                  }
-                }}
-              >
-                <Switch
-                  label={INPUT_DATA_LABELS_LABEL}
-                  checked={
-                    !isUndefined(seriesConfig.dataLabels)
-                      ? seriesConfig.dataLabels
-                      : false
-                  }
-                  onChange={() => handleDataLabelsChange}
-                />
-              </FormBlock>
-            </FormBlock>
-          );
-        })}
-      </FormBlock>
+      <FormSeriesFormatter
+        seriesConfigs={formatState.graphOptions.seriesConfigs}
+        handleSeriesNameChange={handleSeriesNameChange}
+        handleSeriesTypeChange={handleSeriesTypeChange}
+        handleColorChange={handleColorChange}
+        handleDataLabelsChange={handleDataLabelsChange}
+      />
       <FormDivider light />
       <FormBlock label="Other">
         <FormBlock direction="row">
@@ -333,10 +284,6 @@ export default function FormattingForm(props: FormProps) {
 
 const FormDivider = styled(Divider)({
   margin: '10px 0px 10px 0px'
-});
-
-const FormSelection = styled(TextFieldSelect)({
-  marginRight: '10px'
 });
 
 const FormTextField = styled(TextField)({
