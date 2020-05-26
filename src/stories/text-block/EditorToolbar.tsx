@@ -13,13 +13,15 @@ import {
 } from '@material-ui/icons';
 import { EditorState, RichUtils } from 'draft-js';
 import React, { useState } from 'react';
-import IconButton, {
-  Props as IconButtonProps
-} from '../../common/components/IconButton';
-import { CollapsibleItem, CollapsibleMenu } from '../../reach-ui/core';
+import { Props as IconButtonProps } from '../../common/components/IconButton';
+import {
+  CollapsibleItem,
+  CollapsibleMenu,
+  IconButton
+} from '../../reach-ui/core';
+import { BORDER } from '../../theme/theme';
 import { DraftJSBlockType, DraftJSInlineType } from './DraftJSCommands';
 import { HyperlinkPlugin } from './HyperlinkPlugin';
-import { TOOLBAR_BORDER } from '../../theme/theme';
 
 const ToolbarButton = (props: IconButtonProps) => {
   return <IconButton size="small" color="default" {...props} />;
@@ -180,7 +182,7 @@ const DEFAULT_HIDE_WIDTH = 0;
 const LIST_STYLE_HIDE_WIDTH = 970;
 const LINK_STYLE_HIDE_WIDTH = 1020;
 
-const borderStyle = TOOLBAR_BORDER;
+const borderStyle = BORDER;
 const paddingDefault = '10px';
 
 const Toolbar = styled(Box)({
