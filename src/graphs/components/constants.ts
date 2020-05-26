@@ -8,7 +8,7 @@ export const HIDE_LABEL = 'Hide';
 export const SHOW_LABEL = 'Show';
 export const DUPLICATE_LABEL = 'Duplicate';
 export const SHARE_LABEL = 'Share';
-
+export const SYNCHRONIZE_MAP = 'Sync'
 /*
  * Graph Default Constants
  */

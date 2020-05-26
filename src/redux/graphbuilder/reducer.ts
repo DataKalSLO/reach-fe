@@ -1,22 +1,9 @@
 import { isUndefined } from 'util';
-import {
-  insertIfDefinedAtIndex,
-  replaceIfDefinedAtIndex
-} from '../../common/util/arrayTools';
+import { insertIfDefinedAtIndex, replaceIfDefinedAtIndex } from '../../common/util/arrayTools';
 import { DELETE_GRAPH, DUPLICATE_GRAPH } from '../graphs/constants';
-import {
-  EDIT_GRAPH,
-  GET_ALL_USER_GRAPHS,
-  GET_DEFAULT_GRAPHS_FOR_CATEGORY,
-  GET_GRAPH,
-  HIDE_GRAPH,
-  SAVE_GRAPH,
-  UPDATE_GRAPH,
-  UPDATE_LOCAL_GRAPH,
-  CREATE_GRAPH
-} from './constants';
+import { CREATE_GRAPH, EDIT_GRAPH, GET_ALL_USER_GRAPHS, GET_DEFAULT_GRAPHS_FOR_CATEGORY, GET_GRAPH, HIDE_GRAPH, SAVE_GRAPH, SYNC_GRAPH, UPDATE_GRAPH, UPDATE_LOCAL_GRAPH } from './constants';
 import { GraphActionTypes, GraphBuilderState } from './types';
-import { duplicateGraph, replaceGraph, editGraph } from './utilities';
+import { duplicateGraph, editGraph, replaceGraph } from './utilities';
 
 const initialState: GraphBuilderState = {
   graphs: [],
@@ -89,6 +76,10 @@ export function graphbuilderReducer(
       return {
         ...state,
         isCreating: !state.isCreating
+      };
+    case SYNC_GRAPH:
+      return {
+        ...state
       };
     default:
       return state;

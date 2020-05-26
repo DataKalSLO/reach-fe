@@ -1,28 +1,14 @@
 import { Toolbar } from '@material-ui/core';
 import { Delete, Edit, FileCopy, Save, Share } from '@material-ui/icons';
+import SyncIcon from '@material-ui/icons/Sync';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import Button, { Props as ButtonProps } from '../../common/components/Button';
-import {
-  deleteGraph,
-  duplicateGraph,
-  editGraph,
-  hideGraph,
-  saveGraph,
-  updateGraph
-} from '../../redux/graphbuilder/actions';
+import { deleteGraph, duplicateGraph, editGraph, hideGraph, saveGraph, updateGraph } from '../../redux/graphbuilder/actions';
 import { GraphMetaDataApiPayload } from '../../redux/graphbuilder/types';
-import {
-  DELETE_LABEL,
-  DUPLICATE_LABEL,
-  EDIT_LABEL,
-  HIDE_LABEL,
-  SAVE_LABEL,
-  SHOW_LABEL,
-  SHARE_LABEL
-} from './constants';
+import { DELETE_LABEL, DUPLICATE_LABEL, EDIT_LABEL, HIDE_LABEL, SAVE_LABEL, SHARE_LABEL, SHOW_LABEL, SYNCHRONIZE_MAP } from './constants';
 import { GraphToolbarProps } from './types';
 /*
  * Contains the buttons rendered on the graph toolbar.
@@ -47,6 +33,14 @@ function GraphToolbar(props: GraphToolbarProps) {
   // TODO: Collapse toolbar when width is too small
   return (
     <Toolbar>
+      <ToolbarButton
+        label={SYNCHRONIZE_MAP}
+        variant="text"
+        color="default"
+        startIcon={<SyncIcon />}
+        //onClick={() => dispatch(syncGraph(graph.graphMetaData.graphId))}
+        onClick={() => {alert('not inplemented')}}   
+      />
       <ToolbarButton
         label={EDIT_LABEL}
         variant="text"

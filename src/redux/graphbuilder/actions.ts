@@ -1,42 +1,10 @@
-import {
-  GraphMetaData,
-  SaveGraphAction,
-  UpdateGraphAction,
-  DeleteGraphAction,
-  GetGraphAction,
-  EditGraphAction,
-  DuplicateGraphAction,
-  HideGraphAction,
-  UpdateLocalGraph,
-  Graph,
-  GraphMetaDataApiPayload,
-  CreateGraphAction
-} from './types';
-import {
-  SAVE_GRAPH,
-  UPDATE_GRAPH,
-  DELETE_GRAPH,
-  GET_GRAPH,
-  GET_ALL_USER_GRAPHS,
-  GET_DEFAULT_GRAPHS_FOR_CATEGORY,
-  EDIT_GRAPH,
-  DUPLICATE_GRAPH,
-  HIDE_GRAPH,
-  UPDATE_LOCAL_GRAPH,
-  CREATE_GRAPH
-} from './constants';
-import {
-  saveGraphAndHandleResponse,
-  updateGraphAndHandleResponse,
-  deleteGraphAndHandleResponse,
-  getGraphAndHandleResponse,
-  getAllGraphsAndHandleResponse,
-  getDefaultGraphForCategoryAndHandleResponse
-} from '../../api/graphs/operationHandlers';
 import { Dispatch } from 'redux';
+import { isUndefined } from 'util';
+import { deleteGraphAndHandleResponse, getAllGraphsAndHandleResponse, getDefaultGraphForCategoryAndHandleResponse, getGraphAndHandleResponse, saveGraphAndHandleResponse, updateGraphAndHandleResponse } from '../../api/graphs/operationHandlers';
 import { ApiGraphConfirmationResponse } from '../../api/graphs/types';
 import { getDataColumnsForDataSourcesAndHandleResponse } from '../../api/vizbuilder/operationHandlers';
-import { isUndefined } from 'util';
+import { CREATE_GRAPH, DELETE_GRAPH, DUPLICATE_GRAPH, EDIT_GRAPH, GET_ALL_USER_GRAPHS, GET_DEFAULT_GRAPHS_FOR_CATEGORY, GET_GRAPH, HIDE_GRAPH, SAVE_GRAPH, SYNC_GRAPH, UPDATE_GRAPH, UPDATE_LOCAL_GRAPH } from './constants';
+import { CreateGraphAction, DeleteGraphAction, DuplicateGraphAction, EditGraphAction, GetGraphAction, Graph, GraphMetaData, GraphMetaDataApiPayload, HideGraphAction, SaveGraphAction, SyncGraphAction, UpdateGraphAction, UpdateLocalGraph } from './types';
 
 async function createGraphWithData(
   graphMetaData?: GraphMetaData
@@ -205,5 +173,16 @@ export function createGraph(): CreateGraphAction {
   return {
     type: CREATE_GRAPH,
     payload: undefined
+  };
+}
+
+export function syncGraphAction(
+  datasetName: string,
+  columnNames: string[]
+): SyncGraphAction {
+  return {
+    type: SYNC_GRAPH,
+    datasetName: datasetName,
+    columnNames: columnNames
   };
 }

@@ -13,6 +13,7 @@ export const GET_ALL_USER_GRAPHS = 'GET_ALL_USER_GRAPHS';
 export const CREATE_GRAPH = 'CREATE_GRAPH';
 export const GET_DEFAULT_GRAPHS_FOR_CATEGORY =
   'GET_DEFAULT_GRAPHS_FOR_CATEGORY';
+export const SYNC_GRAPH = 'SYNC_GRAPH';
 
 /*
  * Initiative Constants

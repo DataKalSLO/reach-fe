@@ -1,27 +1,8 @@
 import { ApiGraphConfirmationResponse } from '../../api/graphs/types';
 import { GraphConfiguration } from '../../graphs/builder/types';
-import {
-  ASSETS,
-  DELETE_GRAPH,
-  DEMOGRAPHICS,
-  DUPLICATE_GRAPH,
-  EDUCATION,
-  HEALTH,
-  HOUSING,
-  INDUSTRY
-} from '../graphs/constants';
-import {
-  EDIT_GRAPH,
-  GET_ALL_USER_GRAPHS,
-  GET_DEFAULT_GRAPHS_FOR_CATEGORY,
-  GET_GRAPH,
-  HIDE_GRAPH,
-  SAVE_GRAPH,
-  UPDATE_GRAPH,
-  UPDATE_LOCAL_GRAPH,
-  CREATE_GRAPH
-} from './constants';
+import { ASSETS, DELETE_GRAPH, DEMOGRAPHICS, DUPLICATE_GRAPH, EDUCATION, HEALTH, HOUSING, INDUSTRY } from '../graphs/constants';
 import { DataValue } from '../vizbuilder/types';
+import { CREATE_GRAPH, EDIT_GRAPH, GET_ALL_USER_GRAPHS, GET_DEFAULT_GRAPHS_FOR_CATEGORY, GET_GRAPH, HIDE_GRAPH, SAVE_GRAPH, SYNC_GRAPH, UPDATE_GRAPH, UPDATE_LOCAL_GRAPH } from './constants';
 
 /*
  * The following type aliases/interfaces are used to create the
@@ -155,6 +136,12 @@ export interface CreateGraphAction {
   payload: undefined;
 }
 
+export interface SyncGraphAction {
+  type: typeof SYNC_GRAPH;
+  datasetName: string;
+  columnNames: string[];
+}
+
 export type GraphActionTypes =
   | SaveGraphAction
   | UpdateGraphAction
@@ -166,7 +153,8 @@ export type GraphActionTypes =
   | UpdateLocalGraph
   | DuplicateGraphAction
   | HideGraphAction
-  | CreateGraphAction;
+  | CreateGraphAction
+  | SyncGraphAction;
 
 /*
  * The following type aliases/interfaces are used to restrict a
