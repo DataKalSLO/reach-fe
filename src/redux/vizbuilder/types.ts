@@ -1,4 +1,4 @@
-import { FETCH_ENTIRE_DATASET, FETCH_ALL_METADATA } from './constants';
+import { FETCH_ALL_METADATA, FETCH_ENTIRE_DATASET } from './constants';
 
 /*
  * The following type aliases/interfaces are used to create a generic
@@ -11,12 +11,34 @@ import { FETCH_ENTIRE_DATASET, FETCH_ALL_METADATA } from './constants';
  *   dataset conversion works.
  */
 
-export type DataValue = string | number;
+export type DataValue = string | number | Date;
+
+export interface GeoLocation {
+  name: string;
+  pointId: number;
+}
+
+export enum GeoTypesEnum {
+  area = 'area',
+  location = 'location'
+}
+
+export type GeoTypes = keyof typeof GeoTypesEnum;
 
 export interface Metadata {
   tableName: string;
   columnNames: string[];
-  columnTypes: string[];
+  dataTypes: string[];
+  geoType?: GeoTypes;
+}
+
+export interface DataColumnsApiPayload {
+  datasetName: string;
+  columnNames: string[];
+}
+
+export interface DataColumns {
+  data: DataValue[][];
 }
 
 export interface PayloadDataset {
