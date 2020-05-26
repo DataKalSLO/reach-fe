@@ -7,7 +7,6 @@ import { convertCsvToJson } from '../common/util/csvToJson';
 import { upload } from '../api/upload';
 import Button from '../common/components/Button';
 
-
 function Admin() {
   const [csvAirportData, setCsvAirportData]: any = useState([]);
   const [csvCommuteData, setCsvCommuteData]: any = useState([]);
@@ -63,12 +62,12 @@ function Admin() {
       <UploadPaper variant="outlined">
         <Typography variant="h5">Upload Your Data</Typography>
         <UploadBox>
-        <CSVReader cssClass="react-csv-input" onFileLoaded={setJsonFromCsv} />
-        <Button
-          label="Upload Data"
-          onClick={uploadData}
-          disabled={uploadDisabled}
-        />
+          <CSVReader cssClass="react-csv-input" onFileLoaded={setJsonFromCsv} />
+          <Button
+            label="Upload Data"
+            onClick={uploadData}
+            disabled={uploadDisabled}
+          />
         </UploadBox>
       </UploadPaper>
       <DownloadPaper variant="outlined">
@@ -136,9 +135,8 @@ const UploadBox = styled(Box)({
   flexDirection: 'row',
   alignItems: 'center',
   justifyItems: 'center',
-  justifyContent: 'space-between',
+  justifyContent: 'space-between'
 });
-
 
 const DownloadPaper = styled(Paper)({
   marginLeft: '300px',
