@@ -1,14 +1,26 @@
-// Stub for common component: IconButton
-//
-//   common components are esentially wrappers for Material UI components
-//   we are creating wrappers in order to maintain consistent style between all teams
-//
-//   if you need a component that hasn't been implemented go ahead and set it up!
-//     docs:  https://material-ui.com/
-//   after implementing the component request someone from the React team for review
+import { IconButton as CoreIconButton, styled } from '@material-ui/core';
+import React from 'react';
 
-const IconButton = () => {
-  throw new Error('IconButton has not been defined');
-};
+export interface Props {
+  'aria-label': string; // Accessible label that describes button's purpose
+  icon: React.ReactNode;
+  // This extra parameter is necessary to allow other props to be passed through
+  [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+}
 
-export { IconButton };
+export default function IconButton(props: Props) {
+  // These default settings will be overriden if different props are passed in
+  return (
+    <PaddedIconButton
+      aria-label={props['aria-label']}
+      color="primary"
+      {...props}
+    >
+      {props.icon}
+    </PaddedIconButton>
+  );
+}
+
+const PaddedIconButton = styled(CoreIconButton)({
+  margin: '10px'
+});

@@ -1,8 +1,14 @@
 import { EditorState } from 'draft-js';
+import { uuid } from 'uuidv4';
 import { emptyTextBlock } from './reducer';
 import {
   CreateEmptyTextBlockAction,
+  CreateGraphBlockAction,
   CREATE_EMPTY_TEXT_BLOCK,
+  CREATE_GRAPH_BLOCK,
+  DeleteBlockAction,
+  DELETE_BLOCK,
+  GRAPH_BLOCK_TYPE,
   SwapBlocksAction,
   SWAP_BLOCKS,
   UpdateDescriptionAction,
@@ -17,8 +23,28 @@ export function createEmptyTextBlock(): CreateEmptyTextBlockAction {
   return {
     type: CREATE_EMPTY_TEXT_BLOCK,
     payload: {
-      block: emptyTextBlock
+      block: emptyTextBlock()
     }
+  };
+}
+
+export function createGraphBlock(): CreateGraphBlockAction {
+  return {
+    type: CREATE_GRAPH_BLOCK,
+    payload: {
+      block: {
+        id: uuid(),
+        graphID: uuid(),
+        type: GRAPH_BLOCK_TYPE
+      }
+    }
+  };
+}
+
+export function deleteBlock(index: number): DeleteBlockAction {
+  return {
+    type: DELETE_BLOCK,
+    payload: { index: index }
   };
 }
 

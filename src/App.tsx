@@ -8,8 +8,15 @@ import {
   MY_STUFF,
   LOGIN,
   SAMPLE,
-  CREATE_ACCOUNT
+  CREATE_ACCOUNT,
+  SETTINGS,
+  ADMIN,
+  MY_STUFF_CHARTS,
+  MY_STUFF_MAPS,
+  MY_STUFF_STORIES
 } from './nav/constants';
+import ProtectedRoute from './nav/ProtectedRoute';
+import AdminProtectedRoute from './nav/AdminProtectedRoute';
 
 // Material UI's theming/styling solution
 //  https://material-ui.com/styles/basics/
@@ -31,19 +38,23 @@ import { history, store, persistor } from './redux/store';
 import { Provider } from 'react-redux';
 
 // Containers
-import Home from './containers/Home';
 import Explore from './containers/Explore';
 import VizBuilder from './containers/VizBuilder';
 import StoryBuilder from './containers/StoryBuilder';
-import MyStuff from './containers/MyStuff';
+import MyStuff from './containers/my-stuff-landing/MyStuff';
+import MyStuffCharts from './containers/my-stuff-landing/MyStuffCharts';
+import MyStuffMaps from './containers/my-stuff-landing/MyStuffMaps';
+import MyStuffStories from './containers/my-stuff-landing/MyStuffStories';
 import Login from './containers/Login';
 import Sample from './containers/Sample';
 import CreateAccount from './containers/CreateAccount';
+import Settings from './containers/Settings';
+import Admin from './containers/Admin';
 import { PersistGate } from 'redux-persist/integration/react';
 
 const home = (
   <Route path={HOME} exact>
-    <Home />
+    <VizBuilder />
   </Route>
 );
 const explore = (
@@ -62,8 +73,23 @@ const storyBuilder = (
   </Route>
 );
 const myStuff = (
-  <Route path={MY_STUFF}>
-    <MyStuff />
+  <Route exact path={MY_STUFF}>
+    <ProtectedRoute componentPage={<MyStuff />} />
+  </Route>
+);
+const myStuffCharts = (
+  <Route exact path={MY_STUFF_CHARTS}>
+    <ProtectedRoute componentPage={<MyStuffCharts />} />
+  </Route>
+);
+const myStuffMaps = (
+  <Route exact path={MY_STUFF_MAPS}>
+    <ProtectedRoute componentPage={<MyStuffMaps />} />
+  </Route>
+);
+const myStuffStories = (
+  <Route exact path={MY_STUFF_STORIES}>
+    <ProtectedRoute componentPage={<MyStuffStories />} />
   </Route>
 );
 const login = (
@@ -74,6 +100,16 @@ const login = (
 const createAccount = (
   <Route path={CREATE_ACCOUNT}>
     <CreateAccount />
+  </Route>
+);
+const settings = (
+  <Route path={SETTINGS}>
+    <ProtectedRoute componentPage={<Settings />} />
+  </Route>
+);
+const admin = (
+  <Route path={ADMIN}>
+    <AdminProtectedRoute componentPage={<Admin />} />
   </Route>
 );
 const sample = (
@@ -95,9 +131,14 @@ function App() {
               {vizBuilder}
               {storyBuilder}
               {myStuff}
+              {myStuffCharts}
+              {myStuffMaps}
+              {myStuffStories}
               {login}
               {createAccount}
               {sample}
+              {admin}
+              {settings}
             </Switch>
           </ThemeProvider>
         </ConnectedRouter>

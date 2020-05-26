@@ -4,17 +4,29 @@ import { userReducer } from '../reducer';
 describe('user reducer', () => {
   const noCurrentUser: User = {
     email: '',
-    token: ''
+    token: '',
+    name: '',
+    occupation: '',
+    role: -1,
+    notificationsEnabled: false
   };
 
   const dummyUser: User = {
     email: 'fake.email@hourglassproject.org',
-    token: 'gibberish'
+    token: 'gibberish',
+    name: 'dummy',
+    occupation: '',
+    role: -1,
+    notificationsEnabled: false
   };
 
   const differentDummyUser: User = {
     email: 'different.fake.email@hourglassproject.org',
-    token: 'different_gibberish'
+    token: 'different_gibberish',
+    name: 'dummy1',
+    occupation: '',
+    role: -1,
+    notificationsEnabled: false
   };
 
   it('does nothing when logging out before logging in', () => {
