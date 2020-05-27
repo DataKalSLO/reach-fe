@@ -1,5 +1,6 @@
 import { UNAUTHORIZED_OPERATION_ERROR } from './authenticatedApi/constants';
 
+// TODO: Rename this to signify that user is being alerted
 export async function handleApiOperation<P, R>(
   payload: P,
   operation: (payload: P) => Promise<R>,
