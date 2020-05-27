@@ -1,8 +1,8 @@
 import { Grid, Paper, styled } from '@material-ui/core';
 import React from 'react';
 import { useGraphs } from '../../graphs/components/Accessor';
+import GraphCard from '../../preview-cards/GraphCard';
 import { Gallery } from '../../reach-ui/core';
-import { GalleryPreviewCard } from '../GalleryPreviewCard';
 
 export default function GraphBlock() {
   const graphs = useGraphs();
@@ -12,7 +12,7 @@ export default function GraphBlock() {
       <Gallery>
         {graphs.map((graph, index) => (
           <Grid item key={index} xs={12} sm={4}>
-            <GalleryPreviewCard
+            <GraphCard
               key={index}
               index={index}
               content={graph}
