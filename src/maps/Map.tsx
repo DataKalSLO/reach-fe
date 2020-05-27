@@ -17,13 +17,16 @@ const defaultHeatMapSelection = medianHouseholdIncomeHeatMap;
 const defaultBoundsSelection: BoundSelection = 'Zip Code';
 const defaultColorAssociation: ColorAssociation = {};
 
+// sizing for the box that contains the map
 const BOX_WIDTH = '100%';
 const BOX_HEIGHT = '100%';
 const BOX_MAX_WIDTH = 'calc(100vw/2)';
 
+// sizing for the card background
 const CARD_HEIGHT = '95%';
 const CARD_MARGIN = '15px';
 
+// sizing for the map itself
 const MAP_HEIGHT = '100%';
 const MAP_WIDTH = '97%';
 const MAP_MARGIN_LEFT = '10px';

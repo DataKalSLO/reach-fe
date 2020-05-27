@@ -12,6 +12,8 @@ const TooltipCard = styled(Card)({
   backgroundColor: 'white'
 });
 
+const TOOLTIP_ELEVATION = 3;
+
 interface TooltipProps {
   value: number;
   zipCode: string;
@@ -20,7 +22,7 @@ interface TooltipProps {
 export default function Tooltip(props: TooltipProps) {
   const { value, zipCode } = props;
   return (
-    <TooltipCard elevation={3}>
+    <TooltipCard elevation={TOOLTIP_ELEVATION}>
       <CardContent>
         <TooltipTypography variant="body1">
           {`Value: ${addCommas(value)}`}

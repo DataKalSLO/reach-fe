@@ -12,6 +12,10 @@ import {
   SetSelectedMarker
 } from './types';
 
+// sizing for the markers
+const MARKER_WIDTH = '20px';
+const MARKER_HEIGHT = '30px';
+
 // call Markers on each marker in markerSelection
 export function mapMarkers(
   markerSelection: MarkerSelection[],
@@ -93,10 +97,8 @@ const MarkerButton = styled(Button)({
   border: 'none',
   // More magic numbers to size the marker
   cursor: 'pointer',
-  minWidth: '20px',
-  maxWidth: '20px',
-  minHeight: '30px',
-  maxHeight: '25px',
+  width: MARKER_WIDTH,
+  height: MARKER_HEIGHT,
   textTransform: 'none',
   '&:hover': {
     backgroundColor: 'transparent'

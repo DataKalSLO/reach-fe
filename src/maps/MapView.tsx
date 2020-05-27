@@ -85,6 +85,8 @@ function MapView(props: MapViewProps) {
   const VIEWPORT_FLEX_FLOW = 'row';
   const VIEWPORT_ZOOM = 8;
 
+  const Z_INDEX = 999;
+
   // map outlines
   const outlinesPrepped = prepGeo(mapOutline.features);
   const outlineData = GeoJSON.parse(outlinesPrepped, { GeoJSON: 'geometry' });
@@ -193,7 +195,7 @@ function MapView(props: MapViewProps) {
         style={{
           top,
           left,
-          zIndex: 999,
+          zIndex: Z_INDEX,
           pointerEvents: 'none',
           position: 'absolute'
         }}
