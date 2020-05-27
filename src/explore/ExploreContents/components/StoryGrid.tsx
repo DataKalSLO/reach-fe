@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid, { GridSpacing } from '@material-ui/core/Grid';
-import StoryCard from './StoryCard';
-import { getAllStories } from '../../../api/stories/operations';
+import StoryCard from '../../../common/components/StoryCard';
+import { getAllStoriesAndHandleResponse } from '../../../api/stories/operationHandlers';
 import { Story } from '../../../redux/story/types';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,14 +26,18 @@ export default function StoryGrid() {
   const [stories, setStories] = React.useState([] as Story[]);
 
   useEffect(() => {
-    getAllStories().then(storydata => setStories(storydata));
+    getAllStoriesAndHandleResponse().then(storydata => {
+      if (storydata) {
+        setStories(storydata);
+      }
+    });
   });
 
   const makeStories = () => {
     return stories.map((storyInfo: Story) => {
       return (
         <Grid key={storyInfo.id} item xs={3}>
-          <StoryCard {...storyInfo} />
+          <StoryCard story={storyInfo} />
         </Grid>
       );
     });
