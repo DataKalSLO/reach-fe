@@ -56,9 +56,7 @@ async function toggleBookmarkAndGetStatus(
   contentId: string,
   bookmarkType: ContentType
 ): Promise<boolean> {
-  return toggleBookmark(contentId, bookmarkType)
-    .then(res => res.enabled)
-    .catch(e => false);
+  return toggleBookmark(contentId, bookmarkType).then(res => res.enabled);
 }
 
 async function getBookmarksForType(type: ContentType): Promise<string[]> {
