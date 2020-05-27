@@ -3,6 +3,8 @@ import {
   authenticatedPost
 } from '../authenticatedApi/operations';
 
+import { handleApiOperation } from '../operations';
+
 import {
   BookmarkResponse,
   Bookmark,
@@ -13,8 +15,6 @@ import {
   BookmarkDB
 } from './types';
 
-import { handleApiOperation } from '../operations';
-import { TheatersRounded } from '@material-ui/icons';
 const BOOKMARK_BASE_ENDPOINT = 'bookmark/';
 const TOGGLE_BOOKMARK_SUCCESS = 'Bookmark successfully toggled';
 const TOGGLE_BOOKMARK_FAILURE = 'An error occurred while toggling a bookmark.';
