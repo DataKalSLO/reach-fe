@@ -26,7 +26,7 @@ import {
 const ALLOWED_MARKERS = 2;
 const ALLOWED_BOTH = 2;
 
-// sizing for autocomplete
+// sizing for autocomplete which controls layers selection
 const AUTOCOMPLETE_MIN_HEIGHT = '55px';
 const AUTOCOMPLETE_MIN_WIDTH = '75px';
 

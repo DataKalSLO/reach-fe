@@ -85,7 +85,7 @@ function MapView(props: MapViewProps) {
   const VIEWPORT_FLEX_FLOW = 'row';
   const VIEWPORT_ZOOM = 8;
 
-  const Z_INDEX = 999;
+  const Z_INDEX = 1;
 
   // map outlines
   const outlinesPrepped = prepGeo(mapOutline.features);
