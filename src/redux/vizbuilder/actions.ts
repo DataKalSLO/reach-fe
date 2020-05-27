@@ -1,54 +1,33 @@
 import { Dispatch } from 'redux';
-import { FETCH_ALL_METADATA, FETCH_ENTIRE_DATASET } from './constants';
-import {
-  Metadata,
-  PayloadDataset,
-  FetchMetadataAction,
-  FetchDatasetAction
-} from './types';
-import { fetchAllMetaData, fetchEntireDataset } from '../../api/vizbuilder';
+import { getDatasetMetaDataAndHandleResponse } from '../../api/vizbuilder/operationHandlers';
+import { GET_ALL_METADATA } from './constants';
+import { GetAllMetadataAction, Metadata } from './types';
 
 /*
- * Every Asynchoronous Action has three parts.
+ * Every Asynchronous Action has three parts.
  *   1. A function that encapsulates an entire action. It's
  *      called by a component and it dispatches the response
- *      returned from an API call. (e.g. fetchAllMetadataAction)
+ *      returned from an API call. (e.g. getAllMetadata)
  *   2. A function that handles the API call and returns the
- *      response. (e.g. fetchAllMetaData)
- *      - See ../../api/vizbuilder for their implementations.
+ *      response. (e.g. getDatasetMetaDataAndHandleResponse)
+ *      - See ../../api/vizbuilder/ for their implementations.
  *   3. A function that returns the object that is dispatched
  *      to the reducer. The object contains the type and payload.
- *      (e.g. metadataAction)
+ *      (e.g. getAllMetadataAction)
  */
 
-export function fetchAllMetadataAction() {
+export function getAllMetadata() {
   return async (dispatch: Dispatch) => {
-    const payload = await fetchAllMetaData();
-    dispatch(metadataAction(payload));
+    const payload = await getDatasetMetaDataAndHandleResponse();
+    dispatch(getAllMetadataAction(payload));
   };
 }
 
-export function metadataAction(payload: Metadata[]): FetchMetadataAction {
+export function getAllMetadataAction(
+  payload: Metadata[] | undefined
+): GetAllMetadataAction {
   return {
-    type: FETCH_ALL_METADATA,
-    payload: payload
-  };
-}
-
-export function fetchEntireDatasetAction(datasetName: string) {
-  return async (dispatch: Dispatch) => {
-    const payload = await fetchEntireDataset(datasetName);
-    dispatch(datasetAction(datasetName, payload));
-  };
-}
-
-export function datasetAction(
-  datasetName: string,
-  payload: PayloadDataset
-): FetchDatasetAction {
-  return {
-    type: FETCH_ENTIRE_DATASET,
-    datasetName: datasetName,
+    type: GET_ALL_METADATA,
     payload: payload
   };
 }

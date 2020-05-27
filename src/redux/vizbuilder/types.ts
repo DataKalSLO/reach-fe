@@ -1,36 +1,37 @@
-import { FETCH_ENTIRE_DATASET, FETCH_ALL_METADATA } from './constants';
+import { GET_ALL_METADATA } from './constants';
 
 /*
- * The following type aliases/interfaces are used to create a generic
- * dataset object. A PayloadDataset is retrieved from an API call, only
- * containing the raw values of each row. A Dataset is a properly formatted
- * dataset containing the name of the dataset and a list of columns; each
- * column has a name and a list of values. The metadata retrieved from an
- * API call will contain the metadata for every dataset (a list of Metadata).
- * - See ./utilities/convertToDataset for more information on how the
- *   dataset conversion works.
+ * The following type aliases/interfaces correspond to the datasets
+ * metadata retrieved the backend.
  */
-
-export type DataValue = string | number;
+export type DataValue = string | number | Date;
 
 export interface Metadata {
   tableName: string;
   columnNames: string[];
-  columnTypes: string[];
+  dataTypes: string[];
+  geoType?: GeoTypes;
 }
 
-export interface PayloadDataset {
+export interface GeoLocation {
+  name: string;
+  pointId: number;
+}
+
+export enum GeoTypesEnum {
+  area = 'area',
+  location = 'location'
+}
+
+export type GeoTypes = keyof typeof GeoTypesEnum;
+
+export interface DataColumnsApiPayload {
+  datasetName: string;
+  columnNames: string[];
+}
+
+export interface DataColumns {
   data: DataValue[][];
-}
-
-export interface Column {
-  name: string;
-  values: DataValue[];
-}
-
-export interface Dataset {
-  name: string;
-  columns: Column[];
 }
 
 /*
@@ -40,7 +41,6 @@ export interface Dataset {
 
 export interface VizState {
   metadataForAllDatasets: Metadata[];
-  dataset: Dataset;
 }
 
 /*
@@ -49,15 +49,9 @@ export interface VizState {
  * every action.
  */
 
-export interface FetchMetadataAction {
-  type: typeof FETCH_ALL_METADATA;
-  payload: Metadata[];
+export interface GetAllMetadataAction {
+  type: typeof GET_ALL_METADATA;
+  payload: Metadata[] | undefined;
 }
 
-export interface FetchDatasetAction {
-  type: typeof FETCH_ENTIRE_DATASET;
-  datasetName: string;
-  payload: PayloadDataset;
-}
-
-export type VizActionTypes = FetchMetadataAction | FetchDatasetAction;
+export type VizActionTypes = GetAllMetadataAction;

@@ -1,71 +1,122 @@
-import React, { useState, useEffect } from 'react';
-import FileUpload from '../common/components/FileUpload';
+import React, { useState, useEffect, useCallback } from 'react';
 import CSVTemplate from '../admin/CSVTemplate';
 import { Paper, Typography, Box, styled } from '@material-ui/core';
 import { csv } from 'd3';
-import { IDropzoneProps } from 'react-dropzone-uploader';
+import CSVReader from 'react-csv-reader';
+import { convertCsvToJson } from '../common/util/csvToJson';
+import { upload } from '../api/upload';
+import Button from '../common/components/Button';
 
 function Admin() {
-  const [csvData, setCsvData]: any = useState([]);
+  const [csvAirportData, setCsvAirportData]: any = useState([]);
+  const [csvCommuteData, setCsvCommuteData]: any = useState([]);
+  const [csvCovidData, setCsvCovidData]: any = useState([]);
+  const [csvIncomeData, setCsvIncomeData]: any = useState([]);
+  const [csvWagesData, setCsvWagesData]: any = useState([]);
+  const [csvMigrationData, setCsvMigrationData]: any = useState([]);
+  const [csvSloAirportsData, setCsvSloAirportsData]: any = useState([]);
+  const [csvUniversityData, setCsvUniversityData]: any = useState([]);
+  const [csvWaterData, setCsvWaterData]: any = useState([]);
+  const [jsonData, setJsonData] = useState({});
+  const [uploadDisabled, setUploadDisabled] = useState(true);
+
   useEffect(() => {
-    csv('./Sample.csv').then(data => setCsvData(data));
-  });
+    Promise.all([
+      csv('./Airports.csv'),
+      csv('./CommuteTimes.csv'),
+      csv('./CovidUnemployment.csv'),
+      csv('./IncomeInequalitySlo.csv'),
+      csv('./MeanRealWages.csv'),
+      csv('./NetMigration.csv'),
+      csv('./SloAirports.csv'),
+      csv('./UniversityInfo.csv'),
+      csv('./WaterSources.csv')
+    ]).then(function(data) {
+      setCsvAirportData(data[0]);
+      setCsvCommuteData(data[1]);
+      setCsvCovidData(data[2]);
+      setCsvIncomeData(data[3]);
+      setCsvWagesData(data[4]);
+      setCsvMigrationData(data[5]);
+      setCsvSloAirportsData(data[6]);
+      setCsvUniversityData(data[7]);
+      setCsvWaterData(data[8]);
+    });
+  }, [setCsvAirportData, setCsvCommuteData, setCsvCovidData]);
 
-  //currently removes files, will be changed later
-  const handleSubmit: IDropzoneProps['onSubmit'] = (files, allFiles) => {
-    console.log(files.map(f => f.meta));
-    allFiles.forEach(f => f.remove());
-  };
+  const setJsonFromCsv = useCallback(
+    (data: Array<any>) => {
+      const jsonObj = convertCsvToJson(data);
+      setJsonData(jsonObj);
+      setUploadDisabled(false);
+    },
+    [setJsonData, setUploadDisabled]
+  );
 
-  const handleChangeStatus: IDropzoneProps['onChangeStatus'] = (
-    { meta },
-    status
-  ) => {
-    console.log(status, meta);
-  };
+  const uploadData = useCallback(() => {
+    upload(jsonData);
+  }, [jsonData]);
 
   return (
     <React.Fragment>
-      <UploadBox>
+      <UploadPaper variant="outlined">
         <Typography variant="h5">Upload Your Data</Typography>
-        <FileUpload
-          handleChangeStatus={handleChangeStatus}
-          handleSubmit={handleSubmit}
-          accept=".csv"
-        />
-      </UploadBox>
+        <UploadBox>
+          <CSVReader cssClass="react-csv-input" onFileLoaded={setJsonFromCsv} />
+          <Button
+            label="Upload Data"
+            onClick={uploadData}
+            disabled={uploadDisabled}
+          />
+        </UploadBox>
+      </UploadPaper>
       <DownloadPaper variant="outlined">
         <Typography variant="h5">Download Your CSV Templates</Typography>
         <Box>
           <CSVTemplate
-            templateName="Universities.csv"
-            csvData={csvData}
-            filename="Sample"
+            templateName="Airports.csv"
+            csvData={csvAirportData}
+            filename="Airports"
           />
           <CSVTemplate
-            templateName="Population.csv"
-            csvData={csvData}
-            filename="Sample"
+            templateName="CommuteTimes.csv"
+            csvData={csvCommuteData}
+            filename="CommuteTimes"
           />
           <CSVTemplate
-            templateName="COVID.csv"
-            csvData={csvData}
-            filename="Sample"
+            templateName="CovidUnemployment.csv"
+            csvData={csvCovidData}
+            filename="CovidUnemployment"
           />
           <CSVTemplate
-            templateName="Restaurants.csv"
-            csvData={csvData}
-            filename="Sample"
+            templateName="IncomeInequalitySlo.csv"
+            csvData={csvIncomeData}
+            filename="IncomeInequalitySlo"
           />
           <CSVTemplate
-            templateName="Housing.csv"
-            csvData={csvData}
-            filename="Sample"
+            templateName="MeanRealWages.csv"
+            csvData={csvWagesData}
+            filename="MeanRealWages"
           />
           <CSVTemplate
-            templateName="ElementarySchools.csv"
-            csvData={csvData}
-            filename="Sample"
+            templateName="NetMigration.csv"
+            csvData={csvMigrationData}
+            filename="NetMigration"
+          />
+          <CSVTemplate
+            templateName="SLOAirports.csv"
+            csvData={csvSloAirportsData}
+            filename="SLOAirports"
+          />
+          <CSVTemplate
+            templateName="UniversityInfo.csv"
+            csvData={csvUniversityData}
+            filename="UniversityInfo"
+          />
+          <CSVTemplate
+            templateName="WaterSources.csv"
+            csvData={csvWaterData}
+            filename="WaterSources"
           />
         </Box>
       </DownloadPaper>
@@ -73,11 +124,20 @@ function Admin() {
   );
 }
 
-const UploadBox = styled(Box)({
+const UploadPaper = styled(Paper)({
   marginLeft: '300px',
   marginRight: '300px',
   marginTop: '100px'
 });
+
+const UploadBox = styled(Box)({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyItems: 'center',
+  justifyContent: 'space-between'
+});
+
 const DownloadPaper = styled(Paper)({
   marginLeft: '300px',
   marginRight: '300px',

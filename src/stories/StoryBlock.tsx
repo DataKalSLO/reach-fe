@@ -1,3 +1,4 @@
+import { Box, styled } from '@material-ui/core';
 import { EditorState } from 'draft-js';
 import React from 'react';
 import { Dispatch } from 'redux';
@@ -9,10 +10,9 @@ import {
   TextBlockType,
   TEXT_BLOCK_TYPE
 } from '../redux/story/types';
-import GraphBlock from './GraphBlock';
-import RichTextEditor from './RichTextEditor';
+import GraphBlock from './graph-block/GraphBlock';
 import StoryBlockDeleteButton from './StoryBlockDeleteButton';
-import { Box, styled } from '@material-ui/core';
+import RichTextEditor from './text-block/RichTextEditor';
 
 interface StoryBlockProps {
   block: StoryBlockType;
