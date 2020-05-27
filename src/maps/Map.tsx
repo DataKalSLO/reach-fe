@@ -8,14 +8,6 @@ import Layers from './Layers';
 import { BoundSelection, ColorAssociation } from './types.js';
 import MapView from './MapView';
 import Legend from './Legend';
-import {
-  SCROLL_SNAP_TYPE,
-  SCROLLBAR_WIDTH,
-  SCROLLBAR_WEBKIT_BOX_SHADOW,
-  WEBKIT_BORDER_RADIUS,
-  WEBKIT_BACKGROUND_COLOR,
-  WEBKIT_OUTLINE
-} from '../theme/theme.js';
 
 // TODO: save to stories
 // TODO: use redux store instead of state
@@ -35,7 +27,6 @@ const CARD_MARGIN = '15px';
 const MAP_HEIGHT = '100%';
 const MAP_WIDTH = '97%';
 const MAP_MARGIN_LEFT = '10px';
-const MAP_OVERFLOW = 'scroll';
 
 function Map() {
   const [markerSelection, setMarkerSelection] = useState([
@@ -101,20 +92,7 @@ const StyledMapContainer = styled(Box)({
   height: MAP_HEIGHT,
   width: MAP_WIDTH,
   marginLeft: MAP_MARGIN_LEFT,
-  overflow: MAP_OVERFLOW,
-  scrollSnapType: SCROLL_SNAP_TYPE,
-  '&::-webkit-scrollbar': {
-    width: SCROLLBAR_WIDTH
-  },
-  '&::-webkit-scrollbar-track': {
-    boxShadow: SCROLLBAR_WEBKIT_BOX_SHADOW,
-    webkitBoxShadow: SCROLLBAR_WEBKIT_BOX_SHADOW
-  },
-  '&::-webkit-scrollbar-thumb': {
-    borderRadius: WEBKIT_BORDER_RADIUS,
-    backgroundColor: WEBKIT_BACKGROUND_COLOR,
-    outline: WEBKIT_OUTLINE
-  }
+  overflow: 'scroll'
 });
 
 export default Map;
