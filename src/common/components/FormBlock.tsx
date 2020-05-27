@@ -1,9 +1,9 @@
 import { FormLabel, Grid, styled } from '@material-ui/core';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { isUndefined } from 'util';
 
 interface Props {
-  children: JSX.Element[] | JSX.Element;
+  children: ReactNode;
   label?: string;
   // This extra parameter is necessary to allow other props to be passed through
   innerBlockProps?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
