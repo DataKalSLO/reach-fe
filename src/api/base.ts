@@ -2,13 +2,19 @@ import { Dispatch } from 'redux';
 
 const baseURL = process.env.REACT_APP_API_URL;
 
+// TEMPORARY: will access ES index from backend in future, for now accessing ES directly from client
+const searchURL = process.env.REACT_APP_SEARCH_URL;
+
 async function tryFetch(url: string, request: RequestInit) {
   const response = await fetch(url, request);
-  const body = await response.json();
+  const responseText = await response.text();
+  const body = responseText === '' ? {} : JSON.parse(responseText);
   if (response.ok) {
     return body || {};
-  } else {
+  } else if (response.status === 400) {
     throw errorTranslate(body.tag, navigator.language);
+  } else {
+    throw response.status;
   }
 }
 
@@ -38,6 +44,18 @@ export function post(endpoint: string, body: object, token?: string) {
     method: 'POST',
     body: JSON.stringify(body),
     ...config
+  });
+}
+
+// TEMPORARY: will access ES index from backend in future, for now accessing ES directly from client
+export function esPost(endpoint: string, body: object) {
+  return tryFetch(searchURL + endpoint, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
   });
 }
 
@@ -96,6 +114,7 @@ const errMap: errMapType = {
     noOldPwd: 'Change of password requires an old password',
     oldPwdMismatch: 'Old password that was provided is incorrect.',
     forbiddenField: 'Field in body not allowed.',
-    queryFailed: 'Query failed (server problem).'
+    queryFailed: 'Query failed (server problem).',
+    notOwner: 'Authenticated user is not owner of content item.'
   }
 };

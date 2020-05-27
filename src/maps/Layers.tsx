@@ -33,6 +33,8 @@ const ALLOWED_BOTH = 2;
 // all of the local data we have available
 // TODO: pull this from backend! need distinct split between marker & heat map
 const heatMapData = [medianHouseholdIncomeHeatMap, kitchenFaciltiesHeatMap];
+// TODO: fix type errors here, can't figure out what it expects
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const allData = flatten([markerData as any, heatMapData]);
 
 // this is how we show everything in options (disable none)
@@ -76,12 +78,12 @@ export function handleChange(
 // handles disabling options, only two markers or one marker & one heat map allowed
 export function handleDisable(
   // TODO: fix type errors here, I am unable to use the MarkerOrHeatMap type
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   allData: any[],
   markerSelection: MarkerSelection[],
   heatMapSelection: HeatMapSelection | {},
   // TODO: fix type errors here, I am unable to use the MarkerOrHeatMap type
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   option: any
 ) {
   // disable all options if max number of markers are already selected
@@ -116,6 +118,7 @@ export default function Layers(props: LayersProps) {
     <StyledBox>
       <Autocomplete
         multiple
+        disableListWrap
         id="tags-outlined"
         options={allData}
         // TODO: make sure this handles data not existing once we are pulling from DB
@@ -124,6 +127,12 @@ export default function Layers(props: LayersProps) {
         getOptionDisabled={option =>
           handleDisable(allData, markerSelection, heatMapSelection, option)
         }
+        // adjust autocomplete size here, some magic numbers
+        style={{
+          minWidth: '75px',
+          marginTop: theme.spacing(1),
+          minHeight: '55px'
+        }}
         getOptionLabel={option => option.name}
         filterSelectedOptions
         // informs the layerSelection variable with the user's selection
@@ -147,6 +156,7 @@ export default function Layers(props: LayersProps) {
 const StyledBox = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
+  minWidth: '75%',
   alignItems: 'left',
   '& > *': {
     margin: theme.spacing(1)

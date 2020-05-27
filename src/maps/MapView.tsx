@@ -22,16 +22,19 @@ import {
   onHover,
   position,
   prepGeo,
-  quantileMaker
+  quantileMaker,
+  tooltipOverlapsMarkers,
+  cursorWithinBounds
 } from './MapViewHelpers';
 import Tooltip from './Tooltip';
+import { Grid } from '@material-ui/core';
 import {
-  ColorAssociation,
-  HeatMapSelection,
-  LocationFeatures,
   MarkerSelection,
+  HeatMapSelection,
+  SelectedMarker,
+  ColorAssociation,
   PrepGeoObject,
-  SelectedMarker
+  LocationFeatures
 } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -74,12 +77,18 @@ function MapView(props: MapViewProps) {
   const prepped = prepGeo(heatMapFeatures);
   const data = GeoJSON.parse(prepped, { GeoJSON: 'geometry' });
 
+  const VIEWPORT_WIDTH = '100%';
+  const VIEWPORT_HEIGHT = '45vh';
+  const VIEWPORT_DISPLAY = 'flex';
+  const VIEWPORT_FLEX_FLOW = 'row';
+  const VIEWPORT_ZOOM = 8;
+
   // map outlines
   const outlinesPrepped = prepGeo(mapOutline.features);
   const outlineData = GeoJSON.parse(outlinesPrepped, { GeoJSON: 'geometry' });
 
   // React-Map-GL State
-  const [dims, setDims] = React.useState({ height: 0, width: 0 });
+  const [dims, setDims] = React.useState(new DOMRect(0, 0, 0, 0));
   const [layer, setLayer] = React.useState({
     id: 'data',
     type: 'fill',
@@ -97,6 +106,7 @@ function MapView(props: MapViewProps) {
   });
 
   // Tooltip State
+  const [opacity, setOpacity] = React.useState(0);
   const [hoveredLocation, setHoveredLocation] = React.useState({
     properties: {
       [valueKey]: '1',
@@ -114,13 +124,37 @@ function MapView(props: MapViewProps) {
   }, [markerSelection]);
 
   // TODO: going to solve "any" errors at a later time
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [viewport, setViewport]: any = React.useState({
-    width: '90%',
-    height: '60vh',
+    width: VIEWPORT_WIDTH,
+    height: VIEWPORT_HEIGHT,
+    display: VIEWPORT_DISPLAY,
+    flexFlow: VIEWPORT_FLEX_FLOW,
     latitude: SLO_LATITUDE,
     longitude: SLO_LONGITUDE,
-    zoom: 8
+    zoom: VIEWPORT_ZOOM
+  });
+
+  const handleMouseMove = (event: MouseEvent) => {
+    const map = document.getElementById('map');
+    if (
+      !map ||
+      (!cursorWithinBounds(
+        event.pageX,
+        event.pageY,
+        map.getBoundingClientRect()
+      ) &&
+        opacity !== 0)
+    ) {
+      setOpacity(0);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
   });
 
   useEffect(() => {
@@ -150,24 +184,28 @@ function MapView(props: MapViewProps) {
   }, [heatMapFeatures, valueKey]);
 
   const renderTooltip = () => {
-    if (hoveredLocation.noLocation) {
-      return;
-    }
-    const zipsValue = hoveredLocation.properties[valueKey];
-    const zipCode = hoveredLocation.properties[ZIP_TABULATION];
-
     const map = document.getElementById('map');
     if (!map) {
       return;
     }
+
     const bounds = map.getBoundingClientRect();
+    const properOpacity =
+      hoveredLocation.noLocation || tooltipOverlapsMarkers(dims) ? 0 : 1;
+    if (opacity !== properOpacity) {
+      setOpacity(properOpacity);
+    }
     const left = position(bounds.left, bounds.right, dims.width, x.current);
     const top = position(bounds.top, bounds.bottom, dims.height, y.current);
+
+    const zipsValue = hoveredLocation.properties[valueKey];
+    const zipCode = hoveredLocation.properties[ZIP_TABULATION];
 
     return (
       <div
         id="map-tooltip"
         style={{
+          opacity,
           top,
           left,
           zIndex: 999,
@@ -182,7 +220,7 @@ function MapView(props: MapViewProps) {
 
   if (Object.keys(data).length > 0) {
     return (
-      <div id="map">
+      <Grid container id="map">
         <ReactMapGL
           mapboxApiAccessToken={process.env.REACT_APP_TOKEN}
           {...viewport}
@@ -212,7 +250,7 @@ function MapView(props: MapViewProps) {
             return Popups(selected, selectedMarker, dispatch);
           })}
         </ReactMapGL>
-      </div>
+      </Grid>
     );
   } else {
     return (
@@ -222,6 +260,7 @@ function MapView(props: MapViewProps) {
           height: viewport.height,
           backgroundColor: 'grey',
           display: 'flex',
+          flexFlow: 'row',
           alignItems: 'center',
           justifyContent: 'center'
         }}

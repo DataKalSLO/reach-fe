@@ -1,7 +1,7 @@
 import { arrayMove } from 'react-sortable-hoc';
 import { uuid } from 'uuidv4';
 import { removeObjectAtIndex } from '../../common/util/arrayTools';
-import { emptyEditorState } from '../../stories/RichTextEditor';
+import { emptyEditorState } from '../../stories/text-block/RichTextEditor';
 import {
   CREATE_EMPTY_TEXT_BLOCK,
   CREATE_GRAPH_BLOCK,
@@ -15,7 +15,9 @@ import {
   UpdateBlockType,
   UPDATE_DESCRIPTION,
   UPDATE_TEXT_BLOCK,
-  UPDATE_TITLE
+  UPDATE_TITLE,
+  PublicationStatus,
+  UPDATE_PUBLICATION_STATUS
 } from './types';
 
 export const emptyTextBlock = (): TextBlockType => ({
@@ -24,11 +26,13 @@ export const emptyTextBlock = (): TextBlockType => ({
   type: TEXT_BLOCK_TYPE
 });
 
-const initialStory: Story = {
+//TODO: Turn this into a function. Currently will stay same for every new story created in the same session.
+export const initialStory: Story = {
   id: uuid(),
-  userID: 'USER-ID', // TODO: replace placeholder value
+  userID: '',
   title: '',
   description: '',
+  publicationStatus: PublicationStatus.DRAFT,
   storyBlocks: [emptyTextBlock()] as Array<StoryBlockType>
 };
 
@@ -85,6 +89,11 @@ export function storyReducer(state = initialStory, action: StoryActionType) {
       return {
         ...state,
         description: action.payload.newDescription
+      };
+    case UPDATE_PUBLICATION_STATUS:
+      return {
+        ...state,
+        publicationStatus: action.payload.newPublicationStatus
       };
     case UPDATE_TEXT_BLOCK:
       return {

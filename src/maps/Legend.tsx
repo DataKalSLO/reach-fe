@@ -150,11 +150,10 @@ export default function Legend(props: LegendProps) {
 
 const StyledBox = styled(Box)({
   root: {
-    display: 'flex',
     justifyContent: 'left',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    padding: theme.spacing(0.5)
+    padding: theme.spacing(1)
   }
 });
 
@@ -165,8 +164,8 @@ const StyledCard = styled(Card)({
 });
 
 const StyledCardContent = styled(CardContent)({
-  padding: theme.spacing(0.5),
+  padding: theme.spacing(1),
   '&:last-child': {
-    paddingBottom: theme.spacing(0.5)
+    paddingBottom: theme.spacing(1)
   }
 });

@@ -1,8 +1,9 @@
-import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import exporting from 'highcharts/modules/exporting';
+import React from 'react';
 import * as prebuilt from './prebuilt-options';
+
 exporting(Highcharts);
 
 /*
@@ -211,6 +212,60 @@ export function HealthCareFacityBedOptions() {
     <HighchartsReact
       highcharts={Highcharts}
       options={prebuilt.HealthCareFacityBedGraphOptions}
+    />
+  );
+}
+
+// Covid-19 health care facity bed capacity
+
+export function SBCovidCasesOptions() {
+  return (
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={prebuilt.HealthCareFacityBedGraphOptions}
+    />
+  );
+}
+
+// Covid-19 health  cases by status SB
+
+export function SBCovidCasesByStatusOptions() {
+  return (
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={prebuilt.SBCovidCasesByStatusGraphOptions}
+    />
+  );
+}
+
+// Covid-19 health  cases by city or town SB
+
+export function SBCovidCasesBycityOptions() {
+  return (
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={prebuilt.SBCovidCasesBycityGraphOptions}
+    />
+  );
+}
+// Covid-19 health  cases by Age SB
+
+export function SBCovidCasesByAgeOptions() {
+  return (
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={prebuilt.SBCovidCasesByAgeGraphOptions}
+    />
+  );
+}
+
+// Covid-19 health care facity bed capacity for SB
+
+export function SBHealthCareFacityBedOptions() {
+  return (
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={prebuilt.SBHealthCareFacityBedGraphOptions}
     />
   );
 }
