@@ -1,31 +1,33 @@
 import {
+  BookmarkResponse,
   BookmarkType,
+  ContentType,
   GeoMapBookmark,
   GraphBookmark,
-  StoryBookmark,
-  BookmarkResponse,
-  ContentType
+  StoryBookmark
 } from './types';
 
 import {
-  authenticatedPost,
-  authenticatedGet
+  authenticatedGet,
+  authenticatedPost
 } from '../authenticatedApi/operations';
 
+const BOOKMARK_BASE_ENDPOINT = 'bookmark/';
+
 /*
- * Toggling Bookmarks - Return true is content is bookmarked, false otherwise
+ * Toggling Bookmarks - Return true if content is bookmarked, false otherwise
  */
 
 export async function toggleGeoMapBookmark(geoMapId: string): Promise<boolean> {
-  return getBookmarkToggleStatus(geoMapId, ContentType.GEOMAP);
+  return toggleBookmarkAndGetStatus(geoMapId, ContentType.GEOMAP);
 }
 
 export async function toggleGraphBookmark(graphId: string): Promise<boolean> {
-  return getBookmarkToggleStatus(graphId, ContentType.GRAPH);
+  return toggleBookmarkAndGetStatus(graphId, ContentType.GRAPH);
 }
 
 export async function toggleStoryBookmark(storyId: string): Promise<boolean> {
-  return getBookmarkToggleStatus(storyId, ContentType.STORY);
+  return toggleBookmarkAndGetStatus(storyId, ContentType.STORY);
 }
 
 /*
@@ -33,15 +35,15 @@ export async function toggleStoryBookmark(storyId: string): Promise<boolean> {
  */
 
 export async function getGeoMapBookmarks(): Promise<string[]> {
-  return requestBookmarkRetrieval(ContentType.GEOMAP);
+  return getBookmarksForType(ContentType.GEOMAP);
 }
 
 export async function getGraphBookmarks(): Promise<string[]> {
-  return requestBookmarkRetrieval(ContentType.GRAPH);
+  return getBookmarksForType(ContentType.GRAPH);
 }
 
 export async function getStoryBookmarks(): Promise<string[]> {
-  return requestBookmarkRetrieval(ContentType.STORY);
+  return getBookmarksForType(ContentType.STORY);
 }
 
 /*
@@ -50,29 +52,32 @@ export async function getStoryBookmarks(): Promise<string[]> {
  * api/bookmark/[ContentType] (e.g api/bookmark/story)
  */
 
-async function getBookmarkToggleStatus(
+async function toggleBookmarkAndGetStatus(
   contentId: string,
   bookmarkType: ContentType
 ): Promise<boolean> {
-  return requestBookmarkToggle(contentId, bookmarkType)
+  return toggleBookmark(contentId, bookmarkType)
     .then(res => res.enabled)
     .catch(e => false);
 }
 
-async function requestBookmarkRetrieval(type: ContentType): Promise<string[]> {
+async function getBookmarksForType(type: ContentType): Promise<string[]> {
   const endpointLocation: string = ContentType[type].toLowerCase();
-  return authenticatedGet('bookmark/' + endpointLocation) as Promise<string[]>;
+  return authenticatedGet(BOOKMARK_BASE_ENDPOINT + endpointLocation) as Promise<
+    string[]
+  >;
 }
 
-async function requestBookmarkToggle(
+async function toggleBookmark(
   contentId: string,
   bookmarkType: ContentType
 ): Promise<BookmarkResponse> {
   const bookmark: BookmarkType = createBookmark(contentId, bookmarkType);
   const endpointLocation: string = ContentType[bookmarkType].toLowerCase();
-  return authenticatedPost('bookmark/' + endpointLocation, bookmark) as Promise<
-    BookmarkResponse
-  >;
+  return authenticatedPost(
+    BOOKMARK_BASE_ENDPOINT + endpointLocation,
+    bookmark
+  ) as Promise<BookmarkResponse>;
 }
 
 function createBookmark(id: string, type: ContentType): BookmarkType {
