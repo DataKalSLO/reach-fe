@@ -1,16 +1,20 @@
-export interface GeoMapBookmark {
+export interface Bookmark {
+  id: string;
+  type: ContentType;
+}
+export interface GeoMapBookmarkDb {
   geoMapId: string;
 }
 
-export interface GraphBookmark {
+export interface GraphBookmarkDb {
   graphId: string;
 }
 
-export interface StoryBookmark {
+export interface StoryBookmarkDb {
   storyId: string;
 }
 
-export type BookmarkType = GeoMapBookmark | GraphBookmark | StoryBookmark;
+export type BookmarkDB = StoryBookmarkDb | GraphBookmarkDb | GeoMapBookmarkDb;
 
 export interface BookmarkResponse {
   enabled: boolean;
