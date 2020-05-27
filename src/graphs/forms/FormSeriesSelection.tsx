@@ -32,13 +32,15 @@ export function FormSeriesSelection(props: Props) {
                   props.handleChange(index, e.target.value)
                 }
               />
-              <IconButton
-                size="small"
-                color="default"
-                aria-label="Delete"
-                icon={<Delete color="error" />}
-                onClick={() => props.handleDelete(index)}
-              />
+              {props.selectedColumnNames.length > 1 && (
+                <IconButton
+                  size="small"
+                  color="default"
+                  aria-label="Delete"
+                  icon={<Delete color="error" />}
+                  onClick={() => props.handleDelete(index)}
+                />
+              )}
             </FormBlock>
           );
         })}

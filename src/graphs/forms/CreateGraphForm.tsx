@@ -1,19 +1,7 @@
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Step from '@material-ui/core/Step';
-import StepContent from '@material-ui/core/StepContent';
-import StepLabel from '@material-ui/core/StepLabel';
-import Stepper from '@material-ui/core/Stepper';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import React, { useState } from 'react';
 import { Graph } from '../../redux/graphbuilder/types';
-import { StyledBox } from '../../stories/text-block/RichTextEditor';
-import AddCategoryType from './AddCategorytype';
-import DataForm from './DataForm';
 import { emptyGraph } from './EmptyGraph';
-import FormattingForm from './FormattingForm';
-import { FormStep } from './FormStep';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -72,6 +60,8 @@ export default function FormCreate() {
   };
 
   return (
+    <div>hello</div>
+    /*
     <StyledBox>
       <div className={classes.root}>
         <Stepper activeStep={activeStep} orientation="vertical">
@@ -134,5 +124,6 @@ export default function FormCreate() {
         )}
       </div>
     </StyledBox>
+        */
   );
 }

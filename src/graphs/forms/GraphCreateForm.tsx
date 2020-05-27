@@ -1,44 +1,64 @@
-import {
-  Box,
-  Paper,
-  Stepper,
-  Typography,
-  Step,
-  StepLabel,
-  StepContent,
-  Card,
-  styled
-} from '@material-ui/core';
+import { Card, Paper, styled, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
-import { Graph } from '../../redux/graphbuilder/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { createGraph, saveGraph } from '../../redux/graphbuilder/actions';
+import { Graph, GraphMetaData } from '../../redux/graphbuilder/types';
+import { getVizbuilder } from '../../redux/vizbuilder/selector';
+import { SeriesConfiguration } from '../builder/types';
 import {
+  createFooterLabels,
   DATA_STEP_LABEL,
   FINISH_STEP_LABEL,
-  FORMAT_STEP_LABEL
+  FORMAT_STEP_LABEL,
+  stepFooterLabels,
+  steps
 } from './constants';
+import { CreateFormFooter } from './CreateFormFooter';
+import { DataForm } from './DataForm';
 import { emptyGraph } from './EmptyGraph';
-import Button from '../../common/components/Button';
-import { FormStep } from './FormStep';
-import DataForm from './DataForm';
 import FormattingForm from './FormattingForm';
-import { useDispatch } from 'react-redux';
-import { saveGraph, createGraph } from '../../redux/graphbuilder/actions';
+import { FormStepper } from './FormStepper';
+import { GraphDataFormState } from './types';
+import {
+  convertDataSourcesToFormDataState,
+  convertFormDataStateToDataSources
+} from './utilities';
 
 export function GraphCreateForm() {
   const dispatch = useDispatch();
+  const vizState = useSelector(getVizbuilder);
   const [activeStep, setActiveStep] = useState(0);
-  const [graphState, setGraphState] = useState(emptyGraph);
+  const [graph, setGraph] = useState(emptyGraph);
+  const [graphState, setGraphState] = useState<GraphMetaData>({
+    ...graph.graphMetaData
+  });
+  const [seriesState, setSeriesState] = useState<SeriesConfiguration[]>([
+    ...graph.graphMetaData.graphOptions.seriesConfigs
+  ]);
 
-  const handleFormCancel = (index: number) => {
-    return setGraphState(emptyGraph);
-  };
+  const [dataState, setDataState] = useState<GraphDataFormState>(
+    convertDataSourcesToFormDataState(graph.graphMetaData.dataSources)
+  );
 
-  const handleFormUpdate = (graph: Graph) => {
-    setGraphState(graph);
+  const FormattingFormHandleUpdate = () => {
+    setGraph({ ...graph, graphMetaData: { ...graphState } });
     setActiveStep(activeStep + 1);
   };
 
-  const handleNext = () => {
+  const DataFormHandleUpdate = () => {
+    const newGraph: Graph = {
+      ...graph,
+      graphMetaData: {
+        ...graph.graphMetaData,
+        dataSources: convertFormDataStateToDataSources(dataState),
+        graphOptions: {
+          ...graph.graphMetaData.graphOptions,
+          seriesConfigs: [...seriesState]
+        }
+      }
+    };
+    setGraph(newGraph);
+    setGraphState({ ...newGraph.graphMetaData });
     setActiveStep(activeStep + 1);
   };
 
@@ -51,52 +71,52 @@ export function GraphCreateForm() {
       saveGraph({
         graphId: null,
         graphCategory: null,
-        graphTitle: graphState.graphMetaData.graphTitle,
-        dataSources: graphState.graphMetaData.dataSources,
-        graphOptions: graphState.graphMetaData.graphOptions,
+        graphTitle: graph.graphMetaData.graphTitle,
+        dataSources: graph.graphMetaData.dataSources,
+        graphOptions: graph.graphMetaData.graphOptions,
         graphSVG: ''
       })
     );
     dispatch(createGraph());
   };
 
-  const steps = [DATA_STEP_LABEL, FORMAT_STEP_LABEL];
-
   return (
     <Card variant="outlined">
-      <Stepper activeStep={activeStep} orientation="vertical">
-        {steps.map((step, index) => {
-          return (
-            <Step key={index}>
-              <StepLabel>{step}</StepLabel>
-              <StepContent>
-                <FormStep step={activeStep}>
-                  <DataForm
-                    graph={graphState}
-                    index={0}
-                    handleCancel={handleFormCancel}
-                    handleUpdate={handleFormUpdate}
-                  />
-                  <FormattingForm
-                    graph={graphState}
-                    index={0}
-                    handleCancel={handleFormCancel}
-                    handleUpdate={handleFormUpdate}
-                  />
-                </FormStep>
-              </StepContent>
-            </Step>
-          );
-        })}
-      </Stepper>
+      <FormStepper
+        steps={[DATA_STEP_LABEL, FORMAT_STEP_LABEL]}
+        activeStep={activeStep}
+      >
+        <DataForm
+          metaData={vizState.metadataForAllDatasets}
+          dataState={dataState}
+          seriesState={seriesState}
+          setDataState={setDataState}
+          setSeriesState={setSeriesState}
+        >
+          <CreateFormFooter
+            labels={stepFooterLabels}
+            activeStep={activeStep}
+            handleBack={handleBack}
+            handleNext={DataFormHandleUpdate}
+          />
+        </DataForm>
+        <FormattingForm state={graphState} setState={setGraphState}>
+          <CreateFormFooter
+            labels={stepFooterLabels}
+            activeStep={activeStep}
+            handleBack={handleBack}
+            handleNext={FormattingFormHandleUpdate}
+          />
+        </FormattingForm>
+      </FormStepper>
       {activeStep === steps.length && (
         <FormPaper square elevation={0}>
           <Typography>{FINISH_STEP_LABEL}</Typography>
-          <Button
-            label="Create Chart"
-            variant="contained"
-            color="primary"
-            onClick={handleSave}
+          <CreateFormFooter
+            labels={createFooterLabels}
+            activeStep={activeStep}
+            handleBack={handleBack}
+            handleNext={FormattingFormHandleUpdate}
           />
         </FormPaper>
       )}

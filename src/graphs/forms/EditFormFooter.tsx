@@ -13,7 +13,7 @@ interface Props {
   handleUpdate: () => void;
 }
 
-export function FormFooter(props: Props) {
+export function EditFormFooter(props: Props) {
   return (
     <FooterBox>
       <Button

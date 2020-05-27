@@ -7,37 +7,74 @@ import {
   Tab,
   Tabs
 } from '@material-ui/core';
-import React from 'react';
-import { theme } from '../../theme/theme';
-import DataForm from './DataForm';
-import FormattingForm from './FormattingForm';
-import { GraphFormProps } from './types';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import TabPanel from '../../common/components/FormTab';
-import { useDispatch } from 'react-redux';
-import { updateLocalGraph, editGraph } from '../../redux/graphbuilder/actions';
-import { Graph } from '../../redux/graphbuilder/types';
-
-//TODO: add pie chart labels but remove weird positioning
-//TODO: disable color picker on pie charts
-//TODO: remove bar from options (don't need it)
+import { updateLocalGraph } from '../../redux/graphbuilder/actions';
+import { Graph, GraphMetaData } from '../../redux/graphbuilder/types';
+import { getVizbuilder } from '../../redux/vizbuilder/selector';
+import { theme } from '../../theme/theme';
+import { SeriesConfiguration } from '../builder/types';
+import { DataForm } from './DataForm';
+import { EditFormFooter } from './EditFormFooter';
+import FormattingForm from './FormattingForm';
+import { GraphDataFormState, GraphFormProps } from './types';
+import {
+  convertDataSourcesToFormDataState,
+  convertFormDataStateToDataSources
+} from './utilities';
 
 export default function GraphEditForm({ graph, index }: GraphFormProps) {
   const dispatch = useDispatch();
+  const vizState = useSelector(getVizbuilder);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [graphState, setGraphState] = useState<GraphMetaData>({
+    ...graph.graphMetaData
+  });
+  const [seriesState, setSeriesState] = useState<SeriesConfiguration[]>([
+    ...graph.graphMetaData.graphOptions.seriesConfigs
+  ]);
+  const [dataState, setDataState] = useState<GraphDataFormState>(
+    convertDataSourcesToFormDataState(graph.graphMetaData.dataSources)
+  );
+
+  const handleCancel = () => {
+    return;
+  };
+
+  const FormattingFormHandleReset = () => {
+    setGraphState({ ...graph.graphMetaData });
+  };
+  const FormattingFormHandleUpdate = () => {
+    dispatch(updateLocalGraph({ ...graph, graphMetaData: graphState }));
+  };
+
+  const DataFormHandleReset = () => {
+    setDataState(
+      convertDataSourcesToFormDataState(graph.graphMetaData.dataSources)
+    );
+  };
+
+  const DataFormHandleUpdate = () => {
+    const newGraph: Graph = {
+      ...graph,
+      graphMetaData: {
+        ...graph.graphMetaData,
+        dataSources: convertFormDataStateToDataSources(dataState),
+        graphOptions: {
+          ...graph.graphMetaData.graphOptions,
+          seriesConfigs: seriesState
+        }
+      }
+    };
+    dispatch(updateLocalGraph(newGraph));
+  };
 
   const handleTabChange = (
     event: React.ChangeEvent<{}>,
     selectedIndex: number
   ) => {
     setSelectedIndex(selectedIndex);
-  };
-
-  const handleFormCancel = (index: number) => {
-    dispatch(editGraph(index));
-  };
-
-  const handleFormUpdate = (graph: Graph) => {
-    dispatch(updateLocalGraph(graph));
   };
 
   return (
@@ -56,20 +93,28 @@ export default function GraphEditForm({ graph, index }: GraphFormProps) {
       <Divider light />
       <FormGrid>
         <TabPanel value={selectedIndex} index={0}>
-          <FormattingForm
-            graph={graph}
-            index={index}
-            handleCancel={handleFormCancel}
-            handleUpdate={handleFormUpdate}
-          />
+          <FormattingForm state={graphState} setState={setGraphState}>
+            <EditFormFooter
+              handleCancel={handleCancel}
+              handleReset={FormattingFormHandleReset}
+              handleUpdate={FormattingFormHandleUpdate}
+            />
+          </FormattingForm>
         </TabPanel>
         <TabPanel value={selectedIndex} index={1}>
           <DataForm
-            graph={graph}
-            index={index}
-            handleCancel={handleFormCancel}
-            handleUpdate={handleFormUpdate}
-          />
+            metaData={vizState.metadataForAllDatasets}
+            dataState={dataState}
+            seriesState={seriesState}
+            setDataState={setDataState}
+            setSeriesState={setSeriesState}
+          >
+            <EditFormFooter
+              handleCancel={handleCancel}
+              handleReset={DataFormHandleReset}
+              handleUpdate={DataFormHandleUpdate}
+            />
+          </DataForm>
         </TabPanel>
       </FormGrid>
     </FormBox>

@@ -1,10 +1,5 @@
 import { Divider, styled } from '@material-ui/core';
-import React, { Fragment, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Graph } from '../../redux/graphbuilder/types';
-import { getVizbuilder } from '../../redux/vizbuilder/selector';
-import { GRAPH_COLORS } from '../builder/constants';
-import { SeriesConfiguration } from '../builder/types';
+import React, { Fragment } from 'react';
 import {
   DATASET_LABEL,
   INPUT_COLUMN_LABEL,
@@ -12,29 +7,26 @@ import {
   X_AXIS_LABEL,
   Y_AXIS_LABEL
 } from './constants';
+import { generateDefaultSeries } from './defaults';
 import { FormDataSelection } from './FormDataSelection';
-import { FormFooter } from './FormFooter';
 import { FormSeriesSelection } from './FormSeriesSelection';
-import { FormProps, GraphDataFormState } from './types';
+import { DataFormProps } from './types';
 import {
-  convertDataSourcesToFormDataState,
-  convertFormDataStateToDataSources,
+  changeEntryAtIndex,
   extractInfoFromDatasetsMetaData
 } from './utilities';
 
-export default function DataForm(props: FormProps) {
-  const { graph, index, handleCancel, handleUpdate } = props;
-  const vizState = useSelector(getVizbuilder);
-  const datasetsInfo = extractInfoFromDatasetsMetaData(
-    vizState.metadataForAllDatasets
-  );
-  const [seriesState, setSeriesState] = useState<SeriesConfiguration[]>([
-    ...graph.graphMetaData.graphOptions.seriesConfigs
-  ]);
+export function DataForm(props: DataFormProps) {
+  const {
+    metaData,
+    dataState,
+    seriesState,
+    setDataState,
+    setSeriesState,
+    children
+  } = props;
 
-  const [dataState, setDataState] = useState<GraphDataFormState>(
-    convertDataSourcesToFormDataState(graph.graphMetaData.dataSources)
-  );
+  const datasetsInfo = extractInfoFromDatasetsMetaData(metaData);
 
   const handleDatasetChange = (selectedDataset: string) => {
     setDataState({ ...dataState, datasetName: selectedDataset });
@@ -44,26 +36,18 @@ export default function DataForm(props: FormProps) {
     setDataState({ ...dataState, xAxisColumnName: selectedXAxisColumn });
   };
 
-  const handleYAxisColumnChange = (
-    columnIndex: number,
-    newColumnName: string
-  ) => {
-    const newColumnNames = dataState.yAxisColumnNames.map(
-      (columnName: string, index: number) => {
-        if (columnIndex === index) {
-          return newColumnName;
-        }
-        return columnName;
-      }
+  const handleYAxisColumnChange = (columnIndex: number, columnName: string) => {
+    setSeriesState(
+      changeEntryAtIndex(seriesState, 'name', columnName, columnIndex)
     );
-    const newSeries = seriesState.map((series, index) => {
-      if (columnIndex === index) {
-        return { ...series, name: newColumnName };
-      }
-      return series;
+    setDataState({
+      ...dataState,
+      yAxisColumnNames: dataState.yAxisColumnNames.splice(
+        columnIndex,
+        1,
+        columnName
+      )
     });
-    setDataState({ ...dataState, yAxisColumnNames: newColumnNames });
-    setSeriesState(newSeries);
   };
 
   const handleDeleteYAxisColumn = (columnIndex: number) => {
@@ -80,38 +64,14 @@ export default function DataForm(props: FormProps) {
   const handleAddYAxisColumn = () => {
     const defaultColumnName =
       datasetsInfo.yAxisColumnNames[dataState.datasetName][0];
-    const defaultSeries: SeriesConfiguration = {
-      seriesType: 'column',
-      name: defaultColumnName,
-      color: GRAPH_COLORS[seriesState.length],
-      dataLabels: false
-    };
     setDataState({
       ...dataState,
       yAxisColumnNames: [...dataState.yAxisColumnNames, defaultColumnName]
     });
-    setSeriesState([...seriesState, defaultSeries]);
-  };
-
-  const handleReset = () => {
-    setDataState(
-      convertDataSourcesToFormDataState(graph.graphMetaData.dataSources)
-    );
-  };
-
-  const updateForm = () => {
-    const newGraph: Graph = {
-      ...graph,
-      graphMetaData: {
-        ...graph.graphMetaData,
-        dataSources: convertFormDataStateToDataSources(dataState),
-        graphOptions: {
-          ...graph.graphMetaData.graphOptions,
-          seriesConfigs: seriesState
-        }
-      }
-    };
-    handleUpdate(newGraph);
+    setSeriesState([
+      ...seriesState,
+      generateDefaultSeries(defaultColumnName, seriesState.length)
+    ]);
   };
 
   return (
@@ -140,11 +100,7 @@ export default function DataForm(props: FormProps) {
         handleDelete={handleDeleteYAxisColumn}
         handleAdd={handleAddYAxisColumn}
       />
-      <FormFooter
-        handleCancel={() => handleCancel(index)}
-        handleReset={() => handleReset()}
-        handleUpdate={() => updateForm()}
-      />
+      {children}
     </Fragment>
   );
 }

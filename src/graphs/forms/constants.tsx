@@ -3,9 +3,6 @@
  */
 export const X_AXIS_LABEL = 'X-Axis';
 export const Y_AXIS_LABEL = 'Y-Axis';
-export const FORM_CANCEL_LABEL = 'Cancel';
-export const FORM_RESET_LABEL = 'Reset';
-export const FORM_UPDATE_LABEL = 'Update';
 
 /*
  * Graph Data Sources Form
@@ -30,6 +27,12 @@ export const INPUT_TYPE_LABEL = 'Type';
 export const INPUT_DATA_LABELS_LABEL = 'Data Labels';
 export const INPUT_3D_LABEL = 'Enable 3D';
 export const INPUT_STACK_LABEL = 'Enable Stacking';
+export const graphFormatLabels = [INPUT_TITLE_LABEL, INPUT_SUBTITLE_LABEL];
+export const axisFormatLabels = [
+  INPUT_TITLE_LABEL,
+  INPUT_PREFIX_LABEL,
+  INPUT_SUBTITLE_LABEL
+];
 
 /*
  * Graph Create Form
@@ -42,3 +45,16 @@ export const CATEGORY_STEP = 'Please select a Chart Category';
 export const DATA_STEP_LABEL = 'Chart Data Sources';
 export const FORMAT_STEP_LABEL = 'Chart Formatting';
 export const FINISH_STEP_LABEL = "All steps completed - you're finished";
+
+/*
+ * Form Footer
+ */
+export const FORM_CANCEL_LABEL = 'Cancel';
+export const FORM_RESET_LABEL = 'Reset';
+export const FORM_UPDATE_LABEL = 'Update';
+export const FORM_NEXT_LABEL = 'Next';
+export const FORM_BACK_LABEL = 'Back';
+export const FORM_FINISH_LABEL = 'Create Graph';
+export const steps = [DATA_STEP_LABEL, FORMAT_STEP_LABEL];
+export const stepFooterLabels = [FORM_BACK_LABEL, FORM_NEXT_LABEL];
+export const createFooterLabels = [FORM_BACK_LABEL, FORM_FINISH_LABEL];

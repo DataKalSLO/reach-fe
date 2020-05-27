@@ -1,8 +1,28 @@
 import { ApiGraphConfirmationResponse } from '../../api/graphs/types';
 import { GraphConfiguration } from '../../graphs/builder/types';
-import { ASSETS, DELETE_GRAPH, DEMOGRAPHICS, DUPLICATE_GRAPH, EDUCATION, HEALTH, HOUSING, INDUSTRY } from '../graphs/constants';
+import {
+  ASSETS,
+  DELETE_GRAPH,
+  DEMOGRAPHICS,
+  DUPLICATE_GRAPH,
+  EDUCATION,
+  HEALTH,
+  HOUSING,
+  INDUSTRY
+} from '../graphs/constants';
 import { DataValue } from '../vizbuilder/types';
-import { CREATE_GRAPH, EDIT_GRAPH, GET_ALL_USER_GRAPHS, GET_DEFAULT_GRAPHS_FOR_CATEGORY, GET_GRAPH, HIDE_GRAPH, SAVE_GRAPH, SYNC_GRAPH, UPDATE_GRAPH, UPDATE_LOCAL_GRAPH } from './constants';
+import {
+  CREATE_GRAPH,
+  EDIT_GRAPH,
+  GET_ALL_USER_GRAPHS,
+  GET_DEFAULT_GRAPHS_FOR_CATEGORY,
+  GET_GRAPH,
+  HIDE_GRAPH,
+  SAVE_GRAPH,
+  SYNC_GRAPH,
+  UPDATE_GRAPH,
+  UPDATE_LOCAL_GRAPH
+} from './constants';
 
 /*
  * The following type aliases/interfaces are used to create the

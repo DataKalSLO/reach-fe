@@ -1,15 +1,25 @@
-import { Graph } from '../../redux/graphbuilder/types';
+import { Graph, GraphMetaData } from '../../redux/graphbuilder/types';
+import { SeriesConfiguration } from '../builder/types';
+import { Metadata } from '../../redux/vizbuilder/types';
 
 export interface GraphFormProps {
   graph: Graph;
   index: number;
 }
 
-export interface FormProps {
-  graph: Graph;
-  index: number;
-  handleCancel: (index: number) => void;
-  handleUpdate: (graph: Graph) => void;
+export interface FormattingFormProps {
+  state: GraphMetaData;
+  setState: React.Dispatch<React.SetStateAction<GraphMetaData>>;
+  children?: JSX.Element[] | JSX.Element;
+}
+
+export interface DataFormProps {
+  metaData: Metadata[];
+  dataState: GraphDataFormState;
+  seriesState: SeriesConfiguration[];
+  setDataState: React.Dispatch<React.SetStateAction<GraphDataFormState>>;
+  setSeriesState: React.Dispatch<React.SetStateAction<SeriesConfiguration[]>>;
+  children?: JSX.Element[] | JSX.Element;
 }
 
 export interface GraphDataFormState {

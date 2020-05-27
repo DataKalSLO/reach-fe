@@ -4,7 +4,13 @@ import {
 } from '../../redux/graphbuilder/types';
 import { Metadata } from '../../redux/vizbuilder/types';
 import { DatasetsMetaData, GraphDataFormState } from './types';
+import { isUndefined } from 'util';
 
+/*
+ * Extract the x-axis and y-axis column names used
+ * for a graph.
+ * TODO: Add stacking
+ */
 export function convertDataSourcesToFormDataState(
   dataSources: DataSource[]
 ): GraphDataFormState {
@@ -13,7 +19,6 @@ export function convertDataSourcesToFormDataState(
     xAxisColumnName: '',
     yAxisColumnNames: []
   };
-
   dataSources.forEach(dataSource => {
     dataFormState.datasetName = dataSource.datasetName;
     switch (dataSource.seriesType) {
@@ -28,6 +33,9 @@ export function convertDataSourcesToFormDataState(
   return dataFormState;
 }
 
+/*
+ * TODO: Add stacking
+ */
 export function convertFormDataStateToDataSources(
   formDataState: GraphDataFormState
 ): DataSource[] {
@@ -45,6 +53,15 @@ export function convertFormDataStateToDataSources(
   ];
 }
 
+/*
+ * This method extracts the following information from the datasets
+ * metadata:
+ *  1. All the dataset names
+ *  2. A dictionary mapping dataset names to x-axis columns
+ *      - all columns are added (x-axis values can be any type)
+ *  3. A dictionary mapping dataset names to y-axis columns
+ *      - only columns with numbers are added (y-axis values can only be numbers)
+ */
 export function extractInfoFromDatasetsMetaData(
   metaData: Metadata[]
 ): DatasetsMetaData {
@@ -71,4 +88,26 @@ export function extractInfoFromDatasetsMetaData(
 
 export function dataTypeIsNumber(valueType: string): boolean {
   return ['int', 'decimal', 'double', 'float'].includes(valueType);
+}
+
+export function isDefinedElseEmptyString(value?: string): string {
+  return isDefinedElse(value, '');
+}
+
+export function changeEntryAtIndex<T, S>(
+  items: Array<T>,
+  key: string,
+  value: S,
+  atIndex: number
+): Array<T> {
+  return items.map((item, index) => {
+    if (index === atIndex) {
+      return { ...item, [key]: value };
+    }
+    return item;
+  });
+}
+
+export function isDefinedElse<T>(value: T | undefined, elseValue: T): T {
+  return !isUndefined(value) ? value : elseValue;
 }

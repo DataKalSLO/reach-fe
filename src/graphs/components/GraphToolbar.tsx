@@ -6,9 +6,25 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import Button, { Props as ButtonProps } from '../../common/components/Button';
-import { deleteGraph, duplicateGraph, editGraph, hideGraph, saveGraph, updateGraph } from '../../redux/graphbuilder/actions';
+import {
+  deleteGraph,
+  duplicateGraph,
+  editGraph,
+  hideGraph,
+  saveGraph,
+  updateGraph
+} from '../../redux/graphbuilder/actions';
 import { GraphMetaDataApiPayload } from '../../redux/graphbuilder/types';
-import { DELETE_LABEL, DUPLICATE_LABEL, EDIT_LABEL, HIDE_LABEL, SAVE_LABEL, SHARE_LABEL, SHOW_LABEL, SYNCHRONIZE_MAP } from './constants';
+import {
+  DELETE_LABEL,
+  DUPLICATE_LABEL,
+  EDIT_LABEL,
+  HIDE_LABEL,
+  SAVE_LABEL,
+  SHARE_LABEL,
+  SHOW_LABEL,
+  SYNCHRONIZE_MAP
+} from './constants';
 import { GraphToolbarProps } from './types';
 /*
  * Contains the buttons rendered on the graph toolbar.
@@ -39,7 +55,9 @@ function GraphToolbar(props: GraphToolbarProps) {
         color="default"
         startIcon={<SyncIcon />}
         //onClick={() => dispatch(syncGraph(graph.graphMetaData.graphId))}
-        onClick={() => {alert('not inplemented')}}   
+        onClick={() => {
+          alert('not inplemented');
+        }}
       />
       <ToolbarButton
         label={EDIT_LABEL}
