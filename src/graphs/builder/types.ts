@@ -242,7 +242,7 @@ export interface GraphConfiguration {
   xAxisData: DataValue[];
   yAxisData: DataValue[][];
   seriesConfigs: SeriesConfiguration[];
-  sourceUrl?: string;
+  subtitle?: string;
   stackData?: DataValue[];
   xConfig?: XAxisConfiguration;
   yConfig?: YAxisConfiguration;
