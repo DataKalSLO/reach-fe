@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
-import { styled, TextField } from '@material-ui/core';
+import { styled } from '@material-ui/core';
 import { isDefinedElse } from './utilities';
+import { TextField } from '../../common/components/FormTextField';
 
 interface Props {
   labels: string[];

@@ -15,9 +15,11 @@ import { CATEGORY_LABEL, INPUT_CATEGORY_LABEL } from './constants';
 interface Props {
   category: string;
   handleChange: (category: string) => void;
+  children: JSX.Element[] | JSX.Element;
 }
 
 const initiativeNames = [
+  'None',
   INDUSTRY,
   DEMOGRAPHICS,
   ASSETS,
@@ -34,12 +36,12 @@ function AddCategoryType(props: Props) {
           label={INPUT_CATEGORY_LABEL}
           value={props.category}
           data={initiativeNames}
-          handleChange={(e: ChangeEvent<HTMLInputElement>) =>
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
             props.handleChange(e.target.value)
           }
         />
       </FormBlock>
-      <FormDivider light />
+      {props.children}
     </Fragment>
   );
 }

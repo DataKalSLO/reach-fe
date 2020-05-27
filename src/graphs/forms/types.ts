@@ -1,4 +1,8 @@
-import { Graph, GraphMetaData } from '../../redux/graphbuilder/types';
+import {
+  Graph,
+  GraphMetaData,
+  PartialGraphConfigurationWithoutData
+} from '../../redux/graphbuilder/types';
 import { SeriesConfiguration } from '../builder/types';
 import { Metadata } from '../../redux/vizbuilder/types';
 
@@ -8,8 +12,10 @@ export interface GraphFormProps {
 }
 
 export interface FormattingFormProps {
-  state: GraphMetaData;
-  setState: React.Dispatch<React.SetStateAction<GraphMetaData>>;
+  state: PartialGraphConfigurationWithoutData;
+  setState: React.Dispatch<
+    React.SetStateAction<PartialGraphConfigurationWithoutData>
+  >;
   children?: JSX.Element[] | JSX.Element;
 }
 

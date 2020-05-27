@@ -32,7 +32,8 @@ export function graphbuilderReducer(
     case SAVE_GRAPH:
       return {
         ...state,
-        graphs: replaceIfDefinedAtIndex(state.graphs, 0, action.payload)
+        graphs: replaceIfDefinedAtIndex(state.graphs, 0, action.payload),
+        isCreating: false
       };
     case UPDATE_GRAPH:
       return {
@@ -54,12 +55,14 @@ export function graphbuilderReducer(
     case GET_ALL_USER_GRAPHS:
       return {
         ...state,
-        graphs: !isUndefined(action.payload) ? action.payload : state.graphs
+        graphs: !isUndefined(action.payload) ? action.payload : state.graphs,
+        isCreating: false
       };
     case GET_DEFAULT_GRAPHS_FOR_CATEGORY:
       return {
         ...state,
-        graphs: !isUndefined(action.payload) ? action.payload : state.graphs
+        graphs: !isUndefined(action.payload) ? action.payload : state.graphs,
+        isCreating: false
       };
     case EDIT_GRAPH:
       return {

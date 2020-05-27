@@ -11,7 +11,11 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TabPanel from '../../common/components/FormTab';
 import { updateLocalGraph } from '../../redux/graphbuilder/actions';
-import { Graph, GraphMetaData } from '../../redux/graphbuilder/types';
+import {
+  Graph,
+  GraphMetaData,
+  PartialGraphConfigurationWithoutData
+} from '../../redux/graphbuilder/types';
 import { getVizbuilder } from '../../redux/vizbuilder/selector';
 import { theme } from '../../theme/theme';
 import { SeriesConfiguration } from '../builder/types';
@@ -28,8 +32,10 @@ export default function GraphEditForm({ graph, index }: GraphFormProps) {
   const dispatch = useDispatch();
   const vizState = useSelector(getVizbuilder);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
-  const [graphState, setGraphState] = useState<GraphMetaData>({
-    ...graph.graphMetaData
+  const [graphState, setGraphState] = useState<
+    PartialGraphConfigurationWithoutData
+  >({
+    ...graph.graphMetaData.graphOptions
   });
   const [seriesState, setSeriesState] = useState<SeriesConfiguration[]>([
     ...graph.graphMetaData.graphOptions.seriesConfigs
@@ -43,10 +49,21 @@ export default function GraphEditForm({ graph, index }: GraphFormProps) {
   };
 
   const FormattingFormHandleReset = () => {
-    setGraphState({ ...graph.graphMetaData });
+    setGraphState({ ...graph.graphMetaData.graphOptions });
   };
   const FormattingFormHandleUpdate = () => {
-    dispatch(updateLocalGraph({ ...graph, graphMetaData: graphState }));
+    dispatch(
+      updateLocalGraph({
+        ...graph,
+        isEditing: false,
+        isHidden: false,
+        is3D: false,
+        graphMetaData: {
+          ...graph.graphMetaData,
+          graphOptions: graphState
+        }
+      })
+    );
   };
 
   const DataFormHandleReset = () => {

@@ -29,7 +29,17 @@ export function DataForm(props: DataFormProps) {
   const datasetsInfo = extractInfoFromDatasetsMetaData(metaData);
 
   const handleDatasetChange = (selectedDataset: string) => {
-    setDataState({ ...dataState, datasetName: selectedDataset });
+    setDataState({
+      datasetName: selectedDataset,
+      xAxisColumnName: datasetsInfo.xAxisColumnNames[selectedDataset][0],
+      yAxisColumnNames: [datasetsInfo.yAxisColumnNames[selectedDataset][0]]
+    });
+    setSeriesState([
+      generateDefaultSeries(
+        datasetsInfo.yAxisColumnNames[selectedDataset][0],
+        0
+      )
+    ]);
   };
 
   const handleXAxisColumnChange = (selectedXAxisColumn: string) => {
@@ -37,16 +47,13 @@ export function DataForm(props: DataFormProps) {
   };
 
   const handleYAxisColumnChange = (columnIndex: number, columnName: string) => {
+    dataState.yAxisColumnNames.splice(columnIndex, 1, columnName);
     setSeriesState(
       changeEntryAtIndex(seriesState, 'name', columnName, columnIndex)
     );
     setDataState({
       ...dataState,
-      yAxisColumnNames: dataState.yAxisColumnNames.splice(
-        columnIndex,
-        1,
-        columnName
-      )
+      yAxisColumnNames: [...dataState.yAxisColumnNames]
     });
   };
 

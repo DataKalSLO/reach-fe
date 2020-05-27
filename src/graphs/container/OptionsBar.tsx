@@ -13,7 +13,10 @@ import {
   useOptionsStyles
 } from './styles';
 import { useDispatch } from 'react-redux';
-import { createGraph } from '../../redux/graphbuilder/actions';
+import {
+  createGraph,
+  getAllUserGraphs
+} from '../../redux/graphbuilder/actions';
 
 /*
  * The toolbar that displays a button for each initiative.
@@ -79,6 +82,12 @@ function OptionsBar() {
             icon={<Close fontSize="large" color="error" />}
           />
           <OptionsButtons />
+          <BottomNavigationAction
+            color="error"
+            onClick={() => dispatch(getAllUserGraphs())}
+            label="My Graphs"
+            icon={<AddIcon fontSize="large" />}
+          />
           <BottomNavigationAction
             color="error"
             onClick={() => dispatch(createGraph())}

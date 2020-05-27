@@ -20,6 +20,7 @@ import {
 } from '../../redux/graphs/constants';
 import { StyledBottomNav } from './styles';
 import { InitiativeIcon } from './types';
+import { getDefaultGraphs } from '../../redux/graphbuilder/actions';
 
 /*
  * Contains the buttons for the options toolbar, which simply
@@ -64,9 +65,7 @@ function OptionsButtons() {
           color="default"
           label={initiative.name}
           icon={initiative.icon}
-          onClick={() =>
-            dispatch(addGraphsForInitiativeAction(initiative.name))
-          }
+          onClick={() => dispatch(getDefaultGraphs(initiative.name))}
         />
       );
     });

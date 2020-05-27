@@ -43,9 +43,9 @@ export default function FormCreate() {
   const handleFormCancel = (index: number) => {
     return setGraphState(emptyGraph);
   };
-  const handleFormUpdate = (graph: Graph) => {
-    setGraphState(graph);
-  };
+  //  const handleFormUpdate = (graph: Graph) => {
+  //    setGraphState(graph);
+  //  };
 
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);

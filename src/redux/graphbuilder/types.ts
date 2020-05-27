@@ -79,7 +79,7 @@ export interface DataSource {
 
 export type PartialGraphConfigurationWithoutData = Omit<
   GraphConfiguration,
-  'title' | 'xAxisData' | 'yAxisData' | 'stackData'
+  'xAxisData' | 'yAxisData' | 'stackData'
 >;
 
 export interface GraphMetaDataApiPayload {

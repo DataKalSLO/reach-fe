@@ -26,6 +26,7 @@ function GraphContainer() {
    * the graph itself, and the toolbar.
    */
   const getGraphComponents = () => {
+    console.log(graphState.graphs);
     return graphState.graphs.map((graph, index) => (
       <GridItem item key={index}>
         <GraphPrebuilt graph={graph} index={index} />

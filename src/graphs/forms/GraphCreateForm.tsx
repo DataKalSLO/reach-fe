@@ -1,8 +1,10 @@
 import { Card, Paper, styled, Typography } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import IconButton from '../../common/components/IconButton';
 import { createGraph, saveGraph } from '../../redux/graphbuilder/actions';
-import { Graph, GraphMetaData } from '../../redux/graphbuilder/types';
+import { PartialGraphConfigurationWithoutData } from '../../redux/graphbuilder/types';
 import { getVizbuilder } from '../../redux/vizbuilder/selector';
 import { SeriesConfiguration } from '../builder/types';
 import {
@@ -11,11 +13,11 @@ import {
   FINISH_STEP_LABEL,
   FORMAT_STEP_LABEL,
   stepFooterLabels,
-  steps
+  formSteps
 } from './constants';
 import { CreateFormFooter } from './CreateFormFooter';
 import { DataForm } from './DataForm';
-import { emptyGraph } from './EmptyGraph';
+import { DefaultGraph, generateEmptyGraph } from './defaults';
 import FormattingForm from './FormattingForm';
 import { FormStepper } from './FormStepper';
 import { GraphDataFormState } from './types';
@@ -23,42 +25,43 @@ import {
   convertDataSourcesToFormDataState,
   convertFormDataStateToDataSources
 } from './utilities';
+import AddCategoryType from './AddCategorytype';
+import { getUser } from '../../redux/login/selectors';
+import { ADMIN_USER } from '../../nav/constants';
 
 export function GraphCreateForm() {
   const dispatch = useDispatch();
   const vizState = useSelector(getVizbuilder);
+  const userInfo = useSelector(getUser);
   const [activeStep, setActiveStep] = useState(0);
-  const [graph, setGraph] = useState(emptyGraph);
-  const [graphState, setGraphState] = useState<GraphMetaData>({
-    ...graph.graphMetaData
-  });
+  const [category, setCategory] = useState('Health');
+  const [graph, setGraph] = useState(
+    generateEmptyGraph(vizState.metadataForAllDatasets)
+  );
+  const [graphState, setGraphState] = useState<
+    PartialGraphConfigurationWithoutData
+  >(graph.graphOptions);
   const [seriesState, setSeriesState] = useState<SeriesConfiguration[]>([
-    ...graph.graphMetaData.graphOptions.seriesConfigs
+    ...graph.graphOptions.seriesConfigs
   ]);
 
   const [dataState, setDataState] = useState<GraphDataFormState>(
-    convertDataSourcesToFormDataState(graph.graphMetaData.dataSources)
+    convertDataSourcesToFormDataState(graph.dataSources)
   );
 
   const FormattingFormHandleUpdate = () => {
-    setGraph({ ...graph, graphMetaData: { ...graphState } });
+    setGraph({ ...graph, graphOptions: graphState });
+    setGraphState({ ...graph.graphOptions });
     setActiveStep(activeStep + 1);
   };
 
   const DataFormHandleUpdate = () => {
-    const newGraph: Graph = {
-      ...graph,
-      graphMetaData: {
-        ...graph.graphMetaData,
-        dataSources: convertFormDataStateToDataSources(dataState),
-        graphOptions: {
-          ...graph.graphMetaData.graphOptions,
-          seriesConfigs: [...seriesState]
-        }
-      }
+    const newGraph: DefaultGraph = {
+      graphOptions: { ...graph.graphOptions, seriesConfigs: seriesState },
+      dataSources: convertFormDataStateToDataSources(dataState)
     };
     setGraph(newGraph);
-    setGraphState({ ...newGraph.graphMetaData });
+    setGraphState({ ...newGraph.graphOptions });
     setActiveStep(activeStep + 1);
   };
 
@@ -66,26 +69,42 @@ export function GraphCreateForm() {
     setActiveStep(activeStep - 1);
   };
 
+  const handleNext = () => {
+    setActiveStep(activeStep + 1);
+  };
+
+  const handleCategoryChange = (initiative: string) => {
+    setCategory(initiative);
+  };
+
   const handleSave = () => {
     dispatch(
       saveGraph({
         graphId: null,
-        graphCategory: null,
-        graphTitle: graph.graphMetaData.graphTitle,
-        dataSources: graph.graphMetaData.dataSources,
-        graphOptions: graph.graphMetaData.graphOptions,
+        graphCategory:
+          userInfo.role === ADMIN_USER && category !== 'None' ? category : null,
+        graphTitle: graph.graphOptions.title,
+        dataSources: graph.dataSources,
+        graphOptions: graph.graphOptions,
         graphSVG: ''
       })
     );
     dispatch(createGraph());
   };
 
+  const createSteps =
+    userInfo.role === ADMIN_USER ? formSteps : formSteps.slice(1);
+
   return (
-    <Card variant="outlined">
-      <FormStepper
-        steps={[DATA_STEP_LABEL, FORMAT_STEP_LABEL]}
-        activeStep={activeStep}
-      >
+    <FormCard variant="outlined">
+      <CancelButton
+        size="small"
+        color="default"
+        aria-label="Delete"
+        icon={<CloseIcon color="error" />}
+        onClick={() => dispatch(createGraph())}
+      />
+      <FormStepper steps={createSteps} activeStep={activeStep}>
         <DataForm
           metaData={vizState.metadataForAllDatasets}
           dataState={dataState}
@@ -108,22 +127,42 @@ export function GraphCreateForm() {
             handleNext={FormattingFormHandleUpdate}
           />
         </FormattingForm>
+        <AddCategoryType
+          category={category}
+          handleChange={handleCategoryChange}
+        >
+          <CreateFormFooter
+            labels={stepFooterLabels}
+            activeStep={activeStep}
+            handleBack={handleBack}
+            handleNext={handleNext}
+          />
+        </AddCategoryType>
       </FormStepper>
-      {activeStep === steps.length && (
+      {activeStep === createSteps.length && (
         <FormPaper square elevation={0}>
           <Typography>{FINISH_STEP_LABEL}</Typography>
           <CreateFormFooter
             labels={createFooterLabels}
             activeStep={activeStep}
             handleBack={handleBack}
-            handleNext={FormattingFormHandleUpdate}
+            handleNext={handleSave}
           />
         </FormPaper>
       )}
-    </Card>
+    </FormCard>
   );
 }
 
+const FormCard = styled(Card)({
+  position: 'relative'
+});
+
 const FormPaper = styled(Paper)({
   margin: '0px 0px 20px 20px'
+});
+
+const CancelButton = styled(IconButton)({
+  position: 'absolute',
+  right: 0
 });
