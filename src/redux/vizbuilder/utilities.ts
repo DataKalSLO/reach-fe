@@ -14,11 +14,3 @@ export function isDateType(value: DataValue): boolean {
     moment(value, moment.ISO_8601, true).format() !== 'Invalid date'
   );
 }
-
-/*
- * Number Type Validator
- * Checks if the metadata "dataType" value is a number
- */
-export function dataTypeIsNumber(valueType: string): boolean {
-  return ['int', 'decimal', 'double', 'float'].includes(valueType);
-}
