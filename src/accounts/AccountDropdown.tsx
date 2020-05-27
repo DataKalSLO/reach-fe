@@ -58,8 +58,8 @@ const StyledMenuItem = styled(MenuItem)({
 });
 
 AccountDropdown.propTypes = {
-  anchorEl: PropTypes.element.isRequired,
-  setAnchorEl: PropTypes.element.isRequired
+  anchorEl: PropTypes.object,
+  setAnchorEl: PropTypes.func.isRequired
 };
 
 export default AccountDropdown;
