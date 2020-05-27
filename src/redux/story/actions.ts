@@ -4,8 +4,10 @@ import { emptyTextBlock } from './reducer';
 import {
   CreateEmptyTextBlockAction,
   CreateGraphBlockAction,
+  CreateImageBlockAction,
   CREATE_EMPTY_TEXT_BLOCK,
   CREATE_GRAPH_BLOCK,
+  CREATE_IMAGE_BLOCK,
   DeleteBlockAction,
   DELETE_BLOCK,
   GRAPH_BLOCK_TYPE,
@@ -16,7 +18,8 @@ import {
   UpdateTitleAction,
   UPDATE_DESCRIPTION,
   UPDATE_TEXT_BLOCK,
-  UPDATE_TITLE
+  UPDATE_TITLE,
+  IMAGE_BLOCK_TYPE
 } from './types';
 
 export function createEmptyTextBlock(): CreateEmptyTextBlockAction {
@@ -36,6 +39,18 @@ export function createGraphBlock(): CreateGraphBlockAction {
         id: uuid(),
         graphID: uuid(),
         type: GRAPH_BLOCK_TYPE
+      }
+    }
+  };
+}
+
+export function createImageBlock(): CreateImageBlockAction {
+  return {
+    type: CREATE_IMAGE_BLOCK,
+    payload: {
+      block: {
+        id: uuid(),
+        type: IMAGE_BLOCK_TYPE
       }
     }
   };

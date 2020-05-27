@@ -13,7 +13,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveStoryAndHandleResponse } from '../api/stories/operationHandlers';
 import { Drawer, List, ListItemButton } from '../reach-ui/core';
-import { createEmptyTextBlock } from '../redux/story/actions';
+import { createEmptyTextBlock, createImageBlock } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
@@ -69,7 +69,7 @@ export default function StorySidebar() {
         <ListItemButton
           text={'Image'}
           icon={<InsertPhoto />}
-          onClick={() => alert('Not implemented')}
+          onClick={() => dispatch(createImageBlock())}
         />
       </List>
       <Divider />

@@ -1,5 +1,6 @@
 import {
   GraphBlockType,
+  ImageBlockType,
   MapBlockType,
   StoryMetaInformation
 } from '../../redux/story/types';
@@ -16,4 +17,8 @@ export interface TextBlockDB {
   editorState: string;
 }
 
-export type DatabaseStoryBlock = TextBlockDB | GraphBlockType | MapBlockType;
+export type DatabaseStoryBlock =
+  | TextBlockDB
+  | GraphBlockType
+  | ImageBlockType
+  | MapBlockType;

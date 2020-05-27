@@ -7,12 +7,14 @@ import ReactHtmlParser from 'react-html-parser';
 import {
   GraphBlockType,
   GRAPH_BLOCK_TYPE,
+  ImageBlockType,
   MapBlockType,
   MAP_BLOCK_TYPE,
   Story,
   StoryBlockType,
   TextBlockType,
-  TEXT_BLOCK_TYPE
+  TEXT_BLOCK_TYPE,
+  IMAGE_BLOCK_TYPE
 } from '../redux/story/types';
 
 export default function StoryView(props: { story: Story }): JSX.Element {
@@ -63,6 +65,8 @@ function convertBlockToJSX(storyBlock: StoryBlockType): JSX.Element {
       return convertTextBlockToJSX(storyBlock);
     case GRAPH_BLOCK_TYPE:
       return convertGraphBlockToJSX(storyBlock);
+    case IMAGE_BLOCK_TYPE:
+      return convertImageBlockToJSX(storyBlock);
     case MAP_BLOCK_TYPE:
       return convertMapBlockToJSX(storyBlock);
   }
@@ -79,6 +83,12 @@ function convertTextBlockToJSX(textBlock: TextBlockType): JSX.Element {
 function convertGraphBlockToJSX(graphBlock: GraphBlockType): JSX.Element {
   return (
     <div key={graphBlock.id}>Graph Block conversion not yet implemented</div>
+  );
+}
+
+function convertImageBlockToJSX(imageBlock: ImageBlockType): JSX.Element {
+  return (
+    <div key={imageBlock.id}>Image Block conversion not yet implemented</div>
   );
 }
 
