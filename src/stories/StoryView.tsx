@@ -4,6 +4,9 @@ import { convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import React from 'react';
 import ReactHtmlParser from 'react-html-parser';
+import { useSelector } from 'react-redux';
+import { DEFAULT_USER_NAME } from '../nav/constants';
+import { getUser } from '../redux/login/selectors';
 import {
   GraphBlockType,
   GRAPH_BLOCK_TYPE,
@@ -16,10 +19,11 @@ import {
 } from '../redux/story/types';
 
 export default function StoryView(props: { story: Story }): JSX.Element {
+  const user = useSelector(getUser);
+
   const createPublicationDateString = () => {
-    // TODO: should pull the user's name
-    const username = 'Business Owner';
-    return `By ${username} on ${new Date().toDateString()}`;
+    const name = user.name !== '' ? user.name : DEFAULT_USER_NAME;
+    return `By ${name} on ${new Date().toDateString()}`;
   };
 
   return (
@@ -41,6 +45,7 @@ export default function StoryView(props: { story: Story }): JSX.Element {
         spacing={2}
       >
         <Grid item>
+          {/* TODO: use user's profile picture or delete this */}
           <AccountCircleIcon fontSize="large" />
         </Grid>
         <Grid item>
