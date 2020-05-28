@@ -1,11 +1,12 @@
 import { GraphRecord } from '../../redux/graphs/types';
+import { Graph } from '../../redux/graphbuilder/types';
 
 export interface GraphHeaderProps {
-  graph: GraphRecord;
+  graph: Graph;
 }
 
 export interface GraphPrebuiltProps {
-  graph: GraphRecord;
+  graph: Graph;
 }
 
 export interface GraphProps {
