@@ -10,11 +10,11 @@ import { SearchIndexFilter } from '../redux/search/types';
 export async function esQuery(qry: string, index: SearchIndexFilter) {
   let endpoint = '_search';
   switch (index) {
-    case 'GRAPHS':
-      endpoint = 'graphs/_search';
+    case SearchIndexFilter.Graphs:
+      endpoint = 'graphs/' + endpoint;
       break;
-    case 'STORIES':
-      endpoint = 'stories/_search';
+    case SearchIndexFilter.Stories:
+      endpoint = 'stories/' + endpoint;
       break;
   }
 
