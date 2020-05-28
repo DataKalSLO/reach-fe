@@ -9,11 +9,13 @@ import {
   UPDATE_COLOR_ASSOCIATION,
   UPDATE_HEAT_MAP_SELECTION,
   UPDATE_MARKER_SELECTION,
-  UPDATE_SELECTED_MARKER
+  UPDATE_SELECTED_MARKER,
+  UPDATE_FEATURE_COLLECTION
 } from './types';
 
 // TODO: connect to DB!
 const initialState: MapState = {
+  featureCollection: {},
   markerSelection: [markerData[0]],
   heatMapSelection: medianHouseholdIncomeHeatMap,
   selectedMarker: markerData[0].features[0],
@@ -40,6 +42,11 @@ export function mapReducer(
   action: MapActionTypes
 ): MapState {
   switch (action.type) {
+    case UPDATE_FEATURE_COLLECTION:
+      return {
+        ...state,
+        featureCollection: action.payload
+      };
     case UPDATE_MARKER_SELECTION:
       return {
         ...state,

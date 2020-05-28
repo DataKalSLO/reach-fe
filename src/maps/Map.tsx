@@ -17,6 +17,7 @@ import {
   WEBKIT_OUTLINE
 } from '../theme/theme.js';
 import { getAllTableNames } from '../redux/vizbuilder/actions';
+import { getFeatureCollection } from '../redux/map/actions';
 
 // TODO: save to stories
 
@@ -38,9 +39,11 @@ function Map() {
   const vizBuilderState = useSelector(getVizbuilder);
 
   console.log(vizBuilderState);
+  console.log(mapState);
 
   useEffect(() => {
     getAllTableNames()(dispatch);
+    getFeatureCollection('b19019_001e')(dispatch);
   }, [dispatch]);
 
   return (

@@ -7,11 +7,19 @@ import {
 } from '../../maps/types';
 
 export interface MapState {
+  featureCollection: any;
   markerSelection: MarkerSelection[];
   heatMapSelection: HeatMapSelection | {};
   selectedMarker: SelectedMarker;
   boundSelection: BoundSelection;
   colorAssociation: ColorAssociation;
+}
+
+export const UPDATE_FEATURE_COLLECTION = 'UPDATE_FEATURE_COLLECTION';
+
+interface UpdateFeatureCollection {
+  type: typeof UPDATE_FEATURE_COLLECTION;
+  payload: string;
 }
 
 export const UPDATE_MARKER_SELECTION = 'UPDATE_MARKER_SELECTION';
@@ -50,6 +58,7 @@ interface UpdateBoundSelection {
 }
 
 export type MapActionTypes =
+  | UpdateFeatureCollection
   | UpdateMarkerSelection
   | UpdateHeatMapSelection
   | UpdateSelectedMarker

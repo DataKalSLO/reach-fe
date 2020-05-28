@@ -11,6 +11,23 @@ import {
   UPDATE_MARKER_SELECTION,
   UPDATE_SELECTED_MARKER
 } from './types';
+import { getFeatureCollectionAndHandleResponse } from '../../api/map/operationHandlers';
+import { Dispatch } from 'redux';
+import { MapActions } from '../../api/map/types';
+
+export function getFeatureCollection(tableName: string) {
+  return async (dispatch: Dispatch) => {
+    const payload = await getFeatureCollectionAndHandleResponse(tableName);
+    dispatch(getFeatureCollectionAction(payload));
+  };
+}
+
+export function getFeatureCollectionAction(payload: any): any {
+  return {
+    type: MapActions.GET_FEATURE_COLLECTION,
+    payload: payload
+  };
+}
 
 // I think these are the functions we will need?
 // possibly need to have remove/add for each of these

@@ -129,7 +129,6 @@ async function vizbuilderHttp(
       break;
     case VizbuilderActions.GET_TABLE_NAMES:
       response = get('Map/tableNames/');
-      console.log(response);
       break;
     default:
       throw new Error(
