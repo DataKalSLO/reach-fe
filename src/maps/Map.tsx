@@ -1,6 +1,7 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { getMap } from '../redux/map/selector';
+import { getVizbuilder } from '../redux/vizbuilder/selector';
 import { Box, Card } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import GeoFilter from './GeoFilter';
@@ -15,6 +16,7 @@ import {
   WEBKIT_BACKGROUND_COLOR,
   WEBKIT_OUTLINE
 } from '../theme/theme.js';
+import { getAllTableNames } from '../redux/vizbuilder/actions';
 
 // TODO: save to stories
 
@@ -31,7 +33,16 @@ const MAP_MARGIN_LEFT = '10px';
 const MAP_OVERFLOW = 'scroll';
 
 function Map() {
+  const dispatch = useDispatch();
   const mapState = useSelector(getMap);
+  const vizBuilderState = useSelector(getVizbuilder);
+
+  console.log(vizBuilderState);
+
+  useEffect(() => {
+    getAllTableNames()(dispatch);
+  }, [dispatch]);
+
   return (
     <StyledBox>
       <StyledCard variant="outlined">

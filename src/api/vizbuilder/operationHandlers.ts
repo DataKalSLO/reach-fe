@@ -9,12 +9,15 @@ import {
   COLUMNS_RETRIEVAL_FAILURE_MESSAGE,
   COLUMNS_RETRIEVAL_SUCCESS_MESSAGE,
   METADATA_RETRIEVAL_FAILURE_MESSAGE,
-  METADATA_RETRIEVAL_SUCCESS_MESSAGE
+  METADATA_RETRIEVAL_SUCCESS_MESSAGE,
+  TABLE_NAMES_RETRIEVAL_FAILURE_MESSAGE,
+  TABLE_NAMES_RETRIEVAL_SUCCESS_MESSAGE
 } from './constants';
 import {
   getDataColumns,
   getDataColumnsForDataSources,
-  getDatasetsMetaData
+  getDatasetsMetaData,
+  getTableNames
 } from './operations';
 
 export async function getDatasetMetaDataAndHandleResponse(): Promise<
@@ -25,6 +28,17 @@ export async function getDatasetMetaDataAndHandleResponse(): Promise<
     getDatasetsMetaData,
     METADATA_RETRIEVAL_SUCCESS_MESSAGE,
     METADATA_RETRIEVAL_FAILURE_MESSAGE
+  ).catch(e => undefined);
+}
+
+export async function getTableNamesAndHandleResponse(): Promise<
+  string[] | undefined
+> {
+  return await handleApiOperation<void, string[]>(
+    undefined,
+    getTableNames,
+    TABLE_NAMES_RETRIEVAL_SUCCESS_MESSAGE,
+    TABLE_NAMES_RETRIEVAL_FAILURE_MESSAGE
   ).catch(e => undefined);
 }
 

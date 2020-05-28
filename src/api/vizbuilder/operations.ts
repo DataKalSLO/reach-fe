@@ -35,6 +35,13 @@ export async function getDataColumns(
   );
 }
 
+export async function getTableNames(): Promise<string[]> {
+  return httpRequestWithTableNamesResponse(
+    VizbuilderActions.GET_TABLE_NAMES,
+    undefined
+  );
+}
+
 export async function getDataColumnsForDataSources(
   dataSources: DataSource[]
 ): Promise<GraphData> {
@@ -86,6 +93,21 @@ export async function httpRequestWithColumnsDataResponse(
   }
 }
 
+export async function httpRequestWithTableNamesResponse(
+  actionType: VizbuilderActions,
+  payload: VizbuilderApiPayload
+): Promise<string[]> {
+  const response: VizbuilderApiResponse = await vizbuilderHttp(
+    actionType,
+    payload
+  );
+  if (response as string[]) {
+    return response as string[];
+  } else {
+    throw new Error('No dataset tables');
+  }
+}
+
 async function vizbuilderHttp(
   actionType: VizbuilderActions,
   payload: VizbuilderApiPayload
@@ -97,6 +119,10 @@ async function vizbuilderHttp(
       break;
     case VizbuilderActions.GET_COLUMNS:
       response = get('DataSets' + payload);
+      break;
+    case VizbuilderActions.GET_TABLE_NAMES:
+      response = get('Map/tableNames/');
+      console.log(response);
       break;
     default:
       throw new Error(

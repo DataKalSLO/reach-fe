@@ -1,4 +1,4 @@
-import { GET_ALL_METADATA } from './constants';
+import { GET_ALL_METADATA, GET_ALL_TABLE_NAMES } from './constants';
 
 /*
  * The following type aliases/interfaces correspond to the datasets
@@ -41,6 +41,7 @@ export interface DataColumns {
 
 export interface VizState {
   metadataForAllDatasets: Metadata[];
+  datasetTableNames: string[];
 }
 
 /*
@@ -54,4 +55,9 @@ export interface GetAllMetadataAction {
   payload: Metadata[] | undefined;
 }
 
-export type VizActionTypes = GetAllMetadataAction;
+export interface GetAllTableNamesAction {
+  type: typeof GET_ALL_TABLE_NAMES;
+  payload: string[] | undefined;
+}
+
+export type VizActionTypes = GetAllMetadataAction | GetAllTableNamesAction;

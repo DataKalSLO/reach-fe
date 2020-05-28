@@ -1,7 +1,14 @@
 import { Dispatch } from 'redux';
-import { getDatasetMetaDataAndHandleResponse } from '../../api/vizbuilder/operationHandlers';
-import { GET_ALL_METADATA } from './constants';
-import { GetAllMetadataAction, Metadata } from './types';
+import {
+  getDatasetMetaDataAndHandleResponse,
+  getTableNamesAndHandleResponse
+} from '../../api/vizbuilder/operationHandlers';
+import { GET_ALL_METADATA, GET_ALL_TABLE_NAMES } from './constants';
+import {
+  GetAllMetadataAction,
+  Metadata,
+  GetAllTableNamesAction
+} from './types';
 
 /*
  * Every Asynchronous Action has three parts.
@@ -23,11 +30,27 @@ export function getAllMetadata() {
   };
 }
 
+export function getAllTableNames() {
+  return async (dispatch: Dispatch) => {
+    const payload = await getTableNamesAndHandleResponse();
+    dispatch(getAllTableNamesAction(payload));
+  };
+}
+
 export function getAllMetadataAction(
   payload: Metadata[] | undefined
 ): GetAllMetadataAction {
   return {
     type: GET_ALL_METADATA,
+    payload: payload
+  };
+}
+
+export function getAllTableNamesAction(
+  payload: string[] | undefined
+): GetAllTableNamesAction {
+  return {
+    type: GET_ALL_TABLE_NAMES,
     payload: payload
   };
 }
