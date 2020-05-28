@@ -135,24 +135,24 @@ function App() {
         <ConnectedRouter history={history}>
           <QueryParamProvider ReactRouterRoute={Route}>
             <ThemeProvider theme={theme}>
-            <AppBar />
-            <Switch>
-              {home}
-              {explore}
-              {vizBuilder}
-              {storyBuilder}
-              {myStuff}
-              {myStuffCharts}
-              {myStuffMaps}
-              {myStuffStories}
-              {login}
-              {createAccount}
-              {sample}
-              {admin}
-              {settings}
-              {forgotPassword}
-            </Switch>
-          </ThemeProvider>
+              <AppBar />
+              <Switch>
+                {home}
+                {explore}
+                {vizBuilder}
+                {storyBuilder}
+                {myStuff}
+                {myStuffCharts}
+                {myStuffMaps}
+                {myStuffStories}
+                {login}
+                {createAccount}
+                {sample}
+                {admin}
+                {settings}
+                {forgotPassword}
+              </Switch>
+            </ThemeProvider>
           </QueryParamProvider>
         </ConnectedRouter>
       </PersistGate>
