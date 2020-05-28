@@ -71,7 +71,9 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
 
   return (
     <Card variant="outlined">
-      <GraphCardActions></GraphCardActions>
+      <GraphCardActions>
+        <GraphToolbar graph={graph} />
+      </GraphCardActions>
       <GraphDivider light />
       <CardContent>
         <HighchartsReact
