@@ -10,11 +10,12 @@ import BoxCenter from '../common/components/BoxCenter';
 import AccountTextField from '../common/components/AccountTextField';
 import { OccupationDropdown } from '../containers/OccupationDropdown';
 import { useHistory } from 'react-router-dom';
-import { HOME, BASE_USER } from '../nav/constants';
+import { BASE_USER } from '../nav/constants';
 import { useDispatch } from 'react-redux';
 import { register } from '../redux/login/actions';
 import { RegisterData } from '../redux/login/types';
 import { wrapWithCatch } from '../api/base';
+import { isValidEmail, isValidPassword } from './InputValidator';
 
 function CreateAccountForm() {
   const [name, setName] = useState('');
@@ -40,28 +41,24 @@ function CreateAccountForm() {
 
   const validateEmail = useCallback(
     (emailName: string) => {
-      const emailValidRegex = new RegExp('(?=.*[@])(?=.*[.])');
-      const error = emailValidRegex.test(emailName)
+      const isValid = isValidEmail(emailName);
+      const errorMessage = isValid
         ? ''
         : 'You must enter a valid email address';
-      setEmailValid(error === '');
-      setEmailErrorMessage(error);
-      return error;
+      setEmailValid(isValid);
+      setEmailErrorMessage(errorMessage);
     },
     [setEmailValid, setEmailErrorMessage]
   );
 
   const validatePassword = useCallback(
     (passwordVal: string) => {
-      const passwordStrengthRegex = new RegExp(
-        '(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{6,})'
-      );
-      const error = passwordStrengthRegex.test(passwordVal)
+      const isValid = isValidPassword(passwordVal);
+      const errorMessage = isValid
         ? ''
         : 'Your password must be at at least 6 characters, contain 1 number, and contain 1 special symbol';
-      setPasswordValid(error === '');
-      setPasswordErrorMessage(error);
-      return error;
+      setPasswordValid(isValid);
+      setPasswordErrorMessage(errorMessage);
     },
     [setPasswordValid, setPasswordErrorMessage]
   );
@@ -189,7 +186,7 @@ function CreateAccountForm() {
                 notificationsEnabled: emailNotificationEnabled
               } as RegisterData),
               handleAccountError,
-              () => history.push(HOME)
+              () => history.go(-2) // returns user back to previous non-login page
             )
           );
         }}

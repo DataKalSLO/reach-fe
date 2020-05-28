@@ -9,12 +9,15 @@ import {
   DeleteBlockAction,
   DELETE_BLOCK,
   GRAPH_BLOCK_TYPE,
+  PublicationStatus,
   SwapBlocksAction,
   SWAP_BLOCKS,
   UpdateDescriptionAction,
+  UpdatePublicationStatusAction,
   UpdateTextBlockAction,
   UpdateTitleAction,
   UPDATE_DESCRIPTION,
+  UPDATE_PUBLICATION_STATUS,
   UPDATE_TEXT_BLOCK,
   UPDATE_TITLE
 } from './types';
@@ -81,5 +84,14 @@ export function updateDescription(
   return {
     type: UPDATE_DESCRIPTION,
     payload: { newDescription: newDescription }
+  };
+}
+
+export function updatePublicationStatus(
+  newPublicationStatus: PublicationStatus
+): UpdatePublicationStatusAction {
+  return {
+    type: UPDATE_PUBLICATION_STATUS,
+    payload: { newPublicationStatus: newPublicationStatus }
   };
 }

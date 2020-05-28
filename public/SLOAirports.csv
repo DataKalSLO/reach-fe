@@ -1,0 +1,3 @@
+sloAirports,month,alaska,american,contour,united,grandTotal2019,grandTotal2018,pctChange
+,date (YYYY-MM-DD),integer,integer,integer,integer,integer,integer,decimal
+,ex: 2019-01-01,ex: 3664,ex: 12171,ex: 0,ex: 19481,ex: 35316,ex: 32324,ex: 0.093
