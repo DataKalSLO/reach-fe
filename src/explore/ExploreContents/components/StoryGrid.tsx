@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import StoryCard from '../../../preview-cards/story-card/StoryCard';
 import { getAllStoriesAndHandleResponse } from '../../../api/stories/operationHandlers';
-import { Story } from '../../../redux/story/types';
 import Gallery from '../../../common/components/Gallery';
+import StoryCard from '../../../preview-cards/story-card/StoryCard';
+import { Story } from '../../../redux/story/types';
 
 export default function StoryGrid() {
   const [stories, setStories] = React.useState([] as Story[]);
