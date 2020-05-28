@@ -82,6 +82,7 @@ function ForgotPassword() {
 
   return (
     <BoxCenterSized>
+      <Title variant="h4">Reset Password</Title>
       <AccountTextField
         fullWidth
         disabled={true}
@@ -126,6 +127,15 @@ function ForgotPassword() {
     </BoxCenterSized>
   );
 }
+
+const Title = styled(Typography)({
+  textAlign: 'center',
+  margin: '35px'
+});
+
+const BoxCenterSized = styled(BoxCenter)({
+  height: '400px'
+});
 
 const ButtonThin = styled(Button)({
   width: '270px'
