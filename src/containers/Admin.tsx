@@ -16,9 +16,9 @@ function Admin() {
   const [csvMigrationData, setCsvMigrationData]: any = useState([]);
   const [csvSloAirportsData, setCsvSloAirportsData]: any = useState([]);
   const [csvUniversityData, setCsvUniversityData]: any = useState([]);
-  const [csvWaterData, setCsvWaterData]: any = useState([]);
   const [jsonData, setJsonData] = useState({});
   const [uploadDisabled, setUploadDisabled] = useState(true);
+  const [uploadMessage, setUploadMessage] = useState('');
 
   useEffect(() => {
     Promise.all([
@@ -29,8 +29,7 @@ function Admin() {
       csv('./MeanRealWages.csv'),
       csv('./NetMigration.csv'),
       csv('./SloAirports.csv'),
-      csv('./UniversityInfo.csv'),
-      csv('./WaterSources.csv')
+      csv('./UniversityInfo.csv')
     ]).then(function(data) {
       setCsvAirportData(data[0]);
       setCsvCommuteData(data[1]);
@@ -40,7 +39,6 @@ function Admin() {
       setCsvMigrationData(data[5]);
       setCsvSloAirportsData(data[6]);
       setCsvUniversityData(data[7]);
-      setCsvWaterData(data[8]);
     });
   }, [setCsvAirportData, setCsvCommuteData, setCsvCovidData]);
 
@@ -54,8 +52,22 @@ function Admin() {
   );
 
   const uploadData = useCallback(() => {
-    upload(jsonData);
+    upload(jsonData)
+      .then(() =>
+        setUploadMessage(
+          'Success! The data was successfully uploaded into the database.'
+        )
+      )
+      .catch(e =>
+        setUploadMessage(
+          'Failed...Something went wrong.  Please check the formatting of your csv.'
+        )
+      );
   }, [jsonData]);
+
+  const uploadMessageColor = uploadMessage.includes('Success!')
+    ? 'primary'
+    : 'error';
 
   return (
     <React.Fragment>
@@ -69,6 +81,9 @@ function Admin() {
             disabled={uploadDisabled}
           />
         </UploadBox>
+        <Typography color={uploadMessageColor} variant="caption">
+          {uploadMessage}
+        </Typography>
       </UploadPaper>
       <DownloadPaper variant="outlined">
         <Typography variant="h5">Download Your CSV Templates</Typography>
@@ -112,11 +127,6 @@ function Admin() {
             templateName="UniversityInfo.csv"
             csvData={csvUniversityData}
             filename="UniversityInfo"
-          />
-          <CSVTemplate
-            templateName="WaterSources.csv"
-            csvData={csvWaterData}
-            filename="WaterSources"
           />
         </Box>
       </DownloadPaper>
