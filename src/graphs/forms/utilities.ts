@@ -1,7 +1,53 @@
 import { isUndefined } from 'util';
 import { Metadata } from '../../redux/vizbuilder/types';
 import { dataTypeIsNumber } from '../../redux/vizbuilder/utilities';
-import { DatasetsMetaData } from './types';
+import { DatasetsMetaData, GraphDataFormState } from './types';
+import { DataSourceTypesEnum, DataSource } from '../../redux/graphs/types';
+
+/*
+ * Extract the dataset, x-axis column, and y-axis columns
+ * used for a graph.
+ * TODO: Add stacking
+ */
+export function convertDataSourcesToFormDataState(
+  dataSources: DataSource[]
+): GraphDataFormState {
+  const dataFormState: GraphDataFormState = {
+    datasetName: '',
+    xAxisColumnName: '',
+    yAxisColumnNames: []
+  };
+  dataSources.forEach(dataSource => {
+    dataFormState.datasetName = dataSource.datasetName;
+    switch (dataSource.seriesType) {
+      case DataSourceTypesEnum.X_AXIS:
+        dataFormState.xAxisColumnName = dataSource.columnNames[0];
+        break;
+      case DataSourceTypesEnum.Y_AXIS:
+        dataFormState.yAxisColumnNames.push(...dataSource.columnNames);
+        break;
+    }
+  });
+  return dataFormState;
+}
+
+//TODO: Add stacking
+export function convertFormDataStateToDataSources(
+  formDataState: GraphDataFormState
+): DataSource[] {
+  return [
+    {
+      datasetName: formDataState.datasetName,
+      columnNames: [formDataState.xAxisColumnName],
+      seriesType: DataSourceTypesEnum.X_AXIS
+    },
+    {
+      datasetName: formDataState.datasetName,
+      columnNames: formDataState.yAxisColumnNames,
+      seriesType: DataSourceTypesEnum.Y_AXIS
+    }
+  ];
+}
 
 /*
  * This method extracts the following information from the datasets

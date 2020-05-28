@@ -1,5 +1,5 @@
 import { styled } from '@material-ui/core';
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, ReactNode } from 'react';
 import FormBlock from '../../common/components/FormBlock';
 import { TextFieldSelect } from '../../common/components/FormSelectionField';
 
@@ -9,6 +9,7 @@ interface Props {
   value: string;
   data: string[];
   handleChange: (selectedColumn: string) => void;
+  children?: ReactNode;
 }
 
 export function FormDataSelection(props: Props) {
@@ -22,6 +23,7 @@ export function FormDataSelection(props: Props) {
           props.handleChange(e.target.value)
         }
       />
+      {props.children}
     </FormBlock>
   );
 }

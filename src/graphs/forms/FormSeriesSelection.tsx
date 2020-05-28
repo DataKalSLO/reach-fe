@@ -21,7 +21,7 @@ export function FormSeriesSelection(props: Props) {
   return (
     <Fragment>
       <FormBlock label={props.label}>
-        {props.selectedColumnNames.map((columnName: string, index: number) => {
+        {props.selectedColumnNames.map((columnName, index) => {
           return (
             <FormBlock key={index}>
               <FormTextField
@@ -32,13 +32,16 @@ export function FormSeriesSelection(props: Props) {
                   props.handleChange(index, e.target.value)
                 }
               />
-              <IconButton
-                size="small"
-                color="default"
-                aria-label="Delete"
-                icon={<Delete color="error" />}
-                onClick={() => props.handleDelete(index)}
-              />
+              {/* Prevent the deletion of all series, must keep at least one */}
+              {props.selectedColumnNames.length > 1 && (
+                <IconButton
+                  size="small"
+                  color="default"
+                  aria-label="Delete"
+                  icon={<Delete color="error" />}
+                  onClick={() => props.handleDelete(index)}
+                />
+              )}
             </FormBlock>
           );
         })}
