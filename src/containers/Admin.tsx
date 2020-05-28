@@ -18,7 +18,12 @@ function Admin() {
   const [csvUniversityData, setCsvUniversityData]: any = useState([]);
   const [jsonData, setJsonData] = useState({});
   const [uploadDisabled, setUploadDisabled] = useState(true);
-  const [uploadMessage, setUploadMessage] = useState('');
+  enum status {
+    success,
+    failure,
+    undefined
+  }
+  const [uploadStatus, setUploadStatus] = useState(status.undefined);
 
   useEffect(() => {
     Promise.all([
@@ -53,21 +58,23 @@ function Admin() {
 
   const uploadData = useCallback(() => {
     upload(jsonData)
-      .then(() =>
-        setUploadMessage(
-          'Success! The data was successfully uploaded into the database.'
-        )
-      )
-      .catch(e =>
-        setUploadMessage(
-          'Failed...Something went wrong.  Please check the formatting of your csv.'
-        )
-      );
-  }, [jsonData]);
+      .then(() => {
+        setUploadStatus(status.success);
+      })
+      .catch(e => {
+        setUploadStatus(status.failure);
+      });
+  }, [jsonData, setUploadStatus, status.failure, status.success]);
 
-  const uploadMessageColor = uploadMessage.includes('Success!')
-    ? 'primary'
-    : 'error';
+  const uploadMessageColor =
+    uploadStatus === status.success ? 'primary' : 'error';
+
+  const uploadMessage =
+    uploadStatus === status.success
+      ? 'Success! The data was successfully uploaded into the database.'
+      : uploadStatus === status.failure
+      ? 'Failed...Something went wrong.  Please check the formatting of your csv.'
+      : '';
 
   return (
     <React.Fragment>
