@@ -1,9 +1,9 @@
 import { isUndefined } from 'util';
+import { ADMIN_USER } from '../../nav/constants';
+import { DataSource, DataSourceTypesEnum } from '../../redux/graphs/types';
 import { Metadata } from '../../redux/vizbuilder/types';
 import { dataTypeIsNumber } from '../../redux/vizbuilder/utilities';
 import { DatasetsMetaData, GraphDataFormState } from './types';
-import { DataSourceTypesEnum, DataSource } from '../../redux/graphs/types';
-import { ADMIN_USER } from '../../nav/constants';
 
 /*
  * Extract the dataset, x-axis column, and y-axis columns

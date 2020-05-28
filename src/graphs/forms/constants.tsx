@@ -1,12 +1,12 @@
-import { seriesTypesEnum } from '../builder/types';
 import {
-  INDUSTRY,
-  DEMOGRAPHICS,
   ASSETS,
+  DEMOGRAPHICS,
   EDUCATION,
+  HEALTH,
   HOUSING,
-  HEALTH
+  INDUSTRY
 } from '../../redux/graphs/constants';
+import { seriesTypesEnum } from '../builder/types';
 
 /*
  * Form Labels

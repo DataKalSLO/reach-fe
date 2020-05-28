@@ -12,23 +12,23 @@ import { ApiGraphConfirmationResponse } from '../../api/graphs/types';
 import { getDataColumnsForDataSourcesAndHandleResponse } from '../../api/vizbuilder/operationHandlers';
 import { GraphMetaData, GraphMetaDataApiPayload } from '../graphs/types';
 import {
-  TOGGLE_CREATE_GRAPH,
   DELETE_GRAPH,
   DUPLICATE_GRAPH,
   GET_ALL_USER_GRAPHS,
   GET_DEFAULT_GRAPHS_FOR_CATEGORY,
   GET_GRAPH,
   SAVE_GRAPH,
+  TOGGLE_CREATE_GRAPH,
   UPDATE_GRAPH,
   UPDATE_LOCAL_GRAPH
 } from './constants';
 import {
-  ToggleCreateGraphAction,
   DeleteGraphAction,
   DuplicateGraphAction,
   GetGraphAction,
   Graph,
   SaveGraphAction,
+  ToggleCreateGraphAction,
   UpdateGraphAction,
   UpdateLocalGraph
 } from './types';

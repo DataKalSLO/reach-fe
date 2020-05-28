@@ -2,11 +2,11 @@ import { ApiGraphConfirmationResponse } from '../../api/graphs/types';
 import { DELETE_GRAPH, DUPLICATE_GRAPH } from '../graphs/constants';
 import { GraphData, GraphMetaData } from '../graphs/types';
 import {
-  TOGGLE_CREATE_GRAPH,
   GET_ALL_USER_GRAPHS,
   GET_DEFAULT_GRAPHS_FOR_CATEGORY,
   GET_GRAPH,
   SAVE_GRAPH,
+  TOGGLE_CREATE_GRAPH,
   UPDATE_GRAPH,
   UPDATE_LOCAL_GRAPH
 } from './constants';

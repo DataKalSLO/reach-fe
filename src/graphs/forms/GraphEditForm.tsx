@@ -9,14 +9,14 @@ import { Metadata } from '../../redux/vizbuilder/types';
 import { theme } from '../../theme/theme';
 import { SeriesConfiguration } from '../builder/types';
 import { DATA_SOURCE_FORM_LABEL, FORMATTING_FORM_LABEL } from './constants';
+import { DataSourcesForm } from './DataSourcesForm';
 import { FormattingForm } from './FormattingForm';
+import { FormEditFooter } from './FormEditFooter';
 import { GraphDataFormState } from './types';
 import {
   convertDataSourcesToFormDataState,
   convertFormDataStateToDataSources
 } from './utilities';
-import { DataSourcesForm } from './DataSourcesForm';
-import { FormEditFooter } from './FormEditFooter';
 
 interface Props {
   graph: Graph;

@@ -3,7 +3,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import IconButton from '../../common/components/IconButton';
-import { toggleCreateGraph, saveGraph } from '../../redux/graphbuilder/actions';
+import { saveGraph, toggleCreateGraph } from '../../redux/graphbuilder/actions';
 import { HEALTH } from '../../redux/graphs/constants';
 import { PartialGraphConfigurationWithoutData } from '../../redux/graphs/types';
 import { getUser } from '../../redux/login/selectors';

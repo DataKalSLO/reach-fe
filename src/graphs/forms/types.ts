@@ -1,6 +1,6 @@
 import {
-  PartialGraphConfigurationWithoutData,
-  DataSource
+  DataSource,
+  PartialGraphConfigurationWithoutData
 } from '../../redux/graphs/types';
 
 /*
