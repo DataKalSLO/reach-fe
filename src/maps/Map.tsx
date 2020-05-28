@@ -22,7 +22,7 @@ const BOX_WIDTH = '100%';
 const BOX_HEIGHT = '100%';
 const BOX_MAX_WIDTH = 'calc(100vw/2)';
 
-// sizing for the card background which contains the autocomplete
+// sizing for the card background which contains everything on the map side
 const CARD_HEIGHT = '95%';
 const CARD_MARGIN = '15px';
 
