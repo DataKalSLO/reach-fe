@@ -3,6 +3,7 @@ import { SidebarListOrder } from '../../my-stuff/MyStuffSidebar';
 import MyStuffWrapper from '../../my-stuff/MyStuffWrapper';
 import StoryCard from '../../common/components/StoryCard';
 import { Story, PublicationStatus } from '../../redux/story/types';
+import Gallery from '../../common/components/Gallery';
 
 const sampleStory: Story = {
   id: '12345',
