@@ -2,7 +2,7 @@ import { esPost } from './base';
 import { SearchIndexFilter } from '../redux/search/types';
 
 /*
- * queries ElasticSearch backend, you can specify index ("GRAPHS", "STORIES", "ALL")
+ * queries ElasticSearch backend, you can specify index through SearchIndexFilter enum
  * if an invalid index is provided, will default to searching all indices
  * formats search string into ElasticSearch query, documentation:
  * https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html
