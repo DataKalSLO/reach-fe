@@ -1,10 +1,10 @@
 import React from 'react';
 import { SidebarListOrder } from '../../my-stuff/MyStuffSidebar';
 import MyStuffWrapper from '../../my-stuff/MyStuffWrapper';
-import StoryCard from '../../common/components/StoryCard';
-import { Story, PublicationStatus } from '../../redux/story/types';
+import StoryCard from '../../preview-cards/story-card/StoryCard';
+import { PublicationStatus, Story } from '../../redux/story/types';
 
-const sampleStory: Story = {
+const sampleStoryDraft: Story = {
   id: '12345',
   publicationStatus: PublicationStatus.DRAFT,
   userID: 'USER-ID', // TODO: replace placeholder value
@@ -14,11 +14,22 @@ const sampleStory: Story = {
   storyBlocks: []
 };
 
+const sampleStoryInReview: Story = {
+  id: '12345',
+  publicationStatus: PublicationStatus.REVIEW,
+  userID: 'USER-ID', // TODO: replace placeholder value
+  title: 'Zoning in Downtown San Luis Obispo',
+  description:
+    'Are the zoning policies in downtown SLO preventing business expansion?',
+  storyBlocks: []
+};
+
 export default function MyStuff() {
   return (
     <MyStuffWrapper title="My Stuff" selectedIndex={SidebarListOrder.all}>
       {/* TODO: replace this with the content for the gallery view */}
-      <StoryCard story={sampleStory} />
+      <StoryCard story={sampleStoryDraft} />
+      <StoryCard story={sampleStoryInReview} />
     </MyStuffWrapper>
   );
 }
