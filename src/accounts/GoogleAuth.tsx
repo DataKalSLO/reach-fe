@@ -60,21 +60,6 @@ const GoogleAuth = (props: { style: GoogleAuthButtonType }) => {
     [dispatch, registerAccount, loginAccount]
   );
 
-  const googleResponseCatcher = useCallback(
-    (googleUser: gapi.auth2.GoogleUser): void => {
-      const userInfo = {
-        name: googleUser.getBasicProfile().getName(),
-        email: googleUser.getBasicProfile().getEmail(),
-        id: googleUser.getId()
-      }
-      googleResponseHandler(userInfo.name, userInfo.email, userInfo.id);
-      history.push(HOME);
-    },
-    [
-      history
-    ]
-  );
-
   const googleResponseHandler = useCallback(
     (name: string, email: string, id: string): void => {
       if (props.style === GoogleAuthButtonType.Register) {
@@ -92,13 +77,20 @@ const GoogleAuth = (props: { style: GoogleAuthButtonType }) => {
         );
       }
     },
-    [
-      dispatch,
-      props.style,
-      registerThenLogin,
-      registerAccount,
-      loginAccount
-    ] 
+    [dispatch, props.style, registerThenLogin, registerAccount, loginAccount]
+  );
+
+  const googleResponseCatcher = useCallback(
+    (googleUser: gapi.auth2.GoogleUser): void => {
+      const userInfo = {
+        name: googleUser.getBasicProfile().getName(),
+        email: googleUser.getBasicProfile().getEmail(),
+        id: googleUser.getId()
+      };
+      googleResponseHandler(userInfo.name, userInfo.email, userInfo.id);
+      history.push(HOME);
+    },
+    [googleResponseHandler, history]
   );
 
   return (

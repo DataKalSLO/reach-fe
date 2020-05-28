@@ -126,7 +126,9 @@ function Settings() {
           />
         </SettingsBox>
         <CenterBox>
-          <SettingsButton variant="outlined">Reset Password</SettingsButton>
+          <SettingsButton variant="outlined" disabled={user.isThirdParty}>
+            Reset Password
+          </SettingsButton>
           <SettingsDeleteButton
             variant="contained"
             onClick={handleDeleteAccount}
