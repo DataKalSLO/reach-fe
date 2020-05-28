@@ -3,10 +3,15 @@ import { Graph } from '../../redux/graphbuilder/types';
 
 export interface GraphHeaderProps {
   graph: Graph;
+  index: number;
+  isHidden: boolean;
+  toggleEdit: () => void;
+  toggleHide: () => void;
 }
 
 export interface GraphPrebuiltProps {
   graph: Graph;
+  index: number;
 }
 
 export interface GraphProps {

@@ -24,7 +24,6 @@ function VizBuilder() {
         <SplitterLayout primaryMinSize={5} secondaryMinSize={5}>
           <StyledGrid item xs={12}>
             <LeftArrow fontSize={'large'} />
-            <Map />
           </StyledGrid>
           <StyledGrid item xs={12}>
             <RightArrow fontSize={'large'} />

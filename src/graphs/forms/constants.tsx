@@ -75,7 +75,7 @@ export const createFormSteps = [
 /*
  * Form Data
  */
-export const NONE = 'NONE';
+export const NONE = 'None';
 export const DEFAULT_SERIES = seriesTypesEnum.column;
 export const supportedSeriesTypes = [
   seriesTypesEnum.line,

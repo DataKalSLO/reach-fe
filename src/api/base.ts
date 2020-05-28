@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 
-const baseURL = process.env.REACT_APP_API_URL;
+const baseURL = 'http://localhost:5000/';
 
 // TEMPORARY: will access ES index from backend in future, for now accessing ES directly from client
 const searchURL = process.env.REACT_APP_SEARCH_URL;

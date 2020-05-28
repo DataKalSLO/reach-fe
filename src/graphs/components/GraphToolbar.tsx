@@ -1,8 +1,10 @@
 import { Toolbar } from '@material-ui/core';
 import { Delete, Edit, FileCopy, Save, Share } from '@material-ui/icons';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button, { Props as ButtonProps } from '../../common/components/Button';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import {
   deleteGraphAction,
   duplicateGraphAction
@@ -12,9 +14,19 @@ import {
   DUPLICATE_LABEL,
   EDIT_LABEL,
   SAVE_LABEL,
-  SHARE_LABEL
+  SHARE_LABEL,
+  SHOW_LABEL,
+  HIDE_LABEL
 } from './constants';
 import { GraphHeaderProps } from './types';
+import { GraphMetaDataApiPayload } from '../../redux/graphs/types';
+import { saveGraph } from '../../api/graphs/operations';
+import {
+  updateGraph,
+  deleteGraph,
+  duplicateGraph
+} from '../../redux/graphbuilder/actions';
+import { getUser } from '../../redux/login/selectors';
 
 /*
  * Contains the buttons rendered on the graph toolbar.
@@ -24,44 +36,62 @@ const ToolbarButton = (props: ButtonProps) => {
   return <Button variant="text" color="default" {...props} />;
 };
 
-function GraphToolbar({ graph }: GraphHeaderProps) {
+function GraphToolbar(props: GraphHeaderProps) {
+  const { graph, index, isHidden, toggleEdit, toggleHide } = props;
   const dispatch = useDispatch();
+  const userInfo = useSelector(getUser);
+  const newGraph: GraphMetaDataApiPayload = {
+    graphId: graph.graphMetaData.graphId,
+    graphCategory: null,
+    graphTitle: graph.graphMetaData.graphTitle,
+    dataSources: graph.graphMetaData.dataSources,
+    graphOptions: graph.graphMetaData.graphOptions,
+    graphSVG: ''
+  };
+
+  const userOwnsGraph = userInfo.email === graph.graphMetaData.userId;
 
   // TODO: Collapse toolbar when width is too small
   return (
     <Toolbar>
       <ToolbarButton
-        disabled={true}
         label={EDIT_LABEL}
         variant="text"
         color="default"
         startIcon={<Edit />}
-        onClick={() => alert('Not implemented')}
+        onClick={() => toggleEdit()}
       />
       <ToolbarButton
-        disabled={true}
         label={SAVE_LABEL}
         startIcon={<Save />}
-        onClick={() => alert('Not implemented')}
+        onClick={() =>
+          graph.graphMetaData.graphId === ''
+            ? dispatch(saveGraph(newGraph))
+            : dispatch(updateGraph(newGraph))
+        }
       />
       <ToolbarButton
-        disabled={true}
         label={DUPLICATE_LABEL}
         startIcon={<FileCopy />}
-        onClick={() => alert('Not implemented')}
+        onClick={() => dispatch(duplicateGraph(graph, index))}
       />
       <ToolbarButton
-        disabled={true}
+        label={isHidden ? SHOW_LABEL : HIDE_LABEL}
+        startIcon={isHidden ? <VisibilityIcon /> : <VisibilityOffIcon />}
+        onClick={() => toggleHide()}
+      />
+      <ToolbarButton
         label={SHARE_LABEL}
         startIcon={<Share />}
         onClick={() => alert('Not implemented')}
       />
-      <ToolbarButton
-        disabled={true}
-        label={DELETE_LABEL}
-        startIcon={<Delete color="error" />}
-        onClick={() => alert('Not implemented')}
-      />
+      {userOwnsGraph ? (
+        <ToolbarButton
+          label={DELETE_LABEL}
+          startIcon={<Delete color={userOwnsGraph ? 'error' : 'inherit'} />}
+          onClick={() => dispatch(deleteGraph(graph.graphMetaData.graphId))}
+        />
+      ) : null}
     </Toolbar>
   );
 }

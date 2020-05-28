@@ -79,9 +79,9 @@ export function GraphCreateForm(props: Props) {
         graphId: null,
         graphCategory:
           isAdmin(userInfo.role) && category !== NONE ? category : null,
-        graphTitle: graph.graphOptions.title,
+        graphTitle: graphState.title,
         dataSources: convertFormDataStateToDataSources(dataState),
-        graphOptions: graph.graphOptions,
+        graphOptions: graphState,
         graphSVG: ''
       })
     );
@@ -128,7 +128,7 @@ export function GraphCreateForm(props: Props) {
           />
         </FormattingForm>
         <FormDataSelection
-          label={CATEGORY_CREATE_LABEL}
+          label={''}
           inputLabel={INPUT_CATEGORY_LABEL}
           value={category}
           data={supportedInitiativeTypes}
@@ -162,6 +162,7 @@ const FormCard = styled(Card)({
 });
 
 const FormPaper = styled(Paper)({
+  height: '100%',
   margin: '0px 0px 20px 20px'
 });
 

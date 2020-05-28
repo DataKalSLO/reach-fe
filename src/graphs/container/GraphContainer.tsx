@@ -5,6 +5,9 @@ import { HEALTH } from '../../redux/graphs/constants';
 import { getGraphs } from '../../redux/graphbuilder/selector';
 import GraphPrebuilt from '../components/GraphPrebuilt';
 import { getDefaultGraphs } from '../../redux/graphbuilder/actions';
+import { GraphCreateForm } from '../forms/GraphCreateForm';
+import { generateEmptyGraph } from '../forms/defaults';
+import { getVizbuilder } from '../../redux/vizbuilder/selector';
 
 /*
  * Renders a list of graphs.
@@ -13,6 +16,7 @@ import { getDefaultGraphs } from '../../redux/graphbuilder/actions';
  */
 function GraphContainer() {
   const graphState = useSelector(getGraphs);
+  const vizState = useSelector(getVizbuilder);
   const dispatch = useDispatch();
 
   // Use the prebuilt health graphs as the default graphs
@@ -27,12 +31,25 @@ function GraphContainer() {
   const getGraphComponents = () => {
     return graphState.graphs.map((graph, index) => (
       <GridItem item key={index}>
-        <GraphPrebuilt graph={graph} />
+        <GraphPrebuilt graph={graph} index={index} />
       </GridItem>
     ));
   };
 
-  return <GridContainer container>{getGraphComponents()}</GridContainer>;
+  return (
+    <GridContainer container>
+      <GridItem>
+        {graphState.isCreating ? (
+          <GraphCreateForm
+            graph={generateEmptyGraph(vizState.metadataForAllDatasets)}
+            datasetsMetaData={vizState.metadataForAllDatasets}
+          />
+        ) : (
+          getGraphComponents()
+        )}
+      </GridItem>
+    </GridContainer>
+  );
 }
 
 export default GraphContainer;

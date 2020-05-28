@@ -17,6 +17,7 @@ import {
   changeEntryAtIndex,
   extractInfoFromDatasetsMetaData
 } from './utilities';
+import { GRAPH_COLORS } from '../builder/constants';
 
 export interface Props {
   metaData: Metadata[];
@@ -74,9 +75,11 @@ export function DataSourcesForm(props: Props) {
     const newYColumns = dataState.yAxisColumnNames.filter(
       (columnName: string, index: number) => columnIndex !== index
     );
-    const newSeries = seriesState.filter(
-      (series, index) => columnIndex === index
-    );
+    const newSeries = seriesState
+      .filter((series, index) => columnIndex !== index)
+      .map((series, index) => {
+        return { ...series, color: GRAPH_COLORS[index] };
+      });
     setDataState({ ...dataState, yAxisColumnNames: newYColumns });
     setSeriesState(newSeries);
   };

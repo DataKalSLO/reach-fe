@@ -11,6 +11,13 @@ import {
   StyledTypography,
   useOptionsStyles
 } from './styles';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import CreateIcon from '@material-ui/icons/Create';
+import {
+  getAllUserGraphs,
+  toggleCreateGraph
+} from '../../redux/graphbuilder/actions';
+import { useDispatch } from 'react-redux';
 
 /*
  * The toolbar that displays a button for each initiative.
@@ -21,6 +28,7 @@ import {
 
 function OptionsBar() {
   const classes = useOptionsStyles();
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const popoverIsOpen = Boolean(anchorEl);
@@ -38,6 +46,11 @@ function OptionsBar() {
 
   const toggleDrawer = () => {
     setOpen(!open);
+  };
+
+  const handleCreate = () => {
+    setOpen(!open);
+    dispatch(toggleCreateGraph());
   };
 
   return (
@@ -75,6 +88,18 @@ function OptionsBar() {
             icon={<Close fontSize="large" color="error" />}
           />
           <OptionsButtons />
+          <BottomNavigationAction
+            color="error"
+            onClick={() => dispatch(getAllUserGraphs())}
+            label="My Charts"
+            icon={<BarChartIcon fontSize="large" />}
+          />
+          <BottomNavigationAction
+            color="error"
+            onClick={() => handleCreate()}
+            label="Create Graph"
+            icon={<CreateIcon fontSize="large" />}
+          />
         </StyledBottomNav>
       </Drawer>
     </Fragment>
