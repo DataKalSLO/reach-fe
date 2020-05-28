@@ -31,8 +31,7 @@ function Settings() {
   const settings: UserSettings = {
     name: user.name,
     occupation: user.occupation,
-    notificationsEnabled: user.notificationsEnabled,
-    isThirdParty: user.isThirdParty
+    notificationsEnabled: user.notificationsEnabled
   };
 
   const saveNameSetting = useCallback(() => {

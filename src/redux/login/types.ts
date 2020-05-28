@@ -27,7 +27,6 @@ export interface UserSettings {
   name: string;
   occupation: string;
   notificationsEnabled: boolean;
-  isThirdParty: boolean;
 }
 
 export const LOGIN = 'LOGIN';
