@@ -11,7 +11,9 @@ const sampleStoryDraft: Story = {
   title: 'High School Graduation Rates on the Central Coast',
   description:
     "High school graduation rates are a critical metric of the effectiveness of our local high schools, as well as our students' college preparedness.",
-  storyBlocks: []
+  storyBlocks: [],
+  dateCreated: new Date(),
+  dateLastEdited: new Date()
 };
 
 const sampleStoryInReview: Story = {
@@ -21,7 +23,9 @@ const sampleStoryInReview: Story = {
   title: 'Zoning in Downtown San Luis Obispo',
   description:
     'Are the zoning policies in downtown SLO preventing business expansion?',
-  storyBlocks: []
+  storyBlocks: [],
+  dateCreated: new Date(),
+  dateLastEdited: new Date()
 };
 
 export default function MyStuff() {
