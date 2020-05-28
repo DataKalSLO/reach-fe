@@ -36,9 +36,9 @@ const useStyles = makeStyles({
   }
 });
 
-interface Props {
+export interface Props {
   width: number;
-  children: JSX.Element | JSX.Element[];
+  // children: JSX.Element | JSX.Element[];
   isCollapsible?: boolean;
   anchor?: 'left' | 'right';
   // This extra parameter is necessary to allow other props to be passed through

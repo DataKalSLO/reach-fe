@@ -1,84 +1,53 @@
 import { InsertChart, LibraryBooks, Map, ViewModule } from '@material-ui/icons';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import {
   MY_STUFF,
   MY_STUFF_CHARTS,
   MY_STUFF_MAPS,
   MY_STUFF_STORIES
 } from '../nav/constants';
-import { Drawer, List, ListItemButton } from '../reach-ui/core';
-
-export enum SidebarListOrder {
-  all = 0,
-  charts,
-  maps,
-  stories
-}
-
-interface SidebarButtonProps {
-  title: string;
-  icon: JSX.Element;
-  index: number;
-  route: string;
-  // This extra parameter is necessary to allow other props to be passed through
-  [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-}
+import { List } from '../reach-ui/core';
+import DrawerNav, { RenderProps } from './DrawerNav';
+import DrawerNavButton from './DrawerNavButton';
 
 const SIDEBAR_WIDTH = 190;
 
-// selection functionality copied from https://material-ui.com/components/lists/#selected-listitem
-
-export default function MyStuffSidebar(props: { selectedIndex: number }) {
-  const [selectedIndex, setSelectedIndex] = React.useState(props.selectedIndex);
-  const history = useHistory();
-  const navigateTo = (route: string) => history.push(route);
-
-  const handleListItemClick = (index: number, route: string) => {
-    navigateTo(route);
-    setSelectedIndex(index);
-  };
-
-  const SidebarButton = (props: SidebarButtonProps) => {
-    return (
-      <ListItemButton
-        text={props.title}
-        icon={props.icon}
-        selected={selectedIndex === props.index}
-        onClick={() => handleListItemClick(props.index, props.route)}
-      />
-    );
-  };
-
+export default function MyStuffSidebar() {
   return (
-    <Drawer width={SIDEBAR_WIDTH} isCollapsible={true}>
-      <List>
-        <SidebarButton
-          autoFocus
-          title="All Items"
-          icon={<ViewModule />}
-          index={SidebarListOrder.all}
-          route={MY_STUFF}
-        />
-        <SidebarButton
-          title="Charts"
-          icon={<InsertChart />}
-          index={SidebarListOrder.charts}
-          route={MY_STUFF_CHARTS}
-        />
-        <SidebarButton
-          title="Maps"
-          icon={<Map />}
-          index={SidebarListOrder.maps}
-          route={MY_STUFF_MAPS}
-        />
-        <SidebarButton
-          title="Stories"
-          icon={<LibraryBooks />}
-          index={SidebarListOrder.stories}
-          route={MY_STUFF_STORIES}
-        />
-      </List>
-    </Drawer>
+    <DrawerNav
+      id={'MyStuffSidebar'}
+      width={SIDEBAR_WIDTH}
+      isCollapsible={true}
+      defaultRoute={MY_STUFF}
+      render={(props: RenderProps) => (
+        <List>
+          <DrawerNavButton
+            autoFocus
+            title="All Items"
+            icon={<ViewModule />}
+            route={MY_STUFF}
+            {...props}
+          />
+          <DrawerNavButton
+            title="Charts"
+            icon={<InsertChart />}
+            route={MY_STUFF_CHARTS}
+            {...props}
+          />
+          <DrawerNavButton
+            title="Maps"
+            icon={<Map />}
+            route={MY_STUFF_MAPS}
+            {...props}
+          />
+          <DrawerNavButton
+            title="Stories"
+            icon={<LibraryBooks />}
+            route={MY_STUFF_STORIES}
+            {...props}
+          />
+        </List>
+      )}
+    />
   );
 }
