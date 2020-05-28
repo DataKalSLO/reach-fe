@@ -1,36 +1,29 @@
-import React, { useState } from 'react';
-import { Props as DrawerProps } from '../common/components/Drawer';
-import { Drawer } from '../reach-ui/core';
+import { useState } from 'react';
 
-export interface RenderProps {
-  selectedRoute: string;
-  id: string;
-}
-
-interface Props extends DrawerProps {
+export interface Props {
   defaultRoute: string;
-  render: (props: RenderProps) => void;
   id: string;
+  anchor?: 'right' | 'left' | undefined;
 }
 
+/*
+ * Getters and setters for data stored in localStorage.
+ * localStorage is used so the selection of a tab persists even after page refresh
+ */
 const getCurrentRoute = (id: string) => localStorage.getItem(id);
-
 const initializeRoute = (id: string, defaultRoute: string) => {
   localStorage.setItem(id, defaultRoute);
   return defaultRoute;
 };
 
-export default function DrawerNav(props: Props) {
+export default function useDrawerNav(props: Props) {
   const [selectedRoute, setSelectedRoute] = useState(
     getCurrentRoute(props.id) || initializeRoute(props.id, props.defaultRoute)
   );
 
-  return (
-    <Drawer {...props}>
-      {props.render({
-        selectedRoute: selectedRoute,
-        id: props.id
-      })}
-    </Drawer>
-  );
+  return {
+    selectedRoute: selectedRoute,
+    id: props.id,
+    anchor: props.anchor
+  };
 }

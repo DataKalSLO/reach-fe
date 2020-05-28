@@ -1,17 +1,19 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { ListItemButton } from '../reach-ui/core';
-import { RenderProps } from './DrawerNav';
 
-interface Props extends RenderProps {
+interface Props {
   title: string;
   icon: JSX.Element;
   route: string;
+  selectedRoute: string;
+  id: string;
+  anchor?: 'left' | 'right';
   // This extra parameter is necessary to allow other props to be passed through
   [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
-export default function DrawerNavButton(props: Props) {
+export default function ListItemTab(props: Props) {
   const history = useHistory();
   const navigateTo = (route: string) => history.push(route);
 
@@ -25,7 +27,12 @@ export default function DrawerNavButton(props: Props) {
       text={props.title}
       icon={props.icon}
       selected={props.selectedRoute === props.route}
-      onClick={() => handleListItemClick()}
+      onClick={handleListItemClick}
+      style={
+        props.anchor === undefined || props.anchor === 'left'
+          ? { borderRadius: '0px 20px 20px 0px' }
+          : { borderRadius: '20px 0px 0px 20px' }
+      }
     />
   );
 }
