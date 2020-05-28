@@ -13,6 +13,7 @@ export const DELETE_BLOCK = 'DELETE_BLOCK';
 export const SWAP_BLOCKS = 'SWAP_BLOCKS';
 export const UPDATE_TITLE = 'UPDATE_TITLE';
 export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
+export const UPDATE_PUBLICATION_STATUS = 'UPDATE_PUBLICATION_STATUS';
 
 //Story-related types
 export interface StoryMetaInformation {
@@ -20,6 +21,7 @@ export interface StoryMetaInformation {
   userID: string;
   title: string;
   description: string;
+  publicationStatus: PublicationStatus;
 }
 
 export interface Story extends StoryMetaInformation {
@@ -48,7 +50,12 @@ export interface MapBlockType {
 }
 
 export type StoryBlockType = TextBlockType | GraphBlockType | MapBlockType;
-
+export enum PublicationStatus {
+  DRAFT,
+  REVIEW,
+  FEEDBACK,
+  PUBLISHED
+}
 //Actions
 
 export interface CreateEmptyTextBlockAction {
@@ -86,6 +93,11 @@ export interface UpdateDescriptionAction {
   payload: { newDescription: string };
 }
 
+export interface UpdatePublicationStatusAction {
+  type: typeof UPDATE_PUBLICATION_STATUS;
+  payload: { newPublicationStatus: PublicationStatus };
+}
+
 // use in updateObjectInArray function (reducer.ts) when updating a single object.
 // interfaces of this type must include:
 //  - index
@@ -100,4 +112,5 @@ export type StoryActionType =
   | DeleteBlockAction
   | SwapBlocksAction
   | UpdateTitleAction
-  | UpdateDescriptionAction;
+  | UpdateDescriptionAction
+  | UpdatePublicationStatusAction;

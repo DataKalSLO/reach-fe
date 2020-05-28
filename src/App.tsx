@@ -10,7 +10,10 @@ import {
   SAMPLE,
   CREATE_ACCOUNT,
   SETTINGS,
-  ADMIN
+  ADMIN,
+  MY_STUFF_CHARTS,
+  MY_STUFF_MAPS,
+  MY_STUFF_STORIES
 } from './nav/constants';
 import ProtectedRoute from './nav/ProtectedRoute';
 import AdminProtectedRoute from './nav/AdminProtectedRoute';
@@ -38,7 +41,10 @@ import { Provider } from 'react-redux';
 import Explore from './containers/Explore';
 import VizBuilder from './containers/VizBuilder';
 import StoryBuilder from './containers/StoryBuilder';
-import MyStuff from './containers/MyStuff';
+import MyStuff from './containers/my-stuff-landing/MyStuff';
+import MyStuffCharts from './containers/my-stuff-landing/MyStuffCharts';
+import MyStuffMaps from './containers/my-stuff-landing/MyStuffMaps';
+import MyStuffStories from './containers/my-stuff-landing/MyStuffStories';
 import Login from './containers/Login';
 import Sample from './containers/Sample';
 import CreateAccount from './containers/CreateAccount';
@@ -68,8 +74,23 @@ const storyBuilder = (
   </Route>
 );
 const myStuff = (
-  <Route path={MY_STUFF}>
-    <MyStuff />
+  <Route exact path={MY_STUFF}>
+    <ProtectedRoute componentPage={<MyStuff />} />
+  </Route>
+);
+const myStuffCharts = (
+  <Route exact path={MY_STUFF_CHARTS}>
+    <ProtectedRoute componentPage={<MyStuffCharts />} />
+  </Route>
+);
+const myStuffMaps = (
+  <Route exact path={MY_STUFF_MAPS}>
+    <ProtectedRoute componentPage={<MyStuffMaps />} />
+  </Route>
+);
+const myStuffStories = (
+  <Route exact path={MY_STUFF_STORIES}>
+    <ProtectedRoute componentPage={<MyStuffStories />} />
   </Route>
 );
 const login = (
@@ -116,6 +137,9 @@ function App() {
               {vizBuilder}
               {storyBuilder}
               {myStuff}
+              {myStuffCharts}
+              {myStuffMaps}
+              {myStuffStories}
               {login}
               {createAccount}
               {sample}

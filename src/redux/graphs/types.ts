@@ -1,3 +1,5 @@
+import { GraphConfiguration } from '../../graphs/builder/types';
+import { DataValue } from '../vizbuilder/types';
 import * as consts from './constants';
 
 /*
@@ -65,3 +67,67 @@ export const initiativeNames = [
 ] as const;
 
 export type InitiativeLiteral = typeof initiativeNames[number];
+
+/*
+ * Graph MetaData
+ */
+export interface BaseGraphMetaData {
+  graphId: string;
+  userId: string;
+  timestamp: number;
+  graphTitle: string;
+  snapshotUrl: string;
+  dataSources: DataSource[];
+}
+
+export interface GraphMetaData extends BaseGraphMetaData {
+  graphOptions: PartialGraphConfigurationWithoutData;
+}
+
+/*
+ * Graph metadata that is sent to the backend in an API
+ * call.
+ */
+export interface GraphMetaDataApiPayload {
+  graphId: string | null;
+  graphCategory: string | null;
+  graphTitle: string;
+  dataSources: DataSource[];
+  graphOptions: PartialGraphConfigurationWithoutData;
+  graphSVG: string;
+}
+
+/*
+ * Indicates which axis a data source corresponds to
+ */
+export enum DataSourceTypesEnum {
+  X_AXIS = 'X_AXIS',
+  Y_AXIS = 'Y_AXIS',
+  STACK = 'STACK'
+}
+
+export type DataSourceType = keyof typeof DataSourceTypesEnum;
+
+/*
+ * Data sources used for one of the axes.
+ */
+export interface DataSource {
+  datasetName: string;
+  columnNames: string[];
+  seriesType: DataSourceType;
+}
+
+/*
+ * Remove properties that store data, as the data values
+ * are not stored in the database graph metadata.
+ */
+export type PartialGraphConfigurationWithoutData = Omit<
+  GraphConfiguration,
+  'xAxisData' | 'yAxisData' | 'stackData'
+>;
+
+export interface GraphData {
+  xAxisData: DataValue[];
+  yAxisData: DataValue[][];
+  stackData?: DataValue[];
+}

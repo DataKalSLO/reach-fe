@@ -1,0 +1,3 @@
+commuteTimes,year,avgMinutes,city
+,date (YYYY-MM-DD),decimal,text
+,ex: 2009-01-01,ex: 19.93429875,ex: San Luis Obispo

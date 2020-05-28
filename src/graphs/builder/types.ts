@@ -1,10 +1,18 @@
 import {
   AccessibilityOptions,
   ChartOptions,
+  ColorString,
   DrilldownOptions,
   ExportingOptions,
   PlotOptions,
   ResponsiveOptions,
+  SeriesAreaOptions,
+  SeriesAreasplineOptions,
+  SeriesBarOptions,
+  SeriesColumnOptions,
+  SeriesLineOptions,
+  SeriesPieOptions,
+  SeriesSplineOptions,
   SubtitleOptions,
   TitleOptions,
   TooltipOptions,
@@ -30,9 +38,126 @@ export interface GraphOptionsGeneral {
   exporting: ExportingOptions;
   xAxis: XAxisOptions;
   yAxis: YAxisOptions[];
+  colors: ColorString[];
   tooltip?: TooltipOptions;
   drilldown?: DrilldownOptions;
 }
+
+/*
+ * All the supported series types
+ * Enums are used for runtime type checking
+ */
+export enum seriesTypesEnum {
+  line = 'line',
+  spline = 'spline',
+  column = 'column',
+  bar = 'bar',
+  area = 'area',
+  areaspline = 'areaspline',
+  pie = 'pie'
+}
+export type SeriesTypes = keyof typeof seriesTypesEnum;
+
+/*
+ * The series types are grouped as either primary or secondary types
+ * as secondary types may have incompatible property types. For instance,
+ * a pie series is the only type that contains the size property as
+ * well as the only type that does not contain the stacking property.
+ *  1. Primary Series Types: line, spline, column, bar, area, areaspline
+ *  2. Secondary Series Types: pie
+ */
+
+/*
+ * Primary Series Types
+ * Enums are used for runtime type checking
+ */
+const { pie, ...primarySeriesTypesEnum } = seriesTypesEnum;
+export { primarySeriesTypesEnum };
+export type PrimarySeriesTypes = keyof typeof primarySeriesTypesEnum;
+
+/*
+ * Secondary Series Types
+ * Enums are used for runtime type checking
+ */
+export const secondarySeriesTypesEnum = { pie: seriesTypesEnum.pie };
+export type SecondarySeriesTypes = keyof typeof secondarySeriesTypesEnum;
+
+/*
+ * The following type aliases/interfaces represent the type
+ * of "series", which is a property in the Highcharts options object.
+ * Note: the "series" property is a list of SeriesOptions, a type
+ *       defined by Highcharts
+ * - for more information about the series property
+ *   see https://api.highcharts.com/highcharts/series
+ */
+
+/*
+ * The specific SeriesOptions for each series group type
+ */
+export type SecondarySeries = SeriesPieOptions;
+export type PrimarySeries =
+  | SeriesLineOptions
+  | SeriesSplineOptions
+  | SeriesColumnOptions
+  | SeriesBarOptions
+  | SeriesAreaOptions
+  | SeriesAreasplineOptions;
+
+/*
+ * Each of the graph types consists of a different subset of series
+ * types, each of which are rendered on a chart.
+ * There are three main graph types:
+ *  1. Basic Graph: Multiple Primary Series or 1 Secondary Series
+ *  2. Combined Graph: Multiple Primary Series & 1 Secondary Series
+ *  3. Synchronized Graph: Multiple Primary Series
+ */
+
+/*
+ * The series (highcharts property) type for a "Basic" graph.
+ * Basic Graph: Multiple Primary Series or 1 Secondary Series
+ */
+export type SeriesListBasic = PrimarySeries[] | [SecondarySeries];
+
+/*
+ * The highcharts options object type for a "Basic" graph
+ */
+export interface GraphOptionsBasic extends GraphOptionsGeneral {
+  series: SeriesListBasic;
+}
+
+/*
+ * The series (highcharts property) type for a "Combined" graph
+ * Combined Graph: Multiple Primary Series & 1 Secondary Series
+ */
+export type SeriesListCombined = (PrimarySeries | SecondarySeries)[];
+
+/*
+ * The highcharts options object type for a "Combined" graph
+ */
+export interface GraphOptionsCombined extends GraphOptionsGeneral {
+  series: SeriesListCombined;
+}
+
+/*
+ * The series (highcharts property) type for a "Synchronized" graph
+ * Synchronized Graph: Multiple Primary Series
+ */
+export type SeriesListSynchronized = [PrimarySeries];
+
+/*
+ * The highcharts options object type for a "Synchronized" graph
+ */
+export interface GraphOptionsSynchronized extends GraphOptionsGeneral {
+  series: SeriesListSynchronized;
+}
+
+/*
+ * Any of the supported options object types
+ */
+export type GraphOptionsType =
+  | GraphOptionsBasic
+  | GraphOptionsCombined
+  | GraphOptionsSynchronized;
 
 /*
  * The following type aliases/interfaces correspond to the
@@ -48,17 +173,22 @@ export interface GraphOptionsGeneral {
  * This type should correspond to the data values retrieved from
  * the backend when accessing columns in a dataset.
  */
-export type DataValue = string | number | Date;
+export type DataValue = string | number | Date | null;
 
 /*
- * Highcharts requires x-axis values to be either numbers or strings
+ * Highcharts x-axis value type constraints
  */
 export type GraphDataXValue = number | string;
 
 /*
- * Highcharts requires y-axis values to be numbers
+ * Highcharts stack value type constraints
  */
-export type GraphDataYValue = number;
+export type GraphDataStackValue = number | string | undefined;
+
+/*
+ * Highcharts y-axis value type constraints
+ */
+export type GraphDataYValue = number | null;
 
 /*
  * Array of tuples containing both the x and y values.
@@ -78,6 +208,16 @@ export type XAxisDataType =
   | typeof X_AXIS_LINEAR_TYPE;
 
 /*
+ * The x-axis data information
+ * This is used as an intermediary configuration to pass both the x-axis
+ * data type and the converted x-axis data
+ */
+export interface XAxisDataConfig {
+  xAxisType: XAxisDataType;
+  xAxisData: GraphDataXValue[];
+}
+
+/*
  * Used as an intermediary configuration to
  * convert the data to the data type that
  * is expected by highcharts.
@@ -87,7 +227,7 @@ export interface DataConfiguration {
   xAxisType: XAxisDataType;
   xAxisData: GraphDataXValue[];
   yAxisData: GraphDataYValue[][];
-  stackData: GraphDataXValue[];
+  stackData: GraphDataStackValue[];
 }
 
 /*
@@ -102,7 +242,7 @@ export interface GraphConfiguration {
   xAxisData: DataValue[];
   yAxisData: DataValue[][];
   seriesConfigs: SeriesConfiguration[];
-  sourceUrl?: string;
+  subtitle?: string;
   stackData?: DataValue[];
   xConfig?: XAxisConfiguration;
   yConfig?: YAxisConfiguration;
@@ -110,8 +250,10 @@ export interface GraphConfiguration {
 }
 
 export interface SeriesConfiguration {
-  type: string;
+  seriesType: string;
   name?: string;
+  color?: string;
+  dataLabels?: boolean;
 }
 
 export interface XAxisConfiguration {
@@ -129,4 +271,19 @@ export interface YAxisConfiguration {
 export interface StackConfiguration {
   type?: 'percent' | 'normal';
   title?: string;
+}
+
+/*
+ * The final Graph object outputted by the Graph Creator;
+ */
+export interface Graph {
+  /*
+   * The options object passed into highcharts
+   */
+  graphOptions: GraphOptionsType[];
+  /*
+   * The x-axis data type that determined the
+   * chart constructor (highchart or highstocks)
+   */
+  xAxisDataType: XAxisDataType;
 }

@@ -19,11 +19,6 @@ export const theme = responsiveFontSizes(
     },
     status: {
       danger: 'red'
-    },
-    typography: {
-      button: {
-        textTransform: 'none'
-      }
     }
   })
 );
@@ -37,3 +32,6 @@ export const SCROLLBAR_WEBKIT_BOX_SHADOW = 'inset 0 0 6px rgba(0,0,0,0.00)';
 export const WEBKIT_BORDER_RADIUS = '10px';
 export const WEBKIT_BACKGROUND_COLOR = 'rgba(0,0,0,.3)';
 export const WEBKIT_OUTLINE = '1px solid slategrey';
+
+// Constants for styling Toolbars
+export const BORDER = '1px solid #cbcbcb'; // TODO: import into EditorToolbar and RichTextEditor

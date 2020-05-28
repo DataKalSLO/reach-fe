@@ -1,0 +1,3 @@
+airports,code,latitude,longitude,name
+,text,decimal,decimal,text
+,ex: SBA,ex: 34.463319,ex: 119.8435899,ex: Santa Barbara Airport

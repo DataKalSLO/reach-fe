@@ -11,13 +11,20 @@ import {
 } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { saveStoryAndHandleResponse } from '../api/stories/operationHandlers';
+import {
+  saveStoryAndHandleResponse,
+  submitStoryForReviewAndHandleResponse
+} from '../api/stories/operationHandlers';
 import { Drawer, List, ListItemButton } from '../reach-ui/core';
-import { createEmptyTextBlock } from '../redux/story/actions';
+import {
+  createEmptyTextBlock,
+  updatePublicationStatus
+} from '../redux/story/actions';
+import { PublicationStatus } from '../redux/story/types';
 import { getStory } from '../redux/story/selectors';
 import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
-import { areValidMetaFields } from './StoryForm';
+import { areValidMetaFields } from './StoryEditor';
 
 const STORY_SIDEBAR_WIDTH = 190;
 
@@ -39,10 +46,20 @@ export default function StorySidebar() {
     checkValidMetaFields(() => dispatch(togglePreview()));
   };
 
-  const handleSave = () => {
-    story.userID = 'test1@test.com'; //TODO: Remove when API functions access auth token
-    checkValidMetaFields(() => saveStoryAndHandleResponse(story));
+  const handleSave = async () => {
+    await checkValidMetaFields(() => saveStoryAndHandleResponse(story));
     //TODO: Add Loading bar while waiting for request.
+  };
+
+  const handleSubmitForReview = () => {
+    checkValidMetaFields(async () => {
+      if (
+        (await saveStoryAndHandleResponse(story)) &&
+        (await submitStoryForReviewAndHandleResponse(story))
+      ) {
+        dispatch(updatePublicationStatus(PublicationStatus.REVIEW));
+      }
+    });
   };
 
   return (
@@ -86,7 +103,7 @@ export default function StorySidebar() {
         <ListItemButton
           text={'Submit for Review'}
           icon={<ChatBubble />}
-          onClick={() => alert('Not yet implemented')}
+          onClick={handleSubmitForReview}
         />
       </List>
     </Drawer>
