@@ -1,3 +1,11 @@
+import {
+  ASSETS,
+  DEMOGRAPHICS,
+  EDUCATION,
+  HEALTH,
+  HOUSING,
+  INDUSTRY
+} from '../../redux/graphs/constants';
 import { seriesTypesEnum } from '../builder/types';
 
 /*
@@ -5,6 +13,8 @@ import { seriesTypesEnum } from '../builder/types';
  */
 export const X_AXIS_LABEL = 'X-Axis';
 export const Y_AXIS_LABEL = 'Y-Axis';
+export const DATA_SOURCE_FORM_LABEL = 'Data Sources';
+export const FORMATTING_FORM_LABEL = 'Formatting';
 
 /*
  * Graph Data Sources Form
@@ -37,6 +47,7 @@ export const axisFormatLabels = [
  * Graph Create Form
  */
 export const INPUT_CATEGORY_LABEL = 'Category';
+export const CATEGORY_CREATE_LABEL = 'Choose an Initiative';
 export const X_AXIS_CREATE_LABEL = 'Choose the X-Axis Data Column';
 export const Y_AXIS_CREATE_LABEL = 'Choose the Y-Axis Data Columns';
 export const CATEGORY_STEP_LABEL = 'Choose an Initiative';
@@ -55,15 +66,16 @@ export const FORM_BACK_LABEL = 'Back';
 export const FORM_FINISH_LABEL = 'Create Graph';
 export const stepFooterLabels = [FORM_BACK_LABEL, FORM_NEXT_LABEL];
 export const createFooterLabels = [FORM_BACK_LABEL, FORM_FINISH_LABEL];
-export const creationSteps = [
-  CATEGORY_STEP_LABEL,
+export const createFormSteps = [
   DATA_STEP_LABEL,
-  FORMAT_STEP_LABEL
+  FORMAT_STEP_LABEL,
+  CATEGORY_STEP_LABEL
 ];
 
 /*
  * Form Data
  */
+export const NONE = 'NONE';
 export const DEFAULT_SERIES = seriesTypesEnum.column;
 export const supportedSeriesTypes = [
   seriesTypesEnum.line,
@@ -71,4 +83,13 @@ export const supportedSeriesTypes = [
   seriesTypesEnum.area,
   seriesTypesEnum.areaspline,
   seriesTypesEnum.column
+];
+export const supportedInitiativeTypes = [
+  NONE,
+  INDUSTRY,
+  DEMOGRAPHICS,
+  ASSETS,
+  EDUCATION,
+  HOUSING,
+  HEALTH
 ];

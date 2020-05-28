@@ -1,11 +1,12 @@
 import { isDefinedElse } from '../../graphs/forms/utilities';
-import { DELETE_GRAPH, DUPLICATE_GRAPH } from '../graphs/constants';
 import {
-  CREATE_GRAPH,
+  DELETE_GRAPH,
+  DUPLICATE_GRAPH,
   GET_ALL_USER_GRAPHS,
   GET_DEFAULT_GRAPHS_FOR_CATEGORY,
   GET_GRAPH,
   SAVE_GRAPH,
+  TOGGLE_CREATE_GRAPH,
   UPDATE_GRAPH,
   UPDATE_LOCAL_GRAPH
 } from './constants';
@@ -68,7 +69,7 @@ export function graphBuilderReducer(
         ...state,
         graphs: duplicateGraph(state.graphs, action.payload)
       };
-    case CREATE_GRAPH:
+    case TOGGLE_CREATE_GRAPH:
       return {
         ...state,
         isCreating: !state.isCreating

@@ -12,23 +12,23 @@ import { ApiGraphConfirmationResponse } from '../../api/graphs/types';
 import { getDataColumnsForDataSourcesAndHandleResponse } from '../../api/vizbuilder/operationHandlers';
 import { GraphMetaData, GraphMetaDataApiPayload } from '../graphs/types';
 import {
-  CREATE_GRAPH,
   DELETE_GRAPH,
   DUPLICATE_GRAPH,
   GET_ALL_USER_GRAPHS,
   GET_DEFAULT_GRAPHS_FOR_CATEGORY,
   GET_GRAPH,
   SAVE_GRAPH,
+  TOGGLE_CREATE_GRAPH,
   UPDATE_GRAPH,
   UPDATE_LOCAL_GRAPH
 } from './constants';
 import {
-  CreateGraphAction,
   DeleteGraphAction,
   DuplicateGraphAction,
   GetGraphAction,
   Graph,
   SaveGraphAction,
+  ToggleCreateGraphAction,
   UpdateGraphAction,
   UpdateLocalGraph
 } from './types';
@@ -150,9 +150,9 @@ export function duplicateGraph(
   };
 }
 
-export function createGraph(): CreateGraphAction {
+export function toggleCreateGraph(): ToggleCreateGraphAction {
   return {
-    type: CREATE_GRAPH,
+    type: TOGGLE_CREATE_GRAPH,
     payload: undefined
   };
 }

@@ -1,10 +1,10 @@
-import { GRAPH_COLORS, DEFAULT_TITLE } from '../builder/constants';
-import { SeriesConfiguration } from '../builder/types';
+import { DataSourceTypesEnum } from '../../redux/graphs/types';
 import { Metadata } from '../../redux/vizbuilder/types';
 import { dataTypeIsNumber } from '../../redux/vizbuilder/utilities';
-import { DataSourceTypesEnum } from '../../redux/graphs/types';
-import { InitialGraphCreationState } from './types';
+import { DEFAULT_TITLE, GRAPH_COLORS } from '../builder/constants';
+import { SeriesConfiguration } from '../builder/types';
 import { DEFAULT_SERIES } from './constants';
+import { InitialGraphCreationState } from './types';
 
 /*
  * Create a new default series

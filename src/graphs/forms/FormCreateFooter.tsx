@@ -9,7 +9,7 @@ interface Props {
   handleNext: () => void;
 }
 
-export function CreateFormFooter(props: Props) {
+export function FormCreateFooter(props: Props) {
   const { labels, activeStep, handleBack, handleNext } = props;
   return (
     <FooterBox>
