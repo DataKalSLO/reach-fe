@@ -3,6 +3,7 @@ import { Metadata } from '../../redux/vizbuilder/types';
 import { dataTypeIsNumber } from '../../redux/vizbuilder/utilities';
 import { DatasetsMetaData, GraphDataFormState } from './types';
 import { DataSourceTypesEnum, DataSource } from '../../redux/graphs/types';
+import { ADMIN_USER } from '../../nav/constants';
 
 /*
  * Extract the dataset, x-axis column, and y-axis columns
@@ -103,4 +104,8 @@ export function changeEntryAtIndex<T, S>(
 
 export function isDefinedElse<T>(value: T | undefined, elseValue: T): T {
   return !isUndefined(value) ? value : elseValue;
+}
+
+export function isAdmin(userRole: number): boolean {
+  return userRole === ADMIN_USER;
 }
