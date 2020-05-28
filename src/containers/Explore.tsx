@@ -16,7 +16,6 @@ function Explore() {
       <Typography variant="h3" component="h1">
         New Publications
       </Typography>
-      <StoryGrid />
     </StyledBox>
   );
 }

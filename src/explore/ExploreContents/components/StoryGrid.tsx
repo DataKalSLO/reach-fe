@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid, { GridSpacing } from '@material-ui/core/Grid';
-import StoryCard from './StoryCard';
+import StoryCard from '../../../common/components/StoryCard';
 import { getAllStories } from '../../../api/stories/operations';
 import { Story } from '../../../redux/story/types';
 
@@ -31,11 +31,7 @@ export default function StoryGrid() {
 
   const makeStories = () => {
     return stories.map((storyInfo: Story) => {
-      return (
-        <Grid key={storyInfo.id} item xs={3}>
-          <StoryCard {...storyInfo} />
-        </Grid>
-      );
+      return <StoryCard key={storyInfo.id} story={storyInfo} />;
     });
   };
 
