@@ -2,8 +2,8 @@
  * Action Constants
  */
 export const ADD_GRAPH_FOR_INITIATIVE = 'ADD_GRAPH_FOR_INITIATIVE';
-export const DELETE_GRAPH = 'DELETE_GRAPH';
-export const DUPLICATE_GRAPH = 'DUPLICATE_GRAPH';
+export const DELETE_GRAPH = 'LOCAL_DELETE_GRAPH';
+export const DUPLICATE_GRAPH = 'LOCAL_DUPLICATE_GRAPH';
 
 /*
  * Initiative Constants

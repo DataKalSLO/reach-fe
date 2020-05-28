@@ -1,7 +1,6 @@
 import { isUndefined } from 'util';
 import {
   DEFAULT_STACK_TYPE,
-  DEFAULT_SUBTITLE_WITH_SOURCE,
   GRAPH_COMBINED_CENTER_X,
   GRAPH_COMBINED_CENTER_Y,
   GRAPH_SYNC_ID,
@@ -81,10 +80,9 @@ export default class OptionsBuilder {
     return this;
   }
 
-  public withGraphSourceURL(url?: string) {
-    if (!isUndefined(url)) {
-      this.generalGraphOptions.subtitle.text =
-        DEFAULT_SUBTITLE_WITH_SOURCE + url;
+  public withGraphSubtitle(subtitle?: string) {
+    if (!isUndefined(subtitle)) {
+      this.generalGraphOptions.subtitle.text = subtitle;
     }
     return this;
   }
@@ -174,10 +172,10 @@ export default class OptionsBuilder {
    * provided in the stack configuration.
    */
   public withStackOptions(stackConfig?: StackConfiguration) {
-    // change tooltip format to include stack information in the footer
-    let tooltipPrefix = TOOLTIP_STACK_FOOTER_PREFIX;
-    const tooltipLabel = TOOLTIP_STACK_FOOTER_VALUE;
     if (!isUndefined(stackConfig)) {
+      // change tooltip format to include stack information in the footer
+      let tooltipPrefix = TOOLTIP_STACK_FOOTER_PREFIX;
+      const tooltipLabel = TOOLTIP_STACK_FOOTER_VALUE;
       if (!isUndefined(stackConfig.title)) {
         tooltipPrefix = stackConfig.title;
       }
@@ -188,11 +186,11 @@ export default class OptionsBuilder {
           stacking: stackConfig.type
         };
       }
+      this.generalGraphOptions.tooltip = {
+        ...this.generalGraphOptions.tooltip, // do not override existing options
+        footerFormat: tooltipPrefix + tooltipLabel
+      };
     }
-    this.generalGraphOptions.tooltip = {
-      ...this.generalGraphOptions.tooltip, // do not override existing options
-      footerFormat: tooltipPrefix + tooltipLabel
-    };
     return this;
   }
 

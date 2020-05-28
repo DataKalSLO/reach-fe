@@ -1,0 +1,3 @@
+covidUnemployment,weekEnd,unemploymentClaims
+,date (YYYY-MM-DD),integer
+,ex: 2020-05-15,ex: 150
