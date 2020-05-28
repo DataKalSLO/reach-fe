@@ -105,6 +105,7 @@ export function handleDisable(
 }
 
 interface LayersProps {
+  tableNames: string[];
   markerSelection: MarkerSelection[];
   heatMapSelection: HeatMapSelection | {};
   selectedMarker: SelectedMarker;
@@ -112,7 +113,12 @@ interface LayersProps {
 
 // this function creates the multi-seletion autocomplete component
 export default function Layers(props: LayersProps) {
-  const { markerSelection, heatMapSelection, selectedMarker } = props;
+  const {
+    tableNames,
+    markerSelection,
+    heatMapSelection,
+    selectedMarker
+  } = props;
   const dispatch = useDispatch();
   return (
     <StyledBox>
@@ -120,25 +126,25 @@ export default function Layers(props: LayersProps) {
         multiple
         disableListWrap
         id="tags-outlined"
-        options={allData}
+        options={tableNames}
         // TODO: make sure this handles data not existing once we are pulling from DB
-        defaultValue={[allData[0], allData[2]]}
+        // defaultValue={[allData[0], allData[2]]}
         // disables all options when the user has chosen more than the allowedSelections
-        getOptionDisabled={option =>
-          handleDisable(allData, markerSelection, heatMapSelection, option)
-        }
+        // getOptionDisabled={option =>
+        //   handleDisable(allData, markerSelection, heatMapSelection, option)
+        // }
         // adjust autocomplete size here, some magic numbers
         style={{
           minWidth: '75px',
           marginTop: theme.spacing(1),
           minHeight: '55px'
         }}
-        getOptionLabel={option => option.name}
+        // getOptionLabel={option => option.name}
         filterSelectedOptions
         // informs the layerSelection variable with the user's selection
-        onChange={(event, value) =>
-          handleChange(value, selectedMarker, dispatch)
-        }
+        // onChange={async (event, value) => {
+        //   getMapSelection(value)(dispatch);
+        // }}
         renderInput={params => (
           <TextField
             {...params}

@@ -48,6 +48,7 @@ function Map() {
       <StyledCard variant="outlined">
         <StyledMapContainer>
           <Layers
+            tableNames={vizBuilderState.datasetTableNames}
             markerSelection={mapState.markerSelection}
             heatMapSelection={mapState.heatMapSelection}
             selectedMarker={mapState.selectedMarker}

@@ -42,6 +42,13 @@ export async function getTableNames(): Promise<string[]> {
   );
 }
 
+export async function getMapSelection(): Promise<string[]> {
+  return httpRequestWithTableNamesResponse(
+    VizbuilderActions.GET_TABLE_NAMES,
+    undefined
+  );
+}
+
 export async function getDataColumnsForDataSources(
   dataSources: DataSource[]
 ): Promise<GraphData> {
