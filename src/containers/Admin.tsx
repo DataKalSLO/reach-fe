@@ -4,6 +4,8 @@ import { Paper, Typography, Box, styled } from '@material-ui/core';
 import { csv } from 'd3';
 import CSVReader from 'react-csv-reader';
 import { convertCsvToJson } from '../common/util/csvToJson';
+import { upload } from '../api/upload';
+import Button from '../common/components/Button';
 
 function Admin() {
   const [csvAirportData, setCsvAirportData]: any = useState([]);
@@ -16,6 +18,7 @@ function Admin() {
   const [csvUniversityData, setCsvUniversityData]: any = useState([]);
   const [csvWaterData, setCsvWaterData]: any = useState([]);
   const [jsonData, setJsonData] = useState({});
+  const [uploadDisabled, setUploadDisabled] = useState(true);
 
   useEffect(() => {
     Promise.all([
@@ -44,18 +47,29 @@ function Admin() {
   const setJsonFromCsv = useCallback(
     (data: Array<any>) => {
       const jsonObj = convertCsvToJson(data);
-      console.log(jsonObj);
       setJsonData(jsonObj);
+      setUploadDisabled(false);
     },
-    [setJsonData]
+    [setJsonData, setUploadDisabled]
   );
+
+  const uploadData = useCallback(() => {
+    upload(jsonData);
+  }, [jsonData]);
 
   return (
     <React.Fragment>
-      <UploadBox>
+      <UploadPaper variant="outlined">
         <Typography variant="h5">Upload Your Data</Typography>
-        <CSVReader cssClass="react-csv-input" onFileLoaded={setJsonFromCsv} />
-      </UploadBox>
+        <UploadBox>
+          <CSVReader cssClass="react-csv-input" onFileLoaded={setJsonFromCsv} />
+          <Button
+            label="Upload Data"
+            onClick={uploadData}
+            disabled={uploadDisabled}
+          />
+        </UploadBox>
+      </UploadPaper>
       <DownloadPaper variant="outlined">
         <Typography variant="h5">Download Your CSV Templates</Typography>
         <Box>
@@ -110,11 +124,20 @@ function Admin() {
   );
 }
 
-const UploadBox = styled(Box)({
+const UploadPaper = styled(Paper)({
   marginLeft: '300px',
   marginRight: '300px',
   marginTop: '100px'
 });
+
+const UploadBox = styled(Box)({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyItems: 'center',
+  justifyContent: 'space-between'
+});
+
 const DownloadPaper = styled(Paper)({
   marginLeft: '300px',
   marginRight: '300px',
