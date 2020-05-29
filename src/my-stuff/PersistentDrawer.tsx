@@ -11,15 +11,14 @@ import { ListItemButton } from '../reach-ui/core';
 interface ListItemTabProps extends PersistentDrawerOptions {
   title: string;
   icon: JSX.Element;
-  onClick: any;
   // This extra parameter is necessary to allow other props to be passed through
   [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 export function ListItemTab(props: ListItemTabProps) {
   const handleListItemClick = () => {
-    props.onClick();
     localStorage.setItem(props.drawerId, props.title);
+    if (props.onClick !== null) props.onClick();
   };
 
   return (
