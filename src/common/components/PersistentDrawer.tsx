@@ -52,8 +52,11 @@ export function ListItemTab(props: ListItemTabProps) {
  */
 
 export interface PersistentDrawerProps {
+  /* drawerId must be unique, it's the key used to lookup the currently selected tab
+   * usage: drawerIds should be defined in `reach-ui/constants`
+   */
+  drawerId: string;
   defaultTab: string;
-  drawerId: string; // must be unique id, because it's the key used to lookup the currently selected tab
   anchor?: 'left' | 'right'; // convenience prop so you don't need to manually pass anchor to every ListItemTab
 }
 
