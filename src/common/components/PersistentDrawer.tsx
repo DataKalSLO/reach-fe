@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListItemButton } from '../reach-ui/core';
+import ListItemButton from './ListItemButton';
 
 /*
  * ListItemTab and getPersistentDrawerOptions are designed to be used at the same time.

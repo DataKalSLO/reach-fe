@@ -1,3 +1,7 @@
+import {
+  getPersistentDrawerOptions,
+  ListItemTab
+} from '../common/component/PersistentDrawer';
 import Button from '../common/components/Button';
 import {
   CollapsibleItem,
@@ -11,6 +15,7 @@ import ListItemButton from '../common/components/ListItemButton';
 import Popper from '../common/components/Popper';
 
 export {
+  getPersistentDrawerOptions,
   Button,
   CollapsibleItem,
   CollapsibleMenu,
@@ -19,5 +24,6 @@ export {
   IconButton,
   List,
   ListItemButton,
+  ListItemTab,
   Popper
 };

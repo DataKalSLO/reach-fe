@@ -1,19 +1,20 @@
 import { InsertChart, LibraryBooks, Map, ViewModule } from '@material-ui/icons';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import Drawer from '../common/components/Drawer';
+import { PersistentDrawerProps } from '../common/components/PersistentDrawer';
 import {
   MY_STUFF,
   MY_STUFF_CHARTS,
   MY_STUFF_MAPS,
   MY_STUFF_STORIES
 } from '../nav/constants';
-import { List, ListItemButton } from '../reach-ui/core';
 import {
+  Drawer,
   getPersistentDrawerOptions,
-  ListItemTab,
-  PersistentDrawerProps
-} from './PersistentDrawer';
+  List,
+  ListItemButton,
+  ListItemTab
+} from '../reach-ui/core';
 
 const SIDEBAR_WIDTH = 190;
 
