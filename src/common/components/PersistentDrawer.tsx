@@ -10,6 +10,9 @@ import ListItemButton from './ListItemButton';
  * usage: see MyStuffSidebar example
  */
 
+const LEFT_CORNERS_ROUNDED = '20px 0px 0px 20px';
+const RIGHT_CORNERS_ROUNDED = '0px 20px 20px 0px';
+
 interface ListItemTabProps extends PersistentDrawerOptions {
   title: string;
   icon: JSX.Element;
@@ -34,8 +37,8 @@ export function ListItemTab(props: ListItemTabProps) {
         // positions the rounded border radius on the left of right side of the button
         // depending where the drawer is anchored
         props.anchor === undefined || props.anchor === 'left'
-          ? { borderRadius: '0px 20px 20px 0px' }
-          : { borderRadius: '20px 0px 0px 20px' }
+          ? { borderRadius: RIGHT_CORNERS_ROUNDED }
+          : { borderRadius: LEFT_CORNERS_ROUNDED }
       }
     />
   );
