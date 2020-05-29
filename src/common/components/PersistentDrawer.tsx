@@ -2,10 +2,12 @@ import React from 'react';
 import ListItemButton from './ListItemButton';
 
 /*
- * ListItemTab and getPersistentDrawerOptions are designed to be used at the same time.
+ * ListItemTab and getPersistentDrawerOptions should be used at the same time.
  * Together they enable tabs like the G-mail sidebar, with the added benefit of persistence.
  *   (Essentially even if the optional onClick function navigates to another page the
- *   currently selected tag won't be forgotten.)
+ *   currently selected tab won't be forgotten.)
+ *
+ * usage: see MyStuffSidebar example
  */
 
 interface ListItemTabProps extends PersistentDrawerOptions {
@@ -41,7 +43,7 @@ export function ListItemTab(props: ListItemTabProps) {
 
 export interface PersistentDrawerProps {
   defaultTab: string;
-  drawerId: string; // every drawer must have a unique id, because it's the key to lookup the currently selected tab
+  drawerId: string; // must be unique id, because it's the key used to lookup the currently selected tab
   anchor?: 'left' | 'right'; // convenience prop so you don't need to manually pass anchor to every ListItemTab
 }
 
@@ -50,8 +52,8 @@ export interface PersistentDrawerOptions
   selectedTab: string;
 }
 
-/* a helper function to enables ListItemTab to remain persistently selected
- * usage: pass the returned PersistentDrawerOptions object as props to the ListItemTab component
+/* helper function that enables ListItemTab to remain persistently selected.
+ * pass the returned PersistentDrawerOptions object as props to the ListItemTab component
  */
 export function getPersistentDrawerOptions(
   props: PersistentDrawerProps
@@ -66,7 +68,7 @@ export function getPersistentDrawerOptions(
     return props.defaultTab;
   };
 
-  // Retrieves the current tab from localStorage or sets up the default tab
+  // retrieves the current tab from localStorage or sets up the default tab
   const selectedTab = getCurrentTab() || setDefaultTab();
 
   return {

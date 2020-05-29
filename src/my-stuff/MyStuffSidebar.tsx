@@ -8,6 +8,7 @@ import {
   MY_STUFF_MAPS,
   MY_STUFF_STORIES
 } from '../nav/constants';
+import { MY_STUFF_SIDEBAR } from '../reach-ui/constants';
 import {
   Drawer,
   getPersistentDrawerOptions,
@@ -19,7 +20,7 @@ const SIDEBAR_WIDTH = 190;
 
 const drawerOptions: PersistentDrawerProps = {
   defaultTab: 'All Items',
-  drawerId: 'MyStuffSidebar'
+  drawerId: MY_STUFF_SIDEBAR
 };
 
 export default function MyStuffSidebar() {
