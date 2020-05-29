@@ -47,7 +47,7 @@ function GraphToolbar(props: GraphToolbarProps) {
     graphTitle: graph.graphMetaData.graphTitle,
     dataSources: graph.graphMetaData.dataSources,
     graphOptions: graph.graphMetaData.graphOptions,
-    graphSVG: graphSVG
+    graphSVG: btoa(graphSVG)
   };
 
   // TODO: Collapse toolbar when width is too small
