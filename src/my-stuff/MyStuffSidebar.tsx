@@ -1,5 +1,6 @@
 import { InsertChart, LibraryBooks, Map, ViewModule } from '@material-ui/icons';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Drawer from '../common/components/Drawer';
 import {
   MY_STUFF,
@@ -8,25 +9,30 @@ import {
   MY_STUFF_STORIES
 } from '../nav/constants';
 import { List, ListItemButton } from '../reach-ui/core';
-import useDrawerNav, { Props as DrawerNavProps } from './DrawerNav';
-import ListItemTab from './DrawerNavButton';
+import {
+  getPersistentDrawerOptions,
+  ListItemTab,
+  PersistentDrawerProps
+} from './PersistentDrawer';
 
 const SIDEBAR_WIDTH = 190;
 
-const drawerOptions = {
-  defaultRoute: MY_STUFF,
-  id: 'MyStuffSidebar'
+const drawerOptions: PersistentDrawerProps = {
+  defaultTab: 'All Items',
+  drawerId: 'MyStuffSidebar'
 };
 
-const drawerOptions2: DrawerNavProps = {
-  defaultRoute: MY_STUFF_MAPS,
-  id: 'Right',
-  anchor: 'right'
+const drawerOptions2: PersistentDrawerProps = {
+  defaultTab: 'Maps',
+  drawerId: 'Right'
 };
 
 export default function MyStuffSidebar() {
-  const navButtonProps = useDrawerNav(drawerOptions);
-  const navButtonProps2 = useDrawerNav(drawerOptions2);
+  const history = useHistory();
+  const navigateTo = (route: string) => history.push(route);
+
+  const options = getPersistentDrawerOptions(drawerOptions);
+  const options2 = getPersistentDrawerOptions(drawerOptions2);
 
   return (
     <>
@@ -36,26 +42,26 @@ export default function MyStuffSidebar() {
             autoFocus
             title="All Items"
             icon={<ViewModule />}
-            route={MY_STUFF}
-            {...navButtonProps}
+            onClick={() => navigateTo(MY_STUFF)}
+            {...options}
           />
           <ListItemTab
             title="Charts"
             icon={<InsertChart />}
-            route={MY_STUFF_CHARTS}
-            {...navButtonProps}
+            onClick={() => navigateTo(MY_STUFF_CHARTS)}
+            {...options}
           />
           <ListItemTab
             title="Maps"
             icon={<Map />}
-            route={MY_STUFF_MAPS}
-            {...navButtonProps}
+            onClick={() => navigateTo(MY_STUFF_MAPS)}
+            {...options}
           />
           <ListItemTab
             title="Stories"
             icon={<LibraryBooks />}
-            route={MY_STUFF_STORIES}
-            {...navButtonProps}
+            onClick={() => navigateTo(MY_STUFF_STORIES)}
+            {...options}
           />
         </List>
       </Drawer>
@@ -65,26 +71,26 @@ export default function MyStuffSidebar() {
             autoFocus
             title="All Items"
             icon={<ViewModule />}
-            route={MY_STUFF}
-            {...navButtonProps2}
+            onClick={() => navigateTo(MY_STUFF)}
+            {...options2}
           />
           <ListItemTab
             title="Charts"
             icon={<InsertChart />}
-            route={MY_STUFF_CHARTS}
-            {...navButtonProps2}
+            onClick={() => navigateTo(MY_STUFF_CHARTS)}
+            {...options2}
           />
           <ListItemTab
             title="Maps"
             icon={<Map />}
-            route={MY_STUFF_MAPS}
-            {...navButtonProps2}
+            onClick={() => navigateTo(MY_STUFF_MAPS)}
+            {...options2}
           />
           <ListItemTab
             title="Stories"
             icon={<LibraryBooks />}
-            route={MY_STUFF_STORIES}
-            {...navButtonProps2}
+            onClick={() => navigateTo(MY_STUFF_STORIES)}
+            {...options2}
           />
           <ListItemButton text="yeee" icon={<LibraryBooks />} />
         </List>
