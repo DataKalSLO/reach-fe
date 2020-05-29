@@ -3,13 +3,18 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
+  Divider,
   Grid,
   Typography
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { AccountCircle } from '@material-ui/icons';
 import React from 'react';
-import { Story } from '../../redux/story/types';
+import { useSelector } from 'react-redux';
+import { ADMIN_USER } from '../../nav/constants';
+import { getUser } from '../../redux/login/selectors';
+import { Story, PublicationStatus } from '../../redux/story/types';
+import { AdminReviewCardActions } from './AdminReviewCardActions';
 
 //TODO: Add a way to get author, date, and image url from passed in props
 const PLACEHOLDER_AUTHOR = 'Bill Writer';
@@ -17,10 +22,6 @@ const PLACEHOLDER_USER_PICTURE = <AccountCircle />;
 const PLACEHOLDER_DATE = '1/1/20';
 const PLACEHOLDER_IMAGE_URL =
   'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fi.stack.imgur.com%2FLuPIV.png&f=1&nofb=1';
-
-interface StoryCardProps {
-  story: Story;
-}
 
 const useStyles = makeStyles({
   card: {
@@ -30,19 +31,25 @@ const useStyles = makeStyles({
     height: '20%',
     margin: 10,
     padding: 2,
-    display: 'flex'
+    display: 'flex',
+    flexDirection: 'column'
   },
   header: {
     paddingBottom: 0
   },
   media: {
-    height: 0,
+    height: 0, // tells the image to resize dynamically based on paddingTop
     width: '100%',
-    paddingTop: '60%'
+    paddingTop: '60%' // controls the height of the image
   }
 });
 
-export default function StoryCard(props: StoryCardProps): JSX.Element {
+interface Props {
+  story: Story;
+}
+
+export default function StoryCard(props: Props): JSX.Element {
+  const user = useSelector(getUser);
   const classes = useStyles();
 
   const AuthorWithProfilePhoto = (props: {
@@ -79,6 +86,24 @@ export default function StoryCard(props: StoryCardProps): JSX.Element {
     );
   };
 
+  // Buttons to reject story with feedback or approve for publishing
+  // Buttons will only appear if story is in review status and user is an admin
+  const AdminReviewButtons = () => {
+    if (
+      user.role === ADMIN_USER &&
+      props.story.publicationStatus === PublicationStatus.REVIEW
+    ) {
+      return (
+        <>
+          <Divider variant="middle" />
+          <AdminReviewCardActions />
+        </>
+      );
+    } else {
+      return <React.Fragment />;
+    }
+  };
+
   return (
     <Card className={classes.card} variant="outlined">
       <CardActionArea>
@@ -93,7 +118,7 @@ export default function StoryCard(props: StoryCardProps): JSX.Element {
           </Typography>
           <Typography
             paragraph
-            variant="subtitle2"
+            variant="body2"
             component="body"
             display="block"
           >
@@ -102,6 +127,8 @@ export default function StoryCard(props: StoryCardProps): JSX.Element {
           <AuthorDate />
         </CardContent>
       </CardActionArea>
+
+      <AdminReviewButtons />
     </Card>
   );
 }

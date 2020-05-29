@@ -17,6 +17,9 @@ import { CHART_HEIGHT_PERCENT, CHART_WIDTH_SCALE } from './constants';
 import GraphToolbar from './GraphToolbar';
 import { useGraphStyles } from './styles';
 import { GraphPrebuiltProps } from './types';
+import GraphCreator from '../builder/graph-creator';
+import { GraphConfiguration } from '../builder/types';
+import { Graph } from '../../redux/graphbuilder/types';
 
 highcharts3d(Highcharts);
 exporting(Highcharts);
@@ -32,6 +35,7 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
   const classes = useGraphStyles();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [expanded, setExpanded] = useState(false);
+  const graphCreator = new GraphCreator();
 
   /*
    * Set the graph width when the window resizes
@@ -48,13 +52,22 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
     setExpanded(false);
   }, [graph]);
 
-  /*
-   * Allow graph to resize to the dimensions of parent container
-   */
-  if (!isUndefined(graph.options.chart) && !isUndefined(windowWidth)) {
-    graph.options.chart.width = windowWidth * CHART_WIDTH_SCALE;
-    graph.options.chart.height = CHART_HEIGHT_PERCENT;
-  }
+  const createGraphOptions = (graph: Graph): Highcharts.Options => {
+    const graphConfig: GraphConfiguration = {
+      ...graph.graphMetaData.graphOptions,
+      title: graph.graphMetaData.graphTitle,
+      xAxisData: graph.graphData.xAxisData,
+      yAxisData: graph.graphData.yAxisData
+    };
+    const graphOptions: Highcharts.Options = graphCreator.createBasicGraph(
+      graphConfig
+    ).graphOptions[0];
+    if (!isUndefined(graphOptions.chart) && !isUndefined(windowWidth)) {
+      graphOptions.chart.width = windowWidth * CHART_WIDTH_SCALE;
+      graphOptions.chart.height = CHART_HEIGHT_PERCENT;
+    }
+    return graphOptions;
+  };
 
   return (
     <Card variant="outlined">
@@ -66,7 +79,7 @@ function GraphPrebuilt({ graph }: GraphPrebuiltProps) {
         <HighchartsReact
           highcharts={Highcharts}
           immutable={true}
-          options={graph.options}
+          options={createGraphOptions(graph)}
           containerProps={{
             className: classes.highcharts
           }}

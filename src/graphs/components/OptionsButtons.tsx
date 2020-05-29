@@ -59,6 +59,7 @@ function OptionsButtons() {
     return initiativeIcons.map((initiative, index) => {
       return (
         <StyledBottomNav
+          disabled={true}
           showLabel={true}
           key={index}
           color="default"

@@ -1,12 +1,13 @@
 import { ApiGraphConfirmationResponse } from '../../api/graphs/types';
-import { DELETE_GRAPH, DUPLICATE_GRAPH } from '../graphs/constants';
 import { GraphData, GraphMetaData } from '../graphs/types';
 import {
-  CREATE_GRAPH,
+  DELETE_GRAPH,
+  DUPLICATE_GRAPH,
   GET_ALL_USER_GRAPHS,
   GET_DEFAULT_GRAPHS_FOR_CATEGORY,
   GET_GRAPH,
   SAVE_GRAPH,
+  TOGGLE_CREATE_GRAPH,
   UPDATE_GRAPH,
   UPDATE_LOCAL_GRAPH
 } from './constants';
@@ -75,8 +76,8 @@ export interface DuplicateGraphAction {
   payload: GraphWithIndex;
 }
 
-export interface CreateGraphAction {
-  type: typeof CREATE_GRAPH;
+export interface ToggleCreateGraphAction {
+  type: typeof TOGGLE_CREATE_GRAPH;
   payload: undefined;
 }
 
@@ -89,4 +90,4 @@ export type GraphActionTypes =
   | GetDefaultGraphsForCategoryAction
   | UpdateLocalGraph
   | DuplicateGraphAction
-  | CreateGraphAction;
+  | ToggleCreateGraphAction;
