@@ -69,21 +69,25 @@ export default function StorySidebar() {
       </Typography>
       <List>
         <ListItemButton
+          disabled={previewSelected}
           text={'Text'}
           icon={<TextFields />}
           onClick={() => dispatch(createEmptyTextBlock())}
         />
         <ListItemButton
+          disabled={previewSelected}
           text={'Graph'}
           icon={<InsertChart />}
           onClick={() => alert('Not implemented')}
         />
         <ListItemButton
+          disabled={previewSelected}
           text={'Map'}
           icon={<Map />}
           onClick={() => alert('Not implemented')}
         />
         <ListItemButton
+          disabled={previewSelected}
           text={'Image'}
           icon={<InsertPhoto />}
           onClick={() => alert('Not implemented')}

@@ -13,7 +13,9 @@ enum StoryActions {
   CREATE,
   UPDATE,
   DELETE_WITH_ID,
-  GET_ALL_STORIES
+  GET_STORIES_PUBLISHED,
+  GET_STORIES_REVIEW,
+  GET_STORIES_DRAFT
 }
 
 type StoryApiResponse = void | Story | Array<StoryDb>;
@@ -35,9 +37,23 @@ export async function getStoryWithStoryID(storyID: string): Promise<Story> {
   );
 }
 
-export async function getAllStories(): Promise<Story[]> {
+export async function getPublishedStories(): Promise<Story[]> {
   return httpRequestWithStoryArrayResponse(
-    StoryActions.GET_ALL_STORIES,
+    StoryActions.GET_STORIES_PUBLISHED,
+    undefined
+  );
+}
+
+export async function getStoriesInReview(): Promise<Story[]> {
+  return httpRequestWithStoryArrayResponse(
+    StoryActions.GET_STORIES_REVIEW,
+    undefined
+  );
+}
+
+export async function getStoriesInDraft(): Promise<Story[]> {
+  return httpRequestWithStoryArrayResponse(
+    StoryActions.GET_STORIES_DRAFT,
     undefined
   );
 }
@@ -65,8 +81,14 @@ async function storyHttp(
     case StoryActions.UPDATE:
       response = authenticatedPut('story', payload as object);
       break;
-    case StoryActions.GET_ALL_STORIES:
+    case StoryActions.GET_STORIES_PUBLISHED:
       response = get('story'); // no token required so don't prompt for login
+      break;
+    case StoryActions.GET_STORIES_REVIEW:
+      response = authenticatedGet('story/review');
+      break;
+    case StoryActions.GET_STORIES_DRAFT:
+      response = authenticatedGet('story/draft');
       break;
     case StoryActions.DELETE_WITH_ID:
       response = authenticatedDel('story/' + payload);
