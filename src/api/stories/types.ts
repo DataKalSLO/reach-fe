@@ -6,14 +6,14 @@ import {
 
 export const TEXT_BLOCK_DB_TYPE = 'TextDB'; // Database version of TextBlock
 
-export interface DatabaseStory extends StoryMetaInformation {
-  storyBlocks: Array<DatabaseStoryBlock>;
+export interface StoryDb extends StoryMetaInformation {
+  storyBlocks: Array<StoryBlockDb>;
 }
 
-export interface TextBlockDB {
+export interface TextBlockDb {
   type: typeof TEXT_BLOCK_DB_TYPE;
   id: string;
   editorState: string;
 }
 
-export type DatabaseStoryBlock = TextBlockDB | GraphBlockType | MapBlockType;
+export type StoryBlockDb = TextBlockDb | GraphBlockType | MapBlockType;

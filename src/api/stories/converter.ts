@@ -1,5 +1,5 @@
 import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
-import { TEXT_BLOCK_DB_TYPE, DatabaseStory, DatabaseStoryBlock } from './types';
+import { TEXT_BLOCK_DB_TYPE, StoryDb, StoryBlockDb } from './types';
 import {
   Story,
   StoryBlockType,
@@ -7,18 +7,16 @@ import {
   TEXT_BLOCK_TYPE
 } from '../../redux/story/types';
 
-export function transformStoryToDatabaseStory(story: Story): DatabaseStory {
+export function transformToStoryDb(story: Story): StoryDb {
   return {
     ...story,
-    storyBlocks: story.storyBlocks.map(transformStoryBlockToDatabaseStoryBlock)
+    storyBlocks: story.storyBlocks.map(transformToStoryBlockDb)
   };
 }
 
 //If given a TextBlock, Serializes the EditorState as a string
 //Otherwise, storyBlock is returned.
-function transformStoryBlockToDatabaseStoryBlock(
-  storyBlock: StoryBlockType
-): DatabaseStoryBlock {
+function transformToStoryBlockDb(storyBlock: StoryBlockType): StoryBlockDb {
   switch (storyBlock.type) {
     case TEXT_BLOCK_TYPE:
       return {
@@ -35,11 +33,11 @@ function transformStoryBlockToDatabaseStoryBlock(
 
 //Parses any types in each story block
 export function transformAPIResponseToStory(apiResponse: object): Story {
-  if (apiResponse as DatabaseStory) {
-    const databaseStory: DatabaseStory = apiResponse as DatabaseStory;
+  if (apiResponse as StoryDb) {
+    const databaseStory: StoryDb = apiResponse as StoryDb;
     return {
       ...databaseStory,
-      dateCreated: new Date(databaseStory.dateCreated),
+      dateCreated: new Date(databaseStory.dateCreated), //dates passed as strings from BEND
       dateLastEdited: new Date(databaseStory.dateLastEdited),
       storyBlocks: databaseStory.storyBlocks.map(
         transformDatabaseStoryBlockToStoryBlock
@@ -51,7 +49,7 @@ export function transformAPIResponseToStory(apiResponse: object): Story {
 
 //Parses a TextBlockDB's the stringified EditorState's into a DraftJS's EditorState.
 function transformDatabaseStoryBlockToStoryBlock(
-  storyBlock: DatabaseStoryBlock
+  storyBlock: StoryBlockDb
 ): StoryBlockType {
   switch (storyBlock.type) {
     case TEXT_BLOCK_DB_TYPE:
