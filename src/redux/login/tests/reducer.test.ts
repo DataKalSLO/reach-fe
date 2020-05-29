@@ -8,7 +8,8 @@ describe('user reducer', () => {
     name: '',
     occupation: '',
     role: -1,
-    notificationsEnabled: false
+    notificationsEnabled: false,
+    isThirdParty: false
   };
 
   const dummyUser: User = {
@@ -17,7 +18,8 @@ describe('user reducer', () => {
     name: 'dummy',
     occupation: '',
     role: -1,
-    notificationsEnabled: false
+    notificationsEnabled: false,
+    isThirdParty: false
   };
 
   const differentDummyUser: User = {
@@ -26,7 +28,8 @@ describe('user reducer', () => {
     name: 'dummy1',
     occupation: '',
     role: -1,
-    notificationsEnabled: false
+    notificationsEnabled: false,
+    isThirdParty: false
   };
 
   it('does nothing when logging out before logging in', () => {
