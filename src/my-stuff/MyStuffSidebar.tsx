@@ -39,7 +39,6 @@ export default function MyStuffSidebar() {
       <Drawer width={SIDEBAR_WIDTH} isCollapsible={true}>
         <List>
           <ListItemTab
-            autoFocus
             title="All Items"
             icon={<ViewModule />}
             onClick={() => navigateTo(MY_STUFF)}
@@ -68,7 +67,6 @@ export default function MyStuffSidebar() {
       <Drawer width={SIDEBAR_WIDTH} isCollapsible={true} anchor={'right'}>
         <List>
           <ListItemTab
-            autoFocus
             title="All Items"
             icon={<ViewModule />}
             onClick={() => navigateTo(MY_STUFF)}

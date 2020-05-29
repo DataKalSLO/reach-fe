@@ -23,6 +23,7 @@ export function ListItemTab(props: ListItemTabProps) {
 
   return (
     <ListItemButton
+      {...props}
       text={props.title}
       icon={props.icon}
       selected={props.selectedTab === props.title}
