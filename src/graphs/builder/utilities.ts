@@ -112,7 +112,7 @@ export function zipData(
 /*
  * Sort a 2D array by the first column value in ascending order. Mixed values
  * are not handled properly, this method assumes that the column values are
- * either all numbers or all strings.
+ * either all numbers or all strings. Only data with numbers are sorted.
  * Data needs to be sorted before sending it to Highcharts.
  *  - for more information see https://www.highcharts.com/errors/15/
  */
