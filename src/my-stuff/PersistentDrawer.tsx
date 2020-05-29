@@ -1,11 +1,16 @@
 import React from 'react';
 import { ListItemButton } from '../reach-ui/core';
 
-interface ListItemTabProps {
+/*
+ * ListItemTab and getPersistentDrawerOptions are designed to be used at the same time.
+ * Together they enable tabs like the G-mail sidebar, with the added benefit of persistence.
+ *   (Essentially even if the optional onClick function navigates to another page the
+ *   currently selected tag won't be forgotten.)
+ */
+
+interface ListItemTabProps extends PersistentDrawerOptions {
   title: string;
   icon: JSX.Element;
-  selectedTab: string;
-  id: string;
   onClick: any;
   // This extra parameter is necessary to allow other props to be passed through
   [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -13,8 +18,8 @@ interface ListItemTabProps {
 
 export function ListItemTab(props: ListItemTabProps) {
   const handleListItemClick = () => {
-    localStorage.setItem(props.id, props.title);
     props.onClick();
+    localStorage.setItem(props.drawerId, props.title);
   };
 
   return (
@@ -40,14 +45,20 @@ export interface PersistentDrawerProps {
   anchor?: 'left' | 'right'; // convenience prop so you don't need to manually pass anchor to every ListItemTab
 }
 
-/* This function is designed to return an options object that should to be passed
- * to `ListItemTab` inside a `Drawer`. It enables the `ListItemTab` to check
- * whether it is the currently selected tab.
+export interface PersistentDrawerOptions
+  extends Pick<PersistentDrawerProps, 'drawerId'> {
+  selectedTab: string;
+}
+
+/* a helper function to enables ListItemTab to remain persistently selected
+ * usage: pass the returned PersistentDrawerOptions object as props to the ListItemTab component
  */
-export function getPersistentDrawerOptions(props: PersistentDrawerProps) {
-  /*
-   * Getters and setters for data stored in localStorage.
-   * localStorage is necessary so the selection of a tab persists even after page refresh
+export function getPersistentDrawerOptions(
+  props: PersistentDrawerProps
+): PersistentDrawerOptions {
+  /* why localStorage:
+   *   - selection of a tab persists even after page refresh (not possible with hooks)
+   *   - doesn't require the developer to setup Redux
    */
   const getCurrentTab = () => localStorage.getItem(props.drawerId);
   const setDefaultTab = () => {
@@ -60,6 +71,6 @@ export function getPersistentDrawerOptions(props: PersistentDrawerProps) {
 
   return {
     selectedTab: selectedTab,
-    id: props.drawerId
+    drawerId: props.drawerId
   };
 }
