@@ -8,7 +8,8 @@ import {
   SAVE_GRAPH,
   TOGGLE_CREATE_GRAPH,
   UPDATE_GRAPH,
-  UPDATE_LOCAL_GRAPH
+  UPDATE_LOCAL_GRAPH,
+  DELETE_LOCAL_GRAPH
 } from './constants';
 import { GraphActionTypes, GraphBuilderState } from './types';
 import {
@@ -30,7 +31,7 @@ export function graphBuilderReducer(
     case SAVE_GRAPH:
       return {
         ...state,
-        graphs: insertAtIndexIfDefined(state.graphs, 0, false, action.payload)
+        graphs: insertAtIndexIfDefined(state.graphs, 0, true, action.payload)
       };
     case UPDATE_GRAPH:
       return {
@@ -68,6 +69,11 @@ export function graphBuilderReducer(
       return {
         ...state,
         graphs: duplicateGraph(state.graphs, action.payload)
+      };
+    case DELETE_LOCAL_GRAPH:
+      return {
+        ...state,
+        graphs: state.graphs.filter((graph, index) => index !== action.payload)
       };
     case TOGGLE_CREATE_GRAPH:
       return {

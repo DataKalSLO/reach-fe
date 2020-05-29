@@ -20,7 +20,8 @@ import {
   SAVE_GRAPH,
   TOGGLE_CREATE_GRAPH,
   UPDATE_GRAPH,
-  UPDATE_LOCAL_GRAPH
+  UPDATE_LOCAL_GRAPH,
+  DELETE_LOCAL_GRAPH
 } from './constants';
 import {
   DeleteGraphAction,
@@ -30,7 +31,8 @@ import {
   SaveGraphAction,
   ToggleCreateGraphAction,
   UpdateGraphAction,
-  UpdateLocalGraph
+  UpdateLocalGraph,
+  DeleteLocalGraph
 } from './types';
 
 export function saveGraph(graphMetaData: GraphMetaDataApiPayload) {
@@ -90,6 +92,13 @@ function deleteGraphAction(
   return {
     type: DELETE_GRAPH,
     payload: payload
+  };
+}
+
+export function deleteLocalGraph(index: number): DeleteLocalGraph {
+  return {
+    type: DELETE_LOCAL_GRAPH,
+    payload: index
   };
 }
 
