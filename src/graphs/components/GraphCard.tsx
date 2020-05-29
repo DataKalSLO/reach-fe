@@ -14,9 +14,9 @@ import { CHART_HEIGHT_PERCENT, CHART_WIDTH_SCALE } from './constants';
 import { CoreGraph } from './CoreGraph';
 import GraphToolbar from './GraphToolbar';
 import { useGraphStyles } from './styles';
-import { GraphPrebuiltProps } from './types';
+import { GraphCardProps } from './types';
 
-export function GraphCard({ graph, index }: GraphPrebuiltProps) {
+export function GraphCard({ graph, index }: GraphCardProps) {
   const classes = useGraphStyles();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [graphSVG, setGraphSVG] = useState<string>('');

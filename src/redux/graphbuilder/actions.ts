@@ -13,6 +13,7 @@ import { getDataColumnsForDataSourcesAndHandleResponse } from '../../api/vizbuil
 import { GraphMetaData, GraphMetaDataApiPayload } from '../graphs/types';
 import {
   DELETE_GRAPH,
+  DELETE_LOCAL_GRAPH,
   DUPLICATE_GRAPH,
   GET_ALL_USER_GRAPHS,
   GET_DEFAULT_GRAPHS_FOR_CATEGORY,
@@ -20,19 +21,18 @@ import {
   SAVE_GRAPH,
   TOGGLE_CREATE_GRAPH,
   UPDATE_GRAPH,
-  UPDATE_LOCAL_GRAPH,
-  DELETE_LOCAL_GRAPH
+  UPDATE_LOCAL_GRAPH
 } from './constants';
 import {
   DeleteGraphAction,
+  DeleteLocalGraph,
   DuplicateGraphAction,
   GetGraphAction,
   Graph,
   SaveGraphAction,
   ToggleCreateGraphAction,
   UpdateGraphAction,
-  UpdateLocalGraph,
-  DeleteLocalGraph
+  UpdateLocalGraph
 } from './types';
 
 export function saveGraph(graphMetaData: GraphMetaDataApiPayload) {

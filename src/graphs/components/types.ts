@@ -10,7 +10,7 @@ export interface GraphToolbarProps {
   toggleHide: () => void;
 }
 
-export interface GraphPrebuiltProps {
+export interface GraphCardProps {
   graph: Graph;
   index: number;
 }
