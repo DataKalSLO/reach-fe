@@ -1,12 +1,18 @@
-import { GraphRecord } from '../../redux/graphs/types';
 import { Graph } from '../../redux/graphbuilder/types';
+import { GraphRecord } from '../../redux/graphs/types';
 
-export interface GraphHeaderProps {
+export interface GraphToolbarProps {
   graph: Graph;
+  index: number;
+  isHidden: boolean;
+  graphSVG: string;
+  toggleEdit: () => void;
+  toggleHide: () => void;
 }
 
 export interface GraphPrebuiltProps {
   graph: Graph;
+  index: number;
 }
 
 export interface GraphProps {
