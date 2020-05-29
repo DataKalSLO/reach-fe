@@ -3,8 +3,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { HEALTH } from '../../redux/graphs/constants';
 import { getGraphs } from '../../redux/graphbuilder/selector';
-import GraphPrebuilt from '../components/GraphPrebuilt';
 import { getDefaultGraphs } from '../../redux/graphbuilder/actions';
+import { GraphCard } from '../components/GraphCard';
 
 /*
  * Renders a list of graphs.
@@ -27,7 +27,7 @@ function GraphContainer() {
   const getGraphComponents = () => {
     return graphState.graphs.map((graph, index) => (
       <GridItem item key={index}>
-        <GraphPrebuilt graph={graph} />
+        <GraphCard graph={graph} index={index} />
       </GridItem>
     ));
   };
