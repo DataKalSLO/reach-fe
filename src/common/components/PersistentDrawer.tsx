@@ -10,6 +10,8 @@ import ListItemButton from './ListItemButton';
  * usage: see MyStuffSidebar example
  */
 
+// ListItemTab
+
 const LEFT_CORNERS_ROUNDED = '20px 0px 0px 20px';
 const RIGHT_CORNERS_ROUNDED = '0px 20px 20px 0px';
 
@@ -44,6 +46,11 @@ export function ListItemTab(props: ListItemTabProps) {
   );
 }
 
+/* getPersistentDrawerOptions
+ * enables ListItemTab to remain persistently selected.
+ * pass the returned PersistentDrawerOptions object as props to the ListItemTab component
+ */
+
 export interface PersistentDrawerProps {
   defaultTab: string;
   drawerId: string; // must be unique id, because it's the key used to lookup the currently selected tab
@@ -55,9 +62,6 @@ export interface PersistentDrawerOptions
   selectedTab: string;
 }
 
-/* helper function that enables ListItemTab to remain persistently selected.
- * pass the returned PersistentDrawerOptions object as props to the ListItemTab component
- */
 export function getPersistentDrawerOptions(
   props: PersistentDrawerProps
 ): PersistentDrawerOptions {
