@@ -5,7 +5,7 @@ import { styled } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { flatten } from 'lodash';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import kitchenFaciltiesHeatMap from '../common/assets/Local Data/census/b25053.js';
@@ -14,7 +14,9 @@ import { markerData } from '../common/assets/Local Data/MockMarkerData';
 import {
   updateHeatMapSelection,
   updateMarkerSelection,
-  updateSelectedMarker
+  updateSelectedMarker,
+  getFeatureCollection,
+  updateSelectedTables
 } from '../redux/map/actions';
 import { theme } from '../theme/theme';
 import {
@@ -106,6 +108,7 @@ export function handleDisable(
 
 interface LayersProps {
   tableNames: string[];
+  selectedTables: string[];
   markerSelection: MarkerSelection[];
   heatMapSelection: HeatMapSelection | {};
   selectedMarker: SelectedMarker;
@@ -115,11 +118,14 @@ interface LayersProps {
 export default function Layers(props: LayersProps) {
   const {
     tableNames,
+    selectedTables,
     markerSelection,
     heatMapSelection,
     selectedMarker
   } = props;
+
   const dispatch = useDispatch();
+
   return (
     <StyledBox>
       <Autocomplete
@@ -127,6 +133,7 @@ export default function Layers(props: LayersProps) {
         disableListWrap
         id="tags-outlined"
         options={tableNames}
+        value={selectedTables}
         // TODO: make sure this handles data not existing once we are pulling from DB
         // defaultValue={[allData[0], allData[2]]}
         // disables all options when the user has chosen more than the allowedSelections
@@ -142,9 +149,10 @@ export default function Layers(props: LayersProps) {
         // getOptionLabel={option => option.name}
         filterSelectedOptions
         // informs the layerSelection variable with the user's selection
-        // onChange={async (event, value) => {
-        //   getMapSelection(value)(dispatch);
-        // }}
+        onChange={(event, value) => {
+          updateSelectedTables(value)(dispatch);
+          getFeatureCollection('b19019_001e')(dispatch);
+        }}
         renderInput={params => (
           <TextField
             {...params}

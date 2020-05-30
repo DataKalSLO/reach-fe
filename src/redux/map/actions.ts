@@ -9,7 +9,8 @@ import {
   UPDATE_COLOR_ASSOCIATION,
   UPDATE_HEAT_MAP_SELECTION,
   UPDATE_MARKER_SELECTION,
-  UPDATE_SELECTED_MARKER
+  UPDATE_SELECTED_MARKER,
+  UPDATE_SELECTED_TABLES
 } from './types';
 import { getFeatureCollectionAndHandleResponse } from '../../api/map/operationHandlers';
 import { Dispatch } from 'redux';
@@ -20,6 +21,12 @@ export function getFeatureCollection(tableName: string) {
     // eslint-disable-next-line prefer-spread
     payload.features = [].concat.apply([], payload.featureList);
     dispatch(updateHeatMapSelection(payload));
+  };
+}
+
+export function updateSelectedTables(selectedTables: string[]) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateSelectedTablesAction(selectedTables));
   };
 }
 
@@ -38,6 +45,13 @@ export function updateHeatMapSelection(
   return {
     type: UPDATE_HEAT_MAP_SELECTION,
     payload: heatMapSelection
+  };
+}
+
+export function updateSelectedTablesAction(selectedTables: string[]) {
+  return {
+    type: UPDATE_SELECTED_TABLES,
+    payload: selectedTables
   };
 }
 

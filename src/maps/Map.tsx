@@ -38,12 +38,11 @@ function Map() {
   const mapState = useSelector(getMap);
   const vizBuilderState = useSelector(getVizbuilder);
 
-  console.log(mapState);
-
   useEffect(() => {
     getAllTableNames()(dispatch);
-    getFeatureCollection('b19019_001e')(dispatch);
   }, [dispatch]);
+
+  console.log(mapState);
 
   return (
     <StyledBox>
@@ -51,6 +50,7 @@ function Map() {
         <StyledMapContainer>
           <Layers
             tableNames={vizBuilderState.datasetTableNames}
+            selectedTables={mapState.selectedTables}
             markerSelection={mapState.markerSelection}
             heatMapSelection={mapState.heatMapSelection}
             selectedMarker={mapState.selectedMarker}

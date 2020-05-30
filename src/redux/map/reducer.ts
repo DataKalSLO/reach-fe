@@ -1,5 +1,5 @@
-import medianHouseholdIncomeHeatMap from '../../common/assets/Local Data/census/median_income_data';
-import { markerData } from '../../common/assets/Local Data/MockMarkerData';
+// import medianHouseholdIncomeHeatMap from '../../common/assets/Local Data/census/median_income_data';
+// import { markerData } from '../../common/assets/Local Data/MockMarkerData';
 import { MARKER_ONE_COLOR, MARKER_TWO_COLOR } from '../../maps/constants';
 import { ColorAssociation } from '../../maps/types';
 import {
@@ -10,7 +10,7 @@ import {
   UPDATE_HEAT_MAP_SELECTION,
   UPDATE_MARKER_SELECTION,
   UPDATE_SELECTED_MARKER,
-  UPDATE_FEATURE_COLLECTION
+  UPDATE_SELECTED_TABLES
 } from './types';
 import noData from '../../common/assets/Local Data/census/noHeatMap';
 
@@ -25,7 +25,7 @@ import noData from '../../common/assets/Local Data/census/noHeatMap';
 // };
 
 const initialState: MapState = {
-  featureCollection: {},
+  selectedTables: [],
   markerSelection: [],
   heatMapSelection: noData,
   selectedMarker: [],
@@ -52,10 +52,10 @@ export function mapReducer(
   action: MapActionTypes
 ): MapState {
   switch (action.type) {
-    case UPDATE_FEATURE_COLLECTION:
+    case UPDATE_SELECTED_TABLES:
       return {
         ...state,
-        featureCollection: action.payload
+        selectedTables: action.payload
       };
     case UPDATE_MARKER_SELECTION:
       return {
