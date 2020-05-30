@@ -133,6 +133,9 @@ export default function Layers(props: LayersProps) {
         disableListWrap
         id="tags-outlined"
         options={tableNames}
+        getOptionLabel={(table: any) =>
+          table.censusDesc ? table.censusDesc : table.tableName
+        }
         value={selectedTables}
         // TODO: make sure this handles data not existing once we are pulling from DB
         // defaultValue={[allData[0], allData[2]]}
@@ -151,7 +154,7 @@ export default function Layers(props: LayersProps) {
         // informs the layerSelection variable with the user's selection
         onChange={(event, value) => {
           updateSelectedTables(value)(dispatch);
-          getFeatureCollection('b19019_001e')(dispatch);
+          getFeatureCollection('b1901_001e')(dispatch);
         }}
         renderInput={params => (
           <TextField
