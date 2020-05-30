@@ -33,7 +33,9 @@ export const initialStory: Story = {
   title: '',
   description: '',
   publicationStatus: PublicationStatus.DRAFT,
-  storyBlocks: [emptyTextBlock()] as Array<StoryBlockType>
+  storyBlocks: [emptyTextBlock()] as Array<StoryBlockType>,
+  dateCreated: new Date(),
+  dateLastEdited: new Date()
 };
 
 // follows immutability update patterns

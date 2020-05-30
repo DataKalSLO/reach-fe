@@ -84,7 +84,7 @@ export default function Drawer(props: Props) {
   };
 
   // non-standard props filtered out so otherProps can be passed Material UI Drawer component
-  const { isCollapsible, ...otherProps } = props;
+  const { isCollapsible, showLabels, ...otherProps } = props;
 
   return (
     <CoreDrawer
