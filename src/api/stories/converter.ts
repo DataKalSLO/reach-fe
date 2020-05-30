@@ -1,21 +1,24 @@
 import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
-import { TEXT_BLOCK_DB_TYPE, StoryDb, StoryBlockDb } from './types';
+import { TEXT_BLOCK_DB_TYPE, StoryDB, StoryBlockDB } from './types';
 import {
   Story,
   StoryBlockType,
   TextBlockType,
   TEXT_BLOCK_TYPE
 } from '../../redux/story/types';
-export function transformStoryToDatabaseStory(story: Story): StoryDb {
+
+const STORY_TRANSFORMATION_ERROR = 'STORY_TRANSFORMATION_ERROR';
+
+export function transformStoryToDatabaseStory(story: Story): StoryDB {
   return {
     ...story,
-    storyBlocks: story.storyBlocks.map(transformToStoryBlockDb)
+    storyBlocks: story.storyBlocks.map(transformToStoryBlockDB)
   };
 }
 
 //If given a TextBlock, Serializes the EditorState as a string
 //Otherwise, storyBlock is returned.
-function transformToStoryBlockDb(storyBlock: StoryBlockType): StoryBlockDb {
+function transformToStoryBlockDB(storyBlock: StoryBlockType): StoryBlockDB {
   switch (storyBlock.type) {
     case TEXT_BLOCK_TYPE:
       return {
@@ -31,15 +34,20 @@ function transformToStoryBlockDb(storyBlock: StoryBlockType): StoryBlockDb {
 }
 
 //Parses any types in each story block
-export function transformApiResponseToStory(databaseStory: StoryDb): Story {
-  return {
-    ...databaseStory,
-    storyBlocks: databaseStory.storyBlocks.map(transformToStoryBlock)
-  };
+export function transformToStory(object: object): Story {
+  if (object as StoryDB) {
+    const databaseStory: StoryDB = object as StoryDB;
+    return {
+      ...databaseStory,
+      storyBlocks: databaseStory.storyBlocks.map(transformToStoryBlock)
+    } as Story;
+  } else {
+    throw STORY_TRANSFORMATION_ERROR;
+  }
 }
 
 //Parses a TextBlockDB's the stringified EditorState's into a DraftJS's EditorState.
-function transformToStoryBlock(storyBlock: StoryBlockDb): StoryBlockType {
+function transformToStoryBlock(storyBlock: StoryBlockDB): StoryBlockType {
   switch (storyBlock.type) {
     case TEXT_BLOCK_DB_TYPE:
       return {

@@ -6,8 +6,8 @@ import {
 
 export const TEXT_BLOCK_DB_TYPE = 'TEXTDB'; // Must match naming in BEND
 
-export interface StoryDb extends StoryMetaInformation {
-  storyBlocks: Array<StoryBlockDb>;
+export interface StoryDB extends StoryMetaInformation {
+  storyBlocks: Array<StoryBlockDB>;
 }
 
 export interface TextBlockDB {
@@ -16,4 +16,4 @@ export interface TextBlockDB {
   editorState: string;
 }
 
-export type StoryBlockDb = TextBlockDB | GraphBlockType | MapBlockType;
+export type StoryBlockDB = TextBlockDB | GraphBlockType | MapBlockType;
