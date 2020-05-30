@@ -15,12 +15,13 @@ import {
   SHARE_LABEL
 } from './constants';
 import { GraphHeaderProps } from './types';
+import GraphShareButton from './GraphShareButton';
 
 /*
  * Contains the buttons rendered on the graph toolbar.
  */
 
-const ToolbarButton = (props: ButtonProps) => {
+export const ToolbarButton = (props: ButtonProps) => {
   return <Button variant="text" color="default" {...props} />;
 };
 
@@ -50,12 +51,7 @@ function GraphToolbar({ graph }: GraphHeaderProps) {
         startIcon={<FileCopy />}
         onClick={() => alert('Not implemented')}
       />
-      <ToolbarButton
-        disabled={true}
-        label={SHARE_LABEL}
-        startIcon={<Share />}
-        onClick={() => alert('Not implemented')}
-      />
+      <GraphShareButton />
       <ToolbarButton
         disabled={true}
         label={DELETE_LABEL}
