@@ -7,12 +7,12 @@ import { ConnectedRouter } from 'connected-react-router';
 import React from 'react';
 import { Provider } from 'react-redux';
 // Routing
-//  https://reacttraining.com/react-router/web/guides/quick-start
+// https://reacttraining.com/react-router/web/guides/quick-start
 import { Route, Switch } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
+// Containers
 import Admin from './containers/Admin';
 import CreateAccount from './containers/CreateAccount';
-// Containers
 import Explore from './containers/Explore';
 import Login from './containers/Login';
 import MyStuff from './containers/my-stuff-landing/MyStuff';
