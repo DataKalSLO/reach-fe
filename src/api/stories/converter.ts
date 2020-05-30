@@ -7,7 +7,7 @@ import {
   TEXT_BLOCK_TYPE
 } from '../../redux/story/types';
 
-const STORY_TRANSFORMATION_ERROR = 'STORY_TRANSFORMATION_ERROR';
+const STORY_TRANSFORMATION_ERROR = 'Could not transform object to story.';
 
 export function transformStoryToDatabaseStory(story: Story): StoryDB {
   return {

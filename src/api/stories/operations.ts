@@ -1,13 +1,13 @@
+import { get } from '../base';
+import { transformStoryToDatabaseStory, transformToStory } from './converter';
 import {
-  authenticatedGet,
   authenticatedDel,
+  authenticatedGet,
   authenticatedPost,
   authenticatedPut
 } from '../authenticatedApi/operations';
-import { get } from '../base';
-import { Story } from '../../redux/story/types';
 import { StoryDB } from './types';
-import { transformStoryToDatabaseStory, transformToStory } from './converter';
+import { Story } from '../../redux/story/types';
 
 enum StoryActions {
   CREATE,
