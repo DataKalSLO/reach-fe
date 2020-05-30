@@ -10,6 +10,7 @@ export interface RegisterData {
   role: number;
   occupation: string;
   notificationsEnabled: boolean;
+  isThirdParty: boolean;
 }
 
 export interface User {
@@ -19,6 +20,7 @@ export interface User {
   role: number;
   occupation: string;
   notificationsEnabled: boolean;
+  isThirdParty: boolean;
 }
 
 export interface UserSettings {

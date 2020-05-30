@@ -13,6 +13,7 @@ import {
   isSecondarySeriesType,
   isXAxisDatetime,
   isXAxisLinear,
+  sortData,
   zipData
 } from '../utilities';
 
@@ -161,6 +162,33 @@ describe('zipData(): zips two arrays', () => {
       ['1', 1],
       ['2', 2],
       ['3', 3]
+    ]);
+  });
+});
+
+describe('sortData(): sorts a 2D array in ascending order', () => {
+  it('should sort a 2D array of numbers in asceding order, by the first column value', () => {
+    expect(
+      sortData([
+        [1, 2],
+        [4, 6],
+        [3, 2]
+      ])
+    ).toEqual([
+      [1, 2],
+      [3, 2],
+      [4, 6]
+    ]);
+  });
+  it('should not sort, if the first column value of a 2D array is not a number', () => {
+    expect(
+      sortData([
+        ['1', 2],
+        ['3', 4]
+      ])
+    ).toEqual([
+      ['1', 2],
+      ['3', 4]
     ]);
   });
 });
