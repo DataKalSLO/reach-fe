@@ -20,7 +20,6 @@ import { Route, Switch } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 
 // Containers
-import Admin from './containers/Admin';
 import CreateAccount from './containers/CreateAccount';
 import Explore from './containers/Explore';
 import Login from './containers/Login';
@@ -36,7 +35,8 @@ import VizBuilder from './containers/VizBuilder';
 
 //Nav
 import {
-  ADMIN,
+  ADMIN_UPLOAD_DATA,
+  ADMIN_REVIEW_STORIES,
   CREATE_ACCOUNT,
   EXPLORE,
   HOME,
@@ -54,7 +54,6 @@ import {
 import AdminProtectedRoute from './nav/AdminProtectedRoute';
 import AppBar from './nav/AppBar';
 import ProtectedRoute from './nav/ProtectedRoute';
-        
 import StoryReviewGrid from './admin/StoryReviewGrid';
 import DataUploader from './admin/DataUploader';
 
