@@ -1,5 +1,4 @@
 import React from 'react';
-import { SidebarListOrder } from '../../my-stuff/MyStuffSidebar';
 import MyStuffWrapper from '../../my-stuff/MyStuffWrapper';
 import StoryCard from '../../preview-cards/story-card/StoryCard';
 import { PublicationStatus, Story } from '../../redux/story/types';
@@ -32,7 +31,7 @@ const sampleStoryInReview: Story = {
 
 export default function MyStuff() {
   return (
-    <MyStuffWrapper title="My Stuff" selectedIndex={SidebarListOrder.all}>
+    <MyStuffWrapper title="My Stuff">
       {/* TODO: replace this with the content for the gallery view */}
       <StoryCard story={sampleStoryDraft} />
       <StoryCard story={sampleStoryInReview} />
