@@ -44,6 +44,12 @@ export const TOOLTIP_DEFAULT_HIGHCHARTS_POINT_FORMAT =
   '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b><br/>';
 
 /*
+ * Exporting Options Constants
+ */
+export const EXPORT_GRAPH_TITLE = '';
+export const EXPORT_GRAPH_SUBTITLE = '';
+
+/*
  * Accessibility Options Constants
  */
 export const ACCESSIBILITY_ANNOUNCE_NEW_DATA_ENABLED = true;
