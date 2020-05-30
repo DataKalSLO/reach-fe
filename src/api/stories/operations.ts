@@ -16,30 +16,47 @@ enum StoryActions {
   CREATE,
   UPDATE,
   DELETE_WITH_ID,
-  GET_ALL_STORIES
+  GET_STORIES_PUBLISHED,
+  GET_STORIES_REVIEW,
+  GET_STORIES_DRAFT
 }
 
-type StoryApiResponse = string | Story | Array<Story>;
+type StoryApiResponse = void | Story | Array<Story>;
 type StoryApiPayload = string | DatabaseStory | undefined;
 
-export async function saveOrUpdateExistingStory(story: Story): Promise<string> {
+export async function saveOrUpdateExistingStory(story: Story): Promise<void> {
   const databaseStory = transformStoryToDatabaseStory(story);
-  return httpRequestWithStringResponse(StoryActions.CREATE, databaseStory);
+  return storyHttp(StoryActions.CREATE, databaseStory) as Promise<void>;
 }
 
-export function deleteStoryById(storyId: string): Promise<string> {
-  return httpRequestWithStringResponse(StoryActions.DELETE_WITH_ID, storyId);
+export function deleteStoryById(storyId: string): Promise<void> {
+  return storyHttp(StoryActions.DELETE_WITH_ID, storyId) as Promise<void>;
 }
 
 export async function getStoryWithStoryID(storyID: string): Promise<Story> {
+  // draft stories require token, published don't. Sending token harmless in latter.
   return transformAPIResponseToStory(
     await authenticatedGet(['story', storyID].join('/'))
   );
 }
 
-export async function getAllStories(): Promise<Story[]> {
+export async function getPublishedStories(): Promise<Story[]> {
   return httpRequestWithStoryArrayResponse(
-    StoryActions.GET_ALL_STORIES,
+    StoryActions.GET_STORIES_PUBLISHED,
+    undefined
+  );
+}
+
+export async function getStoriesInReview(): Promise<Story[]> {
+  return httpRequestWithStoryArrayResponse(
+    StoryActions.GET_STORIES_REVIEW,
+    undefined
+  );
+}
+
+export async function getStoriesInDraft(): Promise<Story[]> {
+  return httpRequestWithStoryArrayResponse(
+    StoryActions.GET_STORIES_DRAFT,
     undefined
   );
 }
@@ -51,20 +68,6 @@ async function httpRequestWithStoryArrayResponse(
   const response: StoryApiResponse = await storyHttp(actionType, payload);
   if (response as Array<Story>) {
     return response as Array<Story>;
-  } else {
-    throw new Error(
-      'Expected a string to be returned by call story action: ' + actionType
-    );
-  }
-}
-
-async function httpRequestWithStringResponse(
-  actionType: StoryActions,
-  payload: StoryApiPayload
-): Promise<string> {
-  const response: StoryApiResponse = await storyHttp(actionType, payload);
-  if (response as string) {
-    return response as string;
   } else {
     throw new Error(
       'Expected a string to be returned by call story action: ' + actionType
@@ -84,8 +87,14 @@ async function storyHttp(
     case StoryActions.UPDATE:
       response = authenticatedPut('story', payload as object);
       break;
-    case StoryActions.GET_ALL_STORIES:
+    case StoryActions.GET_STORIES_PUBLISHED:
       response = get('story'); // no token required so don't prompt for login
+      break;
+    case StoryActions.GET_STORIES_REVIEW:
+      response = authenticatedGet('story/review');
+      break;
+    case StoryActions.GET_STORIES_DRAFT:
+      response = authenticatedGet('story/draft');
       break;
     case StoryActions.DELETE_WITH_ID:
       response = authenticatedDel('story/' + payload);
@@ -93,5 +102,5 @@ async function storyHttp(
     default:
       throw new Error('Unimplemented mutation action on Story: ' + actionType);
   }
-  return response as StoryApiResponse;
+  return response as Promise<StoryApiResponse>;
 }

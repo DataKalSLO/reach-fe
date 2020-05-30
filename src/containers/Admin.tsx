@@ -4,6 +4,8 @@ import { Paper, Typography, Box, styled } from '@material-ui/core';
 import { csv } from 'd3';
 import CSVReader from 'react-csv-reader';
 import { convertCsvToJson } from '../common/util/csvToJson';
+import { upload } from '../api/upload';
+import Button from '../common/components/Button';
 
 function Admin() {
   const [csvAirportData, setCsvAirportData]: any = useState([]);
@@ -14,8 +16,14 @@ function Admin() {
   const [csvMigrationData, setCsvMigrationData]: any = useState([]);
   const [csvSloAirportsData, setCsvSloAirportsData]: any = useState([]);
   const [csvUniversityData, setCsvUniversityData]: any = useState([]);
-  const [csvWaterData, setCsvWaterData]: any = useState([]);
   const [jsonData, setJsonData] = useState({});
+  const [uploadDisabled, setUploadDisabled] = useState(true);
+  enum status {
+    success,
+    failure,
+    undefined
+  }
+  const [uploadStatus, setUploadStatus] = useState(status.undefined);
 
   useEffect(() => {
     Promise.all([
@@ -26,8 +34,7 @@ function Admin() {
       csv('./MeanRealWages.csv'),
       csv('./NetMigration.csv'),
       csv('./SloAirports.csv'),
-      csv('./UniversityInfo.csv'),
-      csv('./WaterSources.csv')
+      csv('./UniversityInfo.csv')
     ]).then(function(data) {
       setCsvAirportData(data[0]);
       setCsvCommuteData(data[1]);
@@ -37,25 +44,54 @@ function Admin() {
       setCsvMigrationData(data[5]);
       setCsvSloAirportsData(data[6]);
       setCsvUniversityData(data[7]);
-      setCsvWaterData(data[8]);
     });
   }, [setCsvAirportData, setCsvCommuteData, setCsvCovidData]);
 
   const setJsonFromCsv = useCallback(
     (data: Array<any>) => {
       const jsonObj = convertCsvToJson(data);
-      console.log(jsonObj);
       setJsonData(jsonObj);
+      setUploadDisabled(false);
     },
-    [setJsonData]
+    [setJsonData, setUploadDisabled]
   );
+
+  const uploadData = useCallback(() => {
+    upload(jsonData)
+      .then(() => {
+        setUploadStatus(status.success);
+      })
+      .catch(e => {
+        setUploadStatus(status.failure);
+      });
+  }, [jsonData, setUploadStatus, status.failure, status.success]);
+
+  const uploadMessageColor =
+    uploadStatus === status.success ? 'primary' : 'error';
+
+  const uploadMessage =
+    uploadStatus === status.success
+      ? 'Success! The data was successfully uploaded into the database.'
+      : uploadStatus === status.failure
+      ? 'Failed...Something went wrong.  Please check the formatting of your csv.'
+      : '';
 
   return (
     <React.Fragment>
-      <UploadBox>
+      <UploadPaper variant="outlined">
         <Typography variant="h5">Upload Your Data</Typography>
-        <CSVReader cssClass="react-csv-input" onFileLoaded={setJsonFromCsv} />
-      </UploadBox>
+        <UploadBox>
+          <CSVReader cssClass="react-csv-input" onFileLoaded={setJsonFromCsv} />
+          <Button
+            label="Upload Data"
+            onClick={uploadData}
+            disabled={uploadDisabled}
+          />
+        </UploadBox>
+        <Typography color={uploadMessageColor} variant="caption">
+          {uploadMessage}
+        </Typography>
+      </UploadPaper>
       <DownloadPaper variant="outlined">
         <Typography variant="h5">Download Your CSV Templates</Typography>
         <Box>
@@ -99,22 +135,26 @@ function Admin() {
             csvData={csvUniversityData}
             filename="UniversityInfo"
           />
-          <CSVTemplate
-            templateName="WaterSources.csv"
-            csvData={csvWaterData}
-            filename="WaterSources"
-          />
         </Box>
       </DownloadPaper>
     </React.Fragment>
   );
 }
 
-const UploadBox = styled(Box)({
+const UploadPaper = styled(Paper)({
   marginLeft: '300px',
   marginRight: '300px',
   marginTop: '100px'
 });
+
+const UploadBox = styled(Box)({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyItems: 'center',
+  justifyContent: 'space-between'
+});
+
 const DownloadPaper = styled(Paper)({
   marginLeft: '300px',
   marginRight: '300px',

@@ -31,6 +31,7 @@ function GraphToolbar({ graph }: GraphHeaderProps) {
   return (
     <Toolbar>
       <ToolbarButton
+        disabled={true}
         label={EDIT_LABEL}
         variant="text"
         color="default"
@@ -38,28 +39,28 @@ function GraphToolbar({ graph }: GraphHeaderProps) {
         onClick={() => alert('Not implemented')}
       />
       <ToolbarButton
+        disabled={true}
         label={SAVE_LABEL}
         startIcon={<Save />}
         onClick={() => alert('Not implemented')}
       />
       <ToolbarButton
+        disabled={true}
         label={DUPLICATE_LABEL}
         startIcon={<FileCopy />}
-        onClick={() => {
-          dispatch(duplicateGraphAction(graph.options));
-        }}
+        onClick={() => alert('Not implemented')}
       />
       <ToolbarButton
+        disabled={true}
         label={SHARE_LABEL}
         startIcon={<Share />}
         onClick={() => alert('Not implemented')}
       />
       <ToolbarButton
+        disabled={true}
         label={DELETE_LABEL}
         startIcon={<Delete color="error" />}
-        onClick={() => {
-          dispatch(deleteGraphAction(graph.id));
-        }}
+        onClick={() => alert('Not implemented')}
       />
     </Toolbar>
   );

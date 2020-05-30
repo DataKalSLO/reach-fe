@@ -11,9 +11,17 @@ import {
 } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { saveStoryAndHandleResponse } from '../api/stories/operationHandlers';
+import {
+  saveStoryAndHandleResponse,
+  submitStoryForReviewAndHandleResponse
+} from '../api/stories/operationHandlers';
 import { Drawer, List, ListItemButton } from '../reach-ui/core';
-import { createEmptyTextBlock, createImageBlock } from '../redux/story/actions';
+import {
+  createEmptyTextBlock,
+  updatePublicationStatus,
+  createImageBlock
+} from '../redux/story/actions';
+import { PublicationStatus } from '../redux/story/types';
 import { getStory } from '../redux/story/selectors';
 import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
@@ -39,10 +47,20 @@ export default function StorySidebar() {
     checkValidMetaFields(() => dispatch(togglePreview()));
   };
 
-  const handleSave = () => {
-    story.userID = 'test1@test.com'; //TODO: Remove when API functions access auth token
-    checkValidMetaFields(() => saveStoryAndHandleResponse(story));
+  const handleSave = async () => {
+    await checkValidMetaFields(() => saveStoryAndHandleResponse(story));
     //TODO: Add Loading bar while waiting for request.
+  };
+
+  const handleSubmitForReview = () => {
+    checkValidMetaFields(async () => {
+      if (
+        (await saveStoryAndHandleResponse(story)) &&
+        (await submitStoryForReviewAndHandleResponse(story))
+      ) {
+        dispatch(updatePublicationStatus(PublicationStatus.REVIEW));
+      }
+    });
   };
 
   return (
@@ -52,21 +70,25 @@ export default function StorySidebar() {
       </Typography>
       <List>
         <ListItemButton
+          disabled={previewSelected}
           text={'Text'}
           icon={<TextFields />}
           onClick={() => dispatch(createEmptyTextBlock())}
         />
         <ListItemButton
+          disabled={previewSelected}
           text={'Graph'}
           icon={<InsertChart />}
           onClick={() => alert('Not implemented')}
         />
         <ListItemButton
+          disabled={previewSelected}
           text={'Map'}
           icon={<Map />}
           onClick={() => alert('Not implemented')}
         />
         <ListItemButton
+          disabled={previewSelected}
           text={'Image'}
           icon={<InsertPhoto />}
           onClick={() => dispatch(createImageBlock())}
@@ -86,7 +108,7 @@ export default function StorySidebar() {
         <ListItemButton
           text={'Submit for Review'}
           icon={<ChatBubble />}
-          onClick={() => alert('Not yet implemented')}
+          onClick={handleSubmitForReview}
         />
       </List>
     </Drawer>
