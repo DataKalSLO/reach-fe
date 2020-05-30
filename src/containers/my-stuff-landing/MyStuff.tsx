@@ -1,8 +1,9 @@
 import React from 'react';
-import { SidebarListOrder } from '../../my-stuff/MyStuffSidebar';
 import MyStuffWrapper from '../../my-stuff/MyStuffWrapper';
 import StoryCard from '../../preview-cards/story-card/StoryCard';
 import { PublicationStatus, Story } from '../../redux/story/types';
+
+const sampleDate = new Date('Fri May 29 2020');
 
 const sampleStoryDraft: Story = {
   id: '12345',
@@ -11,7 +12,9 @@ const sampleStoryDraft: Story = {
   title: 'High School Graduation Rates on the Central Coast',
   description:
     "High school graduation rates are a critical metric of the effectiveness of our local high schools, as well as our students' college preparedness.",
-  storyBlocks: []
+  storyBlocks: [],
+  dateCreated: sampleDate,
+  dateLastEdited: sampleDate
 };
 
 const sampleStoryInReview: Story = {
@@ -21,12 +24,14 @@ const sampleStoryInReview: Story = {
   title: 'Zoning in Downtown San Luis Obispo',
   description:
     'Are the zoning policies in downtown SLO preventing business expansion?',
-  storyBlocks: []
+  storyBlocks: [],
+  dateCreated: sampleDate,
+  dateLastEdited: sampleDate
 };
 
 export default function MyStuff() {
   return (
-    <MyStuffWrapper title="My Stuff" selectedIndex={SidebarListOrder.all}>
+    <MyStuffWrapper title="My Stuff">
       {/* TODO: replace this with the content for the gallery view */}
       <StoryCard story={sampleStoryDraft} />
       <StoryCard story={sampleStoryInReview} />
