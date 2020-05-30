@@ -6,7 +6,8 @@ import {
   ReceiveSearchResultsAction,
   RECEIVE_SEARCH_RESULTS,
   RequestSearchResultsAction,
-  REQUEST_SEARCH_RESULTS
+  REQUEST_SEARCH_RESULTS,
+  SearchIndexFilter
 } from './types';
 
 function requestSearchResults(qry: string): RequestSearchResultsAction {
@@ -25,10 +26,10 @@ function receiveSearchResults(
   };
 }
 
-export function fetchSearchResults(qry: string) {
+export function fetchSearchResults(qry: string, index: SearchIndexFilter) {
   return async (dispatch: Dispatch) => {
     dispatch(requestSearchResults(qry));
-    return esQuery(qry).then((res: ElasticSearchResponseObject) => {
+    return esQuery(qry, index).then((res: ElasticSearchResponseObject) => {
       dispatch(receiveSearchResults(res.hits.hits));
     });
   };
