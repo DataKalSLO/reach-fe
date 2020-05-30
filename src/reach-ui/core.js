@@ -3,6 +3,7 @@ import {
   CollapsibleItem,
   CollapsibleMenu
 } from '../common/components/CollapsibleToolbar';
+import ContentBox from '../common/components/ContentBox';
 import Drawer from '../common/components/Drawer';
 import FileUpload from '../common/components/FileUpload';
 import Gallery from '../common/components/Gallery';
@@ -14,12 +15,14 @@ import {
   ListItemTab
 } from '../common/components/PersistentDrawer';
 import Popper from '../common/components/Popper';
+import SidebarContentBox from '../common/components/SidebarContentBox';
 
 export {
   getPersistentDrawerOptions,
   Button,
   CollapsibleItem,
   CollapsibleMenu,
+  ContentBox,
   Drawer,
   FileUpload,
   Gallery,
@@ -27,5 +30,6 @@ export {
   List,
   ListItemButton,
   ListItemTab,
-  Popper
+  Popper,
+  SidebarContentBox
 };
