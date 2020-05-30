@@ -9,7 +9,7 @@ export const MAP_BLOCK_TYPE = 'Map';
 //Action names
 export const CREATE_EMPTY_TEXT_BLOCK = 'CREATE_EMPTY_TEXT_BLOCK';
 export const CREATE_GRAPH_BLOCK = 'CREATE_GRAPH_BLOCK';
-export const CREATE_IMAGE_BLOCK = 'CREATE_IMAGE_BLOCK';
+export const CREATE_EMPTY_IMAGE_BLOCK = 'CREATE_EMPTY_IMAGE_BLOCK';
 export const UPDATE_TEXT_BLOCK = 'UPDATE_TEXT_BLOCK';
 export const DELETE_BLOCK = 'DELETE_BLOCK';
 export const SWAP_BLOCKS = 'SWAP_BLOCKS';
@@ -51,7 +51,7 @@ export interface GraphBlockType {
 export interface ImageBlockType {
   type: typeof IMAGE_BLOCK_TYPE;
   id: string;
-  // something here I'm sure
+  imageUrl: string;
 }
 
 export interface MapBlockType {
@@ -84,8 +84,8 @@ export interface CreateGraphBlockAction {
   payload: { block: GraphBlockType };
 }
 
-export interface CreateImageBlockAction {
-  type: typeof CREATE_IMAGE_BLOCK;
+export interface CreateEmptyImageBlockAction {
+  type: typeof CREATE_EMPTY_IMAGE_BLOCK;
   payload: { block: ImageBlockType };
 }
 
@@ -129,7 +129,7 @@ export type UpdateBlockType = UpdateTextBlockAction;
 export type StoryActionType =
   | CreateEmptyTextBlockAction
   | CreateGraphBlockAction
-  | CreateImageBlockAction
+  | CreateEmptyImageBlockAction
   | UpdateTextBlockAction
   | DeleteBlockAction
   | SwapBlocksAction

@@ -31,7 +31,6 @@
     "@types/react-splitter-layout": "^3.0.0",
     "@types/yup": "^0.26.37",
     "array-move": "^2.2.1",
-    "aws-sdk": "^2.684.0",
     "chroma-js": "^2.1.0",
     "clsx": "^1.1.0",
     "connected-react-router": "^6.7.0",
