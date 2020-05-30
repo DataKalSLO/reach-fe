@@ -1,11 +1,10 @@
-import { Box, styled } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { getStoryWithStoryID } from '../api/stories/operations';
+import { EXPLORE } from '../nav/constants';
+import { ContentBox } from '../reach-ui/core';
 import { Story } from '../redux/story/types';
 import StoryView from '../stories/StoryView';
-import { theme } from '../theme/theme';
-import { EXPLORE } from '../nav/constants';
 
 function StoryViewContainer() {
   const { storyId } = useParams();
@@ -42,13 +41,5 @@ function StoryViewContainer() {
     return <React.Fragment />;
   }
 }
-
-const ContentBox = styled(Box)({
-  flexGrow: 1,
-  paddingTop: theme.spacing(3),
-  paddingBottom: theme.spacing(3),
-  paddingLeft: theme.spacing(12),
-  paddingRight: theme.spacing(12)
-});
 
 export default StoryViewContainer;
