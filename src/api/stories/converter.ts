@@ -1,23 +1,21 @@
 import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
-import { TEXT_BLOCK_DB_TYPE, DatabaseStory, DatabaseStoryBlock } from './types';
+import { TEXT_BLOCK_DB_TYPE, StoryDb, StoryBlockDb } from './types';
 import {
   Story,
   StoryBlockType,
   TextBlockType,
   TEXT_BLOCK_TYPE
 } from '../../redux/story/types';
-export function transformStoryToDatabaseStory(story: Story): DatabaseStory {
+export function transformStoryToDatabaseStory(story: Story): StoryDb {
   return {
     ...story,
-    storyBlocks: story.storyBlocks.map(transformStoryBlockToDatabaseStoryBlock)
+    storyBlocks: story.storyBlocks.map(transformToStoryBlockDb)
   };
 }
 
 //If given a TextBlock, Serializes the EditorState as a string
 //Otherwise, storyBlock is returned.
-function transformStoryBlockToDatabaseStoryBlock(
-  storyBlock: StoryBlockType
-): DatabaseStoryBlock {
+function transformToStoryBlockDb(storyBlock: StoryBlockType): StoryBlockDb {
   switch (storyBlock.type) {
     case TEXT_BLOCK_TYPE:
       return {
@@ -33,23 +31,15 @@ function transformStoryBlockToDatabaseStoryBlock(
 }
 
 //Parses any types in each story block
-export function transformAPIResponseToStory(apiResponse: object): Story {
-  if (apiResponse as DatabaseStory) {
-    const databaseStory: DatabaseStory = apiResponse as DatabaseStory;
-    return {
-      ...databaseStory,
-      storyBlocks: databaseStory.storyBlocks.map(
-        transformDatabaseStoryBlockToStoryBlock
-      )
-    };
-  }
-  throw new Error('API response object not in Story format');
+export function transformApiResponseToStory(databaseStory: StoryDb): Story {
+  return {
+    ...databaseStory,
+    storyBlocks: databaseStory.storyBlocks.map(transformToStoryBlock)
+  };
 }
 
 //Parses a TextBlockDB's the stringified EditorState's into a DraftJS's EditorState.
-function transformDatabaseStoryBlockToStoryBlock(
-  storyBlock: DatabaseStoryBlock
-): StoryBlockType {
+function transformToStoryBlock(storyBlock: StoryBlockDb): StoryBlockType {
   switch (storyBlock.type) {
     case TEXT_BLOCK_DB_TYPE:
       return {

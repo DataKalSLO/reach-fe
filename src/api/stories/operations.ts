@@ -6,10 +6,10 @@ import {
 } from '../authenticatedApi/operations';
 import { get } from '../base';
 import { Story } from '../../redux/story/types';
-import { DatabaseStory } from './types';
+import { StoryDb } from './types';
 import {
   transformStoryToDatabaseStory,
-  transformAPIResponseToStory
+  transformApiResponseToStory
 } from './converter';
 
 enum StoryActions {
@@ -21,8 +21,8 @@ enum StoryActions {
   GET_STORIES_DRAFT
 }
 
-type StoryApiResponse = void | Story | Array<Story>;
-type StoryApiPayload = string | DatabaseStory | undefined;
+type StoryApiResponse = void | Story | Array<StoryDb>;
+type StoryApiPayload = string | StoryDb | undefined;
 
 export async function saveOrUpdateExistingStory(story: Story): Promise<void> {
   const databaseStory = transformStoryToDatabaseStory(story);
@@ -35,8 +35,8 @@ export function deleteStoryById(storyId: string): Promise<void> {
 
 export async function getStoryWithStoryID(storyID: string): Promise<Story> {
   // draft stories require token, published don't. Sending token harmless in latter.
-  return transformAPIResponseToStory(
-    await authenticatedGet(['story', storyID].join('/'))
+  return transformApiResponseToStory(
+    (await authenticatedGet(['story', storyID].join('/'))) as StoryDb
   );
 }
 
@@ -65,14 +65,11 @@ async function httpRequestWithStoryArrayResponse(
   actionType: StoryActions,
   payload: StoryApiPayload
 ): Promise<Array<Story>> {
-  const response: StoryApiResponse = await storyHttp(actionType, payload);
-  if (response as Array<Story>) {
-    return response as Array<Story>;
-  } else {
-    throw new Error(
-      'Expected a string to be returned by call story action: ' + actionType
-    );
-  }
+  const response: Array<StoryDb> = (await storyHttp(
+    actionType,
+    payload
+  )) as Array<StoryDb>;
+  return response.map(transformApiResponseToStory) as Array<Story>;
 }
 
 async function storyHttp(
