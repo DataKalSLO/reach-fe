@@ -18,7 +18,7 @@ enum StoryActions {
   GET_STORIES_DRAFT
 }
 
-type StoryApiResponse = void | Story | Array<StoryDB>;
+type StoryApiResponse = void | StoryDB | Array<StoryDB>;
 type StoryApiPayload = string | StoryDB | undefined;
 
 export async function saveOrUpdateExistingStory(story: Story): Promise<void> {
