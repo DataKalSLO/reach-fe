@@ -30,7 +30,7 @@ function StoryViewContainer() {
           navigateToExplore();
         }
       });
-  });
+  }, []);
 
   if (story) {
     return (
