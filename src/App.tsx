@@ -114,7 +114,7 @@ const sample = (
     <Sample />
   </Route>
 );
-const stories = (
+const storyView = (
   <Route path={STORY_VIEW}>
     <StoryViewContainer />
   </Route>
@@ -141,7 +141,7 @@ function App() {
               {sample}
               {admin}
               {settings}
-              {stories}
+              {storyView}
             </Switch>
           </ThemeProvider>
         </ConnectedRouter>
