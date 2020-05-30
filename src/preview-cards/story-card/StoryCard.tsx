@@ -12,7 +12,7 @@ import { AccountCircle } from '@material-ui/icons';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { ADMIN_USER } from '../../nav/constants';
+import { ADMIN_USER, STORY_VIEW } from '../../nav/constants';
 import { getUser } from '../../redux/login/selectors';
 import { Story, PublicationStatus } from '../../redux/story/types';
 import { AdminReviewCardActions } from './AdminReviewCardActions';
@@ -109,7 +109,7 @@ export default function StoryCard(props: Props): JSX.Element {
   return (
     <Card className={classes.card} variant="outlined">
       <CardActionArea
-        onClick={() => history.push('/stories/' + props.story.id)}
+        onClick={() => history.push(STORY_VIEW + '/' + props.story.id)}
       >
         <CardMedia
           className={classes.media}

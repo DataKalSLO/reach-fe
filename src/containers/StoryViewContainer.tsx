@@ -5,13 +5,14 @@ import { getStoryWithStoryID } from '../api/stories/operations';
 import { Story } from '../redux/story/types';
 import StoryView from '../stories/StoryView';
 import { theme } from '../theme/theme';
+import { EXPLORE } from '../nav/constants';
 
 function StoryViewContainer() {
   const { storyId } = useParams();
   const history = useHistory();
   const [story, setStory] = useState<Story | null>(null);
 
-  const navigateToExplore = () => history.push('/explore');
+  const navigateToExplore = () => history.push(EXPLORE);
 
   useEffect(() => {
     if (!storyId) {
@@ -23,8 +24,11 @@ function StoryViewContainer() {
         setStory(data);
       })
       .catch(error => {
-        alert(error);
-        navigateToExplore();
+        //Ignore unresolvable TypeError that is thrown on refresh, no effect on query result.
+        if (!(error instanceof TypeError)) {
+          alert(error);
+          navigateToExplore();
+        }
       });
   });
 

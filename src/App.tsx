@@ -2,14 +2,23 @@
 //  https://material-ui.com/styles/basics/
 //  https://material-ui.com/customization/theming/
 import { ThemeProvider } from '@material-ui/core/styles';
+import { theme } from './theme/theme';
+
+// Store
+//  https://react-redux.js.org/introduction/quick-start
+//  https://react-redux.js.org/next/api/hooks
+import { history, persistor, store } from './redux/store';
+
 // Link routing and store
 import { ConnectedRouter } from 'connected-react-router';
 import React from 'react';
 import { Provider } from 'react-redux';
+
 // Routing
 // https://reacttraining.com/react-router/web/guides/quick-start
 import { Route, Switch } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
+
 // Containers
 import Admin from './containers/Admin';
 import CreateAccount from './containers/CreateAccount';
@@ -24,8 +33,8 @@ import Settings from './containers/Settings';
 import StoryBuilder from './containers/StoryBuilder';
 import StoryViewContainer from './containers/StoryViewContainer';
 import VizBuilder from './containers/VizBuilder';
-import AdminProtectedRoute from './nav/AdminProtectedRoute';
-import AppBar from './nav/AppBar';
+
+//Nav
 import {
   ADMIN,
   CREATE_ACCOUNT,
@@ -39,15 +48,12 @@ import {
   SAMPLE,
   SETTINGS,
   STORY_BUILDER,
-  STORY_VIEW,
+  STORY_VIEW_ID,
   VIZ_BUILDER
 } from './nav/constants';
+import AdminProtectedRoute from './nav/AdminProtectedRoute';
+import AppBar from './nav/AppBar';
 import ProtectedRoute from './nav/ProtectedRoute';
-// Store
-//  https://react-redux.js.org/introduction/quick-start
-//  https://react-redux.js.org/next/api/hooks
-import { history, persistor, store } from './redux/store';
-import { theme } from './theme/theme';
 
 const home = (
   <Route path={HOME} exact>
@@ -115,7 +121,7 @@ const sample = (
   </Route>
 );
 const storyView = (
-  <Route path={STORY_VIEW}>
+  <Route path={STORY_VIEW_ID}>
     <StoryViewContainer />
   </Route>
 );

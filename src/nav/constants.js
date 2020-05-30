@@ -12,7 +12,9 @@ export const SAMPLE = '/sample';
 export const CREATE_ACCOUNT = '/create-account';
 export const SETTINGS = '/settings';
 export const ADMIN = '/admin';
-export const STORY_VIEW = '/story/:storyId';
+export const STORY_VIEW = '/story';
+export const STORY_VIEW_ID = STORY_VIEW + '/:storyId';
+
 // Names of routes in the navigation bar
 export const HOME_NAME = 'Reach';
 export const EXPLORE_NAME = 'Explore';
