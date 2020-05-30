@@ -110,6 +110,29 @@ export function zipData(
 }
 
 /*
+ * Sort a 2D array by the first column value in ascending order. Mixed values
+ * are not handled properly, this method assumes that the column values are
+ * either all numbers or all strings. Only data with numbers are sorted.
+ * Data needs to be sorted before sending it to Highcharts.
+ *  - for more information see https://www.highcharts.com/errors/15/
+ */
+export function sortData(data: GraphData): GraphData {
+  if (isNumber(data[0][0])) {
+    return data.sort(
+      (
+        point1: [GraphDataXValue, GraphDataYValue],
+        point2: [GraphDataXValue, GraphDataYValue]
+      ) => {
+        if (point1[0] > point2[0]) return 1;
+        if (point1[0] < point2[0]) return -1;
+        return 0;
+      }
+    );
+  }
+  return data;
+}
+
+/*
  * PrimarySeriesType Type Guard
  */
 export function isPrimarySeriesType(
