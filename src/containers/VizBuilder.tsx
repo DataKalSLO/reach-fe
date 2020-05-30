@@ -10,6 +10,7 @@ import OptionsBar from '../graphs/container/OptionsBar';
 import 'react-splitter-layout/lib/index.css';
 import { useDispatch } from 'react-redux';
 import { getAllMetadata } from '../redux/vizbuilder/actions';
+import { GraphTest } from '../graphs/components/GraphTest';
 
 function VizBuilder() {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ function VizBuilder() {
         <SplitterLayout primaryMinSize={5} secondaryMinSize={5}>
           <StyledGrid item xs={12}>
             <LeftArrow fontSize={'large'} />
-            <Map />
+            <GraphTest />
           </StyledGrid>
           <StyledGrid item xs={12}>
             <RightArrow fontSize={'large'} />

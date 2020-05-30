@@ -170,7 +170,7 @@ export function toggleCreateGraph(): ToggleCreateGraphAction {
  * Given the graph metadata for a collection of graphs,
  * get the data values for each graph.
  */
-async function createGraphsWithData(
+export async function createGraphsWithData(
   graphsMetaData: GraphMetaData[] | undefined
 ): Promise<Graph[]> {
   let graphs: (Graph | undefined)[] = [];
@@ -187,7 +187,7 @@ async function createGraphsWithData(
  * Given the graph metadata, get the data values for
  * that graph.
  */
-async function createGraphWithData(
+export async function createGraphWithData(
   graphMetaData?: GraphMetaData
 ): Promise<Graph | undefined> {
   if (!isUndefined(graphMetaData)) {
