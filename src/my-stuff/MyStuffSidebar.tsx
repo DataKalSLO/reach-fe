@@ -29,7 +29,7 @@ export default function MyStuffSidebar() {
   const options = getPersistentDrawerOptions(drawerOptions);
 
   return (
-    <Drawer width={SIDEBAR_WIDTH} isOpenByDefault={false}>
+    <Drawer width={SIDEBAR_WIDTH}>
       <List>
         <ListItemTab
           title="All Items"
