@@ -83,7 +83,7 @@ function OptionsBar() {
             color="default"
             onClick={() => dispatch(getAllUserGraphs())}
             label={MY_GRAPHS_LABEL}
-            icon={<BarChartIcon fontSize="large" />}
+            icon={<InsertChart fontSize="large" />}
           />
         </StyledBottomNav>
       </Drawer>
