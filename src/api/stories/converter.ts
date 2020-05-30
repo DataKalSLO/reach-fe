@@ -39,6 +39,8 @@ export function transformToStory(object: object): Story {
     const databaseStory: StoryDB = object as StoryDB;
     return {
       ...databaseStory,
+      dateCreated: new Date(databaseStory.dateCreated),
+      dateLastEdited: new Date(databaseStory.dateLastEdited),
       storyBlocks: databaseStory.storyBlocks.map(transformToStoryBlock)
     } as Story;
   } else {

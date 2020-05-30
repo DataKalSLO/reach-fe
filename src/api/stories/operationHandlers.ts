@@ -54,6 +54,8 @@ export async function submitStoryForPublishingAndHandleResponse(story: Story) {
  * CRUD Operations
  */
 
+// NOTE, DateCreated and DateLastEdited will get rewritten in BEND
+// because User authentication can be verified there.
 export async function saveStoryAndHandleResponse(
   story: Story,
   successMessage: string = STORY_CREATION_SUCCESS_MESSAGE,
