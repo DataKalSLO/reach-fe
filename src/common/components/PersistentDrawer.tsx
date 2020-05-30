@@ -28,9 +28,12 @@ export function ListItemTab(props: ListItemTabProps) {
     if (props.onClick !== null) props.onClick();
   };
 
+  // non-standard props filtered out so otherProps can be passed Material UI Drawer component
+  const { drawerId, selectedTab, ...otherProps } = props;
+
   return (
     <ListItemButton
-      {...props}
+      {...otherProps}
       text={props.title}
       icon={props.icon}
       selected={props.selectedTab === props.title}
