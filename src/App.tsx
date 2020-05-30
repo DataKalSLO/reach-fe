@@ -54,6 +54,9 @@ import {
 import AdminProtectedRoute from './nav/AdminProtectedRoute';
 import AppBar from './nav/AppBar';
 import ProtectedRoute from './nav/ProtectedRoute';
+        
+import StoryReviewGrid from './admin/StoryReviewGrid';
+import DataUploader from './admin/DataUploader';
 
 const home = (
   <Route path={HOME} exact>
@@ -110,9 +113,14 @@ const settings = (
     <ProtectedRoute componentPage={<Settings />} />
   </Route>
 );
-const admin = (
-  <Route path={ADMIN}>
-    <AdminProtectedRoute componentPage={<Admin />} />
+const adminUploadData = (
+  <Route exact path={ADMIN_UPLOAD_DATA}>
+    <AdminProtectedRoute componentPage={<DataUploader />} />
+  </Route>
+);
+const adminReviewStories = (
+  <Route exact path={ADMIN_REVIEW_STORIES}>
+    <AdminProtectedRoute componentPage={<StoryReviewGrid />} />
   </Route>
 );
 const sample = (
@@ -145,7 +153,8 @@ function App() {
               {login}
               {createAccount}
               {sample}
-              {admin}
+              {adminUploadData}
+              {adminReviewStories}
               {settings}
               {storyView}
             </Switch>
