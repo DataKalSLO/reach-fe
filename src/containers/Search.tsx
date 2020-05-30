@@ -17,7 +17,7 @@ interface SearchProps {
   beforeQueryComponent?: React.ReactNode;
 }
 
-function Search(props: SearchProps) {
+export default function Search(props: SearchProps) {
   const [showResults, setShowResults] = useState(false);
   const dispatch = useDispatch();
   const searchState = useSelector(getSearch);
