@@ -1,10 +1,10 @@
 import { Grid, styled } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addGraphsForInitiativeAction } from '../../redux/graphs/actions';
 import { HEALTH } from '../../redux/graphs/constants';
-import { getGraphs } from '../../redux/graphs/selector';
+import { getGraphs } from '../../redux/graphbuilder/selector';
 import GraphPrebuilt from '../components/GraphPrebuilt';
+import { getDefaultGraphs } from '../../redux/graphbuilder/actions';
 
 /*
  * Renders a list of graphs.
@@ -17,7 +17,7 @@ function GraphContainer() {
 
   // Use the prebuilt health graphs as the default graphs
   useEffect(() => {
-    dispatch(addGraphsForInitiativeAction(HEALTH));
+    dispatch(getDefaultGraphs(HEALTH));
   }, [dispatch]);
 
   /*

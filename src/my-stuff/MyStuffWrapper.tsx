@@ -6,13 +6,12 @@ import MyStuffSidebar from './MyStuffSidebar';
 
 interface Props extends GalleryProps {
   title: string;
-  selectedIndex: number;
 }
 
 export default function MyStuffWrapper(props: Props) {
   return (
     <Box display="flex">
-      <MyStuffSidebar selectedIndex={props.selectedIndex} />
+      <MyStuffSidebar />
       <ContentBox>
         <Typography variant="h3" component="h1">
           {props.title}
