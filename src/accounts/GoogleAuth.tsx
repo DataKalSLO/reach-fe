@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { LoginData, RegisterData } from '../redux/login/types';
 import { loginUser, register } from '../redux/login/actions';
 import { wrapWithCatch } from '../api/base';
-import { BASE_USER, ADMIN_USER } from '../nav/constants';
+import { HOME, BASE_USER, ADMIN_USER } from '../nav/constants';
 import './GoogleAuth.scss';
 
 export enum GoogleAuthButtonType {
@@ -35,7 +35,10 @@ const GoogleAuth = (props: { style: GoogleAuthButtonType }) => {
         email,
         password,
         name,
-        role
+        role,
+        occupation: '',
+        notificationsEnabled: false,
+        isThirdParty: true
       } as RegisterData),
     []
   );
@@ -57,11 +60,8 @@ const GoogleAuth = (props: { style: GoogleAuthButtonType }) => {
     [dispatch, registerAccount, loginAccount]
   );
 
-  const responseGoogle = useCallback(
-    (googleUser: gapi.auth2.GoogleUser): void => {
-      const email = googleUser.getBasicProfile().getEmail();
-      const id = googleUser.getId();
-      const name = googleUser.getBasicProfile().getName();
+  const googleResponseHandler = useCallback(
+    (name: string, email: string, id: string): void => {
       if (props.style === GoogleAuthButtonType.Register) {
         dispatch(
           wrapWithCatch(
@@ -76,22 +76,27 @@ const GoogleAuth = (props: { style: GoogleAuthButtonType }) => {
           )
         );
       }
-      history.goBack();
     },
-    [
-      dispatch,
-      history,
-      props.style,
-      registerThenLogin,
-      registerAccount,
-      loginAccount
-    ]
+    [dispatch, props.style, registerThenLogin, registerAccount, loginAccount]
+  );
+
+  const googleResponseCatcher = useCallback(
+    (googleUser: gapi.auth2.GoogleUser): void => {
+      const userInfo = {
+        name: googleUser.getBasicProfile().getName(),
+        email: googleUser.getBasicProfile().getEmail(),
+        id: googleUser.getId()
+      };
+      googleResponseHandler(userInfo.name, userInfo.email, userInfo.id);
+      history.push(HOME);
+    },
+    [googleResponseHandler, history]
   );
 
   return (
     <GoogleLoginButton
       classNames="custom_class center-block"
-      responseHandler={responseGoogle}
+      responseHandler={googleResponseCatcher}
       clientConfig={clientConfig}
       failureHandler={error => {
         console.error(error);
