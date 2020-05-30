@@ -13,8 +13,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   saveStoryAndHandleResponse,
-  submitStoryForReviewAndHandleResponse,
-  getStoryByIdAndHandleResponse
+  submitStoryForReviewAndHandleResponse
 } from '../api/stories/operationHandlers';
 import { Drawer, List, ListItemButton } from '../reach-ui/core';
 import {
