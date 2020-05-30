@@ -8,8 +8,8 @@ import SearchBar from '../search/SearchBar';
 import SearchResults from '../search/SearchResults';
 
 interface SearchProps {
-  // Enum value for ES index to query, e.g. SearchIndexFilter.Graphs,
-  // SearchIndexFilter.Stories, SearchIndexFilter.All
+  // Enum value for ES index to query, e.g. SearchIndexFilter.graphs,
+  // SearchIndexFilter.stories, SearchIndexFilter.all
   index: SearchIndexFilter;
   // component shown on empty result list
   emptyResultsComponent?: React.ReactNode;
@@ -54,5 +54,3 @@ export default function Search(props: SearchProps) {
     </Container>
   );
 }
-
-export default Search;
