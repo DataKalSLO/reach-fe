@@ -1,5 +1,5 @@
 import { BottomNavigationAction, Drawer } from '@material-ui/core';
-import { ArrowUpward, Close } from '@material-ui/icons';
+import { ArrowUpward, Close, InsertChart } from '@material-ui/icons';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import clsx from 'clsx';
 import React, { Fragment } from 'react';
