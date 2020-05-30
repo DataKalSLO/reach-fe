@@ -11,9 +11,8 @@ function StoryViewContainer() {
   const history = useHistory();
   const [story, setStory] = useState<Story | null>(null);
 
-  const navigateToExplore = () => history.push(EXPLORE);
-
   useEffect(() => {
+    const navigateToExplore = () => history.push(EXPLORE);
     if (!storyId) {
       navigateToExplore();
       return;
@@ -29,7 +28,7 @@ function StoryViewContainer() {
           navigateToExplore();
         }
       });
-  }, []);
+  }, [storyId, history]);
 
   if (story) {
     return (
