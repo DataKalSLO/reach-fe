@@ -45,6 +45,8 @@ export const TOOLTIP_DEFAULT_HIGHCHARTS_POINT_FORMAT =
 
 /*
  * Exporting Options Constants
+ * The title and subtitle are set to empty strings as theses are going
+ * to be manually added when a graph is displayed as a static image.
  */
 export const EXPORT_GRAPH_TITLE = '';
 export const EXPORT_GRAPH_SUBTITLE = '';
