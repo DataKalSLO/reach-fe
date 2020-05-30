@@ -18,8 +18,6 @@ import { Dispatch } from 'redux';
 export function getFeatureCollection(tableName: string) {
   return async (dispatch: Dispatch) => {
     const payload = await getFeatureCollectionAndHandleResponse(tableName);
-    // eslint-disable-next-line prefer-spread
-    payload.features = [].concat.apply([], payload.featureList);
     dispatch(updateHeatMapSelection(payload));
   };
 }

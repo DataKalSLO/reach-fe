@@ -154,7 +154,10 @@ export default function Layers(props: LayersProps) {
         // informs the layerSelection variable with the user's selection
         onChange={(event, value) => {
           updateSelectedTables(value)(dispatch);
-          getFeatureCollection('b1901_001e')(dispatch);
+          //  getFeatureCollection((value[value.length - 1] as any).tableName)(
+          //    dispatch
+          //  );
+          getFeatureCollection('b19019_001e')(dispatch);
         }}
         renderInput={params => (
           <TextField
