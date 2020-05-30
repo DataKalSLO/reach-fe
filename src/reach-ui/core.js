@@ -8,9 +8,14 @@ import Gallery from '../common/components/Gallery';
 import IconButton from '../common/components/IconButton';
 import List from '../common/components/List';
 import ListItemButton from '../common/components/ListItemButton';
+import {
+  getPersistentDrawerOptions,
+  ListItemTab
+} from '../common/components/PersistentDrawer';
 import Popper from '../common/components/Popper';
 
 export {
+  getPersistentDrawerOptions,
   Button,
   CollapsibleItem,
   CollapsibleMenu,
@@ -19,5 +24,6 @@ export {
   IconButton,
   List,
   ListItemButton,
+  ListItemTab,
   Popper
 };

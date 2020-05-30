@@ -40,6 +40,7 @@ interface Props {
   width: number;
   children: JSX.Element | JSX.Element[];
   isCollapsible?: boolean;
+  showLabels?: boolean;
   anchor?: 'left' | 'right';
   // This extra parameter is necessary to allow other props to be passed through
   [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -47,7 +48,12 @@ interface Props {
 
 export default function Drawer(props: Props) {
   const classes = useStyles(props);
-  const [open, setOpen] = useState(true); // drawer is open by default
+  /* defaults to show labels
+   * FIXME: drawer forgets open/closed state when isCollapsible=true AND using PersistentDrawer
+   */
+  const [open, setOpen] = useState(
+    props.showLabels !== undefined ? props.showLabels : true
+  );
 
   const toggleDrawer = () => {
     setOpen(!open);
