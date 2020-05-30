@@ -9,7 +9,7 @@ import {
 
 const STORY_TRANSFORMATION_ERROR = 'Could not transform object to story.';
 
-export function transformStoryToDatabaseStory(story: Story): StoryDB {
+export function transformToStoryDB(story: Story): StoryDB {
   return {
     ...story,
     storyBlocks: story.storyBlocks.map(transformToStoryBlockDB)

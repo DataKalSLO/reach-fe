@@ -1,5 +1,5 @@
 import { get } from '../base';
-import { transformStoryToDatabaseStory, transformToStory } from './converter';
+import { transformToStoryDB, transformToStory } from './converter';
 import {
   authenticatedDel,
   authenticatedGet,
@@ -22,7 +22,7 @@ type StoryApiResponse = void | StoryDB | Array<StoryDB>;
 type StoryApiPayload = string | StoryDB | undefined;
 
 export async function saveOrUpdateExistingStory(story: Story): Promise<void> {
-  const databaseStory = transformStoryToDatabaseStory(story);
+  const databaseStory = transformToStoryDB(story);
   return storyHttp(StoryActions.CREATE, databaseStory) as Promise<void>;
 }
 
