@@ -14,11 +14,20 @@ import {
 } from './types';
 
 // TODO: connect to DB!
+// const initialState: MapState = {
+//   featureCollection: {},
+//   markerSelection: [markerData[0]],
+//   heatMapSelection: medianHouseholdIncomeHeatMap,
+//   selectedMarker: markerData[0].features[0],
+//   boundSelection: 'Zip Code',
+//   colorAssociation: {}
+// };
+
 const initialState: MapState = {
   featureCollection: {},
-  markerSelection: [markerData[0]],
-  heatMapSelection: medianHouseholdIncomeHeatMap,
-  selectedMarker: markerData[0].features[0],
+  markerSelection: [],
+  heatMapSelection: {},
+  selectedMarker: [],
   boundSelection: 'Zip Code',
   colorAssociation: {}
 };

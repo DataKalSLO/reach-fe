@@ -5,7 +5,7 @@ import React from 'react';
 import { POPUP_OFFSET_LEFT, POPUP_OFFSET_TOP } from './constants';
 import Popups from './MapPopups';
 import { quantileMaker } from './MapViewHelpers';
-import { LocationFeatures } from './types';
+import { MarkerFeatures } from './types';
 
 React.useLayoutEffect = React.useEffect;
 
@@ -24,7 +24,7 @@ const testPopup = {
     value: '88%'
   }
 };
-const testPopups = Array<LocationFeatures>();
+const testPopups = Array<MarkerFeatures>();
 // Testing basic props of Popups, still do not know how to test clicks and similar events.
 describe('<Popups /> with props', () => {
   const dispatch = jest.fn();

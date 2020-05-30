@@ -38,7 +38,6 @@ function Map() {
   const mapState = useSelector(getMap);
   const vizBuilderState = useSelector(getVizbuilder);
 
-  console.log(vizBuilderState);
   console.log(mapState);
 
   useEffect(() => {

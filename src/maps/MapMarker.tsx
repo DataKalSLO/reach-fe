@@ -8,7 +8,7 @@ import { updateSelectedMarker } from '../redux/map/actions';
 import { ICON_HEIGHT, ICON_WIDTH } from './constants';
 import {
   ColorAssociation,
-  LocationFeatures,
+  MarkerFeatures,
   MarkerSelection,
   SelectedMarker
 } from './types';
@@ -24,7 +24,7 @@ export function mapMarkers(
       (collection: {
         type: string;
         name: string;
-        features: LocationFeatures[][];
+        features: MarkerFeatures[][];
       }) => {
         return Markers(
           collection.features,
@@ -40,17 +40,17 @@ export function mapMarkers(
 // Markers function takes features, which is the JSON format we have in our local data (reference by going
 // to common, then assets, then Local Data). It also takes the function to add the marker into a list of
 // selected markers, the set of colors to assign to the set of markers, and the layer which corresponds
-// to the color. The function will loop through the array of LocationFeatures and map that set of markers
+// to the color. The function will loop through the array of MarkerFeatures and map that set of markers
 // to a corresponding color. The information to an individual marker is filled with the data from each
 // element in the local data array.
 export default function Markers(
-  features: LocationFeatures[][],
+  features: MarkerFeatures[][],
   selectedMarker: SelectedMarker,
   colorAssociation: { [name: string]: { [color: string]: string } },
   layer: string
 ) {
   const dispatch = useDispatch();
-  return features.map((location: LocationFeatures[]) => {
+  return features.map((location: MarkerFeatures[]) => {
     const datapoint = location[0];
     return (
       <Marker

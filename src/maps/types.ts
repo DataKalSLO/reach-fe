@@ -23,7 +23,8 @@ export type SetViewPort = (
 export interface PrepGeoObject {
   type: string;
   geometry: { type: string; coordinates: number[][][] };
-  properties: { NO_DATA: number; 'zip-code-tabulation-area': string };
+  // properties: { NO_DATA: number; 'zip-code-tabulation-area': string };
+  properties: { value: number; name: string };
 }
 
 export type ColorAssociation = { [name: string]: { [color: string]: string } };
@@ -31,7 +32,7 @@ export type SetColorAssociation = React.Dispatch<
   React.SetStateAction<{ [name: string]: { [color: string]: string } }>
 >;
 
-export interface LocationFeatures {
+export interface MarkerFeatures {
   type: string;
   geometry: {
     type: string;
@@ -49,14 +50,15 @@ export interface MarkerSelection {
   name: string;
   vintage: string;
   source: string;
-  features: LocationFeatures[][];
+  features: MarkerFeatures[][];
 }
+
 export type SetMarkerSelection = React.Dispatch<
   React.SetStateAction<MarkerSelection[]>
 >;
-export type SelectedMarker = LocationFeatures[];
+export type SelectedMarker = MarkerFeatures[];
 export type SetSelectedMarker = React.Dispatch<
-  React.SetStateAction<LocationFeatures[]>
+  React.SetStateAction<MarkerFeatures[]>
 >;
 
 export interface HeatMapSelection {
@@ -68,7 +70,7 @@ export interface HeatMapSelection {
   // TODO: features includes a key (valueKey) that is used to get the value,
   // not sure how to make that a usable type in the features below
   // eslint-disable-next-line
-  features: any[];
+  features: any;
 }
 // TODO: can't figure out how to make this work with adding
 // either a heat map or nothing in handleChange in LayersSelection

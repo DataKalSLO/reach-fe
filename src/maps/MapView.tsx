@@ -34,7 +34,7 @@ import {
   SelectedMarker,
   ColorAssociation,
   PrepGeoObject,
-  LocationFeatures
+  MarkerFeatures
 } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -64,7 +64,8 @@ function MapView(props: MapViewProps) {
   } = props;
   const dispatch = useDispatch();
   // heat map prepped here
-  let heatMapFeatures: PrepGeoObject[] | null = null;
+  // let heatMapFeatures: PrepGeoObject[] | null = null;
+  let heatMapFeatures: any;
   let valueKey = '';
   if (Object.keys(heatMapSelection).length) {
     const heatMap = heatMapSelection as HeatMapSelection;
@@ -246,7 +247,7 @@ function MapView(props: MapViewProps) {
 
           {renderTooltip()}
           {mapMarkers(markerSelection, selectedMarker, colorAssociation)}
-          {selectedMarker.map((selected: LocationFeatures) => {
+          {selectedMarker.map((selected: MarkerFeatures) => {
             return Popups(selected, selectedMarker, dispatch);
           })}
         </ReactMapGL>

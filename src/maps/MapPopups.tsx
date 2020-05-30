@@ -2,11 +2,11 @@ import React from 'react';
 import { Popup } from 'react-map-gl';
 import { updateSelectedMarker } from '../redux/map/actions';
 import { POPUP_OFFSET_LEFT, POPUP_OFFSET_TOP } from './constants';
-import { LocationFeatures, SelectedMarker } from './types';
+import { MarkerFeatures, SelectedMarker } from './types';
 import { Dispatch } from 'redux';
 
 export default function Popups(
-  marker: LocationFeatures,
+  marker: MarkerFeatures,
   selectedMarker: SelectedMarker,
   dispatch: Dispatch
 ) {

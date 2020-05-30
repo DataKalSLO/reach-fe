@@ -20,7 +20,7 @@ import { theme } from '../theme/theme';
 import {
   FeatureProperty,
   HeatMapSelection,
-  LocationFeatures,
+  MarkerFeatures,
   MarkerSelection,
   SelectedMarker,
   Selections
@@ -69,7 +69,7 @@ export function handleChange(
   dispatch(
     updateSelectedMarker(
       selectedMarker.filter(
-        (obj: LocationFeatures) => obj.properties.name in allSelections
+        (obj: MarkerFeatures) => obj.properties.name in allSelections
       )
     )
   );
