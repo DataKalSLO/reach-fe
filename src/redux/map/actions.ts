@@ -13,19 +13,13 @@ import {
 } from './types';
 import { getFeatureCollectionAndHandleResponse } from '../../api/map/operationHandlers';
 import { Dispatch } from 'redux';
-import { MapActions } from '../../api/map/types';
 
 export function getFeatureCollection(tableName: string) {
   return async (dispatch: Dispatch) => {
     const payload = await getFeatureCollectionAndHandleResponse(tableName);
-    dispatch(getFeatureCollectionAction(payload));
-  };
-}
-
-export function getFeatureCollectionAction(payload: any): any {
-  return {
-    type: MapActions.GET_FEATURE_COLLECTION,
-    payload: payload
+    // eslint-disable-next-line prefer-spread
+    payload.features = [].concat.apply([], payload.featureList);
+    dispatch(updateHeatMapSelection(payload));
   };
 }
 

@@ -12,6 +12,7 @@ import {
   UPDATE_SELECTED_MARKER,
   UPDATE_FEATURE_COLLECTION
 } from './types';
+import noData from '../../common/assets/Local Data/census/noHeatMap';
 
 // TODO: connect to DB!
 // const initialState: MapState = {
@@ -26,7 +27,7 @@ import {
 const initialState: MapState = {
   featureCollection: {},
   markerSelection: [],
-  heatMapSelection: {},
+  heatMapSelection: noData,
   selectedMarker: [],
   boundSelection: 'Zip Code',
   colorAssociation: {}

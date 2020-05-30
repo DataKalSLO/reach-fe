@@ -24,16 +24,16 @@ export function getStat(features: any, extractionFunc: any, selection: string) {
   // TODO: going to solve "any" errors at a later time, ignoring for demo
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const stat = extractionFunc(features, (o: any) => {
-    return o.properties[selection];
+    return o.properties.value;
   });
-  return stat.properties[selection];
+  return stat.properties.value;
 }
 
 export function onHover(
   defaultHoveredLocation: {
     properties: {
       [x: string]: string;
-      ZIP_TABULATION: string;
+      name: string;
     };
     noLocation: boolean;
   },

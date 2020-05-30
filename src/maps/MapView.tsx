@@ -42,8 +42,8 @@ const GeoJSON = require('geojson');
 
 const defaultHoveredLocation = {
   properties: {
-    [PLACER]: '1',
-    ZIP_TABULATION
+    value: '1',
+    name: ''
   },
   noLocation: true
 };
@@ -66,14 +66,12 @@ function MapView(props: MapViewProps) {
   // heat map prepped here
   // let heatMapFeatures: PrepGeoObject[] | null = null;
   let heatMapFeatures: any;
-  let valueKey = '';
+  const valueKey = 'value';
   if (Object.keys(heatMapSelection).length) {
     const heatMap = heatMapSelection as HeatMapSelection;
     heatMapFeatures = heatMap.features;
-    valueKey = heatMap.valueKey;
   } else {
     heatMapFeatures = noData.features;
-    valueKey = noData.valueKey;
   }
   const prepped = prepGeo(heatMapFeatures);
   const data = GeoJSON.parse(prepped, { GeoJSON: 'geometry' });
@@ -111,7 +109,7 @@ function MapView(props: MapViewProps) {
   const [hoveredLocation, setHoveredLocation] = React.useState({
     properties: {
       [valueKey]: '1',
-      ZIP_TABULATION
+      name: ''
     },
     noLocation: true
   });
@@ -200,7 +198,7 @@ function MapView(props: MapViewProps) {
     const top = position(bounds.top, bounds.bottom, dims.height, y.current);
 
     const zipsValue = hoveredLocation.properties[valueKey];
-    const zipCode = hoveredLocation.properties[ZIP_TABULATION];
+    const zipCode = hoveredLocation.properties.name;
 
     return (
       <div

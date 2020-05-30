@@ -1,7 +1,7 @@
 const noData = {
   type: 'HeatMap',
   name: 'no data',
-  valueKey: 'NO_DATA',
+  valueKey: 'value',
   source: '',
   features: [
     {
@@ -11,8 +11,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93428'
+        value: 0,
+        name: '93428'
       }
     },
     {
@@ -22,8 +22,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93402'
+        value: 0,
+        name: '93402'
       }
     },
     {
@@ -33,8 +33,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93455'
+        value: 0,
+        name: '93455'
       }
     },
     {
@@ -44,8 +44,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93436'
+        value: 0,
+        name: '93436'
       }
     },
     {
@@ -55,8 +55,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93460'
+        value: 0,
+        name: '93460'
       }
     },
     {
@@ -66,8 +66,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93422'
+        value: 0,
+        name: '93422'
       }
     },
     {
@@ -77,8 +77,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93401'
+        value: 0,
+        name: '93401'
       }
     },
     {
@@ -88,8 +88,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93420'
+        value: 0,
+        name: '93420'
       }
     },
     {
@@ -99,8 +99,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93451'
+        value: 0,
+        name: '93451'
       }
     },
     {
@@ -110,8 +110,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93405'
+        value: 0,
+        name: '93405'
       }
     },
     {
@@ -121,8 +121,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93427'
+        value: 0,
+        name: '93427'
       }
     },
     {
@@ -132,8 +132,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93446'
+        value: 0,
+        name: '93446'
       }
     },
     {
@@ -143,8 +143,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93434'
+        value: 0,
+        name: '93434'
       }
     },
     {
@@ -154,8 +154,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93449'
+        value: 0,
+        name: '93449'
       }
     },
     {
@@ -165,8 +165,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93444'
+        value: 0,
+        name: '93444'
       }
     },
     {
@@ -176,8 +176,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93453'
+        value: 0,
+        name: '93453'
       }
     },
     {
@@ -187,8 +187,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93461'
+        value: 0,
+        name: '93461'
       }
     },
     {
@@ -198,8 +198,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93458'
+        value: 0,
+        name: '93458'
       }
     },
     {
@@ -209,8 +209,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93432'
+        value: 0,
+        name: '93432'
       }
     },
     {
@@ -220,8 +220,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93445'
+        value: 0,
+        name: '93445'
       }
     },
     {
@@ -231,8 +231,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93454'
+        value: 0,
+        name: '93454'
       }
     },
     {
@@ -242,8 +242,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93442'
+        value: 0,
+        name: '93442'
       }
     },
     {
@@ -253,8 +253,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93424'
+        value: 0,
+        name: '93424'
       }
     },
     {
@@ -264,8 +264,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93433'
+        value: 0,
+        name: '93433'
       }
     },
     {
@@ -275,8 +275,8 @@ const noData = {
         coordinates: [[[0, 0]]]
       },
       properties: {
-        NO_DATA: 0,
-        'zip-code-tabulation-area': '93463'
+        value: 0,
+        name: '93463'
       }
     }
   ]

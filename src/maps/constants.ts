@@ -29,7 +29,7 @@ export const CCSR_CITY_ZIPS: { [key: string]: string } = {
 };
 
 export const ZIP_TABULATION = 'zip-code-tabulation-area';
-export const PLACER = 'a';
+export const PLACER = 'value';
 export const NO_DATA = 'NO_DATA';
 export const NUM_QUANTILES = 20;
 export const ICON_HEIGHT = 24;
