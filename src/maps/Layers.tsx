@@ -138,7 +138,7 @@ export default function Layers(props: LayersProps) {
     if (selectedTables.length > newSelections.length) {
       changed = diffElem(selectedTables, newSelections);
       if (changed.geoType === 'area') {
-        updateHeatMapSelection({});
+        dispatch(updateHeatMapSelection({}));
       }
     }
 
