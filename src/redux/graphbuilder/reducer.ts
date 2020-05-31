@@ -1,6 +1,7 @@
 import { isDefinedElse } from '../../graphs/forms/utilities';
 import {
   DELETE_GRAPH,
+  DELETE_LOCAL_GRAPH,
   DUPLICATE_GRAPH,
   GET_ALL_USER_GRAPHS,
   GET_DEFAULT_GRAPHS_FOR_CATEGORY,
@@ -30,7 +31,7 @@ export function graphBuilderReducer(
     case SAVE_GRAPH:
       return {
         ...state,
-        graphs: insertAtIndexIfDefined(state.graphs, 0, false, action.payload)
+        graphs: insertAtIndexIfDefined(state.graphs, 0, true, action.payload)
       };
     case UPDATE_GRAPH:
       return {
@@ -68,6 +69,11 @@ export function graphBuilderReducer(
       return {
         ...state,
         graphs: duplicateGraph(state.graphs, action.payload)
+      };
+    case DELETE_LOCAL_GRAPH:
+      return {
+        ...state,
+        graphs: state.graphs.filter((graph, index) => index !== action.payload)
       };
     case TOGGLE_CREATE_GRAPH:
       return {

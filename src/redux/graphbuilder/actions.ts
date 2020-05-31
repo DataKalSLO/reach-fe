@@ -13,6 +13,7 @@ import { getDataColumnsForDataSourcesAndHandleResponse } from '../../api/vizbuil
 import { GraphMetaData, GraphMetaDataApiPayload } from '../graphs/types';
 import {
   DELETE_GRAPH,
+  DELETE_LOCAL_GRAPH,
   DUPLICATE_GRAPH,
   GET_ALL_USER_GRAPHS,
   GET_DEFAULT_GRAPHS_FOR_CATEGORY,
@@ -24,6 +25,7 @@ import {
 } from './constants';
 import {
   DeleteGraphAction,
+  DeleteLocalGraph,
   DuplicateGraphAction,
   GetGraphAction,
   Graph,
@@ -90,6 +92,13 @@ function deleteGraphAction(
   return {
     type: DELETE_GRAPH,
     payload: payload
+  };
+}
+
+export function deleteLocalGraph(index: number): DeleteLocalGraph {
+  return {
+    type: DELETE_LOCAL_GRAPH,
+    payload: index
   };
 }
 
