@@ -6,6 +6,7 @@ import {
   TextBlockType,
   TEXT_BLOCK_TYPE
 } from '../../redux/story/types';
+
 export function transformStoryToDatabaseStory(story: Story): DatabaseStory {
   return {
     ...story,
@@ -38,6 +39,8 @@ export function transformAPIResponseToStory(apiResponse: object): Story {
     const databaseStory: DatabaseStory = apiResponse as DatabaseStory;
     return {
       ...databaseStory,
+      dateCreated: new Date(databaseStory.dateCreated),
+      dateLastEdited: new Date(databaseStory.dateLastEdited),
       storyBlocks: databaseStory.storyBlocks.map(
         transformDatabaseStoryBlockToStoryBlock
       )

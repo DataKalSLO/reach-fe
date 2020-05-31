@@ -22,6 +22,8 @@ export interface StoryMetaInformation {
   title: string;
   description: string;
   publicationStatus: PublicationStatus;
+  dateCreated: Date;
+  dateLastEdited: Date;
 }
 
 export interface Story extends StoryMetaInformation {
