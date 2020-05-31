@@ -1,10 +1,12 @@
 import { BottomNavigationAction, Drawer } from '@material-ui/core';
-import { ArrowUpward, Close } from '@material-ui/icons';
+import { ArrowUpward, Close, InsertChart } from '@material-ui/icons';
 import clsx from 'clsx';
 import React, { Fragment } from 'react';
+import { useDispatch } from 'react-redux';
 import { IconButton } from '../../reach-ui/core';
+import { getAllUserGraphs } from '../../redux/graphbuilder/actions';
 import OptionsButtons from '../components/OptionsButtons';
-import { INITIATIVE_DESC } from './constants';
+import { INITIATIVE_DESC, MY_GRAPHS_LABEL } from './constants';
 import {
   StyledBottomNav,
   StyledPopover,
@@ -20,6 +22,7 @@ import {
  */
 
 function OptionsBar() {
+  const dispatch = useDispatch();
   const classes = useOptionsStyles();
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
@@ -75,6 +78,12 @@ function OptionsBar() {
             icon={<Close fontSize="large" color="error" />}
           />
           <OptionsButtons />
+          <BottomNavigationAction
+            color="default"
+            onClick={() => dispatch(getAllUserGraphs())}
+            label={MY_GRAPHS_LABEL}
+            icon={<InsertChart fontSize="large" />}
+          />
         </StyledBottomNav>
       </Drawer>
     </Fragment>

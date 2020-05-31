@@ -10,7 +10,8 @@ import {
   SAMPLE,
   CREATE_ACCOUNT,
   SETTINGS,
-  ADMIN,
+  ADMIN_REVIEW_STORIES,
+  ADMIN_UPLOAD_DATA,
   MY_STUFF_CHARTS,
   MY_STUFF_MAPS,
   MY_STUFF_STORIES
@@ -49,8 +50,9 @@ import Login from './containers/Login';
 import Sample from './containers/Sample';
 import CreateAccount from './containers/CreateAccount';
 import Settings from './containers/Settings';
-import Admin from './containers/Admin';
 import { PersistGate } from 'redux-persist/integration/react';
+import StoryReviewGrid from './admin/StoryReviewGrid';
+import DataUploader from './admin/DataUploader';
 
 const home = (
   <Route path={HOME} exact>
@@ -107,9 +109,14 @@ const settings = (
     <ProtectedRoute componentPage={<Settings />} />
   </Route>
 );
-const admin = (
-  <Route path={ADMIN}>
-    <AdminProtectedRoute componentPage={<Admin />} />
+const adminUploadData = (
+  <Route exact path={ADMIN_UPLOAD_DATA}>
+    <AdminProtectedRoute componentPage={<DataUploader />} />
+  </Route>
+);
+const adminReviewStories = (
+  <Route exact path={ADMIN_REVIEW_STORIES}>
+    <AdminProtectedRoute componentPage={<StoryReviewGrid />} />
   </Route>
 );
 const sample = (
@@ -137,7 +144,8 @@ function App() {
               {login}
               {createAccount}
               {sample}
-              {admin}
+              {adminUploadData}
+              {adminReviewStories}
               {settings}
             </Switch>
           </ThemeProvider>
