@@ -28,7 +28,8 @@ async function mapHttp(
   let response: unknown;
   switch (actionType) {
     case MapActions.GET_HEATMAP:
-      response = get(`map/heatmap/${payload}/`);
+      //response = get(`map/heatmap/${payload}/`);
+      response = get(`map/${payload}/`);
       break;
     case MapActions.GET_MARKERS:
       response = get(`map/markers/${payload}/`);

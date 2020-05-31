@@ -31,7 +31,7 @@ interface UpdateMarkerSelection {
   payload: MarkerSelection[];
 }
 
-export const UPDATE_HEATMAP_SELECTION = 'UPDATE_HEAT_MAP_SELECTION';
+export const UPDATE_HEATMAP_SELECTION = 'UPDATE_HEATMAP_SELECTION';
 
 interface UpdateHeatMapSelection {
   type: typeof UPDATE_HEATMAP_SELECTION;

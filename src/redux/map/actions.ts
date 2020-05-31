@@ -7,7 +7,7 @@ import {
 import {
   UPDATE_BOUND_SELECTION,
   UPDATE_COLOR_ASSOCIATION,
-  UPDATE_HEAT_MAP_SELECTION,
+  UPDATE_HEATMAP_SELECTION,
   UPDATE_MARKER_SELECTION,
   UPDATE_SELECTED_MARKER,
   UPDATE_SELECTED_TABLES
@@ -41,7 +41,7 @@ export function updateHeatMapSelection(
   heatMapSelection: HeatMapSelection | {}
 ) {
   return {
-    type: UPDATE_HEAT_MAP_SELECTION,
+    type: UPDATE_HEATMAP_SELECTION,
     payload: heatMapSelection
   };
 }
