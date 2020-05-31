@@ -21,16 +21,19 @@ export function duplicateGraph(
   graphs: Graph[],
   newGraph: GraphWithIndex
 ): Graph[] {
-  const newGraphWithoutId: Graph = {
-    ...newGraph.graph,
-    graphMetaData: { ...newGraph.graph.graphMetaData, graphId: '' }
-  };
-  return insertAtIndexIfDefined(
-    graphs,
-    newGraph.index,
-    false,
-    newGraphWithoutId
-  );
+  if (!isUndefined(newGraph.graph)) {
+    const newGraphWithoutId: Graph = {
+      ...newGraph.graph,
+      graphMetaData: { ...newGraph.graph.graphMetaData, graphId: '' }
+    };
+    return insertAtIndexIfDefined(
+      graphs,
+      newGraph.index,
+      false,
+      newGraphWithoutId
+    );
+  }
+  return graphs;
 }
 
 /*
