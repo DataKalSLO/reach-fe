@@ -15,6 +15,7 @@ import { getUser } from '../redux/login/selectors';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Edit, Done } from '@material-ui/icons';
 import ConfirmDeleteAccount from '../accounts/ConfirmDeleteAccount';
+import ChangePasswordForm from '../accounts/ChangePasswordForm';
 import { UserSettings } from '../redux/login/types';
 import { updateUserSettings } from '../redux/login/actions';
 import { useDispatch } from 'react-redux';
@@ -27,6 +28,7 @@ function Settings() {
   const [editOccMode, setOccEditMode] = useState(false);
   const [displayError, setDisplayError] = useState(false);
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
+  const [isChangePassword, setIsChangePassword] = useState(false);
   const [occupation, setOccupation] = useState(user.occupation);
   const settings: UserSettings = {
     name: user.name,
@@ -57,6 +59,10 @@ function Settings() {
 
   const handleDeleteAccount = () => {
     setIsConfirmDelete(true);
+  };
+
+  const handleChangePassword = () => {
+    setIsChangePassword(true);
   };
 
   const editNameIcon = editNameMode ? <Done /> : <Edit />;
@@ -125,9 +131,18 @@ function Settings() {
           />
         </SettingsBox>
         <CenterBox>
-          <SettingsButton variant="outlined" disabled={user.isThirdParty}>
-            Reset Password
+          <SettingsButton
+            variant="outlined"
+            onClick={handleChangePassword}
+            disabled={user.isThirdParty}
+          >
+            Change Password
           </SettingsButton>
+          <ChangePasswordForm
+            isChangePassword={isChangePassword}
+            setIsChangePassword={setIsChangePassword}
+            setDisplayError={setDisplayError}
+          ></ChangePasswordForm>
           <SettingsDeleteButton
             variant="contained"
             onClick={handleDeleteAccount}
