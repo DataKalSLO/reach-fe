@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { styled, Box } from '@material-ui/core';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 interface ImageDropzoneProps {
   onFileDrop: (files: [File]) => void;
@@ -16,15 +17,26 @@ export default function ImageDropzone(props: ImageDropzoneProps) {
     <StyledBox {...getRootProps()}>
       <input {...getInputProps()} />
       {isDragActive ? (
-        <p>Drop the files here ...</p>
+        <div>
+          <h3>Drop Image Here...</h3>
+          <CloudUploadIcon />
+          <p>or click to select files</p>
+        </div>
       ) : (
-        <p>Drag and drop some files here, or click to select files</p>
+        <div>
+          <h3>Drag and Drop an Image Here</h3>
+          <CloudUploadIcon />
+          <p>or click to select files</p>
+        </div>
       )}
     </StyledBox>
   );
 }
 
 const StyledBox = styled(Box)({
-  background: 'gray',
-  height: '100px'
+  backgroundColor: 'aliceblue',
+  border: '3px dashed lightblue',
+  borderRadius: '5px',
+  height: '100%',
+  textAlign: 'center'
 });
