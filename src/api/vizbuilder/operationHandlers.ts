@@ -19,6 +19,7 @@ import {
   getDatasetsMetaData,
   getTableNames
 } from './operations';
+import { Selection } from './types';
 
 export async function getDatasetMetaDataAndHandleResponse(): Promise<
   Metadata[] | undefined
@@ -32,9 +33,9 @@ export async function getDatasetMetaDataAndHandleResponse(): Promise<
 }
 
 export async function getTableNamesAndHandleResponse(): Promise<
-  string[] | undefined
+  Selection[] | undefined
 > {
-  return await handleApiOperation<void, string[]>(
+  return await handleApiOperation<void, Selection[]>(
     undefined,
     getTableNames,
     TABLE_NAMES_RETRIEVAL_SUCCESS_MESSAGE,

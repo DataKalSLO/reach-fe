@@ -1,5 +1,5 @@
 import { GET_ALL_METADATA, GET_ALL_TABLE_NAMES } from './constants';
-
+import { Selection } from '../../api/vizbuilder/types';
 /*
  * The following type aliases/interfaces correspond to the datasets
  * metadata retrieved the backend.
@@ -41,7 +41,7 @@ export interface DataColumns {
 
 export interface VizState {
   metadataForAllDatasets: Metadata[];
-  datasetTableNames: string[];
+  datasetTableNames: Selection[];
 }
 
 /*
@@ -57,7 +57,7 @@ export interface GetAllMetadataAction {
 
 export interface GetAllTableNamesAction {
   type: typeof GET_ALL_TABLE_NAMES;
-  payload: string[] | undefined;
+  payload: Selection[] | undefined;
 }
 
 export type VizActionTypes = GetAllMetadataAction | GetAllTableNamesAction;

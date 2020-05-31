@@ -11,6 +11,7 @@ import {
   convertDataSourcesToDataColumnsPayload
 } from './converter';
 import {
+  Selection,
   VizbuilderActions,
   VizbuilderApiPayload,
   VizbuilderApiResponse
@@ -35,14 +36,14 @@ export async function getDataColumns(
   );
 }
 
-export async function getTableNames(): Promise<string[]> {
+export async function getTableNames(): Promise<Selection[]> {
   return httpRequestWithTableNamesResponse(
     VizbuilderActions.GET_TABLE_NAMES,
     undefined
   );
 }
 
-export async function getMapSelection(): Promise<string[]> {
+export async function getMapSelection(): Promise<Selection[]> {
   return httpRequestWithTableNamesResponse(
     VizbuilderActions.GET_TABLE_NAMES,
     undefined
@@ -103,13 +104,13 @@ export async function httpRequestWithColumnsDataResponse(
 export async function httpRequestWithTableNamesResponse(
   actionType: VizbuilderActions,
   payload: VizbuilderApiPayload
-): Promise<string[]> {
+): Promise<Selection[]> {
   const response: VizbuilderApiResponse = await vizbuilderHttp(
     actionType,
     payload
   );
-  if (response as string[]) {
-    return response as string[];
+  if (response as Selection[]) {
+    return response as Selection[];
   } else {
     throw new Error('No dataset tables');
   }

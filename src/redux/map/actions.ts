@@ -15,14 +15,14 @@ import {
 import { getFeatureCollectionAndHandleResponse } from '../../api/map/operationHandlers';
 import { Dispatch } from 'redux';
 
-export function getFeatureCollection(tableName: string) {
+export function getFeatureCollection(tableName: string, updater: any) {
   return async (dispatch: Dispatch) => {
     const payload = await getFeatureCollectionAndHandleResponse(tableName);
-    dispatch(updateHeatMapSelection(payload));
+    dispatch(updater(payload));
   };
 }
 
-export function updateSelectedTables(selectedTables: string[]) {
+export function updateSelectedTables(selectedTables: any) {
   return async (dispatch: Dispatch) => {
     dispatch(updateSelectedTablesAction(selectedTables));
   };

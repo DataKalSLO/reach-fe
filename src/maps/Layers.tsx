@@ -27,6 +27,7 @@ import {
   SelectedMarker,
   Selections
 } from './types';
+import { Selection } from '../api/vizbuilder/types';
 
 // number of allowed selections, subject to change based on ui/ux and graph team suggestions
 const ALLOWED_MARKERS = 2;
@@ -107,8 +108,8 @@ export function handleDisable(
 }
 
 interface LayersProps {
-  tableNames: string[];
-  selectedTables: string[];
+  tableNames: Selection[];
+  selectedTables: Selection[];
   markerSelection: MarkerSelection[];
   heatMapSelection: HeatMapSelection | {};
   selectedMarker: SelectedMarker;
@@ -126,6 +127,35 @@ export default function Layers(props: LayersProps) {
 
   const dispatch = useDispatch();
 
+  const diffElem = (l1: any, l2: any) =>
+    l1.filter((e1: any) => !l2.includes(e1))[0];
+
+  const updateSelections = (event: any, newSelections: Selection[] | null) => {
+    if (newSelections === null) return;
+    let changed: Selection;
+
+    // removed
+    if (selectedTables.length > newSelections.length) {
+      changed = diffElem(selectedTables, newSelections);
+      if (changed.geoType === 'area') {
+        updateHeatMapSelection({});
+      }
+    }
+
+    // added
+    else {
+      changed = diffElem(newSelections, selectedTables);
+      if (changed.geoType === 'area') {
+        getFeatureCollection(
+          changed.tableName,
+          updateHeatMapSelection
+        )(dispatch);
+      }
+    }
+    updateSelectedTables(newSelections)(dispatch);
+    //  getFeatureCollection('b19019_001e')(dispatch);
+  };
+
   return (
     <StyledBox>
       <Autocomplete
@@ -133,7 +163,7 @@ export default function Layers(props: LayersProps) {
         disableListWrap
         id="tags-outlined"
         options={tableNames}
-        getOptionLabel={(table: any) =>
+        getOptionLabel={(table: Selection) =>
           table.censusDesc ? table.censusDesc : table.tableName
         }
         value={selectedTables}
@@ -152,13 +182,7 @@ export default function Layers(props: LayersProps) {
         // getOptionLabel={option => option.name}
         filterSelectedOptions
         // informs the layerSelection variable with the user's selection
-        onChange={(event, value) => {
-          updateSelectedTables(value)(dispatch);
-          getFeatureCollection((value[value.length - 1] as any).tableName)(
-            dispatch
-          );
-          //  getFeatureCollection('b19019_001e')(dispatch);
-        }}
+        onChange={updateSelections}
         renderInput={params => (
           <TextField
             {...params}

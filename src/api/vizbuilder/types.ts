@@ -10,5 +10,11 @@ export interface DataColumnsRecord {
   [columName: string]: DataValue[];
 }
 
+export interface Selection {
+  tableName: string;
+  geoType: string;
+  censusDesc: string;
+}
+
 export type VizbuilderApiPayload = string | undefined;
-export type VizbuilderApiResponse = Metadata[] | DataColumns | string[];
+export type VizbuilderApiResponse = Metadata[] | DataColumns | Selection[];

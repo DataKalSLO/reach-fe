@@ -9,7 +9,7 @@ import {
   Metadata,
   GetAllTableNamesAction
 } from './types';
-
+import { Selection } from '../../api/vizbuilder/types';
 /*
  * Every Asynchronous Action has three parts.
  *   1. A function that encapsulates an entire action. It's
@@ -47,7 +47,7 @@ export function getAllMetadataAction(
 }
 
 export function getAllTableNamesAction(
-  payload: string[] | undefined
+  payload: Selection[] | undefined
 ): GetAllTableNamesAction {
   return {
     type: GET_ALL_TABLE_NAMES,

@@ -10,7 +10,6 @@ export async function httpRequestWithTableName(
   payload: MapApiPayload
 ): Promise<any[]> {
   const response: MapApiResponse = await mapHttp(actionType, payload);
-  console.log(response);
   if (response as any) {
     return response as any;
   } else {

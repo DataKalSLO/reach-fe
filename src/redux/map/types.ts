@@ -1,3 +1,5 @@
+import { Selection } from '../../api/vizbuilder/types';
+
 import {
   MarkerSelection,
   HeatMapSelection,
@@ -7,7 +9,7 @@ import {
 } from '../../maps/types';
 
 export interface MapState {
-  selectedTables: string[];
+  selectedTables: Selection[];
   markerSelection: MarkerSelection[];
   heatMapSelection: HeatMapSelection | {};
   selectedMarker: SelectedMarker;
@@ -19,7 +21,7 @@ export const UPDATE_SELECTED_TABLES = 'UPDATE_SELECTED_TABLES';
 
 interface UpdateSelectedTables {
   type: typeof UPDATE_SELECTED_TABLES;
-  payload: string[];
+  payload: Selection[];
 }
 
 export const UPDATE_MARKER_SELECTION = 'UPDATE_MARKER_SELECTION';

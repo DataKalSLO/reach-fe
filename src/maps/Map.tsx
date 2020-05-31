@@ -43,6 +43,7 @@ function Map() {
   }, [dispatch]);
 
   console.log(mapState);
+  console.log(vizBuilderState);
 
   return (
     <StyledBox>
