@@ -7,7 +7,7 @@ import {
   MapState,
   UPDATE_BOUND_SELECTION,
   UPDATE_COLOR_ASSOCIATION,
-  UPDATE_HEAT_MAP_SELECTION,
+  UPDATE_HEATMAP_SELECTION,
   UPDATE_MARKER_SELECTION,
   UPDATE_SELECTED_MARKER,
   UPDATE_SELECTED_TABLES
@@ -62,7 +62,7 @@ export function mapReducer(
         ...state,
         markerSelection: action.payload
       };
-    case UPDATE_HEAT_MAP_SELECTION:
+    case UPDATE_HEATMAP_SELECTION:
       return {
         ...state,
         heatMapSelection: action.payload

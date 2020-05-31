@@ -1,4 +1,6 @@
-export const FEATURE_COLLECTION_RETRIEVAL_SUCCESS_MESSAGE =
-  'Feature collection retrieved!';
-export const FEATURE_COLLECTION_RETRIEVAL_FAILURE_MESSAGE =
-  'An Error occurred while retrieving the Feature Collection.';
+export const HEATMAP_RETRIEVAL_SUCCESS_MESSAGE = 'Heatmap retrieved!';
+export const HEATMAP_RETRIEVAL_FAILURE_MESSAGE =
+  'An Error occurred while retrieving the Heatmap.';
+export const MARKER_RETRIEVAL_SUCCESS_MESSAGE = 'Markers retrieved!';
+export const MARKER_RETRIEVAL_FAILURE_MESSAGE =
+  'An Error occurred while retrieving the Markers.';

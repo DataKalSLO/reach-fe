@@ -1,8 +1,12 @@
 import { MapActions, MapApiPayload, MapApiResponse } from './types';
 import { get } from '../base';
 
-export async function getFeatureCollection(tableName: any): Promise<any> {
-  return httpRequestWithTableName(MapActions.GET_FEATURE_COLLECTION, tableName);
+export async function getHeatmap(tableName: any): Promise<any> {
+  return httpRequestWithTableName(MapActions.GET_HEATMAP, tableName);
+}
+
+export async function getMarkers(tableName: any): Promise<any> {
+  return httpRequestWithTableName(MapActions.GET_MARKERS, tableName);
 }
 
 export async function httpRequestWithTableName(
@@ -23,8 +27,11 @@ async function mapHttp(
 ): Promise<MapApiResponse> {
   let response: unknown;
   switch (actionType) {
-    case MapActions.GET_FEATURE_COLLECTION:
-      response = get(`map/${payload}/`);
+    case MapActions.GET_HEATMAP:
+      response = get(`map/heatmap/${payload}/`);
+      break;
+    case MapActions.GET_MARKERS:
+      response = get(`map/markers/${payload}/`);
       break;
     default:
       throw new Error('Unimplemented mutation action on Map: ' + actionType);

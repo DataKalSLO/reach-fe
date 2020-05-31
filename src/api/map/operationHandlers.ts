@@ -1,17 +1,30 @@
 import { handleApiOperation } from '../operations';
 import {
-  FEATURE_COLLECTION_RETRIEVAL_SUCCESS_MESSAGE,
-  FEATURE_COLLECTION_RETRIEVAL_FAILURE_MESSAGE
+  HEATMAP_RETRIEVAL_SUCCESS_MESSAGE,
+  HEATMAP_RETRIEVAL_FAILURE_MESSAGE,
+  MARKER_RETRIEVAL_SUCCESS_MESSAGE,
+  MARKER_RETRIEVAL_FAILURE_MESSAGE
 } from './constants';
-import { getFeatureCollection } from './operations';
+import { getHeatmap, getMarkers } from './operations';
 
 export async function getFeatureCollectionAndHandleResponse(
   tableName: string
 ): Promise<any> {
   return await handleApiOperation<string, any>(
     tableName,
-    getFeatureCollection,
-    FEATURE_COLLECTION_RETRIEVAL_SUCCESS_MESSAGE,
-    FEATURE_COLLECTION_RETRIEVAL_FAILURE_MESSAGE
+    getHeatmap,
+    HEATMAP_RETRIEVAL_SUCCESS_MESSAGE,
+    HEATMAP_RETRIEVAL_FAILURE_MESSAGE
+  ).catch(e => undefined);
+}
+
+export async function getMarkersAndHandleResponse(
+  tableName: string
+): Promise<any> {
+  return await handleApiOperation<string, any>(
+    tableName,
+    getMarkers,
+    MARKER_RETRIEVAL_SUCCESS_MESSAGE,
+    MARKER_RETRIEVAL_FAILURE_MESSAGE
   ).catch(e => undefined);
 }

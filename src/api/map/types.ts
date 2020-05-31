@@ -1,7 +1,8 @@
 // import {  } from '../../redux/map/types';
 
 export enum MapActions {
-  GET_FEATURE_COLLECTION
+  GET_HEATMAP,
+  GET_MARKERS
 }
 
 // export interface DataColumnsRecord {
