@@ -11,8 +11,8 @@ import AccountDropdown from '../accounts/AccountDropdown';
 import { getUser } from '../redux/login/selectors';
 import { NAV_BAR_COLOR } from '../theme/theme';
 import {
-  ADMIN,
   ADMIN_NAME,
+  ADMIN_UPLOAD_DATA,
   ADMIN_USER,
   CREATE_ACCOUNT,
   EXPLORE,
@@ -113,7 +113,10 @@ function AppBar() {
         </Grid>
         {user.role === ADMIN_USER ? (
           <Grid item key={ADMIN_NAME}>
-            <MenuButton name={ADMIN_NAME} navigateToRoute={navigateTo(ADMIN)} />
+            <MenuButton
+              name={ADMIN_NAME}
+              navigateToRoute={navigateTo(ADMIN_UPLOAD_DATA)}
+            />
           </Grid>
         ) : null}
       </Grid>
