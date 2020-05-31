@@ -1,4 +1,3 @@
-import { InsertChart, LibraryBooks, Map, ViewModule } from '@material-ui/icons';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { PersistentDrawerProps } from '../common/components/PersistentDrawer';
@@ -15,6 +14,12 @@ import {
   List,
   ListItemTab
 } from '../reach-ui/core';
+import {
+  ALL_ITEMS_ICON,
+  CHARTS_ICON,
+  MAPS_ICON,
+  STORIES_ICON
+} from '../reach-ui/icons';
 
 const SIDEBAR_WIDTH = 190;
 
@@ -33,25 +38,25 @@ export default function MyStuffSidebar() {
       <List>
         <ListItemTab
           title="All Items"
-          icon={<ViewModule />}
+          icon={ALL_ITEMS_ICON}
           onClick={() => navigateTo(MY_STUFF)}
           {...options}
         />
         <ListItemTab
           title="Charts"
-          icon={<InsertChart />}
+          icon={CHARTS_ICON}
           onClick={() => navigateTo(MY_STUFF_CHARTS)}
           {...options}
         />
         <ListItemTab
           title="Maps"
-          icon={<Map />}
+          icon={MAPS_ICON}
           onClick={() => navigateTo(MY_STUFF_MAPS)}
           {...options}
         />
         <ListItemTab
           title="Stories"
-          icon={<LibraryBooks />}
+          icon={STORIES_ICON}
           onClick={() => navigateTo(MY_STUFF_STORIES)}
           {...options}
         />

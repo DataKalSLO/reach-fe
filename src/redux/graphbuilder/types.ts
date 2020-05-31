@@ -2,6 +2,7 @@ import { ApiGraphConfirmationResponse } from '../../api/graphs/types';
 import { GraphData, GraphMetaData } from '../graphs/types';
 import {
   DELETE_GRAPH,
+  DELETE_LOCAL_GRAPH,
   DUPLICATE_GRAPH,
   GET_ALL_USER_GRAPHS,
   GET_DEFAULT_GRAPHS_FOR_CATEGORY,
@@ -76,6 +77,11 @@ export interface DuplicateGraphAction {
   payload: GraphWithIndex;
 }
 
+export interface DeleteLocalGraph {
+  type: typeof DELETE_LOCAL_GRAPH;
+  payload: number;
+}
+
 export interface ToggleCreateGraphAction {
   type: typeof TOGGLE_CREATE_GRAPH;
   payload: undefined;
@@ -90,4 +96,5 @@ export type GraphActionTypes =
   | GetDefaultGraphsForCategoryAction
   | UpdateLocalGraph
   | DuplicateGraphAction
+  | DeleteLocalGraph
   | ToggleCreateGraphAction;
