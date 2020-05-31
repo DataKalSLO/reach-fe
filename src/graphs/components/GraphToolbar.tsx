@@ -58,17 +58,20 @@ function GraphToolbar(props: GraphToolbarProps) {
         variant="text"
         color="default"
         startIcon={<Edit />}
-        onClick={() => alert('not implemented yet')}
+        onClick={() => toggleEdit()}
       />
-      <ToolbarButton
-        label={SAVE_LABEL}
-        startIcon={<Save />}
-        onClick={() =>
-          isLocalGraph
-            ? dispatch(saveGraph(newGraph))
-            : dispatch(updateGraph(newGraph))
-        }
-      />
+      {/* save graph owned by the user */}
+      {isLocalGraph || userOwnsGraph ? (
+        <ToolbarButton
+          label={SAVE_LABEL}
+          startIcon={<Save />}
+          onClick={() =>
+            isLocalGraph
+              ? dispatch(saveGraph(newGraph))
+              : dispatch(updateGraph(newGraph))
+          }
+        />
+      ) : null}
       <ToolbarButton
         label={isHidden ? SHOW_LABEL : HIDE_LABEL}
         startIcon={isHidden ? <VisibilityIcon /> : <VisibilityOffIcon />}

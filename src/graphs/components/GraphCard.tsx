@@ -9,7 +9,10 @@ import {
 } from '@material-ui/core';
 import HighchartsReact from 'highcharts-react-official';
 import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { isNullOrUndefined } from 'util';
+import { getVizbuilder } from '../../redux/vizbuilder/selector';
+import GraphEditForm from '../forms/GraphEditForm';
 import { CHART_HEIGHT_PERCENT, CHART_WIDTH_SCALE } from './constants';
 import { CoreGraph } from './CoreGraph';
 import GraphToolbar from './GraphToolbar';
@@ -18,6 +21,7 @@ import { GraphCardProps } from './types';
 
 export function GraphCard({ graph, index }: GraphCardProps) {
   const classes = useGraphStyles();
+  const vizState = useSelector(getVizbuilder);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [graphSVG, setGraphSVG] = useState<string>('');
   const [expanded, setExpanded] = useState(false);
@@ -89,7 +93,14 @@ export function GraphCard({ graph, index }: GraphCardProps) {
         </CardContent>
       </Collapse>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <FormCardContent></FormCardContent>
+        <FormCardContent>
+          <GraphEditForm
+            graph={graph}
+            datasetsMetaData={vizState.metadataForAllDatasets}
+            index={index}
+            toggleEdit={toggleEdit}
+          />
+        </FormCardContent>
       </Collapse>
     </Card>
   );
