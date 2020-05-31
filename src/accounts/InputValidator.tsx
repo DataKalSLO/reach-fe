@@ -1,5 +1,5 @@
 export function isValidEmail(emailName: string): boolean {
-  const emailValidRegex = new RegExp('(?=.*[@])(?=.*[.])');
+  const emailValidRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
   return emailValidRegex.test(emailName);
 }
 
