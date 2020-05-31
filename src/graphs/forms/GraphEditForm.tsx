@@ -2,8 +2,9 @@ import { Box, Divider, Paper, styled, Tab, Tabs } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import TabPanel from '../../common/components/FormTab';
-import { updateLocalGraph, getGraph } from '../../redux/graphbuilder/actions';
+import { getGraph, updateLocalGraph } from '../../redux/graphbuilder/actions';
 import { Graph } from '../../redux/graphbuilder/types';
+import { isLocalGraph } from '../../redux/graphbuilder/utilities';
 import { PartialGraphConfigurationWithoutData } from '../../redux/graphs/types';
 import { Metadata } from '../../redux/vizbuilder/types';
 import { theme } from '../../theme/theme';
@@ -109,6 +110,7 @@ export default function GraphEditForm(props: Props) {
           setSeriesState={setSeriesState}
         >
           <FormEditFooter
+            isLocalGraph={isLocalGraph(graph)}
             handleCancel={toggleEdit}
             handleReset={DataSourceFormHandleReset}
             handleUpdate={DataSourceFormHandleUpdate}
@@ -121,6 +123,7 @@ export default function GraphEditForm(props: Props) {
           setState={setGraphOptionsState}
         >
           <FormEditFooter
+            isLocalGraph={isLocalGraph(graph)}
             handleCancel={toggleEdit}
             handleReset={FormattingFormHandleReset}
             handleUpdate={FormattingFormHandleUpdate}
