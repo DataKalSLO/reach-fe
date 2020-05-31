@@ -19,6 +19,7 @@ interface TooltipProps {
   zipCode: string;
 }
 
+// The tooltip for the heat map (distinct from "popups" in MarkerPopups.tsx)
 export default function Tooltip(props: TooltipProps) {
   const { value, zipCode } = props;
   return (
