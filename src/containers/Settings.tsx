@@ -31,7 +31,8 @@ function Settings() {
   const settings: UserSettings = {
     name: user.name,
     occupation: user.occupation,
-    notificationsEnabled: user.notificationsEnabled
+    notificationsEnabled: user.notificationsEnabled,
+    passwordChangeRequest: null
   };
 
   const saveNameSetting = useCallback(() => {
