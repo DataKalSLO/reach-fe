@@ -12,6 +12,7 @@ import { ApiGraphConfirmationResponse } from '../../api/graphs/types';
 import { getDataColumnsForDataSourcesAndHandleResponse } from '../../api/vizbuilder/operationHandlers';
 import { GraphMetaData, GraphMetaDataApiPayload } from '../graphs/types';
 import {
+  CREATE_LOCAL_GRAPH,
   DELETE_GRAPH,
   DELETE_LOCAL_GRAPH,
   DUPLICATE_GRAPH,
@@ -24,6 +25,7 @@ import {
   UPDATE_LOCAL_GRAPH
 } from './constants';
 import {
+  CreateLocalGraph,
   DeleteGraphAction,
   DeleteLocalGraph,
   DuplicateGraphAction,
@@ -114,6 +116,26 @@ export function getGraph(graphId: string, index: number) {
 function getGraphAction(payload: GraphWithIndex): GetGraphAction {
   return {
     type: GET_GRAPH,
+    payload: payload
+  };
+}
+
+export function createLocalGraph(
+  graphMetaData: GraphMetaData,
+  graphCategory?: string
+) {
+  return async (dispatch: Dispatch) => {
+    const graphWithData = await createGraphWithData(graphMetaData);
+    if (!isUndefined(graphWithData)) {
+      graphWithData.graphCategory = graphCategory;
+    }
+    dispatch(createLocalGraphAction(graphWithData));
+  };
+}
+
+function createLocalGraphAction(payload?: Graph): CreateLocalGraph {
+  return {
+    type: CREATE_LOCAL_GRAPH,
     payload: payload
   };
 }

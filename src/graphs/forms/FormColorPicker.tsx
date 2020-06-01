@@ -2,7 +2,7 @@ import { Button, styled } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import LensIcon from '@material-ui/icons/Lens';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ColorResult } from 'react-color';
 import { isNull } from 'util';
 import ColorPicker from '../../common/components/ColorPicker';
@@ -15,6 +15,10 @@ interface Props {
 export default function FormColorPicker(props: Props) {
   const [color, setColor] = useState(props.initialColor);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    setColor(props.initialColor);
+  }, [props.initialColor]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

@@ -75,7 +75,7 @@ export function DataSourcesForm(props: Props) {
       (columnName: string, index: number) => columnIndex !== index
     );
     const newSeries = seriesState.filter(
-      (series, index) => columnIndex === index
+      (series, index) => columnIndex !== index
     );
     setDataState({ ...dataState, yAxisColumnNames: newYColumns });
     setSeriesState(newSeries);
