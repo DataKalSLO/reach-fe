@@ -46,13 +46,11 @@ export const axisFormatLabels = [
 /*
  * Graph Create Form
  */
-export const INPUT_CATEGORY_LABEL = 'Category';
-export const CATEGORY_CREATE_LABEL = 'Choose an Initiative';
-export const X_AXIS_CREATE_LABEL = 'Choose the X-Axis Data Column';
-export const Y_AXIS_CREATE_LABEL = 'Choose the Y-Axis Data Columns';
-export const CATEGORY_STEP_LABEL = 'Choose an Initiative';
-export const DATA_STEP_LABEL = 'Chart Data Sources';
-export const FORMAT_STEP_LABEL = 'Chart Formatting';
+export const DATA_STEP_LABEL = 'Graph Data Sources';
+export const FORMAT_STEP_LABEL = 'Graph Formatting';
+export const CATEGORY_STEP_LABEL = 'Graph Initiative';
+export const CATEGORY_CREATE_LABEL = '';
+export const INPUT_CATEGORY_LABEL = 'Name';
 export const FINISH_STEP_LABEL = "All steps completed - you're finished";
 
 /*
@@ -75,7 +73,7 @@ export const createFormSteps = [
 /*
  * Form Data
  */
-export const NONE = 'NONE';
+export const NONE = 'None';
 export const DEFAULT_SERIES = seriesTypesEnum.column;
 export const supportedSeriesTypes = [
   seriesTypesEnum.line,
