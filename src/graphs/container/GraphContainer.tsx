@@ -1,18 +1,20 @@
 import { Grid, styled } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { HEALTH } from '../../redux/graphs/constants';
-import { getGraphs } from '../../redux/graphbuilder/selector';
 import { getDefaultGraphs } from '../../redux/graphbuilder/actions';
+import { getGraphs } from '../../redux/graphbuilder/selector';
+import { HEALTH } from '../../redux/graphs/constants';
+import { getVizbuilder } from '../../redux/vizbuilder/selector';
 import { GraphCard } from '../components/GraphCard';
+import { generateEmptyGraph } from '../forms/defaults';
+import { GraphCreateForm } from '../forms/GraphCreateForm';
 
 /*
  * Renders a list of graphs.
- * Note: Only prebuilt graphs are supported, but this will change
- *       when the backend is connected.
  */
 function GraphContainer() {
   const graphState = useSelector(getGraphs);
+  const vizState = useSelector(getVizbuilder);
   const dispatch = useDispatch();
 
   // Use the prebuilt health graphs as the default graphs
@@ -32,7 +34,18 @@ function GraphContainer() {
     ));
   };
 
-  return <GridContainer container>{getGraphComponents()}</GridContainer>;
+  return (
+    <GridContainer container>
+      {graphState.isCreating ? (
+        <GraphCreateForm
+          graph={generateEmptyGraph(vizState.metadataForAllDatasets)}
+          datasetsMetaData={vizState.metadataForAllDatasets}
+        />
+      ) : (
+        getGraphComponents()
+      )}
+    </GridContainer>
+  );
 }
 
 export default GraphContainer;

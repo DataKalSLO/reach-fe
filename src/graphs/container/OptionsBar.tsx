@@ -1,12 +1,21 @@
 import { BottomNavigationAction, Drawer } from '@material-ui/core';
 import { ArrowUpward, Close, InsertChart } from '@material-ui/icons';
+import CreateIcon from '@material-ui/icons/Create';
 import clsx from 'clsx';
 import React, { Fragment } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { IconButton } from '../../reach-ui/core';
-import { getAllUserGraphs } from '../../redux/graphbuilder/actions';
+import {
+  getAllUserGraphs,
+  toggleCreateGraph
+} from '../../redux/graphbuilder/actions';
+import { getUser } from '../../redux/login/selectors';
 import OptionsButtons from '../components/OptionsButtons';
-import { INITIATIVE_DESC, MY_GRAPHS_LABEL } from './constants';
+import {
+  CREATE_GRAPH_LABEL,
+  INITIATIVE_DESC,
+  MY_GRAPHS_LABEL
+} from './constants';
 import {
   StyledBottomNav,
   StyledPopover,
@@ -18,11 +27,11 @@ import {
  * The toolbar that displays a button for each initiative.
  * Clicking on an initiative will replace any existing graphs
  * with the set of graphs corresponding to the chosen initiative.
- * Note: The default graph does not get replaced.
  */
 
 function OptionsBar() {
   const dispatch = useDispatch();
+  const user = useSelector(getUser);
   const classes = useOptionsStyles();
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
@@ -78,11 +87,20 @@ function OptionsBar() {
             icon={<Close fontSize="large" color="error" />}
           />
           <OptionsButtons />
+          {/* only show myGraphs button when a user is logged in */}
+          {user.email !== '' ? (
+            <BottomNavigationAction
+              color="default"
+              onClick={() => dispatch(getAllUserGraphs())}
+              label={MY_GRAPHS_LABEL}
+              icon={<InsertChart fontSize="large" />}
+            />
+          ) : null}
           <BottomNavigationAction
             color="default"
-            onClick={() => dispatch(getAllUserGraphs())}
-            label={MY_GRAPHS_LABEL}
-            icon={<InsertChart fontSize="large" />}
+            onClick={() => dispatch(toggleCreateGraph())}
+            label={CREATE_GRAPH_LABEL}
+            icon={<CreateIcon fontSize="large" />}
           />
         </StyledBottomNav>
       </Drawer>
