@@ -97,7 +97,7 @@ function OptionsBar() {
             />
           ) : null}
           <BottomNavigationAction
-            color="error"
+            color="default"
             onClick={() => dispatch(toggleCreateGraph())}
             label={CREATE_GRAPH_LABEL}
             icon={<CreateIcon fontSize="large" />}
