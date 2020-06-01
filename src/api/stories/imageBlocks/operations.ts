@@ -2,6 +2,7 @@ import {
   authenticatedPost,
   authenticatedDel
 } from '../../authenticatedApi/operations';
+import { getFileNameFromUrl } from '../../../common/util/urlValidation';
 import { ImageUploadResponse } from './types';
 import { uuid } from 'uuidv4';
 
@@ -30,8 +31,4 @@ export function uploadImageForImageBlocks(
 export async function deleteImageBlockImage(url: string) {
   const fileName = getFileNameFromUrl(url);
   await authenticatedDel(BASE_IMAGE_BLOCK_URL + fileName);
-}
-
-function getFileNameFromUrl(url: string): string {
-  return url.split('/').pop();
 }
