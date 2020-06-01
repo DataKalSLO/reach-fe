@@ -11,6 +11,8 @@ export const LOGIN = '/login';
 export const SAMPLE = '/sample';
 export const CREATE_ACCOUNT = '/create-account';
 export const SETTINGS = '/settings';
+export const STORY_VIEW = '/story';
+export const STORY_VIEW_ID = STORY_VIEW + '/:storyId';
 
 // Note: this isn't currently being used as a direct URL.
 // Clicking on the ADMIN button in the app bar redirects to ADMIN_UPLOAD_DATA
