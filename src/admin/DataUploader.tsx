@@ -18,9 +18,14 @@ export default function DataUploader() {
   const [csvMigrationData, setCsvMigrationData]: any = useState([]);
   const [csvSloAirportsData, setCsvSloAirportsData]: any = useState([]);
   const [csvUniversityData, setCsvUniversityData]: any = useState([]);
-  const [csvWaterData, setCsvWaterData]: any = useState([]);
   const [jsonData, setJsonData] = useState({});
   const [uploadDisabled, setUploadDisabled] = useState(true);
+  enum status {
+    success,
+    failure,
+    undefined
+  }
+  const [uploadStatus, setUploadStatus] = useState(status.undefined);
 
   useEffect(() => {
     Promise.all([
@@ -31,8 +36,7 @@ export default function DataUploader() {
       csv('/MeanRealWages.csv'),
       csv('/NetMigration.csv'),
       csv('/SloAirports.csv'),
-      csv('/UniversityInfo.csv'),
-      csv('/WaterSources.csv')
+      csv('/UniversityInfo.csv')
     ]).then(function(data) {
       setCsvAirportData(data[0]);
       setCsvCommuteData(data[1]);
@@ -42,7 +46,6 @@ export default function DataUploader() {
       setCsvMigrationData(data[5]);
       setCsvSloAirportsData(data[6]);
       setCsvUniversityData(data[7]);
-      setCsvWaterData(data[8]);
     });
   }, [setCsvAirportData, setCsvCommuteData, setCsvCovidData]);
 
@@ -56,9 +59,24 @@ export default function DataUploader() {
   );
 
   const uploadData = useCallback(() => {
-    upload(jsonData);
-  }, [jsonData]);
+    upload(jsonData)
+      .then(() => {
+        setUploadStatus(status.success);
+      })
+      .catch(e => {
+        setUploadStatus(status.failure);
+      });
+  }, [jsonData, setUploadStatus, status.failure, status.success]);
 
+  const uploadMessageColor =
+    uploadStatus === status.success ? 'primary' : 'error';
+
+  const uploadMessage =
+    uploadStatus === status.success
+      ? 'Success! The data was successfully uploaded into the database.'
+      : uploadStatus === status.failure
+      ? 'Failed...Something went wrong.  Please check the formatting of your csv.'
+      : '';
   return (
     <AdminWrapper title="Upload Data">
       <UploadPaper variant="outlined">
@@ -71,6 +89,9 @@ export default function DataUploader() {
             disabled={uploadDisabled}
           />
         </UploadBox>
+        <Typography color={uploadMessageColor} variant="caption">
+          {uploadMessage}
+        </Typography>
       </UploadPaper>
       <DownloadPaper variant="outlined">
         <Typography variant="h5">Download Your CSV Templates</Typography>
@@ -114,11 +135,6 @@ export default function DataUploader() {
             templateName="UniversityInfo.csv"
             csvData={csvUniversityData}
             filename="UniversityInfo"
-          />
-          <CSVTemplate
-            templateName="WaterSources.csv"
-            csvData={csvWaterData}
-            filename="WaterSources"
           />
         </Box>
       </DownloadPaper>
