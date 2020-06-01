@@ -11,7 +11,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AccountCircle } from '@material-ui/icons';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { ADMIN_USER } from '../../nav/constants';
+import { useHistory } from 'react-router-dom';
+import { ADMIN_USER, STORY_VIEW } from '../../nav/constants';
 import { getUser } from '../../redux/login/selectors';
 import { Story, PublicationStatus } from '../../redux/story/types';
 import { AdminReviewCardActions } from './AdminReviewCardActions';
@@ -50,6 +51,7 @@ interface Props {
 
 export default function StoryCard(props: Props): JSX.Element {
   const user = useSelector(getUser);
+  const history = useHistory();
   const classes = useStyles();
 
   const AuthorWithProfilePhoto = (props: {
@@ -106,7 +108,9 @@ export default function StoryCard(props: Props): JSX.Element {
 
   return (
     <Card className={classes.card} variant="outlined">
-      <CardActionArea>
+      <CardActionArea
+        onClick={() => history.push(STORY_VIEW + '/' + props.story.id)}
+      >
         <CardMedia
           className={classes.media}
           image={PLACEHOLDER_IMAGE_URL}
