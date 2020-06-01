@@ -28,7 +28,7 @@ export interface Graph {
 }
 
 export interface GraphWithIndex {
-  graph: Graph;
+  graph: Graph | undefined;
   index: number;
 }
 
@@ -54,7 +54,7 @@ export interface DeleteGraphAction {
 
 export interface GetGraphAction {
   type: typeof GET_GRAPH;
-  payload: Graph | undefined;
+  payload: GraphWithIndex;
 }
 
 export interface GetAllUserGraphsAction {
