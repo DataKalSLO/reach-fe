@@ -8,12 +8,11 @@ interface Props {
 }
 
 export default function ImageBlock(props: Props) {
-  const { imageUrl, setImageUrl } = props; // this is NOT a hook, the state is being managed in StoryBlock
+  const { imageUrl, setImageUrl } = props; // this is NOT a hook, the state is being managed in StoryEditor
 
   function logIt(files: [File]) {
     // temporary until backend is connected and we can get actual image url from s3
     setImageUrl('https://i.redd.it/ni8dp6vf80xy.jpg');
-    console.log('url is');
     alert(
       'files uploaded (not really, needs backend)\nEnjoy this placeholder.'
     );
