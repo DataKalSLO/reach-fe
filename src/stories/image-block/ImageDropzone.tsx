@@ -22,7 +22,7 @@ export default function ImageDropzone(props: ImageDropzoneProps) {
         setShouldReject(true);
         setTimeout(() => {
           setShouldReject(false);
-        }, 1500);
+        }, 5000);
         return;
       }
       props.onFileDrop(acceptedFiles);
@@ -46,9 +46,8 @@ function showRejection() {
   return (
     <RejectionBox>
       <div>
-        <br />
-        <h4>Only one file is allowed per Image Block</h4>
-        <br />
+        <h4>Could not upload images!</h4>
+        <p>Only one file is allowed per Image Block</p>
       </div>
     </RejectionBox>
   );
@@ -84,10 +83,11 @@ const DropzoneBox = styled(Box)({
   border: '3px dashed lightblue',
   borderRadius: '5px',
   height: '100%',
-  textAlign: 'center'
+  textAlign: 'center',
+  minHeight: '150px'
 });
 
 const RejectionBox = styled(DropzoneBox)({
-  backgroundColor: 'indianred',
+  backgroundColor: 'lightpink',
   border: '3px dashed firebrick'
 });
