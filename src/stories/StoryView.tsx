@@ -92,7 +92,6 @@ function convertGraphBlockToJSX(graphBlock: GraphBlockType): JSX.Element {
 }
 
 function convertImageBlockToJSX(imageBlock: ImageBlockType): JSX.Element {
-  console.log(imageBlock.imageUrl);
   if (imageBlock.imageUrl !== '') {
     return (
       <div key={imageBlock.id}>
