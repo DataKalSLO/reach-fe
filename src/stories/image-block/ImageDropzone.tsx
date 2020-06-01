@@ -32,7 +32,7 @@ export default function ImageDropzone(props: ImageDropzoneProps) {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: ['image/jpeg', 'image/png', 'image/png'],
+    accept: ['image/jpeg', 'image/png'],
     maxSize: 25 * MEGABYTE // 25 mb is a common upload limit for image hosting sites
   });
 
