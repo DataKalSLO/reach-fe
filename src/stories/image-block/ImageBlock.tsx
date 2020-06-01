@@ -1,17 +1,24 @@
 import { Paper, styled } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import ImageDropzone from './ImageDropzone';
 
 export default function ImageBlock() {
+  const [imgUrl, setImgUrl] = useState('');
+
+  function logIt(files: [File]) {
+    setImgUrl('https://i.redd.it/ni8dp6vf80xy.jpg');
+    alert('files uploaded');
+  }
+
   return (
     <StoryBlockContainer variant="outlined">
-      <ImageDropzone onFileDrop={logIt}></ImageDropzone>
+      {imgUrl === '' ? (
+        <ImageDropzone onFileDrop={logIt}></ImageDropzone>
+      ) : (
+        <img src={imgUrl} alt="Preview" />
+      )}
     </StoryBlockContainer>
   );
-}
-
-function logIt(files: [File]) {
-  alert('files uploaded');
 }
 
 const StoryBlockContainer = styled(Paper)({

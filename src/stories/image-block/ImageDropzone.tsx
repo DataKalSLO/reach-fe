@@ -13,6 +13,7 @@ export default function ImageDropzone(props: ImageDropzoneProps) {
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
+  // todo: filetype, preview, limit to 1
   return (
     <StyledBox {...getRootProps()}>
       <input {...getInputProps()} />
@@ -24,7 +25,7 @@ export default function ImageDropzone(props: ImageDropzoneProps) {
         </div>
       ) : (
         <div>
-          <h3>Drag and Drop an Image Here</h3>
+          <h3>Drag and Drop an Image</h3>
           <CloudUploadIcon />
           <p>or click to select files</p>
         </div>
