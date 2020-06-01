@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { getPublishedStories } from '../api/stories/operations';
+import { getPublishedStoriesAndHandleResponse } from '../api/stories/operationHandlers';
 import Gallery from '../common/components/Gallery';
 import StoryCard from '../preview-cards/story-card/StoryCard';
 import { Story } from '../redux/story/types';
@@ -8,10 +8,10 @@ export default function ExploreGrid() {
   const [stories, setStories] = React.useState([] as Story[]);
 
   useEffect(() => {
-    getPublishedStories().then(storydata => {
-      setStories(storydata);
-    });
-  });
+    getPublishedStoriesAndHandleResponse().then(apiResponse =>
+      apiResponse ? setStories(apiResponse) : null
+    );
+  }, []);
 
   const makeStoryCards = () => {
     return stories.map((storyInfo: Story) => {
