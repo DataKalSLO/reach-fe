@@ -13,7 +13,8 @@ import {
   ZIP_TABULATION,
   HEAT_MAP_COLOR,
   MARKER_ONE_COLOR,
-  MARKER_TWO_COLOR
+  MARKER_TWO_COLOR,
+  MARKER_THREE_COLOR
 } from './constants';
 import { mapMarkers } from './MapMarker';
 import Popups from './MapPopups';
@@ -123,7 +124,8 @@ function MapView(props: MapViewProps) {
 
   const markerColors = [
     { color: MARKER_ONE_COLOR },
-    { color: MARKER_TWO_COLOR }
+    { color: MARKER_TWO_COLOR },
+    { color: MARKER_THREE_COLOR }
   ];
 
   useEffect(() => {

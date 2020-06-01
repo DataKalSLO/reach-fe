@@ -4,8 +4,8 @@ import { Box } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import React from 'react';
 import { flatten } from 'lodash';
+import React from 'react';
 import kitchenFaciltiesHeatMap from '../common/assets/Local Data/census/b25053.js';
 import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/median_income_data.js';
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
@@ -14,17 +14,17 @@ import {
   FeatureProperty,
   HeatMapSelection,
   LocationFeatures,
-  Selections,
   MarkerSelection,
   SelectedMarker,
+  Selections,
   SetHeatMapSelection,
   SetMarkerSelection,
   SetSelectedMarker
 } from './types';
 
 // number of allowed selections, subject to change based on ui/ux and graph team suggestions
-const ALLOWED_MARKERS = 2;
-const ALLOWED_BOTH = 2;
+const ALLOWED_MARKERS = 3;
+const ALLOWED_BOTH = 4;
 
 // all of the local data we have available
 // TODO: pull this from backend! need distinct split between marker & heat map
@@ -152,11 +152,11 @@ export default function Layers(props: LayersProps) {
         }
         renderInput={params => (
           <TextField
+            label="Layers"
             {...params}
-            variant="standard"
-            label="Select up to Two Layers"
-            placeholder="Layers"
+            variant="outlined"
             fullWidth
+            style={{ marginTop: theme.spacing(0.2) }}
           />
         )}
       />
@@ -168,11 +168,5 @@ const StyledBox = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   minWidth: '75%',
-  alignItems: 'left',
-  '& > *': {
-    margin: theme.spacing(1)
-  },
-  '& > * + *': {
-    marginTop: theme.spacing(3)
-  }
+  alignItems: 'left'
 });
