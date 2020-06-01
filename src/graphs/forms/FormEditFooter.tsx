@@ -8,6 +8,7 @@ import {
 } from './constants';
 
 interface Props {
+  isLocalGraph: boolean;
   handleCancel: () => void;
   handleReset: () => void;
   handleUpdate: () => void;
@@ -16,7 +17,9 @@ interface Props {
 export function FormEditFooter(props: Props) {
   return (
     <FooterBox>
+      {/* Disable reset button if the graph only exists locally */}
       <Button
+        disabled={props.isLocalGraph}
         label={FORM_RESET_LABEL}
         size="large"
         color="default"
