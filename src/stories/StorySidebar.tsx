@@ -18,6 +18,7 @@ import {
 import { Drawer, List, ListItemButton } from '../reach-ui/core';
 import {
   createEmptyTextBlock,
+  createGraphBlock,
   updatePublicationStatus
 } from '../redux/story/actions';
 import { PublicationStatus } from '../redux/story/types';
@@ -76,7 +77,7 @@ export default function StorySidebar() {
         <ListItemButton
           text={'Graph'}
           icon={<InsertChart />}
-          onClick={() => alert('Not implemented')}
+          onClick={() => dispatch(createGraphBlock())}
         />
         <ListItemButton
           text={'Map'}

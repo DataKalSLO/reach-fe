@@ -1,6 +1,5 @@
 import { EditorState } from 'draft-js';
-import { uuid } from 'uuidv4';
-import { emptyTextBlock } from './reducer';
+import { emptyGraphBlock, emptyTextBlock } from './initializers';
 import {
   CreateEmptyTextBlockAction,
   CreateGraphBlockAction,
@@ -35,11 +34,7 @@ export function createGraphBlock(): CreateGraphBlockAction {
   return {
     type: CREATE_GRAPH_BLOCK,
     payload: {
-      block: {
-        id: uuid(),
-        graphID: uuid(),
-        type: GRAPH_BLOCK_TYPE
-      }
+      block: emptyGraphBlock()
     }
   };
 }
