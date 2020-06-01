@@ -1,7 +1,30 @@
 import { EditorState } from 'draft-js';
 import { uuid } from 'uuidv4';
 import { emptyImageBlock, emptyTextBlock } from './reducer';
-import { CreateEmptyImageBlockAction, CreateEmptyTextBlockAction, CreateGraphBlockAction, CREATE_EMPTY_IMAGE_BLOCK, CREATE_EMPTY_TEXT_BLOCK, CREATE_GRAPH_BLOCK, DeleteBlockAction, DELETE_BLOCK, GRAPH_BLOCK_TYPE, PublicationStatus, SwapBlocksAction, SWAP_BLOCKS, UpdateDescriptionAction, UpdateImageBlockAction, UpdatePublicationStatusAction, UpdateTextBlockAction, UpdateTitleAction, UPDATE_DESCRIPTION, UPDATE_IMAGE_BLOCK, UPDATE_PUBLICATION_STATUS, UPDATE_TEXT_BLOCK, UPDATE_TITLE } from './types';
+import {
+  CreateEmptyImageBlockAction,
+  CreateEmptyTextBlockAction,
+  CreateGraphBlockAction,
+  CREATE_EMPTY_IMAGE_BLOCK,
+  CREATE_EMPTY_TEXT_BLOCK,
+  CREATE_GRAPH_BLOCK,
+  DeleteBlockAction,
+  DELETE_BLOCK,
+  GRAPH_BLOCK_TYPE,
+  PublicationStatus,
+  SwapBlocksAction,
+  SWAP_BLOCKS,
+  UpdateDescriptionAction,
+  UpdateImageBlockAction,
+  UpdatePublicationStatusAction,
+  UpdateTextBlockAction,
+  UpdateTitleAction,
+  UPDATE_DESCRIPTION,
+  UPDATE_IMAGE_BLOCK,
+  UPDATE_PUBLICATION_STATUS,
+  UPDATE_TEXT_BLOCK,
+  UPDATE_TITLE
+} from './types';
 
 export function createEmptyTextBlock(): CreateEmptyTextBlockAction {
   return {

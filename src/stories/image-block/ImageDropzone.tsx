@@ -1,7 +1,11 @@
 import { Box, styled } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import React, { useCallback, useState } from 'react';
-import { DropzoneInputProps, DropzoneRootProps, useDropzone } from 'react-dropzone';
+import {
+  DropzoneInputProps,
+  DropzoneRootProps,
+  useDropzone
+} from 'react-dropzone';
 
 const MEGABYTE = 1048576; // bytes
 
