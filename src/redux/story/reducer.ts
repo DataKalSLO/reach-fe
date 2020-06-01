@@ -2,27 +2,7 @@ import { arrayMove } from 'react-sortable-hoc';
 import { uuid } from 'uuidv4';
 import { removeObjectAtIndex } from '../../common/util/arrayTools';
 import { emptyEditorState } from '../../stories/text-block/RichTextEditor';
-import {
-  CREATE_EMPTY_TEXT_BLOCK,
-  CREATE_GRAPH_BLOCK,
-  DELETE_BLOCK,
-  Story,
-  StoryActionType,
-  StoryBlockType,
-  SWAP_BLOCKS,
-  TextBlockType,
-  TEXT_BLOCK_TYPE,
-  UpdateBlockType,
-  UPDATE_DESCRIPTION,
-  UPDATE_TEXT_BLOCK,
-  UPDATE_TITLE,
-  PublicationStatus,
-  UPDATE_PUBLICATION_STATUS,
-  CREATE_EMPTY_IMAGE_BLOCK,
-  ImageBlockType,
-  IMAGE_BLOCK_TYPE,
-  UPDATE_IMAGE_BLOCK
-} from './types';
+import { CREATE_EMPTY_IMAGE_BLOCK, CREATE_EMPTY_TEXT_BLOCK, CREATE_GRAPH_BLOCK, DELETE_BLOCK, ImageBlockType, IMAGE_BLOCK_TYPE, PublicationStatus, Story, StoryActionType, StoryBlockType, SWAP_BLOCKS, TextBlockType, TEXT_BLOCK_TYPE, UpdateBlockType, UPDATE_DESCRIPTION, UPDATE_IMAGE_BLOCK, UPDATE_PUBLICATION_STATUS, UPDATE_TEXT_BLOCK, UPDATE_TITLE } from './types';
 
 export const emptyTextBlock = (): TextBlockType => ({
   id: uuid(),

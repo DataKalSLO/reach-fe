@@ -4,7 +4,6 @@ import {
   CollapsibleMenu
 } from '../common/components/CollapsibleToolbar';
 import Drawer from '../common/components/Drawer';
-import FileUpload from '../common/components/FileUpload';
 import Gallery from '../common/components/Gallery';
 import IconButton from '../common/components/IconButton';
 import List from '../common/components/List';
@@ -21,7 +20,6 @@ export {
   CollapsibleItem,
   CollapsibleMenu,
   Drawer,
-  FileUpload,
   Gallery,
   IconButton,
   List,
