@@ -82,7 +82,7 @@ export async function deleteStoryByIdAndHandleResponse(
     .catch(() => false);
 }
 
-export async function getStoryWIthIdAndHandleResponse(
+export async function getStoryByIdAndHandleResponse(
   storyId: string
 ): Promise<Story | undefined> {
   return await callActionAndAlertOnError<Story>(

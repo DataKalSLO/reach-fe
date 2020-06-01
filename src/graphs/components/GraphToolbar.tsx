@@ -12,6 +12,10 @@ import {
   saveGraph,
   updateGraph
 } from '../../redux/graphbuilder/actions';
+import {
+  isLocalGraph,
+  userOwnsGraph
+} from '../../redux/graphbuilder/utilities';
 import { GraphMetaDataApiPayload } from '../../redux/graphs/types';
 import { getUser } from '../../redux/login/selectors';
 import {
@@ -35,11 +39,10 @@ const ToolbarButton = (props: ButtonProps) => {
 function GraphToolbar(props: GraphToolbarProps) {
   const { graph, index, isHidden, graphSVG, toggleEdit, toggleHide } = props;
   const dispatch = useDispatch();
-  const userInfo = useSelector(getUser);
+  const user = useSelector(getUser);
 
-  // Duplicated graphs do not have an Id until they are saved
-  const isLocalGraph = graph.graphMetaData.graphId === '';
-  const userOwnsGraph = userInfo.email === graph.graphMetaData.userId;
+  const graphIsLocal = isLocalGraph(graph);
+  const isUserGraph = userOwnsGraph(graph, user);
 
   const newGraph: GraphMetaDataApiPayload = {
     graphId: graph.graphMetaData.graphId,
@@ -58,17 +61,20 @@ function GraphToolbar(props: GraphToolbarProps) {
         variant="text"
         color="default"
         startIcon={<Edit />}
-        onClick={() => alert('not implemented yet')}
+        onClick={() => toggleEdit()}
       />
-      <ToolbarButton
-        label={SAVE_LABEL}
-        startIcon={<Save />}
-        onClick={() =>
-          isLocalGraph
-            ? dispatch(saveGraph(newGraph))
-            : dispatch(updateGraph(newGraph))
-        }
-      />
+      {/* save graph owned by the user */}
+      {graphIsLocal || isUserGraph ? (
+        <ToolbarButton
+          label={SAVE_LABEL}
+          startIcon={<Save />}
+          onClick={() =>
+            isLocalGraph
+              ? dispatch(saveGraph(newGraph))
+              : dispatch(updateGraph(newGraph))
+          }
+        />
+      ) : null}
       <ToolbarButton
         label={isHidden ? SHOW_LABEL : HIDE_LABEL}
         startIcon={isHidden ? <VisibilityIcon /> : <VisibilityOffIcon />}
@@ -85,7 +91,7 @@ function GraphToolbar(props: GraphToolbarProps) {
         onClick={() => alert('Not implemented')}
       />
       {/* Delete saved graphs owned by the user */}
-      {!isLocalGraph && userOwnsGraph ? (
+      {!graphIsLocal && isUserGraph ? (
         <ToolbarButton
           label={DELETE_LABEL}
           startIcon={<Delete color="error" />}
@@ -93,7 +99,7 @@ function GraphToolbar(props: GraphToolbarProps) {
         />
       ) : null}
       {/* Delete locally created graphs */}
-      {isLocalGraph ? (
+      {graphIsLocal ? (
         <ToolbarButton
           label={DELETE_LABEL}
           startIcon={<Delete color="error" />}
