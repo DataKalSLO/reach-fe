@@ -1,20 +1,23 @@
 import { isValidEmail, isValidPassword } from '../InputValidator';
 
 describe('validateInputEmail', () => {
-  it('succeed for valid email', () => {
+  it('succeeds for valid emails', () => {
     expect(isValidEmail('test@gmail.com')).toEqual(true);
+    expect(isValidEmail('test123@fake.com')).toEqual(true);
+    expect(isValidEmail('my.site@you.me.net')).toEqual(true);
   });
 
-  it('fails for invalid email', () => {
+  it('fails for invalid emails', () => {
+    expect(isValidEmail('')).toEqual(false);
+    expect(isValidEmail('1234')).toEqual(false);
     expect(isValidEmail('invalid...')).toEqual(false);
-  });
-
-  it('fails for invalid email', () => {
     expect(isValidEmail('invalid@com')).toEqual(false);
-  });
-
-  it('fails for invalid email', () => {
+    expect(isValidEmail('invalid@com.')).toEqual(false);
     expect(isValidEmail('invalid.com')).toEqual(false);
+    expect(isValidEmail('@.')).toEqual(false);
+    expect(isValidEmail('nodomain@.com')).toEqual(false);
+    expect(isValidEmail('@gmail.com')).toEqual(false);
+    expect(isValidEmail('double..dot@gmail.com')).toEqual(false);
   });
 });
 
