@@ -6,6 +6,7 @@ export default function ImageBlock() {
   const [imgUrl, setImgUrl] = useState('');
 
   function logIt(files: [File]) {
+    // temporary until backend is connected and we can get actual image url
     setImgUrl('https://i.redd.it/ni8dp6vf80xy.jpg');
     alert('files uploaded');
   }
