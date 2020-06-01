@@ -1,7 +1,7 @@
 import React from 'react';
 import ExploreGrid from '../explore/ExploreGrid';
 import PaddedBox from '../common/components/ContentBox';
-import { Typography, Box, styled } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 function Explore() {
   return (

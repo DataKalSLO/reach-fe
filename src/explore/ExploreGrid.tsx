@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { getPublishedStoriesAndHandleResponse } from '../api/stories/operationHandlers';
-import Gallery from '../common/components/Gallery';
+import { Gallery } from '../reach-ui/core.js';
 import StoryCard from '../preview-cards/story-card/StoryCard';
 import { Story } from '../redux/story/types';
 
