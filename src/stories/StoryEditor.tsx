@@ -45,6 +45,8 @@ export default function StoryEditor() {
   const storyBuilderState = useSelector(getStoryBuilder);
   const previewSelected = storyBuilderState.isPreviewSelected;
 
+  console.log(story)
+
   if (previewSelected) {
     return <StoryView story={story} />;
   } else {

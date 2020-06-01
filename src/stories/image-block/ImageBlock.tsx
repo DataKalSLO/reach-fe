@@ -1,5 +1,5 @@
 import { Paper, styled } from '@material-ui/core';
-import React, { useState } from 'react';
+import React from 'react';
 import ImageDropzone from './ImageDropzone';
 
 interface Props {
@@ -8,15 +8,12 @@ interface Props {
 }
 
 export default function ImageBlock(props: Props) {
-  // image url is both stored here and in redux
-  const [localImageUrl, setLocalImageUrl] = useState(props.imageUrl);
-  const setReduxImageUrl = props.setImageUrl;
+  const { imageUrl, setImageUrl } = props;
 
-  function logIt(files: [File]) {
+  function uploadAndUpdateUrl(files: [File]) {
     // temporary until backend is connected and we can get actual image url from s3
     const tempUrl = 'https://i.redd.it/ni8dp6vf80xy.jpg';
-    setLocalImageUrl(tempUrl);
-    setReduxImageUrl(tempUrl);
+    setImageUrl(tempUrl);
     alert(
       'files uploaded (not really, needs backend)\nEnjoy this placeholder.'
     );
@@ -24,11 +21,11 @@ export default function ImageBlock(props: Props) {
 
   return (
     <StoryBlockContainer variant="outlined">
-      {localImageUrl === '' ? (
-        <ImageDropzone onFileDrop={logIt}></ImageDropzone>
+      {imageUrl === '' ? (
+        <ImageDropzone onFileDrop={uploadAndUpdateUrl}></ImageDropzone>
       ) : (
         //todo add delete 'x' on top corner of preview
-        <img src={localImageUrl} alt="Preview" />
+        <img src={imageUrl} alt="Preview" />
       )}
     </StoryBlockContainer>
   );

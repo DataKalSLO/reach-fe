@@ -97,7 +97,7 @@ export interface UpdateTextBlockAction {
 
 export interface UpdateImageBlockAction {
   type: typeof UPDATE_IMAGE_BLOCK;
-  payload: { index: number; imgUrl: string };
+  payload: { index: number; imageUrl: string };
 }
 
 export interface DeleteBlockAction {

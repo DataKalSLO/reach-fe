@@ -92,11 +92,15 @@ function convertGraphBlockToJSX(graphBlock: GraphBlockType): JSX.Element {
 }
 
 function convertImageBlockToJSX(imageBlock: ImageBlockType): JSX.Element {
-  return (
-    <div key={imageBlock.id}>
-      <img src={imageBlock.imageUrl} />
-    </div>
-  );
+  console.log(imageBlock.imageUrl);
+  if (imageBlock.imageUrl !== '') {
+    return (
+      <div key={imageBlock.id}>
+        <img src={imageBlock.imageUrl} alt={'Story Preview'} />
+      </div>
+    );
+  }
+  return <div> Empty Image Block </div>;
 }
 
 function convertMapBlockToJSX(mapBlock: MapBlockType): JSX.Element {

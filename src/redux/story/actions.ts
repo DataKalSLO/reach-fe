@@ -76,11 +76,11 @@ export function updateTextBlock(
 
 export function updateImageBlock(
   index: number,
-  imgUrl: string
+  imageUrl: string
 ): UpdateImageBlockAction {
   return {
     type: UPDATE_IMAGE_BLOCK,
-    payload: { index: index, imgUrl: imgUrl }
+    payload: { index: index, imageUrl: imageUrl }
   };
 }
 
