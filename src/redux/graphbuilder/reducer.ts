@@ -48,7 +48,12 @@ export function graphBuilderReducer(
     case GET_GRAPH:
       return {
         ...state,
-        graphs: insertAtIndexIfDefined(state.graphs, 0, false, action.payload)
+        graphs: insertAtIndexIfDefined(
+          state.graphs,
+          action.payload.index,
+          true,
+          action.payload.graph
+        )
       };
     case GET_ALL_USER_GRAPHS:
       return {
