@@ -13,41 +13,43 @@ import {
 } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUser } from '../redux/login/selectors';
-import { deleteUser } from '../redux/login/actions';
 import { wrapWithCatch } from '../api/base';
-import { useHistory } from 'react-router-dom';
-import { HOME } from '../nav/constants';
 import BoxCenter from '../common/components/BoxCenter';
 import { theme } from '../theme/theme';
 import { isValidPassword } from './InputValidator';
+import { UserSettings, PasswordChange } from '../redux/login/types';
+import { updateUserSettings } from '../redux/login/actions';
 
 interface ChangePasswordProps {
-  isChangePassword: boolean;
-  setIsChangePassword: (val: boolean) => void;
-  setDisplayError: (val: boolean) => void;
+  isChangingPassword: boolean;
+  setIsChangingPassword: (val: boolean) => void;
 }
 
 function ChangePasswordForm(props: ChangePasswordProps) {
   const user = useSelector(getUser);
   const dispatch = useDispatch();
-  const history = useHistory();
-  const isChangePassword = props.isChangePassword;
-  const setIsChangePassword = props.setIsChangePassword;
-  const setDisplayError = props.setDisplayError;
+  const isChangingPassword = props.isChangingPassword;
+  const setIsChangingPassword = props.setIsChangingPassword;
   const [isLoading, setIsLoading] = useState(false);
 
-  const [oldPassword, setOldPassword] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [newPasswordConfirmation, setnewPasswordConfirmation] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleChangePasswordError = useCallback(() => {
-    setIsChangePassword(false);
-    setDisplayError(true);
-    setIsLoading(false);
-  }, [setDisplayError, setIsChangePassword]);
+  const settings: UserSettings = {
+    name: user.name,
+    occupation: user.occupation,
+    notificationsEnabled: user.notificationsEnabled,
+    passwordChangeRequest: null
+  };
 
-  // Verifies new password conforms to password standards and that passwords match
+  const handleChangePasswordError = useCallback(() => {
+    setErrorMessage('Something went wrong. Please try again.');
+    setIsLoading(false);
+  }, [setErrorMessage, setIsLoading]);
+
+  // Verifies new password conforms to password standards and the passwords match
   const validateNewPassword = useCallback(() => {
     const isValid = isValidPassword(newPassword);
 
@@ -69,36 +71,47 @@ function ChangePasswordForm(props: ChangePasswordProps) {
     if (result == '') {
       setErrorMessage('');
       setIsLoading(true);
+      settings.passwordChangeRequest = {
+        currentPassword: currentPassword,
+        newPassword: newPassword
+      } as PasswordChange;
       dispatch(
         wrapWithCatch(
-          () => console.log('NEED TO IMPLEMENT'),
+          updateUserSettings(user.email, settings),
           handleChangePasswordError,
-          () => console.log('NEED TO IMPLEMENT')
+          () => setIsChangingPassword(false)
         )
       );
     } else {
       setErrorMessage(result);
     }
-  }, [dispatch, handleChangePasswordError, validateNewPassword]);
+  }, [
+    currentPassword,
+    dispatch,
+    handleChangePasswordError,
+    newPassword,
+    setIsChangingPassword,
+    settings,
+    user.email,
+    validateNewPassword
+  ]);
 
   const handleClose = () => {
-    setIsChangePassword(false);
+    setIsChangingPassword(false);
     setIsLoading(false);
     setErrorMessage('');
   };
 
-  const handleInputOldPassword = useCallback(
+  const handleInputCurrentPassword = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setOldPassword(event.target.value);
-      // validateEmail(event.target.value);
+      setCurrentPassword(event.target.value);
     },
-    [setOldPassword]
+    [setCurrentPassword]
   );
 
   const handleInputNewPassword = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setNewPassword(event.target.value);
-      // validateEmail(event.target.value);
     },
     [setNewPassword]
   );
@@ -111,19 +124,19 @@ function ChangePasswordForm(props: ChangePasswordProps) {
   );
 
   return (
-    <Dialog open={isChangePassword} onClose={handleClose}>
+    <Dialog open={isChangingPassword} onClose={handleClose}>
       <DialogTitle>Change Password</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Please enter your old and new passwords.
+          Please enter your current and new passwords.
         </DialogContentText>
         <TextField
           autoFocus
           margin="dense"
-          label="Old Password"
+          label="Current Password"
           type="password"
           fullWidth
-          onChange={handleInputOldPassword}
+          onChange={handleInputCurrentPassword}
         />
         <TextField
           margin="dense"

@@ -28,7 +28,7 @@ function Settings() {
   const [editOccMode, setOccEditMode] = useState(false);
   const [displayError, setDisplayError] = useState(false);
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
-  const [isChangePassword, setIsChangePassword] = useState(false);
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
   const [occupation, setOccupation] = useState(user.occupation);
   const settings: UserSettings = {
     name: user.name,
@@ -63,7 +63,7 @@ function Settings() {
   };
 
   const handleChangePassword = () => {
-    setIsChangePassword(true);
+    setIsChangingPassword(true);
   };
 
   const editNameIcon = editNameMode ? <Done /> : <Edit />;
@@ -140,9 +140,8 @@ function Settings() {
             Change Password
           </SettingsButton>
           <ChangePasswordForm
-            isChangePassword={isChangePassword}
-            setIsChangePassword={setIsChangePassword}
-            setDisplayError={setDisplayError}
+            isChangingPassword={isChangingPassword}
+            setIsChangingPassword={setIsChangingPassword}
           ></ChangePasswordForm>
           <SettingsDeleteButton
             variant="contained"
