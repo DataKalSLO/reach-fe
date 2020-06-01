@@ -11,6 +11,7 @@ export const CREATE_EMPTY_TEXT_BLOCK = 'CREATE_EMPTY_TEXT_BLOCK';
 export const CREATE_GRAPH_BLOCK = 'CREATE_GRAPH_BLOCK';
 export const CREATE_EMPTY_IMAGE_BLOCK = 'CREATE_EMPTY_IMAGE_BLOCK';
 export const UPDATE_TEXT_BLOCK = 'UPDATE_TEXT_BLOCK';
+export const UPDATE_IMAGE_BLOCK = 'UPDATE_IMAGE_BLOCK';
 export const DELETE_BLOCK = 'DELETE_BLOCK';
 export const SWAP_BLOCKS = 'SWAP_BLOCKS';
 export const UPDATE_TITLE = 'UPDATE_TITLE';
@@ -94,6 +95,11 @@ export interface UpdateTextBlockAction {
   payload: { index: number; editorState: EditorState };
 }
 
+export interface UpdateImageBlockAction {
+  type: typeof UPDATE_IMAGE_BLOCK;
+  payload: { index: number; imgUrl: string };
+}
+
 export interface DeleteBlockAction {
   type: typeof DELETE_BLOCK;
   payload: { index: number };
@@ -123,7 +129,7 @@ export interface UpdatePublicationStatusAction {
 // interfaces of this type must include:
 //  - index
 //  - <data-to-change>
-export type UpdateBlockType = UpdateTextBlockAction;
+export type UpdateBlockType = UpdateTextBlockAction | UpdateImageBlockAction;
 
 // used by reducer function (reducer.ts)
 export type StoryActionType =
@@ -131,6 +137,7 @@ export type StoryActionType =
   | CreateGraphBlockAction
   | CreateEmptyImageBlockAction
   | UpdateTextBlockAction
+  | UpdateImageBlockAction
   | DeleteBlockAction
   | SwapBlocksAction
   | UpdateTitleAction

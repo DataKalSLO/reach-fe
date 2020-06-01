@@ -17,10 +17,12 @@ import {
   UpdateDescriptionAction,
   UpdatePublicationStatusAction,
   UpdateTextBlockAction,
+  UpdateImageBlockAction,
   UpdateTitleAction,
   UPDATE_DESCRIPTION,
   UPDATE_PUBLICATION_STATUS,
   UPDATE_TEXT_BLOCK,
+  UPDATE_IMAGE_BLOCK,
   UPDATE_TITLE
 } from './types';
 
@@ -69,6 +71,16 @@ export function updateTextBlock(
   return {
     type: UPDATE_TEXT_BLOCK,
     payload: { index: index, editorState: editorState }
+  };
+}
+
+export function updateImageBlock(
+  index: number,
+  imgUrl: string
+): UpdateImageBlockAction {
+  return {
+    type: UPDATE_IMAGE_BLOCK,
+    payload: { index: index, imgUrl: imgUrl }
   };
 }
 

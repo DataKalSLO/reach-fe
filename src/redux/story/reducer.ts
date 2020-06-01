@@ -20,7 +20,8 @@ import {
   UPDATE_PUBLICATION_STATUS,
   CREATE_EMPTY_IMAGE_BLOCK,
   ImageBlockType,
-  IMAGE_BLOCK_TYPE
+  IMAGE_BLOCK_TYPE,
+  UPDATE_IMAGE_BLOCK
 } from './types';
 
 export const emptyTextBlock = (): TextBlockType => ({
@@ -108,6 +109,7 @@ export function storyReducer(state = initialStory, action: StoryActionType) {
         publicationStatus: action.payload.newPublicationStatus
       };
     case UPDATE_TEXT_BLOCK:
+    case UPDATE_IMAGE_BLOCK:
       return {
         ...state,
         storyBlocks: updateObjectInArray(state.storyBlocks, action)
