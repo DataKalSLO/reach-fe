@@ -34,7 +34,7 @@ function ChangePasswordForm(props: ChangePasswordProps) {
 
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [newPasswordConfirmation, setnewPasswordConfirmation] = useState('');
+  const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const settings: UserSettings = {
@@ -118,9 +118,9 @@ function ChangePasswordForm(props: ChangePasswordProps) {
 
   const handleInputNewPasswordConfirmation = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setnewPasswordConfirmation(event.target.value);
+      setNewPasswordConfirmation(event.target.value);
     },
-    [setnewPasswordConfirmation]
+    [setNewPasswordConfirmation]
   );
 
   return (
@@ -147,7 +147,7 @@ function ChangePasswordForm(props: ChangePasswordProps) {
         />
         <TextField
           margin="dense"
-          label="Confirm New Address"
+          label="Confirm New Password"
           type="password"
           fullWidth
           onChange={handleInputNewPasswordConfirmation}
