@@ -33,16 +33,16 @@ export default function ImageDropzone(props: ImageDropzoneProps) {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: 'image/*',
-    maxSize: 25 * MEGABYTE // 25 mb seems to be a common image upload limit for file hosting sites
+    maxSize: 25 * MEGABYTE // 25 mb is a common upload limit for image hosting sites
   });
 
   if (shouldReject) {
-    return showRejectionMessage();
+    return showRejection();
   }
   return showDropzone(isDragActive, getRootProps, getInputProps);
 }
 
-function showRejectionMessage() {
+function showRejection() {
   return (
     <RejectionBox>
       <div>
