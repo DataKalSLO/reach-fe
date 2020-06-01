@@ -1,5 +1,6 @@
 import { isDefinedElse } from '../../graphs/forms/utilities';
 import {
+  CREATE_LOCAL_GRAPH,
   DELETE_GRAPH,
   DELETE_LOCAL_GRAPH,
   DUPLICATE_GRAPH,
@@ -48,22 +49,35 @@ export function graphBuilderReducer(
     case GET_GRAPH:
       return {
         ...state,
-        graphs: insertAtIndexIfDefined(state.graphs, 0, false, action.payload)
+        graphs: insertAtIndexIfDefined(
+          state.graphs,
+          action.payload.index,
+          true,
+          action.payload.graph
+        )
       };
     case GET_ALL_USER_GRAPHS:
       return {
         ...state,
-        graphs: isDefinedElse(action.payload, state.graphs)
+        graphs: isDefinedElse(action.payload, state.graphs),
+        isCreating: false
       };
     case GET_DEFAULT_GRAPHS_FOR_CATEGORY:
       return {
         ...state,
-        graphs: isDefinedElse(action.payload, state.graphs)
+        graphs: isDefinedElse(action.payload, state.graphs),
+        isCreating: false
       };
     case UPDATE_LOCAL_GRAPH:
       return {
         ...state,
         graphs: replaceGraph(state.graphs, action.payload)
+      };
+    case CREATE_LOCAL_GRAPH:
+      return {
+        ...state,
+        graphs: insertAtIndexIfDefined(state.graphs, 0, false, action.payload),
+        isCreating: false
       };
     case DUPLICATE_GRAPH:
       return {
