@@ -242,7 +242,10 @@ function MapView(props: MapViewProps) {
         <ReactMapGL
           mapboxApiAccessToken={process.env.REACT_APP_TOKEN}
           {...viewport}
-          onViewportChange={viewport => setViewport(viewport)}
+          onViewportChange={viewport => {
+            viewport.width = window.innerWidth;
+            setViewport(viewport);
+          }}
           onHover={event =>
             onHover(
               defaultHoveredLocation,
