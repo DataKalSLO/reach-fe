@@ -42,6 +42,8 @@ export const axisFormatLabels = [
   INPUT_PREFIX_LABEL,
   INPUT_SUBTITLE_LABEL
 ];
+export const OTHER_LABEL = 'Other';
+export const STACK_LABEL = 'Stack';
 
 /*
  * Graph Create Form
