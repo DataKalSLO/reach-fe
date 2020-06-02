@@ -7,31 +7,17 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { flatten } from 'lodash';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Dispatch } from 'redux';
 import kitchenFaciltiesHeatMap from '../common/assets/Local Data/census/b25053.js';
 import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/median_income_data.js';
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
 import {
   updateHeatMapSelection,
-  updateMarkerSelection,
-  updateSelectedMarker,
   getFeatureCollection,
   updateSelectedTables
 } from '../redux/map/actions';
 import { theme } from '../theme/theme';
-import {
-  FeatureProperty,
-  HeatMapSelection,
-  MarkerFeatures,
-  MarkerSelection,
-  SelectedMarker,
-  Selections
-} from './types';
+import { LayersProps } from './types';
 import { Selection } from '../api/vizbuilder/types';
-
-// number of allowed selections, subject to change based on ui/ux and graph team suggestions
-const ALLOWED_MARKERS = 3;
-const ALLOWED_BOTH = 4;
 
 // all of the local data we have available
 // TODO: pull this from backend! need distinct split between marker & heat map
@@ -39,81 +25,6 @@ const heatMapData = [medianHouseholdIncomeHeatMap, kitchenFaciltiesHeatMap];
 // TODO: fix type errors here, can't figure out what it expects
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const allData = flatten([markerData as any, heatMapData]);
-
-// this is how we show everything in options (disable none)
-const showAll: Selections = [];
-
-// handles change of selection
-// ensures that popups will not stay when their markers disappear
-export function handleChange(
-  value: Selections,
-  selectedMarker: SelectedMarker,
-  dispatch: Dispatch
-) {
-  let newHeatMap: {} | HeatMapSelection = {};
-  const allSelections: string[] = [];
-  const allMarkers: MarkerSelection[] = [];
-  value.forEach((table: MarkerSelection | HeatMapSelection) => {
-    if (table.type === 'FeatureCollection') {
-      const marker = table as MarkerSelection;
-      allMarkers.push(marker);
-      marker.features.forEach((items: FeatureProperty[]) => {
-        items.forEach((selection: FeatureProperty) => {
-          allSelections.push(selection.properties.name);
-        });
-      });
-    } else if (table.type === 'HeatMap') {
-      const heatMap = table as HeatMapSelection;
-      newHeatMap = heatMap;
-    }
-  });
-  dispatch(updateHeatMapSelection(newHeatMap));
-  dispatch(updateMarkerSelection(allMarkers));
-  dispatch(
-    updateSelectedMarker(
-      selectedMarker.filter(
-        (obj: MarkerFeatures) => obj.properties.name in allSelections
-      )
-    )
-  );
-}
-
-// handles disabling options, only two markers or one marker & one heat map allowed
-export function handleDisable(
-  // TODO: fix type errors here, I am unable to use the MarkerOrHeatMap type
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  allData: any[],
-  markerSelection: MarkerSelection[],
-  heatMapSelection: HeatMapSelection | {},
-  // TODO: fix type errors here, I am unable to use the MarkerOrHeatMap type
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  option: any
-) {
-  // disable all options if max number of markers are already selected
-  if (markerSelection.length === ALLOWED_MARKERS) {
-    return allData.includes(option);
-  }
-  if (Object.keys(heatMapSelection).length) {
-    // disable all options if max number of total selections are already made
-    if (markerSelection.length + 1 === ALLOWED_BOTH) {
-      return allData.includes(option);
-    }
-    // disable heat map options if a heat map is already selected
-    return allData
-      .filter(obj => obj.type !== 'FeatureCollection')
-      .includes(option);
-  }
-  // don't disable any options if the user hasn't reached max markers or max selections
-  return showAll.includes(option);
-}
-
-interface LayersProps {
-  tableNames: Selection[];
-  selectedTables: Selection[];
-  markerSelection: MarkerSelection[];
-  heatMapSelection: HeatMapSelection | {};
-  selectedMarker: SelectedMarker;
-}
 
 // this function creates the multi-seletion autocomplete component
 export default function Layers(props: LayersProps) {

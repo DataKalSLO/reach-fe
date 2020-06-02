@@ -1,4 +1,5 @@
 import React from 'react';
+import { Selection } from '../api/vizbuilder/types';
 
 //React-map needs a number type be we use a string to pass a percentage of the screen for the map
 //TODO: find a way to parse '90%' and '60vh' into an int then the type conversion will be happy
@@ -86,4 +87,19 @@ export type Selections = MarkerSelection[] | HeatMapSelection[];
 
 export interface FeatureProperty {
   properties: { name: string };
+}
+
+export interface MapViewProps {
+  markerSelection: MarkerSelection[];
+  heatMapSelection: HeatMapSelection | {};
+  selectedMarker: SelectedMarker;
+  colorAssociation: ColorAssociation;
+}
+
+export interface LayersProps {
+  tableNames: Selection[];
+  selectedTables: Selection[];
+  markerSelection: MarkerSelection[];
+  heatMapSelection: HeatMapSelection | {};
+  selectedMarker: SelectedMarker;
 }

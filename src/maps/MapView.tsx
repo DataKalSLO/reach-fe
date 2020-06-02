@@ -26,13 +26,7 @@ import {
 } from './MapViewHelpers';
 import Tooltip from './Tooltip';
 import { Grid } from '@material-ui/core';
-import {
-  MarkerSelection,
-  HeatMapSelection,
-  SelectedMarker,
-  ColorAssociation,
-  MarkerFeatures
-} from './types';
+import { MapViewProps, HeatMapSelection, MarkerFeatures } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
@@ -44,13 +38,6 @@ const defaultHoveredLocation = {
   },
   noLocation: true
 };
-
-interface MapViewProps {
-  markerSelection: MarkerSelection[];
-  heatMapSelection: HeatMapSelection | {};
-  selectedMarker: SelectedMarker;
-  colorAssociation: ColorAssociation;
-}
 
 function MapView(props: MapViewProps) {
   const {
