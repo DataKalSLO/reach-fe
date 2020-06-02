@@ -13,6 +13,13 @@ export const CREATE_ACCOUNT = '/create-account';
 export const SETTINGS = '/settings';
 export const ADMIN = '/admin';
 export const FORGOT_PASSWORD = '/forgot-password';
+export const STORY_VIEW = '/story';
+export const STORY_VIEW_ID = STORY_VIEW + '/:storyId';
+
+// Note: this isn't currently being used as a direct URL.
+// Clicking on the ADMIN button in the app bar redirects to ADMIN_UPLOAD_DATA
+export const ADMIN_UPLOAD_DATA = ADMIN + '/upload-data';
+export const ADMIN_REVIEW_STORIES = ADMIN + '/review-stories';
 
 // Names of routes in the navigation bar
 export const HOME_NAME = 'Reach';

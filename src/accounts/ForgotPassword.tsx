@@ -147,9 +147,4 @@ const ErrorMessage = styled(Typography)({
   color: 'red'
 });
 
-const BoxCenterSized = styled(BoxCenter)({
-  height: '660px',
-  width: '200px'
-});
-
 export default ForgotPassword;

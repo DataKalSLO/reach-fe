@@ -183,7 +183,8 @@ function CreateAccountForm() {
                 name: name,
                 role: BASE_USER,
                 occupation: occupation,
-                notificationsEnabled: emailNotificationEnabled
+                notificationsEnabled: emailNotificationEnabled,
+                isThirdParty: false
               } as RegisterData),
               handleAccountError,
               () => history.go(-2) // returns user back to previous non-login page

@@ -14,6 +14,7 @@ export interface RegisterData {
   role: number;
   occupation: string;
   notificationsEnabled: boolean;
+  isThirdParty: boolean;
 }
 
 export interface User {
@@ -23,12 +24,19 @@ export interface User {
   role: number;
   occupation: string;
   notificationsEnabled: boolean;
+  isThirdParty: boolean;
+}
+
+export interface PasswordChange {
+  currentPassword: string;
+  newPassword: string;
 }
 
 export interface UserSettings {
   name: string;
   occupation: string;
   notificationsEnabled: boolean;
+  passwordChangeRequest: PasswordChange | null;
 }
 
 export const LOGIN = 'LOGIN';

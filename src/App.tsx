@@ -1,5 +1,3 @@
-import React from 'react';
-import AppBar from './nav/AppBar';
 import {
   HOME,
   EXPLORE,
@@ -10,14 +8,14 @@ import {
   SAMPLE,
   CREATE_ACCOUNT,
   SETTINGS,
-  ADMIN,
   MY_STUFF_CHARTS,
   MY_STUFF_MAPS,
   MY_STUFF_STORIES,
-  FORGOT_PASSWORD
+  FORGOT_PASSWORD,
+  ADMIN_UPLOAD_DATA,
+  ADMIN_REVIEW_STORIES,
+  STORY_VIEW_ID
 } from './nav/constants';
-import ProtectedRoute from './nav/ProtectedRoute';
-import AdminProtectedRoute from './nav/AdminProtectedRoute';
 
 // Material UI's theming/styling solution
 //  https://material-ui.com/styles/basics/
@@ -25,37 +23,43 @@ import AdminProtectedRoute from './nav/AdminProtectedRoute';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from './theme/theme';
 
-// Routing
-//  https://reacttraining.com/react-router/web/guides/quick-start
-import { Switch, Route } from 'react-router-dom';
-
-// Link routing and store
-import { ConnectedRouter } from 'connected-react-router';
-
 // Allow query params with router
 import { QueryParamProvider } from 'use-query-params';
 
 // Store
 //  https://react-redux.js.org/introduction/quick-start
 //  https://react-redux.js.org/next/api/hooks
-import { history, store, persistor } from './redux/store';
+import { history, persistor, store } from './redux/store';
+
+// Link routing and store
+import { ConnectedRouter } from 'connected-react-router';
+import React from 'react';
 import { Provider } from 'react-redux';
 
+// Routing
+// https://reacttraining.com/react-router/web/guides/quick-start
+import { Route, Switch } from 'react-router-dom';
+
 // Containers
+import CreateAccount from './containers/CreateAccount';
 import Explore from './containers/Explore';
-import VizBuilder from './containers/VizBuilder';
-import StoryBuilder from './containers/StoryBuilder';
+import Login from './containers/Login';
 import MyStuff from './containers/my-stuff-landing/MyStuff';
 import MyStuffCharts from './containers/my-stuff-landing/MyStuffCharts';
 import MyStuffMaps from './containers/my-stuff-landing/MyStuffMaps';
 import MyStuffStories from './containers/my-stuff-landing/MyStuffStories';
-import Login from './containers/Login';
 import Sample from './containers/Sample';
-import CreateAccount from './containers/CreateAccount';
 import Settings from './containers/Settings';
-import Admin from './containers/Admin';
 import ForgotPassword from './accounts/ForgotPassword';
 import { PersistGate } from 'redux-persist/integration/react';
+import StoryBuilder from './containers/StoryBuilder';
+import StoryViewContainer from './containers/StoryViewContainer';
+import VizBuilder from './containers/VizBuilder';
+import AdminProtectedRoute from './nav/AdminProtectedRoute';
+import AppBar from './nav/AppBar';
+import ProtectedRoute from './nav/ProtectedRoute';
+import StoryReviewGrid from './admin/StoryReviewGrid';
+import DataUploader from './admin/DataUploader';
 
 const home = (
   <Route path={HOME} exact>
@@ -112,9 +116,14 @@ const settings = (
     <ProtectedRoute componentPage={<Settings />} />
   </Route>
 );
-const admin = (
-  <Route path={ADMIN}>
-    <AdminProtectedRoute componentPage={<Admin />} />
+const adminUploadData = (
+  <Route exact path={ADMIN_UPLOAD_DATA}>
+    <AdminProtectedRoute componentPage={<DataUploader />} />
+  </Route>
+);
+const adminReviewStories = (
+  <Route exact path={ADMIN_REVIEW_STORIES}>
+    <AdminProtectedRoute componentPage={<StoryReviewGrid />} />
   </Route>
 );
 const sample = (
@@ -125,6 +134,12 @@ const sample = (
 const forgotPassword = (
   <Route path={FORGOT_PASSWORD}>
     <ForgotPassword />
+  </Route>
+);
+
+const storyView = (
+  <Route path={STORY_VIEW_ID}>
+    <StoryViewContainer />
   </Route>
 );
 
@@ -148,8 +163,10 @@ function App() {
                 {login}
                 {createAccount}
                 {sample}
-                {admin}
+                {adminUploadData}
+                {adminReviewStories}
                 {settings}
+                {storyView}
                 {forgotPassword}
               </Switch>
             </ThemeProvider>
