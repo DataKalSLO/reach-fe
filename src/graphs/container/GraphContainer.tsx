@@ -1,4 +1,4 @@
-import { Grid, styled } from '@material-ui/core';
+import { CircularProgress, Grid, styled } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDefaultGraphs } from '../../redux/graphbuilder/actions';
@@ -8,6 +8,7 @@ import { getVizbuilder } from '../../redux/vizbuilder/selector';
 import { GraphCard } from '../components/GraphCard';
 import { generateEmptyGraph } from '../forms/defaults';
 import { GraphCreateForm } from '../forms/GraphCreateForm';
+import { CIRCULAR_PROGRESS_SIZE } from './constants';
 
 /*
  * Renders a list of graphs.
@@ -36,14 +37,21 @@ function GraphContainer() {
 
   return (
     <GridContainer container>
+      {/* Show loader while fetching */}
+      {graphState.isFetching ? (
+        <CircularProgress color="primary" size={CIRCULAR_PROGRESS_SIZE} />
+      ) : null}
+      {/* Show graphs while not creating or fetching */}
+      {!graphState.isCreating && !graphState.isFetching
+        ? getGraphComponents()
+        : null}
+      {/* Show the create form when creating */}
       {graphState.isCreating ? (
         <GraphCreateForm
           graph={generateEmptyGraph(vizState.metadataForAllDatasets)}
           datasetsMetaData={vizState.metadataForAllDatasets}
         />
-      ) : (
-        getGraphComponents()
-      )}
+      ) : null}
     </GridContainer>
   );
 }
