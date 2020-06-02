@@ -1,6 +1,7 @@
 import { CircularProgress, Grid, styled } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Snackbar } from '../../reach-ui/core';
 import { getDefaultGraphs } from '../../redux/graphbuilder/actions';
 import { getGraphs } from '../../redux/graphbuilder/selector';
 import { HEALTH } from '../../redux/graphs/constants';
@@ -37,6 +38,12 @@ function GraphContainer() {
 
   return (
     <GridContainer container>
+      <Snackbar
+        actionId={graphState.actionStatus.actionId}
+        severity={graphState.actionStatus.severity}
+        open={graphState.actionStatus.show}
+        message={graphState.actionStatus.message}
+      />
       {/* Show loader while fetching */}
       {graphState.isFetching ? (
         <CircularProgress color="primary" size={CIRCULAR_PROGRESS_SIZE} />
