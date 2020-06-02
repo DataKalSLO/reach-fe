@@ -1,6 +1,4 @@
-import { Box } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { MenuItem, TextField } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import React from 'react';
 import { theme } from '../theme/theme';
@@ -16,34 +14,30 @@ interface GeoFilterProps {
 // The geofilter button manipulates the bounds and heat map displayed by zip
 // code, communities, and region.
 export default function GeoFilter(props: GeoFilterProps) {
+  // when we have coordinates for different boundaries, we can pass those in here
+  // const { boundSelection } = props;
   const region = 'Region';
   const communities = 'Communities';
-  const zipcode = 'Zip Code';
+  const zipcodes = 'Zip Codes';
 
   return (
-    <StyledBox>
-      {/* button group represents possible bounds to be displayed on map */}
-      <ButtonGroup color="primary" aria-label="outlined primary button group">
-        <Button className={region} onClick={() => alert('Not implemented')}>
-          Region
-        </Button>
-        <Button
-          className={communities}
-          onClick={() => alert('Not implemented')}
-        >
-          Communities
-        </Button>
-        <Button className={zipcode} onClick={() => alert('Not implemented')}>
-          Zip Code
-        </Button>
-      </ButtonGroup>
-    </StyledBox>
+    <StyledTextField
+      id="boundary-selection"
+      select
+      label="Boundaries"
+      variant="outlined"
+      value={zipcodes}
+      onChange={() => alert('Not implemented')}
+    >
+      <MenuItem value={region}>Region</MenuItem>
+      <MenuItem value={communities}>Communities</MenuItem>
+      <MenuItem value={zipcodes}>Zip Codes</MenuItem>
+    </StyledTextField>
   );
 }
 
-const StyledBox = styled(Box)({
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'left',
-  margin: theme.spacing(1)
+const StyledTextField = styled(TextField)({
+  paddingRight: theme.spacing(1),
+  marginTop: theme.spacing(1.5),
+  marginBottom: theme.spacing(1.5)
 });

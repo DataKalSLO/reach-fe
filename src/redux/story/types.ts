@@ -73,8 +73,8 @@ export enum PublicationStatus {
   FEEDBACK,
   PUBLISHED
 }
-//Actions
 
+//Actions
 export interface CreateEmptyTextBlockAction {
   type: typeof CREATE_EMPTY_TEXT_BLOCK;
   payload: { block: TextBlockType };
