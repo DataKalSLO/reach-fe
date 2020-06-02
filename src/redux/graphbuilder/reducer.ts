@@ -1,17 +1,19 @@
+import { uuid } from 'uuidv4';
 import { isDefinedElse } from '../../graphs/forms/utilities';
 import {
   CREATE_LOCAL_GRAPH,
   DELETE_GRAPH,
   DELETE_LOCAL_GRAPH,
   DUPLICATE_GRAPH,
+  FETCH,
   GET_ALL_USER_GRAPHS,
   GET_DEFAULT_GRAPHS_FOR_CATEGORY,
   GET_GRAPH,
   SAVE_GRAPH,
+  SET_ACTION_STATUS,
   TOGGLE_CREATE_GRAPH,
   UPDATE_GRAPH,
-  UPDATE_LOCAL_GRAPH,
-  FETCH
+  UPDATE_LOCAL_GRAPH
 } from './constants';
 import { GraphActionTypes, GraphBuilderState } from './types';
 import {
@@ -22,6 +24,12 @@ import {
 
 const initialState: GraphBuilderState = {
   graphs: [],
+  actionStatus: {
+    actionId: uuid(),
+    severity: undefined,
+    message: '',
+    show: false
+  },
   isCreating: false,
   isFetching: false
 };
@@ -98,6 +106,11 @@ export function graphBuilderReducer(
       return {
         ...state,
         isCreating: !state.isCreating
+      };
+    case SET_ACTION_STATUS:
+      return {
+        ...state,
+        actionStatus: action.payload
       };
     case FETCH:
       return {
