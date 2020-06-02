@@ -6,6 +6,7 @@ import { ALERT_ELEVATION, AUTOHIDE_DURATION } from '../../reach-ui/constants';
 // Mimicked from https://material-ui.com/components/snackbars/#customized-snackbars
 
 interface Props {
+  actionId: string;
   open: boolean;
   message: string;
   severity?: 'success' | 'info' | 'warning' | 'error';
@@ -24,7 +25,7 @@ export default function Snackbar(props: Props) {
 
   useEffect(() => {
     setOpen(props.open);
-  }, [props.open]);
+  }, [props.open, props.actionId]);
 
   // closes automatically after the AUTOHIDE_DURATION
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
