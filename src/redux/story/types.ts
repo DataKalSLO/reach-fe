@@ -9,13 +9,21 @@ export const MAP_BLOCK_TYPE = 'Map';
 export const CREATE_EMPTY_TEXT_BLOCK = 'CREATE_EMPTY_TEXT_BLOCK';
 export const CREATE_GRAPH_BLOCK = 'CREATE_GRAPH_BLOCK';
 export const UPDATE_TEXT_BLOCK = 'UPDATE_TEXT_BLOCK';
+export const UPDATE_GRAPH_BLOCK = 'UPDATE_GRAPH_BLOCK';
 export const DELETE_BLOCK = 'DELETE_BLOCK';
 export const SWAP_BLOCKS = 'SWAP_BLOCKS';
 export const UPDATE_TITLE = 'UPDATE_TITLE';
 export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
 export const UPDATE_PUBLICATION_STATUS = 'UPDATE_PUBLICATION_STATUS';
 
-//Story-related types
+//Story
+export enum PublicationStatus {
+  DRAFT,
+  REVIEW,
+  FEEDBACK,
+  PUBLISHED
+}
+
 export interface StoryMetaInformation {
   id: string;
   userID: string;
@@ -28,10 +36,7 @@ export interface Story extends StoryMetaInformation {
   storyBlocks: Array<StoryBlockType>;
 }
 
-/*
- * Story Blocks define the properties needed to generate the associated react components
- * Story Blocks also have 1-1 mapping with database objects
- */
+//StoryBlocks
 export interface TextBlockType {
   type: typeof TEXT_BLOCK_TYPE;
   id: string;
@@ -43,6 +48,7 @@ export interface GraphBlockType {
   id: string;
   graphID: string;
 }
+
 export interface MapBlockType {
   type: typeof MAP_BLOCK_TYPE;
   id: string;
@@ -50,14 +56,8 @@ export interface MapBlockType {
 }
 
 export type StoryBlockType = TextBlockType | GraphBlockType | MapBlockType;
-export enum PublicationStatus {
-  DRAFT,
-  REVIEW,
-  FEEDBACK,
-  PUBLISHED
-}
-//Actions
 
+//Actions
 export interface CreateEmptyTextBlockAction {
   type: typeof CREATE_EMPTY_TEXT_BLOCK;
   payload: { block: TextBlockType };
@@ -71,6 +71,11 @@ export interface CreateGraphBlockAction {
 export interface UpdateTextBlockAction {
   type: typeof UPDATE_TEXT_BLOCK;
   payload: { index: number; editorState: EditorState };
+}
+
+export interface UpdateGraphBlockAction {
+  type: typeof UPDATE_GRAPH_BLOCK;
+  payload: { index: number; graphID: string };
 }
 
 export interface DeleteBlockAction {
@@ -102,13 +107,14 @@ export interface UpdatePublicationStatusAction {
 // interfaces of this type must include:
 //  - index
 //  - <data-to-change>
-export type UpdateBlockType = UpdateTextBlockAction;
+export type UpdateBlockType = UpdateTextBlockAction | UpdateGraphBlockAction;
 
 // used by reducer function (reducer.ts)
 export type StoryActionType =
   | CreateEmptyTextBlockAction
   | CreateGraphBlockAction
   | UpdateTextBlockAction
+  | UpdateGraphBlockAction
   | DeleteBlockAction
   | SwapBlocksAction
   | UpdateTitleAction

@@ -5,18 +5,15 @@ import {
   CREATE_EMPTY_TEXT_BLOCK,
   CREATE_GRAPH_BLOCK,
   DELETE_BLOCK,
-  Story,
   StoryActionType,
   StoryBlockType,
   SWAP_BLOCKS,
-  TextBlockType,
-  TEXT_BLOCK_TYPE,
   UpdateBlockType,
   UPDATE_DESCRIPTION,
+  UPDATE_GRAPH_BLOCK,
+  UPDATE_PUBLICATION_STATUS,
   UPDATE_TEXT_BLOCK,
-  UPDATE_TITLE,
-  PublicationStatus,
-  UPDATE_PUBLICATION_STATUS
+  UPDATE_TITLE
 } from './types';
 
 // follows immutability update patterns
@@ -25,6 +22,7 @@ function updateObjectInArray(
   storyBlocks: Array<StoryBlockType>,
   action: UpdateBlockType
 ) {
+  console.log(action);
   return storyBlocks.map((item, i) => {
     // updates desired storyblock
     if (action.payload.index === i) {
@@ -78,7 +76,8 @@ export function storyReducer(state = initialStory, action: StoryActionType) {
         ...state,
         publicationStatus: action.payload.newPublicationStatus
       };
-    case UPDATE_TEXT_BLOCK:
+    case UPDATE_TEXT_BLOCK: // using the fall through features of switch statements
+    case UPDATE_GRAPH_BLOCK:
       return {
         ...state,
         storyBlocks: updateObjectInArray(state.storyBlocks, action)

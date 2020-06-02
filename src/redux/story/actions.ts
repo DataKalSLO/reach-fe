@@ -7,15 +7,16 @@ import {
   CREATE_GRAPH_BLOCK,
   DeleteBlockAction,
   DELETE_BLOCK,
-  GRAPH_BLOCK_TYPE,
   PublicationStatus,
   SwapBlocksAction,
   SWAP_BLOCKS,
   UpdateDescriptionAction,
+  UpdateGraphBlockAction,
   UpdatePublicationStatusAction,
   UpdateTextBlockAction,
   UpdateTitleAction,
   UPDATE_DESCRIPTION,
+  UPDATE_GRAPH_BLOCK,
   UPDATE_PUBLICATION_STATUS,
   UPDATE_TEXT_BLOCK,
   UPDATE_TITLE
@@ -53,6 +54,16 @@ export function updateTextBlock(
   return {
     type: UPDATE_TEXT_BLOCK,
     payload: { index: index, editorState: editorState }
+  };
+}
+
+export function updateGraphBlock(
+  index: number,
+  graphID: string
+): UpdateGraphBlockAction {
+  return {
+    type: UPDATE_GRAPH_BLOCK,
+    payload: { index: index, graphID: graphID }
   };
 }
 

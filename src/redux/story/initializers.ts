@@ -1,4 +1,5 @@
 import { uuid } from 'uuidv4';
+import { GRAPH_NOT_SELECTED } from '../../stories/graph-block/GraphBlock';
 import { emptyEditorState } from '../../stories/text-block/RichTextEditor';
 import {
   GraphBlockType,
@@ -18,9 +19,8 @@ export const emptyTextBlock = (): TextBlockType => ({
 
 export const emptyGraphBlock = (): GraphBlockType => ({
   id: uuid(),
-  graphID: uuid(),
-  type: GRAPH_BLOCK_TYPE,
-  hasPicked: false
+  graphID: GRAPH_NOT_SELECTED,
+  type: GRAPH_BLOCK_TYPE
 });
 
 //TODO: Turn this into a function. Currently will stay same for every new story created in the same session.
