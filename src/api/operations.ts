@@ -17,3 +17,23 @@ export async function callActionAndAlertOnError<R>(
       throw new Error(e);
     });
 }
+
+// TODO: Rename this to signify that user is being alerted
+export async function handleApiOperation<P, R>(
+  payload: P,
+  operation: (payload: P) => Promise<R>,
+  successMessage: string,
+  failureMessage: string
+): Promise<R> {
+  return await operation(payload)
+    .then(res => {
+      console.log(successMessage);
+      return res;
+    })
+    .catch(e => {
+      if (e.name !== UNAUTHORIZED_OPERATION_ERROR) {
+        alert(failureMessage);
+      }
+      throw new Error(e);
+    });
+}

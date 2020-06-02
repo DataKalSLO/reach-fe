@@ -4,7 +4,7 @@ import {
   DataColumnsApiPayload,
   Metadata
 } from '../../redux/vizbuilder/types';
-import { callActionAndAlertOnError } from '../operations';
+import { callActionAndAlertOnError, handleApiOperation } from '../operations';
 import {
   COLUMNS_RETRIEVAL_FAILURE_MESSAGE,
   COLUMNS_RETRIEVAL_SUCCESS_MESSAGE,
