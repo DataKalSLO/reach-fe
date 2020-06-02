@@ -11,9 +11,10 @@ interface SearchResultProps {
 function SearchResults(props: SearchResultProps) {
   const makeList = () => {
     return props.hits.map(item => {
+      const primaryText = `${item._source.title} by ${item._source.user_id}`;
       return (
         <ListItem key={item._index + item._id}>
-          <ListItemText primary={item._source.title} secondary={item._index} />
+          <ListItemText primary={primaryText} secondary={item._index} />
         </ListItem>
       );
     });
