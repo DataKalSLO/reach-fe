@@ -3,19 +3,19 @@ import { styled } from '@material-ui/core/styles';
 import React, { useState } from 'react';
 import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/median_income_data.js';
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
-import GeoFilter from './GeoFilter';
-import Layers from './Layers';
-import { BoundSelection, ColorAssociation } from './types.js';
-import MapView from './MapView';
-import Legend from './Legend';
 import {
-  SCROLL_SNAP_TYPE,
-  SCROLLBAR_WIDTH,
   SCROLLBAR_WEBKIT_BOX_SHADOW,
-  WEBKIT_BORDER_RADIUS,
+  SCROLLBAR_WIDTH,
+  SCROLL_SNAP_TYPE,
   WEBKIT_BACKGROUND_COLOR,
+  WEBKIT_BORDER_RADIUS,
   WEBKIT_OUTLINE
 } from '../theme/theme.js';
+import GeoFilter from './GeoFilter';
+import Layers from './Layers';
+import Legend from './Legend';
+import MapView from './MapView';
+import { BoundSelection, ColorAssociation } from './types.js';
 
 // TODO: save to stories
 // TODO: use redux store instead of state
@@ -63,6 +63,10 @@ function Map() {
             selectedMarker={selectedMarker}
             setSelectedMarker={setSelectedMarker}
           />
+          <GeoFilter
+            boundSelection={boundSelection}
+            setBoundSelection={setBoundSelection}
+          />
           <MapView
             markerSelection={markerSelection}
             heatMapSelection={heatMapSelection}
@@ -70,10 +74,6 @@ function Map() {
             setSelectedMarker={setSelectedMarker}
             colorAssociation={colorAssociation}
             setColorAssociation={setColorAssociation}
-          />
-          <GeoFilter
-            boundSelection={boundSelection}
-            setBoundSelection={setBoundSelection}
           />
           <Legend
             heatMapSelection={heatMapSelection}
