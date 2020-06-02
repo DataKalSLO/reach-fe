@@ -3,7 +3,8 @@ import {
   LoginData,
   RegisterData,
   PasswordResetData,
-  UserSettings
+  UserSettings,
+  PasswordEditData
 } from '../redux/login/types';
 
 export async function login(loginData: LoginData) {
@@ -27,4 +28,8 @@ export async function putPersonSettings(
 
 export async function postPassword(passwordResetData: PasswordResetData) {
   return await post('password', passwordResetData);
+}
+
+export async function putPassword(passwordEditData: PasswordEditData) {
+  return await put('password', passwordEditData);
 }

@@ -5,8 +5,8 @@ import AccountTextField from '../common/components/AccountTextField';
 import { useHistory } from 'react-router-dom';
 import { HOME } from '../nav/constants';
 import { useQueryParam, StringParam, withDefault } from 'use-query-params';
-import { postPassword } from '../api/login';
-import { PasswordResetData } from '../redux/login/types';
+import { putPassword } from '../api/login';
+import { PasswordEditData } from '../redux/login/types';
 
 function ResetPassword() {
   const history = useHistory();
@@ -110,7 +110,7 @@ function ResetPassword() {
         variant="filled"
         size="small"
       />
-      <ErrorMessage>{passwordConfirmationErrorMessage}</ErrorMessage>
+      <ErrorMessage>{passwordErrorMessage}</ErrorMessage>
       <ButtonThin
         fullWidth
         variant="contained"
@@ -118,7 +118,7 @@ function ResetPassword() {
         disabled={!passwordValid || !passwordConfirmationValid}
         onClick={async () => {
           try {
-            await postPassword({ email } as PasswordResetData);
+            await putPassword({ password } as PasswordEditData);
             history.push(HOME);
           } catch {
             // Error
