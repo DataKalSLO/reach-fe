@@ -8,7 +8,7 @@ import { useQueryParam, StringParam, withDefault } from 'use-query-params';
 import { postPassword } from '../api/login';
 import { PasswordResetData } from '../redux/login/types';
 
-function ForgotPassword() {
+function ResetPassword() {
   const history = useHistory();
 
   const [token] = useQueryParam('token', withDefault(StringParam, ''));
@@ -147,4 +147,4 @@ const ErrorMessage = styled(Typography)({
   color: 'red'
 });
 
-export default ForgotPassword;
+export default ResetPassword;
