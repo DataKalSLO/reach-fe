@@ -8,12 +8,10 @@ import mapOutline from '../common/assets/Local Data/census/b25053';
 import noData from '../common/assets/Local Data/census/noHeatMap';
 import { updateColorAssociation } from '../redux/map/actions';
 import {
-  HEAT_MAP_COLOR,
   NUM_QUANTILES,
-  PLACER,
   SLO_LATITUDE,
   SLO_LONGITUDE,
-  ZIP_TABULATION
+  HEAT_MAP_COLOR
 } from './constants';
 import { mapMarkers } from './MapMarker';
 import Popups from './MapPopups';
@@ -33,7 +31,6 @@ import {
   HeatMapSelection,
   SelectedMarker,
   ColorAssociation,
-  PrepGeoObject,
   MarkerFeatures
 } from './types';
 

@@ -22,6 +22,8 @@ export interface StoryMetaInformation {
   title: string;
   description: string;
   publicationStatus: PublicationStatus;
+  dateCreated: Date;
+  dateLastEdited: Date;
 }
 
 export interface Story extends StoryMetaInformation {
@@ -56,8 +58,8 @@ export enum PublicationStatus {
   FEEDBACK,
   PUBLISHED
 }
-//Actions
 
+//Actions
 export interface CreateEmptyTextBlockAction {
   type: typeof CREATE_EMPTY_TEXT_BLOCK;
   payload: { block: TextBlockType };

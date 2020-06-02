@@ -5,7 +5,7 @@ import { styled } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { flatten } from 'lodash';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import kitchenFaciltiesHeatMap from '../common/assets/Local Data/census/b25053.js';
@@ -30,8 +30,8 @@ import {
 import { Selection } from '../api/vizbuilder/types';
 
 // number of allowed selections, subject to change based on ui/ux and graph team suggestions
-const ALLOWED_MARKERS = 2;
-const ALLOWED_BOTH = 2;
+const ALLOWED_MARKERS = 3;
+const ALLOWED_BOTH = 4;
 
 // all of the local data we have available
 // TODO: pull this from backend! need distinct split between marker & heat map
@@ -117,13 +117,7 @@ interface LayersProps {
 
 // this function creates the multi-seletion autocomplete component
 export default function Layers(props: LayersProps) {
-  const {
-    tableNames,
-    selectedTables,
-    markerSelection,
-    heatMapSelection,
-    selectedMarker
-  } = props;
+  const { tableNames, selectedTables } = props;
 
   const dispatch = useDispatch();
 
@@ -185,11 +179,11 @@ export default function Layers(props: LayersProps) {
         onChange={updateSelections}
         renderInput={params => (
           <TextField
+            label="Layers"
             {...params}
-            variant="standard"
-            label="Select up to Two Layers"
-            placeholder="Layers"
+            variant="outlined"
             fullWidth
+            style={{ marginTop: theme.spacing(0.2) }}
           />
         )}
       />
@@ -201,11 +195,5 @@ const StyledBox = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   minWidth: '75%',
-  alignItems: 'left',
-  '& > *': {
-    margin: theme.spacing(1)
-  },
-  '& > * + *': {
-    marginTop: theme.spacing(3)
-  }
+  alignItems: 'left'
 });

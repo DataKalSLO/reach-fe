@@ -1,6 +1,10 @@
 // import medianHouseholdIncomeHeatMap from '../../common/assets/Local Data/census/median_income_data';
 // import { markerData } from '../../common/assets/Local Data/MockMarkerData';
-import { MARKER_ONE_COLOR, MARKER_TWO_COLOR } from '../../maps/constants';
+import {
+  MARKER_ONE_COLOR,
+  MARKER_TWO_COLOR,
+  MARKER_THREE_COLOR
+} from '../../maps/constants';
 import { ColorAssociation } from '../../maps/types';
 import {
   MapActionTypes,
@@ -38,8 +42,10 @@ const initialState: MapState = {
 function updateColorAssociationHelper(state: MapState) {
   const markerColors = [
     { color: MARKER_ONE_COLOR },
-    { color: MARKER_TWO_COLOR }
+    { color: MARKER_TWO_COLOR },
+    { color: MARKER_THREE_COLOR }
   ];
+
   const newColorAssociation: ColorAssociation = {};
   state.markerSelection.forEach((marker, index) => {
     newColorAssociation[marker.name] = markerColors[index];

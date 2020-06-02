@@ -39,3 +39,4 @@ export const POPUP_OFFSET_TOP = -18;
 export const HEAT_MAP_COLOR = '#273C65';
 export const MARKER_ONE_COLOR = '#F2D17C';
 export const MARKER_TWO_COLOR = '#ABD1CB';
+export const MARKER_THREE_COLOR = '#F26F9C';

@@ -4,7 +4,7 @@ import {
   DataColumnsApiPayload,
   Metadata
 } from '../../redux/vizbuilder/types';
-import { handleApiOperation } from '../operations';
+import { callActionAndAlertOnError } from '../operations';
 import {
   COLUMNS_RETRIEVAL_FAILURE_MESSAGE,
   COLUMNS_RETRIEVAL_SUCCESS_MESSAGE,
@@ -24,9 +24,8 @@ import { Selection } from './types';
 export async function getDatasetMetaDataAndHandleResponse(): Promise<
   Metadata[] | undefined
 > {
-  return await handleApiOperation<void, Metadata[]>(
-    undefined,
-    getDatasetsMetaData,
+  return await callActionAndAlertOnError<Metadata[]>(
+    () => getDatasetsMetaData(),
     METADATA_RETRIEVAL_SUCCESS_MESSAGE,
     METADATA_RETRIEVAL_FAILURE_MESSAGE
   ).catch(e => undefined);
@@ -46,9 +45,8 @@ export async function getTableNamesAndHandleResponse(): Promise<
 export async function getDataColumnsAndHandleResponse(
   dataColumnsPayload: DataColumnsApiPayload
 ): Promise<DataColumns | undefined> {
-  return await handleApiOperation<DataColumnsApiPayload, DataColumns>(
-    dataColumnsPayload,
-    getDataColumns,
+  return await callActionAndAlertOnError<DataColumns>(
+    () => getDataColumns(dataColumnsPayload),
     COLUMNS_RETRIEVAL_SUCCESS_MESSAGE,
     COLUMNS_RETRIEVAL_FAILURE_MESSAGE
   ).catch(e => undefined);
@@ -57,9 +55,8 @@ export async function getDataColumnsAndHandleResponse(
 export async function getDataColumnsForDataSourcesAndHandleResponse(
   dataSources: DataSource[]
 ): Promise<GraphData | undefined> {
-  return await handleApiOperation<DataSource[], GraphData>(
-    dataSources,
-    getDataColumnsForDataSources,
+  return await callActionAndAlertOnError<GraphData>(
+    () => getDataColumnsForDataSources(dataSources),
     COLUMNS_RETRIEVAL_SUCCESS_MESSAGE,
     COLUMNS_RETRIEVAL_FAILURE_MESSAGE
   ).catch(e => undefined);

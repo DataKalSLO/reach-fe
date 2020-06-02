@@ -1,12 +1,14 @@
 import {
   Box,
-  Card,
-  CardContent,
+  ExpansionPanel,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
   fade,
   Link,
   styled,
   Typography
 } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import React from 'react';
 import { theme } from '../theme/theme';
 import { HEAT_MAP_COLOR } from './constants';
@@ -74,19 +76,18 @@ function getCards(data: {
   color: string;
 }) {
   return (
-    <StyledCard
-      key={data.key}
+    <ExpansionPanel
       elevation={0}
       style={{ backgroundColor: fade(data.color, 0.5) }}
     >
-      <StyledCardContent>
+      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+        <Typography variant="body1">{data.label}</Typography>
+      </ExpansionPanelSummary>
+      <StyledExpansionPanelDetails>
         <Typography variant="body2" display="block">
-          {data.label}
-        </Typography>
-        <Typography variant="caption" display="block">
           Vintage: {data.vintage}
         </Typography>
-        <Typography variant="caption" display="block">
+        <Typography variant="body2" display="block">
           {'Source: '}
           <Link
             href={data.source}
@@ -97,8 +98,8 @@ function getCards(data: {
             {data.source}
           </Link>
         </Typography>
-      </StyledCardContent>
-    </StyledCard>
+      </StyledExpansionPanelDetails>
+    </ExpansionPanel>
   );
 }
 
@@ -129,8 +130,8 @@ export default function Legend(props: LegendProps) {
     return null;
   }
   return (
-    <StyledBox>
-      <Typography variant="caption" color="textSecondary" display="block">
+    <Box marginTop={theme.spacing(0.2)} marginBottom={theme.spacing(0.2)}>
+      <Typography variant="subtitle1" display="block">
         Legend
       </Typography>
       {legendData.map(
@@ -144,28 +145,11 @@ export default function Legend(props: LegendProps) {
           return getCards(data);
         }
       )}
-    </StyledBox>
+    </Box>
   );
 }
 
-const StyledBox = styled(Box)({
-  root: {
-    justifyContent: 'left',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    padding: theme.spacing(1)
-  }
-});
-
-const StyledCard = styled(Card)({
-  display: 'inline-block',
-  margin: theme.spacing(0.5),
-  padding: theme.spacing(0.5)
-});
-
-const StyledCardContent = styled(CardContent)({
-  padding: theme.spacing(1),
-  '&:last-child': {
-    paddingBottom: theme.spacing(1)
-  }
+const StyledExpansionPanelDetails = styled(ExpansionPanelDetails)({
+  display: 'block',
+  paddingTop: theme.spacing(0)
 });

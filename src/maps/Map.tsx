@@ -9,15 +9,14 @@ import Layers from './Layers';
 import Legend from './Legend';
 import MapView from './MapView';
 import {
-  SCROLL_SNAP_TYPE,
-  SCROLLBAR_WIDTH,
   SCROLLBAR_WEBKIT_BOX_SHADOW,
-  WEBKIT_BORDER_RADIUS,
+  SCROLLBAR_WIDTH,
+  SCROLL_SNAP_TYPE,
   WEBKIT_BACKGROUND_COLOR,
+  WEBKIT_BORDER_RADIUS,
   WEBKIT_OUTLINE
 } from '../theme/theme.js';
 import { getAllTableNames } from '../redux/vizbuilder/actions';
-import { getFeatureCollection } from '../redux/map/actions';
 
 // TODO: save to stories
 
@@ -56,13 +55,13 @@ function Map() {
             heatMapSelection={mapState.heatMapSelection}
             selectedMarker={mapState.selectedMarker}
           />
+          <GeoFilter boundSelection={mapState.boundSelection} />
           <MapView
             markerSelection={mapState.markerSelection}
             heatMapSelection={mapState.heatMapSelection}
             selectedMarker={mapState.selectedMarker}
             colorAssociation={mapState.colorAssociation}
           />
-          <GeoFilter boundSelection={mapState.boundSelection} />
           <Legend
             heatMapSelection={mapState.heatMapSelection}
             colorAssociation={mapState.colorAssociation}

@@ -9,7 +9,7 @@ import {
 import React, { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 import { uuid } from 'uuidv4';
-import { addGraphsForInitiativeAction } from '../../redux/graphs/actions';
+import { getDefaultGraphs } from '../../redux/graphbuilder/actions';
 import {
   ASSETS,
   DEMOGRAPHICS,
@@ -64,9 +64,7 @@ function OptionsButtons() {
           color="default"
           label={initiative.name}
           icon={initiative.icon}
-          onClick={() =>
-            dispatch(addGraphsForInitiativeAction(initiative.name))
-          }
+          onClick={() => dispatch(getDefaultGraphs(initiative.name))}
         />
       );
     });

@@ -12,23 +12,28 @@ import { ApiGraphConfirmationResponse } from '../../api/graphs/types';
 import { getDataColumnsForDataSourcesAndHandleResponse } from '../../api/vizbuilder/operationHandlers';
 import { GraphMetaData, GraphMetaDataApiPayload } from '../graphs/types';
 import {
-  CREATE_GRAPH,
+  CREATE_LOCAL_GRAPH,
   DELETE_GRAPH,
+  DELETE_LOCAL_GRAPH,
   DUPLICATE_GRAPH,
   GET_ALL_USER_GRAPHS,
   GET_DEFAULT_GRAPHS_FOR_CATEGORY,
   GET_GRAPH,
   SAVE_GRAPH,
+  TOGGLE_CREATE_GRAPH,
   UPDATE_GRAPH,
   UPDATE_LOCAL_GRAPH
 } from './constants';
 import {
-  CreateGraphAction,
+  CreateLocalGraph,
   DeleteGraphAction,
+  DeleteLocalGraph,
   DuplicateGraphAction,
   GetGraphAction,
   Graph,
+  GraphWithIndex,
   SaveGraphAction,
+  ToggleCreateGraphAction,
   UpdateGraphAction,
   UpdateLocalGraph
 } from './types';
@@ -93,17 +98,44 @@ function deleteGraphAction(
   };
 }
 
-export function getGraph(graphId: string) {
-  return async (dispatch: Dispatch) => {
-    const metaData = await getGraphAndHandleResponse(graphId);
-    const graph = await createGraphWithData(metaData);
-    dispatch(getGraphAction(graph));
+export function deleteLocalGraph(index: number): DeleteLocalGraph {
+  return {
+    type: DELETE_LOCAL_GRAPH,
+    payload: index
   };
 }
 
-function getGraphAction(payload?: Graph): GetGraphAction {
+export function getGraph(graphId: string, index: number) {
+  return async (dispatch: Dispatch) => {
+    const metaData = await getGraphAndHandleResponse(graphId);
+    const graph = await createGraphWithData(metaData);
+    dispatch(getGraphAction({ graph: graph, index: index }));
+  };
+}
+
+function getGraphAction(payload: GraphWithIndex): GetGraphAction {
   return {
     type: GET_GRAPH,
+    payload: payload
+  };
+}
+
+export function createLocalGraph(
+  graphMetaData: GraphMetaData,
+  graphCategory?: string
+) {
+  return async (dispatch: Dispatch) => {
+    const graphWithData = await createGraphWithData(graphMetaData);
+    if (!isUndefined(graphWithData)) {
+      graphWithData.graphCategory = graphCategory;
+    }
+    dispatch(createLocalGraphAction(graphWithData));
+  };
+}
+
+function createLocalGraphAction(payload?: Graph): CreateLocalGraph {
+  return {
+    type: CREATE_LOCAL_GRAPH,
     payload: payload
   };
 }
@@ -150,9 +182,9 @@ export function duplicateGraph(
   };
 }
 
-export function createGraph(): CreateGraphAction {
+export function toggleCreateGraph(): ToggleCreateGraphAction {
   return {
-    type: CREATE_GRAPH,
+    type: TOGGLE_CREATE_GRAPH,
     payload: undefined
   };
 }

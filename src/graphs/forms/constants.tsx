@@ -1,3 +1,11 @@
+import {
+  ASSETS,
+  DEMOGRAPHICS,
+  EDUCATION,
+  HEALTH,
+  HOUSING,
+  INDUSTRY
+} from '../../redux/graphs/constants';
 import { seriesTypesEnum } from '../builder/types';
 
 /*
@@ -5,9 +13,8 @@ import { seriesTypesEnum } from '../builder/types';
  */
 export const X_AXIS_LABEL = 'X-Axis';
 export const Y_AXIS_LABEL = 'Y-Axis';
-export const FORM_CANCEL_LABEL = 'Cancel';
-export const FORM_RESET_LABEL = 'Reset';
-export const FORM_UPDATE_LABEL = 'Update';
+export const DATA_SOURCE_FORM_LABEL = 'Data Sources';
+export const FORMATTING_FORM_LABEL = 'Formatting';
 
 /*
  * Graph Data Sources Form
@@ -23,7 +30,6 @@ export const INPUT_COLUMN_LABEL = 'Column';
  * Graph Formatting Form
  */
 export const GRAPH_LABEL = 'Chart';
-
 export const INPUT_TITLE_LABEL = 'Title';
 export const INPUT_SUBTITLE_LABEL = 'Subtitle';
 export const INPUT_PREFIX_LABEL = 'Prefix';
@@ -38,12 +44,50 @@ export const axisFormatLabels = [
 ];
 
 /*
+ * Graph Create Form
+ */
+export const DATA_STEP_LABEL = 'Graph Data Sources';
+export const FORMAT_STEP_LABEL = 'Graph Formatting';
+export const CATEGORY_STEP_LABEL = 'Graph Initiative';
+export const CATEGORY_CREATE_LABEL = '';
+export const INPUT_CATEGORY_LABEL = 'Name';
+export const FINISH_STEP_LABEL = "All steps completed - you're finished";
+
+/*
+ * Form Footer
+ */
+export const FORM_CANCEL_LABEL = 'Cancel';
+export const FORM_RESET_LABEL = 'Reset';
+export const FORM_UPDATE_LABEL = 'Update';
+export const FORM_NEXT_LABEL = 'Next';
+export const FORM_BACK_LABEL = 'Back';
+export const FORM_FINISH_LABEL = 'Create Graph';
+export const stepFooterLabels = [FORM_BACK_LABEL, FORM_NEXT_LABEL];
+export const createFooterLabels = [FORM_BACK_LABEL, FORM_FINISH_LABEL];
+export const createFormSteps = [
+  DATA_STEP_LABEL,
+  FORMAT_STEP_LABEL,
+  CATEGORY_STEP_LABEL
+];
+
+/*
  * Form Data
  */
+export const NONE = 'None';
+export const DEFAULT_SERIES = seriesTypesEnum.column;
 export const supportedSeriesTypes = [
   seriesTypesEnum.line,
   seriesTypesEnum.spline,
   seriesTypesEnum.area,
   seriesTypesEnum.areaspline,
   seriesTypesEnum.column
+];
+export const supportedInitiativeTypes = [
+  NONE,
+  INDUSTRY,
+  DEMOGRAPHICS,
+  ASSETS,
+  EDUCATION,
+  HOUSING,
+  HEALTH
 ];

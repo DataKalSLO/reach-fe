@@ -7,7 +7,8 @@ const initialState: User = {
   name: '',
   role: UNDEFINED_USER,
   occupation: '',
-  notificationsEnabled: false
+  notificationsEnabled: false,
+  isThirdParty: false
 };
 
 export function userReducer(
@@ -24,7 +25,8 @@ export function userReducer(
         name: '',
         occupation: '',
         role: UNDEFINED_USER,
-        notificationsEnabled: false
+        notificationsEnabled: false,
+        isThirdParty: false
       };
     case UPDATE_SETTINGS:
       return {

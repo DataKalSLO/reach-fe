@@ -44,8 +44,18 @@ export function DataSourcesForm(props: Props) {
 
   const datasetsInfo = extractInfoFromDatasetsMetaData(metaData);
 
+  // initialize x and y-axis column selections when a new dataset is selected
   const handleDatasetChange = (selectedDataset: string) => {
-    setDataState({ ...dataState, datasetName: selectedDataset });
+    const defaultXColumnName =
+      datasetsInfo.xAxisColumnNames[selectedDataset][0];
+    const defaultYColumnName =
+      datasetsInfo.yAxisColumnNames[selectedDataset][0];
+    setDataState({
+      datasetName: selectedDataset,
+      xAxisColumnName: defaultXColumnName,
+      yAxisColumnNames: [defaultYColumnName]
+    });
+    setSeriesState([generateDefaultSeries(defaultYColumnName, 0)]);
   };
 
   const handleXAxisColumnChange = (selectedXAxisColumn: string) => {
@@ -53,17 +63,11 @@ export function DataSourcesForm(props: Props) {
   };
 
   const handleYAxisColumnChange = (columnIndex: number, columnName: string) => {
+    dataState.yAxisColumnNames.splice(columnIndex, 1, columnName);
     setSeriesState(
       changeEntryAtIndex(seriesState, 'name', columnName, columnIndex)
     );
-    setDataState({
-      ...dataState,
-      yAxisColumnNames: dataState.yAxisColumnNames.splice(
-        columnIndex,
-        1,
-        columnName
-      )
-    });
+    setDataState({ ...dataState });
   };
 
   const handleDeleteYAxisColumn = (columnIndex: number) => {
@@ -71,12 +75,13 @@ export function DataSourcesForm(props: Props) {
       (columnName: string, index: number) => columnIndex !== index
     );
     const newSeries = seriesState.filter(
-      (series, index) => columnIndex === index
+      (series, index) => columnIndex !== index
     );
     setDataState({ ...dataState, yAxisColumnNames: newYColumns });
     setSeriesState(newSeries);
   };
 
+  // initialize y-axis column selection when a new column/series is added
   const handleAddYAxisColumn = () => {
     const defaultColumnName =
       datasetsInfo.yAxisColumnNames[dataState.datasetName][0];
