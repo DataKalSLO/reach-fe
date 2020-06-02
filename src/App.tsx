@@ -1,56 +1,59 @@
-import React from 'react';
-import AppBar from './nav/AppBar';
-import {
-  HOME,
-  EXPLORE,
-  VIZ_BUILDER,
-  STORY_BUILDER,
-  MY_STUFF,
-  LOGIN,
-  SAMPLE,
-  CREATE_ACCOUNT,
-  SETTINGS,
-  ADMIN_REVIEW_STORIES,
-  ADMIN_UPLOAD_DATA,
-  MY_STUFF_CHARTS,
-  MY_STUFF_MAPS,
-  MY_STUFF_STORIES
-} from './nav/constants';
-import ProtectedRoute from './nav/ProtectedRoute';
-import AdminProtectedRoute from './nav/AdminProtectedRoute';
-
 // Material UI's theming/styling solution
 //  https://material-ui.com/styles/basics/
 //  https://material-ui.com/customization/theming/
 import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from './theme/theme';
 
-// Routing
-//  https://reacttraining.com/react-router/web/guides/quick-start
-import { Switch, Route } from 'react-router-dom';
-
-// Link routing and store
-import { ConnectedRouter } from 'connected-react-router';
-
 // Store
 //  https://react-redux.js.org/introduction/quick-start
 //  https://react-redux.js.org/next/api/hooks
-import { history, store, persistor } from './redux/store';
+import { history, persistor, store } from './redux/store';
+
+// Link routing and store
+import { ConnectedRouter } from 'connected-react-router';
+import React from 'react';
 import { Provider } from 'react-redux';
 
+// Routing
+// https://reacttraining.com/react-router/web/guides/quick-start
+import { Route, Switch } from 'react-router-dom';
+import { PersistGate } from 'redux-persist/integration/react';
+
 // Containers
+import CreateAccount from './containers/CreateAccount';
 import Explore from './containers/Explore';
-import VizBuilder from './containers/VizBuilder';
-import StoryBuilder from './containers/StoryBuilder';
+import Login from './containers/Login';
 import MyStuff from './containers/my-stuff-landing/MyStuff';
 import MyStuffCharts from './containers/my-stuff-landing/MyStuffCharts';
 import MyStuffMaps from './containers/my-stuff-landing/MyStuffMaps';
 import MyStuffStories from './containers/my-stuff-landing/MyStuffStories';
-import Login from './containers/Login';
 import Sample from './containers/Sample';
-import CreateAccount from './containers/CreateAccount';
 import Settings from './containers/Settings';
-import { PersistGate } from 'redux-persist/integration/react';
+import StoryBuilder from './containers/StoryBuilder';
+import StoryViewContainer from './containers/StoryViewContainer';
+import VizBuilder from './containers/VizBuilder';
+
+//Nav
+import {
+  ADMIN_UPLOAD_DATA,
+  ADMIN_REVIEW_STORIES,
+  CREATE_ACCOUNT,
+  EXPLORE,
+  HOME,
+  LOGIN,
+  MY_STUFF,
+  MY_STUFF_CHARTS,
+  MY_STUFF_MAPS,
+  MY_STUFF_STORIES,
+  SAMPLE,
+  SETTINGS,
+  STORY_BUILDER,
+  STORY_VIEW_ID,
+  VIZ_BUILDER
+} from './nav/constants';
+import AdminProtectedRoute from './nav/AdminProtectedRoute';
+import AppBar from './nav/AppBar';
+import ProtectedRoute from './nav/ProtectedRoute';
 import StoryReviewGrid from './admin/StoryReviewGrid';
 import DataUploader from './admin/DataUploader';
 
@@ -124,6 +127,11 @@ const sample = (
     <Sample />
   </Route>
 );
+const storyView = (
+  <Route path={STORY_VIEW_ID}>
+    <StoryViewContainer />
+  </Route>
+);
 
 function App() {
   return (
@@ -147,6 +155,7 @@ function App() {
               {adminUploadData}
               {adminReviewStories}
               {settings}
+              {storyView}
             </Switch>
           </ThemeProvider>
         </ConnectedRouter>
