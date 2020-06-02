@@ -1,10 +1,9 @@
 import {
-  authenticatedPost,
-  authenticatedDel
+  authenticatedDel,
+  authenticatedPost
 } from '../../authenticatedApi/operations';
 import { getFileNameFromUrl } from '../../../common/util/urlValidation';
 import { ImageUploadResponse } from './types';
-import { uuid } from 'uuidv4';
 
 const BASE_IMAGE_BLOCK_URL = 'image/imageblock/';
 const UPLOAD_FORM_IMAGE_KEY = 'image';
@@ -17,9 +16,9 @@ const UPLOAD_FORM_IMAGE_KEY = 'image';
  */
 
 export function uploadImageForImageBlocks(
-  imageFile: File
+  imageFile: File,
+  blockId: string
 ): Promise<ImageUploadResponse> {
-  const blockId = uuid();
   const imageUploadForm = new FormData();
   imageUploadForm.append(UPLOAD_FORM_IMAGE_KEY, imageFile);
   return authenticatedPost(
