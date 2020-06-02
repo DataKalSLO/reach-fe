@@ -10,7 +10,6 @@ import {
   GET_DEFAULT_GRAPHS_FOR_CATEGORY,
   GET_GRAPH,
   SAVE_GRAPH,
-  SET_ACTION_STATUS,
   TOGGLE_CREATE_GRAPH,
   UPDATE_GRAPH,
   UPDATE_LOCAL_GRAPH
@@ -22,16 +21,8 @@ import {
  */
 export interface GraphBuilderState {
   graphs: Graph[];
-  actionStatus: ActionStatus;
   isCreating: boolean;
   isFetching: boolean;
-}
-
-export interface ActionStatus {
-  actionId: string;
-  severity: StatusSeverity;
-  message: string;
-  show: boolean;
 }
 
 export interface Graph {
@@ -44,13 +35,6 @@ export interface GraphWithIndex {
   graph: Graph | undefined;
   index: number;
 }
-
-export type StatusSeverity =
-  | 'success'
-  | 'info'
-  | 'warning'
-  | 'error'
-  | undefined;
 
 /*
  * The following type aliases/interfaces are used to create the
@@ -112,11 +96,6 @@ export interface ToggleCreateGraphAction {
   payload: undefined;
 }
 
-export interface SetActionStatus {
-  type: typeof SET_ACTION_STATUS;
-  payload: ActionStatus;
-}
-
 export interface FetchAction {
   type: typeof FETCH;
   payload: undefined;
@@ -134,5 +113,4 @@ export type GraphActionTypes =
   | DuplicateGraphAction
   | DeleteLocalGraph
   | ToggleCreateGraphAction
-  | SetActionStatus
   | FetchAction;

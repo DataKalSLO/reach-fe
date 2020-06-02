@@ -1,6 +1,5 @@
 import { Dispatch } from 'redux';
 import { isUndefined } from 'util';
-import { uuid } from 'uuidv4';
 import {
   deleteGraphAndHandleResponse,
   getAllGraphsAndHandleResponse,
@@ -12,6 +11,7 @@ import {
 import { ApiGraphConfirmationResponse } from '../../api/graphs/types';
 import { getDataColumnsForDataSourcesAndHandleResponse } from '../../api/vizbuilder/operationHandlers';
 import { GraphMetaData, GraphMetaDataApiPayload } from '../graphs/types';
+import { showSuccessStatusMessage } from '../notifications/actions';
 import {
   CREATE_LOCAL_GRAPH,
   DELETE_GRAPH,
@@ -24,15 +24,12 @@ import {
   GET_GRAPH,
   SAVE_GRAPH,
   SAVE_MESSAGE,
-  SET_ACTION_STATUS,
-  SUCCESS_SEVERITY,
   TOGGLE_CREATE_GRAPH,
   UPDATE_GRAPH,
   UPDATE_LOCAL_GRAPH,
   UPDATE_MESSAGE
 } from './constants';
 import {
-  ActionStatus,
   CreateLocalGraph,
   DeleteGraphAction,
   DeleteLocalGraph,
@@ -42,8 +39,6 @@ import {
   Graph,
   GraphWithIndex,
   SaveGraphAction,
-  SetActionStatus,
-  StatusSeverity,
   ToggleCreateGraphAction,
   UpdateGraphAction,
   UpdateLocalGraph
@@ -52,7 +47,7 @@ import {
 export function saveGraph(graphMetaData: GraphMetaDataApiPayload) {
   return async (dispatch: Dispatch) => {
     const metaData = await saveGraphAndHandleResponse(graphMetaData);
-    showStatusMessage(metaData, SAVE_MESSAGE, SUCCESS_SEVERITY, dispatch);
+    dispatch(showSuccessStatusMessage(!isUndefined(metaData), SAVE_MESSAGE));
     const graph = await createGraphWithData(metaData);
     dispatch(saveGraphAction(graph));
   };
@@ -68,7 +63,7 @@ function saveGraphAction(payload?: Graph): SaveGraphAction {
 export function updateGraph(graphMetaData: GraphMetaDataApiPayload) {
   return async (dispatch: Dispatch) => {
     const metaData = await updateGraphAndHandleResponse(graphMetaData);
-    showStatusMessage(metaData, UPDATE_MESSAGE, SUCCESS_SEVERITY, dispatch);
+    dispatch(showSuccessStatusMessage(!isUndefined(metaData), UPDATE_MESSAGE));
     const graph = await createGraphWithData(metaData);
     dispatch(updateGraphAction(graph));
   };
@@ -98,7 +93,7 @@ function updateLocalGraphAction(payload?: Graph): UpdateLocalGraph {
 export function deleteGraph(graphId: string) {
   return async (dispatch: Dispatch) => {
     const payload = await deleteGraphAndHandleResponse(graphId);
-    showStatusMessage(payload, DELETE_MESSAGE, SUCCESS_SEVERITY, dispatch);
+    dispatch(showSuccessStatusMessage(!isUndefined(payload), DELETE_MESSAGE));
     dispatch(deleteGraphAction(payload));
   };
 }
@@ -211,36 +206,6 @@ export function fetchAction(): FetchAction {
     type: FETCH,
     payload: undefined
   };
-}
-
-export function setActionStatus(payload: ActionStatus): SetActionStatus {
-  return {
-    type: SET_ACTION_STATUS,
-    payload: payload
-  };
-}
-
-/*
- * Sets the action status to display a status message.
- * If the payload is defined (i.e. if an action was successful),
- * a success message is displayed.
- */
-function showStatusMessage(
-  payload: GraphMetaData | ApiGraphConfirmationResponse | undefined,
-  message: string,
-  severity: StatusSeverity,
-  dispatch: Dispatch
-): void {
-  if (!isUndefined(payload)) {
-    dispatch(
-      setActionStatus({
-        actionId: uuid(),
-        severity: severity,
-        message: message,
-        show: true
-      })
-    );
-  }
 }
 
 /*
