@@ -21,7 +21,7 @@ const defaultColorAssociation: ColorAssociation = {};
 const BOX_WIDTH = '100%';
 const BOX_MIN_WIDTH = '200px';
 const BOX_HEIGHT = '100%';
-const BOX_MAX_WIDTH = 'calc(100vw/2)';
+const BOX_MAX_WIDTH = '98hw';
 
 // sizing for the card background which contains everything on the map side
 const CARD_HEIGHT = '95%';
