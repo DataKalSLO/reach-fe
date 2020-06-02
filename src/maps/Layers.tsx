@@ -118,7 +118,6 @@ interface LayersProps {
 // this function creates the multi-seletion autocomplete component
 export default function Layers(props: LayersProps) {
   const { tableNames, selectedTables } = props;
-
   const dispatch = useDispatch();
 
   const diffElem = (l1: any, l2: any) =>

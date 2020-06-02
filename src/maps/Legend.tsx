@@ -77,6 +77,7 @@ function getCards(data: {
 }) {
   return (
     <ExpansionPanel
+      key={data.key}
       elevation={0}
       style={{ backgroundColor: fade(data.color, 0.5) }}
     >
