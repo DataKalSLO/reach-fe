@@ -13,8 +13,6 @@ function ResetPassword() {
 
   const [token] = useQueryParam('token', withDefault(StringParam, ''));
   const [email] = useQueryParam('email', withDefault(StringParam, ''));
-  console.log(token);
-  if (!email || !token) history.push(HOME); // Redirect to home on invalid URL
 
   const [password, setPassword] = useState('');
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
@@ -79,6 +77,11 @@ function ResetPassword() {
     },
     [password, validatePasswordConfirmation, setPasswordConfirmation]
   );
+
+  if (!email || !token) {
+    history.push(HOME); // Redirect to home on invalid URL
+    return <React.Fragment />;
+  }
 
   return (
     <BoxCenterSized>
