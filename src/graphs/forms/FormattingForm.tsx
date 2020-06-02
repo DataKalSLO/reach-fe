@@ -1,12 +1,16 @@
 import { Divider, styled } from '@material-ui/core';
 import React, { Fragment, ReactNode } from 'react';
 import { ColorResult } from 'react-color';
+import { isUndefined } from 'util';
 import FormBlock from '../../common/components/FormBlock';
+import { Switch } from '../../common/components/Switch';
 import { PartialGraphConfigurationWithoutData } from '../../redux/graphs/types';
 import {
   axisFormatLabels,
   graphFormatLabels,
   GRAPH_LABEL,
+  OTHER_LABEL,
+  STACK_LABEL,
   X_AXIS_LABEL,
   Y_AXIS_LABEL
 } from './constants';
@@ -120,6 +124,15 @@ export function FormattingForm(props: Props) {
     });
   };
 
+  const handleStackChange = () => {
+    setState({
+      ...state,
+      stackConfig: isUndefined(state.stackConfig)
+        ? { type: 'normal' }
+        : undefined
+    });
+  };
+
   return (
     <Fragment>
       <FormBlock label={GRAPH_LABEL}>
@@ -175,6 +188,13 @@ export function FormattingForm(props: Props) {
         handleColorChange={handleColorChange}
         handleDataLabelsChange={handleDataLabelsChange}
       />
+      <FormBlock label={OTHER_LABEL}>
+        <Switch
+          label={STACK_LABEL}
+          checked={!isUndefined(state.stackConfig)}
+          onChange={handleStackChange}
+        />
+      </FormBlock>
       {children}
     </Fragment>
   );

@@ -4,10 +4,10 @@ import {
   StoryMetaInformation
 } from '../../redux/story/types';
 
-export const TEXT_BLOCK_DB_TYPE = 'TextDB'; // Database version of TextBlock
+export const TEXT_BLOCK_DB_TYPE = 'TEXTDB'; // Must match naming in BEND
 
-export interface DatabaseStory extends StoryMetaInformation {
-  storyBlocks: Array<DatabaseStoryBlock>;
+export interface StoryDB extends StoryMetaInformation {
+  storyBlocks: Array<StoryBlockDB>;
 }
 
 export interface TextBlockDB {
@@ -22,4 +22,4 @@ export interface StoryFeedback {
   feedback: string;
 }
 
-export type DatabaseStoryBlock = TextBlockDB | GraphBlockType | MapBlockType;
+export type StoryBlockDB = TextBlockDB | GraphBlockType | MapBlockType;
