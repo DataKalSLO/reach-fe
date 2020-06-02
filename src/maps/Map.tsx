@@ -73,18 +73,18 @@ function Map() {
   );
 }
 
-const StyledBox = styled(Box)({
+export const StyledBox = styled(Box)({
   width: BOX_WIDTH,
   height: BOX_HEIGHT,
   maxWidth: BOX_MAX_WIDTH
 });
 
-const StyledCard = styled(Card)({
+export const StyledCard = styled(Card)({
   height: CARD_HEIGHT,
   margin: CARD_MARGIN
 });
 
-const StyledMapContainer = styled(Box)({
+export const StyledMapContainer = styled(Box)({
   height: MAP_HEIGHT,
   width: MAP_WIDTH,
   marginLeft: MAP_MARGIN_LEFT,
