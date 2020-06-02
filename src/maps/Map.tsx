@@ -19,6 +19,7 @@ const defaultColorAssociation: ColorAssociation = {};
 
 // sizing for the box that contains the map
 const BOX_WIDTH = '100%';
+const BOX_MIN_WIDTH = '200px';
 const BOX_HEIGHT = '100%';
 const BOX_MAX_WIDTH = 'calc(100vw/2)';
 
@@ -29,6 +30,7 @@ const CARD_MARGIN = '15px';
 // sizing for the map itself
 const MAP_HEIGHT = '100%';
 const MAP_WIDTH = '97%';
+const MAP_MIN_WIDTH = '200px';
 const MAP_MARGIN_LEFT = '10px';
 
 function Map() {
@@ -82,6 +84,7 @@ function Map() {
 
 const StyledBox = styled(Box)({
   width: BOX_WIDTH,
+  minWidth: BOX_MIN_WIDTH,
   height: BOX_HEIGHT,
   maxWidth: BOX_MAX_WIDTH
 });
@@ -94,6 +97,7 @@ const StyledCard = styled(Card)({
 const StyledMapContainer = styled(Box)({
   height: MAP_HEIGHT,
   width: MAP_WIDTH,
+  minWidth: MAP_MIN_WIDTH,
   marginLeft: MAP_MARGIN_LEFT,
   overflow: 'scroll'
 });
