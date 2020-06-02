@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Box,
   Typography,
@@ -12,7 +12,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import ReachSignIn from '../accounts/ReachSignIn';
 import ThirdPartySignIn from '../accounts/ThirdPartySignIn';
-import { HOME, CREATE_ACCOUNT } from '../nav/constants';
+import { HOME, CREATE_ACCOUNT, FORGOT_PASSWORD } from '../nav/constants';
 import BoxCenter from '../common/components/BoxCenter';
 
 const ReachLogoBlack = () => {
@@ -28,16 +28,6 @@ const ReachLogoBlack = () => {
 function Login() {
   const history = useHistory();
   const navigateTo = (route: string) => () => history.push(route);
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setIsOpen(true);
-  };
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
 
   return (
     <Box>
@@ -57,10 +47,7 @@ function Login() {
       </SignInOptionsBox>
 
       <BoxPaddedTop>
-        <Link onClick={handleClickOpen}>CAN&apos;T LOG IN?</Link>
-        <Dialog open={isOpen} onClose={handleClose}>
-          <DialogTitle>Account recovery not implemented.</DialogTitle>
-        </Dialog>
+        <Link onClick={navigateTo(FORGOT_PASSWORD)}>CAN&apos;T LOG IN?</Link>
       </BoxPaddedTop>
     </Box>
   );

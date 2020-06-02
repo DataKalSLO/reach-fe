@@ -11,6 +11,7 @@ import {
   MY_STUFF_CHARTS,
   MY_STUFF_MAPS,
   MY_STUFF_STORIES,
+  FORGOT_PASSWORD,
   RESET_PASSWORD,
   ADMIN_UPLOAD_DATA,
   ADMIN_REVIEW_STORIES,
@@ -50,6 +51,7 @@ import MyStuffMaps from './containers/my-stuff-landing/MyStuffMaps';
 import MyStuffStories from './containers/my-stuff-landing/MyStuffStories';
 import Sample from './containers/Sample';
 import Settings from './containers/Settings';
+import ForgotPassword from './accounts/ForgotPassword';
 import ResetPassword from './accounts/ResetPassword';
 import { PersistGate } from 'redux-persist/integration/react';
 import StoryBuilder from './containers/StoryBuilder';
@@ -131,6 +133,11 @@ const sample = (
     <Sample />
   </Route>
 );
+const forgotPassword = (
+  <Route path={FORGOT_PASSWORD}>
+    <ForgotPassword />
+  </Route>
+);
 const resetPassword = (
   <Route path={RESET_PASSWORD}>
     <ResetPassword />
@@ -166,6 +173,7 @@ function App() {
                 {adminReviewStories}
                 {settings}
                 {storyView}
+                {forgotPassword}
                 {resetPassword}
               </Switch>
             </ThemeProvider>
