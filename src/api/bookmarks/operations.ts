@@ -3,7 +3,7 @@ import {
   authenticatedPost
 } from '../authenticatedApi/operations';
 
-import { handleApiOperation } from '../operations';
+import { callActionAndAlertOnError } from '../operations';
 
 import {
   BookmarkResponse,
@@ -60,9 +60,8 @@ export async function getStoryBookmarks(): Promise<string[]> {
 export async function toggleBookmarkAndGetStatus(
   bookmark: Bookmark
 ): Promise<boolean> {
-  const bookmarkResponse: Promise<BookmarkResponse> = handleApiOperation(
-    bookmark,
-    toggleBookmark,
+  const bookmarkResponse: Promise<BookmarkResponse> = callActionAndAlertOnError(
+    () => toggleBookmark(bookmark),
     TOGGLE_BOOKMARK_SUCCESS,
     TOGGLE_BOOKMARK_FAILURE
   ) as Promise<BookmarkResponse>;

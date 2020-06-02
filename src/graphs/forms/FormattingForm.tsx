@@ -2,7 +2,7 @@ import { Divider, styled } from '@material-ui/core';
 import React, { Fragment, ReactNode } from 'react';
 import { ColorResult } from 'react-color';
 import FormBlock from '../../common/components/FormBlock';
-import { GraphMetaData } from '../../redux/graphs/types';
+import { PartialGraphConfigurationWithoutData } from '../../redux/graphs/types';
 import {
   axisFormatLabels,
   graphFormatLabels,
@@ -10,13 +10,15 @@ import {
   X_AXIS_LABEL,
   Y_AXIS_LABEL
 } from './constants';
-import { FormMutiTextFieldBlock } from './FormMultiTextFieldBlock';
+import { FormMultiTextFieldBlock } from './FormMultiTextFieldBlock';
 import { FormSeriesFormatter } from './FormSeriesFormatter';
 import { changeEntryAtIndex } from './utilities';
 
 interface Props {
-  state: GraphMetaData;
-  setState: React.Dispatch<React.SetStateAction<GraphMetaData>>;
+  state: PartialGraphConfigurationWithoutData;
+  setState: React.Dispatch<
+    React.SetStateAction<PartialGraphConfigurationWithoutData>
+  >;
   children?: ReactNode;
 }
 
@@ -24,133 +26,97 @@ export function FormattingForm(props: Props) {
   const { state, setState, children } = props;
 
   const handleTitleChange = (title: string) => {
-    setState({ ...state, graphTitle: title });
+    setState({ ...state, title: title });
   };
 
   const handleSubtitleChange = (subtitle: string) => {
     setState({
       ...state,
-      graphOptions: { ...state.graphOptions, subtitle: subtitle }
+      subtitle: subtitle
     });
   };
 
   const handleXTitleChange = (title: string) => {
-    setState({
-      ...state,
-      graphOptions: {
-        ...state.graphOptions,
-        xConfig: { ...state.graphOptions.xConfig, title: title }
-      }
-    });
+    setState({ ...state, xConfig: { ...state.xConfig, title: title } });
   };
 
   const handleXPrefixChange = (prefix: string) => {
-    setState({
-      ...state,
-      graphOptions: {
-        ...state.graphOptions,
-        xConfig: { ...state.graphOptions.xConfig, valuePrefix: prefix }
-      }
-    });
+    setState({ ...state, xConfig: { ...state.xConfig, valuePrefix: prefix } });
   };
 
   const handleXSuffixChange = (suffix: string) => {
     setState({
       ...state,
-      graphOptions: {
-        ...state.graphOptions,
-        xConfig: { ...state.graphOptions.xConfig, valueSuffix: suffix }
-      }
+      xConfig: { ...state.xConfig, valueSuffix: suffix }
     });
   };
 
   const handleYTitleChange = (title: string) => {
     setState({
       ...state,
-      graphOptions: {
-        ...state.graphOptions,
-        yConfig: { ...state.graphOptions.yConfig, title: title }
-      }
+      yConfig: { ...state.yConfig, title: title }
     });
   };
 
   const handleYPrefixChange = (prefix: string) => {
     setState({
       ...state,
-      graphOptions: {
-        ...state.graphOptions,
-        yConfig: { ...state.graphOptions.yConfig, valuePrefix: prefix }
-      }
+      yConfig: { ...state.yConfig, valuePrefix: prefix }
     });
   };
 
   const handleYSuffixChange = (suffix: string) => {
     setState({
       ...state,
-      graphOptions: {
-        ...state.graphOptions,
-        yConfig: { ...state.graphOptions.yConfig, valueSuffix: suffix }
-      }
+      yConfig: { ...state.yConfig, valueSuffix: suffix }
     });
   };
 
   const handleSeriesNameChange = (seriesIndex: number, name: string) => {
     setState({
       ...state,
-      graphOptions: {
-        ...state.graphOptions,
-        seriesConfigs: changeEntryAtIndex(
-          state.graphOptions.seriesConfigs,
-          'name',
-          name,
-          seriesIndex
-        )
-      }
+      seriesConfigs: changeEntryAtIndex(
+        state.seriesConfigs,
+        'name',
+        name,
+        seriesIndex
+      )
     });
   };
 
   const handleSeriesTypeChange = (seriesIndex: number, type: string) => {
     setState({
       ...state,
-      graphOptions: {
-        ...state.graphOptions,
-        seriesConfigs: changeEntryAtIndex(
-          state.graphOptions.seriesConfigs,
-          'seriesType',
-          type,
-          seriesIndex
-        )
-      }
+      seriesConfigs: changeEntryAtIndex(
+        state.seriesConfigs,
+        'seriesType',
+        type,
+        seriesIndex
+      )
     });
   };
 
   const handleDataLabelsChange = (seriesIndex: number, isOn: boolean) => {
     setState({
       ...state,
-      graphOptions: {
-        ...state.graphOptions,
-        seriesConfigs: changeEntryAtIndex(
-          state.graphOptions.seriesConfigs,
-          'dataLabels',
-          isOn,
-          seriesIndex
-        )
-      }
+      seriesConfigs: changeEntryAtIndex(
+        state.seriesConfigs,
+        'dataLabels',
+        isOn,
+        seriesIndex
+      )
     });
   };
 
   const handleColorChange = (seriesIndex: number, color: ColorResult) => {
     setState({
       ...state,
-      graphOptions: {
-        ...state.graphOptions,
-        seriesConfigs: changeEntryAtIndex(
-          state.graphOptions.seriesConfigs,
-          'color',
-          color.hex,
-          seriesIndex
-        )
-      }
+      seriesConfigs: changeEntryAtIndex(
+        state.seriesConfigs,
+        'color',
+        color.hex,
+        seriesIndex
+      )
     });
   };
 
@@ -158,9 +124,9 @@ export function FormattingForm(props: Props) {
     <Fragment>
       <FormBlock label={GRAPH_LABEL}>
         <FormBlock>
-          <FormMutiTextFieldBlock
+          <FormMultiTextFieldBlock
             labels={graphFormatLabels}
-            values={[state.graphTitle, state.graphOptions.subtitle]}
+            values={[state.title, state.subtitle]}
             handlers={[handleTitleChange, handleSubtitleChange]}
           />
         </FormBlock>
@@ -168,12 +134,12 @@ export function FormattingForm(props: Props) {
       <FormDivider light />
       <FormBlock label={X_AXIS_LABEL}>
         <FormBlock direction="row">
-          <FormMutiTextFieldBlock
+          <FormMultiTextFieldBlock
             labels={axisFormatLabels}
             values={[
-              state.graphOptions.xConfig?.title,
-              state.graphOptions.xConfig?.valuePrefix,
-              state.graphOptions.xConfig?.valueSuffix
+              state.xConfig?.title,
+              state.xConfig?.valuePrefix,
+              state.xConfig?.valueSuffix
             ]}
             handlers={[
               handleXTitleChange,
@@ -186,12 +152,12 @@ export function FormattingForm(props: Props) {
       <FormDivider light />
       <FormBlock label={Y_AXIS_LABEL}>
         <FormBlock direction="row">
-          <FormMutiTextFieldBlock
+          <FormMultiTextFieldBlock
             labels={axisFormatLabels}
             values={[
-              state.graphOptions.yConfig?.title,
-              state.graphOptions.yConfig?.valuePrefix,
-              state.graphOptions.yConfig?.valueSuffix
+              state.yConfig?.title,
+              state.yConfig?.valuePrefix,
+              state.yConfig?.valueSuffix
             ]}
             handlers={[
               handleYTitleChange,
@@ -203,7 +169,7 @@ export function FormattingForm(props: Props) {
       </FormBlock>
       <FormDivider light />
       <FormSeriesFormatter
-        seriesConfigs={state.graphOptions.seriesConfigs}
+        seriesConfigs={state.seriesConfigs}
         handleSeriesNameChange={handleSeriesNameChange}
         handleSeriesTypeChange={handleSeriesTypeChange}
         handleColorChange={handleColorChange}

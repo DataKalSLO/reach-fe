@@ -1,5 +1,6 @@
-import { styled, TextField } from '@material-ui/core';
+import { styled } from '@material-ui/core';
 import React, { Fragment } from 'react';
+import { TextField } from '../../common/components/FormTextField';
 import { isDefinedElse } from './utilities';
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
   handlers: ((value: string) => void)[];
 }
 
-export function FormMutiTextFieldBlock(props: Props) {
+export function FormMultiTextFieldBlock(props: Props) {
   return (
     <Fragment>
       {props.labels.map((label, index) => {

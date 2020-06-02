@@ -1,3 +1,8 @@
+import {
+  DataSource,
+  PartialGraphConfigurationWithoutData
+} from '../../redux/graphs/types';
+
 /*
  * This is used in the data sources form. Each
  * of the properties correspond to a form
@@ -23,4 +28,13 @@ export interface GraphDataFormState {
   datasetName: string;
   xAxisColumnName: string;
   yAxisColumnNames: string[];
+}
+
+/*
+ * This is the initial state of a graph before it
+ * gets created.
+ */
+export interface InitialGraphCreationState {
+  graphOptions: PartialGraphConfigurationWithoutData;
+  dataSources: DataSource[];
 }

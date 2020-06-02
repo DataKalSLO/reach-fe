@@ -22,6 +22,8 @@ import {
   ACCESSIBILITY_ANNOUNCE_NEW_DATA_ENABLED,
   DEFAULT_SUBTITLE,
   DEFAULT_TITLE,
+  EXPORT_GRAPH_SUBTITLE,
+  EXPORT_GRAPH_TITLE,
   GRAPH_3D_ALPHA,
   GRAPH_3D_BETA,
   GRAPH_3D_DEPTH,
@@ -157,6 +159,12 @@ export const accessibilityOptions: AccessibilityOptions = {
  */
 export const exportingOptions: ExportingOptions = {
   chartOptions: {
+    title: {
+      text: EXPORT_GRAPH_TITLE
+    },
+    subtitle: {
+      text: EXPORT_GRAPH_SUBTITLE
+    },
     plotOptions: {
       series: { dataLabels: { enabled: GRAPH_SERIES_DATA_LABELS_ENABLED } }
     }

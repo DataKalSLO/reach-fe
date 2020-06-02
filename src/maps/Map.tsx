@@ -5,9 +5,9 @@ import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/med
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
 import GeoFilter from './GeoFilter';
 import Layers from './Layers';
-import { BoundSelection, ColorAssociation } from './types.js';
-import MapView from './MapView';
 import Legend from './Legend';
+import MapView from './MapView';
+import { BoundSelection, ColorAssociation } from './types.js';
 
 // TODO: save to stories
 // TODO: use redux store instead of state
@@ -57,6 +57,10 @@ function Map() {
             selectedMarker={selectedMarker}
             setSelectedMarker={setSelectedMarker}
           />
+          <GeoFilter
+            boundSelection={boundSelection}
+            setBoundSelection={setBoundSelection}
+          />
           <MapView
             markerSelection={markerSelection}
             heatMapSelection={heatMapSelection}
@@ -64,10 +68,6 @@ function Map() {
             setSelectedMarker={setSelectedMarker}
             colorAssociation={colorAssociation}
             setColorAssociation={setColorAssociation}
-          />
-          <GeoFilter
-            boundSelection={boundSelection}
-            setBoundSelection={setBoundSelection}
           />
           <Legend
             heatMapSelection={heatMapSelection}
