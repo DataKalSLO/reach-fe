@@ -29,8 +29,8 @@ describe('<Layers/> with no props should render', () => {
 });
 
 describe('handleDisable() should filter the values that the user can select', () => {
-  it('handleDisable should return true when any two options are selected, so it disables all further selections', () => {
-    const markerSelection = [markerData[1]];
+  it('handleDisable should return true when any four options are selected, so it disables all further selections', () => {
+    const markerSelection = [markerData[1], markerData[0], markerData[1]];
     const heatMapSelection = medianHouseholdIncomeHeatMap;
     const option = markerData[0];
     const expectedReturn = true;

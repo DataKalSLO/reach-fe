@@ -18,6 +18,7 @@ import {
 } from '../../redux/graphbuilder/utilities';
 import { GraphMetaDataApiPayload } from '../../redux/graphs/types';
 import { getUser } from '../../redux/login/selectors';
+import { isDefinedElse } from '../forms/utilities';
 import {
   DELETE_LABEL,
   DUPLICATE_LABEL,
@@ -46,7 +47,7 @@ function GraphToolbar(props: GraphToolbarProps) {
 
   const newGraph: GraphMetaDataApiPayload = {
     graphId: graph.graphMetaData.graphId,
-    graphCategory: null,
+    graphCategory: isDefinedElse(graph.graphCategory, null),
     graphTitle: graph.graphMetaData.graphTitle,
     dataSources: graph.graphMetaData.dataSources,
     graphOptions: graph.graphMetaData.graphOptions,

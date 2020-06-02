@@ -12,9 +12,11 @@ import { ApiGraphConfirmationResponse } from '../../api/graphs/types';
 import { getDataColumnsForDataSourcesAndHandleResponse } from '../../api/vizbuilder/operationHandlers';
 import { GraphMetaData, GraphMetaDataApiPayload } from '../graphs/types';
 import {
+  CREATE_LOCAL_GRAPH,
   DELETE_GRAPH,
   DELETE_LOCAL_GRAPH,
   DUPLICATE_GRAPH,
+  FETCH,
   GET_ALL_USER_GRAPHS,
   GET_DEFAULT_GRAPHS_FOR_CATEGORY,
   GET_GRAPH,
@@ -24,9 +26,11 @@ import {
   UPDATE_LOCAL_GRAPH
 } from './constants';
 import {
+  CreateLocalGraph,
   DeleteGraphAction,
   DeleteLocalGraph,
   DuplicateGraphAction,
+  FetchAction,
   GetGraphAction,
   Graph,
   GraphWithIndex,
@@ -118,8 +122,30 @@ function getGraphAction(payload: GraphWithIndex): GetGraphAction {
   };
 }
 
+export function createLocalGraph(
+  graphMetaData: GraphMetaData,
+  graphCategory?: string
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchAction());
+    const graphWithData = await createGraphWithData(graphMetaData);
+    if (!isUndefined(graphWithData)) {
+      graphWithData.graphCategory = graphCategory;
+    }
+    dispatch(createLocalGraphAction(graphWithData));
+  };
+}
+
+function createLocalGraphAction(payload?: Graph): CreateLocalGraph {
+  return {
+    type: CREATE_LOCAL_GRAPH,
+    payload: payload
+  };
+}
+
 export function getAllUserGraphs() {
   return async (dispatch: Dispatch) => {
+    dispatch(fetchAction());
     const graphsMetaData = await getAllGraphsAndHandleResponse();
     const graphs = await createGraphsWithData(graphsMetaData);
     dispatch(getAllUserGraphsAction(graphs));
@@ -135,6 +161,7 @@ function getAllUserGraphsAction(payload?: Graph[]) {
 
 export function getDefaultGraphs(initiative: string) {
   return async (dispatch: Dispatch) => {
+    dispatch(fetchAction());
     const graphsMetaData = await getDefaultGraphForCategoryAndHandleResponse(
       initiative
     );
@@ -163,6 +190,13 @@ export function duplicateGraph(
 export function toggleCreateGraph(): ToggleCreateGraphAction {
   return {
     type: TOGGLE_CREATE_GRAPH,
+    payload: undefined
+  };
+}
+
+export function fetchAction(): FetchAction {
+  return {
+    type: FETCH,
     payload: undefined
   };
 }

@@ -1,6 +1,7 @@
 import { ApiGraphConfirmationResponse } from '../../api/graphs/types';
 import { GraphData, GraphMetaData } from '../graphs/types';
 import {
+  CREATE_LOCAL_GRAPH,
   DELETE_GRAPH,
   DELETE_LOCAL_GRAPH,
   DUPLICATE_GRAPH,
@@ -10,7 +11,8 @@ import {
   SAVE_GRAPH,
   TOGGLE_CREATE_GRAPH,
   UPDATE_GRAPH,
-  UPDATE_LOCAL_GRAPH
+  UPDATE_LOCAL_GRAPH,
+  FETCH
 } from './constants';
 
 /*
@@ -20,11 +22,13 @@ import {
 export interface GraphBuilderState {
   graphs: Graph[];
   isCreating: boolean;
+  isFetching: boolean;
 }
 
 export interface Graph {
   graphMetaData: GraphMetaData;
   graphData: GraphData;
+  graphCategory?: string;
 }
 
 export interface GraphWithIndex {
@@ -72,6 +76,11 @@ export interface UpdateLocalGraph {
   payload: Graph | undefined;
 }
 
+export interface CreateLocalGraph {
+  type: typeof CREATE_LOCAL_GRAPH;
+  payload: Graph | undefined;
+}
+
 export interface DuplicateGraphAction {
   type: typeof DUPLICATE_GRAPH;
   payload: GraphWithIndex;
@@ -87,6 +96,11 @@ export interface ToggleCreateGraphAction {
   payload: undefined;
 }
 
+export interface FetchAction {
+  type: typeof FETCH;
+  payload: undefined;
+}
+
 export type GraphActionTypes =
   | SaveGraphAction
   | UpdateGraphAction
@@ -95,6 +109,8 @@ export type GraphActionTypes =
   | GetAllUserGraphsAction
   | GetDefaultGraphsForCategoryAction
   | UpdateLocalGraph
+  | CreateLocalGraph
   | DuplicateGraphAction
   | DeleteLocalGraph
-  | ToggleCreateGraphAction;
+  | ToggleCreateGraphAction
+  | FetchAction;
