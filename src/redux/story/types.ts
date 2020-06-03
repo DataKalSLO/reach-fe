@@ -14,6 +14,7 @@ export const SWAP_BLOCKS = 'SWAP_BLOCKS';
 export const UPDATE_TITLE = 'UPDATE_TITLE';
 export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
 export const UPDATE_PUBLICATION_STATUS = 'UPDATE_PUBLICATION_STATUS';
+export const LOAD_EXISTING_STORY = 'LOAD_EXISTING_STORY';
 
 //Story-related types
 export interface StoryMetaInformation {
@@ -100,6 +101,11 @@ export interface UpdatePublicationStatusAction {
   payload: { newPublicationStatus: PublicationStatus };
 }
 
+export interface LoadExistingStoryAction {
+  type: typeof LOAD_EXISTING_STORY;
+  payload: { storyToLoad: Story };
+}
+
 // use in updateObjectInArray function (reducer.ts) when updating a single object.
 // interfaces of this type must include:
 //  - index
@@ -115,4 +121,5 @@ export type StoryActionType =
   | SwapBlocksAction
   | UpdateTitleAction
   | UpdateDescriptionAction
-  | UpdatePublicationStatusAction;
+  | UpdatePublicationStatusAction
+  | LoadExistingStoryAction;

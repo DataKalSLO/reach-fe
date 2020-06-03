@@ -29,12 +29,24 @@ const sampleStoryInReview: Story = {
   dateLastEdited: sampleDate
 };
 
+const sampleStoryPublished: Story = {
+  id: '12345',
+  publicationStatus: PublicationStatus.PUBLISHED,
+  userID: 'USER-ID', // TODO: replace placeholder value
+  title: 'Published Story',
+  description: 'Fake published story. Local and hard-coded.',
+  storyBlocks: [],
+  dateCreated: sampleDate,
+  dateLastEdited: sampleDate
+};
+
 export default function MyStuff() {
   return (
     <MyStuffWrapper title="My Stuff">
       {/* TODO: replace this with the content for the gallery view */}
       <StoryCard story={sampleStoryDraft} />
       <StoryCard story={sampleStoryInReview} />
+      <StoryCard story={sampleStoryPublished} />
     </MyStuffWrapper>
   );
 }

@@ -27,7 +27,6 @@ import MyStuff from './containers/my-stuff-landing/MyStuff';
 import MyStuffCharts from './containers/my-stuff-landing/MyStuffCharts';
 import MyStuffMaps from './containers/my-stuff-landing/MyStuffMaps';
 import MyStuffStories from './containers/my-stuff-landing/MyStuffStories';
-import Sample from './containers/Sample';
 import Settings from './containers/Settings';
 import StoryBuilder from './containers/StoryBuilder';
 import StoryViewContainer from './containers/StoryViewContainer';
@@ -45,7 +44,6 @@ import {
   MY_STUFF_CHARTS,
   MY_STUFF_MAPS,
   MY_STUFF_STORIES,
-  SAMPLE,
   SETTINGS,
   STORY_BUILDER,
   STORY_VIEW_ID,
@@ -122,11 +120,6 @@ const adminReviewStories = (
     <AdminProtectedRoute componentPage={<StoryReviewGrid />} />
   </Route>
 );
-const sample = (
-  <Route path={SAMPLE}>
-    <Sample />
-  </Route>
-);
 const storyView = (
   <Route path={STORY_VIEW_ID}>
     <StoryViewContainer />
@@ -151,7 +144,6 @@ function App() {
               {myStuffStories}
               {login}
               {createAccount}
-              {sample}
               {adminUploadData}
               {adminReviewStories}
               {settings}

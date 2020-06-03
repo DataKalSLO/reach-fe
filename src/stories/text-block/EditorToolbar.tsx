@@ -179,8 +179,8 @@ const EditorToolbar = (props: Props) => {
 
 // Screenwidth when a group of items to become hidden in the collapsible menu
 const DEFAULT_HIDE_WIDTH = 0;
-const LIST_STYLE_HIDE_WIDTH = 970;
-const LINK_STYLE_HIDE_WIDTH = 1020;
+const LIST_STYLE_HIDE_WIDTH = 980;
+const LINK_STYLE_HIDE_WIDTH = 1030;
 
 const borderStyle = BORDER;
 const paddingDefault = '10px';
@@ -204,7 +204,7 @@ const FormatButtonGroup = styled(Box)({
 });
 
 const StyledTextField = styled(TextField)({
-  width: '130px'
+  width: '140px'
 });
 
 const URLInputBox = styled(Box)({
