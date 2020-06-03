@@ -9,6 +9,8 @@ import {
 import StoryCard from '../preview-cards/story-card/StoryCard';
 import { Story, PublicationStatus } from '../redux/story/types';
 import { GraphMetaData } from '../redux/graphs/types';
+import GraphCard from '../preview-cards/graph-card/GraphCard';
+import { Gallery } from '../reach-ui/core.js';
 
 interface SearchResultProps {
   hits: Array<ElasticSearchResultObject>;
@@ -37,7 +39,6 @@ function convertToStoryCard(item: ElasticSearchResultObject) {
 // Convert ES object to graph and put it in GraphCard
 function convertToGraphCard(item: ElasticSearchResultObject) {
   const graphSource = item._source as ElasticSearchGraphSource;
-  const primaryText = `${item._source.title} by ${item._source.user_id}`;
   const currentGraph: GraphMetaData = {
     graphId: item._id,
     userId: graphSource.user_id,
@@ -48,11 +49,7 @@ function convertToGraphCard(item: ElasticSearchResultObject) {
     graphOptions: {} as any
   };
 
-  return (
-    <ListItem key={item._index + item._id}>
-      <ListItemText primary={primaryText} secondary={item._index} />
-    </ListItem>
-  );
+  return <GraphCard {...currentGraph} />;
 }
 
 function SearchResults(props: SearchResultProps) {
@@ -63,7 +60,7 @@ function SearchResults(props: SearchResultProps) {
       } else if (item._index === 'graphs') {
         return convertToGraphCard(item);
       } else {
-        return '';
+        return <div />;
       }
     });
   };
@@ -71,7 +68,7 @@ function SearchResults(props: SearchResultProps) {
   return (
     <div>
       Results for &quot;{props.qry}&quot;
-      <List> {makeList()} </List>
+      <Gallery>{makeList()}</Gallery>
     </div>
   );
 }

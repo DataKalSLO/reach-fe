@@ -19,6 +19,7 @@ export async function esQuery(
   let endpoint = '_search';
 
   switch (index) {
+    // For graphs: we want all graphs that match query
     case SearchIndexFilter.graphs:
       endpoint = 'graphs/' + endpoint;
       return await esPost(endpoint, {
@@ -32,6 +33,7 @@ export async function esQuery(
           }
         }
       });
+    // For the explore page, we want all published stories that match query
     case SearchIndexFilter.stories:
       endpoint = 'stories/' + endpoint;
       return await esPost(endpoint, {
@@ -46,6 +48,7 @@ export async function esQuery(
           }
         }
       });
+    // For the MyStuff page, we want all user things that match query
     default:
       return await esPost(endpoint, {
         from: 0,
