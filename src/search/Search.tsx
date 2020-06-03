@@ -28,7 +28,7 @@ export default function Search(props: SearchProps) {
   const userID = loginState.email;
 
   const handleSearch = (qry: string) => {
-    dispatch(fetchSearchResults(qry, props.index));
+    dispatch(fetchSearchResults(qry, props.index, userID));
     setShowResults(true);
   };
 

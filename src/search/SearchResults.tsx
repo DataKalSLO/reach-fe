@@ -16,16 +16,8 @@ interface SearchResultProps {
   userID: string;
 }
 
-/*
- * This function filters through items according to the page (index) and userID
- * and converts it into a StoryCard.
- */
-function convertToStoryCard(
-  item: ElasticSearchResultObject,
-  index: SearchIndexFilter,
-  userID: string
-) {
-  console.log(userID);
+// Convert ES object to Story and put it in StoryCard
+function convertToStoryCard(item: ElasticSearchResultObject) {
   const storySource = item._source as ElasticSearchStorySource;
   const currentStory: Story = {
     id: item._id,
@@ -38,88 +30,38 @@ function convertToStoryCard(
     storyBlocks: []
   };
 
-  // We only want the published stories for explore page
-  // and user's stories from mystuff page
-  if (
-    index === SearchIndexFilter.stories &&
-    storySource.publication_status === 'PUBLISHED'
-  ) {
-    return <StoryCard key={item._id} story={currentStory} />;
-  } else if (
-    index === SearchIndexFilter.all &&
-    storySource.user_id === userID
-  ) {
-    return <StoryCard key={item._id} story={currentStory} />;
-  } else {
-    return '';
-  }
+  return <StoryCard key={item._id} story={currentStory} />;
 }
 
-/*
- * This function filters through items according to the page (index) and userID
- * and converts it into a GraphCard. TODO: Insert Tanner's GraphCard
- */
-function convertToGraphCard(
-  item: ElasticSearchResultObject,
-  index: SearchIndexFilter,
-  userID: string
-) {
+// Convert ES object to graph and put it in GraphCard
+function convertToGraphCard(item: ElasticSearchResultObject) {
   const graphSource = item._source as ElasticSearchGraphSource;
   const primaryText = `${item._source.title} by ${item._source.user_id}`;
 
-  // If graph blocks page we want all graphs
-  // If it's Mystuff page, we want only user graphs
-  if (index === SearchIndexFilter.graphs) {
-    return (
-      <ListItem key={item._index + item._id}>
-        <ListItemText primary={primaryText} secondary={item._index} />
-      </ListItem>
-    );
-  } else if (
-    index === SearchIndexFilter.all &&
-    graphSource.user_id === userID
-  ) {
-    return (
-      <ListItem key={item._index + item._id}>
-        <ListItemText primary={primaryText} secondary={item._index} />
-      </ListItem>
-    );
-  } else {
-    return '';
-  }
+  return (
+    <ListItem key={item._index + item._id}>
+      <ListItemText primary={primaryText} secondary={item._index} />
+    </ListItem>
+  );
 }
 
 function SearchResults(props: SearchResultProps) {
-  /*
-   * Make cards and filter through items. We only want published stories
-   * for the explore page, all graphs for the graph blocks, and all items
-   * by user for my stuff.
-   */
-  const makeAndFilterList = () => {
-    switch (props.index) {
-      case SearchIndexFilter.graphs:
-        return props.hits.map(item => {
-          return convertToGraphCard(item, props.index, props.userID);
-        });
-      case SearchIndexFilter.stories:
-        return props.hits.map(item => {
-          return convertToStoryCard(item, props.index, props.userID);
-        });
-      default:
-        return props.hits.map(item => {
-          if (item._index === 'stories') {
-            return convertToStoryCard(item, props.index, props.userID);
-          } else {
-            return convertToGraphCard(item, props.index, props.userID);
-          }
-        });
-    }
+  const makeList = () => {
+    return props.hits.map(item => {
+      if (item._index === 'stories') {
+        return convertToStoryCard(item);
+      } else if (item._index === 'graphs') {
+        return convertToGraphCard(item);
+      } else {
+        return '';
+      }
+    });
   };
 
   return (
     <div>
       Results for &quot;{props.qry}&quot;
-      <List> {makeAndFilterList()} </List>
+      <List> {makeList()} </List>
     </div>
   );
 }
