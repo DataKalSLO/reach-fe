@@ -4,13 +4,14 @@ import { theme } from '../../theme/theme';
 
 export interface GalleryProps {
   children: JSX.Element[];
+
+  // This extra parameter is necessary to allow other props to be passed through
+  [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 export default function Gallery(props: GalleryProps) {
   return (
-    // creates a 32px (4 * 8px = 32px) wide gap between items
-    // https://material-ui.com/components/grid/#spacing
-    <PaddedGrid container spacing={4}>
+    <PaddedGrid container {...props} justify="center">
       {props.children}
     </PaddedGrid>
   );
