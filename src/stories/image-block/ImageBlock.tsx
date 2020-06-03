@@ -5,6 +5,7 @@ import {
   deleteImageBlockImage,
   uploadImageForImageBlocks
 } from '../../api/stories/imageBlocks/operations';
+import { ImageUploadResponse } from '../../api/stories/imageBlocks/types';
 
 interface Props {
   blockId: string;
@@ -16,9 +17,17 @@ export default function ImageBlock(props: Props) {
   const { blockId, imageUrl, setImageUrl } = props;
 
   async function uploadAndUpdateUrl(files: [File]) {
-    const { imageUrl } = await uploadImageForImageBlocks(files[0], blockId);
-    console.log(imageUrl);
-    setImageUrl(imageUrl);
+    uploadImageForImageBlocks(files[0], blockId)
+      .then((response: ImageUploadResponse) => {
+        const { imageUrl } = response;
+        setImageUrl(imageUrl);
+      })
+      .catch(err => {
+        alert(
+          'There was an error uploading your image. Please try again later.'
+        );
+        console.log(err);
+      });
   }
 
   function deleteImage() {
