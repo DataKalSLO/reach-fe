@@ -67,6 +67,7 @@ async function httpRequestWithStoryArrayResponse(
   return rawStories.map(transformToStory) as Array<Story>;
 }
 
+//TODO: Extract endpoints into constants.ts
 async function storyHttp(
   actionType: StoryActions,
   payload: StoryApiPayload
