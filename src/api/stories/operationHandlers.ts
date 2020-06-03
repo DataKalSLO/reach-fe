@@ -1,3 +1,4 @@
+import { PublicationStatus, Story } from '../../redux/story/types';
 import { authenticatedPost } from '../authenticatedApi/operations';
 import { get } from '../base';
 import { callActionAndAlertOnError } from '../operations';
@@ -8,7 +9,6 @@ import {
   saveOrUpdateExistingStory
 } from './operations';
 import { StoryFeedback } from './types';
-import { Story, PublicationStatus } from '../../redux/story/types';
 
 /* These functions are meant to be wrappers for accessing the Story API.
  * They alert the user is in operation fails. Then, a boolean is returned
@@ -33,43 +33,48 @@ const STORY_CHANGE_STATUS_FAILURE_MESSAGE =
 
 const STORY_FEEDBACK_RETRIEVAL_SUCCESS = 'Feedback for story retrieved!';
 const STORY_FEEDBACK_RETRIEVAL_FAILURE = 'Could not get feedback left on story';
-/*
- * Application Specific Operations
- */
 
-export async function submitStoryForReviewAndHandleResponse(
-  story: Story
-): Promise<boolean> {
-  return changeStoryStatus(story, PublicationStatus.REVIEW);
-}
+const STORY_FEEDBACK_ENDPOINT = 'story/feedback';
+
+/*
+ * Change status of Story
+ */
 
 export async function rejectStoryWithFeedbackAndHandleResponse(
   story: Story,
   feedback: string
-) {
+): Promise<boolean> {
   await changeStoryStatus(story, PublicationStatus.FEEDBACK);
 
   const storyFeedback: StoryFeedback = {
     storyId: story.id,
-    reviewerId: '', //BEND doesn't require this for submission
+    reviewerId: '', //BEND will extract this from authentication toekn
     feedback
   };
 
   return await callActionAndAlertOnError(
-    () => authenticatedPost('story/feedback', storyFeedback),
+    () => authenticatedPost(STORY_FEEDBACK_ENDPOINT, storyFeedback),
     STORY_CHANGE_STATUS_SUCCESS_MESSAGE,
     STORY_CHANGE_STATUS_FAILURE_MESSAGE
-  ).catch(e => console.error(e));
+  )
+    .then(res => true)
+    .catch(e => false);
 }
 
 export async function getStoryFeedback(
   storyId: string
 ): Promise<StoryFeedback[]> {
   return callActionAndAlertOnError(
-    () => get('story/feedback/' + storyId) as Promise<StoryFeedback[]>,
+    () => get(STORY_FEEDBACK_ENDPOINT + storyId) as Promise<StoryFeedback[]>,
     STORY_FEEDBACK_RETRIEVAL_SUCCESS,
     STORY_FEEDBACK_RETRIEVAL_FAILURE
   );
+}
+
+export async function submitStoryForReviewAndHandleResponse(
+  story: Story
+): Promise<boolean> {
+  return changeStoryStatus(story, PublicationStatus.REVIEW);
 }
 
 export async function submitStoryForPublishingAndHandleResponse(story: Story) {
