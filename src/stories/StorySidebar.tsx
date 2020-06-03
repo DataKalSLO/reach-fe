@@ -1,13 +1,11 @@
 import { Divider, Typography } from '@material-ui/core';
 import {
   ChatBubble,
-  Edit,
   InsertChart,
   InsertPhoto,
   Map,
   Save,
-  TextFields,
-  Visibility
+  TextFields
 } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,12 +14,13 @@ import {
   submitStoryForReviewAndHandleResponse
 } from '../api/stories/operationHandlers';
 import { Drawer, List, ListItemButton } from '../reach-ui/core';
+import { EDIT_ICON, PREVIEW_ICON } from '../reach-ui/icons';
 import {
   createEmptyTextBlock,
   updatePublicationStatus
 } from '../redux/story/actions';
-import { PublicationStatus } from '../redux/story/types';
 import { getStory } from '../redux/story/selectors';
+import { PublicationStatus } from '../redux/story/types';
 import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
 import { areValidMetaFields } from './StoryEditor';
@@ -97,7 +96,7 @@ export default function StorySidebar() {
       <List>
         <ListItemButton
           text={previewSelected ? 'Edit' : 'Preview'}
-          icon={previewSelected ? <Edit /> : <Visibility />}
+          icon={previewSelected ? EDIT_ICON : PREVIEW_ICON}
           onClick={handleTogglePreview}
         />
       </List>
