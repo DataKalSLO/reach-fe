@@ -32,6 +32,11 @@ import {
 } from './constants';
 import { GraphToolbarProps } from './types';
 import { syncGraphAction } from '../../redux/vizbuilder/actions';
+import {
+  getFeatureCollection,
+  addselectedTableAction
+} from '../../redux/map/actions';
+import { getVizbuilder } from '../../redux/vizbuilder/selector';
 
 /*
  * Contains the buttons rendered on the graph toolbar.
@@ -44,6 +49,7 @@ function GraphToolbar(props: GraphToolbarProps) {
   const { graph, index, isHidden, graphSVG, toggleEdit, toggleHide } = props;
   const dispatch = useDispatch();
   const user = useSelector(getUser);
+  const vizBuilderState = useSelector(getVizbuilder);
 
   const graphIsLocal = isLocalGraph(graph);
   const isUserGraph = userOwnsGraph(graph, user);
@@ -70,12 +76,12 @@ function GraphToolbar(props: GraphToolbarProps) {
           const yAxisDataSource = newGraph.dataSources.filter(
             source => source.seriesType === 'Y_AXIS'
           )[0];
-          return dispatch(
-            syncGraphAction(
-              yAxisDataSource.datasetName,
-              yAxisDataSource.columnNames
-            )
-          );
+          const tableName = yAxisDataSource.datasetName;
+          const targetSelection = vizBuilderState.datasetTableNames.filter(
+            selection => selection.tableName === tableName
+          )[0];
+          getFeatureCollection(tableName, targetSelection.geoType)(dispatch);
+          dispatch(addselectedTableAction(targetSelection));
         }}
       />
       <ToolbarButton

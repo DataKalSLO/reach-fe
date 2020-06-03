@@ -15,7 +15,8 @@ import {
   UPDATE_MARKER_SELECTION,
   UPDATE_SELECTED_MARKER,
   UPDATE_SELECTED_TABLES,
-  UPDATE_SELECTED_COLUMN
+  UPDATE_SELECTED_COLUMN,
+  ADD_SELECTED_TABLE
 } from './types';
 import noData from '../../common/assets/Local Data/census/noHeatMap';
 
@@ -64,6 +65,11 @@ export function mapReducer(
       return {
         ...state,
         selectedTables: action.payload
+      };
+    case ADD_SELECTED_TABLE:
+      return {
+        ...state,
+        selectedTables: state.selectedTables.concat([action.payload])
       };
     case UPDATE_MARKER_SELECTION:
       return {

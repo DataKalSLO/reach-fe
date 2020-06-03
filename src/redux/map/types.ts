@@ -25,6 +25,13 @@ interface UpdateSelectedTables {
   payload: Selection[];
 }
 
+export const ADD_SELECTED_TABLE = 'ADD_SELECTED_TABLE';
+
+interface AddSelectedTable {
+  type: typeof ADD_SELECTED_TABLE;
+  payload: Selection;
+}
+
 export const UPDATE_MARKER_SELECTION = 'UPDATE_MARKER_SELECTION';
 
 interface UpdateMarkerSelection {
@@ -74,4 +81,5 @@ export type MapActionTypes =
   | UpdateSelectedMarker
   | UpdateColorAssociation
   | UpdateBoundSelection
-  | UpdateSelectedColumn;
+  | UpdateSelectedColumn
+  | AddSelectedTable;

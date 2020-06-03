@@ -62,8 +62,8 @@ export default function Markers(
     return (
       <Marker
         key={datapoint.properties.name}
-        latitude={datapoint.geometry.coordinates[1]}
-        longitude={datapoint.geometry.coordinates[0]}
+        latitude={datapoint.geometry.coordinates[0]}
+        longitude={datapoint.geometry.coordinates[1]}
         offsetLeft={-ICON_WIDTH / 2}
         offsetTop={-ICON_HEIGHT}
       >

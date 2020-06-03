@@ -11,13 +11,15 @@ import {
   UPDATE_MARKER_SELECTION,
   UPDATE_SELECTED_MARKER,
   UPDATE_SELECTED_TABLES,
-  UPDATE_SELECTED_COLUMN
+  UPDATE_SELECTED_COLUMN,
+  ADD_SELECTED_TABLE
 } from './types';
 import {
   getFeatureCollectionAndHandleResponse,
   getMarkersAndHandleResponse
 } from '../../api/map/operationHandlers';
 import { Dispatch } from 'redux';
+import { Selection } from '../../api/vizbuilder/types';
 
 export function getFeatureCollection(tableName: string, geoType: string) {
   if (geoType === 'area') {
@@ -62,6 +64,13 @@ export function updateSelectedTablesAction(selectedTables: string[]) {
   return {
     type: UPDATE_SELECTED_TABLES,
     payload: selectedTables
+  };
+}
+
+export function addselectedTableAction(selectedTable: Selection) {
+  return {
+    type: ADD_SELECTED_TABLE,
+    payload: selectedTable
   };
 }
 

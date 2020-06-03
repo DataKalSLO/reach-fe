@@ -63,7 +63,6 @@ export default function Layers(props: LayersProps) {
       getFeatureCollection(changed.tableName, changed.geoType)(dispatch);
     }
     updateSelectedTables(newSelections)(dispatch);
-    //  getFeatureCollection('b19019_001e')(dispatch);
   };
 
   return (

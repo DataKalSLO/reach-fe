@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Grid } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import chroma from 'chroma-js';
@@ -89,7 +90,8 @@ function MapView(props: MapViewProps) {
   // Tooltip State
   const defaultHoveredLocation = {
     properties: {
-      geoName: '',
+      // snake case is required here becuase of the name of db table columns
+      geo_name: '',
       [selectedColumn]: ''
     },
     noLocation: true
@@ -182,7 +184,7 @@ function MapView(props: MapViewProps) {
 
     const valueOfSelectedColumn = hoveredLocation.properties[selectedColumn];
     // console.log(hoveredLocation.properties);
-    const geoName = hoveredLocation.properties.geoName;
+    const geoName = hoveredLocation.properties.geo_name;
 
     return (
       <div
