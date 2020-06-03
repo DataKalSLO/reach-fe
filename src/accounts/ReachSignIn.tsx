@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { LoginData } from '../redux/login/types';
 import { loginUser } from '../redux/login/actions';
 import { wrapWithCatch } from '../api/base';
+import { HOME } from '../nav/constants';
 
 function ReachSignIn() {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ function ReachSignIn() {
         wrapWithCatch(
           loginUser({ email, password } as LoginData),
           handleLoginError,
-          () => history.goBack()
+          () => history.push(HOME)
         )
       );
     },
