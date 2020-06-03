@@ -67,6 +67,7 @@ function Map() {
             markerSelection={mapState.markerSelection}
             heatMapSelection={mapState.heatMapSelection}
             selectedMarker={mapState.selectedMarker}
+            metadataForAllDatasets={vizBuilderState.metadataForAllDatasets}
           />
           <Grid container direction="row" alignItems="center">
             <Grid item>

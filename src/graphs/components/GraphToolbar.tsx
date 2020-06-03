@@ -34,7 +34,8 @@ import { GraphToolbarProps } from './types';
 import { syncGraphAction } from '../../redux/vizbuilder/actions';
 import {
   getFeatureCollection,
-  addselectedTableAction
+  addselectedTableAction,
+  updateSelectedColumn
 } from '../../redux/map/actions';
 import { getVizbuilder } from '../../redux/vizbuilder/selector';
 
@@ -82,6 +83,9 @@ function GraphToolbar(props: GraphToolbarProps) {
           )[0];
           getFeatureCollection(tableName, targetSelection.geoType)(dispatch);
           dispatch(addselectedTableAction(targetSelection));
+
+          // Default to first column name
+          dispatch(updateSelectedColumn(yAxisDataSource.columnNames[0]));
         }}
       />
       <ToolbarButton

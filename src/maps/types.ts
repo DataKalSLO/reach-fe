@@ -1,5 +1,6 @@
 import React from 'react';
 import { Selection } from '../api/vizbuilder/types';
+import { Metadata } from '../redux/vizbuilder/types';
 
 //React-map needs a number type be we use a string to pass a percentage of the screen for the map
 //TODO: find a way to parse '90%' and '60vh' into an int then the type conversion will be happy
@@ -103,6 +104,7 @@ export interface LayersProps {
   markerSelection: MarkerSelection[];
   heatMapSelection: HeatMapSelection | {};
   selectedMarker: SelectedMarker;
+  metadataForAllDatasets: Metadata[];
 }
 
 export interface ColumnSelectorProps {

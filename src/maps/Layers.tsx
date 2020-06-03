@@ -15,7 +15,8 @@ import {
   getFeatureCollection,
   updateHeatMapSelection,
   updateMarkerSelection,
-  updateSelectedTables
+  updateSelectedTables,
+  updateSelectedColumn
 } from '../redux/map/actions';
 import { theme } from '../theme/theme';
 import { removeMarker } from './LayersHelpers';
@@ -37,7 +38,12 @@ export const allData = flatten([markerData as any, heatMapData]);
 
 // this function creates the multi-seletion autocomplete component
 export default function Layers(props: LayersProps) {
-  const { tableNames, selectedTables, markerSelection } = props;
+  const {
+    tableNames,
+    selectedTables,
+    markerSelection,
+    metadataForAllDatasets
+  } = props;
   const dispatch = useDispatch();
 
   const diffElem = (l1: any, l2: any) =>
@@ -61,6 +67,12 @@ export default function Layers(props: LayersProps) {
     else {
       changed = diffElem(newSelections, selectedTables);
       getFeatureCollection(changed.tableName, changed.geoType)(dispatch);
+      if (changed.geoType === 'area') {
+        const columnNames = metadataForAllDatasets.filter(
+          meta => meta.tableName === changed.tableName
+        )[0].columnNames;
+        dispatch(updateSelectedColumn(columnNames[0]));
+      }
     }
     updateSelectedTables(newSelections)(dispatch);
   };
