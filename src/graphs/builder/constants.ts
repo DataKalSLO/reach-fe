@@ -47,8 +47,6 @@ export const TOOLTIP_DEFAULT_HIGHCHARTS_POINT_FORMAT =
  */
 export const EXPORT_GRAPH_TITLE = '';
 export const EXPORT_GRAPH_SUBTITLE = '';
-export const EXPORT_RANGE_SELECTOR_ENABLED = false;
-export const EXPORT_NAVIGATOR_ENABLED = false;
 
 /*
  * Accessibility Options Constants

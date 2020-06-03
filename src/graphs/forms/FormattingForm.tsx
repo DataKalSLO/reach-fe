@@ -11,7 +11,6 @@ import {
   GRAPH_LABEL,
   OTHER_LABEL,
   STACK_LABEL,
-  TIMELINE_LABEL,
   X_AXIS_LABEL,
   Y_AXIS_LABEL
 } from './constants';
@@ -24,12 +23,11 @@ interface Props {
   setState: React.Dispatch<
     React.SetStateAction<PartialGraphConfigurationWithoutData>
   >;
-  isTimeSeries: boolean;
   children?: ReactNode;
 }
 
 export function FormattingForm(props: Props) {
-  const { state, setState, isTimeSeries, children } = props;
+  const { state, setState, children } = props;
 
   const handleTitleChange = (title: string) => {
     setState({ ...state, title: title });
@@ -130,15 +128,8 @@ export function FormattingForm(props: Props) {
     setState({
       ...state,
       stackConfig: isUndefined(state.stackConfig)
-        ? { type: 'normal', title: 'all' }
+        ? { type: 'normal' }
         : undefined
-    });
-  };
-
-  const handleTimelineChange = () => {
-    setState({
-      ...state,
-      timeSeries: isUndefined(state.timeSeries) ? true : undefined
     });
   };
 
@@ -202,12 +193,6 @@ export function FormattingForm(props: Props) {
           label={STACK_LABEL}
           checked={!isUndefined(state.stackConfig)}
           onChange={handleStackChange}
-        />
-        <Switch
-          disabled={!isTimeSeries}
-          label={TIMELINE_LABEL}
-          checked={!isUndefined(state.timeSeries)}
-          onChange={handleTimelineChange}
         />
       </FormBlock>
       {children}
