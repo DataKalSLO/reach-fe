@@ -20,7 +20,7 @@ import {
 } from '../redux/map/actions';
 import { theme } from '../theme/theme';
 import { removeMarker } from './LayersHelpers';
-import { LayersProps } from './types';
+import { LayersProps, HeatMapSelection } from './types';
 
 // sizing for autocomplete which controls layers selection
 const AUTOCOMPLETE_MIN_HEIGHT = '55px';
@@ -40,6 +40,7 @@ export const allData = flatten([markerData as any, heatMapData]);
 export default function Layers(props: LayersProps) {
   const {
     tableNames,
+    heatMapSelection,
     selectedTables,
     markerSelection,
     metadataForAllDatasets
@@ -49,7 +50,8 @@ export default function Layers(props: LayersProps) {
   const diffElem = (l1: any, l2: any) =>
     l1.filter((e1: any) => !l2.includes(e1))[0];
 
-  const updateSelections = (event: any, newSelections: Selection[] | null) => {
+  const updateSelections = (event: any, value: Selection[] | null) => {
+    let newSelections = value;
     if (newSelections === null) return;
     let changed: Selection;
 
@@ -72,6 +74,13 @@ export default function Layers(props: LayersProps) {
           meta => meta.tableName === changed.tableName
         )[0].columnNames;
         dispatch(updateSelectedColumn(columnNames[0]));
+        if (Object.keys(heatMapSelection).length) {
+          newSelections = newSelections.filter(
+            selection =>
+              selection.tableName !==
+              (heatMapSelection as HeatMapSelection).name
+          );
+        }
       }
     }
     updateSelectedTables(newSelections)(dispatch);
