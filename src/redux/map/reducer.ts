@@ -68,7 +68,7 @@ export function mapReducer(
     case UPDATE_MARKER_SELECTION:
       return {
         ...state,
-        markerSelection: action.payload
+        markerSelection: state.markerSelection.concat(action.payload)
       };
     case UPDATE_HEATMAP_SELECTION:
       return {

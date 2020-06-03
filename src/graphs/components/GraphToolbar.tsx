@@ -67,10 +67,13 @@ function GraphToolbar(props: GraphToolbarProps) {
         startIcon={<SyncIcon />}
         onClick={() => {
           console.log(newGraph.dataSources);
+          const yAxisDataSource = newGraph.dataSources.filter(
+            source => source.seriesType === 'Y_AXIS'
+          )[0];
           return dispatch(
             syncGraphAction(
-              newGraph.dataSources[0].datasetName,
-              newGraph.dataSources[0].columnNames
+              yAxisDataSource.datasetName,
+              yAxisDataSource.columnNames
             )
           );
         }}
