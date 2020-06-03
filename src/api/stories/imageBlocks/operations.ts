@@ -1,6 +1,6 @@
 import {
   authenticatedDel,
-  authenticatedPost
+  authenticatedPostForm
 } from '../../authenticatedApi/operations';
 import { getFileNameFromUrl } from '../../../common/util/urlValidation';
 import { ImageUploadResponse } from './types';
@@ -21,7 +21,7 @@ export function uploadImageForImageBlocks(
 ): Promise<ImageUploadResponse> {
   const imageUploadForm = new FormData();
   imageUploadForm.append(UPLOAD_FORM_IMAGE_KEY, imageFile);
-  return authenticatedPost(
+  return authenticatedPostForm(
     BASE_IMAGE_BLOCK_URL + blockId,
     imageUploadForm
   ) as Promise<ImageUploadResponse>;
