@@ -50,13 +50,14 @@ export default function Markers(
   layer: string
 ) {
   const dispatch = useDispatch();
+  console.log(features);
   return features.map((location: MarkerFeatures[]) => {
     const datapoint = location[0];
     return (
       <Marker
         key={datapoint.properties.name}
-        latitude={datapoint.geometry.coordinates[0]}
-        longitude={datapoint.geometry.coordinates[1]}
+        latitude={datapoint.geometry.coordinates[1]}
+        longitude={datapoint.geometry.coordinates[0]}
         offsetLeft={-ICON_WIDTH / 2}
         offsetTop={-ICON_HEIGHT}
       >

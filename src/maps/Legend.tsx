@@ -50,6 +50,10 @@ function populateLegendData(
   if (
     Object.keys(colorAssociation).length === Object.keys(markerSelection).length
   ) {
+    console.log('looping + ' + legendData.length);
+    legendData.forEach = val => {
+      console.log(val);
+    };
     markerSelection.forEach((selection: MarkerSelection) => {
       // TODO: once we are using DB instead of local data, the concat below will
       // likely be removed
@@ -62,7 +66,9 @@ function populateLegendData(
         source: link,
         color: colorAssociation[selection.name].color
       };
+      // it seems like the legendData is not preserving the old pushes, the length never changes from 0.
       legendData.push(markerLegend);
+      console.log('Pushing this ' + markerLegend.label);
     });
   }
 }

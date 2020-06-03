@@ -4,7 +4,8 @@ import React from 'react';
 import kitchenFacilitiesHeatMap from '../common/assets/Local Data/census/b25053.js';
 import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/median_income_data.js';
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
-import { allData, handleDisable } from './Layers';
+import { allData } from './Layers';
+import { handleDisable } from './LayersHelpers';
 import { MarkerSelection } from './types';
 
 React.useLayoutEffect = React.useEffect;
