@@ -24,6 +24,8 @@ import {
   DEFAULT_TITLE,
   EXPORT_GRAPH_SUBTITLE,
   EXPORT_GRAPH_TITLE,
+  EXPORT_NAVIGATOR_ENABLED,
+  EXPORT_RANGE_SELECTOR_ENABLED,
   GRAPH_3D_ALPHA,
   GRAPH_3D_BETA,
   GRAPH_3D_DEPTH,
@@ -169,6 +171,8 @@ export const exportingOptions: ExportingOptions = {
     subtitle: {
       text: EXPORT_GRAPH_SUBTITLE
     },
+    rangeSelector: { enabled: EXPORT_RANGE_SELECTOR_ENABLED },
+    navigator: { enabled: EXPORT_NAVIGATOR_ENABLED },
     plotOptions: {
       series: { dataLabels: { enabled: GRAPH_SERIES_DATA_LABELS_ENABLED } }
     }
