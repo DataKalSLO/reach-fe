@@ -10,6 +10,7 @@ import {
   ImageBlockType,
   IMAGE_BLOCK_TYPE,
   PublicationStatus,
+  LOAD_EXISTING_STORY,
   Story,
   StoryActionType,
   StoryBlockType,
@@ -114,6 +115,8 @@ export function storyReducer(state = initialStory, action: StoryActionType) {
         ...state,
         storyBlocks: updateObjectInArray(state.storyBlocks, action)
       };
+    case LOAD_EXISTING_STORY:
+      return action.payload.storyToLoad;
     default:
       return state;
   }
