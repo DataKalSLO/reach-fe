@@ -1,4 +1,4 @@
-import { Box, styled } from '@material-ui/core';
+import { Box, styled, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { isUndefined } from 'util';
 import {
@@ -49,17 +49,32 @@ export default function GraphBlock(props: Props) {
     setGraphID(graph.graphId);
   }
 
-  const GraphExplorer = () => (
-    <Gallery justify="center">
-      {graphs.map(graph => (
-        <GraphCard
-          key={graph.graphId}
-          graphMetaData={graph}
-          onClick={() => handleSelection(graph)}
-        />
-      ))}
-    </Gallery>
-  );
+  const GraphExplorer = () => {
+    // when the user hasn't saved any graphs
+    if (graphs.length === 0) {
+      return (
+        <div>
+          <Typography variant="h4" component="h1">
+            {'No graphs found.'}
+          </Typography>
+          <Typography color="textSecondary" variant="h6" component="h2">
+            {'Add your first graph from the VizBuilder tab.'}
+          </Typography>
+        </div>
+      );
+    }
+    return (
+      <Gallery justify="center">
+        {graphs.map(graph => (
+          <GraphCard
+            key={graph.graphId}
+            graphMetaData={graph}
+            onClick={() => handleSelection(graph)}
+          />
+        ))}
+      </Gallery>
+    );
+  };
 
   const SelectedGraph = () => {
     return isUndefined(interactiveGraph) ? null : (
@@ -76,7 +91,10 @@ export default function GraphBlock(props: Props) {
 
 const StoryBlockContainer = styled(Box)({
   flexGrow: 1,
-  minHeight: 600,
+  minHeight: 200,
   border: BORDER,
-  borderRadius: '5px'
+  borderRadius: '5px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center'
 });
