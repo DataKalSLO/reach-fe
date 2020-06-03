@@ -1,5 +1,5 @@
 import { EditorState } from 'draft-js';
-import { emptyGraphBlock, emptyTextBlock } from './initializers';
+import { getEmptyGraphBlock, getEmptyTextBlock } from './initializers';
 import {
   CreateEmptyTextBlockAction,
   CreateGraphBlockAction,
@@ -7,7 +7,10 @@ import {
   CREATE_GRAPH_BLOCK,
   DeleteBlockAction,
   DELETE_BLOCK,
+  LoadExistingStoryAction,
+  LOAD_EXISTING_STORY,
   PublicationStatus,
+  Story,
   SwapBlocksAction,
   SWAP_BLOCKS,
   UpdateDescriptionAction,
@@ -19,17 +22,14 @@ import {
   UPDATE_GRAPH_BLOCK,
   UPDATE_PUBLICATION_STATUS,
   UPDATE_TEXT_BLOCK,
-  UPDATE_TITLE,
-  LoadExistingStoryAction,
-  Story,
-  LOAD_EXISTING_STORY
+  UPDATE_TITLE
 } from './types';
 
 export function createEmptyTextBlock(): CreateEmptyTextBlockAction {
   return {
     type: CREATE_EMPTY_TEXT_BLOCK,
     payload: {
-      block: emptyTextBlock()
+      block: getEmptyTextBlock()
     }
   };
 }
@@ -38,7 +38,7 @@ export function createGraphBlock(): CreateGraphBlockAction {
   return {
     type: CREATE_GRAPH_BLOCK,
     payload: {
-      block: emptyGraphBlock()
+      block: getEmptyGraphBlock()
     }
   };
 }

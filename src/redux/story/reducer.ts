@@ -1,6 +1,6 @@
 import { arrayMove } from 'react-sortable-hoc';
 import { removeObjectAtIndex } from '../../common/util/arrayTools';
-import { initialStory } from './initializers';
+import { getInitialStory } from './initializers';
 import {
   CREATE_EMPTY_TEXT_BLOCK,
   CREATE_GRAPH_BLOCK,
@@ -37,7 +37,10 @@ function updateObjectInArray(
   });
 }
 
-export function storyReducer(state = initialStory(), action: StoryActionType) {
+export function storyReducer(
+  state = getInitialStory(),
+  action: StoryActionType
+) {
   switch (action.type) {
     case CREATE_EMPTY_TEXT_BLOCK: // using the fall through features of switch statements
     case CREATE_GRAPH_BLOCK:
