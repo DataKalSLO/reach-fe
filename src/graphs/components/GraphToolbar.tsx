@@ -1,5 +1,6 @@
 import { Toolbar } from '@material-ui/core';
 import { Delete, Edit, FileCopy, Save, Share } from '@material-ui/icons';
+import SyncIcon from '@material-ui/icons/Sync';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import React from 'react';
@@ -26,7 +27,8 @@ import {
   HIDE_LABEL,
   SAVE_LABEL,
   SHARE_LABEL,
-  SHOW_LABEL
+  SHOW_LABEL,
+  SYNC_LABEL
 } from './constants';
 import { GraphToolbarProps } from './types';
 
@@ -57,6 +59,13 @@ function GraphToolbar(props: GraphToolbarProps) {
   // TODO: Collapse toolbar when width is too small
   return (
     <Toolbar>
+      <ToolbarButton
+        label={SYNC_LABEL}
+        variant="text"
+        color="default"
+        startIcon={<SyncIcon />}
+        onClick={() => alert('not implemented')}
+      />
       <ToolbarButton
         label={EDIT_LABEL}
         variant="text"
