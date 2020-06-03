@@ -2,6 +2,7 @@ import { Box, styled } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { isUndefined } from 'util';
 import { getAllGraphsAndHandleResponse } from '../../api/graphs/operationHandlers';
+import { CoreGraph } from '../../graphs/components/CoreGraph';
 import GraphCard from '../../preview-cards/graph-card/GraphCard';
 import { Gallery } from '../../reach-ui/core';
 import { createGraphWithData } from '../../redux/graphbuilder/actions';
@@ -17,11 +18,11 @@ interface Props {
 }
 
 export default function GraphBlock(props: Props) {
-  const { graphID, setGraphId } = props;
   const [graphs, setGraphs] = useState([] as GraphMetaData[]);
   const [interactiveGraph, setInteractiveGraph] = useState<Graph | undefined>(
     undefined
   );
+  const { graphID, setGraphId } = props; // redux
 
   // show user's graph as static images
   useEffect(() => {
@@ -56,9 +57,9 @@ export default function GraphBlock(props: Props) {
   );
 
   const SelectedGraph = () => {
-    // FIXME
+    // FIXME: interactive graph not showing up
     return isUndefined(interactiveGraph) ? null : (
-      <div>{interactiveGraph.graphMetaData.graphId}</div>
+      <CoreGraph graph={interactiveGraph} />
     );
   };
 
