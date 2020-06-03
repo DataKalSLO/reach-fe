@@ -14,8 +14,9 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ADMIN_USER, STORY_VIEW } from '../../nav/constants';
 import { getUser } from '../../redux/login/selectors';
-import { Story, PublicationStatus } from '../../redux/story/types';
-import { AdminReviewCardActions } from './AdminReviewCardActions';
+import { PublicationStatus, Story } from '../../redux/story/types';
+import AdminReviewCardActions from './AdminReviewCardActions';
+import AuthorCardActions from './AuthorCardActions';
 
 //TODO: Add a way to get author, date, and image url from passed in props
 const PLACEHOLDER_AUTHOR = 'Bill Writer';
@@ -88,6 +89,15 @@ export default function StoryCard(props: Props): JSX.Element {
     );
   };
 
+  // Buttons to interact with a story that will only appear if current user is the author
+  const AuthorButtons = (props: { story: Story }) => {
+    if (user.email === props.story.userID) {
+      return <AuthorCardActions story={props.story} />;
+    } else {
+      return <React.Fragment />;
+    }
+  };
+
   // Buttons to reject story with feedback or approve for publishing
   // Buttons will only appear if story is in review status and user is an admin
   const AdminReviewButtons = () => {
@@ -108,6 +118,8 @@ export default function StoryCard(props: Props): JSX.Element {
 
   return (
     <Card className={classes.card} variant="outlined">
+      <AuthorButtons story={props.story} />
+
       <CardActionArea
         onClick={() => history.push(STORY_VIEW + '/' + props.story.id)}
       >
