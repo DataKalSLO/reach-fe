@@ -73,11 +73,11 @@ export function mapReducer(
         ...state,
         heatMapSelection: action.payload
       };
-    case UPDATE_SELECTED_MARKER:
-      return {
-        ...state,
-        selectedMarker: action.payload
-      };
+    // case UPDATE_SELECTED_MARKER:
+    //   return {
+    //     ...state,
+    //     selectedMarker: action.payload
+    //   };
     case UPDATE_BOUND_SELECTION:
       return {
         ...state,

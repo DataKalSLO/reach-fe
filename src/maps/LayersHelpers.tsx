@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux';
+import { Selection } from '../api/vizbuilder/types';
 import {
   updateHeatMapSelection,
   updateMarkerSelection,
@@ -82,4 +83,15 @@ export function handleDisable(
   }
   // don't disable any options if the user hasn't reached max markers or max selections
   return showAll.includes(option);
+}
+
+export function removeMarker(marker: Selection, markersArr: MarkerSelection[]) {
+  const newMarkers = [];
+
+  for (let ind = 0; ind < markersArr.length; ind++) {
+    if (markersArr[ind].name !== marker.tableName) {
+      newMarkers.push(markersArr[ind]);
+    }
+  }
+  return newMarkers;
 }

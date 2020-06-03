@@ -7,17 +7,19 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { flatten } from 'lodash';
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { Selection } from '../api/vizbuilder/types';
 import kitchenFaciltiesHeatMap from '../common/assets/Local Data/census/b25053.js';
 import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/median_income_data.js';
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
 import {
-  updateHeatMapSelection,
   getFeatureCollection,
+  updateHeatMapSelection,
+  updateMarkerSelection,
   updateSelectedTables
 } from '../redux/map/actions';
 import { theme } from '../theme/theme';
+import { removeMarker } from './LayersHelpers';
 import { LayersProps } from './types';
-import { Selection } from '../api/vizbuilder/types';
 
 // all of the local data we have available
 // TODO: pull this from backend! need distinct split between marker & heat map
@@ -28,7 +30,7 @@ export const allData = flatten([markerData as any, heatMapData]);
 
 // this function creates the multi-seletion autocomplete component
 export default function Layers(props: LayersProps) {
-  const { tableNames, selectedTables } = props;
+  const { tableNames, selectedTables, markerSelection } = props;
   const dispatch = useDispatch();
 
   const diffElem = (l1: any, l2: any) =>
@@ -43,18 +45,15 @@ export default function Layers(props: LayersProps) {
       changed = diffElem(selectedTables, newSelections);
       if (changed.geoType === 'area') {
         dispatch(updateHeatMapSelection({}));
+      } else {
+        dispatch(updateMarkerSelection(removeMarker(changed, markerSelection)));
       }
     }
 
     // added
     else {
       changed = diffElem(newSelections, selectedTables);
-      if (changed.geoType === 'area') {
-        getFeatureCollection(
-          changed.tableName,
-          updateHeatMapSelection
-        )(dispatch);
-      }
+      getFeatureCollection(changed.tableName, changed.geoType)(dispatch);
     }
     updateSelectedTables(newSelections)(dispatch);
     //  getFeatureCollection('b19019_001e')(dispatch);

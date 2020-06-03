@@ -12,14 +12,25 @@ import {
   UPDATE_SELECTED_MARKER,
   UPDATE_SELECTED_TABLES
 } from './types';
-import { getFeatureCollectionAndHandleResponse } from '../../api/map/operationHandlers';
+import {
+  getFeatureCollectionAndHandleResponse,
+  getMarkersAndHandleResponse
+} from '../../api/map/operationHandlers';
 import { Dispatch } from 'redux';
 
-export function getFeatureCollection(tableName: string, updater: any) {
-  return async (dispatch: Dispatch) => {
-    const payload = await getFeatureCollectionAndHandleResponse(tableName);
-    dispatch(updater(payload));
-  };
+export function getFeatureCollection(tableName: string, geoType: string) {
+  if (geoType === 'area') {
+    return async (dispatch: Dispatch) => {
+      const payload = await getFeatureCollectionAndHandleResponse(tableName);
+      dispatch(updateHeatMapSelection(payload));
+    };
+  } else {
+    return async (dispatch: Dispatch) => {
+      const payload = await getMarkersAndHandleResponse(tableName);
+      console.log(payload);
+      dispatch(updateMarkerSelection([payload]));
+    };
+  }
 }
 
 export function updateSelectedTables(selectedTables: any) {
