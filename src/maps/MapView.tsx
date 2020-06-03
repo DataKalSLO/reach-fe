@@ -1,3 +1,4 @@
+import { Grid } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import chroma from 'chroma-js';
 import _ from 'lodash';
@@ -8,24 +9,23 @@ import mapOutline from '../common/assets/Local Data/census/b25053';
 import noData from '../common/assets/Local Data/census/noHeatMap';
 import { updateColorAssociation } from '../redux/map/actions';
 import {
+  HEAT_MAP_COLOR,
   NUM_QUANTILES,
   SLO_LATITUDE,
-  SLO_LONGITUDE,
-  HEAT_MAP_COLOR
+  SLO_LONGITUDE
 } from './constants';
 import { mapMarkers } from './MapMarker';
 import Popups from './MapPopups';
 import {
+  cursorWithinBounds,
   getStat,
   onHover,
   position,
   prepGeo,
   quantileMaker,
-  tooltipOverlapsMarkers,
-  cursorWithinBounds
+  tooltipOverlapsMarkers
 } from './MapViewHelpers';
 import Tooltip from './Tooltip';
-import { Grid } from '@material-ui/core';
 import { MapViewProps, HeatMapSelection, MarkerFeatures } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -65,6 +65,8 @@ function MapView(props: MapViewProps) {
   const VIEWPORT_DISPLAY = 'flex';
   const VIEWPORT_FLEX_FLOW = 'row';
   const VIEWPORT_ZOOM = 8;
+
+  const Z_INDEX = 1;
 
   // map outlines
   const outlinesPrepped = prepGeo(mapOutline.features);
@@ -191,7 +193,7 @@ function MapView(props: MapViewProps) {
           opacity,
           top,
           left,
-          zIndex: 999,
+          zIndex: Z_INDEX,
           pointerEvents: 'none',
           position: 'absolute'
         }}
@@ -207,7 +209,10 @@ function MapView(props: MapViewProps) {
         <ReactMapGL
           mapboxApiAccessToken={process.env.REACT_APP_TOKEN}
           {...viewport}
-          onViewportChange={viewport => setViewport(viewport)}
+          onViewportChange={viewport => {
+            viewport.width = window.innerWidth;
+            setViewport(viewport);
+          }}
           onHover={event =>
             onHover(
               defaultHoveredLocation,

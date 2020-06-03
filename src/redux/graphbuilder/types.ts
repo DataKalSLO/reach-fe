@@ -11,7 +11,8 @@ import {
   SAVE_GRAPH,
   TOGGLE_CREATE_GRAPH,
   UPDATE_GRAPH,
-  UPDATE_LOCAL_GRAPH
+  UPDATE_LOCAL_GRAPH,
+  FETCH
 } from './constants';
 
 /*
@@ -21,6 +22,7 @@ import {
 export interface GraphBuilderState {
   graphs: Graph[];
   isCreating: boolean;
+  isFetching: boolean;
 }
 
 export interface Graph {
@@ -94,6 +96,11 @@ export interface ToggleCreateGraphAction {
   payload: undefined;
 }
 
+export interface FetchAction {
+  type: typeof FETCH;
+  payload: undefined;
+}
+
 export type GraphActionTypes =
   | SaveGraphAction
   | UpdateGraphAction
@@ -105,4 +112,5 @@ export type GraphActionTypes =
   | CreateLocalGraph
   | DuplicateGraphAction
   | DeleteLocalGraph
-  | ToggleCreateGraphAction;
+  | ToggleCreateGraphAction
+  | FetchAction;

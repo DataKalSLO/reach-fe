@@ -21,6 +21,13 @@ import { theme } from '../theme/theme';
 import { removeMarker } from './LayersHelpers';
 import { LayersProps } from './types';
 
+// sizing for autocomplete which controls layers selection
+const AUTOCOMPLETE_MIN_HEIGHT = '55px';
+const AUTOCOMPLETE_MIN_WIDTH = '75px';
+
+// sizing for Box that contains the autocomplete
+const BOX_MIN_WIDTH = '75%';
+
 // all of the local data we have available
 // TODO: pull this from backend! need distinct split between marker & heat map
 const heatMapData = [medianHouseholdIncomeHeatMap, kitchenFaciltiesHeatMap];
@@ -78,9 +85,9 @@ export default function Layers(props: LayersProps) {
         // }
         // adjust autocomplete size here, some magic numbers
         style={{
-          minWidth: '75px',
+          minWidth: AUTOCOMPLETE_MIN_WIDTH,
           marginTop: theme.spacing(1),
-          minHeight: '55px'
+          minHeight: AUTOCOMPLETE_MIN_HEIGHT
         }}
         // getOptionLabel={option => option.name}
         filterSelectedOptions
@@ -103,6 +110,6 @@ export default function Layers(props: LayersProps) {
 const StyledBox = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
-  minWidth: '75%',
+  minWidth: BOX_MIN_WIDTH,
   alignItems: 'left'
 });
