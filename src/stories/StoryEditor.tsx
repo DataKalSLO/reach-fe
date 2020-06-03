@@ -1,5 +1,5 @@
 import { Typography } from '@material-ui/core';
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { object, string } from 'yup';
 import { updateDescription, updateTitle } from '../redux/story/actions';
@@ -9,6 +9,7 @@ import {
   UpdateDescriptionAction,
   UpdateTitleAction
 } from '../redux/story/types';
+import { storyHasContent } from '../redux/story/utilities';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
 import { MetaField } from './MetaField';
 import SortableList from './SortableList';
@@ -44,6 +45,27 @@ export default function StoryEditor() {
   const story = useSelector(getStory);
   const storyBuilderState = useSelector(getStoryBuilder);
   const previewSelected = storyBuilderState.isPreviewSelected;
+
+  // If story has any content, then save it before leaving site.
+  const saveOnLeave = useCallback(() => {
+    if (storyHasContent(story)) {
+      // TODO: Uncomment when ready to save stories
+      //saveStoryAndHandleResponse(story);
+      console.log('should save story, not implemented');
+    }
+  }, [story]);
+
+  // Save story when page is refreshed or closed.
+  window.addEventListener('beforeunload', function(e) {
+    saveOnLeave();
+  });
+
+  // Save story when user switches to different path in site.
+  useEffect(() => {
+    return () => {
+      saveOnLeave();
+    };
+  }, [saveOnLeave]);
 
   if (previewSelected) {
     return <StoryView story={story} />;

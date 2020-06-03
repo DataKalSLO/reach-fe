@@ -3,8 +3,9 @@ import React from 'react';
 import { Dispatch } from 'redux';
 import { IconButton } from '../reach-ui/core';
 import { deleteBlock } from '../redux/story/actions';
-import { StoryBlockType, TEXT_BLOCK_TYPE } from '../redux/story/types';
+import { StoryBlockType } from '../redux/story/types';
 import { theme } from '../theme/theme';
+import { storyBlockHasContent } from '../redux/story/utilities';
 
 interface StoryBlockDeleteButtonProps {
   index: number;
@@ -18,10 +19,7 @@ const storyBlockDeleteButtonAction = (
   dispatch: Dispatch
 ): void => {
   //Dont ask for delete confirmation for empty text blocks
-  if (
-    storyBlock.type === TEXT_BLOCK_TYPE &&
-    !storyBlock.editorState.getCurrentContent().hasText()
-  ) {
+  if (storyBlockHasContent(storyBlock)) {
     dispatch(deleteBlock(index));
   } else {
     if (
