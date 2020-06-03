@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { Selection } from '../api/vizbuilder/types';
 import {
   updateHeatMapSelection,
-  updateMarkerSelection,
+  addMarkerSelection,
   updateSelectedMarker
 } from '../redux/map/actions';
 import {
@@ -46,7 +46,7 @@ export function handleChange(
     }
   });
   dispatch(updateHeatMapSelection(newHeatMap));
-  dispatch(updateMarkerSelection(allMarkers));
+  dispatch(addMarkerSelection(allMarkers));
   dispatch(
     updateSelectedMarker(
       selectedMarker.filter(
