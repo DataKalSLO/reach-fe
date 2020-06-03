@@ -1,5 +1,7 @@
-import { Grid, Typography } from '@material-ui/core';
+import { Box, Chip as CoreChip, Grid, Typography } from '@material-ui/core';
 import React from 'react';
+import { DATA_ICON } from '../reach-ui/icons';
+import { theme } from '../theme/theme';
 
 export const Title = (props: { text: string }) => (
   <Typography gutterBottom variant="h6" component="h1">
@@ -43,10 +45,31 @@ export const AuthorDate = (props: {
         />
       </Grid>
       <Grid item>
-        <Typography variant="subtitle1" color="textSecondary">
+        <Typography
+          gutterBottom={true}
+          variant="subtitle1"
+          color="textSecondary"
+        >
           {props.date}
         </Typography>
       </Grid>
     </Grid>
   );
 };
+
+const Chip = (props: { label: string }) => (
+  <CoreChip
+    size="medium"
+    label={props.label}
+    style={{ margin: theme.spacing(0.5) }}
+    icon={DATA_ICON}
+  />
+);
+
+export const Chips = (props: { labels: string[] }) => (
+  <Box display="flex" flexWrap="wrap" style={{ margin: theme.spacing(-0.25) }}>
+    {props.labels.map((label, index) => (
+      <Chip key={index} label={label} />
+    ))}
+  </Box>
+);

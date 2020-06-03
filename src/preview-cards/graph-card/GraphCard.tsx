@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import { GraphMetaData } from '../../redux/graphs/types';
-import { AuthorDate, Description, Title } from '../PreviewMetaData';
+import { AuthorDate, Chips, Description, Title } from '../PreviewMetaData';
 import {
   PLACEHOLDER_AUTHOR,
   PLACEHOLDER_DATE,
@@ -21,7 +21,12 @@ const styleProps: StyleProps = {
 
 export default function GraphCard(props: GraphMetaData): JSX.Element {
   const classes = usePreviewCardStyles(styleProps);
-  // TODO:
+
+  const getDatasetNames = () => {
+    const datasetNames = props.dataSources.map(source => source.datasetName);
+    return Array.from(new Set(datasetNames)); // removes duplicates
+  };
+
   return (
     <Card className={classes.card} variant="outlined">
       <CardActionArea
@@ -44,6 +49,7 @@ export default function GraphCard(props: GraphMetaData): JSX.Element {
             profilePicture={PLACEHOLDER_USER_PICTURE}
             date={PLACEHOLDER_DATE}
           />
+          <Chips labels={getDatasetNames()} />
         </CardContent>
       </CardActionArea>
     </Card>
