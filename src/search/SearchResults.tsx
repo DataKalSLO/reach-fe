@@ -8,6 +8,7 @@ import {
 } from '../redux/search/types';
 import StoryCard from '../preview-cards/story-card/StoryCard';
 import { Story, PublicationStatus } from '../redux/story/types';
+import { GraphMetaData } from '../redux/graphs/types';
 
 interface SearchResultProps {
   hits: Array<ElasticSearchResultObject>;
@@ -37,6 +38,15 @@ function convertToStoryCard(item: ElasticSearchResultObject) {
 function convertToGraphCard(item: ElasticSearchResultObject) {
   const graphSource = item._source as ElasticSearchGraphSource;
   const primaryText = `${item._source.title} by ${item._source.user_id}`;
+  const currentGraph: GraphMetaData = {
+    graphId: item._id,
+    userId: graphSource.user_id,
+    timestamp: graphSource.timestamp,
+    graphTitle: graphSource.title,
+    snapshotUrl: graphSource.snapshot_url,
+    dataSources: [],
+    graphOptions: {} as any
+  };
 
   return (
     <ListItem key={item._index + item._id}>
