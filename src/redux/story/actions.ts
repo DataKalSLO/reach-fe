@@ -19,7 +19,10 @@ import {
   UPDATE_GRAPH_BLOCK,
   UPDATE_PUBLICATION_STATUS,
   UPDATE_TEXT_BLOCK,
-  UPDATE_TITLE
+  UPDATE_TITLE,
+  LoadExistingStoryAction,
+  Story,
+  LOAD_EXISTING_STORY
 } from './types';
 
 export function createEmptyTextBlock(): CreateEmptyTextBlockAction {
@@ -99,5 +102,12 @@ export function updatePublicationStatus(
   return {
     type: UPDATE_PUBLICATION_STATUS,
     payload: { newPublicationStatus: newPublicationStatus }
+  };
+}
+
+export function loadExistingStory(storyToLoad: Story): LoadExistingStoryAction {
+  return {
+    type: LOAD_EXISTING_STORY,
+    payload: { storyToLoad: storyToLoad }
   };
 }

@@ -1,3 +1,4 @@
+import { Grid } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import chroma from 'chroma-js';
 import _ from 'lodash';
@@ -6,36 +7,38 @@ import ReactMapGL, { Layer, Source } from 'react-map-gl';
 import mapOutline from '../common/assets/Local Data/census/b25053';
 import noData from '../common/assets/Local Data/census/noHeatMap';
 import {
+  HEAT_MAP_COLOR,
+  MARKER_ONE_COLOR,
+  MARKER_THREE_COLOR,
+  MARKER_TWO_COLOR,
   NUM_QUANTILES,
   PLACER,
   SLO_LATITUDE,
   SLO_LONGITUDE,
-  ZIP_TABULATION,
-  HEAT_MAP_COLOR,
-  MARKER_ONE_COLOR,
-  MARKER_TWO_COLOR
+  ZIP_TABULATION
 } from './constants';
 import { mapMarkers } from './MapMarker';
 import Popups from './MapPopups';
 import {
-  ColorAssociation,
-  LocationFeatures,
-  PrepGeoObject,
-  HeatMapSelection,
-  MarkerSelection,
-  SelectedMarker,
-  SetSelectedMarker,
-  SetColorAssociation
-} from './types';
-import {
+  cursorWithinBounds,
   getStat,
   onHover,
+  position,
   prepGeo,
   quantileMaker,
-  position
+  tooltipOverlapsMarkers
 } from './MapViewHelpers';
 import Tooltip from './Tooltip';
-import { Grid } from '@material-ui/core';
+import {
+  ColorAssociation,
+  HeatMapSelection,
+  LocationFeatures,
+  MarkerSelection,
+  PrepGeoObject,
+  SelectedMarker,
+  SetColorAssociation,
+  SetSelectedMarker
+} from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
@@ -85,12 +88,14 @@ function MapView(props: MapViewProps) {
   const VIEWPORT_FLEX_FLOW = 'row';
   const VIEWPORT_ZOOM = 8;
 
+  const Z_INDEX = 1;
+
   // map outlines
   const outlinesPrepped = prepGeo(mapOutline.features);
   const outlineData = GeoJSON.parse(outlinesPrepped, { GeoJSON: 'geometry' });
 
   // React-Map-GL State
-  const [dims, setDims] = React.useState({ height: 0, width: 0 });
+  const [dims, setDims] = React.useState(new DOMRect(0, 0, 0, 0));
   const [layer, setLayer] = React.useState({
     id: 'data',
     type: 'fill',
@@ -108,6 +113,7 @@ function MapView(props: MapViewProps) {
   });
 
   // Tooltip State
+  const [opacity, setOpacity] = React.useState(0);
   const [hoveredLocation, setHoveredLocation] = React.useState({
     properties: {
       [valueKey]: '1',
@@ -120,7 +126,8 @@ function MapView(props: MapViewProps) {
 
   const markerColors = [
     { color: MARKER_ONE_COLOR },
-    { color: MARKER_TWO_COLOR }
+    { color: MARKER_TWO_COLOR },
+    { color: MARKER_THREE_COLOR }
   ];
 
   useEffect(() => {
@@ -144,6 +151,28 @@ function MapView(props: MapViewProps) {
     latitude: SLO_LATITUDE,
     longitude: SLO_LONGITUDE,
     zoom: VIEWPORT_ZOOM
+  });
+
+  const handleMouseMove = (event: MouseEvent) => {
+    const map = document.getElementById('map');
+    if (
+      !map ||
+      (!cursorWithinBounds(
+        event.pageX,
+        event.pageY,
+        map.getBoundingClientRect()
+      ) &&
+        opacity !== 0)
+    ) {
+      setOpacity(0);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
   });
 
   useEffect(() => {
@@ -173,27 +202,31 @@ function MapView(props: MapViewProps) {
   }, [heatMapFeatures, valueKey]);
 
   const renderTooltip = () => {
-    if (hoveredLocation.noLocation) {
-      return;
-    }
-    const zipsValue = hoveredLocation.properties[valueKey];
-    const zipCode = hoveredLocation.properties[ZIP_TABULATION];
-
     const map = document.getElementById('map');
     if (!map) {
       return;
     }
+
     const bounds = map.getBoundingClientRect();
+    const properOpacity =
+      hoveredLocation.noLocation || tooltipOverlapsMarkers(dims) ? 0 : 1;
+    if (opacity !== properOpacity) {
+      setOpacity(properOpacity);
+    }
     const left = position(bounds.left, bounds.right, dims.width, x.current);
     const top = position(bounds.top, bounds.bottom, dims.height, y.current);
+
+    const zipsValue = hoveredLocation.properties[valueKey];
+    const zipCode = hoveredLocation.properties[ZIP_TABULATION];
 
     return (
       <div
         id="map-tooltip"
         style={{
+          opacity,
           top,
           left,
-          zIndex: 999,
+          zIndex: Z_INDEX,
           pointerEvents: 'none',
           position: 'absolute'
         }}
@@ -209,7 +242,10 @@ function MapView(props: MapViewProps) {
         <ReactMapGL
           mapboxApiAccessToken={process.env.REACT_APP_TOKEN}
           {...viewport}
-          onViewportChange={viewport => setViewport(viewport)}
+          onViewportChange={viewport => {
+            viewport.width = window.innerWidth;
+            setViewport(viewport);
+          }}
           onHover={event =>
             onHover(
               defaultHoveredLocation,

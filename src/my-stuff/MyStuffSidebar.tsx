@@ -1,82 +1,64 @@
-import { InsertChart, LibraryBooks, Map, ViewModule } from '@material-ui/icons';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { PersistentDrawerProps } from '../common/components/PersistentDrawer';
 import {
   MY_STUFF,
   MY_STUFF_CHARTS,
   MY_STUFF_MAPS,
   MY_STUFF_STORIES
 } from '../nav/constants';
-import { Drawer, List, ListItemButton } from '../reach-ui/core';
-
-export enum SidebarListOrder {
-  all = 0,
-  charts,
-  maps,
-  stories
-}
-
-interface SidebarButtonProps {
-  title: string;
-  icon: JSX.Element;
-  index: number;
-  route: string;
-  // This extra parameter is necessary to allow other props to be passed through
-  [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-}
+import { MY_STUFF_SIDEBAR } from '../reach-ui/constants';
+import {
+  Drawer,
+  getPersistentDrawerOptions,
+  List,
+  ListItemTab
+} from '../reach-ui/core';
+import {
+  ALL_ITEMS_ICON,
+  CHARTS_ICON,
+  MAPS_ICON,
+  STORIES_ICON
+} from '../reach-ui/icons';
 
 const SIDEBAR_WIDTH = 190;
 
-// selection functionality copied from https://material-ui.com/components/lists/#selected-listitem
+const drawerOptions: PersistentDrawerProps = {
+  defaultTab: 'All Items',
+  drawerId: MY_STUFF_SIDEBAR
+};
 
-export default function MyStuffSidebar(props: { selectedIndex: number }) {
-  const [selectedIndex, setSelectedIndex] = React.useState(props.selectedIndex);
+export default function MyStuffSidebar() {
   const history = useHistory();
   const navigateTo = (route: string) => history.push(route);
-
-  const handleListItemClick = (index: number, route: string) => {
-    navigateTo(route);
-    setSelectedIndex(index);
-  };
-
-  const SidebarButton = (props: SidebarButtonProps) => {
-    return (
-      <ListItemButton
-        text={props.title}
-        icon={props.icon}
-        selected={selectedIndex === props.index}
-        onClick={() => handleListItemClick(props.index, props.route)}
-      />
-    );
-  };
+  const options = getPersistentDrawerOptions(drawerOptions);
 
   return (
-    <Drawer width={SIDEBAR_WIDTH} isCollapsible={true}>
+    <Drawer width={SIDEBAR_WIDTH}>
       <List>
-        <SidebarButton
-          autoFocus
+        <ListItemTab
           title="All Items"
-          icon={<ViewModule />}
-          index={SidebarListOrder.all}
-          route={MY_STUFF}
+          icon={ALL_ITEMS_ICON}
+          onClick={() => navigateTo(MY_STUFF)}
+          {...options}
         />
-        <SidebarButton
+        <ListItemTab
           title="Charts"
-          icon={<InsertChart />}
-          index={SidebarListOrder.charts}
-          route={MY_STUFF_CHARTS}
+          icon={CHARTS_ICON}
+          onClick={() => navigateTo(MY_STUFF_CHARTS)}
+          {...options}
         />
-        <SidebarButton
+        <ListItemTab
           title="Maps"
-          icon={<Map />}
-          index={SidebarListOrder.maps}
-          route={MY_STUFF_MAPS}
+          icon={MAPS_ICON}
+          onClick={() => navigateTo(MY_STUFF_MAPS)}
+          {...options}
         />
-        <SidebarButton
+        <ListItemTab
           title="Stories"
-          icon={<LibraryBooks />}
-          index={SidebarListOrder.stories}
-          route={MY_STUFF_STORIES}
+          icon={STORIES_ICON}
+          onClick={() => navigateTo(MY_STUFF_STORIES)}
+          {...options}
         />
       </List>
     </Drawer>

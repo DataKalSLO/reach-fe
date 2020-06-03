@@ -1,29 +1,16 @@
 import { Box } from '@material-ui/core';
-import { styled } from '@material-ui/styles';
 import React from 'react';
+import { SidebarContentBox } from '../reach-ui/core';
 import StoryEditor from '../stories/StoryEditor';
 import StorySidebar from '../stories/StorySidebar';
-import { theme } from '../theme/theme';
 
 export default function StoryBuilder() {
   return (
-    <StyledBox>
+    <Box display="flex">
       <StorySidebar />
-      <ContentBox>
+      <SidebarContentBox>
         <StoryEditor />
-      </ContentBox>
-    </StyledBox>
+      </SidebarContentBox>
+    </Box>
   );
 }
-
-const StyledBox = styled(Box)({
-  display: 'flex'
-});
-
-const ContentBox = styled(Box)({
-  flexGrow: 1,
-  paddingTop: theme.spacing(3),
-  paddingBottom: theme.spacing(3),
-  paddingLeft: theme.spacing(12),
-  paddingRight: theme.spacing(12)
-});

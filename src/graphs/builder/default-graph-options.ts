@@ -22,6 +22,8 @@ import {
   ACCESSIBILITY_ANNOUNCE_NEW_DATA_ENABLED,
   DEFAULT_SUBTITLE,
   DEFAULT_TITLE,
+  EXPORT_GRAPH_SUBTITLE,
+  EXPORT_GRAPH_TITLE,
   GRAPH_3D_ALPHA,
   GRAPH_3D_BETA,
   GRAPH_3D_DEPTH,
@@ -46,6 +48,7 @@ import {
   GRAPH_SYNC_TOOLTIP_SHADOW_ENABLED,
   GRAPH_SYNC_TOOLTIP_SPLIT_ENABLED,
   GRAPH_SYNC_TRIGGER,
+  GRAPH_TITLE_WIDTH_ADJUST,
   GRAPH_X_AXIS_CROSSHAIR_ENABLED,
   GRAPH_X_AXIS_UNIQUE_NAMES_ENABLED,
   GRAPH_ZOOM_TYPE,
@@ -69,7 +72,10 @@ import {
  * The title of the chart
  * - can be applied to all charts
  */
-export const title: TitleOptions = { text: DEFAULT_TITLE };
+export const title: TitleOptions = {
+  text: DEFAULT_TITLE,
+  widthAdjust: GRAPH_TITLE_WIDTH_ADJUST
+};
 
 /*
  * The subtitle of the chart
@@ -157,6 +163,12 @@ export const accessibilityOptions: AccessibilityOptions = {
  */
 export const exportingOptions: ExportingOptions = {
   chartOptions: {
+    title: {
+      text: EXPORT_GRAPH_TITLE
+    },
+    subtitle: {
+      text: EXPORT_GRAPH_SUBTITLE
+    },
     plotOptions: {
       series: { dataLabels: { enabled: GRAPH_SERIES_DATA_LABELS_ENABLED } }
     }

@@ -5,6 +5,7 @@ import {
   CREATE_EMPTY_TEXT_BLOCK,
   CREATE_GRAPH_BLOCK,
   DELETE_BLOCK,
+  LOAD_EXISTING_STORY,
   StoryActionType,
   StoryBlockType,
   SWAP_BLOCKS,
@@ -36,7 +37,7 @@ function updateObjectInArray(
   });
 }
 
-export function storyReducer(state = initialStory, action: StoryActionType) {
+export function storyReducer(state = initialStory(), action: StoryActionType) {
   switch (action.type) {
     case CREATE_EMPTY_TEXT_BLOCK: // using the fall through features of switch statements
     case CREATE_GRAPH_BLOCK:
@@ -82,6 +83,8 @@ export function storyReducer(state = initialStory, action: StoryActionType) {
         ...state,
         storyBlocks: updateObjectInArray(state.storyBlocks, action)
       };
+    case LOAD_EXISTING_STORY:
+      return action.payload.storyToLoad;
     default:
       return state;
   }

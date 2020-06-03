@@ -1,7 +1,7 @@
-import { handleApiOperation } from '../operations';
+import { callActionAndAlertOnError } from '../operations';
 import {
   deleteStoryById,
-  getAllStories,
+  getPublishedStories,
   getStoryWithStoryID,
   saveOrUpdateExistingStory
 } from './operations';
@@ -54,14 +54,15 @@ export async function submitStoryForPublishingAndHandleResponse(story: Story) {
  * CRUD Operations
  */
 
+// NOTE, DateCreated and DateLastEdited will get rewritten in BEND
+// because User authentication can be verified there.
 export async function saveStoryAndHandleResponse(
   story: Story,
   successMessage: string = STORY_CREATION_SUCCESS_MESSAGE,
   failureMessage: string = STORY_CREATION_FAILURE_MESSAGE
 ): Promise<boolean> {
-  return await handleApiOperation(
-    story,
-    saveOrUpdateExistingStory,
+  return await callActionAndAlertOnError(
+    () => saveOrUpdateExistingStory(story),
     successMessage,
     failureMessage
   )
@@ -72,9 +73,8 @@ export async function saveStoryAndHandleResponse(
 export async function deleteStoryByIdAndHandleResponse(
   storyId: string
 ): Promise<boolean> {
-  return await handleApiOperation(
-    storyId,
-    deleteStoryById,
+  return await callActionAndAlertOnError(
+    () => deleteStoryById(storyId),
     STORY_DELETION_SUCCESS_MESSAGE,
     STORY_DELETION_FAILURE_MESSAGE
   )
@@ -82,23 +82,21 @@ export async function deleteStoryByIdAndHandleResponse(
     .catch(() => false);
 }
 
-export async function getStoryWIthIdAndHandleResponse(
+export async function getStoryByIdAndHandleResponse(
   storyId: string
 ): Promise<Story | undefined> {
-  return await handleApiOperation<string, Story>(
-    storyId,
-    getStoryWithStoryID,
+  return await callActionAndAlertOnError<Story>(
+    () => getStoryWithStoryID(storyId),
     STORY_RETRIEVAL_SUCCESS_MESSAGE,
     STORY_RETRIEVAL_FAILURE_MESSAGE
   ).catch(() => undefined);
 }
 
-export async function getAllStoriesAndHandleResponse(): Promise<
+export async function getPublishedStoriesAndHandleResponse(): Promise<
   Story[] | undefined
 > {
-  return await handleApiOperation<void, Story[]>(
-    undefined,
-    getAllStories,
+  return await callActionAndAlertOnError<Story[]>(
+    () => getPublishedStories(),
     STORY_RETRIEVAL_SUCCESS_MESSAGE,
     STORY_RETRIEVAL_FAILURE_MESSAGE
   ).catch(() => undefined);
