@@ -1,8 +1,12 @@
-import { Box, Grid, styled } from '@material-ui/core';
-import React from 'react';
-import { useGraphs } from '../../graphs/components/Accessor';
-import GraphCard from '../../preview-cards/GraphCard';
+import { Box, styled } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { isUndefined } from 'util';
+import { getAllGraphsAndHandleResponse } from '../../api/graphs/operationHandlers';
+import GraphCard from '../../preview-cards/graph-card/GraphCard';
 import { Gallery } from '../../reach-ui/core';
+import { createGraphWithData } from '../../redux/graphbuilder/actions';
+import { Graph } from '../../redux/graphbuilder/types';
+import { GraphMetaData } from '../../redux/graphs/types';
 import { BORDER } from '../../theme/theme';
 
 export const GRAPH_NOT_SELECTED = '';
@@ -14,26 +18,49 @@ interface Props {
 
 export default function GraphBlock(props: Props) {
   const { graphID, setGraphId } = props;
-  const graphs = useGraphs();
+  const [graphs, setGraphs] = useState([] as GraphMetaData[]);
+  const [interactiveGraph, setInteractiveGraph] = useState<Graph | undefined>(
+    undefined
+  );
+
+  // show user's graph as static images
+  useEffect(() => {
+    getAllGraphsAndHandleResponse().then(response => {
+      if (!isUndefined(response)) {
+        setGraphs(response);
+      }
+    });
+  }, [graphID]);
+
+  const handleSelection = (graph: GraphMetaData) => {
+    setGraphId(graph.graphId);
+    // shows an interactive graph
+    createGraphWithData(graph).then(response => {
+      if (!isUndefined(response)) {
+        setInteractiveGraph(response);
+        console.log(response);
+      }
+    });
+  };
 
   const GraphExplorer = () => (
-    <Gallery>
-      {graphs.map((graph, index) => (
-        <Grid item key={index} xs={12} sm={4}>
-          <GraphCard
-            key={index}
-            index={index}
-            content={graph}
-            onClick={() => setGraphId((index as unknown) as string)}
-          />
-        </Grid>
+    <Gallery justify="center">
+      {graphs.map(graph => (
+        <GraphCard
+          key={graph.graphId}
+          graphMetaData={graph}
+          onClick={() => handleSelection(graph)}
+        />
       ))}
     </Gallery>
   );
 
-  const SelectedGraph = () => (
-    <div>{graphs[(graphID as unknown) as number]}</div>
-  );
+  const SelectedGraph = () => {
+    // FIXME
+    return isUndefined(interactiveGraph) ? null : (
+      <div>{interactiveGraph.graphMetaData.graphId}</div>
+    );
+  };
 
   return (
     <StoryBlockContainer>
@@ -44,8 +71,7 @@ export default function GraphBlock(props: Props) {
 
 const StoryBlockContainer = styled(Box)({
   flexGrow: 1,
-  padding: '20px',
-  margin: '10px 0px 10px 0px',
+  minHeight: 600,
   border: BORDER,
   borderRadius: '5px'
 });
