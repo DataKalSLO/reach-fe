@@ -1,12 +1,11 @@
+import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import Highcharts from 'highcharts/highstock';
 import exporting from 'highcharts/modules/exporting';
 import React, { forwardRef, useMemo } from 'react';
 import { isUndefined } from 'util';
 import { Graph } from '../../redux/graphbuilder/types';
 import GraphCreator from '../builder/graph-creator';
 import { GraphConfiguration } from '../builder/types';
-import { HIGHCHARTS, HIGHSTOCKS } from './constants';
 exporting(Highcharts);
 
 /*
@@ -61,11 +60,6 @@ export const CoreGraph = forwardRef<HighchartsReact, Props>(
         <HighchartsReact
           highcharts={Highcharts}
           immutable={true}
-          constructorType={
-            graph.graphMetaData.graphOptions.timeSeries
-              ? HIGHSTOCKS
-              : HIGHCHARTS
-          }
           options={createGraphOptions(graph)}
           containerProps={containerProps}
           ref={newRef}

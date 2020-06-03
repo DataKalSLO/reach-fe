@@ -1,30 +1,6 @@
 import moment from 'moment';
 import { isString } from 'util';
-import { DataValue, Metadata } from './types';
-
-/*
- * Date Type Column Validator
- * Verifies whether a column contains datetime values.
- */
-export function isDateTypeColumn(
-  datasetName: string,
-  columnName: string,
-  datasetsMetaData: Metadata[]
-): boolean {
-  for (const dataset of datasetsMetaData) {
-    if (dataset.tableName === datasetName) {
-      for (let index = 0; index < datasetsMetaData.length; index++) {
-        if (dataset.columnNames[index] === columnName) {
-          if (dataTypeIsDate(dataset.dataTypes[index])) {
-            return true;
-          }
-          return false;
-        }
-      }
-    }
-  }
-  return false;
-}
+import { DataValue } from './types';
 
 /*
  * Date Type Validator
@@ -37,14 +13,6 @@ export function isDateType(value: DataValue): boolean {
     isString(value) &&
     moment(value, moment.ISO_8601, true).format() !== 'Invalid date'
   );
-}
-
-/*
- * Date Type Validator
- * Checks if the metadata "dataType" value is a date
- */
-export function dataTypeIsDate(valueType: string): boolean {
-  return ['date', 'datetime'].includes(valueType);
 }
 
 /*
