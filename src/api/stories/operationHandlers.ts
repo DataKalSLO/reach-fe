@@ -3,6 +3,19 @@ import { authenticatedPost } from '../authenticatedApi/operations';
 import { get } from '../base';
 import { callActionAndAlertOnError } from '../operations';
 import {
+  STORY_CHANGE_STATUS_FAILURE_MESSAGE,
+  STORY_CHANGE_STATUS_SUCCESS_MESSAGE,
+  STORY_CREATION_FAILURE_MESSAGE,
+  STORY_CREATION_SUCCESS_MESSAGE,
+  STORY_DELETION_FAILURE_MESSAGE,
+  STORY_DELETION_SUCCESS_MESSAGE,
+  STORY_FEEDBACK_ENDPOINT,
+  STORY_FEEDBACK_RETRIEVAL_FAILURE,
+  STORY_FEEDBACK_RETRIEVAL_SUCCESS,
+  STORY_RETRIEVAL_FAILURE_MESSAGE,
+  STORY_RETRIEVAL_SUCCESS_MESSAGE
+} from './constants';
+import {
   deleteStoryById,
   getPublishedStories,
   getStoryWithStoryID,
@@ -14,27 +27,6 @@ import { StoryFeedback } from './types';
  * They alert the user is in operation fails. Then, a boolean is returned
  * indicating if the operation was successful.
  */
-
-const STORY_CREATION_SUCCESS_MESSAGE = 'Story created!';
-const STORY_CREATION_FAILURE_MESSAGE =
-  'An Error occurred while saving a Story. Story was not created.';
-
-const STORY_DELETION_SUCCESS_MESSAGE = 'Story deleted!';
-const STORY_DELETION_FAILURE_MESSAGE =
-  'An Error occurred while deleting a Story. Story was not deleted.';
-
-const STORY_RETRIEVAL_SUCCESS_MESSAGE = 'Story retrieved!';
-const STORY_RETRIEVAL_FAILURE_MESSAGE =
-  'An Error occurred while retrieving a Story.';
-
-const STORY_CHANGE_STATUS_SUCCESS_MESSAGE = 'Status of story was changed!.';
-const STORY_CHANGE_STATUS_FAILURE_MESSAGE =
-  'An Error occurred while changing the status of the story. Status has not been changed.';
-
-const STORY_FEEDBACK_RETRIEVAL_SUCCESS = 'Feedback for story retrieved!';
-const STORY_FEEDBACK_RETRIEVAL_FAILURE = 'Could not get feedback left on story';
-
-const STORY_FEEDBACK_ENDPOINT = 'story/feedback';
 
 /*
  * Change status of Story
@@ -48,7 +40,7 @@ export async function rejectStoryWithFeedbackAndHandleResponse(
 
   const storyFeedback: StoryFeedback = {
     storyId: story.id,
-    reviewerId: '', //BEND will extract this from authentication toekn
+    reviewerId: '', //BEND will extract this from authentication token
     feedback
   };
 
@@ -65,7 +57,10 @@ export async function getStoryFeedback(
   storyId: string
 ): Promise<StoryFeedback[]> {
   return callActionAndAlertOnError(
-    () => get(STORY_FEEDBACK_ENDPOINT + storyId) as Promise<StoryFeedback[]>,
+    () =>
+      get([STORY_FEEDBACK_ENDPOINT, storyId].join('/')) as Promise<
+        StoryFeedback[]
+      >,
     STORY_FEEDBACK_RETRIEVAL_SUCCESS,
     STORY_FEEDBACK_RETRIEVAL_FAILURE
   );
