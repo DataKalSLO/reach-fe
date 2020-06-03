@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 
 // action buttons to appear on the story card when the user is
 // an admin and the story is pending review for publication
-const AdminReviewCardActions = () => {
+export default function AdminReviewCardActions() {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -43,6 +43,4 @@ const AdminReviewCardActions = () => {
       />
     </CardActions>
   );
-};
-
-export { AdminReviewCardActions };
+}
