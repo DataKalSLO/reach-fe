@@ -1,7 +1,10 @@
 import { Box, styled } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { isUndefined } from 'util';
-import { getAllGraphsAndHandleResponse } from '../../api/graphs/operationHandlers';
+import {
+  getAllGraphsAndHandleResponse,
+  getGraphAndHandleResponse
+} from '../../api/graphs/operationHandlers';
 import { CoreGraph } from '../../graphs/components/CoreGraph';
 import GraphCard from '../../preview-cards/graph-card/GraphCard';
 import { Gallery } from '../../reach-ui/core';
@@ -22,27 +25,29 @@ export default function GraphBlock(props: Props) {
   const [interactiveGraph, setInteractiveGraph] = useState<Graph | undefined>(
     undefined
   );
-  const { graphID, setGraphId } = props; // redux
+  const { graphID, setGraphId: setGraphID } = props;
 
-  // show user's graph as static images
   useEffect(() => {
-    getAllGraphsAndHandleResponse().then(response => {
-      if (!isUndefined(response)) {
-        setGraphs(response);
-      }
-    });
+    if (graphID === GRAPH_NOT_SELECTED) {
+      // show user's graph as static images
+      getAllGraphsAndHandleResponse().then(response => {
+        if (!isUndefined(response)) {
+          setGraphs(response);
+        }
+      });
+    } else {
+      // show selected graph as interactive
+      getGraphAndHandleResponse(graphID).then(graphMetaData => {
+        createGraphWithData(graphMetaData).then(graph => {
+          setInteractiveGraph(graph);
+        });
+      });
+    }
   }, [graphID]);
 
-  const handleSelection = (graph: GraphMetaData) => {
-    setGraphId(graph.graphId);
-    // shows an interactive graph
-    createGraphWithData(graph).then(response => {
-      if (!isUndefined(response)) {
-        setInteractiveGraph(response);
-        console.log(response);
-      }
-    });
-  };
+  function handleSelection(graph: GraphMetaData) {
+    setGraphID(graph.graphId);
+  }
 
   const GraphExplorer = () => (
     <Gallery justify="center">
@@ -57,7 +62,6 @@ export default function GraphBlock(props: Props) {
   );
 
   const SelectedGraph = () => {
-    // FIXME: interactive graph not showing up
     return isUndefined(interactiveGraph) ? null : (
       <CoreGraph graph={interactiveGraph} />
     );
