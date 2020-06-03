@@ -1,4 +1,4 @@
-import { GET_ALL_METADATA, GET_ALL_TABLE_NAMES } from './constants';
+import { GET_ALL_METADATA, GET_ALL_TABLE_NAMES, SYNC_GRAPH } from './constants';
 import { Selection } from '../../api/vizbuilder/types';
 /*
  * The following type aliases/interfaces correspond to the datasets
@@ -60,4 +60,13 @@ export interface GetAllTableNamesAction {
   payload: Selection[] | undefined;
 }
 
-export type VizActionTypes = GetAllMetadataAction | GetAllTableNamesAction;
+export interface SyncGraphAction {
+  type: typeof SYNC_GRAPH;
+  datasetName: string;
+  columnNames: string[];
+}
+
+export type VizActionTypes =
+  | GetAllMetadataAction
+  | GetAllTableNamesAction
+  | SyncGraphAction;

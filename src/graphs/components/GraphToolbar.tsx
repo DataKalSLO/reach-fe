@@ -31,6 +31,7 @@ import {
   SYNC_LABEL
 } from './constants';
 import { GraphToolbarProps } from './types';
+import { syncGraphAction } from '../../redux/vizbuilder/actions';
 
 /*
  * Contains the buttons rendered on the graph toolbar.
@@ -64,7 +65,15 @@ function GraphToolbar(props: GraphToolbarProps) {
         variant="text"
         color="default"
         startIcon={<SyncIcon />}
-        onClick={() => alert('not implemented')}
+        onClick={() => {
+          console.log(newGraph.dataSources);
+          return dispatch(
+            syncGraphAction(
+              newGraph.dataSources[0].datasetName,
+              newGraph.dataSources[0].columnNames
+            )
+          );
+        }}
       />
       <ToolbarButton
         label={EDIT_LABEL}

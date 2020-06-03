@@ -56,7 +56,7 @@ export default function Markers(
   layer: string
 ) {
   const dispatch = useDispatch();
-  console.log(features);
+
   return features.map((location: MarkerFeatures[]) => {
     const datapoint = location[0];
     return (

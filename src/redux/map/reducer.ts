@@ -14,7 +14,8 @@ import {
   UPDATE_HEATMAP_SELECTION,
   UPDATE_MARKER_SELECTION,
   UPDATE_SELECTED_MARKER,
-  UPDATE_SELECTED_TABLES
+  UPDATE_SELECTED_TABLES,
+  UPDATE_SELECTED_COLUMN
 } from './types';
 import noData from '../../common/assets/Local Data/census/noHeatMap';
 
@@ -34,7 +35,8 @@ const initialState: MapState = {
   heatMapSelection: noData,
   selectedMarker: [],
   boundSelection: 'Zip Code',
-  colorAssociation: {}
+  colorAssociation: {},
+  selectedColumn: ''
 };
 
 // sets up the color association based on the markers
@@ -73,11 +75,11 @@ export function mapReducer(
         ...state,
         heatMapSelection: action.payload
       };
-    // case UPDATE_SELECTED_MARKER:
-    //   return {
-    //     ...state,
-    //     selectedMarker: action.payload
-    //   };
+    case UPDATE_SELECTED_MARKER:
+      return {
+        ...state,
+        selectedMarker: action.payload
+      };
     case UPDATE_BOUND_SELECTION:
       return {
         ...state,
@@ -87,6 +89,11 @@ export function mapReducer(
       return {
         ...state,
         colorAssociation: updateColorAssociationHelper(state)
+      };
+    case UPDATE_SELECTED_COLUMN:
+      return {
+        ...state,
+        selectedColumn: action.payload
       };
     default:
       return state;

@@ -94,6 +94,7 @@ export interface MapViewProps {
   heatMapSelection: HeatMapSelection | {};
   selectedMarker: SelectedMarker;
   colorAssociation: ColorAssociation;
+  selectedColumn: string;
 }
 
 export interface LayersProps {
@@ -102,4 +103,9 @@ export interface LayersProps {
   markerSelection: MarkerSelection[];
   heatMapSelection: HeatMapSelection | {};
   selectedMarker: SelectedMarker;
+}
+
+export interface ColumnSelectorProps {
+  columnNames: string[];
+  selectedColumn: string;
 }

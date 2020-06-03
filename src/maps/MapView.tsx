@@ -26,31 +26,27 @@ import {
   tooltipOverlapsMarkers
 } from './MapViewHelpers';
 import Tooltip from './Tooltip';
-import { MapViewProps, HeatMapSelection, MarkerFeatures } from './types';
+import {
+  MapViewProps,
+  HeatMapSelection,
+  MarkerFeatures,
+  PrepGeoObject
+} from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
-
-const defaultHoveredLocation = {
-  properties: {
-    value: '1',
-    name: ''
-  },
-  noLocation: true
-};
 
 function MapView(props: MapViewProps) {
   const {
     markerSelection,
     heatMapSelection,
     selectedMarker,
-    colorAssociation
+    colorAssociation,
+    selectedColumn
   } = props;
   const dispatch = useDispatch();
   // heat map prepped here
-  // let heatMapFeatures: PrepGeoObject[] | null = null;
-  let heatMapFeatures: any;
-  const valueKey = 'value';
+  let heatMapFeatures: PrepGeoObject[] | null = null;
   if (Object.keys(heatMapSelection).length) {
     const heatMap = heatMapSelection as HeatMapSelection;
     heatMapFeatures = heatMap.features;
@@ -91,22 +87,23 @@ function MapView(props: MapViewProps) {
   });
 
   // Tooltip State
-  const [opacity, setOpacity] = React.useState(0);
-  const [hoveredLocation, setHoveredLocation] = React.useState({
+  const defaultHoveredLocation = {
     properties: {
-      [valueKey]: '1',
-      name: ''
+      geoName: '',
+      [selectedColumn]: ''
     },
     noLocation: true
-  });
+  };
+  const [opacity, setOpacity] = React.useState(0);
+  const [hoveredLocation, setHoveredLocation] = React.useState(
+    defaultHoveredLocation
+  );
   const x = React.useRef(0);
   const y = React.useRef(0);
 
   useEffect(() => {
     dispatch(updateColorAssociation());
-    // This disable prevents an eslint quickfix from createing a circular dependency and freezeing the screen
-    // eslint-disable-next-line
-  }, [markerSelection]);
+  }, [dispatch, markerSelection]);
 
   // TODO: going to solve "any" errors at a later time
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -143,8 +140,8 @@ function MapView(props: MapViewProps) {
   });
 
   useEffect(() => {
-    const minVal = getStat(heatMapFeatures, _.minBy, valueKey);
-    const maxVal = getStat(heatMapFeatures, _.maxBy, valueKey);
+    const minVal = getStat(heatMapFeatures, _.minBy, selectedColumn);
+    const maxVal = getStat(heatMapFeatures, _.maxBy, selectedColumn);
     const quantiles_ = NUM_QUANTILES;
     const colorScale_ = chroma.scale(['white', HEAT_MAP_COLOR]).domain([0, 1]);
     const stops = quantileMaker(colorScale_, quantiles_, minVal, maxVal);
@@ -153,7 +150,7 @@ function MapView(props: MapViewProps) {
       type: 'fill',
       paint: {
         'fill-color': {
-          property: valueKey,
+          property: selectedColumn,
           stops: stops
         },
         'fill-opacity': 0.7
@@ -166,7 +163,7 @@ function MapView(props: MapViewProps) {
         'line-color': 'rgb(0, 0, 0)'
       }
     });
-  }, [heatMapFeatures, valueKey]);
+  }, [heatMapFeatures, selectedColumn]);
 
   const renderTooltip = () => {
     const map = document.getElementById('map');
@@ -183,8 +180,8 @@ function MapView(props: MapViewProps) {
     const left = position(bounds.left, bounds.right, dims.width, x.current);
     const top = position(bounds.top, bounds.bottom, dims.height, y.current);
 
-    const zipsValue = hoveredLocation.properties[valueKey];
-    const zipCode = hoveredLocation.properties.name;
+    const valueOfSelectedColumn = hoveredLocation.properties[selectedColumn];
+    const geoName = hoveredLocation.properties.geoName;
 
     return (
       <div
@@ -198,7 +195,11 @@ function MapView(props: MapViewProps) {
           position: 'absolute'
         }}
       >
-        <Tooltip value={parseInt(zipsValue)} zipCode={zipCode} />
+        <Tooltip
+          selectedColumn={selectedColumn}
+          value={valueOfSelectedColumn}
+          geoName={geoName}
+        />
       </div>
     );
   };

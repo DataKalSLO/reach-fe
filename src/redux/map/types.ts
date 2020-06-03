@@ -15,6 +15,7 @@ export interface MapState {
   selectedMarker: SelectedMarker;
   boundSelection: BoundSelection;
   colorAssociation: ColorAssociation;
+  selectedColumn: string;
 }
 
 export const UPDATE_SELECTED_TABLES = 'UPDATE_SELECTED_TABLES';
@@ -59,10 +60,18 @@ interface UpdateBoundSelection {
   payload: BoundSelection;
 }
 
+export const UPDATE_SELECTED_COLUMN = 'UPDATE_SELECTED_COLUMN';
+
+interface UpdateSelectedColumn {
+  type: typeof UPDATE_SELECTED_COLUMN;
+  payload: string;
+}
+
 export type MapActionTypes =
   | UpdateSelectedTables
   | UpdateMarkerSelection
   | UpdateHeatMapSelection
   | UpdateSelectedMarker
   | UpdateColorAssociation
-  | UpdateBoundSelection;
+  | UpdateBoundSelection
+  | UpdateSelectedColumn;

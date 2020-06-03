@@ -10,7 +10,8 @@ import {
   UPDATE_HEATMAP_SELECTION,
   UPDATE_MARKER_SELECTION,
   UPDATE_SELECTED_MARKER,
-  UPDATE_SELECTED_TABLES
+  UPDATE_SELECTED_TABLES,
+  UPDATE_SELECTED_COLUMN
 } from './types';
 import {
   getFeatureCollectionAndHandleResponse,
@@ -81,5 +82,12 @@ export function updateBoundSelection(boundSelection: BoundSelection) {
   return {
     type: UPDATE_BOUND_SELECTION,
     payload: boundSelection
+  };
+}
+
+export function updateSelectedColumn(selectedColumn: string) {
+  return {
+    type: UPDATE_SELECTED_COLUMN,
+    payload: selectedColumn
   };
 }

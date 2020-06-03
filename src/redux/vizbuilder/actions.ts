@@ -3,11 +3,12 @@ import {
   getDatasetMetaDataAndHandleResponse,
   getTableNamesAndHandleResponse
 } from '../../api/vizbuilder/operationHandlers';
-import { GET_ALL_METADATA, GET_ALL_TABLE_NAMES } from './constants';
+import { GET_ALL_METADATA, GET_ALL_TABLE_NAMES, SYNC_GRAPH } from './constants';
 import {
   GetAllMetadataAction,
   Metadata,
-  GetAllTableNamesAction
+  GetAllTableNamesAction,
+  SyncGraphAction
 } from './types';
 import { Selection } from '../../api/vizbuilder/types';
 /*
@@ -52,5 +53,16 @@ export function getAllTableNamesAction(
   return {
     type: GET_ALL_TABLE_NAMES,
     payload: payload
+  };
+}
+
+export function syncGraphAction(
+  datasetName: string,
+  columnNames: string[]
+): SyncGraphAction {
+  return {
+    type: SYNC_GRAPH,
+    datasetName: datasetName,
+    columnNames: columnNames
   };
 }

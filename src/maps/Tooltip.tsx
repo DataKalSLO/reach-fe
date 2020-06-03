@@ -15,21 +15,24 @@ const TooltipCard = styled(Card)({
 const TOOLTIP_ELEVATION = 3;
 
 interface TooltipProps {
-  value: number;
-  zipCode: string;
+  selectedColumn: string;
+  value: string;
+  geoName: string;
 }
 
 // The tooltip for the heat map (distinct from "popups" in MarkerPopups.tsx)
 export default function Tooltip(props: TooltipProps) {
-  const { value, zipCode } = props;
+  const { selectedColumn, value, geoName } = props;
+  const parsedValue = parseInt(value);
+  const cities = correspondingCities(geoName);
   return (
     <TooltipCard elevation={TOOLTIP_ELEVATION}>
       <CardContent>
         <TooltipTypography variant="body1">
-          {`Value: ${addCommas(value)}`}
+          {geoName + (cities ? ` - (${cities})` : '')}
         </TooltipTypography>
         <TooltipTypography variant="body1">
-          {`Zip Code: ${zipCode} (${correspondingCities(zipCode)})`}
+          {`${selectedColumn}: ${parsedValue ? addCommas(parsedValue) : value}`}
         </TooltipTypography>
       </CardContent>
     </TooltipCard>

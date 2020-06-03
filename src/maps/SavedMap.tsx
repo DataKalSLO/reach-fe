@@ -17,41 +17,43 @@ export default function GetSavedMap(
   markerSelection: MarkerSelection[],
   heatMapSelection: HeatMapSelection
 ) {
-  const markerColors = [
-    { color: MARKER_ONE_COLOR },
-    { color: MARKER_TWO_COLOR },
-    { color: MARKER_THREE_COLOR }
-  ];
-  const colorAssociation: ColorAssociation = {};
-  markerSelection.forEach((marker, index) => {
-    colorAssociation[marker.name] = markerColors[index];
-  });
-  const savedState: MapState = {
-    selectedTables: [],
-    markerSelection: markerSelection,
-    heatMapSelection: heatMapSelection,
-    selectedMarker: [],
-    boundSelection: 'Zip Code',
-    colorAssociation: colorAssociation
-  };
+  // const markerColors = [
+  //   { color: MARKER_ONE_COLOR },
+  //   { color: MARKER_TWO_COLOR },
+  //   { color: MARKER_THREE_COLOR }
+  // ];
+  // const colorAssociation: ColorAssociation = {};
+  // markerSelection.forEach((marker, index) => {
+  //   colorAssociation[marker.name] = markerColors[index];
+  // });
+  // const savedState: MapState = {
+  //   selectedColumn: undefined,
+  //   selectedTables: [],
+  //   markerSelection: markerSelection,
+  //   heatMapSelection: heatMapSelection,
+  //   selectedMarker: [],
+  //   boundSelection: 'Zip Code',
+  //   colorAssociation: colorAssociation
+  // };
 
-  return (
-    <StyledBox>
-      <StyledCard variant="outlined">
-        <StyledMapContainer>
-          <MapView
-            markerSelection={savedState.markerSelection}
-            heatMapSelection={savedState.heatMapSelection}
-            selectedMarker={savedState.selectedMarker}
-            colorAssociation={savedState.colorAssociation}
-          />
-          <Legend
-            heatMapSelection={savedState.heatMapSelection}
-            colorAssociation={savedState.colorAssociation}
-            markerSelection={savedState.markerSelection}
-          />
-        </StyledMapContainer>
-      </StyledCard>
-    </StyledBox>
-  );
+  // return (
+  //   <StyledBox>
+  //     <StyledCard variant="outlined">
+  //       <StyledMapContainer>
+  //         <MapView
+  //           markerSelection={savedState.markerSelection}
+  //           heatMapSelection={savedState.heatMapSelection}
+  //           selectedMarker={savedState.selectedMarker}
+  //           colorAssociation={savedState.colorAssociation}
+  //         />
+  //         <Legend
+  //           heatMapSelection={savedState.heatMapSelection}
+  //           colorAssociation={savedState.colorAssociation}
+  //           markerSelection={savedState.markerSelection}
+  //         />
+  //       </StyledMapContainer>
+  //     </StyledCard>
+  //   </StyledBox>
+  // );
+  return <div />;
 }

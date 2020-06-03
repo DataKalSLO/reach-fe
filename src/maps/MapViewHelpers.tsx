@@ -33,7 +33,7 @@ export function onHover(
   defaultHoveredLocation: {
     properties: {
       [x: string]: string;
-      name: string;
+      geoName: string;
     };
     noLocation: boolean;
   },

@@ -2,13 +2,15 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getMap } from '../redux/map/selector';
 import { getVizbuilder } from '../redux/vizbuilder/selector';
-import { Box, Card } from '@material-ui/core';
+import { Box, Card, Grid } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import GeoFilter from './GeoFilter';
 import Layers from './Layers';
 import Legend from './Legend';
 import MapView from './MapView';
 import { getAllTableNames } from '../redux/vizbuilder/actions';
+import ColumnSelector from './ColumnSelector';
+import { HeatMapSelection } from './types';
 
 // TODO: save to stories
 
@@ -32,6 +34,7 @@ function Map() {
   const dispatch = useDispatch();
   const mapState = useSelector(getMap);
   const vizBuilderState = useSelector(getVizbuilder);
+  const allMetaData = vizBuilderState.metadataForAllDatasets;
 
   useEffect(() => {
     getAllTableNames()(dispatch);
@@ -39,6 +42,20 @@ function Map() {
 
   console.log(mapState);
   console.log(vizBuilderState);
+
+  let columnNames: string[] = [];
+
+  const selectedHeatMapDatasetName =
+    mapState.heatMapSelection &&
+    (mapState.heatMapSelection as HeatMapSelection).name;
+  if (selectedHeatMapDatasetName) {
+    const meta = allMetaData.filter(
+      meta => meta.tableName === selectedHeatMapDatasetName
+    )[0];
+    if (meta) {
+      columnNames = meta.columnNames;
+    }
+  }
 
   return (
     <StyledBox>
@@ -51,12 +68,23 @@ function Map() {
             heatMapSelection={mapState.heatMapSelection}
             selectedMarker={mapState.selectedMarker}
           />
-          <GeoFilter boundSelection={mapState.boundSelection} />
+          <Grid container direction="row" alignItems="center">
+            <Grid item>
+              <GeoFilter boundSelection={mapState.boundSelection} />
+            </Grid>
+            <Grid item xs={3}>
+              <ColumnSelector
+                columnNames={columnNames}
+                selectedColumn={mapState.selectedColumn}
+              />
+            </Grid>
+          </Grid>
           <MapView
             markerSelection={mapState.markerSelection}
             heatMapSelection={mapState.heatMapSelection}
             selectedMarker={mapState.selectedMarker}
             colorAssociation={mapState.colorAssociation}
+            selectedColumn={mapState.selectedColumn as string}
           />
           <Legend
             heatMapSelection={mapState.heatMapSelection}

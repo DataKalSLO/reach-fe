@@ -50,7 +50,6 @@ function populateLegendData(
   if (
     Object.keys(colorAssociation).length === Object.keys(markerSelection).length
   ) {
-    console.log('looping + ' + legendData.length);
     legendData.forEach = val => {
       console.log(val);
     };
