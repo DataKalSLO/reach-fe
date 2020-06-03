@@ -17,7 +17,7 @@ export interface TextBlockDB {
   editorState: string;
 }
 
-export type DatabaseStoryBlock =
+export type StoryBlockDB =
   | TextBlockDB
   | GraphBlockType
   | ImageBlockType

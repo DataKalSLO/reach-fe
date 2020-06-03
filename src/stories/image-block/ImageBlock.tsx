@@ -1,22 +1,29 @@
-import { Paper, styled } from '@material-ui/core';
+import { Button, Paper, styled } from '@material-ui/core';
 import React from 'react';
 import ImageDropzone from './ImageDropzone';
+import {
+  deleteImageBlockImage,
+  uploadImageForImageBlocks
+} from '../../api/stories/imageBlocks/operations';
 
 interface Props {
+  blockId: string;
   imageUrl: string;
   setImageUrl: (url: string) => void;
 }
 
 export default function ImageBlock(props: Props) {
-  const { imageUrl, setImageUrl } = props;
+  const { blockId, imageUrl, setImageUrl } = props;
 
-  function uploadAndUpdateUrl(files: [File]) {
-    // temporary until backend is connected and we can get actual image url from s3
-    const tempUrl = 'https://i.redd.it/ni8dp6vf80xy.jpg';
-    setImageUrl(tempUrl);
-    alert(
-      'files uploaded (not really, needs backend)\nEnjoy this placeholder.'
-    );
+  async function uploadAndUpdateUrl(files: [File]) {
+    const { imageUrl } = await uploadImageForImageBlocks(files[0], blockId);
+    console.log(imageUrl);
+    setImageUrl(imageUrl);
+  }
+
+  function deleteImage() {
+    setImageUrl('');
+    deleteImageBlockImage(imageUrl);
   }
 
   return (
@@ -24,8 +31,16 @@ export default function ImageBlock(props: Props) {
       {imageUrl === '' ? (
         <ImageDropzone onFileDrop={uploadAndUpdateUrl}></ImageDropzone>
       ) : (
-        //todo add delete 'x' on top corner of preview
-        <img src={imageUrl} alt="Preview" />
+        <div>
+          <img src={imageUrl} alt="Preview" />
+          <Button
+            variant="contained"
+            color="default"
+            onClick={() => deleteImage()}
+          >
+            Delete Image
+          </Button>
+        </div>
       )}
     </StoryBlockContainer>
   );

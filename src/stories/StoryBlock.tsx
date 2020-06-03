@@ -41,6 +41,7 @@ const StoryBlockBody = (props: StoryBlockProps): JSX.Element => {
       return (
         <ImageBlock
           key={props.block.id}
+          blockId={props.block.id}
           imageUrl={(props.block as ImageBlockType).imageUrl}
           setImageUrl={(imageUrl: string) =>
             props.dispatch(updateImageBlock(props.index, imageUrl))
