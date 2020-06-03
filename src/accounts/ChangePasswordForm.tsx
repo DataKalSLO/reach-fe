@@ -57,7 +57,7 @@ function ChangePasswordForm(props: ChangePasswordProps) {
       return 'Your new password must be at at least 6 characters, contain 1 number, and contain 1 special symbol';
     }
 
-    const passwordsMatch = newPassword == newPasswordConfirmation;
+    const passwordsMatch = newPassword === newPasswordConfirmation;
 
     if (!passwordsMatch) {
       return 'New passwords need to match';
@@ -68,7 +68,7 @@ function ChangePasswordForm(props: ChangePasswordProps) {
 
   const handleChangePassword = useCallback(() => {
     const result = validateNewPassword();
-    if (result == '') {
+    if (result === '') {
       setErrorMessage('');
       setIsLoading(true);
       settings.passwordChangeRequest = {

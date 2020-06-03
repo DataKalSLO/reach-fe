@@ -1,6 +1,6 @@
 import { store, history } from '../../redux/store';
 import { EMPTY_TOKEN } from '../../nav/constants';
-import { get, del, put, post } from '../base';
+import { get, del, put, post, postForm } from '../base';
 import { LOGIN } from '../../nav/constants';
 import {
   UnauthorizedAOperationError,
@@ -27,6 +27,13 @@ export function authenticatedPost(
   body: object
 ): Promise<object> {
   return performActionWithToken(token => post(endpoint, body, token));
+}
+
+export function authenticatedPostForm(
+  endpoint: string,
+  body: FormData
+): Promise<object> {
+  return performActionWithToken(token => postForm(endpoint, body, token));
 }
 
 function performActionWithToken<T>(action: (token: string) => T): T {
