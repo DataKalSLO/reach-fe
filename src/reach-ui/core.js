@@ -15,6 +15,7 @@ import {
 } from '../common/components/PersistentDrawer';
 import Popper from '../common/components/Popper';
 import SidebarContentBox from '../common/components/SidebarContentBox';
+import TextField from '../common/components/TextField';
 
 export {
   getPersistentDrawerOptions,
@@ -29,5 +30,6 @@ export {
   ListItemButton,
   ListItemTab,
   Popper,
-  SidebarContentBox
+  SidebarContentBox,
+  TextField
 };
