@@ -30,6 +30,9 @@ export const INPUT_COLUMN_LABEL = 'Column';
  * Graph Formatting Form
  */
 export const GRAPH_LABEL = 'Chart';
+export const OTHER_LABEL = 'Other';
+export const STACK_LABEL = 'Stack';
+export const TIMELINE_LABEL = 'Timeline';
 export const INPUT_TITLE_LABEL = 'Title';
 export const INPUT_SUBTITLE_LABEL = 'Subtitle';
 export const INPUT_PREFIX_LABEL = 'Prefix';
@@ -42,8 +45,6 @@ export const axisFormatLabels = [
   INPUT_PREFIX_LABEL,
   INPUT_SUBTITLE_LABEL
 ];
-export const OTHER_LABEL = 'Other';
-export const STACK_LABEL = 'Stack';
 
 /*
  * Graph Create Form

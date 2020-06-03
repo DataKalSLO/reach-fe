@@ -33,7 +33,7 @@ const Title = styled(Typography)({
 });
 
 const BoxCenterSized = styled(BoxCenter)({
-  height: '650px'
+  height: '580px'
 });
 
 export default CreateAccount;

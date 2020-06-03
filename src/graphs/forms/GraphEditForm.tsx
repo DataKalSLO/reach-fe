@@ -7,6 +7,7 @@ import { Graph } from '../../redux/graphbuilder/types';
 import { isLocalGraph } from '../../redux/graphbuilder/utilities';
 import { PartialGraphConfigurationWithoutData } from '../../redux/graphs/types';
 import { Metadata } from '../../redux/vizbuilder/types';
+import { isDateTypeColumn } from '../../redux/vizbuilder/utilities';
 import { theme } from '../../theme/theme';
 import { SeriesConfiguration } from '../builder/types';
 import { DATA_SOURCE_FORM_LABEL, FORMATTING_FORM_LABEL } from './constants';
@@ -121,6 +122,11 @@ export default function GraphEditForm(props: Props) {
         <FormattingForm
           state={graphOptionsState}
           setState={setGraphOptionsState}
+          isTimeSeries={isDateTypeColumn(
+            dataState.datasetName,
+            dataState.xAxisColumnName,
+            datasetsMetaData
+          )}
         >
           <FormEditFooter
             isLocalGraph={isLocalGraph(graph)}
