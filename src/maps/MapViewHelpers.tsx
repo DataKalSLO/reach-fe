@@ -1,6 +1,7 @@
 import chroma from 'chroma-js';
 import { zip } from 'lodash';
 import React from 'react';
+import { HEAT_MAP_COLOR } from './constants';
 
 // TODO: Had trouble creating an interface for featureCollection
 // Tried to create an interface using the type from features on line 34
@@ -70,31 +71,21 @@ export function onHover(
   setHoveredLocation(hoveredLocation);
 }
 
-export function quantileMaker(
-  colorScale: chroma.Scale<chroma.Color>,
-  quantiles: number,
-  min: number,
-  max: number
-) {
+export function quantileMaker(quantiles: number, min: number, max: number) {
   const diff = max - min;
   const bucket = diff / quantiles;
   const dataScale = Array(quantiles)
     .fill(0)
-    .map(Number.prototype.valueOf, 0)
-    .map(
-      // TODO: going to solve "any" errors at a later time, ignoring for demo
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      function(this: any, val: number, idx: number) {
-        return idx === 0 ? min : (this.acc += bucket);
-      },
-      { acc: min }
-    );
-  const normalScale = dataScale.map((val: number, idx: number) => {
-    return idx === 0 ? Math.round((min + 1 / max) * 100) / 100 : val / max;
-  });
-  const chromaScale = normalScale.map((val: number) => {
-    return colorScale(val).hex();
-  });
+    .map(function(item) {
+      item = min;
+      min = min + bucket;
+      return item;
+    });
+  const chromaScale = chroma
+    .scale(['white', HEAT_MAP_COLOR])
+    .domain([0, 1])
+    .colors(quantiles);
+  console.log(chromaScale);
   return zip(dataScale, chromaScale);
 }
 
