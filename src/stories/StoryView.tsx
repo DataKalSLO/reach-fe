@@ -17,6 +17,7 @@ import {
   TextBlockType,
   TEXT_BLOCK_TYPE
 } from '../redux/story/types';
+import AdminReviewActions from './AdminReviewActions';
 
 export default function StoryView(props: { story: Story }): JSX.Element {
   const user = useSelector(getUser);
@@ -55,9 +56,9 @@ export default function StoryView(props: { story: Story }): JSX.Element {
         </Grid>
       </AuthorGrid>
 
-      {/* TODO: add backgrounds to rich text editors so they don't peek through when dragged over each other */}
-      {/* TODO: add bounding box so blocks cannot be dragged out of sortable area */}
       {props.story.storyBlocks.map(block => convertBlockToJSX(block))}
+
+      <AdminReviewActions story={props.story} user={user} />
     </StyledBox>
   );
 }
