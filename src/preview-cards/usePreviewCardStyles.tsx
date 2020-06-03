@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
+// allow allow cards to have custom aspect ratios
 export interface StyleProps {
   minWidth: number;
   maxWidth: number;
