@@ -1,8 +1,8 @@
 import React from 'react';
 import MyStuffWrapper from '../../my-stuff/MyStuffWrapper';
+import { DEFAULT_USER_NAME } from '../../nav/constants';
 import StoryCard from '../../preview-cards/story-card/StoryCard';
 import { PublicationStatus, Story } from '../../redux/story/types';
-import { DEFAULT_USER_NAME } from '../../nav/constants';
 
 const sampleDate = new Date('Fri May 29 2020');
 
