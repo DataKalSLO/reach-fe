@@ -19,7 +19,7 @@ const defaultColorAssociation: ColorAssociation = {};
 
 // sizing for the box that contains the map
 const BOX_WIDTH = '100%';
-const BOX_MIN_WIDTH = '200px';
+const BOX_MIN_WIDTH = '350px';
 const BOX_HEIGHT = '100%';
 const BOX_MAX_WIDTH = '98hw';
 
@@ -30,7 +30,7 @@ const CARD_MARGIN = '15px';
 // sizing for the map itself
 const MAP_HEIGHT = '100%';
 const MAP_WIDTH = '97%';
-const MAP_MIN_WIDTH = '200px';
+const MAP_MIN_WIDTH = '350px';
 const MAP_MARGIN_LEFT = '10px';
 
 function Map() {
