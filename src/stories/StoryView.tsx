@@ -11,13 +11,13 @@ import {
   GraphBlockType,
   GRAPH_BLOCK_TYPE,
   ImageBlockType,
+  IMAGE_BLOCK_TYPE,
   MapBlockType,
   MAP_BLOCK_TYPE,
   Story,
   StoryBlockType,
   TextBlockType,
-  TEXT_BLOCK_TYPE,
-  IMAGE_BLOCK_TYPE
+  TEXT_BLOCK_TYPE
 } from '../redux/story/types';
 
 export default function StoryView(props: { story: Story }): JSX.Element {

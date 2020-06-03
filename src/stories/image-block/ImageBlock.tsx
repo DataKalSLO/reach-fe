@@ -1,4 +1,4 @@
-import { Button, Paper, styled } from '@material-ui/core';
+import { Box, Button, Paper, styled } from '@material-ui/core';
 import React from 'react';
 import ImageDropzone from './ImageDropzone';
 import {
@@ -40,16 +40,16 @@ export default function ImageBlock(props: Props) {
       {imageUrl === '' ? (
         <ImageDropzone onFileDrop={uploadAndUpdateUrl}></ImageDropzone>
       ) : (
-        <div>
+        <Box>
           <img src={imageUrl} alt="Preview" />
           <Button
             variant="contained"
             color="default"
             onClick={() => deleteImage()}
           >
-            Delete Image
+            Remove Image
           </Button>
-        </div>
+        </Box>
       )}
     </StoryBlockContainer>
   );

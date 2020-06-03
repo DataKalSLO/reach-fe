@@ -5,12 +5,12 @@ import { Dispatch } from 'redux';
 import { updateTextBlock, updateImageBlock } from '../redux/story/actions';
 import {
   GRAPH_BLOCK_TYPE,
+  ImageBlockType,
+  IMAGE_BLOCK_TYPE,
   MAP_BLOCK_TYPE,
   StoryBlockType,
   TextBlockType,
-  TEXT_BLOCK_TYPE,
-  ImageBlockType,
-  IMAGE_BLOCK_TYPE
+  TEXT_BLOCK_TYPE
 } from '../redux/story/types';
 import GraphBlock from './graph-block/GraphBlock';
 import ImageBlock from './image-block/ImageBlock';

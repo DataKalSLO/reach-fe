@@ -3,9 +3,14 @@ import React from 'react';
 import { Dispatch } from 'redux';
 import { IconButton } from '../reach-ui/core';
 import { deleteBlock } from '../redux/story/actions';
-import { StoryBlockType } from '../redux/story/types';
+import {
+  ImageBlockType,
+  IMAGE_BLOCK_TYPE,
+  StoryBlockType
+} from '../redux/story/types';
 import { theme } from '../theme/theme';
 import { storyBlockHasContent } from '../redux/story/utilities';
+import { deleteImageBlockImage } from '../api/stories/imageBlocks/operations';
 
 interface StoryBlockDeleteButtonProps {
   index: number;
@@ -27,8 +32,15 @@ const storyBlockDeleteButtonAction = (
         'Are you sure you wish to delete this item?\n' +
           'This action cannot be undone.'
       )
-    )
+    ) {
+      if (
+        storyBlock.type === IMAGE_BLOCK_TYPE &&
+        (storyBlock as ImageBlockType).imageUrl !== ''
+      ) {
+        deleteImageBlockImage((storyBlock as ImageBlockType).imageUrl);
+      }
       dispatch(deleteBlock(index));
+    }
   }
 };
 
