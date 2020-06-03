@@ -8,7 +8,7 @@ import {
   UPDATE_BOUND_SELECTION,
   UPDATE_COLOR_ASSOCIATION,
   UPDATE_HEATMAP_SELECTION,
-  UPDATE_MARKER_SELECTION,
+  ADD_MARKER_SELECTION,
   UPDATE_SELECTED_MARKER,
   UPDATE_SELECTED_TABLES,
   UPDATE_SELECTED_COLUMN,
@@ -31,7 +31,7 @@ export function getFeatureCollection(tableName: string, geoType: string) {
     return async (dispatch: Dispatch) => {
       const payload = await getMarkersAndHandleResponse(tableName);
       console.log(payload);
-      dispatch(updateMarkerSelection([payload]));
+      dispatch(addMarkerSelection([payload]));
     };
   }
 }
@@ -44,9 +44,9 @@ export function updateSelectedTables(selectedTables: any) {
 
 // I think these are the functions we will need?
 // possibly need to have remove/add for each of these
-export function updateMarkerSelection(markerSelection: MarkerSelection[]) {
+export function addMarkerSelection(markerSelection: MarkerSelection[]) {
   return {
-    type: UPDATE_MARKER_SELECTION,
+    type: ADD_MARKER_SELECTION,
     payload: markerSelection
   };
 }

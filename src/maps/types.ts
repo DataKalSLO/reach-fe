@@ -40,10 +40,7 @@ export interface MarkerFeatures {
     type: string;
     coordinates: number[];
   };
-  properties: {
-    name: string;
-    value: string;
-  };
+  properties: any;
 }
 
 // types for various props passed to map and layers interfaces

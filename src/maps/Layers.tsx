@@ -14,9 +14,14 @@ import { markerData } from '../common/assets/Local Data/MockMarkerData';
 import {
   getFeatureCollection,
   updateHeatMapSelection,
+<<<<<<< Updated upstream
   updateMarkerSelection,
   updateSelectedTables,
   updateSelectedColumn
+=======
+  addMarkerSelection,
+  updateSelectedTables
+>>>>>>> Stashed changes
 } from '../redux/map/actions';
 import { theme } from '../theme/theme';
 import { removeMarker } from './LayersHelpers';
@@ -59,7 +64,7 @@ export default function Layers(props: LayersProps) {
       if (changed.geoType === 'area') {
         dispatch(updateHeatMapSelection({}));
       } else {
-        dispatch(updateMarkerSelection(removeMarker(changed, markerSelection)));
+        //dispatch(updateMarkerSelection(removeMarker(changed, markerSelection)));
       }
     }
 
