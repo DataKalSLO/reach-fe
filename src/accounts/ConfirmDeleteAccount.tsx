@@ -21,7 +21,7 @@ import { theme } from '../theme/theme';
 interface ConfirmDeleteProps {
   isConfirmDelete: boolean;
   setIsConfirmDelete: (val: boolean) => void;
-  setDisplayError: (val: boolean) => void;
+  setStatusText: (val: string) => void;
 }
 
 function ConfirmDeleteAccount(props: ConfirmDeleteProps) {
@@ -30,14 +30,14 @@ function ConfirmDeleteAccount(props: ConfirmDeleteProps) {
   const history = useHistory();
   const isConfirmDelete = props.isConfirmDelete;
   const setIsConfirmDelete = props.setIsConfirmDelete;
-  const setDisplayError = props.setDisplayError;
+  const setStatusText = props.setStatusText;
   const [isLoading, setIsLoading] = useState(false);
 
   const handleDeleteAccountError = useCallback(() => {
     setIsConfirmDelete(false);
-    setDisplayError(true);
+    setStatusText('Error when deleting account. Please try again later.');
     setIsLoading(false);
-  }, [setDisplayError, setIsConfirmDelete]);
+  }, [setStatusText, setIsConfirmDelete]);
 
   const handleDelete = useCallback(() => {
     setIsLoading(true);

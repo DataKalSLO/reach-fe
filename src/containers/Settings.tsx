@@ -26,7 +26,7 @@ function Settings() {
   const dispatch = useDispatch();
   const [editNameMode, setEditNameMode] = useState(false);
   const [editOccMode, setOccEditMode] = useState(false);
-  const [displayError, setDisplayError] = useState(false);
+  const [statusText, setStatusText] = useState('');
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
   const [occupation, setOccupation] = useState(user.occupation);
@@ -142,6 +142,7 @@ function Settings() {
           <ChangePasswordForm
             isChangingPassword={isChangingPassword}
             setIsChangingPassword={setIsChangingPassword}
+            setStatusText={setStatusText}
           ></ChangePasswordForm>
           <SettingsDeleteButton
             variant="contained"
@@ -152,12 +153,12 @@ function Settings() {
           <ConfirmDeleteAccount
             isConfirmDelete={isConfirmDelete}
             setIsConfirmDelete={setIsConfirmDelete}
-            setDisplayError={setDisplayError}
+            setStatusText={setStatusText}
           ></ConfirmDeleteAccount>
         </CenterBox>
-        {displayError ? (
-          <Typography variant="body1" color="error" align="center">
-            Error when deleting account. Please try again later.
+        {statusText !== '' ? (
+          <Typography variant="body1" align="center">
+            {statusText}
           </Typography>
         ) : null}
       </SettingsPaper>

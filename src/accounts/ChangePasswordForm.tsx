@@ -23,6 +23,7 @@ import { updateUserSettings } from '../redux/login/actions';
 interface ChangePasswordProps {
   isChangingPassword: boolean;
   setIsChangingPassword: (val: boolean) => void;
+  setStatusText: (val: string) => void;
 }
 
 function ChangePasswordForm(props: ChangePasswordProps) {
@@ -30,6 +31,7 @@ function ChangePasswordForm(props: ChangePasswordProps) {
   const dispatch = useDispatch();
   const isChangingPassword = props.isChangingPassword;
   const setIsChangingPassword = props.setIsChangingPassword;
+  const setStatusText = props.setStatusText;
   const [isLoading, setIsLoading] = useState(false);
 
   const [currentPassword, setCurrentPassword] = useState('');
@@ -66,6 +68,11 @@ function ChangePasswordForm(props: ChangePasswordProps) {
     return '';
   }, [newPassword, newPasswordConfirmation]);
 
+  const handleSuccessfulClose = () => {
+    setIsChangingPassword(false);
+    setStatusText('Password successfully changed.');
+  };
+
   const handleChangePassword = useCallback(() => {
     const result = validateNewPassword();
     if (result === '') {
@@ -79,7 +86,7 @@ function ChangePasswordForm(props: ChangePasswordProps) {
         wrapWithCatch(
           updateUserSettings(user.email, settings),
           handleChangePasswordError,
-          () => setIsChangingPassword(false)
+          handleSuccessfulClose
         )
       );
     } else {
@@ -89,8 +96,8 @@ function ChangePasswordForm(props: ChangePasswordProps) {
     currentPassword,
     dispatch,
     handleChangePasswordError,
+    handleSuccessfulClose,
     newPassword,
-    setIsChangingPassword,
     settings,
     user.email,
     validateNewPassword
