@@ -10,6 +10,7 @@ import {
 import { PartialGraphConfigurationWithoutData } from '../../redux/graphs/types';
 import { getUser } from '../../redux/login/selectors';
 import { Metadata } from '../../redux/vizbuilder/types';
+import { isDateTypeColumn } from '../../redux/vizbuilder/utilities';
 import { GRAPH_COLORS } from '../builder/constants';
 import { SeriesConfiguration } from '../builder/types';
 import {
@@ -131,7 +132,15 @@ export function GraphCreateForm(props: Props) {
             handleNext={DataFormHandleUpdate}
           />
         </DataSourcesForm>
-        <FormattingForm state={graphState} setState={setGraphState}>
+        <FormattingForm
+          state={graphState}
+          setState={setGraphState}
+          isTimeSeries={isDateTypeColumn(
+            dataState.datasetName,
+            dataState.xAxisColumnName,
+            datasetsMetaData
+          )}
+        >
           <FormCreateFooter
             labels={stepFooterLabels}
             activeStep={activeStep}
