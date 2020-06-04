@@ -48,7 +48,8 @@ const initialStory = (): Story => ({
   publicationStatus: PublicationStatus.DRAFT,
   storyBlocks: [getEmptyTextBlock()] as Array<StoryBlockType>,
   dateCreated: new Date(),
-  dateLastEdited: new Date()
+  dateLastEdited: new Date(),
+  userName: ''
 });
 
 export function storyReducer(state = initialStory(), action: StoryActionType) {
