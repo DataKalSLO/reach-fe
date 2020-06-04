@@ -2,16 +2,9 @@ import { Box, Card, Grid } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getColorAssociation,
-  getHeatMapSelection,
-  getMap,
-  getMarkerSelection,
-  getSelectedColumn,
-  getSelectedMarker
-} from '../redux/map/selector';
+import { getHeatMapSelection } from '../redux/map/selector';
 import { getAllTableNames } from '../redux/vizbuilder/actions';
-import { getVizbuilder } from '../redux/vizbuilder/selector';
+import { getAllMetaData } from '../redux/vizbuilder/selector';
 import ColumnSelector from './ColumnSelector';
 import GeoFilter from './GeoFilter';
 import Layers from './Layers';
@@ -37,9 +30,8 @@ const MAP_MARGIN_LEFT = '10px';
 
 function Map() {
   const dispatch = useDispatch();
-  const mapState = useSelector(getMap);
-  const vizBuilderState = useSelector(getVizbuilder);
-  const allMetaData = vizBuilderState.metadataForAllDatasets;
+  const heatMapSelection = useSelector(getHeatMapSelection);
+  const allMetaData = useSelector(getAllMetaData);
 
   useEffect(() => {
     getAllTableNames()(dispatch);
@@ -48,8 +40,7 @@ function Map() {
   let columnNames: string[] = [];
 
   const selectedHeatMapDatasetName =
-    mapState.heatMapSelection &&
-    (mapState.heatMapSelection as HeatMapSelection).name;
+    heatMapSelection && (heatMapSelection as HeatMapSelection).name;
   if (selectedHeatMapDatasetName) {
     const meta = allMetaData.filter(
       meta => meta.tableName === selectedHeatMapDatasetName
@@ -63,37 +54,17 @@ function Map() {
     <StyledBox>
       <StyledCard variant="outlined">
         <StyledMapContainer>
-          <Layers
-            tableNames={vizBuilderState.datasetTableNames}
-            selectedTables={mapState.selectedTables}
-            markerSelection={mapState.markerSelection}
-            heatMapSelection={mapState.heatMapSelection}
-            selectedMarker={mapState.selectedMarker}
-            metadataForAllDatasets={vizBuilderState.metadataForAllDatasets}
-          />
+          <Layers />
           <Grid container direction="row" alignItems="center">
             <Grid item>
-              <GeoFilter boundSelection={mapState.boundSelection} />
+              <GeoFilter />
             </Grid>
             <Grid item xs={3}>
-              <ColumnSelector
-                columnNames={columnNames}
-                selectedColumn={mapState.selectedColumn}
-              />
+              <ColumnSelector columnNames={columnNames} />
             </Grid>
           </Grid>
-          <MapView
-            markerSelection={useSelector(getMarkerSelection)}
-            heatMapSelection={useSelector(getHeatMapSelection)}
-            selectedMarker={useSelector(getSelectedMarker)}
-            colorAssociation={useSelector(getColorAssociation)}
-            selectedColumn={useSelector(getSelectedColumn)}
-          />
-          <Legend
-            heatMapSelection={useSelector(getHeatMapSelection)}
-            colorAssociation={useSelector(getColorAssociation)}
-            markerSelection={useSelector(getMarkerSelection)}
-          />
+          <MapView />
+          <Legend />
         </StyledMapContainer>
       </StyledCard>
     </StyledBox>

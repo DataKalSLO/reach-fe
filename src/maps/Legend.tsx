@@ -11,16 +11,16 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import {
+  getColorAssociation,
+  getHeatMapSelection,
+  getMarkerSelection
+} from '../redux/map/selector';
 import { getVizbuilder } from '../redux/vizbuilder/selector';
 import { VizState } from '../redux/vizbuilder/types';
 import { theme } from '../theme/theme';
 import { HEAT_MAP_COLOR } from './constants';
-import {
-  ColorAssociation,
-  HeatMapSelection,
-  LegendProps,
-  MarkerSelection
-} from './types';
+import { ColorAssociation, HeatMapSelection, MarkerSelection } from './types';
 
 // populate legend using data selected in the layers component
 // legend has name of data set, color association, vintage, and source of data
@@ -117,9 +117,10 @@ function getCards(data: {
   );
 }
 
-export default function Legend(props: LegendProps) {
-  const { heatMapSelection, colorAssociation, markerSelection } = props;
-  // to access census name and description pair
+export default function Legend() {
+  const heatMapSelection = useSelector(getHeatMapSelection);
+  const colorAssociation = useSelector(getColorAssociation);
+  const markerSelection = useSelector(getMarkerSelection);
   const vizBuilderState = useSelector(getVizbuilder);
   const legendData: {
     key: number;

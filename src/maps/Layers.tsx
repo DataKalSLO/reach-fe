@@ -15,9 +15,18 @@ import {
   updateSelectedColumn,
   updateSelectedTables
 } from '../redux/map/actions';
+import {
+  getDatasetTableNames,
+  getAllMetaData
+} from '../redux/vizbuilder/selector';
+import {
+  getHeatMapSelection,
+  getSelectedTables,
+  getMarkerSelection
+} from '../redux/map/selector';
 import { theme } from '../theme/theme';
 import { removeMarker } from './LayersHelpers';
-import { HeatMapSelection, LayersProps } from './types';
+import { HeatMapSelection } from './types';
 
 // sizing for autocomplete which controls layers selection
 const AUTOCOMPLETE_MIN_HEIGHT = '55px';
@@ -27,15 +36,13 @@ const AUTOCOMPLETE_MIN_WIDTH = '75px';
 const BOX_MIN_WIDTH = '75%';
 
 // this function creates the multi-seletion autocomplete component
-export default function Layers(props: LayersProps) {
-  const {
-    tableNames,
-    heatMapSelection,
-    selectedTables,
-    markerSelection,
-    metadataForAllDatasets
-  } = props;
+export default function Layers() {
   const dispatch = useDispatch();
+  const tableNames = useSelector(getDatasetTableNames);
+  const heatMapSelection = useSelector(getHeatMapSelection);
+  const selectedTables = useSelector(getSelectedTables);
+  const markerSelection = useSelector(getMarkerSelection);
+  const metadataForAllDatasets = useSelector(getAllMetaData);
 
   const heatMapIsSelected = Object.keys(heatMapSelection).length > 0;
 

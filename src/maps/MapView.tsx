@@ -4,10 +4,17 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import _ from 'lodash';
 import React, { useEffect } from 'react';
 import ReactMapGL, { Layer, Source } from 'react-map-gl';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import mapOutline from '../common/assets/Local Data/census/b25053';
 import noData from '../common/assets/Local Data/census/noHeatMap';
 import { updateColorAssociation } from '../redux/map/actions';
+import {
+  getColorAssociation,
+  getHeatMapSelection,
+  getMarkerSelection,
+  getSelectedColumn,
+  getSelectedMarker
+} from '../redux/map/selector';
 import { NUM_QUANTILES, SLO_LATITUDE, SLO_LONGITUDE } from './constants';
 import { mapMarkers } from './MapMarker';
 import Popups from './MapPopups';
@@ -21,24 +28,17 @@ import {
   tooltipOverlapsMarkers
 } from './MapViewHelpers';
 import Tooltip from './Tooltip';
-import {
-  MapViewProps,
-  HeatMapSelection,
-  MarkerFeatures,
-  PrepGeoObject
-} from './types';
+import { HeatMapSelection, MarkerFeatures, PrepGeoObject } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
 
-function MapView(props: MapViewProps) {
-  const {
-    markerSelection,
-    heatMapSelection,
-    selectedMarker,
-    colorAssociation,
-    selectedColumn
-  } = props;
+function MapView() {
+  const markerSelection = useSelector(getMarkerSelection);
+  const heatMapSelection = useSelector(getHeatMapSelection);
+  const selectedMarker = useSelector(getSelectedMarker);
+  const colorAssociation = useSelector(getColorAssociation);
+  const selectedColumn = useSelector(getSelectedColumn);
   const dispatch = useDispatch();
   // heat map prepped here
   let heatMapFeatures: PrepGeoObject[] | null = null;

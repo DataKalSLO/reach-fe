@@ -2,19 +2,11 @@ import { MenuItem, TextField } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import React from 'react';
 import { theme } from '../theme/theme';
-import { BoundSelection } from './types';
-
-interface GeoFilterProps {
-  boundSelection: BoundSelection;
-}
-
-// TODO: get coordinates for other bound types, change outlines according to button clicked
 
 // The geofilter button manipulates the bounds and heat map displayed by zip
 // code, communities, and region.
-export default function GeoFilter(props: GeoFilterProps) {
+export default function GeoFilter() {
   // when we have coordinates for different boundaries, we can pass those in here
-  // const { boundSelection } = props;
   const region = 'Region';
   const communities = 'Communities';
   const zipcodes = 'Zip Codes';
