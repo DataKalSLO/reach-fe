@@ -89,7 +89,7 @@ export default function StoryCard(props: Props): JSX.Element {
           <Title text={props.story.title} />
           <Description text={props.story.description} />
           <AuthorDate
-            name={PLACEHOLDER_AUTHOR}
+            name={props.story.userName}
             profilePicture={PLACEHOLDER_USER_PICTURE}
             date={PLACEHOLDER_DATE}
           />
