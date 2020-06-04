@@ -1,16 +1,15 @@
-import { List, ListItem, ListItemText } from '@material-ui/core';
 import React from 'react';
-import {
-  ElasticSearchResultObject,
-  SearchIndexFilter,
-  ElasticSearchStorySource,
-  ElasticSearchGraphSource
-} from '../redux/search/types';
-import StoryCard from '../preview-cards/story-card/StoryCard';
-import { Story, PublicationStatus } from '../redux/story/types';
-import { GraphMetaData } from '../redux/graphs/types';
 import GraphCard from '../preview-cards/graph-card/GraphCard';
+import StoryCard from '../preview-cards/story-card/StoryCard';
 import { Gallery } from '../reach-ui/core.js';
+import { GraphMetaData } from '../redux/graphs/types';
+import {
+  ElasticSearchGraphSource,
+  ElasticSearchResultObject,
+  ElasticSearchStorySource,
+  SearchIndexFilter
+} from '../redux/search/types';
+import { PublicationStatus, Story } from '../redux/story/types';
 
 interface SearchResultProps {
   hits: Array<ElasticSearchResultObject>;
