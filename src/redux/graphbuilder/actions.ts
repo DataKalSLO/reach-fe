@@ -44,46 +44,52 @@ import {
   UpdateLocalGraph
 } from './types';
 
-export function saveGraph(graphMetaData: GraphMetaDataApiPayload) {
+export function saveGraph(
+  graphMetaData: GraphMetaDataApiPayload,
+  index: number
+) {
   return async (dispatch: Dispatch) => {
     const metaData = await saveGraphAndHandleResponse(graphMetaData);
     dispatch(showSuccessStatusMessage(!isUndefined(metaData), SAVE_MESSAGE));
     const graph = await createGraphWithData(metaData);
-    dispatch(saveGraphAction(graph));
+    dispatch(saveGraphAction({ graph: graph, index: index }));
   };
 }
 
-function saveGraphAction(payload?: Graph): SaveGraphAction {
+function saveGraphAction(payload: GraphWithIndex): SaveGraphAction {
   return {
     type: SAVE_GRAPH,
     payload: payload
   };
 }
 
-export function updateGraph(graphMetaData: GraphMetaDataApiPayload) {
+export function updateGraph(
+  graphMetaData: GraphMetaDataApiPayload,
+  index: number
+) {
   return async (dispatch: Dispatch) => {
     const metaData = await updateGraphAndHandleResponse(graphMetaData);
     dispatch(showSuccessStatusMessage(!isUndefined(metaData), UPDATE_MESSAGE));
     const graph = await createGraphWithData(metaData);
-    dispatch(updateGraphAction(graph));
+    dispatch(updateGraphAction({ graph: graph, index: index }));
   };
 }
 
-function updateGraphAction(payload?: Graph): UpdateGraphAction {
+function updateGraphAction(payload: GraphWithIndex): UpdateGraphAction {
   return {
     type: UPDATE_GRAPH,
     payload: payload
   };
 }
 
-export function updateLocalGraph(graph: Graph) {
+export function updateLocalGraph(graph: Graph, index: number) {
   return async (dispatch: Dispatch) => {
     const graphWithData = await createGraphWithData(graph.graphMetaData);
-    dispatch(updateLocalGraphAction(graphWithData));
+    dispatch(updateLocalGraphAction({ graph: graphWithData, index: index }));
   };
 }
 
-function updateLocalGraphAction(payload?: Graph): UpdateLocalGraph {
+function updateLocalGraphAction(payload: GraphWithIndex): UpdateLocalGraph {
   return {
     type: UPDATE_LOCAL_GRAPH,
     payload: payload
