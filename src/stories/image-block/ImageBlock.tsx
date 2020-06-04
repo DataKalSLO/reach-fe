@@ -17,8 +17,7 @@ interface Props {
 }
 
 export default function ImageBlock(props: Props) {
-  const { blockId } = props;
-  const [imageUrl, setImageUrl] = useState('');
+  const { blockId, imageUrl, setImageUrl } = props;
 
   async function uploadAndUpdateUrl(files: [File]) {
     uploadImageForImageBlocks(files[0], blockId)
