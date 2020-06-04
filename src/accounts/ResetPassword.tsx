@@ -110,7 +110,7 @@ function ResetPassword() {
         variant="filled"
         size="small"
       />
-      <ErrorMessage>{passwordErrorMessage}</ErrorMessage>
+      <ErrorMessage>{passwordConfirmationErrorMessage}</ErrorMessage>
       <ButtonThin
         fullWidth
         variant="contained"
