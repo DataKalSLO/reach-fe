@@ -32,6 +32,6 @@ export {
   ListItemTab,
   Popper,
   SidebarContentBox,
-  Snackbar
+  Snackbar,
   TextField
 };
