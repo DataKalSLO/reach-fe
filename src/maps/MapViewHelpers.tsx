@@ -85,7 +85,6 @@ export function quantileMaker(quantiles: number, min: number, max: number) {
     .scale(['white', HEAT_MAP_COLOR])
     .domain([0, 1])
     .colors(quantiles);
-  console.log(chromaScale);
   return zip(dataScale, chromaScale);
 }
 

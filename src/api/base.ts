@@ -11,7 +11,6 @@ async function tryFetch(url: string, request: RequestInit) {
   if (response.ok) {
     return body || {};
   } else if (response.status === 400) {
-    console.log(body);
     throw errorTranslate(body.tag, navigator.language);
   } else {
     throw response.status;

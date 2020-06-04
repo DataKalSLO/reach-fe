@@ -176,7 +176,6 @@ function MapView(props: MapViewProps) {
     const top = position(bounds.top, bounds.bottom, dims.height, y.current);
 
     const valueOfSelectedColumn = hoveredLocation.properties[selectedColumn];
-    // console.log(hoveredLocation.properties);
     const geoName = hoveredLocation.properties.geo_name;
 
     return (

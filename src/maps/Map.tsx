@@ -40,9 +40,6 @@ function Map() {
     getAllTableNames()(dispatch);
   }, [dispatch]);
 
-  console.log(mapState);
-  console.log(vizBuilderState);
-
   let columnNames: string[] = [];
 
   const selectedHeatMapDatasetName =
