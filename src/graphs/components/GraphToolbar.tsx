@@ -6,6 +6,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button, { Props as ButtonProps } from '../../common/components/Button';
+import { HeatMapSelection } from '../../maps/types';
 import {
   deleteGraph,
   deleteLocalGraph,
@@ -19,6 +20,14 @@ import {
 } from '../../redux/graphbuilder/utilities';
 import { GraphMetaDataApiPayload } from '../../redux/graphs/types';
 import { getUser } from '../../redux/login/selectors';
+import {
+  addSelectedTableAction,
+  getFeatureCollection,
+  removeSelectedTableAction,
+  updateSelectedColumn
+} from '../../redux/map/actions';
+import { getHeatMapSelection } from '../../redux/map/selector';
+import { getDatasetTableNames } from '../../redux/vizbuilder/selector';
 import { isDefinedElse } from '../forms/utilities';
 import {
   DELETE_LABEL,
@@ -31,18 +40,6 @@ import {
   SYNC_LABEL
 } from './constants';
 import { GraphToolbarProps } from './types';
-import {
-  getFeatureCollection,
-  addSelectedTableAction,
-  updateSelectedColumn,
-  removeSelectedTableAction
-} from '../../redux/map/actions';
-import {
-  getVizbuilder,
-  getDatasetTableNames
-} from '../../redux/vizbuilder/selector';
-import { getHeatMapSelection } from '../../redux/map/selector';
-import { HeatMapSelection } from '../../maps/types';
 
 /*
  * Contains the buttons rendered on the graph toolbar.
@@ -80,6 +77,24 @@ function GraphToolbar(props: GraphToolbarProps) {
     selection => selection.tableName === tableName
   )[0];
 
+  const syncMapToGraph = () => {
+    const heatMapIsSelected = Object.keys(heatMapSelection).length > 0;
+    if (heatMapIsSelected && newGraphSelection.geoType === 'area') {
+      dispatch(
+        removeSelectedTableAction(
+          datasetTableNames.filter(
+            selection =>
+              selection.tableName ===
+              (heatMapSelection as HeatMapSelection).name
+          )[0]
+        )
+      );
+    }
+    getFeatureCollection(tableName, newGraphSelection.geoType)(dispatch);
+    dispatch(addSelectedTableAction(newGraphSelection));
+    dispatch(updateSelectedColumn(yAxisDataSource.columnNames[0]));
+  };
+
   // TODO: Collapse toolbar when width is too small
   return (
     <Toolbar>
@@ -89,23 +104,7 @@ function GraphToolbar(props: GraphToolbarProps) {
         color="default"
         startIcon={<SyncIcon />}
         disabled={!newGraphSelection.geoType}
-        onClick={() => {
-          const heatMapIsSelected = Object.keys(heatMapSelection).length > 0;
-          if (heatMapIsSelected && newGraphSelection.geoType === 'area') {
-            dispatch(
-              removeSelectedTableAction(
-                datasetTableNames.filter(
-                  selection =>
-                    selection.tableName ===
-                    (heatMapSelection as HeatMapSelection).name
-                )[0]
-              )
-            );
-          }
-          getFeatureCollection(tableName, newGraphSelection.geoType)(dispatch);
-          dispatch(addSelectedTableAction(newGraphSelection));
-          dispatch(updateSelectedColumn(yAxisDataSource.columnNames[0]));
-        }}
+        onClick={syncMapToGraph}
       />
       <ToolbarButton
         label={EDIT_LABEL}
