@@ -8,6 +8,7 @@ import {
 import ListItemButton from '../common/components/ListItemButton';
 import { Menu } from '../reach-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Divider } from '@material-ui/core';
 
 interface ShareMenuProps {
   shareURL: string;
@@ -31,25 +32,27 @@ export default function ShareMenu(props: ShareMenuProps) {
     >
       <MenuItem onClick={props.closeMenuCallback}>
         <FacebookShareButton url={props.shareURL}>
-          <ListItemButton icon={<Facebook />} text="Share to Facebook" />
+          Share to Facebook
         </FacebookShareButton>
       </MenuItem>
+      <Divider />
       <MenuItem onClick={props.closeMenuCallback}>
         <TwitterShareButton
           url={props.shareURL}
           title={props.title}
           via="REACH"
         >
-          <ListItemButton icon={<Twitter />} text="Share to Twitter" />
+          Share to Twitter
         </TwitterShareButton>
       </MenuItem>
+      <Divider />
       <MenuItem onClick={props.closeMenuCallback}>
         <LinkedinShareButton
           url={props.shareURL}
           title={props.title}
           summary="REACH"
         >
-          <ListItemButton icon={<LinkedIn />} text="Share to LinkedIn" />
+          Share to LinkedIn
         </LinkedinShareButton>
       </MenuItem>
     </Menu>
