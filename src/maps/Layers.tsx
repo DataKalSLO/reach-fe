@@ -16,10 +16,6 @@ import {
   getFeatureCollection,
   updateHeatMapSelection,
   updateSelectedColumn,
-<<<<<<< HEAD
-=======
-  addMarkerSelection,
->>>>>>> 8ef0654748dd24ace60252a1bf929b618d49cc4f
   updateSelectedTables
 } from '../redux/map/actions';
 import { theme } from '../theme/theme';
