@@ -1,9 +1,11 @@
 import { EditorState } from 'draft-js';
 import { uuid } from 'uuidv4';
-import { emptyTextBlock } from './reducer';
+import { getEmptyImageBlock, emptyTextBlock } from './reducer';
 import {
+  CreateEmptyImageBlockAction,
   CreateEmptyTextBlockAction,
   CreateGraphBlockAction,
+  CREATE_EMPTY_IMAGE_BLOCK,
   CREATE_EMPTY_TEXT_BLOCK,
   CREATE_GRAPH_BLOCK,
   DeleteBlockAction,
@@ -13,10 +15,12 @@ import {
   SwapBlocksAction,
   SWAP_BLOCKS,
   UpdateDescriptionAction,
+  UpdateImageBlockAction,
   UpdatePublicationStatusAction,
   UpdateTextBlockAction,
   UpdateTitleAction,
   UPDATE_DESCRIPTION,
+  UPDATE_IMAGE_BLOCK,
   UPDATE_PUBLICATION_STATUS,
   UPDATE_TEXT_BLOCK,
   UPDATE_TITLE,
@@ -47,6 +51,15 @@ export function createGraphBlock(): CreateGraphBlockAction {
   };
 }
 
+export function createEmptyImageBlock(): CreateEmptyImageBlockAction {
+  return {
+    type: CREATE_EMPTY_IMAGE_BLOCK,
+    payload: {
+      block: getEmptyImageBlock()
+    }
+  };
+}
+
 export function deleteBlock(index: number): DeleteBlockAction {
   return {
     type: DELETE_BLOCK,
@@ -61,6 +74,16 @@ export function updateTextBlock(
   return {
     type: UPDATE_TEXT_BLOCK,
     payload: { index: index, editorState: editorState }
+  };
+}
+
+export function updateImageBlock(
+  index: number,
+  imageUrl: string
+): UpdateImageBlockAction {
+  return {
+    type: UPDATE_IMAGE_BLOCK,
+    payload: { index: index, imageUrl: imageUrl }
   };
 }
 

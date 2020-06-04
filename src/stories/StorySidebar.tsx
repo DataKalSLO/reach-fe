@@ -16,7 +16,8 @@ import { Drawer, List, ListItemButton } from '../reach-ui/core';
 import { EDIT_ICON, PREVIEW_ICON } from '../reach-ui/icons';
 import {
   createEmptyTextBlock,
-  updatePublicationStatus
+  updatePublicationStatus,
+  createEmptyImageBlock
 } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import { PublicationStatus } from '../redux/story/types';
@@ -82,7 +83,7 @@ export default function StorySidebar() {
           disabled={previewSelected}
           text={'Image'}
           icon={<InsertPhoto />}
-          onClick={() => alert('Not implemented')}
+          onClick={() => dispatch(createEmptyImageBlock())}
         />
       </List>
       <Divider />
