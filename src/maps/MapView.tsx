@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Grid } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import chroma from 'chroma-js';
 import _ from 'lodash';
 import React, { useEffect } from 'react';
 import ReactMapGL, { Layer, Source } from 'react-map-gl';
@@ -9,12 +8,7 @@ import { useDispatch } from 'react-redux';
 import mapOutline from '../common/assets/Local Data/census/b25053';
 import noData from '../common/assets/Local Data/census/noHeatMap';
 import { updateColorAssociation } from '../redux/map/actions';
-import {
-  HEAT_MAP_COLOR,
-  NUM_QUANTILES,
-  SLO_LATITUDE,
-  SLO_LONGITUDE
-} from './constants';
+import { NUM_QUANTILES, SLO_LATITUDE, SLO_LONGITUDE } from './constants';
 import { mapMarkers } from './MapMarker';
 import Popups from './MapPopups';
 import {
@@ -145,8 +139,7 @@ function MapView(props: MapViewProps) {
     const minVal = getStat(heatMapFeatures, _.minBy, selectedColumn);
     const maxVal = getStat(heatMapFeatures, _.maxBy, selectedColumn);
     const quantiles_ = NUM_QUANTILES;
-    const colorScale_ = chroma.scale(['white', HEAT_MAP_COLOR]).domain([0, 1]);
-    const stops = quantileMaker(colorScale_, quantiles_, minVal, maxVal);
+    const stops = quantileMaker(quantiles_, minVal, maxVal);
     setLayer({
       id: 'data',
       type: 'fill',

@@ -1,4 +1,3 @@
-import chroma from 'chroma-js';
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
@@ -47,15 +46,14 @@ describe('<Popups /> with props', () => {
 
 // Quantile Maker from old project.
 describe('quantileMaker function', () => {
-  const colorScale = chroma.scale(['white', 'black']).domain([0, 1]);
   const inputs = [
     {
       quantiles: 2,
       min: 0,
       max: 4,
       expected: [
-        [0, '#bfbfbf'],
-        [2, '#808080']
+        [0, '#ffffff'],
+        [2, '#273c65']
       ]
     },
     {
@@ -63,11 +61,11 @@ describe('quantileMaker function', () => {
       min: 0,
       max: 10,
       expected: [
-        [0, '#e6e6e6'],
-        [2, '#cccccc'],
-        [4, '#999999'],
-        [6, '#666666'],
-        [8, '#333333']
+        [0, '#ffffff'],
+        [2, '#c9ced9'],
+        [4, '#939eb2'],
+        [6, '#5d6d8c'],
+        [8, '#273c65']
       ]
     },
     {
@@ -75,33 +73,33 @@ describe('quantileMaker function', () => {
       min: 0,
       max: 100,
       expected: [
-        [0, '#fcfcfc'],
-        [5, '#f2f2f2'],
-        [10, '#e6e6e6'],
-        [15, '#d9d9d9'],
-        [20, '#cccccc'],
-        [25, '#bfbfbf'],
-        [30, '#b3b3b3'],
-        [35, '#a6a6a6'],
-        [40, '#999999'],
-        [45, '#8c8c8c'],
-        [50, '#808080'],
-        [55, '#737373'],
-        [60, '#666666'],
-        [65, '#595959'],
-        [70, '#4d4d4d'],
-        [75, '#404040'],
-        [80, '#333333'],
-        [85, '#262626'],
-        [90, '#1a1a1a'],
-        [95, '#0d0d0d']
+        [0, '#ffffff'],
+        [5, '#f4f5f7'],
+        [10, '#e8eaef'],
+        [15, '#dde0e7'],
+        [20, '#d2d6df'],
+        [25, '#c6ccd6'],
+        [30, '#bbc1ce'],
+        [35, '#afb7c6'],
+        [40, '#a4adbe'],
+        [45, '#99a3b6'],
+        [50, '#8d98ae'],
+        [55, '#828ea6'],
+        [60, '#77849e'],
+        [65, '#6b7a96'],
+        [70, '#606f8e'],
+        [75, '#546585'],
+        [80, '#495b7d'],
+        [85, '#3e5175'],
+        [90, '#32466d'],
+        [95, '#273c65']
       ]
     }
   ];
   for (let i = 0; i < inputs.length; i++) {
     const { quantiles, min, max, expected } = inputs[i];
     it(`quantiles: ${quantiles}, min: ${min}, max: ${max}`, () => {
-      expect(quantileMaker(colorScale, quantiles, min, max)).toEqual(expected);
+      expect(quantileMaker(quantiles, min, max)).toEqual(expected);
     });
   }
 });

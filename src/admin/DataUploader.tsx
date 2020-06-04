@@ -79,6 +79,12 @@ export default function DataUploader() {
       : '';
   return (
     <AdminWrapper title="Upload Data">
+      <p>
+        Use the Data Uploader to update exisiting tables in the database with
+        new information. To do this, download the CSV template associated with
+        the data you want updated. Fill in the rows with new data and upload the
+        updated csv using the &quot;Upload Data&quot; button below.
+      </p>
       <UploadPaper variant="outlined">
         <Typography variant="h5">Upload Your Data</Typography>
         <UploadBox>
@@ -143,8 +149,8 @@ export default function DataUploader() {
 }
 
 const UploadPaper = styled(Paper)({
-  marginLeft: '200px',
-  marginRight: '200px',
+  marginLeft: '150px',
+  marginRight: '150px',
   marginTop: theme.spacing(3)
 });
 
@@ -157,7 +163,7 @@ const UploadBox = styled(Box)({
 });
 
 const DownloadPaper = styled(Paper)({
-  marginLeft: '200px',
-  marginRight: '200px',
+  marginLeft: '150px',
+  marginRight: '150px',
   marginTop: '50px'
 });
