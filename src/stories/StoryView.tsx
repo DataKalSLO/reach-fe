@@ -23,28 +23,43 @@ import StoryShareButton from './StoryShareButton';
 export default function StoryView(props: { story: Story }): JSX.Element {
   const user = useSelector(getUser);
 
+  const TitleDescription = (props: { story: Story }) => {
+    return (
+      <TitleBox>
+        <WrappingTypography variant="h3">
+          {props.story.title}
+        </WrappingTypography>
+        <WrappingTypography variant="subtitle1">
+          {props.story.description}
+        </WrappingTypography>
+      </TitleBox>
+    );
+  };
+
   const createPublicationDateString = () => {
     const name = user.name !== '' ? user.name : DEFAULT_USER_NAME;
     return `By ${name} on ${new Date().toDateString()}`;
   };
 
   return (
-    <StyledBox>
-      <TitleBox>
-        <WrappingTypography variant="h3">
-          {props.story.title}
-          <StoryShareButton
-            shareURL={window.location.toString()}
-            storyTitle={props.story.title}
-          />
-        </WrappingTypography>
-        <WrappingTypography variant="subtitle1">
-          {props.story.description}
-        </WrappingTypography>
-      </TitleBox>
+    <StyledGrid>
+      <Grid
+        container
+        item
+        direction="row"
+        alignItems="flex-start"
+        justify="space-between"
+      >
+        <TitleDescription story={props.story} />
+        <StoryShareButton
+          shareURL={window.location.toString()}
+          storyTitle={props.story.title}
+        />
+      </Grid>
 
       <AuthorGrid
         container
+        item
         direction="row"
         alignContent="space-between"
         alignItems="center"
@@ -64,7 +79,7 @@ export default function StoryView(props: { story: Story }): JSX.Element {
       {props.story.storyBlocks.map(block => convertBlockToJSX(block))}
 
       <AdminReviewActions story={props.story} user={user} />
-    </StyledBox>
+    </StyledGrid>
   );
 }
 
@@ -97,12 +112,13 @@ function convertMapBlockToJSX(mapBlock: MapBlockType): JSX.Element {
   return <div key={mapBlock.id}>Map Block conversion not yet implemented</div>;
 }
 
-const StyledBox = styled(Box)({
+const StyledGrid = styled(Grid)({
   margin: '20px 10px 20px 10px'
 });
 
 const TitleBox = styled(Box)({
-  paddingBottom: '10px'
+  paddingBottom: '10px',
+  backgroundColor: 'yellow'
 });
 
 const WrappingTypography = styled(Typography)({

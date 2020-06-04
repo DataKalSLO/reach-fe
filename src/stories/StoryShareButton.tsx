@@ -1,6 +1,6 @@
-import { Share } from '@material-ui/icons';
-import { Button } from '@material-ui/core';
 import React from 'react';
+import { IconButton } from '../reach-ui/core';
+import { SHARE_ICON } from '../reach-ui/icons';
 import ShareMenu from '../share/ShareMenu';
 
 interface StoryShareButtonProps {
@@ -21,13 +21,14 @@ export default function StoryShareButton(props: StoryShareButtonProps) {
 
   return (
     <span>
-      <Button
+      <IconButton
         aria-controls="story-share-menu"
         aria-haspopup="true"
+        aria-label="share"
+        icon={SHARE_ICON}
         onClick={handleClick}
-      >
-        <Share />
-      </Button>
+      />
+
       <ShareMenu
         id="story-share-menu"
         anchorEl={anchorEl}
