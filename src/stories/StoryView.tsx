@@ -18,6 +18,7 @@ import {
   TEXT_BLOCK_TYPE
 } from '../redux/story/types';
 import AdminReviewActions from './AdminReviewActions';
+import AdminReviewFeedback from './AdminReviewFeedback';
 
 export default function StoryView(props: { story: Story }): JSX.Element {
   const user = useSelector(getUser);
@@ -55,6 +56,8 @@ export default function StoryView(props: { story: Story }): JSX.Element {
           </Typography>
         </Grid>
       </AuthorGrid>
+
+      <AdminReviewFeedback story={props.story} user={user} />
 
       {props.story.storyBlocks.map(block => convertBlockToJSX(block))}
 
