@@ -1,20 +1,24 @@
 import { Share } from '@material-ui/icons';
 import React from 'react';
-import ShareDrawer from '../../share/ShareDrawer';
+import ShareMenu from '../../share/ShareMenu';
 import { SHARE_LABEL } from './constants';
 import { ToolbarButton } from './GraphToolbar';
+import { onClickWithEventType } from '../../common/components/Button';
 
-//TODO: shareURL needs to be changed to reflect static image of current graph
-//pass static image URL as props to this component
-export default function GraphShareButton() {
-  const [drawerVisible, setDrawerVisible] = React.useState(false);
+interface GraphShareButtonProps {
+  snapshotUrl: string;
+  graphTitle: string;
+}
 
-  const handleDrawerOpen = () => {
-    setDrawerVisible(true);
+export default function GraphShareButton(props: GraphShareButtonProps) {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(e.currentTarget);
   };
 
-  const handleDrawerClose = () => {
-    setDrawerVisible(false);
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -22,13 +26,15 @@ export default function GraphShareButton() {
       <ToolbarButton
         label={SHARE_LABEL}
         startIcon={<Share />}
-        onClick={handleDrawerOpen}
+        onClick={handleClick as onClickWithEventType}
       />
-      <ShareDrawer
-        openCallback={handleDrawerOpen}
-        closeCallback={handleDrawerClose}
-        isOpen={drawerVisible}
-        shareURL="https://production.d1t7lxoixksik3.amplifyapp.com/"
+      <ShareMenu
+        id="graph-share-menu"
+        anchorEl={anchorEl}
+        setAnchorEl={setAnchorEl}
+        shareURL={props.snapshotUrl}
+        title={props.graphTitle}
+        closeMenuCallback={handleClose}
       />
     </div>
   );

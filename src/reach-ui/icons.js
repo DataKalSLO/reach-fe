@@ -4,6 +4,7 @@ import {
   InsertChart,
   LibraryBooks,
   Map,
+  Share,
   Storage,
   ViewModule,
   Visibility
@@ -17,4 +18,5 @@ export const DELETE_ICON = <Delete />;
 export const EDIT_ICON = <Edit />;
 export const MAPS_ICON = <Map />;
 export const PREVIEW_ICON = <Visibility />;
+export const SHARE_ICON = <Share />;
 export const STORIES_ICON = <LibraryBooks />;
