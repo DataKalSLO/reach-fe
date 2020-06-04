@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { FilterOptionsState } from '@material-ui/lab/useAutocomplete';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Selection } from '../api/vizbuilder/types';
 import {
   deleteMarkerSelection,
@@ -36,6 +36,7 @@ export default function Layers(props: LayersProps) {
     metadataForAllDatasets
   } = props;
   const dispatch = useDispatch();
+
   const heatMapIsSelected = Object.keys(heatMapSelection).length > 0;
 
   const diffElem = (l1: any, l2: any) =>
