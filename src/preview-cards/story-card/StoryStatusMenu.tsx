@@ -1,22 +1,54 @@
-import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
+import { Button } from '@material-ui/core';
 import React from 'react';
-import { Menu } from '../../reach-ui/core';
+// import { Menu } from '../../reach-ui/core';
+import { PublicationStatus, Story } from '../../redux/story/types';
 
-export default function StoryStatusMenu() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+export default function StoryStatusMenu(props: { story: Story }) {
+  // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  // const handleClose = () => {
+  //   setAnchorEl(null);
+  // };
+
+  const StatusButton = (props: { status: PublicationStatus }) => {
+    let label = 'DRAFT';
+    let backgroundColor = 'goldenrod';
+
+    if (props.status === PublicationStatus.FEEDBACK) {
+      label = 'FEEDBACK';
+      backgroundColor = 'lightblue';
+    } else if (props.status === PublicationStatus.PUBLISHED) {
+      label = 'PUBLISHED';
+      backgroundColor = 'yellowgreen';
+    } else if (props.status === PublicationStatus.REVIEW) {
+      label = 'REVIEW';
+      backgroundColor = 'lightgray';
+    }
+
+    return (
+      <Button
+        variant="contained"
+        disableElevation
+        disableFocusRipple
+        disableRipple
+        disableTouchRipple
+        style={{ backgroundColor: backgroundColor, marginRight: '10px' }}
+      >
+        {label}
+      </Button>
+    );
   };
 
   return (
     <>
-      <Button
+      <StatusButton status={props.story.publicationStatus} />
+
+      {/* TODO: disabled for the sake of the demo, should be reconnected soon */}
+      {/* <Button
         aria-controls="story-status-menu"
         aria-haspopup="true"
         onClick={handleClick}
@@ -33,7 +65,7 @@ export default function StoryStatusMenu() {
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
+      </Menu> */}
     </>
   );
 }
