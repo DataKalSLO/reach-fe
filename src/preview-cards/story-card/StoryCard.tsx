@@ -7,11 +7,9 @@ import {
 } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { ADMIN_USER, STORY_VIEW } from '../../nav/constants';
-import { getUser } from '../../redux/login/selectors';
-import { PublicationStatus, Story } from '../../redux/story/types';
+import { STORY_VIEW } from '../../nav/constants';
+import { Story } from '../../redux/story/types';
 import { AuthorDate, Description, Title } from '../PreviewMetaData';
 import { StyleProps, usePreviewCardStyles } from '../usePreviewCardStyles';
 import AdminReviewCardActions from './AdminReviewCardActions';
@@ -32,10 +30,10 @@ const styleProps: StyleProps = {
 interface Props {
   story: Story;
   showAuthorActions?: boolean;
+  showAdminActions?: boolean;
 }
 
 export default function StoryCard(props: Props): JSX.Element {
-  const user = useSelector(getUser);
   const history = useHistory();
   const classes = usePreviewCardStyles(styleProps);
   const [isVisible, setIsVisible] = useState(true);
@@ -51,10 +49,7 @@ export default function StoryCard(props: Props): JSX.Element {
   // Buttons to reject story with feedback or approve for publishing
   // Buttons will only appear if story is in review status and user is an admin
   const AdminReviewButtons = () => {
-    if (
-      user.role === ADMIN_USER &&
-      props.story.publicationStatus === PublicationStatus.REVIEW
-    ) {
+    if (props.showAdminActions) {
       return (
         <>
           <Divider variant="middle" />

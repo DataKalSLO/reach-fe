@@ -14,7 +14,13 @@ export default function StoryReviewGrid() {
 
   const makeStoryCards = () => {
     return stories.map((storyInfo: Story) => {
-      return <StoryCard key={storyInfo.id} story={storyInfo} />;
+      return (
+        <StoryCard
+          key={storyInfo.id}
+          showAdminActions={true}
+          story={storyInfo}
+        />
+      );
     });
   };
 
