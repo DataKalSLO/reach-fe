@@ -247,7 +247,6 @@ export interface GraphConfiguration {
   xConfig?: XAxisConfiguration;
   yConfig?: YAxisConfiguration;
   stackConfig?: StackConfiguration;
-  timeSeries?: boolean;
 }
 
 export interface SeriesConfiguration {
