@@ -32,6 +32,13 @@ interface AddSelectedTable {
   payload: Selection;
 }
 
+export const REMOVE_SELECTED_TABLE = 'REMOVE_SELECTED_TABLE';
+
+interface RemoveSelectedTable {
+  type: typeof REMOVE_SELECTED_TABLE;
+  payload: Selection;
+}
+
 export const ADD_MARKER_SELECTION = 'ADD_MARKER_SELECTION';
 
 interface AddMarkerSelection {
@@ -90,4 +97,5 @@ export type MapActionTypes =
   | UpdateColorAssociation
   | UpdateBoundSelection
   | UpdateSelectedColumn
-  | AddSelectedTable;
+  | AddSelectedTable
+  | RemoveSelectedTable;

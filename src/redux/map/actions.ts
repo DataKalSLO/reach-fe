@@ -19,7 +19,8 @@ import {
   UPDATE_HEATMAP_SELECTION,
   UPDATE_SELECTED_COLUMN,
   UPDATE_SELECTED_MARKER,
-  UPDATE_SELECTED_TABLES
+  UPDATE_SELECTED_TABLES,
+  REMOVE_SELECTED_TABLE
 } from './types';
 
 export function getFeatureCollection(tableName: string, geoType: string) {
@@ -74,9 +75,16 @@ export function updateSelectedTablesAction(selectedTables: string[]) {
   };
 }
 
-export function addselectedTableAction(selectedTable: Selection) {
+export function addSelectedTableAction(selectedTable: Selection) {
   return {
     type: ADD_SELECTED_TABLE,
+    payload: selectedTable
+  };
+}
+
+export function removeSelectedTableAction(selectedTable: Selection) {
+  return {
+    type: REMOVE_SELECTED_TABLE,
     payload: selectedTable
   };
 }
