@@ -20,7 +20,7 @@ import {
 } from '../redux/map/actions';
 import { theme } from '../theme/theme';
 import { removeMarker } from './LayersHelpers';
-import { LayersProps, HeatMapSelection } from './types';
+import { HeatMapSelection, LayersProps } from './types';
 
 // sizing for autocomplete which controls layers selection
 const AUTOCOMPLETE_MIN_HEIGHT = '55px';
