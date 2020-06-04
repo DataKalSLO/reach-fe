@@ -117,8 +117,7 @@ const StyledGrid = styled(Grid)({
 });
 
 const TitleBox = styled(Box)({
-  paddingBottom: '10px',
-  backgroundColor: 'yellow'
+  paddingBottom: '10px'
 });
 
 const WrappingTypography = styled(Typography)({
