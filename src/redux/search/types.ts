@@ -55,7 +55,7 @@ export interface ElasticSearchResultObject {
   _type: string;
   _id: string;
   _score: number;
-  _source: ElasticSearchSourceObject;
+  _source: ElasticSearchGraphSource | ElasticSearchStorySource;
 }
 
 interface ElasticSearchSourceObject {
@@ -63,12 +63,12 @@ interface ElasticSearchSourceObject {
   user_id: string;
 }
 
-interface ElasticSearchGraphSource extends ElasticSearchSourceObject {
+export interface ElasticSearchGraphSource extends ElasticSearchSourceObject {
   timestamp: number;
   snapshot_url: string;
 }
 
-interface ElasticSearchStorySource extends ElasticSearchSourceObject {
+export interface ElasticSearchStorySource extends ElasticSearchSourceObject {
   publication_status: string;
   description: string;
   date_created: Date;
