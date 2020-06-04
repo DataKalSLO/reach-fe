@@ -7,7 +7,7 @@ import { getSelectedColumn } from '../redux/map/selector';
 import { theme } from '../theme/theme';
 import { ColumnSelectorProps } from './types';
 
-// this function creates the multi-seletion autocomplete component
+// this function creates the multi-selection autocomplete component
 export default function ColumnSelector(props: ColumnSelectorProps) {
   const { columnNames } = props;
   const dispatch = useDispatch();

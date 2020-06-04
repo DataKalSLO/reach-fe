@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getMap, getHeatMapSelection } from '../redux/map/selector';
-import { getVizbuilder } from '../redux/vizbuilder/selector';
 import { Box, Card, Grid } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getHeatMapSelection } from '../redux/map/selector';
+import { getAllTableNames } from '../redux/vizbuilder/actions';
+import { getAllMetaData } from '../redux/vizbuilder/selector';
+import ColumnSelector from './ColumnSelector';
 import GeoFilter from './GeoFilter';
 import Layers from './Layers';
 import Legend from './Legend';
 import MapView from './MapView';
-import { getAllTableNames } from '../redux/vizbuilder/actions';
-import { getAllMetaData } from '../redux/vizbuilder/selector';
-import ColumnSelector from './ColumnSelector';
 import { HeatMapSelection } from './types';
 
 // sizing for the box that contains the map
@@ -31,7 +30,6 @@ const MAP_MARGIN_LEFT = '10px';
 
 function Map() {
   const dispatch = useDispatch();
-  const mapState = useSelector(getMap);
   const heatMapSelection = useSelector(getHeatMapSelection);
   const allMetaData = useSelector(getAllMetaData);
 
@@ -65,18 +63,8 @@ function Map() {
               <ColumnSelector columnNames={columnNames} />
             </Grid>
           </Grid>
-          <MapView
-            markerSelection={mapState.markerSelection}
-            heatMapSelection={mapState.heatMapSelection}
-            selectedMarker={mapState.selectedMarker}
-            colorAssociation={mapState.colorAssociation}
-            selectedColumn={mapState.selectedColumn as string}
-          />
-          <Legend
-            heatMapSelection={mapState.heatMapSelection}
-            colorAssociation={mapState.colorAssociation}
-            markerSelection={mapState.markerSelection}
-          />
+          <MapView />
+          <Legend />
         </StyledMapContainer>
       </StyledCard>
     </StyledBox>
