@@ -75,7 +75,6 @@ function populateLegendData(
         source: link,
         color: colorAssociation[selection.name].color
       };
-      // it seems like the legendData is not preserving the old pushes, the length never changes from 0.
       legendData.push(markerLegend);
     });
   }

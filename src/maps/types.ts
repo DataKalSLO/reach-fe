@@ -25,7 +25,6 @@ export type SetViewPort = (
 export interface PrepGeoObject {
   type: string;
   geometry: { type: string; coordinates: number[][][] };
-  // properties: { NO_DATA: number; 'zip-code-tabulation-area': string };
   properties: { value: number; name: string };
 }
 

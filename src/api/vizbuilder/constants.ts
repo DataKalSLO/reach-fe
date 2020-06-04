@@ -9,3 +9,6 @@ export const TABLE_NAMES_RETRIEVAL_FAILURE_MESSAGE =
 export const COLUMNS_RETRIEVAL_SUCCESS_MESSAGE = 'Columns retrieved!';
 export const COLUMNS_RETRIEVAL_FAILURE_MESSAGE =
   'An Error occurred while retrieving the Columns.';
+
+export const MAP_TABLE_NAMES_ROUTE = 'Map/tableNames/';
+export const METADATA_ROUTE = 'MetaData/';

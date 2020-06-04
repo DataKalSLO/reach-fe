@@ -46,7 +46,7 @@ export default function Layers(props: LayersProps) {
     if (newSelections === null) return;
     let changed: Selection;
 
-    // removed
+    // removed selections
     if (selectedTables.length > newSelections.length) {
       changed = diffElem(selectedTables, newSelections);
       if (changed.geoType === 'area') {
@@ -56,7 +56,7 @@ export default function Layers(props: LayersProps) {
       }
     }
 
-    // added
+    // added selections
     else {
       changed = diffElem(newSelections, selectedTables);
       getFeatureCollection(changed.tableName, changed.geoType)(dispatch);

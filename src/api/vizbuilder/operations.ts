@@ -16,6 +16,7 @@ import {
   VizbuilderApiPayload,
   VizbuilderApiResponse
 } from './types';
+import { MAP_TABLE_NAMES_ROUTE, METADATA_ROUTE } from './constants';
 
 export async function getDatasetsMetaData(): Promise<Metadata[]> {
   return httpRequestWithDatasetsMetaDataResponse(
@@ -123,13 +124,13 @@ async function vizbuilderHttp(
   let response: unknown;
   switch (actionType) {
     case VizbuilderActions.GET_METADATA:
-      response = get('MetaData/');
+      response = get(METADATA_ROUTE);
       break;
     case VizbuilderActions.GET_COLUMNS:
       response = get('DataSets' + payload);
       break;
     case VizbuilderActions.GET_TABLE_NAMES:
-      response = get('Map/tableNames/');
+      response = get(MAP_TABLE_NAMES_ROUTE);
       break;
     default:
       throw new Error(

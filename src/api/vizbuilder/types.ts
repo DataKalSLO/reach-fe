@@ -13,7 +13,7 @@ export interface DataColumnsRecord {
 export interface Selection {
   tableName: string;
   geoType: string;
-  censusDesc: string;
+  censusDesc: string; // the census variable's description
 }
 
 export type VizbuilderApiPayload = string | undefined;

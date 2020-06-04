@@ -84,7 +84,7 @@ function MapView(props: MapViewProps) {
   // Tooltip State
   const defaultHoveredLocation = {
     properties: {
-      // snake case is required here becuase of the name of db table columns
+      // snake case is required here because of the name of db table columns
       geo_name: '',
       [selectedColumn]: ''
     },
@@ -101,7 +101,6 @@ function MapView(props: MapViewProps) {
     dispatch(updateColorAssociation());
   }, [dispatch, markerSelection]);
 
-  // TODO: going to solve "any" errors at a later time
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [viewport, setViewport]: any = React.useState({
     width: VIEWPORT_WIDTH,

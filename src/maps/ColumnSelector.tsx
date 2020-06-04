@@ -23,7 +23,7 @@ export default function ColumnSelector(props: ColumnSelectorProps) {
       onChange={update}
       renderInput={params => (
         <TextField
-          label="Layers"
+          label="Column"
           {...params}
           variant="outlined"
           fullWidth
