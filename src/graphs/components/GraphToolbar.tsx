@@ -80,8 +80,8 @@ function GraphToolbar(props: GraphToolbarProps) {
           startIcon={<Save />}
           onClick={() =>
             graphIsLocal
-              ? dispatch(saveGraph(newGraph))
-              : dispatch(updateGraph(newGraph))
+              ? dispatch(saveGraph(newGraph, index))
+              : dispatch(updateGraph(newGraph, index))
           }
         />
       ) : null}
