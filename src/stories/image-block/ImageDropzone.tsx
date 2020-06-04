@@ -29,7 +29,9 @@ export default function ImageDropzone(props: ImageDropzoneProps) {
         rejectFiles('Only one file can be uploaded per image block');
         return;
       } else if (acceptedFiles.length === 0) {
-        rejectFiles('Filetype not accepted');
+        rejectFiles(
+          'Filetype not accepted. Accepted types: .jpg, .jpeg, .png .jfif, .pjp, .pjpeg'
+        );
         return;
       }
       props.onFileDrop(acceptedFiles);
