@@ -10,9 +10,17 @@ import {
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { getVizbuilder } from '../redux/vizbuilder/selector';
+import { VizState } from '../redux/vizbuilder/types';
 import { theme } from '../theme/theme';
 import { HEAT_MAP_COLOR } from './constants';
-import { ColorAssociation, HeatMapSelection, MarkerSelection } from './types';
+import {
+  ColorAssociation,
+  HeatMapSelection,
+  LegendProps,
+  MarkerSelection
+} from './types';
 
 // populate legend using data selected in the layers component
 // legend has name of data set, color association, vintage, and source of data
@@ -22,6 +30,7 @@ function populateLegendData(
   heatMapSelection: HeatMapSelection | {},
   colorAssociation: ColorAssociation,
   markerSelection: MarkerSelection[],
+  vizBuilderState: VizState,
   legendData: {
     key: number;
     label: string;
@@ -42,7 +51,7 @@ function populateLegendData(
       const link = prefix.concat(heatMap.source);
       const heatMapLegend = {
         key: legendData.length,
-        label: heatMap.name,
+        label: displayName(vizBuilderState, heatMap.name),
         vintage: heatMap.vintage,
         source: link,
         color: HEAT_MAP_COLOR
@@ -54,9 +63,6 @@ function populateLegendData(
   if (
     Object.keys(colorAssociation).length === Object.keys(markerSelection).length
   ) {
-    legendData.forEach = val => {
-      console.log(val);
-    };
     markerSelection.forEach((selection: MarkerSelection) => {
       // TODO: once we are using DB instead of local data, the concat below will
       // likely be removed
@@ -64,14 +70,13 @@ function populateLegendData(
       const link = prefix.concat(selection.source);
       const markerLegend = {
         key: legendData.length,
-        label: selection.name,
+        label: displayName(vizBuilderState, selection.name),
         vintage: selection.vintage,
         source: link,
         color: colorAssociation[selection.name].color
       };
       // it seems like the legendData is not preserving the old pushes, the length never changes from 0.
       legendData.push(markerLegend);
-      console.log('Pushing this ' + markerLegend.label);
     });
   }
 }
@@ -113,15 +118,10 @@ function getCards(data: {
   );
 }
 
-interface LegendProps {
-  heatMapSelection: HeatMapSelection | {};
-  colorAssociation: ColorAssociation;
-  markerSelection: MarkerSelection[];
-}
-
 export default function Legend(props: LegendProps) {
   const { heatMapSelection, colorAssociation, markerSelection } = props;
-
+  // to access census name and description pair
+  const vizBuilderState = useSelector(getVizbuilder);
   const legendData: {
     key: number;
     label: string;
@@ -133,6 +133,7 @@ export default function Legend(props: LegendProps) {
     heatMapSelection,
     colorAssociation,
     markerSelection,
+    vizBuilderState,
     legendData
   );
   // do not render legend component if no data is displayed on map
@@ -157,6 +158,15 @@ export default function Legend(props: LegendProps) {
       )}
     </Box>
   );
+}
+
+function displayName(vizbuilder: VizState, name: string) {
+  for (let ind = 0; ind < vizbuilder.datasetTableNames.length; ind++) {
+    if (vizbuilder.datasetTableNames[ind].tableName === name) {
+      return vizbuilder.datasetTableNames[ind].censusDesc;
+    }
+  }
+  return name;
 }
 
 const StyledExpansionPanelDetails = styled(ExpansionPanelDetails)({

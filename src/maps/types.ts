@@ -108,3 +108,9 @@ export interface ColumnSelectorProps {
   columnNames: string[];
   selectedColumn: string;
 }
+
+export interface LegendProps {
+  heatMapSelection: HeatMapSelection | {};
+  colorAssociation: ColorAssociation;
+  markerSelection: MarkerSelection[];
+}
