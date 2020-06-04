@@ -19,6 +19,7 @@ const useStyles = makeStyles({
 
 interface Props {
   story: Story;
+  setCardVisible: (isVisible: boolean) => void;
 }
 
 // action buttons to appear on the story card when the user is
@@ -30,6 +31,7 @@ export default function AdminReviewCardActions(props: Props) {
   const publishStory = () => {
     if (submitStoryForPublishingAndHandleResponse(props.story)) {
       dispatch(updatePublicationStatus(PublicationStatus.PUBLISHED));
+      props.setCardVisible(false);
     }
   };
 
