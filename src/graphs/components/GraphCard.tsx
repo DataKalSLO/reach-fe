@@ -107,7 +107,8 @@ export function GraphCard({ graph, index }: GraphCardProps) {
 }
 
 const GraphCardActions = styled(CardActions)({
-  padding: '0px'
+  padding: '0px',
+  overflow: 'scroll'
 });
 
 const GraphDivider = styled(Divider)({
