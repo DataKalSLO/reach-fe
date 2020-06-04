@@ -54,29 +54,35 @@ export default function GraphEditForm(props: Props) {
 
   const FormattingFormHandleUpdate = () => {
     dispatch(
-      updateLocalGraph({
-        ...graph,
-        graphMetaData: {
-          ...graph.graphMetaData,
-          graphOptions: graphOptionsState
-        }
-      })
+      updateLocalGraph(
+        {
+          ...graph,
+          graphMetaData: {
+            ...graph.graphMetaData,
+            graphOptions: graphOptionsState
+          }
+        },
+        index
+      )
     );
   };
 
   const DataSourceFormHandleUpdate = () => {
     dispatch(
-      updateLocalGraph({
-        ...graph,
-        graphMetaData: {
-          ...graph.graphMetaData,
-          dataSources: convertFormDataStateToDataSources(dataState),
-          graphOptions: {
-            ...graph.graphMetaData.graphOptions,
-            seriesConfigs: seriesState
+      updateLocalGraph(
+        {
+          ...graph,
+          graphMetaData: {
+            ...graph.graphMetaData,
+            dataSources: convertFormDataStateToDataSources(dataState),
+            graphOptions: {
+              ...graph.graphMetaData.graphOptions,
+              seriesConfigs: seriesState
+            }
           }
-        }
-      })
+        },
+        index
+      )
     );
   };
 
