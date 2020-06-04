@@ -6,7 +6,7 @@ import { GraphMetaData } from '../../redux/graphs/types';
 const sampleGraph: GraphMetaData = {
   graphId: '043707c7-b204-4150-aac8-d76809613da3',
   userId: 'test@gmail.com',
-  timestamp: 1591139888,
+  timeStamp: 1591139888,
   graphTitle:
     'Covid-19 New vs. Total Confirmed Cases in San Luis Obispo County',
   snapshotUrl:

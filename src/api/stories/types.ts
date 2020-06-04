@@ -17,8 +17,15 @@ export interface TextBlockDB {
   editorState: string;
 }
 
+export interface StoryFeedback {
+  storyId: string;
+  reviewerId: string;
+  feedback: string;
+}
+
 export type StoryBlockDB =
   | TextBlockDB
   | GraphBlockType
   | ImageBlockType
   | MapBlockType;
+
