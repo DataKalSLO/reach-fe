@@ -42,6 +42,7 @@ function convertToGraphCard(item: ElasticSearchResultObject) {
   const currentGraph: GraphMetaData = {
     graphId: item._id,
     userId: graphSource.user_id,
+    userName: 'NOT_IMPLEMENTED',
     timeStamp: graphSource.timestamp,
     graphTitle: graphSource.title,
     snapshotUrl: graphSource.snapshot_url,

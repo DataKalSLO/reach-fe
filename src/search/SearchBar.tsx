@@ -7,6 +7,7 @@ import OutlinedInput from '../common/components/OutlinedInput';
 interface SearchBarProps {
   searchCallback: (qry: string) => void;
   searchBarPlaceholder: string;
+  onEmptySearchBar: () => void;
 }
 
 function SearchBar(props: SearchBarProps) {
@@ -22,6 +23,9 @@ function SearchBar(props: SearchBarProps) {
   const handleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
+    if (e.target.value == '') {
+      props.onEmptySearchBar();
+    }
     setText(e.target.value);
   };
 

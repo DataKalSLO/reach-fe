@@ -57,6 +57,7 @@ export default function Search(props: SearchProps) {
       <SearchBar
         searchCallback={handleSearch}
         searchBarPlaceholder={props.searchBarPlaceholder}
+        onEmptySearchBar={() => setShowResults(false)}
       />
       {resultsContainer()}
     </Box>
