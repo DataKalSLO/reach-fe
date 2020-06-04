@@ -2,7 +2,11 @@ import { Box, styled } from '@material-ui/core';
 import { EditorState } from 'draft-js';
 import React from 'react';
 import { Dispatch } from 'redux';
-import { updateTextBlock, updateImageBlock } from '../redux/story/actions';
+import {
+  updateGraphBlock,
+  updateImageBlock,
+  updateTextBlock
+} from '../redux/story/actions';
 import {
   GRAPH_BLOCK_TYPE,
   ImageBlockType,
@@ -14,53 +18,71 @@ import {
 } from '../redux/story/types';
 import GraphBlock from './graph-block/GraphBlock';
 import ImageBlock from './image-block/ImageBlock';
-import StoryBlockDeleteButton from './StoryBlockDeleteButton';
+import {
+  StoryBlockDeleteButton,
+  StoryBlockSelectableToggle
+} from './StoryBlockActions';
 import RichTextEditor from './text-block/RichTextEditor';
 
-interface StoryBlockProps {
+export interface Props {
   block: StoryBlockType;
   index: number;
   dispatch: Dispatch;
 }
 
-const StoryBlockBody = (props: StoryBlockProps): JSX.Element => {
-  switch (props.block.type) {
-    case TEXT_BLOCK_TYPE:
-      return (
-        <RichTextEditor
-          key={props.block.id}
-          editorState={(props.block as TextBlockType).editorState}
-          setEditorState={(editorState: EditorState) =>
-            props.dispatch(updateTextBlock(props.index, editorState))
-          }
-        />
-      );
-    case GRAPH_BLOCK_TYPE:
-      return <GraphBlock />;
-    case IMAGE_BLOCK_TYPE:
-      return (
-        <ImageBlock
-          key={props.block.id}
-          blockId={props.block.id}
-          imageUrl={(props.block as ImageBlockType).imageUrl}
-          setImageUrl={(imageUrl: string) =>
-            props.dispatch(updateImageBlock(props.index, imageUrl))
-          }
-        />
-      );
-    case MAP_BLOCK_TYPE:
-      throw new Error('TODO: Map Block type');
-    default:
-      throw new Error('TODO: Block type not implemented');
-  }
-};
-
 // Convert a block object into its corresponding React component to be displayed
-export const StoryBlock = (props: StoryBlockProps): JSX.Element => {
+export const StoryBlock = (props: Props): JSX.Element => {
+  const Body = (): JSX.Element => {
+    switch (props.block.type) {
+      case TEXT_BLOCK_TYPE:
+        return (
+          <RichTextEditor
+            key={props.block.id}
+            editorState={(props.block as TextBlockType).editorState}
+            setEditorState={(editorState: EditorState) =>
+              props.dispatch(updateTextBlock(props.index, editorState))
+            }
+          />
+        );
+      case GRAPH_BLOCK_TYPE:
+        return (
+          <GraphBlock
+            key={props.block.id}
+            graphID={props.block.graphID}
+            setGraphId={(graphId: string) =>
+              props.dispatch(updateGraphBlock(props.index, graphId))
+            }
+          />
+        );
+      case IMAGE_BLOCK_TYPE:
+        return (
+          <ImageBlock
+            key={props.block.id}
+            blockId={props.block.id}
+            imageUrl={(props.block as ImageBlockType).imageUrl}
+            setImageUrl={(imageUrl: string) =>
+              props.dispatch(updateImageBlock(props.index, imageUrl))
+            }
+          />
+        );
+      case MAP_BLOCK_TYPE:
+        throw new Error('TODO: Map Block type');
+      default:
+        throw new Error('TODO: Block type not implemented');
+    }
+  };
+
+  const Actions = (): JSX.Element => (
+    <Box display="flex" flexDirection="column">
+      <StoryBlockSelectableToggle {...props} />
+      <StoryBlockDeleteButton {...props} />
+    </Box>
+  );
+
   return (
     <StoryBlockBox>
-      <StoryBlockBody {...props} />
-      <StoryBlockDeleteButton {...props} />
+      <Body />
+      <Actions />
     </StoryBlockBox>
   );
 };
