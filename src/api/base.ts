@@ -2,9 +2,6 @@ import { Dispatch } from 'redux';
 
 const baseURL = process.env.REACT_APP_API_URL;
 
-// TEMPORARY: will access ES index from backend in future, for now accessing ES directly from client
-const searchURL = process.env.REACT_APP_SEARCH_URL;
-
 async function tryFetch(url: string, request: RequestInit) {
   const response = await fetch(url, request);
   const responseText = await response.text();
@@ -60,18 +57,6 @@ export function postForm(endpoint: string, form: FormData, token?: string) {
     method: 'POST',
     body: form,
     ...config
-  });
-}
-
-// TEMPORARY: will access ES index from backend in future, for now accessing ES directly from client
-export function esPost(endpoint: string, body: object) {
-  return tryFetch(searchURL + endpoint, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(body)
   });
 }
 
