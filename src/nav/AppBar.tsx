@@ -70,6 +70,7 @@ function AppBar() {
     setAnchorEl(event.currentTarget);
   };
 
+  //TODO: fix scaling when Admin link appears on center toolbar
   const menu = (
     <Grid
       container
