@@ -10,6 +10,8 @@ import { getUser } from '../redux/login/selectors';
 import {
   GraphBlockType,
   GRAPH_BLOCK_TYPE,
+  ImageBlockType,
+  IMAGE_BLOCK_TYPE,
   MapBlockType,
   MAP_BLOCK_TYPE,
   Story,
@@ -92,6 +94,8 @@ function convertBlockToJSX(storyBlock: StoryBlockType): JSX.Element {
       return convertTextBlockToJSX(storyBlock);
     case GRAPH_BLOCK_TYPE:
       return convertGraphBlockToJSX(storyBlock);
+    case IMAGE_BLOCK_TYPE:
+      return convertImageBlockToJSX(storyBlock);
     case MAP_BLOCK_TYPE:
       return convertMapBlockToJSX(storyBlock);
   }
@@ -109,6 +113,17 @@ function convertGraphBlockToJSX(graphBlock: GraphBlockType): JSX.Element {
   return (
     <div key={graphBlock.id}>Graph Block conversion not yet implemented</div>
   );
+}
+
+function convertImageBlockToJSX(imageBlock: ImageBlockType): JSX.Element {
+  if (imageBlock.imageUrl !== '') {
+    return (
+      <div key={imageBlock.id}>
+        <img src={imageBlock.imageUrl} alt={'Story Preview'} />
+      </div>
+    );
+  }
+  return <div> Empty Image Block </div>;
 }
 
 function convertMapBlockToJSX(mapBlock: MapBlockType): JSX.Element {
