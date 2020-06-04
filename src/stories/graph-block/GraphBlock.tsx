@@ -90,11 +90,8 @@ export default function GraphBlock(props: Props) {
 }
 
 const StoryBlockContainer = styled(Box)({
-  flexGrow: 1,
   minHeight: 200,
   border: BORDER,
   borderRadius: '5px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center'
+  width: '100%'
 });
