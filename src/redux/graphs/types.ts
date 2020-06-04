@@ -75,7 +75,7 @@ export interface BaseGraphMetaData {
   graphId: string;
   userId: string;
   userName: string;
-  timeStamp: number;
+  timestamp: number;
   graphTitle: string;
   snapshotUrl: string;
   dataSources: DataSource[];

@@ -90,7 +90,7 @@ export function GraphCreateForm(props: Props) {
           graphId: '', // not initialized for local graphs
           userId: '', // not initialized for local graphs
           userName: '', // not initialized for local graphs
-          timeStamp: 0, // not initialized for local graphs
+          timestamp: 0, // not initialized for local graphs
           snapshotUrl: '', // not initialized for local graphs
           graphTitle: graphState.title,
           dataSources: convertFormDataStateToDataSources(dataState),
