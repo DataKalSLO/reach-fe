@@ -19,6 +19,7 @@ import {
   TEXT_BLOCK_TYPE,
   UpdateBlockType,
   UPDATE_DESCRIPTION,
+  UPDATE_GRAPH_BLOCK,
   UPDATE_IMAGE_BLOCK,
   UPDATE_PUBLICATION_STATUS,
   UPDATE_TEXT_BLOCK,
@@ -110,7 +111,9 @@ export function storyReducer(state = initialStory, action: StoryActionType) {
         ...state,
         publicationStatus: action.payload.newPublicationStatus
       };
+
     case UPDATE_TEXT_BLOCK:
+    case UPDATE_GRAPH_BLOCK:
     case UPDATE_IMAGE_BLOCK:
       return {
         ...state,

@@ -50,7 +50,12 @@ function convertToGraphCard(item: ElasticSearchResultObject) {
     graphOptions: {} as any
   };
 
-  return <GraphCard {...currentGraph} />;
+  return (
+    <GraphCard
+      onClick={() => console.log('Graph selected')}
+      graphMetaData={currentGraph}
+    />
+  );
 }
 
 function SearchResults(props: SearchResultProps) {

@@ -15,9 +15,10 @@ import {
 import { Drawer, List, ListItemButton } from '../reach-ui/core';
 import { EDIT_ICON, PREVIEW_ICON } from '../reach-ui/icons';
 import {
+  createEmptyImageBlock,
   createEmptyTextBlock,
-  updatePublicationStatus,
-  createEmptyImageBlock
+  createGraphBlock,
+  updatePublicationStatus
 } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
 import { PublicationStatus } from '../redux/story/types';
@@ -77,7 +78,7 @@ export default function StorySidebar() {
           disabled={previewSelected}
           text={'Graph'}
           icon={<InsertChart />}
-          onClick={() => alert('Not implemented')}
+          onClick={() => dispatch(createGraphBlock())}
         />
         <ListItemButton
           disabled={previewSelected}

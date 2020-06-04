@@ -11,6 +11,7 @@ export const CREATE_EMPTY_TEXT_BLOCK = 'CREATE_EMPTY_TEXT_BLOCK';
 export const CREATE_GRAPH_BLOCK = 'CREATE_GRAPH_BLOCK';
 export const CREATE_EMPTY_IMAGE_BLOCK = 'CREATE_EMPTY_IMAGE_BLOCK';
 export const UPDATE_TEXT_BLOCK = 'UPDATE_TEXT_BLOCK';
+export const UPDATE_GRAPH_BLOCK = 'UPDATE_GRAPH_BLOCK';
 export const UPDATE_IMAGE_BLOCK = 'UPDATE_IMAGE_BLOCK';
 export const DELETE_BLOCK = 'DELETE_BLOCK';
 export const SWAP_BLOCKS = 'SWAP_BLOCKS';
@@ -19,7 +20,14 @@ export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
 export const UPDATE_PUBLICATION_STATUS = 'UPDATE_PUBLICATION_STATUS';
 export const LOAD_EXISTING_STORY = 'LOAD_EXISTING_STORY';
 
-//Story-related types
+//Story
+export enum PublicationStatus {
+  DRAFT,
+  REVIEW,
+  FEEDBACK,
+  PUBLISHED
+}
+
 export interface StoryMetaInformation {
   id: string;
   userName: string;
@@ -35,10 +43,7 @@ export interface Story extends StoryMetaInformation {
   storyBlocks: Array<StoryBlockType>;
 }
 
-/*
- * Story Blocks define the properties needed to generate the associated react components
- * Story Blocks also have 1-1 mapping with database objects
- */
+//StoryBlocks
 export interface TextBlockType {
   type: typeof TEXT_BLOCK_TYPE;
   id: string;
@@ -69,13 +74,6 @@ export type StoryBlockType =
   | ImageBlockType
   | MapBlockType;
 
-export enum PublicationStatus {
-  DRAFT,
-  REVIEW,
-  FEEDBACK,
-  PUBLISHED
-}
-
 //Actions
 export interface CreateEmptyTextBlockAction {
   type: typeof CREATE_EMPTY_TEXT_BLOCK;
@@ -95,6 +93,11 @@ export interface CreateEmptyImageBlockAction {
 export interface UpdateTextBlockAction {
   type: typeof UPDATE_TEXT_BLOCK;
   payload: { index: number; editorState: EditorState };
+}
+
+export interface UpdateGraphBlockAction {
+  type: typeof UPDATE_GRAPH_BLOCK;
+  payload: { index: number; graphID: string };
 }
 
 export interface UpdateImageBlockAction {
@@ -136,7 +139,10 @@ export interface LoadExistingStoryAction {
 // interfaces of this type must include:
 //  - index
 //  - <data-to-change>
-export type UpdateBlockType = UpdateTextBlockAction | UpdateImageBlockAction;
+export type UpdateBlockType =
+  | UpdateTextBlockAction
+  | UpdateImageBlockAction
+  | UpdateGraphBlockAction;
 
 // used by reducer function (reducer.ts)
 export type StoryActionType =
@@ -144,6 +150,7 @@ export type StoryActionType =
   | CreateGraphBlockAction
   | CreateEmptyImageBlockAction
   | UpdateTextBlockAction
+  | UpdateGraphBlockAction
   | UpdateImageBlockAction
   | DeleteBlockAction
   | SwapBlocksAction
