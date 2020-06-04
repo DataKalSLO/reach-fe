@@ -79,7 +79,7 @@ export default function AuthorCardActions(props: Props) {
 
   return (
     <CardActions className={classes.actions}>
-      <StoryStatusMenu />
+      <StoryStatusMenu story={props.story} />
       <EditButton story={props.story} dispatch={dispatch} />
       <DeleteButton story={props.story} dispatch={dispatch} />
     </CardActions>
