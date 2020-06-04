@@ -128,7 +128,7 @@ export function FormattingForm(props: Props) {
     setState({
       ...state,
       stackConfig: isUndefined(state.stackConfig)
-        ? { type: 'normal' }
+        ? { type: 'normal', title: 'All' }
         : undefined
     });
   };
