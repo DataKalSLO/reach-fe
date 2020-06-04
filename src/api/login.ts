@@ -1,5 +1,11 @@
 import { post, put, del } from './base';
-import { LoginData, RegisterData, UserSettings } from '../redux/login/types';
+import {
+  LoginData,
+  RegisterData,
+  PasswordResetData,
+  UserSettings,
+  PasswordEditData
+} from '../redux/login/types';
 
 export async function login(loginData: LoginData) {
   return await post('token', loginData);
@@ -18,4 +24,12 @@ export async function putPersonSettings(
   settingsData: UserSettings
 ) {
   return await put(`person/${email}`, settingsData);
+}
+
+export async function postPassword(passwordResetData: PasswordResetData) {
+  return await post('password', passwordResetData);
+}
+
+export async function putPassword(passwordEditData: PasswordEditData) {
+  return await put('password', passwordEditData);
 }
