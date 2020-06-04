@@ -1,39 +1,6 @@
-// Material UI's theming/styling solution
-//  https://material-ui.com/styles/basics/
-//  https://material-ui.com/customization/theming/
-import { ThemeProvider } from '@material-ui/core/styles';
-import { theme } from './theme/theme';
-
-// Store
-//  https://react-redux.js.org/introduction/quick-start
-//  https://react-redux.js.org/next/api/hooks
-import { history, persistor, store } from './redux/store';
-
-// Link routing and store
-import { ConnectedRouter } from 'connected-react-router';
-import React from 'react';
-import { Provider } from 'react-redux';
-
-// Routing
-// https://reacttraining.com/react-router/web/guides/quick-start
-import { Route, Switch } from 'react-router-dom';
-import { PersistGate } from 'redux-persist/integration/react';
-
-// Containers
-import CreateAccount from './containers/CreateAccount';
-import Explore from './containers/Explore';
-import Login from './containers/Login';
-import MyStuff from './containers/my-stuff-landing/MyStuff';
-import MyStuffCharts from './containers/my-stuff-landing/MyStuffCharts';
-import MyStuffMaps from './containers/my-stuff-landing/MyStuffMaps';
-import MyStuffStories from './containers/my-stuff-landing/MyStuffStories';
-import Settings from './containers/Settings';
-import StoryBuilder from './containers/StoryBuilder';
-import StoryViewContainer from './containers/StoryViewContainer';
-import VizBuilder from './containers/VizBuilder';
-
-//Nav
 import {
+  FORGOT_PASSWORD,
+  RESET_PASSWORD,
   ADMIN_UPLOAD_DATA,
   ADMIN_REVIEW_STORIES,
   CREATE_ACCOUNT,
@@ -49,6 +16,45 @@ import {
   STORY_VIEW_ID,
   VIZ_BUILDER
 } from './nav/constants';
+
+// Material UI's theming/styling solution
+//  https://material-ui.com/styles/basics/
+//  https://material-ui.com/customization/theming/
+import { ThemeProvider } from '@material-ui/core/styles';
+import { theme } from './theme/theme';
+
+// Allow query params with router
+import { QueryParamProvider } from 'use-query-params';
+
+// Store
+//  https://react-redux.js.org/introduction/quick-start
+//  https://react-redux.js.org/next/api/hooks
+import { history, persistor, store } from './redux/store';
+
+// Link routing and store
+import { ConnectedRouter } from 'connected-react-router';
+import React from 'react';
+import { Provider } from 'react-redux';
+
+// Routing
+// https://reacttraining.com/react-router/web/guides/quick-start
+import { Route, Switch } from 'react-router-dom';
+
+// Containers
+import CreateAccount from './containers/CreateAccount';
+import Explore from './containers/Explore';
+import Login from './containers/Login';
+import MyStuff from './containers/my-stuff-landing/MyStuff';
+import MyStuffCharts from './containers/my-stuff-landing/MyStuffCharts';
+import MyStuffMaps from './containers/my-stuff-landing/MyStuffMaps';
+import MyStuffStories from './containers/my-stuff-landing/MyStuffStories';
+import Settings from './containers/Settings';
+import ForgotPassword from './accounts/ForgotPassword';
+import ResetPassword from './accounts/ResetPassword';
+import { PersistGate } from 'redux-persist/integration/react';
+import StoryBuilder from './containers/StoryBuilder';
+import StoryViewContainer from './containers/StoryViewContainer';
+import VizBuilder from './containers/VizBuilder';
 import AdminProtectedRoute from './nav/AdminProtectedRoute';
 import AppBar from './nav/AppBar';
 import ProtectedRoute from './nav/ProtectedRoute';
@@ -120,6 +126,16 @@ const adminReviewStories = (
     <AdminProtectedRoute componentPage={<StoryReviewGrid />} />
   </Route>
 );
+const forgotPassword = (
+  <Route path={FORGOT_PASSWORD}>
+    <ForgotPassword />
+  </Route>
+);
+const resetPassword = (
+  <Route path={RESET_PASSWORD}>
+    <ResetPassword />
+  </Route>
+);
 const storyView = (
   <Route path={STORY_VIEW_ID}>
     <StoryViewContainer />
@@ -131,25 +147,29 @@ function App() {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <ConnectedRouter history={history}>
-          <ThemeProvider theme={theme}>
-            <AppBar />
-            <Switch>
-              {home}
-              {explore}
-              {vizBuilder}
-              {storyBuilder}
-              {myStuff}
-              {myStuffCharts}
-              {myStuffMaps}
-              {myStuffStories}
-              {login}
-              {createAccount}
-              {adminUploadData}
-              {adminReviewStories}
-              {settings}
-              {storyView}
-            </Switch>
-          </ThemeProvider>
+          <QueryParamProvider ReactRouterRoute={Route}>
+            <ThemeProvider theme={theme}>
+              <AppBar />
+              <Switch>
+                {home}
+                {explore}
+                {vizBuilder}
+                {storyBuilder}
+                {myStuff}
+                {myStuffCharts}
+                {myStuffMaps}
+                {myStuffStories}
+                {login}
+                {createAccount}
+                {adminUploadData}
+                {adminReviewStories}
+                {settings}
+                {storyView}
+                {forgotPassword}
+                {resetPassword}
+              </Switch>
+            </ThemeProvider>
+          </QueryParamProvider>
         </ConnectedRouter>
       </PersistGate>
     </Provider>
