@@ -2,13 +2,11 @@ import React from 'react';
 import { styled } from '@material-ui/core';
 import BoxCenter from '../common/components/BoxCenter';
 import GoogleAuth, { GoogleAuthButtonType } from './GoogleAuth';
-import FacebookLogin, { FacebookLoginButtonStyle } from './FacebookLogin';
 
 function ThirdPartyCreateAccount() {
   return (
     <BoxCenterSized>
       <GoogleAuth style={GoogleAuthButtonType.Register} />
-      <FacebookLogin style={FacebookLoginButtonStyle.ContinueWith} />
     </BoxCenterSized>
   );
 }

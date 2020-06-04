@@ -1,5 +1,7 @@
 import { object, string } from 'yup';
 
+const EXTRACT_FILE_NAME_ERROR = 'Could not extract file name from given url.';
+
 const urlSchema = object().shape({
   url: string().url()
 });
@@ -29,4 +31,13 @@ const recoverURL = async (url: string): Promise<string | undefined> => {
   return undefined;
 };
 
-export { isValidURL, recoverURL };
+const getFileNameFromUrl = (url: string): string => {
+  const fileName = url.split('/').pop();
+  if (fileName) {
+    return fileName;
+  } else {
+    throw EXTRACT_FILE_NAME_ERROR;
+  }
+};
+
+export { isValidURL, recoverURL, getFileNameFromUrl };

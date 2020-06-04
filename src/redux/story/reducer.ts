@@ -6,6 +6,7 @@ import {
   CREATE_EMPTY_TEXT_BLOCK,
   CREATE_GRAPH_BLOCK,
   DELETE_BLOCK,
+  LOAD_EXISTING_STORY,
   Story,
   StoryActionType,
   StoryBlockType,
@@ -29,6 +30,7 @@ export const emptyTextBlock = (): TextBlockType => ({
 //TODO: Turn this into a function. Currently will stay same for every new story created in the same session.
 export const initialStory: Story = {
   id: uuid(),
+  userName: '',
   userID: '',
   title: '',
   description: '',
@@ -102,6 +104,8 @@ export function storyReducer(state = initialStory, action: StoryActionType) {
         ...state,
         storyBlocks: updateObjectInArray(state.storyBlocks, action)
       };
+    case LOAD_EXISTING_STORY:
+      return action.payload.storyToLoad;
     default:
       return state;
   }

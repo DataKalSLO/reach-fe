@@ -1,21 +1,20 @@
 import {
-  HOME,
-  EXPLORE,
-  VIZ_BUILDER,
-  STORY_BUILDER,
-  MY_STUFF,
-  LOGIN,
-  SAMPLE,
-  CREATE_ACCOUNT,
-  SETTINGS,
-  MY_STUFF_CHARTS,
-  MY_STUFF_MAPS,
-  MY_STUFF_STORIES,
   FORGOT_PASSWORD,
   RESET_PASSWORD,
   ADMIN_UPLOAD_DATA,
   ADMIN_REVIEW_STORIES,
-  STORY_VIEW_ID
+  CREATE_ACCOUNT,
+  EXPLORE,
+  HOME,
+  LOGIN,
+  MY_STUFF,
+  MY_STUFF_CHARTS,
+  MY_STUFF_MAPS,
+  MY_STUFF_STORIES,
+  SETTINGS,
+  STORY_BUILDER,
+  STORY_VIEW_ID,
+  VIZ_BUILDER
 } from './nav/constants';
 
 // Material UI's theming/styling solution
@@ -49,7 +48,6 @@ import MyStuff from './containers/my-stuff-landing/MyStuff';
 import MyStuffCharts from './containers/my-stuff-landing/MyStuffCharts';
 import MyStuffMaps from './containers/my-stuff-landing/MyStuffMaps';
 import MyStuffStories from './containers/my-stuff-landing/MyStuffStories';
-import Sample from './containers/Sample';
 import Settings from './containers/Settings';
 import ForgotPassword from './accounts/ForgotPassword';
 import ResetPassword from './accounts/ResetPassword';
@@ -128,11 +126,6 @@ const adminReviewStories = (
     <AdminProtectedRoute componentPage={<StoryReviewGrid />} />
   </Route>
 );
-const sample = (
-  <Route path={SAMPLE}>
-    <Sample />
-  </Route>
-);
 const forgotPassword = (
   <Route path={FORGOT_PASSWORD}>
     <ForgotPassword />
@@ -168,7 +161,6 @@ function App() {
                 {myStuffStories}
                 {login}
                 {createAccount}
-                {sample}
                 {adminUploadData}
                 {adminReviewStories}
                 {settings}

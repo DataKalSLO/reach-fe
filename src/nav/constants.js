@@ -8,7 +8,6 @@ export const MY_STUFF_CHARTS = MY_STUFF + '/charts';
 export const MY_STUFF_MAPS = MY_STUFF + '/maps';
 export const MY_STUFF_STORIES = MY_STUFF + '/stories';
 export const LOGIN = '/login';
-export const SAMPLE = '/sample';
 export const CREATE_ACCOUNT = '/create-account';
 export const SETTINGS = '/settings';
 export const ADMIN = '/admin';
