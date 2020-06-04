@@ -22,15 +22,14 @@ export default function MyStuffCharts() {
     });
   }, []);
 
-  return (
-    <MyStuffWrapper title="My Charts">
-      {graphs.map(graph => (
-        <GraphCard
-          key={graph.graphId}
-          graphMetaData={graph}
-          onClick={() => console.log('User clicked graph.')}
-        />
-      ))}
-    </MyStuffWrapper>
-  );
+  const makeStoryCards = () =>
+    graphs.map(graph => (
+      <GraphCard
+        key={graph.graphId}
+        graphMetaData={graph}
+        onClick={() => console.log('User clicked a graph.')}
+      />
+    ));
+
+  return <MyStuffWrapper title="My Charts">{makeStoryCards()}</MyStuffWrapper>;
 }

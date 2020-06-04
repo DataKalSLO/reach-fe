@@ -17,18 +17,14 @@ export default function MyStuffStories() {
     // TODO: need an API call to retrieve all stories by userId
     // (i.e. stories in REVIEW, PUBLISHED, DRAFT and FEEDBACK)
     getStoriesInDraft().then(storyData => {
-      console.log(storyData);
       setStories(storyData);
     });
   }, []);
 
-  const makeStoryCards = () => {
-    return stories.map((story: Story) => {
-      return (
-        <StoryCard key={story.id} showAuthorActions={true} story={story} />
-      );
-    });
-  };
+  const makeStoryCards = () =>
+    stories.map((story: Story) => (
+      <StoryCard key={story.id} showAuthorActions={true} story={story} />
+    ));
 
   return <MyStuffWrapper title="My Stories">{makeStoryCards()}</MyStuffWrapper>;
 }
