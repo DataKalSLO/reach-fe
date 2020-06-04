@@ -87,7 +87,7 @@ function AppBar() {
         item
         container
         direction="row"
-        xs={9}
+        xs={8}
         justify="center"
         alignItems="center"
         spacing={8}
@@ -120,7 +120,14 @@ function AppBar() {
           </Grid>
         ) : null}
       </Grid>
-      <Grid item container justify="flex-end" xs={2}>
+      <Grid
+        item
+        container
+        justify="flex-end"
+        alignItems="flex-end"
+        xs={3}
+        spacing={2}
+      >
         <Grid item>
           {user.email ? (
             <React.Fragment>
