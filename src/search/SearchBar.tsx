@@ -6,6 +6,7 @@ import OutlinedInput from '../common/components/OutlinedInput';
 
 interface SearchBarProps {
   searchCallback: (qry: string) => void;
+  searchBarPlaceholder: string;
 }
 
 function SearchBar(props: SearchBarProps) {
@@ -27,8 +28,8 @@ function SearchBar(props: SearchBarProps) {
   return (
     <Box>
       <OutlinedInput
-        aria-label="Search graphs, stories"
-        placeholder="Search graphs, stories"
+        aria-label={props.searchBarPlaceholder}
+        placeholder={props.searchBarPlaceholder}
         onChange={e => handleChange(e)}
         onKeyPress={handleKeyPress}
         width={500}

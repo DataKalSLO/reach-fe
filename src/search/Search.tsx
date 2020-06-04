@@ -1,4 +1,3 @@
-import Container from '@material-ui/core/Container';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSearchResults } from '../redux/search/actions';
@@ -7,11 +6,13 @@ import { getUser } from '../redux/login/selectors';
 import { SearchIndexFilter } from '../redux/search/types';
 import SearchBar from '../search/SearchBar';
 import SearchResults from '../search/SearchResults';
+import { Box } from '@material-ui/core';
 
 interface SearchProps {
   // Enum value for ES index to query, e.g. SearchIndexFilter.graphs,
   // SearchIndexFilter.stories, SearchIndexFilter.all
   index: SearchIndexFilter;
+  searchBarPlaceholder: string;
   // component shown on empty result list
   emptyResultsComponent?: React.ReactNode;
   // component shown before query is made
@@ -52,9 +53,12 @@ export default function Search(props: SearchProps) {
   };
 
   return (
-    <Container>
-      <SearchBar searchCallback={handleSearch} />
+    <Box marginBottom="20px">
+      <SearchBar
+        searchCallback={handleSearch}
+        searchBarPlaceholder={props.searchBarPlaceholder}
+      />
       {resultsContainer()}
-    </Container>
+    </Box>
   );
 }

@@ -24,6 +24,7 @@ function convertToStoryCard(item: ElasticSearchResultObject) {
   const storySource = item._source as ElasticSearchStorySource;
   const currentStory: Story = {
     id: item._id,
+    userName: 'NOT_IMPLEMENTED',
     userID: storySource.user_id,
     title: storySource.title,
     description: storySource.description,
@@ -42,7 +43,7 @@ function convertToGraphCard(item: ElasticSearchResultObject) {
   const currentGraph: GraphMetaData = {
     graphId: item._id,
     userId: graphSource.user_id,
-    timestamp: graphSource.timestamp,
+    timeStamp: graphSource.timestamp,
     graphTitle: graphSource.title,
     snapshotUrl: graphSource.snapshot_url,
     dataSources: [],

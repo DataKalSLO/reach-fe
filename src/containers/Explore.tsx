@@ -8,7 +8,10 @@ import { SearchIndexFilter } from '../redux/search/types';
 function Explore() {
   return (
     <ContentBox>
-      <Search index={SearchIndexFilter.stories} />
+      <Search
+        index={SearchIndexFilter.stories}
+        searchBarPlaceholder="Search published stories"
+      />
       <Typography variant="h3" component="h1">
         Published Stories
       </Typography>
