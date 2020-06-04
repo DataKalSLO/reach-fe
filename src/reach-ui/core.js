@@ -15,6 +15,7 @@ import {
 } from '../common/components/PersistentDrawer';
 import Popper from '../common/components/Popper';
 import SidebarContentBox from '../common/components/SidebarContentBox';
+import Snackbar from '../common/components/Snackbar';
 import TextField from '../common/components/TextField';
 
 export {
@@ -31,5 +32,6 @@ export {
   ListItemTab,
   Popper,
   SidebarContentBox,
+  Snackbar,
   TextField
 };

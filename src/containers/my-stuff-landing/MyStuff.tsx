@@ -1,5 +1,6 @@
 import React from 'react';
 import MyStuffWrapper from '../../my-stuff/MyStuffWrapper';
+import { DEFAULT_USER_NAME } from '../../nav/constants';
 import StoryCard from '../../preview-cards/story-card/StoryCard';
 import { PublicationStatus, Story } from '../../redux/story/types';
 
@@ -8,6 +9,7 @@ const sampleDate = new Date('Fri May 29 2020');
 const sampleStoryDraft: Story = {
   id: '12345',
   publicationStatus: PublicationStatus.DRAFT,
+  userName: DEFAULT_USER_NAME,
   userID: 'USER-ID', // TODO: replace placeholder value
   title: 'High School Graduation Rates on the Central Coast',
   description:
@@ -20,6 +22,7 @@ const sampleStoryDraft: Story = {
 const sampleStoryInReview: Story = {
   id: '12345',
   publicationStatus: PublicationStatus.REVIEW,
+  userName: DEFAULT_USER_NAME,
   userID: 'USER-ID', // TODO: replace placeholder value
   title: 'Zoning in Downtown San Luis Obispo',
   description:
@@ -32,6 +35,7 @@ const sampleStoryInReview: Story = {
 const sampleStoryPublished: Story = {
   id: '12345',
   publicationStatus: PublicationStatus.PUBLISHED,
+  userName: DEFAULT_USER_NAME,
   userID: 'USER-ID', // TODO: replace placeholder value
   title: 'Published Story',
   description: 'Fake published story. Local and hard-coded.',

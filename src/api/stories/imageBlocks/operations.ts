@@ -27,7 +27,9 @@ export function uploadImageForImageBlocks(
   ) as Promise<ImageUploadResponse>;
 }
 
-export async function deleteImageBlockImage(url: string) {
+export async function deleteImageBlockImage(url: string): Promise<boolean> {
   const fileName = getFileNameFromUrl(url);
-  await authenticatedDel(BASE_IMAGE_BLOCK_URL + fileName);
+  return await authenticatedDel(BASE_IMAGE_BLOCK_URL + fileName)
+    .then(() => true)
+    .catch(() => false);
 }

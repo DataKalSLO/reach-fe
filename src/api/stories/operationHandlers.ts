@@ -1,48 +1,83 @@
+import { PublicationStatus, Story } from '../../redux/story/types';
+import { authenticatedPost } from '../authenticatedApi/operations';
+import { get } from '../base';
 import { callActionAndAlertOnError } from '../operations';
+import {
+  STORY_CHANGE_STATUS_FAILURE_MESSAGE,
+  STORY_CHANGE_STATUS_SUCCESS_MESSAGE,
+  STORY_CREATION_FAILURE_MESSAGE,
+  STORY_CREATION_SUCCESS_MESSAGE,
+  STORY_DELETION_FAILURE_MESSAGE,
+  STORY_DELETION_SUCCESS_MESSAGE,
+  STORY_FEEDBACK_ENDPOINT,
+  STORY_FEEDBACK_RETRIEVAL_FAILURE,
+  STORY_FEEDBACK_RETRIEVAL_SUCCESS,
+  STORY_RETRIEVAL_FAILURE_MESSAGE,
+  STORY_RETRIEVAL_SUCCESS_MESSAGE
+} from './constants';
 import {
   deleteStoryById,
   getPublishedStories,
   getStoryWithStoryID,
   saveOrUpdateExistingStory
 } from './operations';
-import { Story, PublicationStatus } from '../../redux/story/types';
+import { StoryFeedback } from './types';
 
 /* These functions are meant to be wrappers for accessing the Story API.
  * They alert the user is in operation fails. Then, a boolean is returned
  * indicating if the operation was successful.
  */
 
-const STORY_CREATION_SUCCESS_MESSAGE = 'Story created!';
-const STORY_CREATION_FAILURE_MESSAGE =
-  'An Error occurred while saving a Story. Story was not created.';
-const STORY_DELETION_SUCCESS_MESSAGE = 'Story deleted!';
-const STORY_DELETION_FAILURE_MESSAGE =
-  'An Error occurred while deleting a Story. Story was not deleted.';
-const STORY_RETRIEVAL_SUCCESS_MESSAGE = 'Story retrieved!';
-const STORY_RETRIEVAL_FAILURE_MESSAGE =
-  'An Error occurred while retrieving a Story.';
-
-const STORY_CHANGE_STATUS_SUCCESS_MESSAGE = 'Status of story was changed!.';
-const STORY_CHANGE_STATUS_FAILURE_MESSAGE =
-  'An Error occurred while changing the status of the story. Status has not been changed.';
-
 /*
- * Application Specific Operations
+ * Change status of Story
  */
+
+export async function rejectStoryWithFeedbackAndHandleResponse(
+  story: Story,
+  feedback: string
+): Promise<boolean> {
+  await changeStoryStatus(story, PublicationStatus.FEEDBACK);
+
+  const storyFeedback: StoryFeedback = {
+    storyId: story.id,
+    reviewerId: '', //BEND will extract this from authentication token
+    feedback
+  };
+
+  return await callActionAndAlertOnError(
+    () => authenticatedPost(STORY_FEEDBACK_ENDPOINT, storyFeedback),
+    STORY_CHANGE_STATUS_SUCCESS_MESSAGE,
+    STORY_CHANGE_STATUS_FAILURE_MESSAGE
+  )
+    .then(res => true)
+    .catch(e => false);
+}
+
+export async function getStoryFeedback(
+  storyId: string
+): Promise<StoryFeedback[]> {
+  return callActionAndAlertOnError(
+    () =>
+      get([STORY_FEEDBACK_ENDPOINT, storyId].join('/')) as Promise<
+        StoryFeedback[]
+      >,
+    STORY_FEEDBACK_RETRIEVAL_SUCCESS,
+    STORY_FEEDBACK_RETRIEVAL_FAILURE
+  );
+}
 
 export async function submitStoryForReviewAndHandleResponse(
   story: Story
 ): Promise<boolean> {
-  story.publicationStatus = PublicationStatus.REVIEW;
-  return await saveStoryAndHandleResponse(
-    story,
-    STORY_CHANGE_STATUS_SUCCESS_MESSAGE,
-    STORY_CHANGE_STATUS_FAILURE_MESSAGE
-  );
+  return changeStoryStatus(story, PublicationStatus.REVIEW);
 }
 
 export async function submitStoryForPublishingAndHandleResponse(story: Story) {
-  story.publicationStatus = PublicationStatus.PUBLISHED;
+  return changeStoryStatus(story, PublicationStatus.PUBLISHED);
+}
+
+async function changeStoryStatus(story: Story, newStatus: PublicationStatus) {
+  story.publicationStatus = newStatus;
   return await saveStoryAndHandleResponse(
     story,
     STORY_CHANGE_STATUS_SUCCESS_MESSAGE,
