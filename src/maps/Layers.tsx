@@ -16,11 +16,15 @@ import {
   getFeatureCollection,
   updateHeatMapSelection,
   updateSelectedColumn,
+<<<<<<< HEAD
+=======
+  addMarkerSelection,
+>>>>>>> 8ef0654748dd24ace60252a1bf929b618d49cc4f
   updateSelectedTables
 } from '../redux/map/actions';
 import { theme } from '../theme/theme';
 import { removeMarker } from './LayersHelpers';
-import { LayersProps } from './types';
+import { LayersProps, HeatMapSelection } from './types';
 
 // sizing for autocomplete which controls layers selection
 const AUTOCOMPLETE_MIN_HEIGHT = '55px';
@@ -40,16 +44,19 @@ export const allData = flatten([markerData as any, heatMapData]);
 export default function Layers(props: LayersProps) {
   const {
     tableNames,
+    heatMapSelection,
     selectedTables,
     markerSelection,
     metadataForAllDatasets
   } = props;
   const dispatch = useDispatch();
+  const heatMapIsSelected = Object.keys(heatMapSelection).length > 0;
 
   const diffElem = (l1: any, l2: any) =>
     l1.filter((e1: any) => !l2.includes(e1))[0];
 
-  const updateSelections = (event: any, newSelections: Selection[] | null) => {
+  const updateSelections = (event: any, value: Selection[] | null) => {
+    let newSelections = value;
     if (newSelections === null) return;
     let changed: Selection;
 
@@ -72,6 +79,13 @@ export default function Layers(props: LayersProps) {
           meta => meta.tableName === changed.tableName
         )[0].columnNames;
         dispatch(updateSelectedColumn(columnNames[0]));
+        if (heatMapIsSelected) {
+          newSelections = newSelections.filter(
+            selection =>
+              selection.tableName !==
+              (heatMapSelection as HeatMapSelection).name
+          );
+        }
       }
     }
     updateSelectedTables(newSelections)(dispatch);
@@ -88,12 +102,10 @@ export default function Layers(props: LayersProps) {
           table.censusDesc ? table.censusDesc : table.tableName
         }
         value={selectedTables}
-        // TODO: make sure this handles data not existing once we are pulling from DB
-        // defaultValue={[allData[0], allData[2]]}
-        // disables all options when the user has chosen more than the allowedSelections
         // getOptionDisabled={option =>
-        //   handleDisable(allData, markerSelection, heatMapSelection, option)
+
         // }
+        filterOptions={options => options.filter(option => option.geoType)}
         // adjust autocomplete size here, some magic numbers
         style={{
           minWidth: AUTOCOMPLETE_MIN_WIDTH,
