@@ -12,8 +12,6 @@ import { getAllTableNames } from '../redux/vizbuilder/actions';
 import ColumnSelector from './ColumnSelector';
 import { HeatMapSelection } from './types';
 
-// TODO: save to stories
-
 // sizing for the box that contains the map
 const BOX_WIDTH = '100%';
 const BOX_MIN_WIDTH = '350px';
