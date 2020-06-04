@@ -21,7 +21,6 @@ interface Props {
   const FEEDBACK_TEXTBOX_ID = 'FEEDBACK_TEXTBOX_ID';
 
 export default function AdminReviewActions(props: Props) {
-  const FEEDBACK_TEXTBOX_ID = 'FEEDBACK_TEXTBOX_ID';
 
   const dispatch = useDispatch();
   const [showFeedbackInput, setShowFeedbackInput] = useState(false);
