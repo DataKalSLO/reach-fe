@@ -120,7 +120,7 @@ function GraphToolbar(props: GraphToolbarProps) {
           label={SAVE_LABEL}
           startIcon={<Save />}
           onClick={() =>
-            isLocalGraph
+            graphIsLocal
               ? dispatch(saveGraph(newGraph))
               : dispatch(updateGraph(newGraph))
           }
