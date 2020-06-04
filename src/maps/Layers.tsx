@@ -14,14 +14,9 @@ import { markerData } from '../common/assets/Local Data/MockMarkerData';
 import {
   getFeatureCollection,
   updateHeatMapSelection,
-<<<<<<< Updated upstream
-  updateMarkerSelection,
-  updateSelectedTables,
-  updateSelectedColumn
-=======
+  updateSelectedColumn,
   addMarkerSelection,
   updateSelectedTables
->>>>>>> Stashed changes
 } from '../redux/map/actions';
 import { theme } from '../theme/theme';
 import { removeMarker } from './LayersHelpers';
@@ -51,6 +46,7 @@ export default function Layers(props: LayersProps) {
     metadataForAllDatasets
   } = props;
   const dispatch = useDispatch();
+  const heatMapIsSelected = Object.keys(heatMapSelection).length > 0;
 
   const diffElem = (l1: any, l2: any) =>
     l1.filter((e1: any) => !l2.includes(e1))[0];
@@ -79,7 +75,7 @@ export default function Layers(props: LayersProps) {
           meta => meta.tableName === changed.tableName
         )[0].columnNames;
         dispatch(updateSelectedColumn(columnNames[0]));
-        if (Object.keys(heatMapSelection).length) {
+        if (heatMapIsSelected) {
           newSelections = newSelections.filter(
             selection =>
               selection.tableName !==
@@ -102,12 +98,10 @@ export default function Layers(props: LayersProps) {
           table.censusDesc ? table.censusDesc : table.tableName
         }
         value={selectedTables}
-        // TODO: make sure this handles data not existing once we are pulling from DB
-        // defaultValue={[allData[0], allData[2]]}
-        // disables all options when the user has chosen more than the allowedSelections
         // getOptionDisabled={option =>
-        //   handleDisable(allData, markerSelection, heatMapSelection, option)
+
         // }
+        filterOptions={options => options.filter(option => option.geoType)}
         // adjust autocomplete size here, some magic numbers
         style={{
           minWidth: AUTOCOMPLETE_MIN_WIDTH,
