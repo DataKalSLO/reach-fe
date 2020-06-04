@@ -74,6 +74,7 @@ export type InitiativeLiteral = typeof initiativeNames[number];
 export interface BaseGraphMetaData {
   graphId: string;
   userId: string;
+  userName: string;
   timeStamp: number;
   graphTitle: string;
   snapshotUrl: string;
