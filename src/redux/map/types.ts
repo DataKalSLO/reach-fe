@@ -39,6 +39,13 @@ interface AddMarkerSelection {
   payload: MarkerSelection[];
 }
 
+export const DELETE_MARKER_SELECTION = 'DELETE_MARKER_SELECTION';
+
+interface DeleteMarkerSelection {
+  type: typeof DELETE_MARKER_SELECTION;
+  payload: MarkerSelection[];
+}
+
 export const UPDATE_HEATMAP_SELECTION = 'UPDATE_HEATMAP_SELECTION';
 
 interface UpdateHeatMapSelection {
@@ -77,6 +84,7 @@ interface UpdateSelectedColumn {
 export type MapActionTypes =
   | UpdateSelectedTables
   | AddMarkerSelection
+  | DeleteMarkerSelection
   | UpdateHeatMapSelection
   | UpdateSelectedMarker
   | UpdateColorAssociation
