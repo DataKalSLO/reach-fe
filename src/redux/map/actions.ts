@@ -37,7 +37,7 @@ export function getFeatureCollection(tableName: string, geoType: string) {
   }
 }
 
-export function updateSelectedTables(selectedTables: any) {
+export function updateSelectedTables(selectedTables: Selection[]) {
   return async (dispatch: Dispatch) => {
     dispatch(updateSelectedTablesAction(selectedTables));
   };
@@ -68,7 +68,7 @@ export function updateHeatMapSelection(
   };
 }
 
-export function updateSelectedTablesAction(selectedTables: string[]) {
+export function updateSelectedTablesAction(selectedTables: Selection[]) {
   return {
     type: UPDATE_SELECTED_TABLES,
     payload: selectedTables

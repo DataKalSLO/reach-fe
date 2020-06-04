@@ -1,15 +1,16 @@
 import { handleApiOperation } from '../operations';
 import {
-  HEATMAP_RETRIEVAL_SUCCESS_MESSAGE,
   HEATMAP_RETRIEVAL_FAILURE_MESSAGE,
-  MARKER_RETRIEVAL_SUCCESS_MESSAGE,
-  MARKER_RETRIEVAL_FAILURE_MESSAGE
+  HEATMAP_RETRIEVAL_SUCCESS_MESSAGE,
+  MARKER_RETRIEVAL_FAILURE_MESSAGE,
+  MARKER_RETRIEVAL_SUCCESS_MESSAGE
 } from './constants';
 import { getHeatmap, getMarkers } from './operations';
+import { MapApiResponse } from './types';
 
 export async function getFeatureCollectionAndHandleResponse(
   tableName: string
-): Promise<any> {
+): Promise<MapApiResponse> {
   return await handleApiOperation<string, any>(
     tableName,
     getHeatmap,
@@ -20,8 +21,8 @@ export async function getFeatureCollectionAndHandleResponse(
 
 export async function getMarkersAndHandleResponse(
   tableName: string
-): Promise<any> {
-  return await handleApiOperation<string, any>(
+): Promise<MapApiResponse> {
+  return await handleApiOperation<string, MapApiResponse>(
     tableName,
     getMarkers,
     MARKER_RETRIEVAL_SUCCESS_MESSAGE,

@@ -13,8 +13,8 @@ export default function ColumnSelector(props: ColumnSelectorProps) {
   const dispatch = useDispatch();
   const selectedColumn = useSelector(getSelectedColumn);
 
-  const update = (event: ChangeEvent<{}>, value: any) =>
-    dispatch(updateSelectedColumn(value));
+  const handleChange = (event: ChangeEvent<{}>, value: string | null) =>
+    dispatch(updateSelectedColumn(value as string));
 
   return (
     <Autocomplete
@@ -22,7 +22,7 @@ export default function ColumnSelector(props: ColumnSelectorProps) {
       options={columnNames}
       value={selectedColumn}
       filterSelectedOptions
-      onChange={update}
+      onChange={handleChange}
       renderInput={params => (
         <TextField
           label="Column"

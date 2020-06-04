@@ -50,6 +50,7 @@ export default function Layers() {
   const diffElem = (l1: Selection[], l2: Selection[]) =>
     l1.filter((e1: Selection) => !l2.includes(e1))[0];
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const updateSelections = (event: any, value: Selection[] | null) => {
     let newSelections = value;
     if (newSelections === null) return;

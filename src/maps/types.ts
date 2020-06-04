@@ -37,6 +37,7 @@ export interface MarkerFeatures {
     type: string;
     coordinates: number[];
   };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   properties: any;
 }
 

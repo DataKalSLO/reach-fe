@@ -1,21 +1,23 @@
 import { MapActions, MapApiPayload, MapApiResponse } from './types';
 import { get } from '../base';
 
-export async function getHeatmap(tableName: any): Promise<any> {
+// eslint-disable-next-line
+export async function getHeatmap(tableName: string): Promise<MapApiResponse> {
   return httpRequestWithTableName(MapActions.GET_HEATMAP, tableName);
 }
 
-export async function getMarkers(tableName: any): Promise<any> {
+// eslint-disable-next-line
+export async function getMarkers(tableName: string): Promise<MapApiResponse> {
   return httpRequestWithTableName(MapActions.GET_MARKERS, tableName);
 }
 
 export async function httpRequestWithTableName(
   actionType: MapActions,
   payload: MapApiPayload
-): Promise<any[]> {
+): Promise<MapApiResponse[]> {
   const response: MapApiResponse = await mapHttp(actionType, payload);
-  if (response as any) {
-    return response as any;
+  if (response as MapApiResponse) {
+    return response as MapApiResponse;
   } else {
     throw new Error('No data for table: ' + payload);
   }
