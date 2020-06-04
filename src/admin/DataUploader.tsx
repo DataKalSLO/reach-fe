@@ -1,13 +1,16 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import CSVTemplate from './CSVTemplate';
-import { Paper, Typography, Box, styled } from '@material-ui/core';
+import { Box, Paper, styled, Typography } from '@material-ui/core';
 import { csv } from 'd3';
+import React, { useCallback, useEffect, useState } from 'react';
 import CSVReader from 'react-csv-reader';
-import { convertCsvToJson } from '../common/util/csvToJson';
 import { upload } from '../api/upload';
 import Button from '../common/components/Button';
+import { setTab } from '../common/components/PersistentDrawer';
+import { convertCsvToJson } from '../common/util/csvToJson';
+import { ADMIN_SIDEBAR } from '../reach-ui/constants';
 import { theme } from '../theme/theme';
+import { UPLOAD_DATA_TAB_TITLE } from './AdminSidebar';
 import AdminWrapper from './AdminWrapper';
+import CSVTemplate from './CSVTemplate';
 
 export default function DataUploader() {
   const [csvAirportData, setCsvAirportData]: any = useState([]);
@@ -26,6 +29,9 @@ export default function DataUploader() {
     undefined
   }
   const [uploadStatus, setUploadStatus] = useState(status.undefined);
+
+  // ensures correct tab is selected in the AdminSidebar
+  setTab(ADMIN_SIDEBAR, UPLOAD_DATA_TAB_TITLE);
 
   useEffect(() => {
     Promise.all([
