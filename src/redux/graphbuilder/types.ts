@@ -43,12 +43,12 @@ export interface GraphWithIndex {
 
 export interface SaveGraphAction {
   type: typeof SAVE_GRAPH;
-  payload: Graph | undefined;
+  payload: GraphWithIndex;
 }
 
 export interface UpdateGraphAction {
   type: typeof UPDATE_GRAPH;
-  payload: Graph | undefined;
+  payload: GraphWithIndex;
 }
 
 export interface DeleteGraphAction {
@@ -73,7 +73,7 @@ export interface GetDefaultGraphsForCategoryAction {
 
 export interface UpdateLocalGraph {
   type: typeof UPDATE_LOCAL_GRAPH;
-  payload: Graph | undefined;
+  payload: GraphWithIndex;
 }
 
 export interface CreateLocalGraph {
