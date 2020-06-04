@@ -2,6 +2,7 @@ import React from 'react';
 import { setTab } from '../../common/components/PersistentDrawer';
 import { CHARTS_TAB_TITLE } from '../../my-stuff/MyStuffSidebar';
 import MyStuffWrapper from '../../my-stuff/MyStuffWrapper';
+import { MY_STUFF_SIDEBAR } from '../../reach-ui/constants';
 
 export default function MyStuffCharts() {
   // ensures correct tab is selected in the MyStuffSidebar

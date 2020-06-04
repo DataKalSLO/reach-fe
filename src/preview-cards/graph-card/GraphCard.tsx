@@ -7,7 +7,10 @@ import {
 import React from 'react';
 import { GraphMetaData } from '../../redux/graphs/types';
 import { AuthorDate, Chips, Description, Title } from '../PreviewMetaData';
-import { PLACEHOLDER_USER_PICTURE } from '../story-card/StoryCard';
+import {
+  PLACEHOLDER_DATE,
+  PLACEHOLDER_USER_PICTURE
+} from '../story-card/StoryCard';
 import { StyleProps, usePreviewCardStyles } from '../usePreviewCardStyles';
 
 const styleProps: StyleProps = {
@@ -48,9 +51,9 @@ export default function GraphCard(props: Props): JSX.Element {
             }
           />
           <AuthorDate
-            name={props.userName}
+            name={props.graphMetaData.userName}
             profilePicture={PLACEHOLDER_USER_PICTURE}
-            date={new Date(props.timeStamp * 1000).toString()}
+            date={PLACEHOLDER_DATE}
           />
           <Chips labels={getDatasetNames()} />
         </CardContent>

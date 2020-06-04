@@ -11,11 +11,9 @@ interface Props {
   setEditorState: (s: EditorState) => void;
 }
 
-export function emptyEditorState() {
-  return EditorState.createEmpty(
-    new HyperlinkDecorator().createHyperlinkDecorator()
-  );
-}
+export const emptyEditorState = EditorState.createEmpty(
+  new HyperlinkDecorator().createHyperlinkDecorator()
+);
 
 export default function RichTextEditor(props: Props) {
   const { editorState, setEditorState } = props; // this is NOT a hook, the state is being managed in StoryEditor

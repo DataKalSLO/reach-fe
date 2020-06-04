@@ -10,7 +10,7 @@ import {
 
 export const getEmptyTextBlock = (): TextBlockType => ({
   id: uuid(),
-  editorState: emptyEditorState(),
+  editorState: emptyEditorState,
   type: TEXT_BLOCK_TYPE
 });
 

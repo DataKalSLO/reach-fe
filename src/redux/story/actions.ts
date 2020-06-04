@@ -18,11 +18,13 @@ import {
   SWAP_BLOCKS,
   UpdateDescriptionAction,
   UpdateGraphBlockAction,
+  UpdateImageBlockAction,
   UpdatePublicationStatusAction,
   UpdateTextBlockAction,
   UpdateTitleAction,
   UPDATE_DESCRIPTION,
   UPDATE_GRAPH_BLOCK,
+  UPDATE_IMAGE_BLOCK,
   UPDATE_PUBLICATION_STATUS,
   UPDATE_TEXT_BLOCK,
   UPDATE_TITLE
