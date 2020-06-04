@@ -1,11 +1,14 @@
 import { arrayMove } from 'react-sortable-hoc';
+import { uuid } from 'uuidv4';
 import { removeObjectAtIndex } from '../../common/util/arrayTools';
-import { getInitialStory } from './initializers';
+import { getEmptyTextBlock } from './initializers';
 import {
   CREATE_EMPTY_TEXT_BLOCK,
   CREATE_GRAPH_BLOCK,
   DELETE_BLOCK,
   LOAD_EXISTING_STORY,
+  PublicationStatus,
+  Story,
   StoryActionType,
   StoryBlockType,
   SWAP_BLOCKS,
@@ -37,10 +40,18 @@ function updateObjectInArray(
   });
 }
 
-export function storyReducer(
-  state = getInitialStory(),
-  action: StoryActionType
-) {
+const initialStory = (): Story => ({
+  id: uuid(),
+  userID: '',
+  title: '',
+  description: '',
+  publicationStatus: PublicationStatus.DRAFT,
+  storyBlocks: [getEmptyTextBlock()] as Array<StoryBlockType>,
+  dateCreated: new Date(),
+  dateLastEdited: new Date()
+});
+
+export function storyReducer(state = initialStory(), action: StoryActionType) {
   switch (action.type) {
     case CREATE_EMPTY_TEXT_BLOCK: // using the fall through features of switch statements
     case CREATE_GRAPH_BLOCK:
