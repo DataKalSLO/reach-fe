@@ -18,7 +18,8 @@ import {
   UPDATE_HEATMAP_SELECTION,
   UPDATE_SELECTED_COLUMN,
   UPDATE_SELECTED_MARKER,
-  UPDATE_SELECTED_TABLES
+  UPDATE_SELECTED_TABLES,
+  REMOVE_SELECTED_TABLE
 } from './types';
 
 const initialState: MapState = {
@@ -61,6 +62,13 @@ export function mapReducer(
       return {
         ...state,
         selectedTables: state.selectedTables.concat([action.payload])
+      };
+    case REMOVE_SELECTED_TABLE:
+      return {
+        ...state,
+        selectedTables: state.selectedTables.filter(
+          selection => selection.tableName !== action.payload.tableName
+        )
       };
     case ADD_MARKER_SELECTION:
       return {

@@ -21,6 +21,7 @@ import {
 import { theme } from '../theme/theme';
 import { removeMarker } from './LayersHelpers';
 import { HeatMapSelection, LayersProps } from './types';
+import { FilterOptionsState } from '@material-ui/lab/useAutocomplete';
 
 // sizing for autocomplete which controls layers selection
 const AUTOCOMPLETE_MIN_HEIGHT = '55px';
@@ -87,6 +88,15 @@ export default function Layers(props: LayersProps) {
     updateSelectedTables(newSelections)(dispatch);
   };
 
+  const filterOptions = (
+    options: Selection[],
+    state: FilterOptionsState<Selection>
+  ) =>
+    options.filter(
+      (option: Selection) =>
+        option.geoType && JSON.stringify(option).includes(state.inputValue)
+    );
+
   return (
     <StyledBox>
       <Autocomplete
@@ -101,7 +111,7 @@ export default function Layers(props: LayersProps) {
         // getOptionDisabled={option =>
 
         // }
-        filterOptions={options => options.filter(option => option.geoType)}
+        filterOptions={filterOptions}
         // adjust autocomplete size here, some magic numbers
         style={{
           minWidth: AUTOCOMPLETE_MIN_WIDTH,

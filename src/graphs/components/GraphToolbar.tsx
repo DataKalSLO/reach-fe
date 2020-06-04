@@ -34,9 +34,15 @@ import { GraphToolbarProps } from './types';
 import {
   getFeatureCollection,
   addSelectedTableAction,
-  updateSelectedColumn
+  updateSelectedColumn,
+  removeSelectedTableAction
 } from '../../redux/map/actions';
-import { getVizbuilder } from '../../redux/vizbuilder/selector';
+import {
+  getVizbuilder,
+  getDatasetTableNames
+} from '../../redux/vizbuilder/selector';
+import { getHeatMapSelection } from '../../redux/map/selector';
+import { HeatMapSelection } from '../../maps/types';
 
 /*
  * Contains the buttons rendered on the graph toolbar.
@@ -49,7 +55,8 @@ function GraphToolbar(props: GraphToolbarProps) {
   const { graph, index, isHidden, graphSVG, toggleEdit, toggleHide } = props;
   const dispatch = useDispatch();
   const user = useSelector(getUser);
-  const vizBuilderState = useSelector(getVizbuilder);
+  const datasetTableNames = useSelector(getDatasetTableNames);
+  const heatMapSelection = useSelector(getHeatMapSelection);
 
   const graphIsLocal = isLocalGraph(graph);
   const isUserGraph = userOwnsGraph(graph, user);
@@ -69,7 +76,7 @@ function GraphToolbar(props: GraphToolbarProps) {
 
   const tableName = yAxisDataSource.datasetName;
 
-  const newGraphSelection = vizBuilderState.datasetTableNames.filter(
+  const newGraphSelection = datasetTableNames.filter(
     selection => selection.tableName === tableName
   )[0];
 
@@ -83,7 +90,18 @@ function GraphToolbar(props: GraphToolbarProps) {
         startIcon={<SyncIcon />}
         disabled={!newGraphSelection.geoType}
         onClick={() => {
-          console.log(newGraph.dataSources);
+          const heatMapIsSelected = Object.keys(heatMapSelection).length > 0;
+          if (heatMapIsSelected && newGraphSelection.geoType === 'area') {
+            dispatch(
+              removeSelectedTableAction(
+                datasetTableNames.filter(
+                  selection =>
+                    selection.tableName ===
+                    (heatMapSelection as HeatMapSelection).name
+                )[0]
+              )
+            );
+          }
           getFeatureCollection(tableName, newGraphSelection.geoType)(dispatch);
           dispatch(addSelectedTableAction(newGraphSelection));
           dispatch(updateSelectedColumn(yAxisDataSource.columnNames[0]));
