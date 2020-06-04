@@ -4,14 +4,14 @@ import {
   DELETE_GRAPH,
   DELETE_LOCAL_GRAPH,
   DUPLICATE_GRAPH,
+  FETCH,
   GET_ALL_USER_GRAPHS,
   GET_DEFAULT_GRAPHS_FOR_CATEGORY,
   GET_GRAPH,
   SAVE_GRAPH,
   TOGGLE_CREATE_GRAPH,
   UPDATE_GRAPH,
-  UPDATE_LOCAL_GRAPH,
-  FETCH
+  UPDATE_LOCAL_GRAPH
 } from './constants';
 import { GraphActionTypes, GraphBuilderState } from './types';
 import {

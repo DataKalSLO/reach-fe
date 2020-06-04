@@ -11,19 +11,23 @@ import {
 import { ApiGraphConfirmationResponse } from '../../api/graphs/types';
 import { getDataColumnsForDataSourcesAndHandleResponse } from '../../api/vizbuilder/operationHandlers';
 import { GraphMetaData, GraphMetaDataApiPayload } from '../graphs/types';
+import { showSuccessStatusMessage } from '../notifications/actions';
 import {
   CREATE_LOCAL_GRAPH,
   DELETE_GRAPH,
   DELETE_LOCAL_GRAPH,
+  DELETE_MESSAGE,
   DUPLICATE_GRAPH,
   FETCH,
   GET_ALL_USER_GRAPHS,
   GET_DEFAULT_GRAPHS_FOR_CATEGORY,
   GET_GRAPH,
   SAVE_GRAPH,
+  SAVE_MESSAGE,
   TOGGLE_CREATE_GRAPH,
   UPDATE_GRAPH,
-  UPDATE_LOCAL_GRAPH
+  UPDATE_LOCAL_GRAPH,
+  UPDATE_MESSAGE
 } from './constants';
 import {
   CreateLocalGraph,
@@ -43,6 +47,7 @@ import {
 export function saveGraph(graphMetaData: GraphMetaDataApiPayload) {
   return async (dispatch: Dispatch) => {
     const metaData = await saveGraphAndHandleResponse(graphMetaData);
+    dispatch(showSuccessStatusMessage(!isUndefined(metaData), SAVE_MESSAGE));
     const graph = await createGraphWithData(metaData);
     dispatch(saveGraphAction(graph));
   };
@@ -58,6 +63,7 @@ function saveGraphAction(payload?: Graph): SaveGraphAction {
 export function updateGraph(graphMetaData: GraphMetaDataApiPayload) {
   return async (dispatch: Dispatch) => {
     const metaData = await updateGraphAndHandleResponse(graphMetaData);
+    dispatch(showSuccessStatusMessage(!isUndefined(metaData), UPDATE_MESSAGE));
     const graph = await createGraphWithData(metaData);
     dispatch(updateGraphAction(graph));
   };
@@ -87,6 +93,7 @@ function updateLocalGraphAction(payload?: Graph): UpdateLocalGraph {
 export function deleteGraph(graphId: string) {
   return async (dispatch: Dispatch) => {
     const payload = await deleteGraphAndHandleResponse(graphId);
+    dispatch(showSuccessStatusMessage(!isUndefined(payload), DELETE_MESSAGE));
     dispatch(deleteGraphAction(payload));
   };
 }

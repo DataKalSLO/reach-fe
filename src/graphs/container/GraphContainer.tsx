@@ -1,9 +1,11 @@
 import { CircularProgress, Grid, styled } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Snackbar } from '../../reach-ui/core';
 import { getDefaultGraphs } from '../../redux/graphbuilder/actions';
 import { getGraphs } from '../../redux/graphbuilder/selector';
 import { HEALTH } from '../../redux/graphs/constants';
+import { getNotifications } from '../../redux/notifications/selector';
 import { getVizbuilder } from '../../redux/vizbuilder/selector';
 import { GraphCard } from '../components/GraphCard';
 import { generateEmptyGraph } from '../forms/defaults';
@@ -16,6 +18,7 @@ import { CIRCULAR_PROGRESS_SIZE } from './constants';
 function GraphContainer() {
   const graphState = useSelector(getGraphs);
   const vizState = useSelector(getVizbuilder);
+  const notificationsState = useSelector(getNotifications);
   const dispatch = useDispatch();
 
   // Use the prebuilt health graphs as the default graphs
@@ -37,6 +40,12 @@ function GraphContainer() {
 
   return (
     <GridContainer container>
+      <Snackbar
+        actionId={notificationsState.actionStatus.actionId}
+        severity={notificationsState.actionStatus.severity}
+        open={notificationsState.actionStatus.show}
+        message={notificationsState.actionStatus.message}
+      />
       {/* Show loader while fetching */}
       {graphState.isFetching ? (
         <CircularProgress color="primary" size={CIRCULAR_PROGRESS_SIZE} />

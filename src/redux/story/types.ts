@@ -27,6 +27,7 @@ export enum PublicationStatus {
 
 export interface StoryMetaInformation {
   id: string;
+  userName: string;
   userID: string;
   title: string;
   description: string;
