@@ -114,26 +114,31 @@ const EditorToolbar = (props: Props) => {
 
             <ToolbarButton
               aria-label="Bold"
+              title="Bold"
               icon={<FormatBold />}
               onClick={() => onClickInlineStyle('BOLD')}
             />
             <ToolbarButton
               aria-label="Italic"
+              title="Italic"
               icon={<FormatItalic />}
               onClick={() => onClickInlineStyle('ITALIC')}
             />
             <ToolbarButton
               aria-label="Underline"
+              title="Underline"
               icon={<FormatUnderlined />}
               onClick={() => onClickInlineStyle('UNDERLINE')}
             />
             <ToolbarButton
               aria-label="Strikethrough"
+              title="Strikethrough"
               icon={<StrikethroughS />}
               onClick={() => onClickInlineStyle('STRIKETHROUGH')}
             />
             <ToolbarButton
               aria-label="Monospace"
+              title="Monospace"
               icon={<Code />}
               onClick={() => onClickInlineStyle('CODE')}
             />
@@ -145,11 +150,13 @@ const EditorToolbar = (props: Props) => {
           <FormatButtonGroup>
             <ToolbarButton
               aria-label="Unordered List"
+              title="Unordered List"
               icon={<FormatListBulleted />}
               onClick={() => onClickBlockType('unordered-list-item')}
             />
             <ToolbarButton
               aria-label="Ordered List"
+              title="Ordered List"
               icon={<FormatListNumbered />}
               onClick={() => onClickBlockType('ordered-list-item')}
             />
@@ -161,11 +168,13 @@ const EditorToolbar = (props: Props) => {
           <FormatButtonGroup>
             <ToolbarButton
               aria-label="Add Hyperlink"
+              title="Add Hyperlink"
               icon={<Link />}
               onClick={hyperlinkPlugin.promptForLink}
             />
             <ToolbarButton
               aria-label="Remove Hyperlink"
+              title="Remove Hyperlink"
               icon={<LinkOff />}
               onClick={hyperlinkPlugin.removeLink}
             />
