@@ -17,6 +17,9 @@ interface Props {
   story: Story;
   user: User;
 }
+
+  const FEEDBACK_TEXTBOX_ID = 'FEEDBACK_TEXTBOX_ID';
+
 export default function AdminReviewActions(props: Props) {
   const FEEDBACK_TEXTBOX_ID = 'FEEDBACK_TEXTBOX_ID';
 
