@@ -30,6 +30,7 @@ export const emptyTextBlock = (): TextBlockType => ({
 //TODO: Turn this into a function. Currently will stay same for every new story created in the same session.
 export const initialStory: Story = {
   id: uuid(),
+  userName: '',
   userID: '',
   title: '',
   description: '',

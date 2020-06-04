@@ -16,6 +16,7 @@ import {
 import Popper from '../common/components/Popper';
 import SidebarContentBox from '../common/components/SidebarContentBox';
 import Snackbar from '../common/components/Snackbar';
+import TextField from '../common/components/TextField';
 
 export {
   getPersistentDrawerOptions,
@@ -32,4 +33,5 @@ export {
   Popper,
   SidebarContentBox,
   Snackbar
+  TextField
 };
