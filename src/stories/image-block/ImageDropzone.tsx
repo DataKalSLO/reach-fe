@@ -14,15 +14,22 @@ interface ImageDropzoneProps {
 }
 
 export default function ImageDropzone(props: ImageDropzoneProps) {
-  const [shouldReject, setShouldReject] = useState(false);
+  const [rejectMessage, setRejectMessage] = useState('');
 
   const onDrop = useCallback(
     acceptedFiles => {
-      if (acceptedFiles.length > 1) {
-        setShouldReject(true);
+      function rejectFiles(message: string) {
+        setRejectMessage(message);
         setTimeout(() => {
-          setShouldReject(false);
+          setRejectMessage('');
         }, 5000);
+      }
+
+      if (acceptedFiles.length > 1) {
+        rejectFiles('Only one file can be uploaded per image block');
+        return;
+      } else if (acceptedFiles.length === 0) {
+        rejectFiles('Filetype not accepted');
         return;
       }
       props.onFileDrop(acceptedFiles);
@@ -36,18 +43,18 @@ export default function ImageDropzone(props: ImageDropzoneProps) {
     maxSize: 25 * MEGABYTE // 25 mb is a common upload limit for image hosting sites
   });
 
-  if (shouldReject) {
-    return showRejection();
+  if (rejectMessage !== '') {
+    return showRejection(rejectMessage);
   }
   return showDropzone(isDragActive, getRootProps, getInputProps);
 }
 
-function showRejection() {
+function showRejection(message: string) {
   return (
     <RejectionBox>
       <div>
         <h4>Could not upload images!</h4>
-        <p>Only one file is allowed per Image Block</p>
+        <p>{message}</p>
       </div>
     </RejectionBox>
   );

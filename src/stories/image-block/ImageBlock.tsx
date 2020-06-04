@@ -31,8 +31,20 @@ export default function ImageBlock(props: Props) {
   }
 
   function deleteImage() {
-    setImageUrl('');
-    deleteImageBlockImage(imageUrl);
+    deleteImageBlockImage(imageUrl)
+      .then((success: boolean) => {
+        if (success) {
+          setImageUrl('');
+        } else {
+          alert('Deletion Failed. Please try again later.');
+        }
+      })
+      .catch(err => {
+        alert(
+          'There was an error deleting your image. Please try again later.'
+        );
+        console.log(err);
+      });
   }
 
   return (
