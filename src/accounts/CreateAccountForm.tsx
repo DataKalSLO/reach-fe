@@ -78,8 +78,8 @@ function CreateAccountForm() {
 
   const handleInputChangeEmail = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setEmail(event.target.value);
-      validateEmail(event.target.value);
+      setEmail(event.target.value.toLowerCase());
+      validateEmail(event.target.value.toLowerCase());
     },
     [validateEmail, setEmail]
   );
