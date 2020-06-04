@@ -1,15 +1,22 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getMap } from '../redux/map/selector';
-import { getVizbuilder } from '../redux/vizbuilder/selector';
 import { Box, Card, Grid } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getColorAssociation,
+  getHeatMapSelection,
+  getMap,
+  getMarkerSelection,
+  getSelectedColumn,
+  getSelectedMarker
+} from '../redux/map/selector';
+import { getAllTableNames } from '../redux/vizbuilder/actions';
+import { getVizbuilder } from '../redux/vizbuilder/selector';
+import ColumnSelector from './ColumnSelector';
 import GeoFilter from './GeoFilter';
 import Layers from './Layers';
 import Legend from './Legend';
 import MapView from './MapView';
-import { getAllTableNames } from '../redux/vizbuilder/actions';
-import ColumnSelector from './ColumnSelector';
 import { HeatMapSelection } from './types';
 
 // sizing for the box that contains the map
@@ -76,16 +83,16 @@ function Map() {
             </Grid>
           </Grid>
           <MapView
-            markerSelection={mapState.markerSelection}
-            heatMapSelection={mapState.heatMapSelection}
-            selectedMarker={mapState.selectedMarker}
-            colorAssociation={mapState.colorAssociation}
-            selectedColumn={mapState.selectedColumn as string}
+            markerSelection={useSelector(getMarkerSelection)}
+            heatMapSelection={useSelector(getHeatMapSelection)}
+            selectedMarker={useSelector(getSelectedMarker)}
+            colorAssociation={useSelector(getColorAssociation)}
+            selectedColumn={useSelector(getSelectedColumn)}
           />
           <Legend
-            heatMapSelection={mapState.heatMapSelection}
-            colorAssociation={mapState.colorAssociation}
-            markerSelection={mapState.markerSelection}
+            heatMapSelection={useSelector(getHeatMapSelection)}
+            colorAssociation={useSelector(getColorAssociation)}
+            markerSelection={useSelector(getMarkerSelection)}
           />
         </StyledMapContainer>
       </StyledCard>
