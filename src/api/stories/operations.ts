@@ -1,13 +1,14 @@
-import { get } from '../base';
-import { transformToStoryDB, transformToStory } from './converter';
+import { Story } from '../../redux/story/types';
 import {
   authenticatedDel,
   authenticatedGet,
   authenticatedPost,
-  authenticatedPut
+  authenticatedPut,
+  optionalAuthenticatedGet
 } from '../authenticatedApi/operations';
+import { get } from '../base';
+import { transformToStory, transformToStoryDB } from './converter';
 import { StoryDB } from './types';
-import { Story } from '../../redux/story/types';
 
 enum StoryActions {
   CREATE,
@@ -32,7 +33,9 @@ export function deleteStoryById(storyId: string): Promise<void> {
 
 export async function getStoryWithStoryID(storyID: string): Promise<Story> {
   // draft stories require token, published don't. Sending token harmless in latter.
-  return transformToStory(await authenticatedGet(['story', storyID].join('/')));
+  return transformToStory(
+    await optionalAuthenticatedGet(['story', storyID].join('/'))
+  );
 }
 
 export async function getPublishedStories(): Promise<Story[]> {
