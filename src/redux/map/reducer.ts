@@ -1,34 +1,25 @@
 // import medianHouseholdIncomeHeatMap from '../../common/assets/Local Data/census/median_income_data';
 // import { markerData } from '../../common/assets/Local Data/MockMarkerData';
+import noData from '../../common/assets/Local Data/census/noHeatMap';
 import {
   MARKER_ONE_COLOR,
-  MARKER_TWO_COLOR,
-  MARKER_THREE_COLOR
+  MARKER_THREE_COLOR,
+  MARKER_TWO_COLOR
 } from '../../maps/constants';
 import { ColorAssociation } from '../../maps/types';
 import {
+  ADD_MARKER_SELECTION,
+  ADD_SELECTED_TABLE,
+  DELETE_MARKER_SELECTION,
   MapActionTypes,
   MapState,
   UPDATE_BOUND_SELECTION,
   UPDATE_COLOR_ASSOCIATION,
   UPDATE_HEATMAP_SELECTION,
-  ADD_MARKER_SELECTION,
-  UPDATE_SELECTED_MARKER,
-  UPDATE_SELECTED_TABLES,
   UPDATE_SELECTED_COLUMN,
-  ADD_SELECTED_TABLE
+  UPDATE_SELECTED_MARKER,
+  UPDATE_SELECTED_TABLES
 } from './types';
-import noData from '../../common/assets/Local Data/census/noHeatMap';
-
-// TODO: connect to DB!
-// const initialState: MapState = {
-//   featureCollection: {},
-//   markerSelection: [markerData[0]],
-//   heatMapSelection: medianHouseholdIncomeHeatMap,
-//   selectedMarker: markerData[0].features[0],
-//   boundSelection: 'Zip Code',
-//   colorAssociation: {}
-// };
 
 const initialState: MapState = {
   selectedTables: [],
@@ -75,6 +66,11 @@ export function mapReducer(
       return {
         ...state,
         markerSelection: state.markerSelection.concat(action.payload)
+      };
+    case DELETE_MARKER_SELECTION:
+      return {
+        ...state,
+        markerSelection: action.payload
       };
     case UPDATE_HEATMAP_SELECTION:
       return {

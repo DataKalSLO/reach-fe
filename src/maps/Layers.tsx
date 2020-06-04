@@ -12,10 +12,14 @@ import kitchenFaciltiesHeatMap from '../common/assets/Local Data/census/b25053.j
 import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/median_income_data.js';
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
 import {
+  deleteMarkerSelection,
   getFeatureCollection,
   updateHeatMapSelection,
   updateSelectedColumn,
+<<<<<<< HEAD
+=======
   addMarkerSelection,
+>>>>>>> 8ef0654748dd24ace60252a1bf929b618d49cc4f
   updateSelectedTables
 } from '../redux/map/actions';
 import { theme } from '../theme/theme';
@@ -62,7 +66,7 @@ export default function Layers(props: LayersProps) {
       if (changed.geoType === 'area') {
         dispatch(updateHeatMapSelection({}));
       } else {
-        //dispatch(updateMarkerSelection(removeMarker(changed, markerSelection)));
+        dispatch(deleteMarkerSelection(removeMarker(changed, markerSelection)));
       }
     }
 

@@ -1,3 +1,9 @@
+import { Dispatch } from 'redux';
+import {
+  getFeatureCollectionAndHandleResponse,
+  getMarkersAndHandleResponse
+} from '../../api/map/operationHandlers';
+import { Selection } from '../../api/vizbuilder/types';
 import {
   BoundSelection,
   HeatMapSelection,
@@ -5,21 +11,16 @@ import {
   SelectedMarker
 } from '../../maps/types';
 import {
+  ADD_MARKER_SELECTION,
+  ADD_SELECTED_TABLE,
+  DELETE_MARKER_SELECTION,
   UPDATE_BOUND_SELECTION,
   UPDATE_COLOR_ASSOCIATION,
   UPDATE_HEATMAP_SELECTION,
-  ADD_MARKER_SELECTION,
-  UPDATE_SELECTED_MARKER,
-  UPDATE_SELECTED_TABLES,
   UPDATE_SELECTED_COLUMN,
-  ADD_SELECTED_TABLE
+  UPDATE_SELECTED_MARKER,
+  UPDATE_SELECTED_TABLES
 } from './types';
-import {
-  getFeatureCollectionAndHandleResponse,
-  getMarkersAndHandleResponse
-} from '../../api/map/operationHandlers';
-import { Dispatch } from 'redux';
-import { Selection } from '../../api/vizbuilder/types';
 
 export function getFeatureCollection(tableName: string, geoType: string) {
   if (geoType === 'area') {
@@ -30,7 +31,6 @@ export function getFeatureCollection(tableName: string, geoType: string) {
   } else {
     return async (dispatch: Dispatch) => {
       const payload = await getMarkersAndHandleResponse(tableName);
-      console.log(payload);
       dispatch(addMarkerSelection([payload]));
     };
   }
@@ -42,11 +42,18 @@ export function updateSelectedTables(selectedTables: any) {
   };
 }
 
-// I think these are the functions we will need?
 // possibly need to have remove/add for each of these
 export function addMarkerSelection(markerSelection: MarkerSelection[]) {
   return {
     type: ADD_MARKER_SELECTION,
+    payload: markerSelection
+  };
+}
+
+// possibly need to have remove/add for each of these
+export function deleteMarkerSelection(markerSelection: MarkerSelection[]) {
+  return {
+    type: DELETE_MARKER_SELECTION,
     payload: markerSelection
   };
 }
