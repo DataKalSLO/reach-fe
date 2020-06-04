@@ -26,7 +26,7 @@ export default function Popups(
       offsetTop={POPUP_OFFSET_TOP}
     >
       <div>
-        {marker.properties.geo_name} : {marker.properties.value}
+        {marker.properties.geo_name} {marker.properties.value}
       </div>
     </Popup>
   );

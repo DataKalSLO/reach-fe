@@ -37,14 +37,18 @@ function populateLegendData(
     // likely be removed
     const prefix = 'https://www.';
     const link = prefix.concat(heatMap.source);
-    const heatMapLegend = {
-      key: legendData.length,
-      label: heatMap.name,
-      vintage: heatMap.vintage,
-      source: link,
-      color: HEAT_MAP_COLOR
-    };
-    legendData.push(heatMapLegend);
+    if (heatMap.name !== 'no data') {
+      const prefix = 'https://www.';
+      const link = prefix.concat(heatMap.source);
+      const heatMapLegend = {
+        key: legendData.length,
+        label: heatMap.name,
+        vintage: heatMap.vintage,
+        source: link,
+        color: HEAT_MAP_COLOR
+      };
+      legendData.push(heatMapLegend);
+    }
   }
   // add marker selection to legend data if it exists
   if (
