@@ -1,15 +1,17 @@
 import React, { ChangeEvent } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { theme } from '../theme/theme';
 import { ColumnSelectorProps } from './types';
 import { updateSelectedColumn } from '../redux/map/actions';
+import { getSelectedColumn } from '../redux/map/selector';
 
 // this function creates the multi-seletion autocomplete component
 export default function ColumnSelector(props: ColumnSelectorProps) {
-  const { columnNames, selectedColumn } = props;
+  const { columnNames } = props;
   const dispatch = useDispatch();
+  const selectedColumn = useSelector(getSelectedColumn);
 
   const update = (event: ChangeEvent<{}>, value: any) =>
     dispatch(updateSelectedColumn(value));

@@ -94,18 +94,8 @@ export interface MapViewProps {
   selectedColumn: string;
 }
 
-export interface LayersProps {
-  tableNames: Selection[];
-  selectedTables: Selection[];
-  markerSelection: MarkerSelection[];
-  heatMapSelection: HeatMapSelection | {};
-  selectedMarker: SelectedMarker;
-  metadataForAllDatasets: Metadata[];
-}
-
 export interface ColumnSelectorProps {
   columnNames: string[];
-  selectedColumn: string;
 }
 
 export interface LegendProps {

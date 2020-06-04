@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getMap } from '../redux/map/selector';
+import { getMap, getHeatMapSelection } from '../redux/map/selector';
 import { getVizbuilder } from '../redux/vizbuilder/selector';
 import { Box, Card, Grid } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
@@ -9,6 +9,7 @@ import Layers from './Layers';
 import Legend from './Legend';
 import MapView from './MapView';
 import { getAllTableNames } from '../redux/vizbuilder/actions';
+import { getAllMetaData } from '../redux/vizbuilder/selector';
 import ColumnSelector from './ColumnSelector';
 import { HeatMapSelection } from './types';
 
@@ -31,8 +32,8 @@ const MAP_MARGIN_LEFT = '10px';
 function Map() {
   const dispatch = useDispatch();
   const mapState = useSelector(getMap);
-  const vizBuilderState = useSelector(getVizbuilder);
-  const allMetaData = vizBuilderState.metadataForAllDatasets;
+  const heatMapSelection = useSelector(getHeatMapSelection);
+  const allMetaData = useSelector(getAllMetaData);
 
   useEffect(() => {
     getAllTableNames()(dispatch);
@@ -41,8 +42,7 @@ function Map() {
   let columnNames: string[] = [];
 
   const selectedHeatMapDatasetName =
-    mapState.heatMapSelection &&
-    (mapState.heatMapSelection as HeatMapSelection).name;
+    heatMapSelection && (heatMapSelection as HeatMapSelection).name;
   if (selectedHeatMapDatasetName) {
     const meta = allMetaData.filter(
       meta => meta.tableName === selectedHeatMapDatasetName
@@ -56,23 +56,13 @@ function Map() {
     <StyledBox>
       <StyledCard variant="outlined">
         <StyledMapContainer>
-          <Layers
-            tableNames={vizBuilderState.datasetTableNames}
-            selectedTables={mapState.selectedTables}
-            markerSelection={mapState.markerSelection}
-            heatMapSelection={mapState.heatMapSelection}
-            selectedMarker={mapState.selectedMarker}
-            metadataForAllDatasets={vizBuilderState.metadataForAllDatasets}
-          />
+          <Layers />
           <Grid container direction="row" alignItems="center">
             <Grid item>
-              <GeoFilter boundSelection={mapState.boundSelection} />
+              <GeoFilter />
             </Grid>
             <Grid item xs={3}>
-              <ColumnSelector
-                columnNames={columnNames}
-                selectedColumn={mapState.selectedColumn}
-              />
+              <ColumnSelector columnNames={columnNames} />
             </Grid>
           </Grid>
           <MapView
