@@ -4,13 +4,10 @@ import { Box } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { flatten } from 'lodash';
+import { FilterOptionsState } from '@material-ui/lab/useAutocomplete';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Selection } from '../api/vizbuilder/types';
-import kitchenFaciltiesHeatMap from '../common/assets/Local Data/census/b25053.js';
-import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/median_income_data.js';
-import { markerData } from '../common/assets/Local Data/MockMarkerData';
 import {
   deleteMarkerSelection,
   getFeatureCollection,
@@ -21,7 +18,6 @@ import {
 import { theme } from '../theme/theme';
 import { removeMarker } from './LayersHelpers';
 import { HeatMapSelection, LayersProps } from './types';
-import { FilterOptionsState } from '@material-ui/lab/useAutocomplete';
 
 // sizing for autocomplete which controls layers selection
 const AUTOCOMPLETE_MIN_HEIGHT = '55px';
@@ -29,13 +25,6 @@ const AUTOCOMPLETE_MIN_WIDTH = '75px';
 
 // sizing for Box that contains the autocomplete
 const BOX_MIN_WIDTH = '75%';
-
-// all of the local data we have available
-// TODO: pull this from backend! need distinct split between marker & heat map
-const heatMapData = [medianHouseholdIncomeHeatMap, kitchenFaciltiesHeatMap];
-// TODO: fix type errors here, can't figure out what it expects
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const allData = flatten([markerData as any, heatMapData]);
 
 // this function creates the multi-seletion autocomplete component
 export default function Layers(props: LayersProps) {

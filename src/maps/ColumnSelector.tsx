@@ -19,20 +19,7 @@ export default function ColumnSelector(props: ColumnSelectorProps) {
       disableListWrap
       options={columnNames}
       value={selectedColumn}
-      // TODO: make sure this handles data not existing once we are pulling from DB
-      // defaultValue={[allData[0], allData[2]]}
-      // disables all options when the user has chosen more than the allowedSelections
-      // getOptionDisabled={option =>
-      //   handleDisable(allData, markerSelection, heatMapSelection, option)
-      // }
-      // style={{
-      //   minWidth: AUTOCOMPLETE_MIN_WIDTH,
-      //   marginTop: theme.spacing(1),
-      //   minHeight: AUTOCOMPLETE_MIN_HEIGHT
-      // }}
-      // getOptionLabel={option => option.name}
       filterSelectedOptions
-      // informs the layerSelection variable with the user's selection
       onChange={update}
       renderInput={params => (
         <TextField
