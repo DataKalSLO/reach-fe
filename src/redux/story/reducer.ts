@@ -1,24 +1,55 @@
 import { arrayMove } from 'react-sortable-hoc';
 import { uuid } from 'uuidv4';
 import { removeObjectAtIndex } from '../../common/util/arrayTools';
-import { getEmptyTextBlock } from './initializers';
+import { emptyEditorState } from '../../stories/text-block/RichTextEditor';
 import {
+  CREATE_EMPTY_IMAGE_BLOCK,
   CREATE_EMPTY_TEXT_BLOCK,
   CREATE_GRAPH_BLOCK,
   DELETE_BLOCK,
+  ImageBlockType,
+  IMAGE_BLOCK_TYPE,
   LOAD_EXISTING_STORY,
   PublicationStatus,
   Story,
   StoryActionType,
   StoryBlockType,
   SWAP_BLOCKS,
+  TextBlockType,
+  TEXT_BLOCK_TYPE,
   UpdateBlockType,
   UPDATE_DESCRIPTION,
   UPDATE_GRAPH_BLOCK,
+  UPDATE_IMAGE_BLOCK,
   UPDATE_PUBLICATION_STATUS,
   UPDATE_TEXT_BLOCK,
   UPDATE_TITLE
 } from './types';
+
+export const emptyTextBlock = (): TextBlockType => ({
+  id: uuid(),
+  editorState: emptyEditorState,
+  type: TEXT_BLOCK_TYPE
+});
+
+export const getEmptyImageBlock = (): ImageBlockType => ({
+  id: uuid(),
+  imageUrl: '',
+  type: IMAGE_BLOCK_TYPE
+});
+
+//TODO: Turn this into a function. Currently will stay same for every new story created in the same session.
+export const initialStory: Story = {
+  id: uuid(),
+  userName: '',
+  userID: '',
+  title: '',
+  description: '',
+  publicationStatus: PublicationStatus.DRAFT,
+  storyBlocks: [emptyTextBlock()] as Array<StoryBlockType>,
+  dateCreated: new Date(),
+  dateLastEdited: new Date()
+};
 
 // follows immutability update patterns
 // (https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns/)
@@ -39,21 +70,10 @@ function updateObjectInArray(
   });
 }
 
-const initialStory = (): Story => ({
-  id: uuid(),
-  userID: '',
-  title: '',
-  description: '',
-  publicationStatus: PublicationStatus.DRAFT,
-  storyBlocks: [getEmptyTextBlock()] as Array<StoryBlockType>,
-  dateCreated: new Date(),
-  dateLastEdited: new Date(),
-  userName: ''
-});
-
-export function storyReducer(state = initialStory(), action: StoryActionType) {
+export function storyReducer(state = initialStory, action: StoryActionType) {
   switch (action.type) {
-    case CREATE_EMPTY_TEXT_BLOCK: // using the fall through features of switch statements
+    case CREATE_EMPTY_TEXT_BLOCK: // NOTE: using the fall through features of swtich statements
+    case CREATE_EMPTY_IMAGE_BLOCK:
     case CREATE_GRAPH_BLOCK:
       return {
         ...state,
@@ -91,8 +111,10 @@ export function storyReducer(state = initialStory(), action: StoryActionType) {
         ...state,
         publicationStatus: action.payload.newPublicationStatus
       };
-    case UPDATE_TEXT_BLOCK: // using the fall through features of switch statements
+
+    case UPDATE_TEXT_BLOCK:
     case UPDATE_GRAPH_BLOCK:
+    case UPDATE_IMAGE_BLOCK:
       return {
         ...state,
         storyBlocks: updateObjectInArray(state.storyBlocks, action)

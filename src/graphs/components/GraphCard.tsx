@@ -12,6 +12,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { isNullOrUndefined } from 'util';
 import { getVizbuilder } from '../../redux/vizbuilder/selector';
+import { exportingOptions } from '../builder/default-graph-options';
 import GraphEditForm from '../forms/GraphEditForm';
 import { CHART_HEIGHT_PERCENT, CHART_WIDTH_SCALE } from './constants';
 import { CoreGraph } from './CoreGraph';
@@ -33,7 +34,9 @@ export function GraphCard({ graph, index }: GraphCardProps) {
    */
   useEffect(() => {
     if (!isNullOrUndefined(highchartsRef.current)) {
-      setGraphSVG(highchartsRef.current?.chart.getSVG());
+      setGraphSVG(
+        highchartsRef.current?.chart.getSVG(exportingOptions.chartOptions)
+      );
     }
   }, []);
 
@@ -107,7 +110,8 @@ export function GraphCard({ graph, index }: GraphCardProps) {
 }
 
 const GraphCardActions = styled(CardActions)({
-  padding: '0px'
+  padding: '0px',
+  overflow: 'scroll'
 });
 
 const GraphDivider = styled(Divider)({

@@ -1,8 +1,11 @@
 import { EditorState } from 'draft-js';
 import { getEmptyGraphBlock, getEmptyTextBlock } from './initializers';
+import { getEmptyImageBlock } from './reducer';
 import {
+  CreateEmptyImageBlockAction,
   CreateEmptyTextBlockAction,
   CreateGraphBlockAction,
+  CREATE_EMPTY_IMAGE_BLOCK,
   CREATE_EMPTY_TEXT_BLOCK,
   CREATE_GRAPH_BLOCK,
   DeleteBlockAction,
@@ -43,6 +46,15 @@ export function createGraphBlock(): CreateGraphBlockAction {
   };
 }
 
+export function createEmptyImageBlock(): CreateEmptyImageBlockAction {
+  return {
+    type: CREATE_EMPTY_IMAGE_BLOCK,
+    payload: {
+      block: getEmptyImageBlock()
+    }
+  };
+}
+
 export function deleteBlock(index: number): DeleteBlockAction {
   return {
     type: DELETE_BLOCK,
@@ -67,6 +79,15 @@ export function updateGraphBlock(
   return {
     type: UPDATE_GRAPH_BLOCK,
     payload: { index: index, graphID: graphID }
+  };
+}
+export function updateImageBlock(
+  index: number,
+  imageUrl: string
+): UpdateImageBlockAction {
+  return {
+    type: UPDATE_IMAGE_BLOCK,
+    payload: { index: index, imageUrl: imageUrl }
   };
 }
 

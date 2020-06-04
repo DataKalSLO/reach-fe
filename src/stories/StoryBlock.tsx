@@ -2,15 +2,22 @@ import { Box, styled } from '@material-ui/core';
 import { EditorState } from 'draft-js';
 import React from 'react';
 import { Dispatch } from 'redux';
-import { updateGraphBlock, updateTextBlock } from '../redux/story/actions';
+import {
+  updateGraphBlock,
+  updateImageBlock,
+  updateTextBlock
+} from '../redux/story/actions';
 import {
   GRAPH_BLOCK_TYPE,
+  ImageBlockType,
+  IMAGE_BLOCK_TYPE,
   MAP_BLOCK_TYPE,
   StoryBlockType,
   TextBlockType,
   TEXT_BLOCK_TYPE
 } from '../redux/story/types';
 import GraphBlock from './graph-block/GraphBlock';
+import ImageBlock from './image-block/ImageBlock';
 import {
   StoryBlockDeleteButton,
   StoryBlockSelectableToggle
@@ -44,6 +51,17 @@ export const StoryBlock = (props: Props): JSX.Element => {
             graphID={props.block.graphID}
             setGraphId={(graphId: string) =>
               props.dispatch(updateGraphBlock(props.index, graphId))
+            }
+          />
+        );
+      case IMAGE_BLOCK_TYPE:
+        return (
+          <ImageBlock
+            key={props.block.id}
+            blockId={props.block.id}
+            imageUrl={(props.block as ImageBlockType).imageUrl}
+            setImageUrl={(imageUrl: string) =>
+              props.dispatch(updateImageBlock(props.index, imageUrl))
             }
           />
         );

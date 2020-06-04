@@ -3,7 +3,6 @@ import {
   ChatBubble,
   InsertChart,
   InsertPhoto,
-  Map,
   Save,
   TextFields
 } from '@material-ui/icons';
@@ -16,6 +15,7 @@ import {
 import { Drawer, List, ListItemButton } from '../reach-ui/core';
 import { EDIT_ICON, PREVIEW_ICON } from '../reach-ui/icons';
 import {
+  createEmptyImageBlock,
   createEmptyTextBlock,
   createGraphBlock,
   updatePublicationStatus
@@ -82,15 +82,9 @@ export default function StorySidebar() {
         />
         <ListItemButton
           disabled={previewSelected}
-          text={'Map'}
-          icon={<Map />}
-          onClick={() => alert('Not implemented')}
-        />
-        <ListItemButton
-          disabled={previewSelected}
           text={'Image'}
           icon={<InsertPhoto />}
-          onClick={() => alert('Not implemented')}
+          onClick={() => dispatch(createEmptyImageBlock())}
         />
       </List>
       <Divider />

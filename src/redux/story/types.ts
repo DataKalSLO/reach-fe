@@ -3,13 +3,16 @@ import { EditorState } from 'draft-js';
 //Text block types
 export const TEXT_BLOCK_TYPE = 'Text';
 export const GRAPH_BLOCK_TYPE = 'Graph';
+export const IMAGE_BLOCK_TYPE = 'Image';
 export const MAP_BLOCK_TYPE = 'Map';
 
 //Action names
 export const CREATE_EMPTY_TEXT_BLOCK = 'CREATE_EMPTY_TEXT_BLOCK';
 export const CREATE_GRAPH_BLOCK = 'CREATE_GRAPH_BLOCK';
+export const CREATE_EMPTY_IMAGE_BLOCK = 'CREATE_EMPTY_IMAGE_BLOCK';
 export const UPDATE_TEXT_BLOCK = 'UPDATE_TEXT_BLOCK';
 export const UPDATE_GRAPH_BLOCK = 'UPDATE_GRAPH_BLOCK';
+export const UPDATE_IMAGE_BLOCK = 'UPDATE_IMAGE_BLOCK';
 export const DELETE_BLOCK = 'DELETE_BLOCK';
 export const SWAP_BLOCKS = 'SWAP_BLOCKS';
 export const UPDATE_TITLE = 'UPDATE_TITLE';
@@ -53,13 +56,23 @@ export interface GraphBlockType {
   graphID: string;
 }
 
+export interface ImageBlockType {
+  type: typeof IMAGE_BLOCK_TYPE;
+  id: string;
+  imageUrl: string;
+}
+
 export interface MapBlockType {
   type: typeof MAP_BLOCK_TYPE;
   id: string;
   mapID: string;
 }
 
-export type StoryBlockType = TextBlockType | GraphBlockType | MapBlockType;
+export type StoryBlockType =
+  | TextBlockType
+  | GraphBlockType
+  | ImageBlockType
+  | MapBlockType;
 
 //Actions
 export interface CreateEmptyTextBlockAction {
@@ -72,6 +85,11 @@ export interface CreateGraphBlockAction {
   payload: { block: GraphBlockType };
 }
 
+export interface CreateEmptyImageBlockAction {
+  type: typeof CREATE_EMPTY_IMAGE_BLOCK;
+  payload: { block: ImageBlockType };
+}
+
 export interface UpdateTextBlockAction {
   type: typeof UPDATE_TEXT_BLOCK;
   payload: { index: number; editorState: EditorState };
@@ -80,6 +98,11 @@ export interface UpdateTextBlockAction {
 export interface UpdateGraphBlockAction {
   type: typeof UPDATE_GRAPH_BLOCK;
   payload: { index: number; graphID: string };
+}
+
+export interface UpdateImageBlockAction {
+  type: typeof UPDATE_IMAGE_BLOCK;
+  payload: { index: number; imageUrl: string };
 }
 
 export interface DeleteBlockAction {
@@ -116,14 +139,19 @@ export interface LoadExistingStoryAction {
 // interfaces of this type must include:
 //  - index
 //  - <data-to-change>
-export type UpdateBlockType = UpdateTextBlockAction | UpdateGraphBlockAction;
+export type UpdateBlockType =
+  | UpdateTextBlockAction
+  | UpdateImageBlockAction
+  | UpdateGraphBlockAction;
 
 // used by reducer function (reducer.ts)
 export type StoryActionType =
   | CreateEmptyTextBlockAction
   | CreateGraphBlockAction
+  | CreateEmptyImageBlockAction
   | UpdateTextBlockAction
   | UpdateGraphBlockAction
+  | UpdateImageBlockAction
   | DeleteBlockAction
   | SwapBlocksAction
   | UpdateTitleAction
