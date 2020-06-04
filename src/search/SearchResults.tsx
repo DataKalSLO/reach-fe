@@ -43,7 +43,7 @@ function convertToGraphCard(item: ElasticSearchResultObject) {
     graphId: item._id,
     userId: graphSource.user_id,
     userName: 'NOT_IMPLEMENTED',
-    timestamp: graphSource.timestamp,
+    timeStamp: graphSource.timestamp,
     graphTitle: graphSource.title,
     snapshotUrl: graphSource.snapshot_url,
     dataSources: [],
