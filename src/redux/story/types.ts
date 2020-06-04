@@ -19,6 +19,7 @@ export const LOAD_EXISTING_STORY = 'LOAD_EXISTING_STORY';
 //Story-related types
 export interface StoryMetaInformation {
   id: string;
+  userName: string;
   userID: string;
   title: string;
   description: string;
