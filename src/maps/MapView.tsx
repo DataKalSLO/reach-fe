@@ -1,43 +1,42 @@
+import { Grid } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import chroma from 'chroma-js';
 import _ from 'lodash';
 import React, { useEffect } from 'react';
 import ReactMapGL, { Layer, Source } from 'react-map-gl';
 import mapOutline from '../common/assets/Local Data/census/b25053';
 import noData from '../common/assets/Local Data/census/noHeatMap';
 import {
+  MARKER_ONE_COLOR,
+  MARKER_THREE_COLOR,
+  MARKER_TWO_COLOR,
   NUM_QUANTILES,
   PLACER,
   SLO_LATITUDE,
   SLO_LONGITUDE,
-  ZIP_TABULATION,
-  HEAT_MAP_COLOR,
-  MARKER_ONE_COLOR,
-  MARKER_TWO_COLOR
+  ZIP_TABULATION
 } from './constants';
 import { mapMarkers } from './MapMarker';
 import Popups from './MapPopups';
 import {
-  ColorAssociation,
-  LocationFeatures,
-  PrepGeoObject,
-  HeatMapSelection,
-  MarkerSelection,
-  SelectedMarker,
-  SetSelectedMarker,
-  SetColorAssociation
-} from './types';
-import {
+  cursorWithinBounds,
   getStat,
   onHover,
+  position,
   prepGeo,
   quantileMaker,
-  position,
-  tooltipOverlapsMarkers,
-  cursorWithinBounds
+  tooltipOverlapsMarkers
 } from './MapViewHelpers';
 import Tooltip from './Tooltip';
-import { Grid } from '@material-ui/core';
+import {
+  ColorAssociation,
+  HeatMapSelection,
+  LocationFeatures,
+  MarkerSelection,
+  PrepGeoObject,
+  SelectedMarker,
+  SetColorAssociation,
+  SetSelectedMarker
+} from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GeoJSON = require('geojson');
@@ -87,6 +86,8 @@ function MapView(props: MapViewProps) {
   const VIEWPORT_FLEX_FLOW = 'row';
   const VIEWPORT_ZOOM = 8;
 
+  const Z_INDEX = 1;
+
   // map outlines
   const outlinesPrepped = prepGeo(mapOutline.features);
   const outlineData = GeoJSON.parse(outlinesPrepped, { GeoJSON: 'geometry' });
@@ -123,7 +124,8 @@ function MapView(props: MapViewProps) {
 
   const markerColors = [
     { color: MARKER_ONE_COLOR },
-    { color: MARKER_TWO_COLOR }
+    { color: MARKER_TWO_COLOR },
+    { color: MARKER_THREE_COLOR }
   ];
 
   useEffect(() => {
@@ -175,8 +177,7 @@ function MapView(props: MapViewProps) {
     const minVal = getStat(heatMapFeatures, _.minBy, valueKey);
     const maxVal = getStat(heatMapFeatures, _.maxBy, valueKey);
     const quantiles_ = NUM_QUANTILES;
-    const colorScale_ = chroma.scale(['white', HEAT_MAP_COLOR]).domain([0, 1]);
-    const stops = quantileMaker(colorScale_, quantiles_, minVal, maxVal);
+    const stops = quantileMaker(quantiles_, minVal, maxVal);
     setLayer({
       id: 'data',
       type: 'fill',
@@ -222,7 +223,7 @@ function MapView(props: MapViewProps) {
           opacity,
           top,
           left,
-          zIndex: 999,
+          zIndex: Z_INDEX,
           pointerEvents: 'none',
           position: 'absolute'
         }}
@@ -238,7 +239,10 @@ function MapView(props: MapViewProps) {
         <ReactMapGL
           mapboxApiAccessToken={process.env.REACT_APP_TOKEN}
           {...viewport}
-          onViewportChange={viewport => setViewport(viewport)}
+          onViewportChange={viewport => {
+            viewport.width = window.innerWidth;
+            setViewport(viewport);
+          }}
           onHover={event =>
             onHover(
               defaultHoveredLocation,

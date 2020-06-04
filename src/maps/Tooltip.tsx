@@ -12,15 +12,18 @@ const TooltipCard = styled(Card)({
   backgroundColor: 'white'
 });
 
+const TOOLTIP_ELEVATION = 3;
+
 interface TooltipProps {
   value: number;
   zipCode: string;
 }
 
+// The tooltip for the heat map (distinct from "popups" in MarkerPopups.tsx)
 export default function Tooltip(props: TooltipProps) {
   const { value, zipCode } = props;
   return (
-    <TooltipCard elevation={3}>
+    <TooltipCard elevation={TOOLTIP_ELEVATION}>
       <CardContent>
         <TooltipTypography variant="body1">
           {`Value: ${addCommas(value)}`}

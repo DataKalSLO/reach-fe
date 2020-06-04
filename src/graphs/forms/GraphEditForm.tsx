@@ -2,8 +2,9 @@ import { Box, Divider, Paper, styled, Tab, Tabs } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import TabPanel from '../../common/components/FormTab';
-import { updateLocalGraph } from '../../redux/graphbuilder/actions';
+import { getGraph, updateLocalGraph } from '../../redux/graphbuilder/actions';
 import { Graph } from '../../redux/graphbuilder/types';
+import { isLocalGraph } from '../../redux/graphbuilder/utilities';
 import { PartialGraphConfigurationWithoutData } from '../../redux/graphs/types';
 import { Metadata } from '../../redux/vizbuilder/types';
 import { theme } from '../../theme/theme';
@@ -21,11 +22,12 @@ import {
 interface Props {
   graph: Graph;
   datasetsMetaData: Metadata[];
+  index: number;
   toggleEdit: () => void;
 }
 
 export default function GraphEditForm(props: Props) {
-  const { graph, datasetsMetaData, toggleEdit } = props;
+  const { graph, datasetsMetaData, index, toggleEdit } = props;
   const dispatch = useDispatch();
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -43,40 +45,44 @@ export default function GraphEditForm(props: Props) {
   >(graph.graphMetaData.graphOptions);
 
   const FormattingFormHandleReset = () => {
-    setGraphOptionsState({ ...graph.graphMetaData.graphOptions });
+    dispatch(getGraph(graph.graphMetaData.graphId, index));
   };
 
   const DataSourceFormHandleReset = () => {
-    setDataState(
-      convertDataSourcesToFormDataState(graph.graphMetaData.dataSources)
-    );
+    dispatch(getGraph(graph.graphMetaData.graphId, index));
   };
 
   const FormattingFormHandleUpdate = () => {
     dispatch(
-      updateLocalGraph({
-        ...graph,
-        graphMetaData: {
-          ...graph.graphMetaData,
-          graphOptions: graphOptionsState
-        }
-      })
+      updateLocalGraph(
+        {
+          ...graph,
+          graphMetaData: {
+            ...graph.graphMetaData,
+            graphOptions: graphOptionsState
+          }
+        },
+        index
+      )
     );
   };
 
   const DataSourceFormHandleUpdate = () => {
     dispatch(
-      updateLocalGraph({
-        ...graph,
-        graphMetaData: {
-          ...graph.graphMetaData,
-          dataSources: convertFormDataStateToDataSources(dataState),
-          graphOptions: {
-            ...graph.graphMetaData.graphOptions,
-            seriesConfigs: seriesState
+      updateLocalGraph(
+        {
+          ...graph,
+          graphMetaData: {
+            ...graph.graphMetaData,
+            dataSources: convertFormDataStateToDataSources(dataState),
+            graphOptions: {
+              ...graph.graphMetaData.graphOptions,
+              seriesConfigs: seriesState
+            }
           }
-        }
-      })
+        },
+        index
+      )
     );
   };
 
@@ -110,6 +116,7 @@ export default function GraphEditForm(props: Props) {
           setSeriesState={setSeriesState}
         >
           <FormEditFooter
+            isLocalGraph={isLocalGraph(graph)}
             handleCancel={toggleEdit}
             handleReset={DataSourceFormHandleReset}
             handleUpdate={DataSourceFormHandleUpdate}
@@ -122,6 +129,7 @@ export default function GraphEditForm(props: Props) {
           setState={setGraphOptionsState}
         >
           <FormEditFooter
+            isLocalGraph={isLocalGraph(graph)}
             handleCancel={toggleEdit}
             handleReset={FormattingFormHandleReset}
             handleUpdate={FormattingFormHandleUpdate}

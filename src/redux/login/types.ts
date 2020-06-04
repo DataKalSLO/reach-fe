@@ -3,6 +3,14 @@ export interface LoginData {
   password: string;
 }
 
+export interface PasswordResetData {
+  email: string;
+}
+
+export interface PasswordEditData {
+  password: string;
+}
+
 export interface RegisterData {
   email: string;
   password: string;
@@ -10,6 +18,7 @@ export interface RegisterData {
   role: number;
   occupation: string;
   notificationsEnabled: boolean;
+  isThirdParty: boolean;
 }
 
 export interface User {
@@ -19,12 +28,19 @@ export interface User {
   role: number;
   occupation: string;
   notificationsEnabled: boolean;
+  isThirdParty: boolean;
+}
+
+export interface PasswordChange {
+  currentPassword: string;
+  newPassword: string;
 }
 
 export interface UserSettings {
   name: string;
   occupation: string;
   notificationsEnabled: boolean;
+  passwordChangeRequest: PasswordChange | null;
 }
 
 export const LOGIN = 'LOGIN';

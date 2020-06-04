@@ -10,6 +10,8 @@ import { getUser } from '../redux/login/selectors';
 import {
   GraphBlockType,
   GRAPH_BLOCK_TYPE,
+  ImageBlockType,
+  IMAGE_BLOCK_TYPE,
   MapBlockType,
   MAP_BLOCK_TYPE,
   Story,
@@ -17,17 +19,15 @@ import {
   TextBlockType,
   TEXT_BLOCK_TYPE
 } from '../redux/story/types';
+import AdminReviewActions from './AdminReviewActions';
+import AdminReviewFeedback from './AdminReviewFeedback';
+import StoryShareButton from './StoryShareButton';
 
 export default function StoryView(props: { story: Story }): JSX.Element {
   const user = useSelector(getUser);
 
-  const createPublicationDateString = () => {
-    const name = user.name !== '' ? user.name : DEFAULT_USER_NAME;
-    return `By ${name} on ${new Date().toDateString()}`;
-  };
-
-  return (
-    <StyledBox>
+  const TitleDescription = (props: { story: Story }) => {
+    return (
       <TitleBox>
         <WrappingTypography variant="h3">
           {props.story.title}
@@ -36,9 +36,33 @@ export default function StoryView(props: { story: Story }): JSX.Element {
           {props.story.description}
         </WrappingTypography>
       </TitleBox>
+    );
+  };
+
+  const createPublicationDateString = () => {
+    const name = user.name !== '' ? user.name : DEFAULT_USER_NAME;
+    return `By ${name} on ${new Date().toDateString()}`;
+  };
+
+  return (
+    <StyledGrid>
+      <Grid
+        container
+        item
+        direction="row"
+        alignItems="flex-start"
+        justify="space-between"
+      >
+        <TitleDescription story={props.story} />
+        <StoryShareButton
+          shareURL={window.location.toString()}
+          storyTitle={props.story.title}
+        />
+      </Grid>
 
       <AuthorGrid
         container
+        item
         direction="row"
         alignContent="space-between"
         alignItems="center"
@@ -55,10 +79,12 @@ export default function StoryView(props: { story: Story }): JSX.Element {
         </Grid>
       </AuthorGrid>
 
-      {/* TODO: add backgrounds to rich text editors so they don't peek through when dragged over each other */}
-      {/* TODO: add bounding box so blocks cannot be dragged out of sortable area */}
+      <AdminReviewFeedback story={props.story} user={user} />
+
       {props.story.storyBlocks.map(block => convertBlockToJSX(block))}
-    </StyledBox>
+
+      <AdminReviewActions story={props.story} user={user} />
+    </StyledGrid>
   );
 }
 
@@ -68,6 +94,8 @@ function convertBlockToJSX(storyBlock: StoryBlockType): JSX.Element {
       return convertTextBlockToJSX(storyBlock);
     case GRAPH_BLOCK_TYPE:
       return convertGraphBlockToJSX(storyBlock);
+    case IMAGE_BLOCK_TYPE:
+      return convertImageBlockToJSX(storyBlock);
     case MAP_BLOCK_TYPE:
       return convertMapBlockToJSX(storyBlock);
   }
@@ -87,11 +115,22 @@ function convertGraphBlockToJSX(graphBlock: GraphBlockType): JSX.Element {
   );
 }
 
+function convertImageBlockToJSX(imageBlock: ImageBlockType): JSX.Element {
+  if (imageBlock.imageUrl !== '') {
+    return (
+      <div key={imageBlock.id}>
+        <img src={imageBlock.imageUrl} alt={'Story Preview'} />
+      </div>
+    );
+  }
+  return <div> Empty Image Block </div>;
+}
+
 function convertMapBlockToJSX(mapBlock: MapBlockType): JSX.Element {
   return <div key={mapBlock.id}>Map Block conversion not yet implemented</div>;
 }
 
-const StyledBox = styled(Box)({
+const StyledGrid = styled(Grid)({
   margin: '20px 10px 20px 10px'
 });
 

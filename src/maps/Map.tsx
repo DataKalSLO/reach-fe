@@ -5,17 +5,9 @@ import medianHouseholdIncomeHeatMap from '../common/assets/Local Data/census/med
 import { markerData } from '../common/assets/Local Data/MockMarkerData';
 import GeoFilter from './GeoFilter';
 import Layers from './Layers';
-import { BoundSelection, ColorAssociation } from './types.js';
-import MapView from './MapView';
 import Legend from './Legend';
-import {
-  SCROLL_SNAP_TYPE,
-  SCROLLBAR_WIDTH,
-  SCROLLBAR_WEBKIT_BOX_SHADOW,
-  WEBKIT_BORDER_RADIUS,
-  WEBKIT_BACKGROUND_COLOR,
-  WEBKIT_OUTLINE
-} from '../theme/theme.js';
+import MapView from './MapView';
+import { BoundSelection, ColorAssociation } from './types.js';
 
 // TODO: save to stories
 // TODO: use redux store instead of state
@@ -25,17 +17,21 @@ const defaultHeatMapSelection = medianHouseholdIncomeHeatMap;
 const defaultBoundsSelection: BoundSelection = 'Zip Code';
 const defaultColorAssociation: ColorAssociation = {};
 
+// sizing for the box that contains the map
 const BOX_WIDTH = '100%';
+const BOX_MIN_WIDTH = '350px';
 const BOX_HEIGHT = '100%';
-const BOX_MAX_WIDTH = 'calc(100vw/2)';
+const BOX_MAX_WIDTH = '98hw';
 
+// sizing for the card background which contains everything on the map side
 const CARD_HEIGHT = '95%';
 const CARD_MARGIN = '15px';
 
+// sizing for the map itself
 const MAP_HEIGHT = '100%';
 const MAP_WIDTH = '97%';
+const MAP_MIN_WIDTH = '350px';
 const MAP_MARGIN_LEFT = '10px';
-const MAP_OVERFLOW = 'scroll';
 
 function Map() {
   const [markerSelection, setMarkerSelection] = useState([
@@ -63,6 +59,10 @@ function Map() {
             selectedMarker={selectedMarker}
             setSelectedMarker={setSelectedMarker}
           />
+          <GeoFilter
+            boundSelection={boundSelection}
+            setBoundSelection={setBoundSelection}
+          />
           <MapView
             markerSelection={markerSelection}
             heatMapSelection={heatMapSelection}
@@ -70,10 +70,6 @@ function Map() {
             setSelectedMarker={setSelectedMarker}
             colorAssociation={colorAssociation}
             setColorAssociation={setColorAssociation}
-          />
-          <GeoFilter
-            boundSelection={boundSelection}
-            setBoundSelection={setBoundSelection}
           />
           <Legend
             heatMapSelection={heatMapSelection}
@@ -88,6 +84,7 @@ function Map() {
 
 const StyledBox = styled(Box)({
   width: BOX_WIDTH,
+  minWidth: BOX_MIN_WIDTH,
   height: BOX_HEIGHT,
   maxWidth: BOX_MAX_WIDTH
 });
@@ -100,21 +97,9 @@ const StyledCard = styled(Card)({
 const StyledMapContainer = styled(Box)({
   height: MAP_HEIGHT,
   width: MAP_WIDTH,
+  minWidth: MAP_MIN_WIDTH,
   marginLeft: MAP_MARGIN_LEFT,
-  overflow: MAP_OVERFLOW,
-  scrollSnapType: SCROLL_SNAP_TYPE,
-  '&::-webkit-scrollbar': {
-    width: SCROLLBAR_WIDTH
-  },
-  '&::-webkit-scrollbar-track': {
-    boxShadow: SCROLLBAR_WEBKIT_BOX_SHADOW,
-    webkitBoxShadow: SCROLLBAR_WEBKIT_BOX_SHADOW
-  },
-  '&::-webkit-scrollbar-thumb': {
-    borderRadius: WEBKIT_BORDER_RADIUS,
-    backgroundColor: WEBKIT_BACKGROUND_COLOR,
-    outline: WEBKIT_OUTLINE
-  }
+  overflow: 'scroll'
 });
 
 export default Map;

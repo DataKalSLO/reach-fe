@@ -1,17 +1,6 @@
 import { isUndefined } from 'util';
+import { User } from '../login/types';
 import { Graph, GraphWithIndex } from './types';
-
-export function replaceGraph(graphs: Graph[], newGraph?: Graph): Graph[] {
-  return graphs.map(graph => {
-    if (
-      !isUndefined(newGraph) &&
-      graph.graphMetaData.graphId === newGraph.graphMetaData.graphId
-    ) {
-      return newGraph;
-    }
-    return graph;
-  });
-}
 
 /*
  * Remove the graphId when duplicating a graph to
@@ -21,16 +10,35 @@ export function duplicateGraph(
   graphs: Graph[],
   newGraph: GraphWithIndex
 ): Graph[] {
-  const newGraphWithoutId: Graph = {
-    ...newGraph.graph,
-    graphMetaData: { ...newGraph.graph.graphMetaData, graphId: '' }
-  };
-  return insertAtIndexIfDefined(
-    graphs,
-    newGraph.index,
-    false,
-    newGraphWithoutId
-  );
+  if (!isUndefined(newGraph.graph)) {
+    const newGraphWithoutId: Graph = {
+      ...newGraph.graph,
+      graphMetaData: { ...newGraph.graph.graphMetaData, graphId: '' }
+    };
+    return insertAtIndexIfDefined(
+      graphs,
+      newGraph.index,
+      false,
+      newGraphWithoutId
+    );
+  }
+  return graphs;
+}
+
+/*
+ * Locally created graphs do not have an Id as it
+ * is generated in the backend when its saved
+ */
+export function isLocalGraph(graph: Graph): boolean {
+  return graph.graphMetaData.graphId === '';
+}
+
+/*
+ * If a user owns a graph, the userId from the graph
+ * should equal the user's email.
+ */
+export function userOwnsGraph(graph: Graph, user: User): boolean {
+  return graph.graphMetaData.userId === user.email;
 }
 
 /*

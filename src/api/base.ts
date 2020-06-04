@@ -2,9 +2,6 @@ import { Dispatch } from 'redux';
 
 const baseURL = process.env.REACT_APP_API_URL;
 
-// TEMPORARY: will access ES index from backend in future, for now accessing ES directly from client
-const searchURL = process.env.REACT_APP_SEARCH_URL;
-
 async function tryFetch(url: string, request: RequestInit) {
   const response = await fetch(url, request);
   const responseText = await response.text();
@@ -29,8 +26,15 @@ export function wrapWithCatch(fn: Function, errorFn: Function, cb?: Function) {
 }
 
 function buildRequestConfig(token?: string) {
-  const headers = new Headers();
+  const { headers } = buildRequestConfigWithToken(token);
   headers.set('Content-Type', 'application/JSON');
+  return {
+    headers: headers
+  };
+}
+
+function buildRequestConfigWithToken(token?: string) {
+  const headers = new Headers();
   if (token) headers.set('Authorization', `Bearer ${token}`);
 
   return {
@@ -47,15 +51,12 @@ export function post(endpoint: string, body: object, token?: string) {
   });
 }
 
-// TEMPORARY: will access ES index from backend in future, for now accessing ES directly from client
-export function esPost(endpoint: string, body: object) {
-  return tryFetch(searchURL + endpoint, {
+export function postForm(endpoint: string, form: FormData, token?: string) {
+  const config = buildRequestConfigWithToken(token); //DO NOT SET CONTENT TYPE
+  return tryFetch(baseURL + endpoint, {
     method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(body)
+    body: form,
+    ...config
   });
 }
 

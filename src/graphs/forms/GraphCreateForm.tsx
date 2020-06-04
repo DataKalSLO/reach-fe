@@ -3,11 +3,14 @@ import CloseIcon from '@material-ui/icons/Close';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import IconButton from '../../common/components/IconButton';
-import { saveGraph, toggleCreateGraph } from '../../redux/graphbuilder/actions';
-import { HEALTH } from '../../redux/graphs/constants';
+import {
+  createLocalGraph,
+  toggleCreateGraph
+} from '../../redux/graphbuilder/actions';
 import { PartialGraphConfigurationWithoutData } from '../../redux/graphs/types';
 import { getUser } from '../../redux/login/selectors';
 import { Metadata } from '../../redux/vizbuilder/types';
+import { GRAPH_COLORS } from '../builder/constants';
 import { SeriesConfiguration } from '../builder/types';
 import {
   CATEGORY_CREATE_LABEL,
@@ -42,7 +45,7 @@ export function GraphCreateForm(props: Props) {
   const userInfo = useSelector(getUser);
 
   const [activeStep, setActiveStep] = useState(0);
-  const [category, setCategory] = useState(HEALTH);
+  const [category, setCategory] = useState(NONE);
 
   const [seriesState, setSeriesState] = useState<SeriesConfiguration[]>(
     graph.graphOptions.seriesConfigs
@@ -57,7 +60,13 @@ export function GraphCreateForm(props: Props) {
   >(graph.graphOptions);
 
   const DataFormHandleUpdate = () => {
-    setGraphState({ ...graph.graphOptions, seriesConfigs: seriesState });
+    setGraphState({
+      ...graph.graphOptions,
+      seriesConfigs: seriesState.map((series, index) => {
+        // reset colors to default when the data sources update
+        return { ...series, color: GRAPH_COLORS[index] };
+      })
+    });
     setActiveStep(activeStep + 1);
   };
 
@@ -73,19 +82,23 @@ export function GraphCreateForm(props: Props) {
     setActiveStep(activeStep + 1);
   };
 
-  const handleSave = () => {
+  const handleCreate = () => {
+    const graphCategory = category === NONE ? undefined : category;
     dispatch(
-      saveGraph({
-        graphId: null,
-        graphCategory:
-          isAdmin(userInfo.role) && category !== NONE ? category : null,
-        graphTitle: graph.graphOptions.title,
-        dataSources: convertFormDataStateToDataSources(dataState),
-        graphOptions: graph.graphOptions,
-        graphSVG: ''
-      })
+      createLocalGraph(
+        {
+          graphId: '', // not initialized for local graphs
+          userId: '', // not initialized for local graphs
+          userName: '', // not initialized for local graphs
+          timeStamp: 0, // not initialized for local graphs
+          snapshotUrl: '', // not initialized for local graphs
+          graphTitle: graphState.title,
+          dataSources: convertFormDataStateToDataSources(dataState),
+          graphOptions: graphState
+        },
+        graphCategory
+      )
     );
-    dispatch(toggleCreateGraph());
   };
 
   /*
@@ -149,7 +162,7 @@ export function GraphCreateForm(props: Props) {
             labels={createFooterLabels}
             activeStep={activeStep}
             handleBack={handleBack}
-            handleNext={handleSave}
+            handleNext={handleCreate}
           />
         </FormPaper>
       )}
@@ -158,7 +171,10 @@ export function GraphCreateForm(props: Props) {
 }
 
 const FormCard = styled(Card)({
-  position: 'relative'
+  position: 'relative',
+  width: '85%',
+  minWidth: '300px',
+  maxWidth: 'calc(100vw/2.2)'
 });
 
 const FormPaper = styled(Paper)({

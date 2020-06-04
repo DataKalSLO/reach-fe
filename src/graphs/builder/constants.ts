@@ -15,17 +15,14 @@ export const GRAPH_X_AXIS_CROSSHAIR_ENABLED = true;
 export const GRAPH_X_AXIS_UNIQUE_NAMES_ENABLED = false;
 export const GRAPH_SERIES_DATA_LABELS_ENABLED = false;
 export const GRAPH_UNDEFINED_CATEGORY_VALUE = 'N/A';
+export const GRAPH_TITLE_WIDTH_ADJUST = -200;
 export const GRAPH_COLORS = [
-  '#7cb5ec',
-  '#434348',
-  '#90ed7d',
-  '#f7a35c',
-  '#8085e9',
-  '#f15c80',
-  '#e4d354',
-  '#2b908f',
-  '#f45b5b',
-  '#91e8e1'
+  '#99D6D7',
+  '#F2D17C',
+  '#37538C',
+  '#7B9992',
+  '#CECECD',
+  '#0B3E4C'
 ];
 
 /*
@@ -42,6 +39,14 @@ export const TOOLTIP_STACK_FOOTER_PREFIX = 'Stack: ';
 export const TOOLTIP_STACK_FOOTER_VALUE = '({series.userOptions.stack})';
 export const TOOLTIP_DEFAULT_HIGHCHARTS_POINT_FORMAT =
   '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b><br/>';
+
+/*
+ * Exporting Options Constants
+ * The title and subtitle are set to empty strings as theses are going
+ * to be manually added when a graph is displayed as a static image.
+ */
+export const EXPORT_GRAPH_TITLE = '';
+export const EXPORT_GRAPH_SUBTITLE = '';
 
 /*
  * Accessibility Options Constants

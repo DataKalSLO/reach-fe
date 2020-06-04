@@ -1,13 +1,10 @@
 import { Divider, Typography } from '@material-ui/core';
 import {
   ChatBubble,
-  Edit,
   InsertChart,
   InsertPhoto,
-  Map,
   Save,
-  TextFields,
-  Visibility
+  TextFields
 } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,12 +13,15 @@ import {
   submitStoryForReviewAndHandleResponse
 } from '../api/stories/operationHandlers';
 import { Drawer, List, ListItemButton } from '../reach-ui/core';
+import { EDIT_ICON, PREVIEW_ICON } from '../reach-ui/icons';
 import {
+  createEmptyImageBlock,
   createEmptyTextBlock,
+  createGraphBlock,
   updatePublicationStatus
 } from '../redux/story/actions';
-import { PublicationStatus } from '../redux/story/types';
 import { getStory } from '../redux/story/selectors';
+import { PublicationStatus } from '../redux/story/types';
 import { togglePreview } from '../redux/storybuilder/actions';
 import { getStoryBuilder } from '../redux/storybuilder/selectors';
 import { areValidMetaFields } from './StoryEditor';
@@ -69,31 +69,29 @@ export default function StorySidebar() {
       </Typography>
       <List>
         <ListItemButton
+          disabled={previewSelected}
           text={'Text'}
           icon={<TextFields />}
           onClick={() => dispatch(createEmptyTextBlock())}
         />
         <ListItemButton
+          disabled={previewSelected}
           text={'Graph'}
           icon={<InsertChart />}
-          onClick={() => alert('Not implemented')}
+          onClick={() => dispatch(createGraphBlock())}
         />
         <ListItemButton
-          text={'Map'}
-          icon={<Map />}
-          onClick={() => alert('Not implemented')}
-        />
-        <ListItemButton
+          disabled={previewSelected}
           text={'Image'}
           icon={<InsertPhoto />}
-          onClick={() => alert('Not implemented')}
+          onClick={() => dispatch(createEmptyImageBlock())}
         />
       </List>
       <Divider />
       <List>
         <ListItemButton
           text={previewSelected ? 'Edit' : 'Preview'}
-          icon={previewSelected ? <Edit /> : <Visibility />}
+          icon={previewSelected ? EDIT_ICON : PREVIEW_ICON}
           onClick={handleTogglePreview}
         />
       </List>

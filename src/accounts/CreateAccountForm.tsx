@@ -78,8 +78,8 @@ function CreateAccountForm() {
 
   const handleInputChangeEmail = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setEmail(event.target.value);
-      validateEmail(event.target.value);
+      setEmail(event.target.value.toLowerCase());
+      validateEmail(event.target.value.toLowerCase());
     },
     [validateEmail, setEmail]
   );
@@ -122,78 +122,98 @@ function CreateAccountForm() {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const handleSubmit = useCallback(
+    e => {
+      e.preventDefault();
+      dispatch(
+        wrapWithCatch(
+          register({
+            email,
+            password,
+            name: name,
+            role: BASE_USER,
+            occupation: occupation,
+            notificationsEnabled: emailNotificationEnabled,
+            isThirdParty: false
+          } as RegisterData),
+          handleAccountError,
+          () => history.go(-2) // returns user back to previous non-login page
+        )
+      );
+    },
+    [
+      dispatch,
+      email,
+      password,
+      name,
+      occupation,
+      emailNotificationEnabled,
+      handleAccountError,
+      history
+    ]
+  );
+
   return (
-    <BoxCenterSized>
-      <AccountTextField
-        fullWidth
-        placeholder="Name"
-        onChange={handleInputChangeName}
-        variant="filled"
-        size="small"
-      />
-      <OccupationDropdown
-        occupation={occupation}
-        setOccupation={setOccupation}
-      />
-      <AccountTextField
-        fullWidth
-        error={badEmail}
-        helperText={
-          badEmail ? 'An account has already been created with this email' : ''
-        }
-        placeholder="Email Address"
-        onChange={handleInputChangeEmail}
-        variant="filled"
-        size="small"
-      />
-      <ErrorMessage>{emailErrorMessage}</ErrorMessage>
-      <AccountTextField
-        fullWidth
-        placeholder="Password"
-        type="password"
-        onChange={handleInputChangePassword}
-        variant="filled"
-        size="small"
-      />
-      <ErrorMessage>{passwordErrorMessage}</ErrorMessage>
-      <AccountTextField
-        fullWidth
-        placeholder="Confirm Password"
-        type="password"
-        onChange={handleInputChangePasswordConfirmation}
-        variant="filled"
-        size="small"
-      />
-      <ErrorMessage>{passwordConfirmationErrorMessage}</ErrorMessage>
-      <EmailSignUp
-        emailNotificationEnabled={emailNotificationEnabled}
-        setEmailNotificationEnabled={setEmailNotificationEnabled}
-      />
-      <ButtonThin
-        fullWidth
-        variant="contained"
-        color="primary"
-        disabled={!emailValid || !passwordValid || !passwordConfirmationValid}
-        onClick={() => {
-          dispatch(
-            wrapWithCatch(
-              register({
-                email,
-                password,
-                name: name,
-                role: BASE_USER,
-                occupation: occupation,
-                notificationsEnabled: emailNotificationEnabled
-              } as RegisterData),
-              handleAccountError,
-              () => history.go(-2) // returns user back to previous non-login page
-            )
-          );
-        }}
-      >
-        CREATE ACCOUNT
-      </ButtonThin>
-    </BoxCenterSized>
+    <form onSubmit={handleSubmit}>
+      <BoxCenterSized>
+        <AccountTextField
+          fullWidth
+          placeholder="Name"
+          onChange={handleInputChangeName}
+          variant="filled"
+          size="small"
+        />
+        <OccupationDropdown
+          occupation={occupation}
+          setOccupation={setOccupation}
+        />
+        <AccountTextField
+          fullWidth
+          error={badEmail}
+          helperText={
+            badEmail
+              ? 'An account has already been created with this email'
+              : ''
+          }
+          placeholder="Email Address"
+          onChange={handleInputChangeEmail}
+          variant="filled"
+          size="small"
+        />
+        <ErrorMessage>{emailErrorMessage}</ErrorMessage>
+        <AccountTextField
+          fullWidth
+          placeholder="Password"
+          type="password"
+          onChange={handleInputChangePassword}
+          variant="filled"
+          size="small"
+        />
+        <ErrorMessage>{passwordErrorMessage}</ErrorMessage>
+        <AccountTextField
+          fullWidth
+          placeholder="Confirm Password"
+          type="password"
+          onChange={handleInputChangePasswordConfirmation}
+          variant="filled"
+          size="small"
+        />
+        <ErrorMessage>{passwordConfirmationErrorMessage}</ErrorMessage>
+        <EmailSignUp
+          emailNotificationEnabled={emailNotificationEnabled}
+          setEmailNotificationEnabled={setEmailNotificationEnabled}
+        />
+        <ButtonThin
+          fullWidth
+          variant="contained"
+          color="primary"
+          type="submit"
+          disabled={!emailValid || !passwordValid || !passwordConfirmationValid}
+        >
+          CREATE ACCOUNT
+        </ButtonThin>
+      </BoxCenterSized>
+    </form>
   );
 }
 
@@ -244,7 +264,7 @@ const ErrorMessage = styled(Typography)({
 });
 
 const BoxCenterSized = styled(BoxCenter)({
-  height: '660px',
+  height: '360px',
   width: '200px'
 });
 

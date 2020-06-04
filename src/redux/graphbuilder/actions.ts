@@ -11,66 +11,85 @@ import {
 import { ApiGraphConfirmationResponse } from '../../api/graphs/types';
 import { getDataColumnsForDataSourcesAndHandleResponse } from '../../api/vizbuilder/operationHandlers';
 import { GraphMetaData, GraphMetaDataApiPayload } from '../graphs/types';
+import { showSuccessStatusMessage } from '../notifications/actions';
 import {
+  CREATE_LOCAL_GRAPH,
   DELETE_GRAPH,
+  DELETE_LOCAL_GRAPH,
+  DELETE_MESSAGE,
   DUPLICATE_GRAPH,
+  FETCH,
   GET_ALL_USER_GRAPHS,
   GET_DEFAULT_GRAPHS_FOR_CATEGORY,
   GET_GRAPH,
   SAVE_GRAPH,
+  SAVE_MESSAGE,
   TOGGLE_CREATE_GRAPH,
   UPDATE_GRAPH,
-  UPDATE_LOCAL_GRAPH
+  UPDATE_LOCAL_GRAPH,
+  UPDATE_MESSAGE
 } from './constants';
 import {
+  CreateLocalGraph,
   DeleteGraphAction,
+  DeleteLocalGraph,
   DuplicateGraphAction,
+  FetchAction,
   GetGraphAction,
   Graph,
+  GraphWithIndex,
   SaveGraphAction,
   ToggleCreateGraphAction,
   UpdateGraphAction,
   UpdateLocalGraph
 } from './types';
 
-export function saveGraph(graphMetaData: GraphMetaDataApiPayload) {
+export function saveGraph(
+  graphMetaData: GraphMetaDataApiPayload,
+  index: number
+) {
   return async (dispatch: Dispatch) => {
     const metaData = await saveGraphAndHandleResponse(graphMetaData);
+    dispatch(showSuccessStatusMessage(!isUndefined(metaData), SAVE_MESSAGE));
     const graph = await createGraphWithData(metaData);
-    dispatch(saveGraphAction(graph));
+    dispatch(saveGraphAction({ graph: graph, index: index }));
   };
 }
 
-function saveGraphAction(payload?: Graph): SaveGraphAction {
+function saveGraphAction(payload: GraphWithIndex): SaveGraphAction {
   return {
     type: SAVE_GRAPH,
     payload: payload
   };
 }
 
-export function updateGraph(graphMetaData: GraphMetaDataApiPayload) {
+export function updateGraph(
+  graphMetaData: GraphMetaDataApiPayload,
+  index: number
+) {
   return async (dispatch: Dispatch) => {
     const metaData = await updateGraphAndHandleResponse(graphMetaData);
+    dispatch(showSuccessStatusMessage(!isUndefined(metaData), UPDATE_MESSAGE));
     const graph = await createGraphWithData(metaData);
-    dispatch(updateGraphAction(graph));
+    dispatch(updateGraphAction({ graph: graph, index: index }));
   };
 }
 
-function updateGraphAction(payload?: Graph): UpdateGraphAction {
+function updateGraphAction(payload: GraphWithIndex): UpdateGraphAction {
   return {
     type: UPDATE_GRAPH,
     payload: payload
   };
 }
 
-export function updateLocalGraph(graph: Graph) {
+export function updateLocalGraph(graph: Graph, index: number) {
   return async (dispatch: Dispatch) => {
     const graphWithData = await createGraphWithData(graph.graphMetaData);
-    dispatch(updateLocalGraphAction(graphWithData));
+    dispatch(updateLocalGraphAction({ graph: graphWithData, index: index }));
   };
 }
 
-function updateLocalGraphAction(payload?: Graph): UpdateLocalGraph {
+function updateLocalGraphAction(payload: GraphWithIndex): UpdateLocalGraph {
   return {
     type: UPDATE_LOCAL_GRAPH,
     payload: payload
@@ -80,6 +99,7 @@ function updateLocalGraphAction(payload?: Graph): UpdateLocalGraph {
 export function deleteGraph(graphId: string) {
   return async (dispatch: Dispatch) => {
     const payload = await deleteGraphAndHandleResponse(graphId);
+    dispatch(showSuccessStatusMessage(!isUndefined(payload), DELETE_MESSAGE));
     dispatch(deleteGraphAction(payload));
   };
 }
@@ -93,23 +113,52 @@ function deleteGraphAction(
   };
 }
 
-export function getGraph(graphId: string) {
-  return async (dispatch: Dispatch) => {
-    const metaData = await getGraphAndHandleResponse(graphId);
-    const graph = await createGraphWithData(metaData);
-    dispatch(getGraphAction(graph));
+export function deleteLocalGraph(index: number): DeleteLocalGraph {
+  return {
+    type: DELETE_LOCAL_GRAPH,
+    payload: index
   };
 }
 
-function getGraphAction(payload?: Graph): GetGraphAction {
+export function getGraph(graphId: string, index: number) {
+  return async (dispatch: Dispatch) => {
+    const metaData = await getGraphAndHandleResponse(graphId);
+    const graph = await createGraphWithData(metaData);
+    dispatch(getGraphAction({ graph: graph, index: index }));
+  };
+}
+
+function getGraphAction(payload: GraphWithIndex): GetGraphAction {
   return {
     type: GET_GRAPH,
     payload: payload
   };
 }
 
+export function createLocalGraph(
+  graphMetaData: GraphMetaData,
+  graphCategory?: string
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchAction());
+    const graphWithData = await createGraphWithData(graphMetaData);
+    if (!isUndefined(graphWithData)) {
+      graphWithData.graphCategory = graphCategory;
+    }
+    dispatch(createLocalGraphAction(graphWithData));
+  };
+}
+
+function createLocalGraphAction(payload?: Graph): CreateLocalGraph {
+  return {
+    type: CREATE_LOCAL_GRAPH,
+    payload: payload
+  };
+}
+
 export function getAllUserGraphs() {
   return async (dispatch: Dispatch) => {
+    dispatch(fetchAction());
     const graphsMetaData = await getAllGraphsAndHandleResponse();
     const graphs = await createGraphsWithData(graphsMetaData);
     dispatch(getAllUserGraphsAction(graphs));
@@ -125,6 +174,7 @@ function getAllUserGraphsAction(payload?: Graph[]) {
 
 export function getDefaultGraphs(initiative: string) {
   return async (dispatch: Dispatch) => {
+    dispatch(fetchAction());
     const graphsMetaData = await getDefaultGraphForCategoryAndHandleResponse(
       initiative
     );
@@ -157,11 +207,18 @@ export function toggleCreateGraph(): ToggleCreateGraphAction {
   };
 }
 
+export function fetchAction(): FetchAction {
+  return {
+    type: FETCH,
+    payload: undefined
+  };
+}
+
 /*
  * Given the graph metadata for a collection of graphs,
  * get the data values for each graph.
  */
-async function createGraphsWithData(
+export async function createGraphsWithData(
   graphsMetaData: GraphMetaData[] | undefined
 ): Promise<Graph[]> {
   let graphs: (Graph | undefined)[] = [];
@@ -178,7 +235,7 @@ async function createGraphsWithData(
  * Given the graph metadata, get the data values for
  * that graph.
  */
-async function createGraphWithData(
+export async function createGraphWithData(
   graphMetaData?: GraphMetaData
 ): Promise<Graph | undefined> {
   if (!isUndefined(graphMetaData)) {

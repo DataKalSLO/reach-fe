@@ -1,6 +1,12 @@
 export const REQUEST_SEARCH_RESULTS = 'REQUEST_SEARCH_RESULTS';
 export const RECEIVE_SEARCH_RESULTS = 'RECEIVE_SEARCH_RESULTS';
 
+export enum SearchIndexFilter {
+  graphs = 'GRAPHS',
+  stories = 'STORIES',
+  all = 'ALL'
+}
+
 // State structure in Redux store
 export interface SearchState {
   qry: string;
@@ -49,11 +55,24 @@ export interface ElasticSearchResultObject {
   _type: string;
   _id: string;
   _score: number;
-  _source: ElasticSearchSourceObject;
+  _source: ElasticSearchGraphSource | ElasticSearchStorySource;
 }
 
 interface ElasticSearchSourceObject {
   title: string;
+  user_id: string;
+}
+
+export interface ElasticSearchGraphSource extends ElasticSearchSourceObject {
+  timestamp: number;
+  snapshot_url: string;
+}
+
+export interface ElasticSearchStorySource extends ElasticSearchSourceObject {
+  publication_status: string;
+  description: string;
+  date_created: Date;
+  date_last_edited: Date;
 }
 
 // used by reducer function (reducer.ts)
