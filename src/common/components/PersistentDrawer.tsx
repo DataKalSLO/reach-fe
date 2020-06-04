@@ -68,21 +68,23 @@ export interface PersistentDrawerOptions
   selectedTab: string;
 }
 
+/* why localStorage:
+ *   - selection of a tab persists even after page refresh (not possible with hooks)
+ *   - doesn't require the developer to setup Redux
+ */
+export const getCurrentTab = (drawerId: string) =>
+  localStorage.getItem(drawerId);
+export const setTab = (drawerId: string, tab: string) => {
+  localStorage.setItem(drawerId, tab);
+  return tab;
+};
+
 export function getPersistentDrawerOptions(
   props: PersistentDrawerProps
 ): PersistentDrawerOptions {
-  /* why localStorage:
-   *   - selection of a tab persists even after page refresh (not possible with hooks)
-   *   - doesn't require the developer to setup Redux
-   */
-  const getCurrentTab = () => localStorage.getItem(props.drawerId);
-  const setDefaultTab = () => {
-    localStorage.setItem(props.drawerId, props.defaultTab);
-    return props.defaultTab;
-  };
-
   // retrieves the current tab from localStorage or sets up the default tab
-  const selectedTab = getCurrentTab() || setDefaultTab();
+  const selectedTab =
+    getCurrentTab(props.drawerId) || setTab(props.drawerId, props.defaultTab);
 
   return {
     selectedTab: selectedTab,

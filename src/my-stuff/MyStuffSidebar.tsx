@@ -28,6 +28,11 @@ const drawerOptions: PersistentDrawerProps = {
   drawerId: MY_STUFF_SIDEBAR
 };
 
+export const ALL_ITEMS_TAB_TITLE = 'All Items';
+export const CHARTS_TAB_TITLE = 'Charts';
+export const MAPS_TAB_TITLE = 'Maps';
+export const STORIES_TAB_TITLE = 'Stories';
+
 export default function MyStuffSidebar() {
   const history = useHistory();
   const navigateTo = (route: string) => history.push(route);
@@ -37,25 +42,25 @@ export default function MyStuffSidebar() {
     <Drawer width={SIDEBAR_WIDTH}>
       <List>
         <ListItemTab
-          title="All Items"
+          title={ALL_ITEMS_TAB_TITLE}
           icon={ALL_ITEMS_ICON}
           onClick={() => navigateTo(MY_STUFF)}
           {...options}
         />
         <ListItemTab
-          title="Charts"
+          title={CHARTS_TAB_TITLE}
           icon={CHARTS_ICON}
           onClick={() => navigateTo(MY_STUFF_CHARTS)}
           {...options}
         />
         <ListItemTab
-          title="Maps"
+          title={MAPS_TAB_TITLE}
           icon={MAPS_ICON}
           onClick={() => navigateTo(MY_STUFF_MAPS)}
           {...options}
         />
         <ListItemTab
-          title="Stories"
+          title={STORIES_TAB_TITLE}
           icon={STORIES_ICON}
           onClick={() => navigateTo(MY_STUFF_STORIES)}
           {...options}
