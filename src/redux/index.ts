@@ -17,6 +17,8 @@ import { vizReducer } from './vizbuilder/reducer';
 import { VizState } from './vizbuilder/types';
 import { graphBuilderReducer } from './graphbuilder/reducer';
 import { GraphBuilderState } from './graphbuilder/types';
+import { notificationsReducer } from './notifications/reducer';
+import { NotificationsState } from './notifications/types';
 
 function createRootReducer(history: History) {
   return combineReducers({
@@ -27,6 +29,7 @@ function createRootReducer(history: History) {
     graph: graphReducer,
     graphbuilder: graphBuilderReducer,
     vizbuilder: vizReducer,
+    notifications: notificationsReducer,
     search: searchReducer,
     router: connectRouter(history)
   });
@@ -40,6 +43,7 @@ export interface RootState {
   graph: GraphState;
   graphbuilder: GraphBuilderState;
   vizbuilder: VizState;
+  notifications: NotificationsState;
   router: RouterState;
   search: SearchState;
 }

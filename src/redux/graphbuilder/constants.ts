@@ -11,6 +11,7 @@ export const DUPLICATE_GRAPH = 'DUPLICATE_GRAPH';
 export const DELETE_LOCAL_GRAPH = 'DELETE_LOCAL_GRAPH';
 export const TOGGLE_CREATE_GRAPH = 'TOGGLE_CREATE_GRAPH';
 export const FETCH = 'FETCH';
+export const SET_ACTION_STATUS = 'SET_ACTION_STATUS';
 export const GET_ALL_USER_GRAPHS = 'GET_ALL_USER_GRAPHS';
 export const GET_DEFAULT_GRAPHS_FOR_CATEGORY =
   'GET_DEFAULT_GRAPHS_FOR_CATEGORY';
@@ -24,3 +25,11 @@ export const ASSETS = 'Assets';
 export const HOUSING = 'Housing and Living';
 export const EDUCATION = 'Education';
 export const HEALTH = 'Health';
+
+/*
+ * Status Message Action Constants
+ */
+export const SUCCESS_SEVERITY = 'success';
+export const SAVE_MESSAGE = 'Your graph was successfully saved!';
+export const UPDATE_MESSAGE = 'Your graph was successfully updated!';
+export const DELETE_MESSAGE = 'Your graph was successfully deleted!';
