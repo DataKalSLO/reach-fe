@@ -57,7 +57,7 @@ export default function StoryCard(props: Props): JSX.Element {
       return (
         <>
           <Divider variant="middle" />
-          <AdminReviewCardActions />
+          <AdminReviewCardActions story={props.story} />
         </>
       );
     } else {
