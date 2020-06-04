@@ -10,7 +10,7 @@ import {
 } from '../redux/story/types';
 import { theme } from '../theme/theme';
 import { storyBlockHasContent } from '../redux/story/utilities';
-import { deleteImageBlockImage } from '../api/stories/imageBlocks/operations';
+import { deleteImageFromBlock } from './image-block/ImageBlock';
 
 interface StoryBlockDeleteButtonProps {
   index: number;
@@ -37,7 +37,7 @@ const storyBlockDeleteButtonAction = (
         storyBlock.type === IMAGE_BLOCK_TYPE &&
         (storyBlock as ImageBlockType).imageUrl !== ''
       ) {
-        deleteImageBlockImage((storyBlock as ImageBlockType).imageUrl);
+        deleteImageFromBlock((storyBlock as ImageBlockType).imageUrl);
       }
       dispatch(deleteBlock(index));
     }

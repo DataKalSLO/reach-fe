@@ -31,23 +31,6 @@ export default function ImageBlock(props: Props) {
       });
   }
 
-  function deleteImage() {
-    deleteImageBlockImage(imageUrl)
-      .then((success: boolean) => {
-        if (success) {
-          setImageUrl('');
-        } else {
-          alert('Deletion Failed. Please try again later.');
-        }
-      })
-      .catch(err => {
-        alert(
-          'There was an error deleting your image. Please try again later.'
-        );
-        console.log(err);
-      });
-  }
-
   return (
     <StoryBlockContainer variant="outlined">
       {imageUrl === '' ? (
@@ -57,6 +40,19 @@ export default function ImageBlock(props: Props) {
       )}
     </StoryBlockContainer>
   );
+}
+
+export function deleteImageFromBlock(url: string) {
+  deleteImageBlockImage(url)
+    .then((success: boolean) => {
+      return success;
+    })
+    .catch(err => {
+      console.log(
+        'There was an error deleting your image. Please try again later.'
+      );
+      console.log(err);
+    });
 }
 
 const StoryBlockContainer = styled(Paper)({
