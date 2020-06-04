@@ -63,7 +63,7 @@ export function GraphCard({ graph, index }: GraphCardProps) {
 
   return (
     <Card variant="outlined">
-      <GraphCardActions>
+      <GraphCardActions style={{ overflow: 'scroll' }}>
         <GraphToolbar
           graph={graph}
           index={index}
