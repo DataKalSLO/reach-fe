@@ -6,7 +6,10 @@ import { useHistory } from 'react-router-dom';
 import { LoginData } from '../redux/login/types';
 import { loginUser } from '../redux/login/actions';
 import { wrapWithCatch } from '../api/base';
-import { HOME } from '../nav/constants';
+
+interface RedirectPreference {
+  redirectTo: string;
+}
 
 function ReachSignIn() {
   const dispatch = useDispatch();
@@ -35,6 +38,15 @@ function ReachSignIn() {
     setLoading(false);
   }, [setBadLogin, setLoading]);
 
+  const redirectAfterSuccess = useCallback(() => {
+    const state = history.location.state as RedirectPreference;
+    if (state === undefined) {
+      history.goBack();
+    } else {
+      history.push(state.redirectTo);
+    }
+  }, [history]);
+
   const handleSubmit = useCallback(
     e => {
       e.preventDefault();
@@ -43,11 +55,11 @@ function ReachSignIn() {
         wrapWithCatch(
           loginUser({ email, password } as LoginData),
           handleLoginError,
-          () => history.push(HOME)
+          redirectAfterSuccess
         )
       );
     },
-    [dispatch, email, password, handleLoginError, history]
+    [dispatch, email, password, handleLoginError, redirectAfterSuccess]
   );
 
   return (

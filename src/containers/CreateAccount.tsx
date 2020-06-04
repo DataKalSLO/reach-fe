@@ -4,11 +4,12 @@ import CreateAccountForm from '../accounts/CreateAccountForm';
 import ThirdPartyCreateAccount from '../accounts/ThirdPartyCreateAccount';
 import BoxCenter from '../common/components/BoxCenter';
 import { useHistory } from 'react-router-dom';
-import { LOGIN } from '../nav/constants';
+import { LOGIN, HOME } from '../nav/constants';
 
 function CreateAccount() {
   const history = useHistory();
-  const navigateTo = (route: string) => () => history.push(route);
+  const navigateTo = (route: string) => () =>
+    history.push(route, { redirectTo: HOME });
 
   return (
     <BoxCenterSized>
