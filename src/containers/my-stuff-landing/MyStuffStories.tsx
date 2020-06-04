@@ -18,7 +18,13 @@ export default function MyStuffStories() {
 
   const makeStoryCards = () => {
     return stories.map((storyInfo: Story) => {
-      return <StoryCard key={storyInfo.id} story={storyInfo} />;
+      return (
+        <StoryCard
+          key={storyInfo.id}
+          showAuthorActions={true}
+          story={storyInfo}
+        />
+      );
     });
   };
 

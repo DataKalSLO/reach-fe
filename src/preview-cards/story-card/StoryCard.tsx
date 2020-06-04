@@ -31,6 +31,7 @@ const styleProps: StyleProps = {
 
 interface Props {
   story: Story;
+  showAuthorActions?: boolean;
 }
 
 export default function StoryCard(props: Props): JSX.Element {
@@ -39,9 +40,8 @@ export default function StoryCard(props: Props): JSX.Element {
   const classes = usePreviewCardStyles(styleProps);
   const [isVisible, setIsVisible] = useState(true);
 
-  // Buttons to interact with a story that will only appear if current user is the author
-  const AuthorButtons = (props: { story: Story }) => {
-    if (user.email === props.story.userID) {
+  const AuthorButtons = () => {
+    if (props.showAuthorActions) {
       return <AuthorCardActions story={props.story} />;
     } else {
       return <React.Fragment />;
@@ -75,7 +75,7 @@ export default function StoryCard(props: Props): JSX.Element {
 
   return (
     <Card className={classes.card} variant="outlined">
-      <AuthorButtons story={props.story} />
+      <AuthorButtons />
 
       <CardActionArea
         onClick={() => history.push(STORY_VIEW + '/' + props.story.id)}
