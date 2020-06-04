@@ -1,10 +1,14 @@
 import { Button as CoreButton } from '@material-ui/core';
 import React from 'react';
 
+export type onClickWithEventType = (
+  event: React.MouseEvent<HTMLButtonElement>
+) => void;
+
 export interface Props {
   edge?: 'start' | 'end' | false; // Adjusts the left and right margins
   label: string;
-  onClick: () => void;
+  onClick: (() => void) | onClickWithEventType;
   // This extra parameter is necessary to allow other props to be passed through
   [x: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }

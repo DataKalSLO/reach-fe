@@ -18,6 +18,7 @@ import {
   TEXT_BLOCK_TYPE
 } from '../redux/story/types';
 import AdminReviewActions from './AdminReviewActions';
+import StoryShareButton from './StoryShareButton';
 
 export default function StoryView(props: { story: Story }): JSX.Element {
   const user = useSelector(getUser);
@@ -32,6 +33,10 @@ export default function StoryView(props: { story: Story }): JSX.Element {
       <TitleBox>
         <WrappingTypography variant="h3">
           {props.story.title}
+          <StoryShareButton
+            shareURL={window.location.toString()}
+            storyTitle={props.story.title}
+          />
         </WrappingTypography>
         <WrappingTypography variant="subtitle1">
           {props.story.description}
