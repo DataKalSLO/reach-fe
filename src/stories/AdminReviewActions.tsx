@@ -2,6 +2,10 @@ import { Box, styled } from '@material-ui/core';
 import { AssignmentTurnedIn, Feedback } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import {
+  rejectStoryWithFeedbackAndHandleResponse,
+  submitStoryForPublishingAndHandleResponse
+} from '../api/stories/operationHandlers';
 import { ADMIN_USER } from '../nav/constants';
 import { Button, TextField } from '../reach-ui/core';
 import { User } from '../redux/login/types';
@@ -14,11 +18,24 @@ interface Props {
   user: User;
 }
 export default function AdminReviewActions(props: Props) {
+  const FEEDBACK_TEXTBOX_ID = 'FEEDBACK_TEXTBOX_ID';
+
   const dispatch = useDispatch();
   const [showFeedbackInput, setShowFeedbackInput] = useState(false);
 
+  const rejectStoryWithFeedback = () => {
+    const feedback = (document.getElementById(
+      FEEDBACK_TEXTBOX_ID
+    ) as HTMLInputElement).value; // this only ever runs if showFeedbackInput
+    if (rejectStoryWithFeedbackAndHandleResponse(props.story, feedback)) {
+      dispatch(updatePublicationStatus(PublicationStatus.FEEDBACK));
+    }
+  };
+
   const publishStory = () => {
-    dispatch(updatePublicationStatus(PublicationStatus.PUBLISHED));
+    if (submitStoryForPublishingAndHandleResponse(props.story)) {
+      dispatch(updatePublicationStatus(PublicationStatus.PUBLISHED));
+    }
   };
 
   let feedbackInput: {} | undefined;
@@ -26,6 +43,7 @@ export default function AdminReviewActions(props: Props) {
     feedbackInput = (
       <>
         <TextField
+          id={FEEDBACK_TEXTBOX_ID}
           autoFocus
           required
           margin="dense"
@@ -41,7 +59,7 @@ export default function AdminReviewActions(props: Props) {
           />
           <Button
             label="Submit Feedback"
-            onClick={() => alert('not implemented')}
+            onClick={rejectStoryWithFeedback}
             edge="end"
           />
         </FlexEndBox>
