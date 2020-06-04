@@ -6,7 +6,7 @@ import {
   Divider
 } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ADMIN_USER, STORY_VIEW } from '../../nav/constants';
@@ -37,6 +37,7 @@ export default function StoryCard(props: Props): JSX.Element {
   const user = useSelector(getUser);
   const history = useHistory();
   const classes = usePreviewCardStyles(styleProps);
+  const [isVisible, setIsVisible] = useState(true);
 
   // Buttons to interact with a story that will only appear if current user is the author
   const AuthorButtons = (props: { story: Story }) => {
@@ -57,13 +58,20 @@ export default function StoryCard(props: Props): JSX.Element {
       return (
         <>
           <Divider variant="middle" />
-          <AdminReviewCardActions />
+          <AdminReviewCardActions
+            story={props.story}
+            setCardVisible={setIsVisible}
+          />
         </>
       );
     } else {
       return <React.Fragment />;
     }
   };
+
+  if (!isVisible) {
+    return <React.Fragment />;
+  }
 
   return (
     <Card className={classes.card} variant="outlined">
