@@ -5,9 +5,7 @@ import {
   Link,
   Divider,
   Button,
-  styled,
-  Dialog,
-  DialogTitle
+  styled
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import ReachSignIn from '../accounts/ReachSignIn';
