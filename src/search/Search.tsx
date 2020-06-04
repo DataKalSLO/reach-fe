@@ -35,7 +35,6 @@ export default function Search(props: SearchProps) {
   // emptyResultsComponent doesn't work any more
   // since we're doing additional filtering in SearchResults
   const resultsContainer = () => {
-    console.log(hits);
     if (showResults && hits.length) {
       return (
         <SearchResults
