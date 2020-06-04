@@ -15,7 +15,9 @@ import {
 import { Drawer, List, ListItemButton } from '../reach-ui/core';
 import { EDIT_ICON, PREVIEW_ICON } from '../reach-ui/icons';
 import {
+  createEmptyImageBlock,
   createEmptyTextBlock,
+  createGraphBlock,
   updatePublicationStatus
 } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
@@ -76,13 +78,13 @@ export default function StorySidebar() {
           disabled={previewSelected}
           text={'Graph'}
           icon={<InsertChart />}
-          onClick={() => alert('Not implemented')}
+          onClick={() => dispatch(createGraphBlock())}
         />
         <ListItemButton
           disabled={previewSelected}
           text={'Image'}
           icon={<InsertPhoto />}
-          onClick={() => alert('Not implemented')}
+          onClick={() => dispatch(createEmptyImageBlock())}
         />
       </List>
       <Divider />

@@ -1,35 +1,40 @@
 import { EditorState } from 'draft-js';
-import { uuid } from 'uuidv4';
-import { emptyTextBlock } from './reducer';
+import { getEmptyGraphBlock, getEmptyTextBlock } from './initializers';
+import { getEmptyImageBlock } from './reducer';
 import {
+  CreateEmptyImageBlockAction,
   CreateEmptyTextBlockAction,
   CreateGraphBlockAction,
+  CREATE_EMPTY_IMAGE_BLOCK,
   CREATE_EMPTY_TEXT_BLOCK,
   CREATE_GRAPH_BLOCK,
   DeleteBlockAction,
   DELETE_BLOCK,
-  GRAPH_BLOCK_TYPE,
+  LoadExistingStoryAction,
+  LOAD_EXISTING_STORY,
   PublicationStatus,
+  Story,
   SwapBlocksAction,
   SWAP_BLOCKS,
   UpdateDescriptionAction,
+  UpdateGraphBlockAction,
+  UpdateImageBlockAction,
   UpdatePublicationStatusAction,
   UpdateTextBlockAction,
   UpdateTitleAction,
   UPDATE_DESCRIPTION,
+  UPDATE_GRAPH_BLOCK,
+  UPDATE_IMAGE_BLOCK,
   UPDATE_PUBLICATION_STATUS,
   UPDATE_TEXT_BLOCK,
-  UPDATE_TITLE,
-  LoadExistingStoryAction,
-  Story,
-  LOAD_EXISTING_STORY
+  UPDATE_TITLE
 } from './types';
 
 export function createEmptyTextBlock(): CreateEmptyTextBlockAction {
   return {
     type: CREATE_EMPTY_TEXT_BLOCK,
     payload: {
-      block: emptyTextBlock()
+      block: getEmptyTextBlock()
     }
   };
 }
@@ -38,11 +43,16 @@ export function createGraphBlock(): CreateGraphBlockAction {
   return {
     type: CREATE_GRAPH_BLOCK,
     payload: {
-      block: {
-        id: uuid(),
-        graphID: uuid(),
-        type: GRAPH_BLOCK_TYPE
-      }
+      block: getEmptyGraphBlock()
+    }
+  };
+}
+
+export function createEmptyImageBlock(): CreateEmptyImageBlockAction {
+  return {
+    type: CREATE_EMPTY_IMAGE_BLOCK,
+    payload: {
+      block: getEmptyImageBlock()
     }
   };
 }
@@ -61,6 +71,25 @@ export function updateTextBlock(
   return {
     type: UPDATE_TEXT_BLOCK,
     payload: { index: index, editorState: editorState }
+  };
+}
+
+export function updateGraphBlock(
+  index: number,
+  graphID: string
+): UpdateGraphBlockAction {
+  return {
+    type: UPDATE_GRAPH_BLOCK,
+    payload: { index: index, graphID: graphID }
+  };
+}
+export function updateImageBlock(
+  index: number,
+  imageUrl: string
+): UpdateImageBlockAction {
+  return {
+    type: UPDATE_IMAGE_BLOCK,
+    payload: { index: index, imageUrl: imageUrl }
   };
 }
 

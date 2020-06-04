@@ -96,7 +96,10 @@ function GraphToolbar(props: GraphToolbarProps) {
         startIcon={<FileCopy />}
         onClick={() => dispatch(duplicateGraph(graph, index))}
       />
-      <GraphShareButton />
+      <GraphShareButton
+        graphTitle={graph.graphMetaData.graphTitle}
+        snapshotUrl={graph.graphMetaData.snapshotUrl}
+      />
       {/* Delete saved graphs owned by the user */}
       {!graphIsLocal && isUserGraph ? (
         <ToolbarButton
