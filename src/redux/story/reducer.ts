@@ -3,10 +3,14 @@ import { uuid } from 'uuidv4';
 import { removeObjectAtIndex } from '../../common/util/arrayTools';
 import { emptyEditorState } from '../../stories/text-block/RichTextEditor';
 import {
+  CREATE_EMPTY_IMAGE_BLOCK,
   CREATE_EMPTY_TEXT_BLOCK,
   CREATE_GRAPH_BLOCK,
   DELETE_BLOCK,
+  ImageBlockType,
+  IMAGE_BLOCK_TYPE,
   LOAD_EXISTING_STORY,
+  PublicationStatus,
   Story,
   StoryActionType,
   StoryBlockType,
@@ -15,16 +19,22 @@ import {
   TEXT_BLOCK_TYPE,
   UpdateBlockType,
   UPDATE_DESCRIPTION,
+  UPDATE_IMAGE_BLOCK,
+  UPDATE_PUBLICATION_STATUS,
   UPDATE_TEXT_BLOCK,
-  UPDATE_TITLE,
-  PublicationStatus,
-  UPDATE_PUBLICATION_STATUS
+  UPDATE_TITLE
 } from './types';
 
 export const emptyTextBlock = (): TextBlockType => ({
   id: uuid(),
   editorState: emptyEditorState,
   type: TEXT_BLOCK_TYPE
+});
+
+export const getEmptyImageBlock = (): ImageBlockType => ({
+  id: uuid(),
+  imageUrl: '',
+  type: IMAGE_BLOCK_TYPE
 });
 
 //TODO: Turn this into a function. Currently will stay same for every new story created in the same session.
@@ -62,6 +72,7 @@ function updateObjectInArray(
 export function storyReducer(state = initialStory, action: StoryActionType) {
   switch (action.type) {
     case CREATE_EMPTY_TEXT_BLOCK: // NOTE: using the fall through features of swtich statements
+    case CREATE_EMPTY_IMAGE_BLOCK:
     case CREATE_GRAPH_BLOCK:
       return {
         ...state,
@@ -100,6 +111,7 @@ export function storyReducer(state = initialStory, action: StoryActionType) {
         publicationStatus: action.payload.newPublicationStatus
       };
     case UPDATE_TEXT_BLOCK:
+    case UPDATE_IMAGE_BLOCK:
       return {
         ...state,
         storyBlocks: updateObjectInArray(state.storyBlocks, action)

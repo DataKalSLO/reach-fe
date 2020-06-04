@@ -16,7 +16,7 @@ export const emptyEditorState = EditorState.createEmpty(
 );
 
 export default function RichTextEditor(props: Props) {
-  const { editorState, setEditorState } = props; // this is NOT a hook, the state is being managed in StoryForm
+  const { editorState, setEditorState } = props; // this is NOT a hook, the state is being managed in StoryEditor
 
   // enable key binding shortcuts (e.g. CTRL+B for bold)
   const handleKeyCommand = (command: string, editorState: EditorState) => {
