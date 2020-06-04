@@ -28,4 +28,3 @@ export type StoryBlockDB =
   | GraphBlockType
   | ImageBlockType
   | MapBlockType;
-

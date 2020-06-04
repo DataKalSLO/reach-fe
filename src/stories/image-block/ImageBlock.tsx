@@ -1,11 +1,14 @@
 import { Box, Button, Paper, styled } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import ImageDropzone from './ImageDropzone';
 import {
   deleteImageBlockImage,
   uploadImageForImageBlocks
 } from '../../api/stories/imageBlocks/operations';
 import { ImageUploadResponse } from '../../api/stories/imageBlocks/types';
+import { HighlightOff } from '@material-ui/icons';
+import { IconButton } from '../../reach-ui/core';
+import { theme } from '../../theme/theme';
 
 interface Props {
   blockId: string;
@@ -14,12 +17,14 @@ interface Props {
 }
 
 export default function ImageBlock(props: Props) {
-  const { blockId, imageUrl, setImageUrl } = props;
+  const { blockId } = props;
+  const [imageUrl, setImageUrl] = useState('');
 
   async function uploadAndUpdateUrl(files: [File]) {
     uploadImageForImageBlocks(files[0], blockId)
       .then((response: ImageUploadResponse) => {
         const { imageUrl } = response;
+        console.log(imageUrl);
         setImageUrl(imageUrl);
       })
       .catch(err => {
@@ -52,20 +57,29 @@ export default function ImageBlock(props: Props) {
       {imageUrl === '' ? (
         <ImageDropzone onFileDrop={uploadAndUpdateUrl}></ImageDropzone>
       ) : (
-        <Box>
+        <ImageBox>
           <img src={imageUrl} alt="Preview" />
-          <Button
-            variant="contained"
-            color="default"
-            onClick={() => deleteImage()}
-          >
-            Remove Image
-          </Button>
-        </Box>
+          <CornerIconButton
+            aria-label={'remove image'}
+            onClick={deleteImage}
+            style={{ color: theme.palette.error.main, background: 'white' }}
+            icon={<HighlightOff />}
+          />
+        </ImageBox>
       )}
     </StoryBlockContainer>
   );
 }
+
+const ImageBox = styled(Box)({
+  position: 'relative'
+});
+
+const CornerIconButton = styled(IconButton)({
+  position: 'absolute',
+  right: 0,
+  top: 0
+});
 
 const StoryBlockContainer = styled(Paper)({
   flexGrow: 1,
