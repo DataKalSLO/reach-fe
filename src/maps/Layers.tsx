@@ -46,8 +46,9 @@ export default function Layers() {
 
   const heatMapIsSelected = Object.keys(heatMapSelection).length > 0;
 
-  const diffElem = (l1: any, l2: any) =>
-    l1.filter((e1: any) => !l2.includes(e1))[0];
+  // this function finds the element that exists in l1 but not in l2
+  const diffElem = (l1: Selection[], l2: Selection[]) =>
+    l1.filter((e1: Selection) => !l2.includes(e1))[0];
 
   const updateSelections = (event: any, value: Selection[] | null) => {
     let newSelections = value;
