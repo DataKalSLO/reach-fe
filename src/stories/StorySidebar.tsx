@@ -3,7 +3,6 @@ import {
   ChatBubble,
   InsertChart,
   InsertPhoto,
-  Map,
   Save,
   TextFields
 } from '@material-ui/icons';
@@ -78,12 +77,6 @@ export default function StorySidebar() {
           disabled={previewSelected}
           text={'Graph'}
           icon={<InsertChart />}
-          onClick={() => alert('Not implemented')}
-        />
-        <ListItemButton
-          disabled={previewSelected}
-          text={'Map'}
-          icon={<Map />}
           onClick={() => alert('Not implemented')}
         />
         <ListItemButton

@@ -14,11 +14,7 @@ import {
   UPDATE_LOCAL_GRAPH
 } from './constants';
 import { GraphActionTypes, GraphBuilderState } from './types';
-import {
-  duplicateGraph,
-  insertAtIndexIfDefined,
-  replaceGraph
-} from './utilities';
+import { duplicateGraph, insertAtIndexIfDefined } from './utilities';
 
 const initialState: GraphBuilderState = {
   graphs: [],
@@ -34,12 +30,22 @@ export function graphBuilderReducer(
     case SAVE_GRAPH:
       return {
         ...state,
-        graphs: insertAtIndexIfDefined(state.graphs, 0, true, action.payload)
+        graphs: insertAtIndexIfDefined(
+          state.graphs,
+          action.payload.index,
+          true,
+          action.payload.graph
+        )
       };
     case UPDATE_GRAPH:
       return {
         ...state,
-        graphs: replaceGraph(state.graphs, action.payload)
+        graphs: insertAtIndexIfDefined(
+          state.graphs,
+          action.payload.index,
+          true,
+          action.payload.graph
+        )
       };
     case DELETE_GRAPH:
       return {
@@ -75,7 +81,12 @@ export function graphBuilderReducer(
     case UPDATE_LOCAL_GRAPH:
       return {
         ...state,
-        graphs: replaceGraph(state.graphs, action.payload)
+        graphs: insertAtIndexIfDefined(
+          state.graphs,
+          action.payload.index,
+          true,
+          action.payload.graph
+        )
       };
     case CREATE_LOCAL_GRAPH:
       return {
