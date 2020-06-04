@@ -31,7 +31,7 @@ export const emptyTextBlock = (): TextBlockType => ({
   type: TEXT_BLOCK_TYPE
 });
 
-export const emptyImageBlock = (): ImageBlockType => ({
+export const getEmptyImageBlock = (): ImageBlockType => ({
   id: uuid(),
   imageUrl: '',
   type: IMAGE_BLOCK_TYPE

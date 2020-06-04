@@ -1,6 +1,6 @@
 import { EditorState } from 'draft-js';
 import { uuid } from 'uuidv4';
-import { emptyImageBlock, emptyTextBlock } from './reducer';
+import { getEmptyImageBlock, emptyTextBlock } from './reducer';
 import {
   CreateEmptyImageBlockAction,
   CreateEmptyTextBlockAction,
@@ -55,7 +55,7 @@ export function createEmptyImageBlock(): CreateEmptyImageBlockAction {
   return {
     type: CREATE_EMPTY_IMAGE_BLOCK,
     payload: {
-      block: emptyImageBlock()
+      block: getEmptyImageBlock()
     }
   };
 }
