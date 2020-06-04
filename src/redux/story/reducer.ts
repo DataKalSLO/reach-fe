@@ -26,7 +26,6 @@ function updateObjectInArray(
   storyBlocks: Array<StoryBlockType>,
   action: UpdateBlockType
 ) {
-  console.log(action);
   return storyBlocks.map((item, i) => {
     // updates desired storyblock
     if (action.payload.index === i) {
