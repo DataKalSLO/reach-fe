@@ -70,7 +70,7 @@ function populateLegendData(
       const link = prefix.concat(selection.source);
       const markerLegend = {
         key: legendData.length,
-        label: displayName(vizBuilderState, selection.name),
+        label: selection.name,
         vintage: selection.vintage,
         source: link,
         color: colorAssociation[selection.name].color
