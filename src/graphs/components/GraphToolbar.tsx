@@ -64,6 +64,16 @@ function GraphToolbar(props: GraphToolbarProps) {
     graphSVG: btoa(graphSVG)
   };
 
+  const yAxisDataSource = newGraph.dataSources.filter(
+    source => source.seriesType === 'Y_AXIS'
+  )[0];
+
+  const tableName = yAxisDataSource.datasetName;
+
+  const newGraphSelection = vizBuilderState.datasetTableNames.filter(
+    selection => selection.tableName === tableName
+  )[0];
+
   // TODO: Collapse toolbar when width is too small
   return (
     <Toolbar>
@@ -72,19 +82,11 @@ function GraphToolbar(props: GraphToolbarProps) {
         variant="text"
         color="default"
         startIcon={<SyncIcon />}
+        disabled={!newGraphSelection.geoType}
         onClick={() => {
           console.log(newGraph.dataSources);
-          const yAxisDataSource = newGraph.dataSources.filter(
-            source => source.seriesType === 'Y_AXIS'
-          )[0];
-          const tableName = yAxisDataSource.datasetName;
-          const targetSelection = vizBuilderState.datasetTableNames.filter(
-            selection => selection.tableName === tableName
-          )[0];
-          getFeatureCollection(tableName, targetSelection.geoType)(dispatch);
-          dispatch(addselectedTableAction(targetSelection));
-
-          // Default to first column name
+          getFeatureCollection(tableName, newGraphSelection.geoType)(dispatch);
+          dispatch(addselectedTableAction(newGraphSelection));
           dispatch(updateSelectedColumn(yAxisDataSource.columnNames[0]));
         }}
       />
