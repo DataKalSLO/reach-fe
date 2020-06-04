@@ -22,7 +22,7 @@ export default function ImageDropzone(props: ImageDropzoneProps) {
         setRejectMessage(message);
         setTimeout(() => {
           setRejectMessage('');
-        }, 5000);
+        }, 5000); // show error for 5 seconds before returning to dropzone
       }
 
       if (acceptedFiles.length > 1) {
