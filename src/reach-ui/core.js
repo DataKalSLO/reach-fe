@@ -9,6 +9,7 @@ import Gallery from '../common/components/Gallery';
 import IconButton from '../common/components/IconButton';
 import List from '../common/components/List';
 import ListItemButton from '../common/components/ListItemButton';
+import Menu from '../common/components/Menu';
 import {
   getPersistentDrawerOptions,
   ListItemTab
@@ -30,6 +31,7 @@ export {
   List,
   ListItemButton,
   ListItemTab,
+  Menu,
   Popper,
   SidebarContentBox,
   Snackbar,

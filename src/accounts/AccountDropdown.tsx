@@ -1,18 +1,19 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getUser } from '../redux/login/selectors';
+import { Divider, MenuItem, styled } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { Menu, MenuItem, Divider, styled } from '@material-ui/core';
-import { logoutAction } from '../redux/login/actions';
-import { SETTINGS } from '../nav/constants';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { SETTINGS } from '../nav/constants';
+import { Menu } from '../reach-ui/core';
+import { logoutAction } from '../redux/login/actions';
+import { getUser } from '../redux/login/selectors';
 
 interface AccountDropdownProps {
   anchorEl: HTMLElement | null;
   setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
 }
 
-function AccountDropdown(props: AccountDropdownProps) {
+export default function AccountDropdown(props: AccountDropdownProps) {
   const history = useHistory();
   const user = useSelector(getUser);
   const navigateTo = (route: string) => history.push(route);
@@ -21,7 +22,7 @@ function AccountDropdown(props: AccountDropdownProps) {
   };
   const dispatch = useDispatch();
   const logout = () => {
-    props.setAnchorEl(null);
+    handleClose();
     dispatch(logoutAction());
   };
   const navigateAndCloseDropdown = (route: string) => () => {
@@ -30,11 +31,13 @@ function AccountDropdown(props: AccountDropdownProps) {
   };
 
   return (
-    <StyledMenu
-      id="menu"
+    <Menu
+      id="user-settings-menu"
       anchorEl={props.anchorEl}
+      setAnchorEl={props.setAnchorEl}
       open={Boolean(props.anchorEl)}
       onClose={handleClose}
+      marginTop="30px"
     >
       <StyledMenuItem onClick={handleClose}>
         Signed in as <br /> {user.email}
@@ -45,13 +48,9 @@ function AccountDropdown(props: AccountDropdownProps) {
       </StyledMenuItem>
       <Divider />
       <StyledMenuItem onClick={logout}>Logout</StyledMenuItem>
-    </StyledMenu>
+    </Menu>
   );
 }
-
-const StyledMenu = styled(Menu)({
-  marginTop: '30px'
-});
 
 const StyledMenuItem = styled(MenuItem)({
   whiteSpace: 'initial'
@@ -61,5 +60,3 @@ AccountDropdown.propTypes = {
   anchorEl: PropTypes.object,
   setAnchorEl: PropTypes.func.isRequired
 };
-
-export default AccountDropdown;

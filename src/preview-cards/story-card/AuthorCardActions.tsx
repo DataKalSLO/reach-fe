@@ -9,6 +9,7 @@ import { IconButton } from '../../reach-ui/core';
 import { DELETE_ICON, EDIT_ICON } from '../../reach-ui/icons';
 import { loadExistingStory } from '../../redux/story/actions';
 import { PublicationStatus, Story } from '../../redux/story/types';
+import StoryStatusMenu from './StoryStatusMenu';
 
 const useStyles = makeStyles({
   actions: {
@@ -78,6 +79,7 @@ export default function AuthorCardActions(props: Props) {
 
   return (
     <CardActions className={classes.actions}>
+      <StoryStatusMenu />
       <EditButton story={props.story} dispatch={dispatch} />
       <DeleteButton story={props.story} dispatch={dispatch} />
     </CardActions>
