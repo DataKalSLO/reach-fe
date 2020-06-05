@@ -11,7 +11,7 @@ export interface GalleryProps {
 
 export default function Gallery(props: GalleryProps) {
   return (
-    <PaddedGrid container {...props} justify="center">
+    <PaddedGrid container {...props}>
       {props.children}
     </PaddedGrid>
   );
