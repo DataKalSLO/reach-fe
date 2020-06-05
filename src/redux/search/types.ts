@@ -61,6 +61,7 @@ export interface ElasticSearchResultObject {
 interface ElasticSearchSourceObject {
   title: string;
   user_id: string;
+  user_name: string;
 }
 
 export interface ElasticSearchGraphSource extends ElasticSearchSourceObject {

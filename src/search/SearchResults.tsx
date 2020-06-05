@@ -23,13 +23,13 @@ function convertToStoryCard(item: ElasticSearchResultObject) {
   const storySource = item._source as ElasticSearchStorySource;
   const currentStory: Story = {
     id: item._id,
-    userName: 'NOT_IMPLEMENTED',
+    userName: storySource.user_name,
     userID: storySource.user_id,
     title: storySource.title,
     description: storySource.description,
     publicationStatus: PublicationStatus.PUBLISHED,
-    dateCreated: storySource.date_created,
-    dateLastEdited: storySource.date_last_edited,
+    dateCreated: new Date(storySource.date_created),
+    dateLastEdited: new Date(storySource.date_last_edited),
     storyBlocks: []
   };
 
@@ -42,7 +42,7 @@ function convertToGraphCard(item: ElasticSearchResultObject) {
   const currentGraph: GraphMetaData = {
     graphId: item._id,
     userId: graphSource.user_id,
-    userName: 'NOT_IMPLEMENTED',
+    userName: graphSource.user_name,
     timeStamp: graphSource.timestamp,
     graphTitle: graphSource.title,
     snapshotUrl: graphSource.snapshot_url,
