@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { getStoriesInDraft } from '../../api/stories/operations';
+import { getStoriesWithUserId } from '../../api/stories/operations';
 import { setTab } from '../../common/components/PersistentDrawer';
 import { STORIES_TAB_TITLE } from '../../my-stuff/MyStuffSidebar';
 import MyStuffWrapper from '../../my-stuff/MyStuffWrapper';
@@ -14,9 +14,7 @@ export default function MyStuffStories() {
   setTab(MY_STUFF_SIDEBAR, STORIES_TAB_TITLE);
 
   useEffect(() => {
-    // TODO: need an API call to retrieve all stories by userId
-    // (i.e. stories in REVIEW, PUBLISHED, DRAFT and FEEDBACK)
-    getStoriesInDraft().then(storyData => {
+    getStoriesWithUserId().then(storyData => {
       setStories(storyData);
     });
   }, []);
