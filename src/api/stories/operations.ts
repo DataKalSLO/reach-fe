@@ -14,6 +14,7 @@ enum StoryActions {
   CREATE,
   UPDATE,
   DELETE_WITH_ID,
+  GET_STORIES_WITH_USER_ID,
   GET_STORIES_PUBLISHED,
   GET_STORIES_REVIEW,
   GET_STORIES_DRAFT
@@ -35,6 +36,13 @@ export async function getStoryWithStoryID(storyID: string): Promise<Story> {
   // draft stories require token, published don't. Sending token harmless in latter.
   return transformToStory(
     await optionalAuthenticatedGet(['story', storyID].join('/'))
+  );
+}
+
+export async function getStoriesWithUserId(): Promise<Story[]> {
+  return httpRequestWithStoryArrayResponse(
+    StoryActions.GET_STORIES_WITH_USER_ID,
+    undefined
   );
 }
 
@@ -83,17 +91,20 @@ async function storyHttp(
     case StoryActions.UPDATE:
       response = authenticatedPut('story', payload as object);
       break;
+    case StoryActions.GET_STORIES_WITH_USER_ID:
+      response = authenticatedGet(['story', 'user'].join('/')); //user id gathered from token
+      break;
     case StoryActions.GET_STORIES_PUBLISHED:
       response = get('story'); // no token required so don't prompt for login
       break;
     case StoryActions.GET_STORIES_REVIEW:
-      response = authenticatedGet('story/review');
+      response = authenticatedGet(['story', 'review'].join('/'));
       break;
     case StoryActions.GET_STORIES_DRAFT:
-      response = authenticatedGet('story/draft');
+      response = authenticatedGet(['story', 'draft'].join('/'));
       break;
     case StoryActions.DELETE_WITH_ID:
-      response = authenticatedDel('story/' + payload);
+      response = authenticatedDel(['story', payload].join('/'));
       break;
     default:
       throw new Error('Unimplemented mutation action on Story: ' + actionType);
