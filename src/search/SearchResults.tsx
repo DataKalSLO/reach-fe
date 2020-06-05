@@ -28,8 +28,8 @@ function convertToStoryCard(item: ElasticSearchResultObject) {
     title: storySource.title,
     description: storySource.description,
     publicationStatus: PublicationStatus.PUBLISHED,
-    dateCreated: storySource.date_created,
-    dateLastEdited: storySource.date_last_edited,
+    dateCreated: new Date(storySource.date_created),
+    dateLastEdited: new Date(storySource.date_last_edited),
     storyBlocks: []
   };
 
