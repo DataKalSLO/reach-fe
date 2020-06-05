@@ -73,6 +73,7 @@ export interface ElasticSearchStorySource extends ElasticSearchSourceObject {
   description: string;
   date_created: Date;
   date_last_edited: Date;
+  user_name: string;
 }
 
 // used by reducer function (reducer.ts)

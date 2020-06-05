@@ -23,7 +23,7 @@ function convertToStoryCard(item: ElasticSearchResultObject) {
   const storySource = item._source as ElasticSearchStorySource;
   const currentStory: Story = {
     id: item._id,
-    userName: 'NOT_IMPLEMENTED',
+    userName: storySource.user_name,
     userID: storySource.user_id,
     title: storySource.title,
     description: storySource.description,
