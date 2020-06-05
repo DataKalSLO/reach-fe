@@ -53,12 +53,17 @@ export default function StoryView(props: { story: Story }): JSX.Element {
         direction="row"
         alignItems="flex-start"
         justify="space-between"
+        wrap="nowrap"
       >
-        <TitleDescription story={props.story} />
-        <StoryShareButton
-          shareURL={window.location.toString()}
-          storyTitle={props.story.title}
-        />
+        <Grid item>
+          <TitleDescription story={props.story} />
+        </Grid>
+        <Grid item xs={1}>
+          <StoryShareButton
+            shareURL={window.location.toString()}
+            storyTitle={props.story.title}
+          />
+        </Grid>
       </Grid>
 
       <AuthorGrid
