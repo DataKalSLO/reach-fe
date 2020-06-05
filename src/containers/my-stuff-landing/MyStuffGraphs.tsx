@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { isUndefined } from 'util';
 import { getAllGraphsAndHandleResponse } from '../../api/graphs/operationHandlers';
 import { setTab } from '../../common/components/PersistentDrawer';
-import { CHARTS_TAB_TITLE } from '../../my-stuff/MyStuffSidebar';
+import { GRAPHS_TAB_TITLE } from '../../my-stuff/MyStuffSidebar';
 import MyStuffWrapper from '../../my-stuff/MyStuffWrapper';
 import GraphCard from '../../preview-cards/graph-card/GraphCard';
 import { MY_STUFF_SIDEBAR } from '../../reach-ui/constants';
 import { GraphMetaData } from '../../redux/graphs/types';
 
-export default function MyStuffCharts() {
+export default function MyStuffGraphs() {
   const [graphs, setGraphs] = useState([] as GraphMetaData[]);
 
   // ensures correct tab is selected in the MyStuffSidebar
-  setTab(MY_STUFF_SIDEBAR, CHARTS_TAB_TITLE);
+  setTab(MY_STUFF_SIDEBAR, GRAPHS_TAB_TITLE);
 
   useEffect(() => {
     getAllGraphsAndHandleResponse().then(response => {
@@ -31,5 +31,5 @@ export default function MyStuffCharts() {
       />
     ));
 
-  return <MyStuffWrapper title="My Charts">{makeStoryCards()}</MyStuffWrapper>;
+  return <MyStuffWrapper title="My Graphs">{makeStoryCards()}</MyStuffWrapper>;
 }

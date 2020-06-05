@@ -1,12 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { PersistentDrawerProps } from '../common/components/PersistentDrawer';
-import {
-  MY_STUFF,
-  MY_STUFF_CHARTS,
-  MY_STUFF_MAPS,
-  MY_STUFF_STORIES
-} from '../nav/constants';
+import { MY_STUFF, MY_STUFF_GRAPHS, MY_STUFF_STORIES } from '../nav/constants';
 import { MY_STUFF_SIDEBAR } from '../reach-ui/constants';
 import {
   Drawer,
@@ -14,12 +9,7 @@ import {
   List,
   ListItemTab
 } from '../reach-ui/core';
-import {
-  ALL_ITEMS_ICON,
-  CHARTS_ICON,
-  MAPS_ICON,
-  STORIES_ICON
-} from '../reach-ui/icons';
+import { ALL_ITEMS_ICON, GRAPHS_ICON, STORIES_ICON } from '../reach-ui/icons';
 
 const SIDEBAR_WIDTH = 190;
 
@@ -29,8 +19,7 @@ const drawerOptions: PersistentDrawerProps = {
 };
 
 export const ALL_ITEMS_TAB_TITLE = 'All Items';
-export const CHARTS_TAB_TITLE = 'Charts';
-export const MAPS_TAB_TITLE = 'Maps';
+export const GRAPHS_TAB_TITLE = 'Graphs';
 export const STORIES_TAB_TITLE = 'Stories';
 
 export default function MyStuffSidebar() {
@@ -48,15 +37,9 @@ export default function MyStuffSidebar() {
           {...options}
         />
         <ListItemTab
-          title={CHARTS_TAB_TITLE}
-          icon={CHARTS_ICON}
-          onClick={() => navigateTo(MY_STUFF_CHARTS)}
-          {...options}
-        />
-        <ListItemTab
-          title={MAPS_TAB_TITLE}
-          icon={MAPS_ICON}
-          onClick={() => navigateTo(MY_STUFF_MAPS)}
+          title={GRAPHS_TAB_TITLE}
+          icon={GRAPHS_ICON}
+          onClick={() => navigateTo(MY_STUFF_GRAPHS)}
           {...options}
         />
         <ListItemTab
