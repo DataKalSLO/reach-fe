@@ -31,11 +31,12 @@ import {
   SYNC_LABEL
 } from './constants';
 import { GraphToolbarProps } from './types';
+import GraphShareButton from './GraphShareButton';
 
 /*
  * Contains the buttons rendered on the graph toolbar.
  */
-const ToolbarButton = (props: ButtonProps) => {
+export const ToolbarButton = (props: ButtonProps) => {
   return <Button variant="text" color="default" {...props} />;
 };
 
@@ -80,8 +81,8 @@ function GraphToolbar(props: GraphToolbarProps) {
           startIcon={<Save />}
           onClick={() =>
             graphIsLocal
-              ? dispatch(saveGraph(newGraph))
-              : dispatch(updateGraph(newGraph))
+              ? dispatch(saveGraph(newGraph, index))
+              : dispatch(updateGraph(newGraph, index))
           }
         />
       ) : null}
@@ -95,10 +96,9 @@ function GraphToolbar(props: GraphToolbarProps) {
         startIcon={<FileCopy />}
         onClick={() => dispatch(duplicateGraph(graph, index))}
       />
-      <ToolbarButton
-        label={SHARE_LABEL}
-        startIcon={<Share />}
-        onClick={() => alert('Not implemented')}
+      <GraphShareButton
+        graphTitle={graph.graphMetaData.graphTitle}
+        snapshotUrl={graph.graphMetaData.snapshotUrl}
       />
       {/* Delete saved graphs owned by the user */}
       {!graphIsLocal && isUserGraph ? (

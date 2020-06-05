@@ -1,7 +1,10 @@
 import React from 'react';
+import { setTab } from '../../common/components/PersistentDrawer';
+import { ALL_ITEMS_TAB_TITLE } from '../../my-stuff/MyStuffSidebar';
 import MyStuffWrapper from '../../my-stuff/MyStuffWrapper';
 import { DEFAULT_USER_NAME } from '../../nav/constants';
 import StoryCard from '../../preview-cards/story-card/StoryCard';
+import { MY_STUFF_SIDEBAR } from '../../reach-ui/constants';
 import { PublicationStatus, Story } from '../../redux/story/types';
 
 const sampleDate = new Date('Fri May 29 2020');
@@ -45,6 +48,9 @@ const sampleStoryPublished: Story = {
 };
 
 export default function MyStuff() {
+  // ensures correct tab is selected in the MyStuffSidebar
+  setTab(MY_STUFF_SIDEBAR, ALL_ITEMS_TAB_TITLE);
+
   return (
     <MyStuffWrapper title="My Stuff">
       {/* TODO: replace this with the content for the gallery view */}

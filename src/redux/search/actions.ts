@@ -26,11 +26,17 @@ function receiveSearchResults(
   };
 }
 
-export function fetchSearchResults(qry: string, index: SearchIndexFilter) {
+export function fetchSearchResults(
+  qry: string,
+  index: SearchIndexFilter,
+  userID: string
+) {
   return async (dispatch: Dispatch) => {
     dispatch(requestSearchResults(qry));
-    return esQuery(qry, index).then((res: ElasticSearchResponseObject) => {
-      dispatch(receiveSearchResults(res.hits.hits));
-    });
+    return esQuery(qry, index, userID).then(
+      (res: ElasticSearchResponseObject) => {
+        dispatch(receiveSearchResults(res.hits.hits));
+      }
+    );
   };
 }

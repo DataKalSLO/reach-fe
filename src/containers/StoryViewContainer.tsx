@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { getStoryWithStoryID } from '../api/stories/operations';
+import { UNAUTHORIZED_OPERATION_ERROR } from '../api/authenticatedApi/constants';
+
 import { EXPLORE } from '../nav/constants';
 import { ContentBox } from '../reach-ui/core';
 import { Story } from '../redux/story/types';
@@ -23,7 +25,10 @@ function StoryViewContainer() {
       })
       .catch(error => {
         //Ignore unresolvable TypeError that is thrown on refresh, no effect on query result.
-        if (!(error instanceof TypeError)) {
+        if (
+          !(error instanceof TypeError) &&
+          !(error.name === UNAUTHORIZED_OPERATION_ERROR) //error is thrown when token not present
+        ) {
           alert(error);
           navigateToExplore();
         }

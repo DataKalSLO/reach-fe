@@ -1,10 +1,10 @@
 import { Box, styled } from '@material-ui/core';
 import { Editor, EditorState, RichUtils } from 'draft-js';
 import React from 'react';
+import { BORDER } from '../../theme/theme';
 import { KEY_COMMAND_FAILURE, KEY_COMMAND_SUCCESS } from './DraftJSCommands';
 import EditorToolbar from './EditorToolbar';
 import { HyperlinkDecorator } from './HyperlinkDecorator';
-import { BORDER } from '../../theme/theme';
 
 interface Props {
   editorState: EditorState;
@@ -16,7 +16,7 @@ export const emptyEditorState = EditorState.createEmpty(
 );
 
 export default function RichTextEditor(props: Props) {
-  const { editorState, setEditorState } = props; // this is NOT a hook, the state is being managed in StoryForm
+  const { editorState, setEditorState } = props; // this is NOT a hook, the state is being managed in StoryEditor
 
   // enable key binding shortcuts (e.g. CTRL+B for bold)
   const handleKeyCommand = (command: string, editorState: EditorState) => {
