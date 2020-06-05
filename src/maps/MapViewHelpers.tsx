@@ -2,6 +2,7 @@ import chroma from 'chroma-js';
 import { zip } from 'lodash';
 import React from 'react';
 import { HEAT_MAP_COLOR } from './constants';
+import { Point } from './types';
 
 // TODO: Had trouble creating an interface for featureCollection
 // Tried to create an interface using the type from features on line 34
@@ -121,11 +122,11 @@ export function tooltipOverlapsMarkers(tooltipBounds: DOMRect) {
   return popupBounds.some(bounds => rectsOverlap(tooltipBounds, bounds));
 }
 
-export function cursorWithinBounds(x: number, y: number, bounds: DOMRect) {
+export function pointWithinBounds(point: Point, bounds: DOMRect) {
   return (
-    x <= bounds.right &&
-    x >= bounds.left &&
-    y >= bounds.top &&
-    y <= bounds.bottom
+    point.x <= bounds.right &&
+    point.x >= bounds.left &&
+    point.y >= bounds.top &&
+    point.y <= bounds.bottom
   );
 }

@@ -85,3 +85,8 @@ export type Selections = MarkerSelection[] | HeatMapSelection[];
 export interface FeatureProperty {
   properties: { name: string };
 }
+
+export interface Point {
+  x: number;
+  y: number;
+}

@@ -18,7 +18,7 @@ import {
 import { mapMarkers } from './MapMarker';
 import Popups from './MapPopups';
 import {
-  cursorWithinBounds,
+  pointWithinBounds,
   getStat,
   onHover,
   position,
@@ -111,7 +111,6 @@ function MapView(props: MapViewProps) {
   });
 
   // Tooltip State
-  const [opacity, setOpacity] = React.useState(0);
   const [cursorWithinMap, setCursorWithinMap] = React.useState(false);
   const [hoveredLocation, setHoveredLocation] = React.useState({
     properties: {
@@ -152,6 +151,30 @@ function MapView(props: MapViewProps) {
     zoom: VIEWPORT_ZOOM
   });
 
+  const handleMouseMove = (event: MouseEvent) => {
+    const map = document.getElementById('map');
+    if (!map) return;
+
+    const cursorWasWithinMap = cursorWithinMap;
+    const cursorNowWithinMap = pointWithinBounds(
+      { x: event.pageX, y: event.pageY },
+      map.getBoundingClientRect()
+    );
+
+    if (cursorWasWithinMap && !cursorNowWithinMap) {
+      setCursorWithinMap(false);
+    } else if (!cursorWasWithinMap && cursorNowWithinMap) {
+      setCursorWithinMap(true);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
+  });
+
   const renderTooltip = () => {
     const map = document.getElementById('map');
     if (!map) {
@@ -159,15 +182,12 @@ function MapView(props: MapViewProps) {
     }
 
     const bounds = map.getBoundingClientRect();
-    const properOpacity =
+    const opacity =
       hoveredLocation.noLocation ||
       tooltipOverlapsMarkers(dims) ||
       !cursorWithinMap
         ? 0
         : 1;
-    if (opacity !== properOpacity) {
-      setOpacity(properOpacity);
-    }
     const left = position(bounds.left, bounds.right, dims.width, x.current);
     const top = position(bounds.top, bounds.bottom, dims.height, y.current);
 
@@ -190,33 +210,6 @@ function MapView(props: MapViewProps) {
       </div>
     );
   };
-
-  const handleMouseMove = (event: MouseEvent) => {
-    const map = document.getElementById('map');
-    if (!map) {
-      return;
-    }
-    const cursorIsWithinBounds = cursorWithinBounds(
-      event.pageX,
-      event.pageY,
-      map.getBoundingClientRect()
-    );
-    if (!map || (!cursorIsWithinBounds && opacity !== 0 && cursorWithinMap)) {
-      setCursorWithinMap(false);
-      setOpacity(0);
-    } else {
-      if (!cursorWithinMap && cursorIsWithinBounds) {
-        setCursorWithinMap(true);
-      }
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-    };
-  });
 
   useEffect(() => {
     const minVal = getStat(heatMapFeatures, _.minBy, valueKey);
