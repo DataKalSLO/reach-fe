@@ -23,6 +23,8 @@ enum StoryActions {
 type StoryApiResponse = void | StoryDB | Array<StoryDB>;
 type StoryApiPayload = string | StoryDB | undefined;
 
+const STORY_BASE_ENDPOINT = 'story';
+
 export async function saveOrUpdateExistingStory(story: Story): Promise<void> {
   const databaseStory = transformToStoryDB(story);
   return storyHttp(StoryActions.CREATE, databaseStory) as Promise<void>;
@@ -86,25 +88,25 @@ async function storyHttp(
   let response: unknown;
   switch (actionType) {
     case StoryActions.CREATE:
-      response = authenticatedPost('story', payload as object);
+      response = authenticatedPost(STORY_BASE_ENDPOINT, payload as object);
       break;
     case StoryActions.UPDATE:
-      response = authenticatedPut('story', payload as object);
+      response = authenticatedPut(STORY_BASE_ENDPOINT, payload as object);
       break;
     case StoryActions.GET_STORIES_WITH_USER_ID:
-      response = authenticatedGet(['story', 'user'].join('/')); //user id gathered from token
+      response = authenticatedGet([STORY_BASE_ENDPOINT, 'user'].join('/')); //user id gathered from token
       break;
     case StoryActions.GET_STORIES_PUBLISHED:
-      response = get('story'); // no token required so don't prompt for login
+      response = get(STORY_BASE_ENDPOINT); // no token required so don't prompt for login
       break;
     case StoryActions.GET_STORIES_REVIEW:
-      response = authenticatedGet(['story', 'review'].join('/'));
+      response = authenticatedGet([STORY_BASE_ENDPOINT, 'review'].join('/'));
       break;
     case StoryActions.GET_STORIES_DRAFT:
-      response = authenticatedGet(['story', 'draft'].join('/'));
+      response = authenticatedGet([STORY_BASE_ENDPOINT, 'draft'].join('/'));
       break;
     case StoryActions.DELETE_WITH_ID:
-      response = authenticatedDel(['story', payload].join('/'));
+      response = authenticatedDel([STORY_BASE_ENDPOINT, payload].join('/'));
       break;
     default:
       throw new Error('Unimplemented mutation action on Story: ' + actionType);
