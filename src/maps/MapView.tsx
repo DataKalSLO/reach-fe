@@ -112,6 +112,7 @@ function MapView(props: MapViewProps) {
 
   // Tooltip State
   const [opacity, setOpacity] = React.useState(0);
+  const [cursorWithinMap, setCursorWithinMap] = React.useState(false);
   const [hoveredLocation, setHoveredLocation] = React.useState({
     properties: {
       [valueKey]: '1',
@@ -151,18 +152,62 @@ function MapView(props: MapViewProps) {
     zoom: VIEWPORT_ZOOM
   });
 
+  const renderTooltip = () => {
+    const map = document.getElementById('map');
+    if (!map) {
+      return;
+    }
+
+    const bounds = map.getBoundingClientRect();
+    const properOpacity =
+      hoveredLocation.noLocation ||
+      tooltipOverlapsMarkers(dims) ||
+      !cursorWithinMap
+        ? 0
+        : 1;
+    if (opacity !== properOpacity) {
+      setOpacity(properOpacity);
+    }
+    const left = position(bounds.left, bounds.right, dims.width, x.current);
+    const top = position(bounds.top, bounds.bottom, dims.height, y.current);
+
+    const zipsValue = hoveredLocation.properties[valueKey];
+    const zipCode = hoveredLocation.properties[ZIP_TABULATION];
+
+    return (
+      <div
+        id="map-tooltip"
+        style={{
+          opacity,
+          top,
+          left,
+          zIndex: Z_INDEX,
+          pointerEvents: 'none',
+          position: 'absolute'
+        }}
+      >
+        <Tooltip value={parseInt(zipsValue)} zipCode={zipCode} />
+      </div>
+    );
+  };
+
   const handleMouseMove = (event: MouseEvent) => {
     const map = document.getElementById('map');
-    if (
-      !map ||
-      (!cursorWithinBounds(
-        event.pageX,
-        event.pageY,
-        map.getBoundingClientRect()
-      ) &&
-        opacity !== 0)
-    ) {
+    if (!map) {
+      return;
+    }
+    const cursorIsWithinBounds = cursorWithinBounds(
+      event.pageX,
+      event.pageY,
+      map.getBoundingClientRect()
+    );
+    if (!map || (!cursorIsWithinBounds && opacity !== 0 && cursorWithinMap)) {
+      setCursorWithinMap(false);
       setOpacity(0);
+    } else {
+      if (!cursorWithinMap && cursorIsWithinBounds) {
+        setCursorWithinMap(true);
+      }
     }
   };
 
@@ -197,41 +242,6 @@ function MapView(props: MapViewProps) {
       }
     });
   }, [heatMapFeatures, valueKey]);
-
-  const renderTooltip = () => {
-    const map = document.getElementById('map');
-    if (!map) {
-      return;
-    }
-
-    const bounds = map.getBoundingClientRect();
-    const properOpacity =
-      hoveredLocation.noLocation || tooltipOverlapsMarkers(dims) ? 0 : 1;
-    if (opacity !== properOpacity) {
-      setOpacity(properOpacity);
-    }
-    const left = position(bounds.left, bounds.right, dims.width, x.current);
-    const top = position(bounds.top, bounds.bottom, dims.height, y.current);
-
-    const zipsValue = hoveredLocation.properties[valueKey];
-    const zipCode = hoveredLocation.properties[ZIP_TABULATION];
-
-    return (
-      <div
-        id="map-tooltip"
-        style={{
-          opacity,
-          top,
-          left,
-          zIndex: Z_INDEX,
-          pointerEvents: 'none',
-          position: 'absolute'
-        }}
-      >
-        <Tooltip value={parseInt(zipsValue)} zipCode={zipCode} />
-      </div>
-    );
-  };
 
   if (Object.keys(data).length > 0) {
     return (

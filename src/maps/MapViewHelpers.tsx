@@ -123,8 +123,8 @@ export function tooltipOverlapsMarkers(tooltipBounds: DOMRect) {
 
 export function cursorWithinBounds(x: number, y: number, bounds: DOMRect) {
   return (
-    x >= bounds.right &&
-    x <= bounds.left &&
+    x <= bounds.right &&
+    x >= bounds.left &&
     y >= bounds.top &&
     y <= bounds.bottom
   );
