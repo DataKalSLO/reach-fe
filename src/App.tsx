@@ -8,8 +8,7 @@ import {
   HOME,
   LOGIN,
   MY_STUFF,
-  MY_STUFF_CHARTS,
-  MY_STUFF_MAPS,
+  MY_STUFF_GRAPHS,
   MY_STUFF_STORIES,
   SETTINGS,
   STORY_BUILDER,
@@ -45,8 +44,7 @@ import CreateAccount from './containers/CreateAccount';
 import Explore from './containers/Explore';
 import Login from './containers/Login';
 import MyStuff from './containers/my-stuff-landing/MyStuff';
-import MyStuffCharts from './containers/my-stuff-landing/MyStuffCharts';
-import MyStuffMaps from './containers/my-stuff-landing/MyStuffMaps';
+import MyStuffGraphs from './containers/my-stuff-landing/MyStuffGraphs';
 import MyStuffStories from './containers/my-stuff-landing/MyStuffStories';
 import Settings from './containers/Settings';
 import ForgotPassword from './accounts/ForgotPassword';
@@ -87,13 +85,8 @@ const myStuff = (
   </Route>
 );
 const myStuffCharts = (
-  <Route exact path={MY_STUFF_CHARTS}>
-    <ProtectedRoute componentPage={<MyStuffCharts />} />
-  </Route>
-);
-const myStuffMaps = (
-  <Route exact path={MY_STUFF_MAPS}>
-    <ProtectedRoute componentPage={<MyStuffMaps />} />
+  <Route exact path={MY_STUFF_GRAPHS}>
+    <ProtectedRoute componentPage={<MyStuffGraphs />} />
   </Route>
 );
 const myStuffStories = (
@@ -157,7 +150,6 @@ function App() {
                 {storyBuilder}
                 {myStuff}
                 {myStuffCharts}
-                {myStuffMaps}
                 {myStuffStories}
                 {login}
                 {createAccount}
