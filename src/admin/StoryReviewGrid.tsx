@@ -32,7 +32,9 @@ export default function StoryReviewGrid() {
 
   return (
     <AdminWrapper title="Review Stories">
-      <Gallery>{makeStoryCards()}</Gallery>
+      <Gallery emptyStateMessage={'There are no stories to review right now.'}>
+        {makeStoryCards()}
+      </Gallery>
     </AdminWrapper>
   );
 }

@@ -31,5 +31,14 @@ export default function MyStuffGraphs() {
       />
     ));
 
-  return <MyStuffWrapper title="My Graphs">{makeStoryCards()}</MyStuffWrapper>;
+  return (
+    <MyStuffWrapper
+      title="My Graphs"
+      emptyStateMessage={
+        "You haven't saved any graphs yet. Make your first one using the VizBuilder!"
+      }
+    >
+      {makeStoryCards()}
+    </MyStuffWrapper>
+  );
 }

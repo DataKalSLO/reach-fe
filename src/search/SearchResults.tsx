@@ -74,7 +74,9 @@ function SearchResults(props: SearchResultProps) {
   return (
     <div>
       Results for &quot;{props.qry}&quot;
-      <Gallery>{makeList()}</Gallery>
+      <Gallery emptyStateMessage="Nothing matched your query.">
+        {makeList()}
+      </Gallery>
     </div>
   );
 }

@@ -24,5 +24,14 @@ export default function MyStuffStories() {
       <StoryCard key={story.id} showAuthorActions={true} story={story} />
     ));
 
-  return <MyStuffWrapper title="My Stories">{makeStoryCards()}</MyStuffWrapper>;
+  return (
+    <MyStuffWrapper
+      title="My Stories"
+      emptyStateMessage={
+        "You haven't written any stories yet. Write your first one using the StoryBuilder!"
+      }
+    >
+      {makeStoryCards()}
+    </MyStuffWrapper>
+  );
 }

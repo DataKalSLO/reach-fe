@@ -52,7 +52,12 @@ export default function MyStuff() {
   setTab(MY_STUFF_SIDEBAR, ALL_ITEMS_TAB_TITLE);
 
   return (
-    <MyStuffWrapper title="My Stuff">
+    <MyStuffWrapper
+      title="My Stuff"
+      emptyStateMessage={
+        "You don't have any saved graphs or stories yet. Check out the Explore page for inspiration, and then make your first ones using the VizBuilder and StoryBuilder."
+      }
+    >
       {/* TODO: replace this with the content for the gallery view */}
       <StoryCard story={sampleStoryDraft} />
       <StoryCard story={sampleStoryInReview} />

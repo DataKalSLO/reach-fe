@@ -21,7 +21,11 @@ export default function ExploreGrid() {
 
   const StoryCardGallery = () => {
     const storyCards = makeStoryCards();
-    return <Gallery>{storyCards}</Gallery>;
+    return (
+      <Gallery emptyStateMessage="It doesn't look like any stories have been published yet. Be the first by creating a story in the StoryBuilder!">
+        {storyCards}
+      </Gallery>
+    );
   };
   return <StoryCardGallery />;
 }

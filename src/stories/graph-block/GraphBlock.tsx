@@ -1,4 +1,4 @@
-import { Box, styled, Typography } from '@material-ui/core';
+import { Box, styled } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { isUndefined } from 'util';
 import {
@@ -50,21 +50,12 @@ export default function GraphBlock(props: Props) {
   }
 
   const GraphExplorer = () => {
-    // when the user hasn't saved any graphs
-    if (graphs.length === 0) {
-      return (
-        <div>
-          <Typography variant="h4" component="h1">
-            {'No graphs found.'}
-          </Typography>
-          <Typography color="textSecondary" variant="h6" component="h2">
-            {'Add your first graph from the VizBuilder tab.'}
-          </Typography>
-        </div>
-      );
-    }
     return (
-      <Gallery justify="center">
+      <Gallery
+        emptyStateHeading="No graphs found."
+        emptyStateMessage="Create your first graph using the VizBuilder!"
+        justify="center"
+      >
         {graphs.map(graph => (
           <GraphCard
             key={graph.graphId}
