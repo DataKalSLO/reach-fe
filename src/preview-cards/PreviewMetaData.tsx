@@ -1,5 +1,6 @@
 import { Box, Chip as CoreChip, Grid, Typography } from '@material-ui/core';
 import React from 'react';
+import { isUndefined } from 'util';
 import { DATA_ICON } from '../reach-ui/icons';
 import { theme } from '../theme/theme';
 
@@ -34,7 +35,7 @@ const AuthorWithProfilePhoto = (props: {
 export const AuthorDate = (props: {
   name: string;
   profilePicture: JSX.Element;
-  date: string;
+  date?: Date;
 }) => {
   return (
     <Grid container item wrap="nowrap">
@@ -45,12 +46,8 @@ export const AuthorDate = (props: {
         />
       </Grid>
       <Grid item>
-        <Typography
-          gutterBottom={true}
-          variant="subtitle1"
-          color="textSecondary"
-        >
-          {props.date}
+        <Typography variant="subtitle1" color="textSecondary">
+          {!isUndefined(props.date) ? props.date.toLocaleDateString() : ''}
         </Typography>
       </Grid>
     </Grid>
@@ -67,7 +64,11 @@ const Chip = (props: { label: string }) => (
 );
 
 export const Chips = (props: { labels: string[] }) => (
-  <Box display="flex" flexWrap="wrap" style={{ margin: theme.spacing(-0.25) }}>
+  <Box
+    display="flex"
+    flexWrap="wrap"
+    style={{ margin: theme.spacing(-0.25), marginTop: theme.spacing(0.5) }}
+  >
     {props.labels.map((label, index) => (
       <Chip key={index} label={label} />
     ))}

@@ -5,6 +5,7 @@ import draftToHtml from 'draftjs-to-html';
 import React from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import { useSelector } from 'react-redux';
+import { DateFormatter } from '../common/util/dateFormatter';
 import { DEFAULT_USER_NAME } from '../nav/constants';
 import { getUser } from '../redux/login/selectors';
 import {
@@ -41,7 +42,7 @@ export default function StoryView(props: { story: Story }): JSX.Element {
 
   const createPublicationDateString = () => {
     const name = user.name !== '' ? user.name : DEFAULT_USER_NAME;
-    return `By ${name} on ${new Date().toDateString()}`;
+    return `By ${name} on ${new DateFormatter().toEnglishDateString()}`;
   };
 
   return (

@@ -20,7 +20,6 @@ import AuthorCardActions from './AuthorCardActions';
 //TODO: Add a way to get author, date, and image url from passed in props
 export const PLACEHOLDER_AUTHOR = 'Bill Writer';
 export const PLACEHOLDER_USER_PICTURE = <AccountCircle />;
-export const PLACEHOLDER_DATE = '1/1/20';
 export const PLACEHOLDER_IMAGE_URL =
   'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fi.stack.imgur.com%2FLuPIV.png&f=1&nofb=1';
 
@@ -91,7 +90,7 @@ export default function StoryCard(props: Props): JSX.Element {
           <AuthorDate
             name={props.story.userName}
             profilePicture={PLACEHOLDER_USER_PICTURE}
-            date={PLACEHOLDER_DATE}
+            date={props.story.dateLastEdited}
           />
         </CardContent>
       </CardActionArea>
