@@ -5,12 +5,10 @@ import {
   CardMedia
 } from '@material-ui/core';
 import React from 'react';
+import { isUndefined } from 'util';
 import { GraphMetaData } from '../../redux/graphs/types';
 import { AuthorDate, Chips, Description, Title } from '../PreviewMetaData';
-import {
-  PLACEHOLDER_DATE,
-  PLACEHOLDER_USER_PICTURE
-} from '../story-card/StoryCard';
+import { PLACEHOLDER_USER_PICTURE } from '../story-card/StoryCard';
 import { StyleProps, usePreviewCardStyles } from '../usePreviewCardStyles';
 
 const styleProps: StyleProps = {
@@ -18,9 +16,11 @@ const styleProps: StyleProps = {
   maxWidth: 500
 };
 
+export const PLACEHOLDER_DATE = new Date();
+
 interface Props {
   graphMetaData: GraphMetaData;
-  onClick: any;
+  onClick: () => void;
 }
 
 export default function GraphCard(props: Props): JSX.Element {
@@ -31,6 +31,14 @@ export default function GraphCard(props: Props): JSX.Element {
       source => source.datasetName
     );
     return Array.from(new Set(datasetNames)); // removes duplicates
+  };
+
+  const createGraphDate = (timestamp: number | undefined) => {
+    if (!isUndefined(timestamp)) {
+      return new Date(props.graphMetaData.timeStamp * 1000);
+    } else {
+      return timestamp;
+    }
   };
 
   return (
@@ -53,7 +61,7 @@ export default function GraphCard(props: Props): JSX.Element {
           <AuthorDate
             name={props.graphMetaData.userName}
             profilePicture={PLACEHOLDER_USER_PICTURE}
-            date={PLACEHOLDER_DATE}
+            date={createGraphDate(props.graphMetaData.timeStamp)}
           />
           <Chips labels={getDatasetNames()} />
         </CardContent>
