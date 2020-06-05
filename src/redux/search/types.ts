@@ -61,6 +61,7 @@ export interface ElasticSearchResultObject {
 interface ElasticSearchSourceObject {
   title: string;
   user_id: string;
+  user_name: string;
 }
 
 export interface ElasticSearchGraphSource extends ElasticSearchSourceObject {
@@ -73,7 +74,6 @@ export interface ElasticSearchStorySource extends ElasticSearchSourceObject {
   description: string;
   date_created: Date;
   date_last_edited: Date;
-  user_name: string;
 }
 
 // used by reducer function (reducer.ts)
