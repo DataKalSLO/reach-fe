@@ -24,6 +24,7 @@ export const theme = responsiveFontSizes(
 );
 
 export const NAV_BAR_COLOR = '#133F4D';
+export const BACKGROUND_COLOR = '#FFFFFF';
 
 // Constants for styling Toolbars
 export const BORDER = '1px solid #cbcbcb'; // TODO: import into EditorToolbar and RichTextEditor

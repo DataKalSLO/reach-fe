@@ -1,7 +1,7 @@
 import { Box, styled } from '@material-ui/core';
 import { Editor, EditorState, RichUtils } from 'draft-js';
 import React from 'react';
-import { BORDER } from '../../theme/theme';
+import { BACKGROUND_COLOR, BORDER } from '../../theme/theme';
 import { KEY_COMMAND_FAILURE, KEY_COMMAND_SUCCESS } from './DraftJSCommands';
 import EditorToolbar from './EditorToolbar';
 import { HyperlinkDecorator } from './HyperlinkDecorator';
@@ -56,5 +56,6 @@ export const StyledBox = styled(Box)({
   paddingLeft: paddingDefault,
   paddingBottom: paddingDefault,
   paddingRight: paddingDefault,
-  margin: '10px 0px'
+  margin: '10px 0px',
+  backgroundColor: BACKGROUND_COLOR
 });
