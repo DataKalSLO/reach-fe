@@ -16,7 +16,7 @@ const ExploreLandingComponent = (
 
 function Explore() {
   return (
-    <ContentBox>
+    <ContentBox width="75%">
       <Search
         index={SearchIndexFilter.stories}
         searchBarPlaceholder="Search published stories"

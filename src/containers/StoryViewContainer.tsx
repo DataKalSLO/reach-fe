@@ -25,9 +25,7 @@ function StoryViewContainer() {
       })
       .catch(error => {
         //Ignore unresolvable TypeError that is thrown on refresh, no effect on query result.
-        if (
-          !(error instanceof TypeError) 
-        ) {
+        if (!(error instanceof TypeError)) {
           alert(error);
           navigateToExplore();
         }
