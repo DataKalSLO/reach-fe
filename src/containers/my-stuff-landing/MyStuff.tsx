@@ -13,7 +13,7 @@ const sampleStoryDraft: Story = {
   id: '12345',
   publicationStatus: PublicationStatus.DRAFT,
   userName: DEFAULT_USER_NAME,
-  userID: 'USER-ID', // TODO: replace placeholder value
+  userId: 'USER-ID', // TODO: replace placeholder value
   title: 'High School Graduation Rates on the Central Coast',
   description:
     "High school graduation rates are a critical metric of the effectiveness of our local high schools, as well as our students' college preparedness.",
@@ -26,7 +26,7 @@ const sampleStoryInReview: Story = {
   id: '12345',
   publicationStatus: PublicationStatus.REVIEW,
   userName: DEFAULT_USER_NAME,
-  userID: 'USER-ID', // TODO: replace placeholder value
+  userId: 'USER-ID', // TODO: replace placeholder value
   title: 'Zoning in Downtown San Luis Obispo',
   description:
     'Are the zoning policies in downtown SLO preventing business expansion?',
@@ -39,7 +39,7 @@ const sampleStoryPublished: Story = {
   id: '12345',
   publicationStatus: PublicationStatus.PUBLISHED,
   userName: DEFAULT_USER_NAME,
-  userID: 'USER-ID', // TODO: replace placeholder value
+  userId: 'USER-ID', // TODO: replace placeholder value
   title: 'Published Story',
   description: 'Fake published story. Local and hard-coded.',
   storyBlocks: [],

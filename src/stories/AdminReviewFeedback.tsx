@@ -21,7 +21,7 @@ export default function AdminReviewFeedback(props: Props) {
     });
   }, [props.story.id, feedback]);
 
-  if (feedback.length > 0 && props.story.userID === props.user.email) {
+  if (feedback.length > 0 && props.story.userId === props.user.email) {
     return (
       <Alert severity="info">
         Your story has not been approved for publishing. An admin shared the
