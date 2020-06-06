@@ -1,10 +1,11 @@
 import { EditorState } from 'draft-js';
 
-//Text block types
-export const TEXT_BLOCK_TYPE = 'Text';
-export const GRAPH_BLOCK_TYPE = 'Graph';
-export const IMAGE_BLOCK_TYPE = 'Image';
-export const MAP_BLOCK_TYPE = 'Map';
+//Block types
+//Must match names in database.
+export const TEXT_BLOCK_TYPE = 'TEXT';
+export const GRAPH_BLOCK_TYPE = 'GRAPH';
+export const IMAGE_BLOCK_TYPE = 'IMAGE';
+export const MAP_BLOCK_TYPE = 'MAP';
 
 //Action names
 export const CREATE_EMPTY_TEXT_BLOCK = 'CREATE_EMPTY_TEXT_BLOCK';
