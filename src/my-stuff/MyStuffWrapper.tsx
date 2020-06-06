@@ -14,9 +14,10 @@ export default function MyStuffWrapper(props: Props) {
     <Box display="flex">
       <MyStuffSidebar />
       <SidebarContentBox>
-        <Typography variant="h3" component="h1">
+        <Typography variant="h3" component="h1" gutterBottom>
           {props.title}
         </Typography>
+        <Typography variant="caption">{'Sorted by Last Updated'}</Typography>
 
         {/* TODO: the create new button, search bar, filter button, and sort button should all go here  */}
 
