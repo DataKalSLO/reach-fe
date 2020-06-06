@@ -35,7 +35,6 @@ export default function AuthorCardActions(props: Props) {
       props.story.publicationStatus === PublicationStatus.PUBLISHED ||
       props.story.publicationStatus === PublicationStatus.REVIEW;
 
-    //@kellie I couldn't find a way to test this but it should theoretically work?
     const goToEditStory = () => {
       props.dispatch(loadExistingStory(props.story));
       history.push(STORY_BUILDER);

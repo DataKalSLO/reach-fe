@@ -1,7 +1,7 @@
 import { Box } from '@material-ui/core';
 import Clear from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import IconButton from '../common/components/IconButton';
 import OutlinedInput from '../common/components/OutlinedInput';
 
@@ -13,6 +13,7 @@ interface SearchBarProps {
 
 function SearchBar(props: SearchBarProps) {
   const [text, setText] = useState('');
+  const coreInputRef = useRef<HTMLInputElement>(null);
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
@@ -31,6 +32,9 @@ function SearchBar(props: SearchBarProps) {
   };
 
   const handleClear = () => {
+    if (coreInputRef && coreInputRef.current) {
+      coreInputRef.current.value = '';
+    }
     props.onEmptySearchBar();
   };
 
@@ -59,6 +63,7 @@ function SearchBar(props: SearchBarProps) {
         onKeyPress={handleKeyPress}
         width={500}
         button={searchBarButtons}
+        inputRef={coreInputRef}
       />
     </Box>
   );
