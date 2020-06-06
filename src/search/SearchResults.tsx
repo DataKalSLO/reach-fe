@@ -24,7 +24,7 @@ function convertToStoryCard(item: ElasticSearchResultObject) {
   const currentStory: Story = {
     id: item._id,
     userName: storySource.user_name,
-    userID: storySource.user_id,
+    userId: storySource.user_id,
     title: storySource.title,
     description: storySource.description,
     publicationStatus: PublicationStatus.PUBLISHED,

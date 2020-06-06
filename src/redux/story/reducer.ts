@@ -42,7 +42,7 @@ export const getEmptyImageBlock = (): ImageBlockType => ({
 export const initialStory: Story = {
   id: uuid(),
   userName: '',
-  userID: '',
+  userId: '',
   title: '',
   description: '',
   publicationStatus: PublicationStatus.DRAFT,

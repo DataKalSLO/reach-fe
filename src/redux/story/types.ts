@@ -32,7 +32,7 @@ export enum PublicationStatus {
 export interface StoryMetaInformation {
   id: string;
   userName: string;
-  userID: string;
+  userId: string;
   title: string;
   description: string;
   publicationStatus: PublicationStatus;

@@ -2,13 +2,13 @@ import { CardActions, makeStyles } from '@material-ui/core';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Dispatch } from 'redux';
 import { deleteStoryById } from '../../api/stories/operations';
 import { STORY_BUILDER } from '../../nav/constants';
 import { IconButton } from '../../reach-ui/core';
 import { DELETE_ICON, EDIT_ICON } from '../../reach-ui/icons';
 import { loadExistingStory } from '../../redux/story/actions';
 import { PublicationStatus, Story } from '../../redux/story/types';
+import { theme } from '../../theme/theme';
 import StoryStatusMenu from './StoryStatusMenu';
 
 const useStyles = makeStyles({
@@ -22,6 +22,7 @@ const useStyles = makeStyles({
 
 interface Props {
   story: Story;
+  setCardVisible: (isVisible: boolean) => void;
 }
 
 export default function AuthorCardActions(props: Props) {
@@ -29,14 +30,14 @@ export default function AuthorCardActions(props: Props) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const EditButton = (props: { story: Story; dispatch: Dispatch }) => {
+  const EditButton = (props: Pick<Props, 'story'>) => {
     // Story cannot be edited while pending review or already published
     const isDisabled =
       props.story.publicationStatus === PublicationStatus.PUBLISHED ||
       props.story.publicationStatus === PublicationStatus.REVIEW;
 
     const goToEditStory = () => {
-      props.dispatch(loadExistingStory(props.story));
+      dispatch(loadExistingStory(props.story));
       history.push(STORY_BUILDER);
     };
 
@@ -51,7 +52,7 @@ export default function AuthorCardActions(props: Props) {
     );
   };
 
-  const DeleteButton = (props: { story: Story; dispatch: Dispatch }) => {
+  const DeleteButton = (props: Props) => {
     const isDisabled =
       props.story.publicationStatus === PublicationStatus.PUBLISHED;
 
@@ -60,16 +61,18 @@ export default function AuthorCardActions(props: Props) {
         window.confirm(
           'Are you sure you wish to delete this story? This action cannot be undone.'
         )
-      )
+      ) {
         deleteStoryById(props.story.id);
+        props.setCardVisible(false);
+      }
     };
 
-    // TODO: figure out how to make it red
     return (
       <IconButton
         icon={DELETE_ICON}
         size="small"
         aria-label="delete"
+        style={isDisabled ? {} : { color: theme.palette.error.main }}
         disabled={isDisabled}
         onClick={confirmDelete}
       />
@@ -79,8 +82,8 @@ export default function AuthorCardActions(props: Props) {
   return (
     <CardActions className={classes.actions}>
       <StoryStatusMenu story={props.story} />
-      <EditButton story={props.story} dispatch={dispatch} />
-      <DeleteButton story={props.story} dispatch={dispatch} />
+      <EditButton {...props} />
+      <DeleteButton {...props} />
     </CardActions>
   );
 }

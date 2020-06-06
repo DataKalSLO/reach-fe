@@ -15,6 +15,7 @@ import {
   IMAGE_BLOCK_TYPE,
   MapBlockType,
   MAP_BLOCK_TYPE,
+  PublicationStatus,
   Story,
   StoryBlockType,
   TextBlockType,
@@ -40,9 +41,31 @@ export default function StoryView(props: { story: Story }): JSX.Element {
     );
   };
 
-  const createPublicationDateString = () => {
-    const name = user.name !== '' ? user.name : DEFAULT_USER_NAME;
-    return `By ${name} on ${new DateFormatter().toEnglishDateString()}`;
+  const createPublicationDateString = (story: Story) => {
+    let name: string;
+    if (props.story.userName !== '') {
+      name = props.story.userName;
+    } else {
+      // If there is no username associated with a story, then we are in StoryBuilder preview mode
+      // Use the current user's name if they are logged in or a default name if not
+      name = user.name !== '' ? user.name : DEFAULT_USER_NAME;
+    }
+    return `By ${name} on ${new DateFormatter(
+      props.story.dateLastEdited
+    ).toEnglishDateString()}`;
+  };
+
+  const ShareButton = (props: { story: Story }) => {
+    return props.story.publicationStatus === PublicationStatus.PUBLISHED ? (
+      <Grid item xs={1}>
+        <StoryShareButton
+          shareURL={window.location.toString()}
+          storyTitle={props.story.title}
+        />
+      </Grid>
+    ) : (
+      <React.Fragment />
+    );
   };
 
   return (
@@ -58,12 +81,7 @@ export default function StoryView(props: { story: Story }): JSX.Element {
         <Grid item>
           <TitleDescription story={props.story} />
         </Grid>
-        <Grid item xs={1}>
-          <StoryShareButton
-            shareURL={window.location.toString()}
-            storyTitle={props.story.title}
-          />
-        </Grid>
+        <ShareButton story={props.story} />
       </Grid>
 
       <AuthorGrid
@@ -80,7 +98,7 @@ export default function StoryView(props: { story: Story }): JSX.Element {
         </Grid>
         <Grid item>
           <Typography variant="subtitle2">
-            {createPublicationDateString()}
+            {createPublicationDateString(props.story)}
           </Typography>
         </Grid>
       </AuthorGrid>
