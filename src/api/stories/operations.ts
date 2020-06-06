@@ -37,7 +37,7 @@ export function deleteStoryById(storyId: string): Promise<void> {
 export async function getStoryWithStoryID(storyID: string): Promise<Story> {
   // draft stories require token, published don't. Sending token harmless in latter.
   return transformToStory(
-    await optionalAuthenticatedGet(['story', storyID].join('/'))
+    await get(['story', storyID].join('/'))
   );
 }
 

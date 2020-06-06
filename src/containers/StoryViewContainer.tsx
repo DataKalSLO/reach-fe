@@ -26,8 +26,9 @@ function StoryViewContainer() {
       .catch(error => {
         //Ignore unresolvable TypeError that is thrown on refresh, no effect on query result.
         if (
-          !(error instanceof TypeError) &&
-          !(error.name === UNAUTHORIZED_OPERATION_ERROR) //error is thrown when token not present
+          !(error instanceof TypeError) 
+          // &&
+          // !(error.name === UNAUTHORIZED_OPERATION_ERROR) //error is thrown when token not present
         ) {
           alert(error);
           navigateToExplore();
