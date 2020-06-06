@@ -8,6 +8,7 @@ import {
   updateTextBlock
 } from '../redux/story/actions';
 import {
+  GraphBlockType,
   GRAPH_BLOCK_TYPE,
   ImageBlockType,
   IMAGE_BLOCK_TYPE,
@@ -31,7 +32,7 @@ export interface Props {
 }
 
 // Convert a block object into its corresponding React component to be displayed
-export const StoryBlock = (props: Props): JSX.Element => {
+const StoryBlock = (props: Props): JSX.Element => {
   const Body = (): JSX.Element => {
     switch (props.block.type) {
       case TEXT_BLOCK_TYPE:
@@ -94,3 +95,20 @@ const StoryBlockBox = styled(Box)({
   flexWrap: 'nowrap',
   width: '100%'
 });
+
+// prevent unnecessary re-renders
+const areEqual = (prevProps: Props, nextProps: Props) => {
+  if (prevProps.block.type === GRAPH_BLOCK_TYPE)
+    return (
+      /* render triggered when graphID changes. this can happen when:
+       *   - a new GraphBlock is added (loads user's graphs)
+       *   - a graph from the gallery is selected (loads interactive version selected graph)
+       */
+      prevProps.block.graphID === (nextProps.block as GraphBlockType).graphID
+    );
+  else {
+    return false;
+  }
+};
+
+export default React.memo(StoryBlock, areEqual);

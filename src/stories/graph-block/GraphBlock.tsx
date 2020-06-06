@@ -29,14 +29,14 @@ export default function GraphBlock(props: Props) {
 
   useEffect(() => {
     if (graphID === GRAPH_NOT_SELECTED) {
-      // show user's graph as static images
+      // triggers re-render and retrieves user's graphs as static images
       getAllGraphsAndHandleResponse().then(response => {
         if (!isUndefined(response)) {
           setGraphs(response);
         }
       });
     } else {
-      // show selected graph as interactive
+      // triggers re-render and retrieves selected graph as interactive
       getGraphAndHandleResponse(graphID).then(graphMetaData => {
         createGraphWithData(graphMetaData).then(graph => {
           setInteractiveGraph(graph);
