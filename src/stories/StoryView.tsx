@@ -15,6 +15,7 @@ import {
   IMAGE_BLOCK_TYPE,
   MapBlockType,
   MAP_BLOCK_TYPE,
+  PublicationStatus,
   Story,
   StoryBlockType,
   TextBlockType,
@@ -45,6 +46,19 @@ export default function StoryView(props: { story: Story }): JSX.Element {
     return `By ${name} on ${new DateFormatter().toEnglishDateString()}`;
   };
 
+  const ShareButton = (props: { story: Story }) => {
+    return props.story.publicationStatus === PublicationStatus.PUBLISHED ? (
+      <Grid item xs={1}>
+        <StoryShareButton
+          shareURL={window.location.toString()}
+          storyTitle={props.story.title}
+        />
+      </Grid>
+    ) : (
+      <React.Fragment />
+    );
+  };
+
   return (
     <StyledGrid>
       <Grid
@@ -58,12 +72,7 @@ export default function StoryView(props: { story: Story }): JSX.Element {
         <Grid item>
           <TitleDescription story={props.story} />
         </Grid>
-        <Grid item xs={1}>
-          <StoryShareButton
-            shareURL={window.location.toString()}
-            storyTitle={props.story.title}
-          />
-        </Grid>
+        <ShareButton story={props.story} />
       </Grid>
 
       <AuthorGrid
