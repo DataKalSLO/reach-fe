@@ -39,7 +39,9 @@ export default function StoryCard(props: Props): JSX.Element {
 
   const AuthorButtons = () => {
     if (props.showAuthorActions) {
-      return <AuthorCardActions story={props.story} />;
+      return (
+        <AuthorCardActions story={props.story} setCardVisible={setIsVisible} />
+      );
     } else {
       return <React.Fragment />;
     }
