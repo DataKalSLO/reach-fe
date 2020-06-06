@@ -40,7 +40,7 @@ export default function MyStuff() {
         }
       }
     );
-  }, []);
+  }, [allItems]);
 
   const makeCards = () => {
     return allItems.map(item => {
