@@ -34,6 +34,8 @@ export default function MyStuff() {
         getAllGraphsAndHandleResponse(),
         getStoriesWithUserId()
       ]).then(([graphs, stories]) => {
+        // waits for both calls to finish
+        // (works when the user doesn't have graphs, but does have stories and vice verse)
         if (!isUndefined(stories) && !isUndefined(graphs)) {
           setAllItems(
             allItems
