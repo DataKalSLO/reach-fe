@@ -22,22 +22,22 @@ import {
 export function convertBlockToJSX(storyBlock: StoryBlockType): JSX.Element {
   switch (storyBlock.type) {
     case TEXT_BLOCK_TYPE:
-      return convertTextBlockToJSX(storyBlock);
+      return <TextBlockView textBlock={storyBlock} />;
     case GRAPH_BLOCK_TYPE:
       return <GraphBlockView graphBlock={storyBlock} />;
     case IMAGE_BLOCK_TYPE:
-      return convertImageBlockToJSX(storyBlock);
+      return <ImageBlockView imageBlock={storyBlock} />;
     case MAP_BLOCK_TYPE:
-      return convertMapBlockToJSX(storyBlock);
+      return <MapBlockView mapBlock={storyBlock} />;
   }
 }
 
-function convertTextBlockToJSX(textBlock: TextBlockType): JSX.Element {
+function TextBlockView(props: { textBlock: TextBlockType }): JSX.Element {
   const rawContentState = convertToRaw(
-    textBlock.editorState.getCurrentContent()
+    props.textBlock.editorState.getCurrentContent()
   );
   const markup = draftToHtml(rawContentState);
-  return <div key={textBlock.id}> {ReactHtmlParser(markup)} </div>;
+  return <div key={props.textBlock.id}> {ReactHtmlParser(markup)} </div>;
 }
 
 function GraphBlockView(props: { graphBlock: GraphBlockType }): JSX.Element {
@@ -60,17 +60,19 @@ function GraphBlockView(props: { graphBlock: GraphBlockType }): JSX.Element {
   );
 }
 
-function convertImageBlockToJSX(imageBlock: ImageBlockType): JSX.Element {
-  if (imageBlock.imageUrl !== '') {
+function ImageBlockView(props: { imageBlock: ImageBlockType }): JSX.Element {
+  if (props.imageBlock.imageUrl !== '') {
     return (
-      <div key={imageBlock.id}>
-        <img src={imageBlock.imageUrl} alt={'Story Preview'} />
+      <div key={props.imageBlock.id}>
+        <img src={props.imageBlock.imageUrl} alt={'Story Preview'} />
       </div>
     );
   }
   return <div> Empty Image Block </div>;
 }
 
-function convertMapBlockToJSX(mapBlock: MapBlockType): JSX.Element {
-  return <div key={mapBlock.id}>Map Block conversion not yet implemented</div>;
+function MapBlockView(props: { mapBlock: MapBlockType }): JSX.Element {
+  return (
+    <div key={props.mapBlock.id}>Map Block conversion not yet implemented</div>
+  );
 }
