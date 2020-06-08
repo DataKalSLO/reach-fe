@@ -17,6 +17,7 @@ import { MY_STUFF_SIDEBAR } from '../../reach-ui/constants';
 
 export default function MyStuff() {
   const [allItems, setAllItems] = useState([] as ContentList);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // ensures correct tab is selected in the MyStuffSidebar
   setTab(MY_STUFF_SIDEBAR, ALL_ITEMS_TAB_TITLE);
@@ -28,8 +29,11 @@ export default function MyStuff() {
    * (i.e. Stories and Graphs) sorted by date
    */
   useEffect(() => {
-    Promise.all([getAllGraphsAndHandleResponse(), getStoriesWithUserId()]).then(
-      ([graphs, stories]) => {
+    if (!isLoaded)
+      Promise.all([
+        getAllGraphsAndHandleResponse(),
+        getStoriesWithUserId()
+      ]).then(([graphs, stories]) => {
         if (!isUndefined(stories) && !isUndefined(graphs)) {
           setAllItems(
             allItems
@@ -37,10 +41,10 @@ export default function MyStuff() {
               .concat(stories)
               .sort(byLastUpdated)
           );
+          setIsLoaded(true);
         }
-      }
-    );
-  }, [allItems]);
+      });
+  }, [allItems, isLoaded]);
 
   const makeCards = () => {
     return allItems.map(item => {
