@@ -1,6 +1,9 @@
 import { EditorState } from 'draft-js';
-import { getEmptyGraphBlock, getEmptyTextBlock } from './initializers';
-import { getEmptyImageBlock } from './reducer';
+import {
+  getEmptyGraphBlock,
+  getEmptyImageBlock,
+  getEmptyTextBlock
+} from './initializers';
 import {
   CreateEmptyImageBlockAction,
   CreateEmptyTextBlockAction,
