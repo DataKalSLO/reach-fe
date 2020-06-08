@@ -1,22 +1,15 @@
 import { arrayMove } from 'react-sortable-hoc';
-import { uuid } from 'uuidv4';
 import { removeObjectAtIndex } from '../../common/util/arrayTools';
-import { emptyEditorState } from '../../stories/text-block/RichTextEditor';
+import { initialStory } from './initializers';
 import {
   CREATE_EMPTY_IMAGE_BLOCK,
   CREATE_EMPTY_TEXT_BLOCK,
   CREATE_GRAPH_BLOCK,
   DELETE_BLOCK,
-  ImageBlockType,
-  IMAGE_BLOCK_TYPE,
   LOAD_EXISTING_STORY,
-  PublicationStatus,
-  Story,
   StoryActionType,
   StoryBlockType,
   SWAP_BLOCKS,
-  TextBlockType,
-  TEXT_BLOCK_TYPE,
   UpdateBlockType,
   UPDATE_DESCRIPTION,
   UPDATE_GRAPH_BLOCK,
@@ -25,31 +18,6 @@ import {
   UPDATE_TEXT_BLOCK,
   UPDATE_TITLE
 } from './types';
-
-export const emptyTextBlock = (): TextBlockType => ({
-  id: uuid(),
-  editorState: emptyEditorState,
-  type: TEXT_BLOCK_TYPE
-});
-
-export const getEmptyImageBlock = (): ImageBlockType => ({
-  id: uuid(),
-  imageUrl: '',
-  type: IMAGE_BLOCK_TYPE
-});
-
-//TODO: Turn this into a function. Currently will stay same for every new story created in the same session.
-export const initialStory: Story = {
-  id: uuid(),
-  userName: '',
-  userId: '',
-  title: '',
-  description: '',
-  publicationStatus: PublicationStatus.DRAFT,
-  storyBlocks: [emptyTextBlock()] as Array<StoryBlockType>,
-  dateCreated: new Date(),
-  dateLastEdited: new Date()
-};
 
 // follows immutability update patterns
 // (https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns/)
@@ -70,7 +38,7 @@ function updateObjectInArray(
   });
 }
 
-export function storyReducer(state = initialStory, action: StoryActionType) {
+export function storyReducer(state = initialStory(), action: StoryActionType) {
   switch (action.type) {
     case CREATE_EMPTY_TEXT_BLOCK: // NOTE: using the fall through features of swtich statements
     case CREATE_EMPTY_IMAGE_BLOCK:
