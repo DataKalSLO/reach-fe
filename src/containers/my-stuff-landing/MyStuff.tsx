@@ -46,7 +46,7 @@ export default function MyStuff() {
           setIsLoaded(true);
         }
       });
-  }, [allItems, isLoaded]);
+  }, [isLoaded]);
 
   const makeCards = () => {
     return allItems.map(item => {
