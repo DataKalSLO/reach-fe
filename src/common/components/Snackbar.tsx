@@ -8,7 +8,7 @@ import { StatusSeverity } from '../../redux/notifications/types';
 
 interface Props {
   actionId: string;
-  open: boolean;
+  show: boolean;
   message: string;
   severity?: StatusSeverity;
   snackbarProps?: {
@@ -22,24 +22,24 @@ interface Props {
 }
 
 export default function Snackbar(props: Props) {
-  const [open, setOpen] = useState(props.open);
+  const [show, setShow] = useState(props.show);
 
   // The snackbar will reappear when a new actionId is given
   useEffect(() => {
-    setOpen(props.open);
-  }, [props.open, props.actionId]);
+    setShow(props.show);
+  }, [props.show, props.actionId]);
 
   // closes automatically after the AUTOHIDE_DURATION
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
-    setOpen(!open);
+    setShow(!show);
   };
 
   return (
     <CoreSnackbar
-      open={open}
+      open={show}
       key={props.message}
       autoHideDuration={AUTOHIDE_DURATION}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}

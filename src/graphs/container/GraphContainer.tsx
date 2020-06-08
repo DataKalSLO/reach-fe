@@ -40,12 +40,7 @@ function GraphContainer() {
 
   return (
     <GridContainer container>
-      <Snackbar
-        actionId={notificationsState.actionStatus.actionId}
-        severity={notificationsState.actionStatus.severity}
-        open={notificationsState.actionStatus.show}
-        message={notificationsState.actionStatus.message}
-      />
+      <Snackbar {...notificationsState.actionStatus} />
       {/* Show loader while fetching */}
       {graphState.isFetching ? (
         <CircularProgress color="primary" size={CIRCULAR_PROGRESS_SIZE} />
