@@ -5,15 +5,15 @@ import { callActionAndAlertOnError } from '../operations';
 import {
   STORY_CHANGE_STATUS_FAILURE_MESSAGE,
   STORY_CHANGE_STATUS_SUCCESS_MESSAGE,
-  STORY_CREATION_FAILURE_MESSAGE,
-  STORY_CREATION_SUCCESS_MESSAGE,
   STORY_DELETION_FAILURE_MESSAGE,
   STORY_DELETION_SUCCESS_MESSAGE,
   STORY_FEEDBACK_ENDPOINT,
   STORY_FEEDBACK_RETRIEVAL_FAILURE,
   STORY_FEEDBACK_RETRIEVAL_SUCCESS,
   STORY_RETRIEVAL_FAILURE_MESSAGE,
-  STORY_RETRIEVAL_SUCCESS_MESSAGE
+  STORY_RETRIEVAL_SUCCESS_MESSAGE,
+  STORY_SAVE_FAILURE_MESSAGE,
+  STORY_SAVE_SUCCESS_MESSAGE
 } from './constants';
 import {
   deleteStoryById,
@@ -93,8 +93,8 @@ async function changeStoryStatus(story: Story, newStatus: PublicationStatus) {
 // because User authentication can be verified there.
 export async function saveStoryAndHandleResponse(
   story: Story,
-  successMessage: string = STORY_CREATION_SUCCESS_MESSAGE,
-  failureMessage: string = STORY_CREATION_FAILURE_MESSAGE
+  successMessage: string = STORY_SAVE_SUCCESS_MESSAGE,
+  failureMessage: string = STORY_SAVE_FAILURE_MESSAGE
 ): Promise<boolean> {
   return await callActionAndAlertOnError(
     () => saveOrUpdateExistingStory(story),

@@ -1,6 +1,6 @@
-const STORY_CREATION_SUCCESS_MESSAGE = 'Story created!';
-const STORY_CREATION_FAILURE_MESSAGE =
-  'An Error occurred while saving a Story. Story was not created.';
+const STORY_SAVE_SUCCESS_MESSAGE = 'Story saved!';
+const STORY_SAVE_FAILURE_MESSAGE =
+  'An Error occurred while saving a Story. Story was not saved.';
 
 const STORY_DELETION_SUCCESS_MESSAGE = 'Story deleted!';
 const STORY_DELETION_FAILURE_MESSAGE =
@@ -20,8 +20,8 @@ const STORY_FEEDBACK_RETRIEVAL_FAILURE = 'Could not get feedback left on story';
 const STORY_FEEDBACK_ENDPOINT = 'story/feedback';
 
 export {
-  STORY_CREATION_SUCCESS_MESSAGE,
-  STORY_CREATION_FAILURE_MESSAGE,
+  STORY_SAVE_SUCCESS_MESSAGE,
+  STORY_SAVE_FAILURE_MESSAGE,
   STORY_DELETION_SUCCESS_MESSAGE,
   STORY_DELETION_FAILURE_MESSAGE,
   STORY_RETRIEVAL_SUCCESS_MESSAGE,

@@ -8,12 +8,15 @@ import {
 } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { STORY_SAVE_SUCCESS_MESSAGE } from '../api/stories/constants';
 import {
   saveStoryAndHandleResponse,
   submitStoryForReviewAndHandleResponse
 } from '../api/stories/operationHandlers';
-import { Drawer, List, ListItemButton } from '../reach-ui/core';
+import { Drawer, List, ListItemButton, Snackbar } from '../reach-ui/core';
 import { EDIT_ICON, PREVIEW_ICON } from '../reach-ui/icons';
+import { showSuccessStatusMessage } from '../redux/notifications/actions';
+import { getNotifications } from '../redux/notifications/selector';
 import {
   createEmptyImageBlock,
   createEmptyTextBlock,
@@ -33,6 +36,7 @@ export default function StorySidebar() {
   const previewSelected = storyBuilderState.isPreviewSelected;
   const story = useSelector(getStory);
   const dispatch = useDispatch();
+  const notificationsState = useSelector(getNotifications);
 
   function checkValidMetaFields<T>(onSuccess: () => T) {
     if (areValidMetaFields(story.title, story.description)) {
@@ -47,7 +51,11 @@ export default function StorySidebar() {
   };
 
   const handleSave = async () => {
-    await checkValidMetaFields(() => saveStoryAndHandleResponse(story));
+    await checkValidMetaFields(() =>
+      saveStoryAndHandleResponse(story).then(status =>
+        dispatch(showSuccessStatusMessage(status, STORY_SAVE_SUCCESS_MESSAGE))
+      )
+    );
     //TODO: Add Loading bar while waiting for request.
   };
 
@@ -63,47 +71,50 @@ export default function StorySidebar() {
   };
 
   return (
-    <Drawer width={STORY_SIDEBAR_WIDTH} isCollapsible={true}>
-      <Typography variant="subtitle1" align="center">
-        <b>Add Block</b>
-      </Typography>
-      <List>
-        <ListItemButton
-          disabled={previewSelected}
-          text={'Text'}
-          icon={<TextFields />}
-          onClick={() => dispatch(createEmptyTextBlock())}
-        />
-        <ListItemButton
-          disabled={previewSelected}
-          text={'Graph'}
-          icon={<InsertChart />}
-          onClick={() => dispatch(createGraphBlock())}
-        />
-        <ListItemButton
-          disabled={previewSelected}
-          text={'Image'}
-          icon={<InsertPhoto />}
-          onClick={() => dispatch(createEmptyImageBlock())}
-        />
-      </List>
-      <Divider />
-      <List>
-        <ListItemButton
-          text={previewSelected ? 'Edit' : 'Preview'}
-          icon={previewSelected ? EDIT_ICON : PREVIEW_ICON}
-          onClick={handleTogglePreview}
-        />
-      </List>
-      <Divider />
-      <List>
-        <ListItemButton text={'Save'} icon={<Save />} onClick={handleSave} />
-        <ListItemButton
-          text={'Submit for Review'}
-          icon={<ChatBubble />}
-          onClick={handleSubmitForReview}
-        />
-      </List>
-    </Drawer>
+    <>
+      <Snackbar {...notificationsState.actionStatus} />
+      <Drawer width={STORY_SIDEBAR_WIDTH} isCollapsible={true}>
+        <Typography variant="subtitle1" align="center">
+          <b>Add Block</b>
+        </Typography>
+        <List>
+          <ListItemButton
+            disabled={previewSelected}
+            text={'Text'}
+            icon={<TextFields />}
+            onClick={() => dispatch(createEmptyTextBlock())}
+          />
+          <ListItemButton
+            disabled={previewSelected}
+            text={'Graph'}
+            icon={<InsertChart />}
+            onClick={() => dispatch(createGraphBlock())}
+          />
+          <ListItemButton
+            disabled={previewSelected}
+            text={'Image'}
+            icon={<InsertPhoto />}
+            onClick={() => dispatch(createEmptyImageBlock())}
+          />
+        </List>
+        <Divider />
+        <List>
+          <ListItemButton
+            text={previewSelected ? 'Edit' : 'Preview'}
+            icon={previewSelected ? EDIT_ICON : PREVIEW_ICON}
+            onClick={handleTogglePreview}
+          />
+        </List>
+        <Divider />
+        <List>
+          <ListItemButton text={'Save'} icon={<Save />} onClick={handleSave} />
+          <ListItemButton
+            text={'Submit for Review'}
+            icon={<ChatBubble />}
+            onClick={handleSubmitForReview}
+          />
+        </List>
+      </Drawer>
+    </>
   );
 }
