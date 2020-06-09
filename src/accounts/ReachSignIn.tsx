@@ -21,7 +21,7 @@ function ReachSignIn() {
 
   const handleInputChangeEmail = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setEmail(event.target.value);
+      setEmail(event.target.value.toLowerCase());
     },
     [setEmail]
   );

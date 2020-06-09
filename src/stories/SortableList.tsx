@@ -10,7 +10,7 @@ import {
 import { Dispatch } from 'redux';
 import { swapBlocks } from '../redux/story/actions';
 import { StoryBlockType } from '../redux/story/types';
-import { StoryBlock } from './StoryBlock';
+import StoryBlock from './StoryBlock';
 
 // The input to the sortable list, objects to be converted into JSX.Elements
 interface SortableListProps {

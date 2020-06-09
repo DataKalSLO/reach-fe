@@ -2,18 +2,6 @@ import { isUndefined } from 'util';
 import { User } from '../login/types';
 import { Graph, GraphWithIndex } from './types';
 
-export function replaceGraph(graphs: Graph[], newGraph?: Graph): Graph[] {
-  return graphs.map(graph => {
-    if (
-      !isUndefined(newGraph) &&
-      graph.graphMetaData.graphId === newGraph.graphMetaData.graphId
-    ) {
-      return newGraph;
-    }
-    return graph;
-  });
-}
-
 /*
  * Remove the graphId when duplicating a graph to
  * prevent overriding the existing graph.

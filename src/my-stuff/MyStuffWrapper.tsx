@@ -6,6 +6,7 @@ import MyStuffSidebar from './MyStuffSidebar';
 
 interface Props extends GalleryProps {
   title: string;
+  emptyStateMessage: string;
 }
 
 export default function MyStuffWrapper(props: Props) {
@@ -19,7 +20,9 @@ export default function MyStuffWrapper(props: Props) {
 
         {/* TODO: the create new button, search bar, filter button, and sort button should all go here  */}
 
-        <Gallery>{props.children}</Gallery>
+        <Gallery emptyStateMessage={props.emptyStateMessage}>
+          {props.children}
+        </Gallery>
       </SidebarContentBox>
     </Box>
   );

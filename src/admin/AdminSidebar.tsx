@@ -18,6 +18,9 @@ const drawerOptions: PersistentDrawerProps = {
   drawerId: ADMIN_SIDEBAR
 };
 
+export const UPLOAD_DATA_TAB_TITLE = 'Upload Data';
+export const REVIEW_STORIES_TAB_TITLE = 'Review Stories';
+
 export default function AdminSidebar() {
   const history = useHistory();
   const navigateTo = (route: string) => history.push(route);
@@ -27,13 +30,13 @@ export default function AdminSidebar() {
     <Drawer width={SIDEBAR_WIDTH}>
       <List>
         <ListItemTab
-          title="Upload Data"
+          title={UPLOAD_DATA_TAB_TITLE}
           icon={DATA_ICON}
           onClick={() => navigateTo(ADMIN_UPLOAD_DATA)}
           {...options}
         />
         <ListItemTab
-          title="Review Stories"
+          title={REVIEW_STORIES_TAB_TITLE}
           icon={STORIES_ICON}
           onClick={() => navigateTo(ADMIN_REVIEW_STORIES)}
           {...options}

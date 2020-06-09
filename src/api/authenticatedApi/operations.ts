@@ -11,6 +11,13 @@ export function authenticatedGet(endpoint: string): Promise<object> {
   return performActionWithToken(token => get(endpoint, token));
 }
 
+export function optionalAuthenticatedGet(endpoint: string): Promise<object> {
+  return performActionWithToken(
+    token => get(endpoint, token),
+    () => get(endpoint)
+  );
+}
+
 export function authenticatedDel(endpoint: string): Promise<object> {
   return performActionWithToken(token => del(endpoint, token));
 }
@@ -36,11 +43,16 @@ export function authenticatedPostForm(
   return performActionWithToken(token => postForm(endpoint, body, token));
 }
 
-function performActionWithToken<T>(action: (token: string) => T): T {
+function performActionWithToken<T>(
+  action: (token: string) => T,
+  noTokenAction?: () => T
+): T {
   const token = store.getState().user.token;
   if (token === EMPTY_TOKEN) {
     if (window.confirm(CONFIRM_REDIRECT_TO_LOGIN_PROMPT)) {
       history.push(LOGIN);
+    } else if (noTokenAction) {
+      return noTokenAction();
     }
     throw UnauthorizedAOperationError;
   } else {

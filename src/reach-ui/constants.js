@@ -3,3 +3,8 @@
  */
 export const ADMIN_SIDEBAR = 'AdminSidebar';
 export const MY_STUFF_SIDEBAR = 'MyStuffSidebar';
+
+export const ALERT_ELEVATION = 6;
+
+// Per the Material UI example at https://material-ui.com/components/snackbars/#customized-snackbars
+export const AUTOHIDE_DURATION = 6000;

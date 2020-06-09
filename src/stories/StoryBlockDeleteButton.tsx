@@ -1,11 +1,16 @@
+import { deleteBlock } from '../redux/story/actions';
 import { DeleteForever } from '@material-ui/icons';
-import React from 'react';
+import { deleteImageFromBlock } from './image-block/ImageBlock';
 import { Dispatch } from 'redux';
 import { IconButton } from '../reach-ui/core';
-import { deleteBlock } from '../redux/story/actions';
-import { StoryBlockType } from '../redux/story/types';
-import { theme } from '../theme/theme';
+import {
+  ImageBlockType,
+  IMAGE_BLOCK_TYPE,
+  StoryBlockType
+} from '../redux/story/types';
 import { storyBlockHasContent } from '../redux/story/utilities';
+import React from 'react';
+import { theme } from '../theme/theme';
 
 interface StoryBlockDeleteButtonProps {
   index: number;
@@ -27,8 +32,16 @@ const storyBlockDeleteButtonAction = (
         'Are you sure you wish to delete this item?\n' +
           'This action cannot be undone.'
       )
-    )
+    ) {
+      if (
+        storyBlock.type === IMAGE_BLOCK_TYPE &&
+        (storyBlock as ImageBlockType).imageUrl !== ''
+      ) {
+        // if deleting an image block, we want to delete the image from s3 as well
+        deleteImageFromBlock((storyBlock as ImageBlockType).imageUrl);
+      }
       dispatch(deleteBlock(index));
+    }
   }
 };
 

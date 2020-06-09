@@ -9,12 +9,14 @@ import Gallery from '../common/components/Gallery';
 import IconButton from '../common/components/IconButton';
 import List from '../common/components/List';
 import ListItemButton from '../common/components/ListItemButton';
+import Menu from '../common/components/Menu';
 import {
   getPersistentDrawerOptions,
   ListItemTab
 } from '../common/components/PersistentDrawer';
 import Popper from '../common/components/Popper';
 import SidebarContentBox from '../common/components/SidebarContentBox';
+import Snackbar from '../common/components/Snackbar';
 import TextField from '../common/components/TextField';
 
 export {
@@ -29,7 +31,9 @@ export {
   List,
   ListItemButton,
   ListItemTab,
+  Menu,
   Popper,
   SidebarContentBox,
+  Snackbar,
   TextField
 };
