@@ -2,8 +2,7 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  CardMedia,
-  Divider
+  CardMedia
 } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 import React, { useState } from 'react';
@@ -12,7 +11,6 @@ import { STORY_VIEW } from '../../nav/constants';
 import { Story } from '../../redux/story/types';
 import { AuthorDate, Description, Title } from '../PreviewMetaData';
 import { StyleProps, usePreviewCardStyles } from '../usePreviewCardStyles';
-import AdminReviewCardActions from './AdminReviewCardActions';
 import AuthorCardActions from './AuthorCardActions';
 
 //TODO: Add a way to get author, date, and image url from passed in props
@@ -47,24 +45,6 @@ export default function StoryCard(props: Props): JSX.Element {
     }
   };
 
-  // Buttons to reject story with feedback or approve for publishing
-  // Buttons will only appear if story is in review status and user is an admin
-  const AdminReviewButtons = () => {
-    if (props.showAdminActions) {
-      return (
-        <>
-          <Divider variant="middle" />
-          <AdminReviewCardActions
-            story={props.story}
-            setCardVisible={setIsVisible}
-          />
-        </>
-      );
-    } else {
-      return <React.Fragment />;
-    }
-  };
-
   if (!isVisible) {
     return <React.Fragment />;
   }
@@ -91,8 +71,6 @@ export default function StoryCard(props: Props): JSX.Element {
           />
         </CardContent>
       </CardActionArea>
-
-      <AdminReviewButtons />
     </Card>
   );
 }
