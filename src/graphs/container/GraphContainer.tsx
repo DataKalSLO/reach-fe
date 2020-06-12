@@ -1,6 +1,8 @@
-import { CircularProgress, Grid, styled } from '@material-ui/core';
+import { CircularProgress, Grid, styled, Typography } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentTab } from '../../common/components/PersistentDrawer';
+import { INITIATIVES_SIDEBAR } from '../../reach-ui/constants';
 import { Snackbar } from '../../reach-ui/core';
 import { getDefaultGraphs } from '../../redux/graphbuilder/actions';
 import { getGraphs } from '../../redux/graphbuilder/selector';
@@ -10,7 +12,14 @@ import { getVizbuilder } from '../../redux/vizbuilder/selector';
 import { GraphCard } from '../components/GraphCard';
 import { generateEmptyGraph } from '../forms/defaults';
 import { GraphCreateForm } from '../forms/GraphCreateForm';
-import { CIRCULAR_PROGRESS_SIZE } from './constants';
+import {
+  CIRCULAR_PROGRESS_SIZE,
+  TITLE_PADDING_LEFT,
+  CONTAINER_HEIGHT
+} from './constants';
+import InitiativesSidebar, {
+  sidebarWidth as initiativesSidebarWidth
+} from './InitiativesSidebar';
 
 /*
  * Renders a list of graphs.
@@ -38,30 +47,81 @@ function GraphContainer() {
     ));
   };
 
-  return (
-    <GridContainer container>
-      <Snackbar
-        actionId={notificationsState.actionStatus.actionId}
-        severity={notificationsState.actionStatus.severity}
-        open={notificationsState.actionStatus.show}
-        message={notificationsState.actionStatus.message}
-      />
-      {/* Show loader while fetching */}
-      {graphState.isFetching ? (
+  const LoadingSpinner = () => {
+    return (
+      <Grid
+        container
+        item
+        alignItems="center"
+        justify="center"
+        style={{ height: CONTAINER_HEIGHT }}
+      >
         <CircularProgress color="primary" size={CIRCULAR_PROGRESS_SIZE} />
-      ) : null}
-      {/* Show graphs while not creating or fetching */}
-      {!graphState.isCreating && !graphState.isFetching
-        ? getGraphComponents()
-        : null}
-      {/* Show the create form when creating */}
-      {graphState.isCreating ? (
-        <GraphCreateForm
-          graph={generateEmptyGraph(vizState.metadataForAllDatasets)}
-          datasetsMetaData={vizState.metadataForAllDatasets}
+      </Grid>
+    );
+  };
+
+  const Title = () => {
+    return (
+      <Typography
+        variant="h4"
+        component="h1"
+        style={{ paddingLeft: TITLE_PADDING_LEFT }}
+      >
+        {getCurrentTab(INITIATIVES_SIDEBAR)}
+      </Typography>
+    );
+  };
+
+  const LabeledGraphsList = () => {
+    return (
+      <Grid container item>
+        <Grid item>
+          <Title />
+        </Grid>
+        <Grid container item>
+          {getGraphComponents()}
+        </Grid>
+      </Grid>
+    );
+  };
+
+  const LabeledGraphBuilder = () => {
+    return (
+      <Grid container item>
+        <Grid item style={{ paddingBottom: 10 }}>
+          <Title />
+        </Grid>
+        <Grid container item style={{ paddingLeft: TITLE_PADDING_LEFT }}>
+          <GraphCreateForm
+            graph={generateEmptyGraph(vizState.metadataForAllDatasets)}
+            datasetsMetaData={vizState.metadataForAllDatasets}
+          />
+        </Grid>
+      </Grid>
+    );
+  };
+
+  return (
+    <>
+      <GridContainer container item>
+        <Snackbar
+          actionId={notificationsState.actionStatus.actionId}
+          severity={notificationsState.actionStatus.severity}
+          open={notificationsState.actionStatus.show}
+          message={notificationsState.actionStatus.message}
         />
-      ) : null}
-    </GridContainer>
+        {/* Show loader while fetching */}
+        {graphState.isFetching ? <LoadingSpinner /> : null}
+        {/* Show graphs while not creating or fetching */}
+        {!graphState.isCreating && !graphState.isFetching ? (
+          <LabeledGraphsList />
+        ) : null}
+        {/* Show the create form when creating */}
+        {graphState.isCreating ? <LabeledGraphBuilder /> : null}
+      </GridContainer>
+      <InitiativesSidebar />
+    </>
   );
 }
 
@@ -70,10 +130,15 @@ export default GraphContainer;
 /*
  * Styles
  */
+const paddingDefault = '10px';
 const GridContainer = styled(Grid)({
   justifyContent: 'center',
+  alignItems: 'flex-start',
   overflow: 'scroll',
-  padding: '10px 0px 10px 0px'
+  paddingTop: paddingDefault,
+  paddingBottom: paddingDefault,
+  paddingLeft: 0,
+  paddingRight: initiativesSidebarWidth
 });
 
 const GridItem = styled(Grid)({

@@ -2,6 +2,7 @@
  * these must be unique so they are defined here to mitigate naming overlap
  */
 export const ADMIN_SIDEBAR = 'AdminSidebar';
+export const INITIATIVES_SIDEBAR = 'InitiativesSidebar';
 export const MY_STUFF_SIDEBAR = 'MyStuffSidebar';
 
 export const ALERT_ELEVATION = 6;

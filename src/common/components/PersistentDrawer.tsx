@@ -60,7 +60,6 @@ export interface PersistentDrawerProps {
    */
   drawerId: string;
   defaultTab: string;
-  anchor?: 'left' | 'right'; // convenience prop so you don't need to manually pass anchor to every ListItemTab
 }
 
 export interface PersistentDrawerOptions

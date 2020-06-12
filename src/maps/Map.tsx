@@ -24,7 +24,7 @@ const BOX_HEIGHT = '100%';
 const BOX_MAX_WIDTH = '98hw';
 
 // sizing for the card background which contains everything on the map side
-const CARD_HEIGHT = '95%';
+const CARD_HEIGHT = '88%';
 const CARD_MARGIN = '15px';
 
 // sizing for the map itself

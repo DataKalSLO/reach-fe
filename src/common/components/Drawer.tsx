@@ -27,12 +27,13 @@ const useStyles = makeStyles({
   drawerClose: {
     width: theme.spacing(7) + 1,
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9) + 1
+      width: theme.spacing(10) + 1
     },
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
-    })
+    }),
+    whiteSpace: 'nowrap'
   }
 });
 
@@ -98,7 +99,7 @@ export default function Drawer(props: Props) {
         paper: clsx({
           [classes.drawerPaper]: true, // using true so this style is always applied
           [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open
+          [classes.drawerClose]: !open || !isCollapsible
         })
       }}
       {...otherProps}

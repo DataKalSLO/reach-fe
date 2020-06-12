@@ -1,5 +1,5 @@
 import { Toolbar } from '@material-ui/core';
-import { Delete, Edit, FileCopy, Save, Share } from '@material-ui/icons';
+import { Delete, Edit, FileCopy, Save } from '@material-ui/icons';
 import SyncIcon from '@material-ui/icons/Sync';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -26,12 +26,11 @@ import {
   EDIT_LABEL,
   HIDE_LABEL,
   SAVE_LABEL,
-  SHARE_LABEL,
   SHOW_LABEL,
   SYNC_LABEL
 } from './constants';
-import { GraphToolbarProps } from './types';
 import GraphShareButton from './GraphShareButton';
+import { GraphToolbarProps } from './types';
 
 /*
  * Contains the buttons rendered on the graph toolbar.

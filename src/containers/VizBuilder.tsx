@@ -1,15 +1,21 @@
-import React, { Fragment, useEffect } from 'react';
-import { Grid, Container } from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
-import Map from '../maps/Map';
-import SplitterLayout from 'react-splitter-layout';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import GraphContainer from '../graphs/container/GraphContainer';
-import OptionsBar from '../graphs/container/OptionsBar';
-import 'react-splitter-layout/lib/index.css';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import SplitterLayout from 'react-splitter-layout';
+import 'react-splitter-layout/lib/index.css';
+import { setTab } from '../common/components/PersistentDrawer';
+import { CONTAINER_HEIGHT } from '../graphs/container/constants';
+import GraphContainer from '../graphs/container/GraphContainer';
+import { sidebarWidth as initiativesSidebarWidth } from '../graphs/container/InitiativesSidebar';
+import Map from '../maps/Map';
+import { INITIATIVES_SIDEBAR } from '../reach-ui/constants';
+import { HEALTH } from '../redux/graphs/constants';
 import { getAllMetadata } from '../redux/vizbuilder/actions';
+
+const splitterMinSize = 22; // the width of the center line and arrows on both sides
 
 function VizBuilder() {
   const dispatch = useDispatch();
@@ -18,22 +24,25 @@ function VizBuilder() {
     dispatch(getAllMetadata());
   });
 
+  // Set the initial tab to health (since, as of June 2020, it had the most interesting & updated graphs)
+  setTab(INITIATIVES_SIDEBAR, HEALTH);
+
   return (
-    <Fragment>
-      <StyledContainer maxWidth={'xl'}>
-        <SplitterLayout primaryMinSize={5} secondaryMinSize={5}>
-          <StyledGrid item xs={12}>
-            <LeftArrow fontSize={'large'} />
-            <Map />
-          </StyledGrid>
-          <StyledGrid item xs={12}>
-            <RightArrow fontSize={'large'} />
-            <GraphContainer />
-          </StyledGrid>
-        </SplitterLayout>
-      </StyledContainer>
-      <OptionsBar />
-    </Fragment>
+    <StyledContainer maxWidth={'xl'}>
+      <SplitterLayout
+        primaryMinSize={splitterMinSize}
+        secondaryMinSize={splitterMinSize + initiativesSidebarWidth}
+      >
+        <StyledGrid container item xs={12}>
+          <LeftArrow fontSize={'large'} />
+          <Map />
+        </StyledGrid>
+        <StyledGrid container item xs={12}>
+          <RightArrow fontSize={'large'} />
+          <GraphContainer />
+        </StyledGrid>
+      </SplitterLayout>
+    </StyledContainer>
   );
 }
 
@@ -41,8 +50,7 @@ const StyledContainer = styled(Container)({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
-  height: '90vh',
-  padding: '0px',
+  height: CONTAINER_HEIGHT,
   position: 'relative',
   overflow: 'hidden',
   '& .splitter-layout .layout-pane': {
@@ -54,8 +62,6 @@ const StyledGrid = styled(Grid)({
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
   height: '100%',
   overflow: 'hidden'
 });
