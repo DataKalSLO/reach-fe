@@ -144,5 +144,5 @@ const GridContainer = styled(Grid)({
 const GridItem = styled(Grid)({
   width: '95%',
   maxWidth: 'calc(100vw/2.2)',
-  padding: '10px 10px 10px 20px'
+  padding: '10px 0px 10px 20px'
 });

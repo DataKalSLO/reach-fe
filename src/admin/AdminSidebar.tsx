@@ -11,7 +11,7 @@ import {
 } from '../reach-ui/core';
 import { DATA_ICON, STORIES_ICON } from '../reach-ui/icons';
 
-const SIDEBAR_WIDTH = 190;
+const SIDEBAR_WIDTH = 210;
 
 const drawerOptions: PersistentDrawerProps = {
   defaultTab: 'Data Upload',

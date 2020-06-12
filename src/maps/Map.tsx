@@ -24,7 +24,7 @@ const BOX_HEIGHT = '100%';
 const BOX_MAX_WIDTH = '98hw';
 
 // sizing for the card background which contains everything on the map side
-const CARD_HEIGHT = '88%';
+const CARD_HEIGHT = '96%';
 const CARD_MARGIN = '15px';
 
 // sizing for the map itself
@@ -91,7 +91,8 @@ const StyledBox = styled(Box)({
 
 const StyledCard = styled(Card)({
   height: CARD_HEIGHT,
-  margin: CARD_MARGIN
+  margin: CARD_MARGIN,
+  marginRight: '20px'
 });
 
 const StyledMapContainer = styled(Box)({

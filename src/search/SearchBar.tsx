@@ -25,7 +25,7 @@ function SearchBar(props: SearchBarProps) {
   const handleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
-    if (e.target.value == '') {
+    if (e.target.value === '') {
       props.onEmptySearchBar();
     }
     setText(e.target.value);

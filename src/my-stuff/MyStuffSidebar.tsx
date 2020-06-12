@@ -11,7 +11,7 @@ import {
 } from '../reach-ui/core';
 import { ALL_ITEMS_ICON, GRAPHS_ICON, STORIES_ICON } from '../reach-ui/icons';
 
-const SIDEBAR_WIDTH = 190;
+const SIDEBAR_WIDTH = 165;
 
 const drawerOptions: PersistentDrawerProps = {
   defaultTab: 'All Items',
