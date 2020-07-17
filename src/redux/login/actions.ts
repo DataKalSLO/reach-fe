@@ -8,12 +8,7 @@ import {
   RegisterData,
   UserSettings
 } from './types';
-import {
-  login,
-  postPerson,
-  deletePerson,
-  putPersonSettings
-} from '../../api/login';
+import { login, postPerson } from '../../api/login';
 import { cognitoUserToLocalUser } from '../../common/util/accountTools';
 import { Auth } from 'aws-amplify';
 import { Dispatch } from 'redux';

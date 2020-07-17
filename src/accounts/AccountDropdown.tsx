@@ -7,7 +7,6 @@ import { SETTINGS } from '../nav/constants';
 import { Menu } from '../reach-ui/core';
 import { logoutAction } from '../redux/login/actions';
 import { getUser } from '../redux/login/selectors';
-import { Auth } from 'aws-amplify';
 
 interface AccountDropdownProps {
   anchorEl: HTMLElement | null;

@@ -17,7 +17,7 @@ import { wrapWithCatch } from '../api/base';
 import BoxCenter from '../common/components/BoxCenter';
 import { theme } from '../theme/theme';
 import { isValidPassword } from './InputValidator';
-import { UserSettings, PasswordChange } from '../redux/login/types';
+import { UserSettings } from '../redux/login/types';
 import { updateUserSettingsAndPassword } from '../redux/login/actions';
 
 interface ChangePasswordProps {
