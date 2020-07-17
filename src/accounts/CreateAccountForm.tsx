@@ -10,12 +10,9 @@ import BoxCenter from '../common/components/BoxCenter';
 import AccountTextField from '../common/components/AccountTextField';
 import { OccupationDropdown } from '../containers/OccupationDropdown';
 import { useHistory } from 'react-router-dom';
-import { BASE_USER } from '../nav/constants';
-import { useDispatch } from 'react-redux';
-import { register } from '../redux/login/actions';
-import { RegisterData } from '../redux/login/types';
-import { wrapWithCatch } from '../api/base';
+import { LOGIN } from '../nav/constants';
 import { isValidEmail, isValidPassword } from './InputValidator';
+import { Auth } from 'aws-amplify';
 
 function CreateAccountForm() {
   const [name, setName] = useState('');
@@ -56,7 +53,7 @@ function CreateAccountForm() {
       const isValid = isValidPassword(passwordVal);
       const errorMessage = isValid
         ? ''
-        : 'Your password must be at at least 6 characters, contain 1 number, and contain 1 special symbol';
+        : 'Your password must be at at least 8 characters, contain 1 number, and contain 1 special symbol';
       setPasswordValid(isValid);
       setPasswordErrorMessage(errorMessage);
     },
@@ -115,46 +112,33 @@ function CreateAccountForm() {
     [setName]
   );
 
-  const handleAccountError = useCallback(() => {
-    setBadEmail(true);
-  }, [setBadEmail]);
-
   const history = useHistory();
-  const dispatch = useDispatch();
 
-  const handleSubmit = useCallback(
-    e => {
-      e.preventDefault();
-      dispatch(
-        wrapWithCatch(
-          register({
-            email,
-            password,
-            name: name,
-            role: BASE_USER,
-            occupation: occupation,
-            notificationsEnabled: emailNotificationEnabled,
-            isThirdParty: false
-          } as RegisterData),
-          handleAccountError,
-          () => history.go(-2) // returns user back to previous non-login page
-        )
+  //https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js
+  async function signUp() {
+    console.log('signing up');
+    try {
+      const user = await Auth.signUp({
+        username: email,
+        password,
+        attributes: {
+          email,
+          name: name,
+          'custom:occupation': occupation,
+          'custom:emailNotif': emailNotificationEnabled ? 'true' : 'false'
+        }
+      }).then(
+        () => history.push(LOGIN) // returns user back to previous non-login page
       );
-    },
-    [
-      dispatch,
-      email,
-      password,
-      name,
-      occupation,
-      emailNotificationEnabled,
-      handleAccountError,
-      history
-    ]
-  );
+      console.log({ user });
+    } catch (error) {
+      console.log('error signing up:', error);
+      setEmailErrorMessage(error.message);
+    }
+  }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
       <BoxCenterSized>
         <AccountTextField
           fullWidth
@@ -207,13 +191,13 @@ function CreateAccountForm() {
           fullWidth
           variant="contained"
           color="primary"
-          type="submit"
           disabled={!emailValid || !passwordValid || !passwordConfirmationValid}
+          onClick={signUp}
         >
           CREATE ACCOUNT
         </ButtonThin>
       </BoxCenterSized>
-    </form>
+    </div>
   );
 }
 

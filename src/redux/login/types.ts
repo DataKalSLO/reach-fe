@@ -1,3 +1,5 @@
+import { CognitoUser } from 'amazon-cognito-identity-js';
+
 export interface LoginData {
   email: string;
   password: string;
@@ -23,12 +25,10 @@ export interface RegisterData {
 
 export interface User {
   email: string;
-  token: string;
   name: string;
   role: number;
-  occupation: string;
-  notificationsEnabled: boolean;
-  isThirdParty: boolean;
+  'custom:occupation': string;
+  'custom:emailNotif': boolean;
 }
 
 export interface PasswordChange {
@@ -38,15 +38,15 @@ export interface PasswordChange {
 
 export interface UserSettings {
   name: string;
-  occupation: string;
-  notificationsEnabled: boolean;
-  passwordChangeRequest: PasswordChange | null;
+  'custom:occupation': string;
+  'custom:emailNotif': boolean;
 }
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const UPDATE_SETTINGS = 'UPDATE_SETTINGS';
 
+//https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#signin
 interface LoginUserAction {
   type: typeof LOGIN;
   payload: User;

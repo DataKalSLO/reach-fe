@@ -47,7 +47,8 @@ function performActionWithToken<T>(
   action: (token: string) => T,
   noTokenAction?: () => T
 ): T {
-  const token = store.getState().user.token;
+  //Changed from token to email since token no longer exists
+  const token = store.getState().user.email;
   if (token === EMPTY_TOKEN) {
     if (window.confirm(CONFIRM_REDIRECT_TO_LOGIN_PROMPT)) {
       history.push(LOGIN);

@@ -1,11 +1,13 @@
-import React, { useState, useCallback } from 'react';
-import { Box, Button, styled, CircularProgress, Fade } from '@material-ui/core';
-import AccountTextField from '../common/components/AccountTextField';
+import { Box, Button, CircularProgress, Fade, styled } from '@material-ui/core';
+import { Auth } from 'aws-amplify';
+import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { LoginData } from '../redux/login/types';
-import { loginUser } from '../redux/login/actions';
 import { wrapWithCatch } from '../api/base';
+import AccountTextField from '../common/components/AccountTextField';
+import { loginUser } from '../redux/login/actions';
+import { LoginData } from '../redux/login/types';
+import { STORY_BUILDER } from '../nav/constants';
 
 function ReachSignIn() {
   const dispatch = useDispatch();
@@ -42,7 +44,8 @@ function ReachSignIn() {
         wrapWithCatch(
           loginUser({ email, password } as LoginData),
           handleLoginError,
-          () => history.goBack()
+          //TODO: Change this to HOME
+          () => history.push(STORY_BUILDER)
         )
       );
     },
@@ -61,6 +64,7 @@ function ReachSignIn() {
         />
         <AccountTextField
           error={badLogin}
+          //TODO: Take error message from login error.
           helperText={badLogin ? 'Incorrect email/password combination' : ' '}
           placeholder="Password"
           type="password"

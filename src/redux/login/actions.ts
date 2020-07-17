@@ -14,6 +14,8 @@ import {
   deletePerson,
   putPersonSettings
 } from '../../api/login';
+import { cognitoUserToLocalUser } from '../../common/util/accountTools';
+import { Auth } from 'aws-amplify';
 import { Dispatch } from 'redux';
 
 export function loginAction(user: User): UserActionTypes {
@@ -23,9 +25,11 @@ export function loginAction(user: User): UserActionTypes {
   };
 }
 
+//https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js
 export function loginUser(loginData: LoginData) {
   return async (dispatch: Dispatch) => {
-    const user = await login(loginData);
+    const cognitoUser = await Auth.signIn(loginData.email, loginData.password);
+    const user = cognitoUserToLocalUser(cognitoUser);
     dispatch(loginAction(user));
   };
 }
@@ -46,9 +50,17 @@ export function logoutAction(): UserActionTypes {
   return { type: LOGOUT };
 }
 
-export function deleteUser(email: string, token: string) {
+export function logoutUser(loginData: LoginData) {
   return async (dispatch: Dispatch) => {
-    await deletePerson(email, token);
+    await Auth.signOut();
+    dispatch(logoutAction());
+  };
+}
+
+export function deleteUser() {
+  return async (dispatch: Dispatch) => {
+    const currUser = await Auth.currentAuthenticatedUser();
+    currUser.deleteUser();
     dispatch(logoutAction());
   };
 }
@@ -62,9 +74,24 @@ export function updateUserSettingsAction(
   };
 }
 
-export function updateUserSettings(email: string, settings: UserSettings) {
+export function updateUserSettings(settings: UserSettings) {
   return async (dispatch: Dispatch) => {
-    await putPersonSettings(email, settings);
+    console.log(settings);
+    const currUser = await Auth.currentAuthenticatedUser();
+    Auth.updateUserAttributes(currUser, settings);
+    dispatch(updateUserSettingsAction(settings));
+  };
+}
+
+export function updateUserSettingsAndPassword(
+  settings: UserSettings,
+  oldPass: string,
+  newPass: string
+) {
+  return async (dispatch: Dispatch) => {
+    const currUser = await Auth.currentAuthenticatedUser();
+    Auth.changePassword(currUser, oldPass, newPass);
+    Auth.updateUserAttributes(currUser, settings);
     dispatch(updateUserSettingsAction(settings));
   };
 }

@@ -6,7 +6,7 @@ export function isValidEmail(emailName: string): boolean {
 
 export function isValidPassword(passwordVal: string): boolean {
   const passwordStrengthRegex = new RegExp(
-    '(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{6,})'
+    '(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})'
   );
   return passwordStrengthRegex.test(passwordVal);
 }
