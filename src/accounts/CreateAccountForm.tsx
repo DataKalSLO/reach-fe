@@ -12,7 +12,6 @@ import { OccupationDropdown } from '../containers/OccupationDropdown';
 import { useHistory } from 'react-router-dom';
 import { LOGIN, BASE_USER } from '../nav/constants';
 import { isValidEmail, isValidPassword } from './InputValidator';
-import { Auth } from 'aws-amplify';
 import { wrapWithCatch } from '../api/base';
 import { useDispatch } from 'react-redux';
 import { register } from '../redux/login/actions';
@@ -156,28 +155,6 @@ function CreateAccountForm() {
       history
     ]
   );
-
-  // //https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js
-  // async function signUp() {
-  //   console.log('signing up');
-  //   try {
-  //     const user = await Auth.signUp({
-  //       username: email,
-  //       password,
-  //       attributes: {
-  //         email,
-  //         name: name,
-  //         'custom:occupation': occupation,
-  //         'custom:emailNotif': emailNotificationEnabled ? 'true' : 'false'
-  //       }
-  //     }).then(
-  //       () => history.push(HOME) // takes user home after logging in their new account
-  //     );
-  //   } catch (error) {
-  //     console.log('error signing up:', error);
-  //     setEmailErrorMessage(error.message);
-  //   }
-  // }
 
   return (
     <form onSubmit={handleSubmit}>

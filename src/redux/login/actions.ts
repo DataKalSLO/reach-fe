@@ -42,11 +42,6 @@ export function register(registerData: RegisterData) {
         'custom:emailNotif': registerData.attributes['custom:emailNotif']
       }
     });
-    //Log user in after they've registered their account
-    loginUser({
-      email: registerData.attributes.email,
-      password: registerData.password
-    });
   };
 }
 
