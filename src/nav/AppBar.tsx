@@ -22,9 +22,11 @@ import {
   VIZ_BUILDER,
   VIZ_BUILDER_NAME
 } from './constants';
+import { useLocation } from 'react-router-dom';
 
 export default function AppBar() {
   const user = useSelector(getUser);
+  const currentRoute = useLocation().pathname;
 
   const Menu = (
     <Grid container justify="space-between" alignItems="center">
@@ -61,10 +63,7 @@ export default function AppBar() {
   );
 
   const displayAppBar = (menu: JSX.Element) => {
-    const currentRoute = window.location.pathname;
-
     // Hide the AppBar if on the Login or Create Account Page
-    // TODO: this doesn't work on firefox
     if (currentRoute === LOGIN || currentRoute === CREATE_ACCOUNT) {
       return <Fragment />;
     } else {
