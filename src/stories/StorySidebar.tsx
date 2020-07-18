@@ -18,6 +18,7 @@ import {
   createEmptyImageBlock,
   createEmptyTextBlock,
   createGraphBlock,
+  saveStory,
   updatePublicationStatus
 } from '../redux/story/actions';
 import { getStory } from '../redux/story/selectors';
@@ -47,7 +48,7 @@ export default function StorySidebar() {
   };
 
   const handleSave = async () => {
-    await checkValidMetaFields(() => saveStoryAndHandleResponse(story));
+    await checkValidMetaFields(() => dispatch(saveStory(story)));
     //TODO: Add Loading bar while waiting for request.
   };
 
