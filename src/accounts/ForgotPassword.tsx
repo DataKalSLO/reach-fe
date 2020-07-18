@@ -2,16 +2,25 @@ import React, { useState } from 'react';
 import BoxCenter from '../common/components/BoxCenter';
 import { styled, Typography, Button } from '@material-ui/core';
 import AccountTextField from '../common/components/AccountTextField';
-import { postPassword } from '../api/login';
-import { PasswordResetData } from '../redux/login/types';
-import { HOME } from '../nav/constants';
+import { RESET_PASSWORD } from '../nav/constants';
 import { useHistory } from 'react-router-dom';
+import { Auth } from 'aws-amplify';
 
 type ResetPasswordProps = {};
 
 const ForgotPassword = (props: ResetPasswordProps) => {
   const history = useHistory();
   const [email, setEmail] = useState('');
+  const [sendResetErrorMessage, setSendResetErrorMessage] = useState('');
+
+  async function sendReset() {
+    try {
+      await Auth.forgotPassword(email);
+      history.push(RESET_PASSWORD);
+    } catch (e) {
+      setSendResetErrorMessage(e.message);
+    }
+  }
 
   return (
     <BoxCenterSized>
@@ -23,18 +32,12 @@ const ForgotPassword = (props: ResetPasswordProps) => {
         variant="filled"
         size="small"
       />
+      <ErrorMessage>{sendResetErrorMessage}</ErrorMessage>
       <ButtonThin
         fullWidth
         variant="contained"
         color="primary"
-        onClick={async () => {
-          try {
-            await postPassword({ email } as PasswordResetData);
-            history.push(HOME);
-          } catch {
-            // Error
-          }
-        }}
+        onClick={sendReset}
       >
         SEND RESET EMAIL
       </ButtonThin>
@@ -49,6 +52,12 @@ const Title = styled(Typography)({
 
 const ButtonThin = styled(Button)({
   width: '270px'
+});
+
+const ErrorMessage = styled(Typography)({
+  width: '270px',
+  fontSize: '13px',
+  color: 'red'
 });
 
 const BoxCenterSized = styled(BoxCenter)({
