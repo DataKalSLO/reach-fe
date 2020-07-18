@@ -18,3 +18,17 @@ export function showSuccessNotification(
     }
   };
 }
+
+export function showErrorNotification(
+  message: string
+): ShowFailureStatusMessageAction {
+  return {
+    type: ERROR,
+    payload: {
+      actionId: uuid(),
+      severity: ERROR_SEVERITY,
+      message: message,
+      show: true
+    }
+  };
+}
