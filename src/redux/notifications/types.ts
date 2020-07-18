@@ -1,7 +1,8 @@
 import {
+  ERROR,
   ERROR_SEVERITY,
   INFO_SEVERITY,
-  SHOW_SUCCESS_STATUS_MESSAGE,
+  SUCCESS,
   SUCCESS_SEVERITY,
   WARNING_SEVERITY
 } from './constants';
@@ -34,8 +35,15 @@ export type StatusSeverity =
  * actions for the reducer.
  */
 export interface ShowSuccessStatusMessageAction {
-  type: typeof SHOW_SUCCESS_STATUS_MESSAGE;
+  type: typeof SUCCESS;
   payload: ActionStatus | undefined;
 }
 
-export type NotificationActionTypes = ShowSuccessStatusMessageAction;
+export interface ShowFailureStatusMessageAction {
+  type: typeof ERROR;
+  payload: ActionStatus | undefined;
+}
+
+export type NotificationActionTypes =
+  | ShowSuccessStatusMessageAction
+  | ShowFailureStatusMessageAction;

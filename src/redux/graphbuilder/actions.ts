@@ -11,7 +11,7 @@ import {
 import { ApiGraphConfirmationResponse } from '../../api/graphs/types';
 import { getDataColumnsForDataSourcesAndHandleResponse } from '../../api/vizbuilder/operationHandlers';
 import { GraphMetaData, GraphMetaDataApiPayload } from '../graphs/types';
-import { showSuccessStatusMessage } from '../notifications/actions';
+import { showSuccessNotification } from '../notifications/actions';
 import {
   GRAPH_DELETE_MESSAGE,
   GRAPH_SAVE_MESSAGE,
@@ -52,9 +52,8 @@ export function saveGraph(
 ) {
   return async (dispatch: Dispatch) => {
     const metaData = await saveGraphAndHandleResponse(graphMetaData);
-    dispatch(
-      showSuccessStatusMessage(!isUndefined(metaData), GRAPH_SAVE_MESSAGE)
-    );
+    if (!isUndefined(metaData))
+      dispatch(showSuccessNotification(GRAPH_SAVE_MESSAGE));
     const graph = await createGraphWithData(metaData);
     dispatch(saveGraphAction({ graph: graph, index: index }));
   };
@@ -73,9 +72,8 @@ export function updateGraph(
 ) {
   return async (dispatch: Dispatch) => {
     const metaData = await updateGraphAndHandleResponse(graphMetaData);
-    dispatch(
-      showSuccessStatusMessage(!isUndefined(metaData), GRAPH_UPDATE_MESSAGE)
-    );
+    if (!isUndefined(metaData))
+      dispatch(showSuccessNotification(GRAPH_UPDATE_MESSAGE));
     const graph = await createGraphWithData(metaData);
     dispatch(updateGraphAction({ graph: graph, index: index }));
   };
@@ -105,9 +103,8 @@ function updateLocalGraphAction(payload: GraphWithIndex): UpdateLocalGraph {
 export function deleteGraph(graphId: string) {
   return async (dispatch: Dispatch) => {
     const payload = await deleteGraphAndHandleResponse(graphId);
-    dispatch(
-      showSuccessStatusMessage(!isUndefined(payload), GRAPH_DELETE_MESSAGE)
-    );
+    if (!isUndefined(payload))
+      dispatch(showSuccessNotification(GRAPH_DELETE_MESSAGE));
     dispatch(deleteGraphAction(payload));
   };
 }

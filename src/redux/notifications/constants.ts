@@ -1,5 +1,6 @@
 // Action Constants
-export const SHOW_SUCCESS_STATUS_MESSAGE = 'SHOW_SUCCESS_STATUS_MESSAGE';
+export const SUCCESS = 'SUCCESS';
+export const ERROR = 'ERROR';
 
 // Snackbar Severity Constants
 export const SUCCESS_SEVERITY = 'success';

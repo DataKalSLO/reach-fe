@@ -1,6 +1,6 @@
 import { isUndefined } from 'util';
 import { uuid } from 'uuidv4';
-import { SHOW_SUCCESS_STATUS_MESSAGE } from './constants';
+import { ERROR, SUCCESS } from './constants';
 import { NotificationActionTypes, NotificationsState } from './types';
 
 const initialState: NotificationsState = {
@@ -17,7 +17,8 @@ export function notificationsReducer(
   action: NotificationActionTypes
 ): NotificationsState {
   switch (action.type) {
-    case SHOW_SUCCESS_STATUS_MESSAGE:
+    case SUCCESS:
+    case ERROR:
       return {
         ...state,
         actionStatus: isUndefined(action.payload)

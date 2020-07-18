@@ -1,7 +1,7 @@
 import { EditorState } from 'draft-js';
 import { Dispatch } from 'redux';
 import { saveStoryAndHandleResponse } from '../../api/stories/operationHandlers';
-import { showSuccessStatusMessage } from '../notifications/actions';
+import { showSuccessNotification } from '../notifications/actions';
 import { STORY_SAVE_MESSAGE } from './../notifications/constants';
 import {
   getEmptyGraphBlock,
@@ -145,6 +145,6 @@ export function loadExistingStory(storyToLoad: Story): LoadExistingStoryAction {
 export function saveStory(story: Story) {
   return async (dispatch: Dispatch) => {
     const isSaved = await saveStoryAndHandleResponse(story);
-    dispatch(showSuccessStatusMessage(isSaved, STORY_SAVE_MESSAGE));
+    if (isSaved) dispatch(showSuccessNotification(STORY_SAVE_MESSAGE));
   };
 }
