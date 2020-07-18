@@ -8,7 +8,6 @@ import {
   RegisterData,
   UserSettings
 } from './types';
-import { login, postPerson } from '../../api/login';
 import { cognitoUserToLocalUser } from '../../common/util/accountTools';
 import { Auth } from 'aws-amplify';
 import { Dispatch } from 'redux';
@@ -20,7 +19,8 @@ export function loginAction(user: User): UserActionTypes {
   };
 }
 
-//https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js
+// https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js
+// https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#signin
 export function loginUser(loginData: LoginData) {
   return async (dispatch: Dispatch) => {
     const cognitoUser = await Auth.signIn(loginData.email, loginData.password);
@@ -32,12 +32,21 @@ export function loginUser(loginData: LoginData) {
 export function register(registerData: RegisterData) {
   return async (dispatch: Dispatch) => {
     dispatch(logoutAction());
-    await postPerson(registerData);
-    const user = await login({
-      email: registerData.email,
+    await Auth.signUp({
+      username: registerData.attributes.email,
+      password: registerData.password,
+      attributes: {
+        email: registerData.attributes.email,
+        name: registerData.attributes.name,
+        'custom:occupation': registerData.attributes['custom:occupation'],
+        'custom:emailNotif': registerData.attributes['custom:emailNotif']
+      }
+    });
+    //Log user in after they've registered their account
+    loginUser({
+      email: registerData.attributes.email,
       password: registerData.password
     });
-    dispatch(loginAction(user));
   };
 }
 

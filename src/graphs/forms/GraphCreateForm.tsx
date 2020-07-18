@@ -105,7 +105,7 @@ export function GraphCreateForm(props: Props) {
    * If the user is an admin, enable the initiative form selection, else
    * remove this step from the form
    */
-  const createSteps = isAdmin(userInfo.role)
+  const createSteps = isAdmin(userInfo['custom:role'])
     ? createFormSteps
     : createFormSteps.slice(0, createFormSteps.length - 1);
 

@@ -1,11 +1,10 @@
 import { LOGIN, LOGOUT, UserActionTypes, User, UPDATE_SETTINGS } from './types';
-import { UNDEFINED_USER, EMPTY_TOKEN } from '../../nav/constants';
-import { CognitoUser } from 'amazon-cognito-identity-js';
+import { UNDEFINED_USER } from '../../nav/constants';
 
 const initialState: User = {
   email: '',
   name: '',
-  role: UNDEFINED_USER,
+  'custom:role': UNDEFINED_USER,
   'custom:occupation': '',
   'custom:emailNotif': false
 };
@@ -22,7 +21,7 @@ export function userReducer(
         email: '',
         name: '',
         'custom:occupation': '',
-        role: UNDEFINED_USER,
+        'custom:role': UNDEFINED_USER,
         'custom:emailNotif': false
       };
     case UPDATE_SETTINGS:

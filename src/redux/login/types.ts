@@ -14,19 +14,23 @@ export interface PasswordEditData {
 }
 
 export interface RegisterData {
-  email: string;
+  username: string;
   password: string;
-  name: string;
-  role: number;
-  occupation: string;
-  notificationsEnabled: boolean;
-  isThirdParty: boolean;
+  attributes: {
+    email: string;
+    name: string;
+    'custom:occupation': string;
+    'custom:emailNotif': string;
+    'custom:role': number;
+  };
 }
 
+// Custom attributes need to have 'custom:' in front of them to work correctly.
+// https://aws.amazon.com/blogs/mobile/aws-amplify-adds-support-for-custom-attributes-in-amazon-cognito-user-pools/
 export interface User {
   email: string;
   name: string;
-  role: number;
+  'custom:role': number;
   'custom:occupation': string;
   'custom:emailNotif': boolean;
 }
@@ -46,7 +50,6 @@ export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const UPDATE_SETTINGS = 'UPDATE_SETTINGS';
 
-//https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#signin
 interface LoginUserAction {
   type: typeof LOGIN;
   payload: User;

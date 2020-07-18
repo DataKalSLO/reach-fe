@@ -10,9 +10,12 @@ import BoxCenter from '../common/components/BoxCenter';
 import AccountTextField from '../common/components/AccountTextField';
 import { OccupationDropdown } from '../containers/OccupationDropdown';
 import { useHistory } from 'react-router-dom';
-import { LOGIN } from '../nav/constants';
+import { LOGIN, BASE_USER } from '../nav/constants';
 import { isValidEmail, isValidPassword } from './InputValidator';
 import { Auth } from 'aws-amplify';
+import { wrapWithCatch } from '../api/base';
+import { useDispatch } from 'react-redux';
+import { register } from '../redux/login/actions';
 
 function CreateAccountForm() {
   const [name, setName] = useState('');
@@ -33,7 +36,6 @@ function CreateAccountForm() {
   const [emailNotificationEnabled, setEmailNotificationEnabled] = useState(
     true
   );
-  const [badEmail, setBadEmail] = useState(false);
   const [occupation, setOccupation] = useState('');
 
   const validateEmail = useCallback(
@@ -112,33 +114,73 @@ function CreateAccountForm() {
     [setName]
   );
 
-  const history = useHistory();
+  const handleAccountError = useCallback(
+    e => {
+      setEmailErrorMessage(e.message);
+    },
+    [setEmailErrorMessage]
+  );
 
-  //https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js
-  async function signUp() {
-    console.log('signing up');
-    try {
-      const user = await Auth.signUp({
-        username: email,
-        password,
-        attributes: {
-          email,
-          name: name,
-          'custom:occupation': occupation,
-          'custom:emailNotif': emailNotificationEnabled ? 'true' : 'false'
-        }
-      }).then(
-        () => history.push(LOGIN) // returns user back to previous non-login page
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const handleSubmit = useCallback(
+    e => {
+      e.preventDefault();
+      dispatch(
+        wrapWithCatch(
+          register({
+            username: email,
+            password,
+            attributes: {
+              email,
+              name: name,
+              'custom:occupation': occupation,
+              'custom:emailNotif': emailNotificationEnabled ? 'true' : 'false',
+              'custom:role': BASE_USER
+            }
+          }),
+          handleAccountError,
+          () => history.push(LOGIN) // returns user back to login page to log into their newly created account
+        )
       );
-      console.log({ user });
-    } catch (error) {
-      console.log('error signing up:', error);
-      setEmailErrorMessage(error.message);
-    }
-  }
+    },
+    [
+      dispatch,
+      email,
+      password,
+      name,
+      occupation,
+      emailNotificationEnabled,
+      handleAccountError,
+      history
+    ]
+  );
+
+  // //https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js
+  // async function signUp() {
+  //   console.log('signing up');
+  //   try {
+  //     const user = await Auth.signUp({
+  //       username: email,
+  //       password,
+  //       attributes: {
+  //         email,
+  //         name: name,
+  //         'custom:occupation': occupation,
+  //         'custom:emailNotif': emailNotificationEnabled ? 'true' : 'false'
+  //       }
+  //     }).then(
+  //       () => history.push(HOME) // takes user home after logging in their new account
+  //     );
+  //   } catch (error) {
+  //     console.log('error signing up:', error);
+  //     setEmailErrorMessage(error.message);
+  //   }
+  // }
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <BoxCenterSized>
         <AccountTextField
           fullWidth
@@ -153,12 +195,7 @@ function CreateAccountForm() {
         />
         <AccountTextField
           fullWidth
-          error={badEmail}
-          helperText={
-            badEmail
-              ? 'An account has already been created with this email'
-              : ''
-          }
+          error={emailErrorMessage.length ? true : false}
           placeholder="Email Address"
           onChange={handleInputChangeEmail}
           variant="filled"
@@ -191,13 +228,13 @@ function CreateAccountForm() {
           fullWidth
           variant="contained"
           color="primary"
+          type="submit"
           disabled={!emailValid || !passwordValid || !passwordConfirmationValid}
-          onClick={signUp}
         >
           CREATE ACCOUNT
         </ButtonThin>
       </BoxCenterSized>
-    </div>
+    </form>
   );
 }
 

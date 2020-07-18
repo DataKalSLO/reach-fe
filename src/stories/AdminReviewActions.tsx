@@ -89,7 +89,7 @@ export default function AdminReviewActions(props: Props) {
   }
 
   if (
-    props.user.role === ADMIN_USER &&
+    props.user['custom:role'] === ADMIN_USER &&
     props.story.publicationStatus === PublicationStatus.REVIEW
   ) {
     return (

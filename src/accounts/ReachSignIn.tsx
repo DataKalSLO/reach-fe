@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { wrapWithCatch } from '../api/base';
 import AccountTextField from '../common/components/AccountTextField';
-import { STORY_BUILDER } from '../nav/constants';
+import { HOME } from '../nav/constants';
 import { loginUser } from '../redux/login/actions';
 import { LoginData } from '../redux/login/types';
 
@@ -46,8 +46,7 @@ function ReachSignIn() {
         wrapWithCatch(
           loginUser({ email, password } as LoginData),
           handleLoginError,
-          //TODO: Change this to HOME
-          () => history.push(STORY_BUILDER)
+          () => history.push(HOME)
         )
       );
     },
