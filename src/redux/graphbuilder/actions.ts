@@ -13,21 +13,23 @@ import { getDataColumnsForDataSourcesAndHandleResponse } from '../../api/vizbuil
 import { GraphMetaData, GraphMetaDataApiPayload } from '../graphs/types';
 import { showSuccessStatusMessage } from '../notifications/actions';
 import {
+  GRAPH_DELETE_MESSAGE,
+  GRAPH_SAVE_MESSAGE,
+  GRAPH_UPDATE_MESSAGE
+} from '../notifications/constants';
+import {
   CREATE_LOCAL_GRAPH,
   DELETE_GRAPH,
   DELETE_LOCAL_GRAPH,
-  DELETE_MESSAGE,
   DUPLICATE_GRAPH,
   FETCH,
   GET_ALL_USER_GRAPHS,
   GET_DEFAULT_GRAPHS_FOR_CATEGORY,
   GET_GRAPH,
   SAVE_GRAPH,
-  SAVE_MESSAGE,
   TOGGLE_CREATE_GRAPH,
   UPDATE_GRAPH,
-  UPDATE_LOCAL_GRAPH,
-  UPDATE_MESSAGE
+  UPDATE_LOCAL_GRAPH
 } from './constants';
 import {
   CreateLocalGraph,
@@ -50,7 +52,9 @@ export function saveGraph(
 ) {
   return async (dispatch: Dispatch) => {
     const metaData = await saveGraphAndHandleResponse(graphMetaData);
-    dispatch(showSuccessStatusMessage(!isUndefined(metaData), SAVE_MESSAGE));
+    dispatch(
+      showSuccessStatusMessage(!isUndefined(metaData), GRAPH_SAVE_MESSAGE)
+    );
     const graph = await createGraphWithData(metaData);
     dispatch(saveGraphAction({ graph: graph, index: index }));
   };
@@ -69,7 +73,9 @@ export function updateGraph(
 ) {
   return async (dispatch: Dispatch) => {
     const metaData = await updateGraphAndHandleResponse(graphMetaData);
-    dispatch(showSuccessStatusMessage(!isUndefined(metaData), UPDATE_MESSAGE));
+    dispatch(
+      showSuccessStatusMessage(!isUndefined(metaData), GRAPH_UPDATE_MESSAGE)
+    );
     const graph = await createGraphWithData(metaData);
     dispatch(updateGraphAction({ graph: graph, index: index }));
   };
@@ -99,7 +105,9 @@ function updateLocalGraphAction(payload: GraphWithIndex): UpdateLocalGraph {
 export function deleteGraph(graphId: string) {
   return async (dispatch: Dispatch) => {
     const payload = await deleteGraphAndHandleResponse(graphId);
-    dispatch(showSuccessStatusMessage(!isUndefined(payload), DELETE_MESSAGE));
+    dispatch(
+      showSuccessStatusMessage(!isUndefined(payload), GRAPH_DELETE_MESSAGE)
+    );
     dispatch(deleteGraphAction(payload));
   };
 }

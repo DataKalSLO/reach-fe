@@ -25,11 +25,3 @@ export const ASSETS = 'Assets';
 export const HOUSING = 'Housing and Living';
 export const EDUCATION = 'Education';
 export const HEALTH = 'Health';
-
-/*
- * Status Message Action Constants
- */
-export const SUCCESS_SEVERITY = 'success';
-export const SAVE_MESSAGE = 'Your graph was successfully saved!';
-export const UPDATE_MESSAGE = 'Your graph was successfully updated!';
-export const DELETE_MESSAGE = 'Your graph was successfully deleted!';
