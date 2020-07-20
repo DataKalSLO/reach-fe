@@ -8,20 +8,17 @@ import {
   RegisterData,
   UserSettings
 } from './types';
-import { cognitoUserToLocalUser } from '../../common/util/accountTools';
+import { getCurrentUser } from '../../common/util/accountTools';
 import { Auth } from 'aws-amplify';
 import { Dispatch } from 'redux';
-import { CognitoUser } from 'amazon-cognito-identity-js';
 
 // https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js
 // https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#signin
 export function loginUser(loginData: LoginData) {
   return async (dispatch: Dispatch) => {
-    const cognitoUser: CognitoUser = await Auth.signIn(
-      loginData.email,
-      loginData.password
-    );
-    const user = cognitoUserToLocalUser(cognitoUser);
+    await Auth.signIn(loginData.email, loginData.password);
+    const user = await getCurrentUser();
+    console.log('Current User: ', user);
     dispatch(loginAction(user));
   };
 }

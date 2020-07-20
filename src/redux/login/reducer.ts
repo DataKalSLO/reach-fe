@@ -1,10 +1,11 @@
 import { LOGIN, LOGOUT, UserActionTypes, User, UPDATE_SETTINGS } from './types';
-import { UNDEFINED_USER } from '../../nav/constants';
+import { UNDEFINED_USER, EMPTY_TOKEN } from '../../nav/constants';
 import { Auth } from 'aws-amplify';
 
 const initialState: User = {
   email: '',
   name: '',
+  token: EMPTY_TOKEN,
   'custom:role': UNDEFINED_USER,
   'custom:occupation': '',
   'custom:emailNotif': false
