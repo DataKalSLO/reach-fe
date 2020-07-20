@@ -12,7 +12,7 @@ interface ProtectedRouteProps {
 function ProtectedRoute(props: ProtectedRouteProps) {
   const user = useSelector(getUser);
   const redirect =
-    user.role === ADMIN_USER ? (
+    user['custom:role'] === ADMIN_USER ? (
       props.componentPage
     ) : (
       <Redirect to={{ pathname: HOME }} />

@@ -32,13 +32,15 @@ const GoogleAuth = (props: { style: GoogleAuthButtonType }) => {
   const registerAccount = useCallback(
     (email: string, password: string, name: string, role: number) =>
       register({
-        email,
+        username: email,
         password,
-        name,
-        role,
-        occupation: '',
-        notificationsEnabled: false,
-        isThirdParty: true
+        attributes: {
+          email,
+          name: name,
+          'custom:occupation': '',
+          'custom:emailNotif': 'false',
+          'custom:role': role
+        }
       } as RegisterData),
     []
   );

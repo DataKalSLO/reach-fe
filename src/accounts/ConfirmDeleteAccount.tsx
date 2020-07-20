@@ -42,13 +42,11 @@ function ConfirmDeleteAccount(props: ConfirmDeleteProps) {
   const handleDelete = useCallback(() => {
     setIsLoading(true);
     dispatch(
-      wrapWithCatch(
-        deleteUser(user.email, user.token),
-        handleDeleteAccountError,
-        () => history.push(HOME)
+      wrapWithCatch(deleteUser(), handleDeleteAccountError, () =>
+        history.push(HOME)
       )
     );
-  }, [dispatch, handleDeleteAccountError, history, user.email, user.token]);
+  }, [dispatch, handleDeleteAccountError, history, user.email]);
 
   const handleClose = () => {
     setIsConfirmDelete(false);

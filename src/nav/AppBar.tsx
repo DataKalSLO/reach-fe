@@ -56,7 +56,7 @@ export default function AppBar() {
         alignItems="center"
         justify="flex-end"
       >
-        <AdminButton isAdmin={user.role === ADMIN_USER} />
+        <AdminButton isAdmin={user['custom:role'] === ADMIN_USER} />
         <LoginButton isLoggedIn={user.email !== ''} />
       </Grid>
     </Grid>

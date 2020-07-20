@@ -12,23 +12,26 @@ export interface PasswordEditData {
 }
 
 export interface RegisterData {
-  email: string;
+  username: string;
   password: string;
-  name: string;
-  role: number;
-  occupation: string;
-  notificationsEnabled: boolean;
-  isThirdParty: boolean;
+  attributes: {
+    email: string;
+    name: string;
+    'custom:occupation': string;
+    'custom:emailNotif': string;
+    'custom:role': number;
+  };
 }
 
+// Custom attributes need to have 'custom:' in front of them to work correctly.
+// https://aws.amazon.com/blogs/mobile/aws-amplify-adds-support-for-custom-attributes-in-amazon-cognito-user-pools/
 export interface User {
   email: string;
-  token: string;
   name: string;
-  role: number;
-  occupation: string;
-  notificationsEnabled: boolean;
-  isThirdParty: boolean;
+  token: string;
+  'custom:role': number;
+  'custom:occupation': string;
+  'custom:emailNotif': boolean;
 }
 
 export interface PasswordChange {
@@ -38,9 +41,8 @@ export interface PasswordChange {
 
 export interface UserSettings {
   name: string;
-  occupation: string;
-  notificationsEnabled: boolean;
-  passwordChangeRequest: PasswordChange | null;
+  'custom:occupation': string;
+  'custom:emailNotif': boolean;
 }
 
 export const LOGIN = 'LOGIN';

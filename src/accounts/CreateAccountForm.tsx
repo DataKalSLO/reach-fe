@@ -10,12 +10,11 @@ import BoxCenter from '../common/components/BoxCenter';
 import AccountTextField from '../common/components/AccountTextField';
 import { OccupationDropdown } from '../containers/OccupationDropdown';
 import { useHistory } from 'react-router-dom';
-import { BASE_USER } from '../nav/constants';
+import { LOGIN, BASE_USER } from '../nav/constants';
+import { isValidEmail, isValidPassword } from './InputValidator';
+import { wrapWithCatch } from '../api/base';
 import { useDispatch } from 'react-redux';
 import { register } from '../redux/login/actions';
-import { RegisterData } from '../redux/login/types';
-import { wrapWithCatch } from '../api/base';
-import { isValidEmail, isValidPassword } from './InputValidator';
 
 function CreateAccountForm() {
   const [name, setName] = useState('');
@@ -36,7 +35,6 @@ function CreateAccountForm() {
   const [emailNotificationEnabled, setEmailNotificationEnabled] = useState(
     true
   );
-  const [badEmail, setBadEmail] = useState(false);
   const [occupation, setOccupation] = useState('');
 
   const validateEmail = useCallback(
@@ -56,7 +54,7 @@ function CreateAccountForm() {
       const isValid = isValidPassword(passwordVal);
       const errorMessage = isValid
         ? ''
-        : 'Your password must be at at least 6 characters, contain 1 number, and contain 1 special symbol';
+        : 'Your password must be at at least 8 characters, contain 1 number, and contain 1 special symbol';
       setPasswordValid(isValid);
       setPasswordErrorMessage(errorMessage);
     },
@@ -115,9 +113,12 @@ function CreateAccountForm() {
     [setName]
   );
 
-  const handleAccountError = useCallback(() => {
-    setBadEmail(true);
-  }, [setBadEmail]);
+  const handleAccountError = useCallback(
+    e => {
+      setEmailErrorMessage(e.message);
+    },
+    [setEmailErrorMessage]
+  );
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -128,16 +129,18 @@ function CreateAccountForm() {
       dispatch(
         wrapWithCatch(
           register({
-            email,
+            username: email,
             password,
-            name: name,
-            role: BASE_USER,
-            occupation: occupation,
-            notificationsEnabled: emailNotificationEnabled,
-            isThirdParty: false
-          } as RegisterData),
+            attributes: {
+              email,
+              name: name,
+              'custom:occupation': occupation,
+              'custom:emailNotif': emailNotificationEnabled ? 'true' : 'false',
+              'custom:role': BASE_USER
+            }
+          }),
           handleAccountError,
-          () => history.go(-2) // returns user back to previous non-login page
+          () => history.push(LOGIN) // returns user back to login page to log into their newly created account
         )
       );
     },
@@ -169,12 +172,7 @@ function CreateAccountForm() {
         />
         <AccountTextField
           fullWidth
-          error={badEmail}
-          helperText={
-            badEmail
-              ? 'An account has already been created with this email'
-              : ''
-          }
+          error={emailErrorMessage.length ? true : false}
           placeholder="Email Address"
           onChange={handleInputChangeEmail}
           variant="filled"

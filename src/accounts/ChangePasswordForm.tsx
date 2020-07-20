@@ -17,8 +17,8 @@ import { wrapWithCatch } from '../api/base';
 import BoxCenter from '../common/components/BoxCenter';
 import { theme } from '../theme/theme';
 import { isValidPassword } from './InputValidator';
-import { UserSettings, PasswordChange } from '../redux/login/types';
-import { updateUserSettings } from '../redux/login/actions';
+import { updateUserSettingsAndPassword } from '../redux/login/actions';
+import { UserSettings } from '../redux/login/types';
 
 interface ChangePasswordProps {
   isChangingPassword: boolean;
@@ -39,9 +39,8 @@ function ChangePasswordForm(props: ChangePasswordProps) {
 
   const settings: UserSettings = {
     name: user.name,
-    occupation: user.occupation,
-    notificationsEnabled: user.notificationsEnabled,
-    passwordChangeRequest: null
+    'custom:occupation': user['custom:occupation'],
+    'custom:emailNotif': user['custom:emailNotif']
   };
 
   const handleChangePasswordError = useCallback(() => {
@@ -71,13 +70,9 @@ function ChangePasswordForm(props: ChangePasswordProps) {
     if (result === '') {
       setErrorMessage('');
       setIsLoading(true);
-      settings.passwordChangeRequest = {
-        currentPassword: currentPassword,
-        newPassword: newPassword
-      } as PasswordChange;
       dispatch(
         wrapWithCatch(
-          updateUserSettings(user.email, settings),
+          updateUserSettingsAndPassword(settings, currentPassword, newPassword),
           handleChangePasswordError,
           () => setIsChangingPassword(false)
         )
@@ -92,7 +87,6 @@ function ChangePasswordForm(props: ChangePasswordProps) {
     newPassword,
     setIsChangingPassword,
     settings,
-    user.email,
     validateNewPassword
   ]);
 

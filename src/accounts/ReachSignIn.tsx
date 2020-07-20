@@ -1,17 +1,18 @@
-import React, { useState, useCallback } from 'react';
-import { Box, Button, styled, CircularProgress, Fade } from '@material-ui/core';
-import AccountTextField from '../common/components/AccountTextField';
+import { Box, Button, CircularProgress, Fade, styled } from '@material-ui/core';
+import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { LoginData } from '../redux/login/types';
-import { loginUser } from '../redux/login/actions';
 import { wrapWithCatch } from '../api/base';
+import AccountTextField from '../common/components/AccountTextField';
+import { HOME } from '../nav/constants';
+import { loginUser } from '../redux/login/actions';
+import { LoginData } from '../redux/login/types';
 
 function ReachSignIn() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [badLogin, setBadLogin] = useState(false);
+  const [badLogin, setBadLogin] = useState('');
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
@@ -29,10 +30,13 @@ function ReachSignIn() {
     [setPassword]
   );
 
-  const handleLoginError = useCallback(() => {
-    setBadLogin(true);
-    setLoading(false);
-  }, [setBadLogin, setLoading]);
+  const handleLoginError = useCallback(
+    e => {
+      setBadLogin(e.message);
+      setLoading(false);
+    },
+    [setBadLogin, setLoading]
+  );
 
   const handleSubmit = useCallback(
     e => {
@@ -42,7 +46,7 @@ function ReachSignIn() {
         wrapWithCatch(
           loginUser({ email, password } as LoginData),
           handleLoginError,
-          () => history.goBack()
+          () => history.push(HOME)
         )
       );
     },
@@ -60,8 +64,8 @@ function ReachSignIn() {
           onChange={handleInputChangeEmail}
         />
         <AccountTextField
-          error={badLogin}
-          helperText={badLogin ? 'Incorrect email/password combination' : ' '}
+          error={badLogin.length ? true : false}
+          helperText={badLogin}
           placeholder="Password"
           type="password"
           fullWidth

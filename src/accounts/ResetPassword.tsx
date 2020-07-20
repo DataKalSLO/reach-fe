@@ -29,11 +29,11 @@ function ResetPassword() {
   const validatePassword = useCallback(
     (passwordVal: string) => {
       const passwordStrengthRegex = new RegExp(
-        '(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{6,})'
+        '(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})'
       );
       const error = passwordStrengthRegex.test(passwordVal)
         ? ''
-        : 'Your password must be at at least 6 characters, contain 1 number, and contain 1 special symbol';
+        : 'Your password must be at at least 8 characters, contain 1 number, and contain 1 special symbol';
       setPasswordValid(error === '');
       setPasswordErrorMessage(error);
       return error;

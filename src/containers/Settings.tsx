@@ -29,34 +29,33 @@ function Settings() {
   const [displayError, setDisplayError] = useState(false);
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
-  const [occupation, setOccupation] = useState(user.occupation);
+  const [occupation, setOccupation] = useState(user['custom:occupation']);
   const settings: UserSettings = {
     name: user.name,
-    occupation: user.occupation,
-    notificationsEnabled: user.notificationsEnabled,
-    passwordChangeRequest: null
+    'custom:occupation': user['custom:occupation'],
+    'custom:emailNotif': user['custom:emailNotif']
   };
 
   const saveNameSetting = useCallback(() => {
     setEditNameMode(!editNameMode);
     if (editNameMode) {
       settings.name = user.name;
-      dispatch(updateUserSettings(user.email, settings));
+      dispatch(updateUserSettings(settings));
     }
-  }, [editNameMode, settings, user.name, user.email, dispatch]);
+  }, [editNameMode, settings, user.name, dispatch]);
 
   const saveOccSetting = useCallback(() => {
     setOccEditMode(!editOccMode);
     if (editOccMode) {
-      settings.occupation = occupation;
-      dispatch(updateUserSettings(user.email, settings));
+      settings['custom:occupation'] = occupation;
+      dispatch(updateUserSettings(settings));
     }
-  }, [editOccMode, user.email, settings, occupation, dispatch]);
+  }, [editOccMode, settings, occupation, dispatch]);
 
   const saveEmailNotifSetting = useCallback(() => {
-    settings.notificationsEnabled = !user.notificationsEnabled;
-    dispatch(updateUserSettings(user.email, settings));
-  }, [user.email, settings, dispatch, user.notificationsEnabled]);
+    settings['custom:emailNotif'] = !user['custom:emailNotif'];
+    dispatch(updateUserSettings(settings));
+  }, [settings, dispatch, user]);
 
   const handleDeleteAccount = () => {
     setIsConfirmDelete(true);
@@ -127,16 +126,12 @@ function Settings() {
         <SettingsBox>
           <Typography>Email Notifications:</Typography>
           <Switch
-            checked={user.notificationsEnabled || false}
+            checked={user['custom:emailNotif'] || false}
             onChange={saveEmailNotifSetting}
           />
         </SettingsBox>
         <CenterBox>
-          <SettingsButton
-            variant="outlined"
-            onClick={handleChangePassword}
-            disabled={user.isThirdParty}
-          >
+          <SettingsButton variant="outlined" onClick={handleChangePassword}>
             Change Password
           </SettingsButton>
           <ChangePasswordForm

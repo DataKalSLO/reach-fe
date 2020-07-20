@@ -1,14 +1,14 @@
 import { LOGIN, LOGOUT, UserActionTypes, User, UPDATE_SETTINGS } from './types';
 import { UNDEFINED_USER, EMPTY_TOKEN } from '../../nav/constants';
+import { Auth } from 'aws-amplify';
 
 const initialState: User = {
   email: '',
-  token: EMPTY_TOKEN,
   name: '',
-  role: UNDEFINED_USER,
-  occupation: '',
-  notificationsEnabled: false,
-  isThirdParty: false
+  token: EMPTY_TOKEN,
+  'custom:role': UNDEFINED_USER,
+  'custom:occupation': '',
+  'custom:emailNotif': false
 };
 
 export function userReducer(
@@ -21,19 +21,18 @@ export function userReducer(
     case LOGOUT:
       return {
         email: '',
-        token: '',
         name: '',
-        occupation: '',
-        role: UNDEFINED_USER,
-        notificationsEnabled: false,
-        isThirdParty: false
+        token: '',
+        'custom:occupation': '',
+        'custom:role': UNDEFINED_USER,
+        'custom:emailNotif': false
       };
     case UPDATE_SETTINGS:
       return {
         ...state,
         name: action.payload.name,
-        occupation: action.payload.occupation,
-        notificationsEnabled: action.payload.notificationsEnabled
+        'custom:occupation': action.payload['custom:occupation'],
+        'custom:emailNotif': action.payload['custom:emailNotif']
       };
     default:
       return state;

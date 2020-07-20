@@ -58,6 +58,7 @@ import AppBar from './nav/AppBar';
 import ProtectedRoute from './nav/ProtectedRoute';
 import StoryReviewGrid from './admin/StoryReviewGrid';
 import DataUploader from './admin/DataUploader';
+import PasswordResetForm from './accounts/PasswordResetForm';
 
 const home = (
   <Route path={HOME} exact>
@@ -129,6 +130,11 @@ const resetPassword = (
     <ResetPassword />
   </Route>
 );
+const passwordResetForm = (
+  <Route path={RESET_PASSWORD}>
+    <PasswordResetForm />
+  </Route>
+);
 const storyView = (
   <Route path={STORY_VIEW_ID}>
     <StoryViewContainer />
@@ -158,7 +164,7 @@ function App() {
                 {settings}
                 {storyView}
                 {forgotPassword}
-                {resetPassword}
+                {passwordResetForm}
               </Switch>
             </ThemeProvider>
           </QueryParamProvider>
