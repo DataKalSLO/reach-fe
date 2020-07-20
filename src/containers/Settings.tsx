@@ -1,25 +1,14 @@
-import React, { useState, useCallback } from 'react';
-import {
-  Paper,
-  Typography,
-  IconButton,
-  Divider,
-  Box,
-  Button,
-  TextField,
-  Switch,
-  styled
-} from '@material-ui/core';
-import { useSelector } from 'react-redux';
-import { getUser } from '../redux/login/selectors';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { Edit, Done } from '@material-ui/icons';
-import ConfirmDeleteAccount from '../accounts/ConfirmDeleteAccount';
+import { Checkbox, Grid, Typography } from '@material-ui/core';
+import { AccountCircle, Done, Edit } from '@material-ui/icons';
+import React, { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ChangePasswordForm from '../accounts/ChangePasswordForm';
-import { UserSettings } from '../redux/login/types';
+import ConfirmDeleteAccount from '../accounts/ConfirmDeleteAccount';
+import { Button, ContentBox, IconButton, TextField } from '../reach-ui/core';
 import { updateUserSettings } from '../redux/login/actions';
-import { useDispatch } from 'react-redux';
-import { OccupationDropdown } from './OccupationDropdown';
+import { getUser } from '../redux/login/selectors';
+import { UserSettings } from '../redux/login/types';
+import { OccupationDropdown, OCCUPATIONS_BY_KEY } from './OccupationDropdown';
 
 function Settings() {
   const user = useSelector(getUser);
@@ -76,139 +65,173 @@ function Settings() {
     [user]
   );
 
-  const nameVal = editNameMode ? (
-    <TextField
-      label="Name"
-      defaultValue={user.name}
-      onChange={handleInputChangeName}
-    />
-  ) : (
-    <Typography>Name: {user.name}</Typography>
-  );
+  const SettingsGridItem = (props: {
+    children: JSX.Element | JSX.Element[];
+    justify?: 'space-around' | 'space-between';
+  }) => {
+    return (
+      <Grid
+        container
+        item
+        alignItems="center"
+        justify={props.justify ? props.justify : 'space-between'}
+      >
+        {props.children}
+      </Grid>
+    );
+  };
 
-  const occupationVal = editOccMode ? (
-    <OccupationDropdown occupation={occupation} setOccupation={setOccupation} />
-  ) : (
-    <Typography>Occupation: {occupation}</Typography>
-  );
+  const GridItemText = (props: { label: string; value?: string }) => {
+    return (
+      <Typography>
+        <b>{props.label}: </b> {props.value}
+      </Typography>
+    );
+  };
 
-  return (
-    <React.Fragment>
-      <SettingsTypography variant="h4"> Settings</SettingsTypography>
-      <SettingsPaper elevation={8}>
-        <SettingsBox>
-          <AccountCircle fontSize="large" />
-          <IconButton disabled>
-            <Edit />
-          </IconButton>
-        </SettingsBox>
-        <Divider variant="middle" />
-        <SettingsBox>
-          {nameVal}
-          <IconButton onClick={() => saveNameSetting()}>
-            {editNameIcon}
-          </IconButton>
-        </SettingsBox>
-        <Divider variant="middle" />
-        <SettingsBox>
-          <Typography>Email: {user.email}</Typography>
-          <IconButton disabled>
-            <Edit />
-          </IconButton>
-        </SettingsBox>
-        <Divider variant="middle" />
-        <SettingsBox>
-          {occupationVal}
-          <IconButton onClick={() => saveOccSetting()}>
-            {editOccIcon}
-          </IconButton>
-        </SettingsBox>
-        <Divider variant="middle" />
-        <SettingsBox>
-          <Typography>Email Notifications:</Typography>
-          <Switch
-            checked={user.notificationsEnabled || false}
-            onChange={saveEmailNotifSetting}
-          />
-        </SettingsBox>
-        <CenterBox>
-          <SettingsButton
-            variant="outlined"
-            onClick={handleChangePassword}
-            disabled={user.isThirdParty}
-          >
-            Change Password
-          </SettingsButton>
-          <ChangePasswordForm
-            isChangingPassword={isChangingPassword}
-            setIsChangingPassword={setIsChangingPassword}
-          ></ChangePasswordForm>
-          <SettingsDeleteButton
-            variant="contained"
-            onClick={handleDeleteAccount}
-          >
-            Delete Account
-          </SettingsDeleteButton>
-          <ConfirmDeleteAccount
-            isConfirmDelete={isConfirmDelete}
-            setIsConfirmDelete={setIsConfirmDelete}
-            setDisplayError={setDisplayError}
-          ></ConfirmDeleteAccount>
-        </CenterBox>
+  const EditButton = (props: {
+    aria: string;
+    icon?: JSX.Element;
+    disabled?: boolean;
+    onClick?: () => void;
+  }) => {
+    return (
+      <IconButton
+        size="small"
+        aria-label={props.aria}
+        icon={props.icon ? props.icon : <Edit />}
+        {...props}
+      />
+    );
+  };
+
+  const Name = () => {
+    if (editNameMode) {
+      return (
+        <TextField
+          label="Name"
+          defaultValue={user.name}
+          onChange={handleInputChangeName}
+        />
+      );
+    } else {
+      return <GridItemText label="Name" value={user.name} />;
+    }
+  };
+
+  const Email = () => {
+    return <GridItemText label="Email" value={user.email} />;
+  };
+
+  const Occupation = () => {
+    if (editOccMode) {
+      return (
+        <OccupationDropdown
+          occupation={occupation}
+          setOccupation={setOccupation}
+        />
+      );
+    } else {
+      return (
+        <GridItemText
+          label="Occupation"
+          value={OCCUPATIONS_BY_KEY[occupation]}
+        />
+      );
+    }
+  };
+
+  const ChangePasswordButton = () => {
+    return (
+      <React.Fragment>
+        <Button
+          variant="outlined"
+          label="Change Password"
+          onClick={handleChangePassword}
+          disabled={user.isThirdParty}
+        />
+        <ChangePasswordForm
+          isChangingPassword={isChangingPassword}
+          setIsChangingPassword={setIsChangingPassword}
+        ></ChangePasswordForm>
+      </React.Fragment>
+    );
+  };
+
+  const DeleteAccountButton = () => {
+    return (
+      <React.Fragment>
+        <Button
+          label="Delete Account"
+          onClick={handleDeleteAccount}
+          style={{ background: 'red', text: 'white' }}
+        />
+        <ConfirmDeleteAccount
+          isConfirmDelete={isConfirmDelete}
+          setIsConfirmDelete={setIsConfirmDelete}
+          setDisplayError={setDisplayError}
+        ></ConfirmDeleteAccount>
         {displayError ? (
           <Typography variant="body1" color="error" align="center">
             Error when deleting account. Please try again later.
           </Typography>
         ) : null}
-      </SettingsPaper>
-    </React.Fragment>
+      </React.Fragment>
+    );
+  };
+
+  return (
+    <ContentBox>
+      <Typography variant="h3" component="h1" gutterBottom>
+        Settings
+      </Typography>
+      <Grid lg={5}>
+        <SettingsGridItem>
+          {/* TODO: make the photo bigger once it's the user's actual profile pic */}
+          <AccountCircle fontSize="large" color="disabled" />
+          <EditButton aria="edit profile picture" disabled />
+        </SettingsGridItem>
+
+        <SettingsGridItem>
+          <Name />
+          <EditButton
+            aria="edit name"
+            onClick={() => saveNameSetting()}
+            icon={editNameIcon}
+          />
+        </SettingsGridItem>
+
+        <SettingsGridItem>
+          <Email />
+          <EditButton disabled aria="edit email" />
+        </SettingsGridItem>
+
+        <SettingsGridItem>
+          <Occupation />
+          <EditButton
+            aria="edit occupation"
+            onClick={() => saveOccSetting()}
+            icon={editOccIcon}
+          />
+        </SettingsGridItem>
+
+        <SettingsGridItem>
+          <GridItemText label="Email Notifications" />
+          <Checkbox
+            color="primary"
+            checked={user.notificationsEnabled || false}
+            onChange={saveEmailNotifSetting}
+            style={{ marginRight: '5px' }} // hack to make it align with the other icons
+          />
+        </SettingsGridItem>
+
+        <SettingsGridItem justify="space-around">
+          <ChangePasswordButton />
+          <DeleteAccountButton />
+        </SettingsGridItem>
+      </Grid>
+    </ContentBox>
   );
 }
-
-const SettingsPaper = styled(Paper)({
-  marginLeft: '300px',
-  marginRight: '300px'
-});
-
-const SettingsTypography = styled(Typography)({
-  marginTop: '25px',
-  marginBottom: '15px',
-  marginLeft: '300px'
-});
-
-const AccountCircle = styled(AccountCircleIcon)({
-  height: '50px',
-  width: '50px'
-});
-
-const SettingsBox = styled(Box)({
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyItems: 'center',
-  justifyContent: 'space-between',
-  marginLeft: '30px',
-  marginRight: '30px',
-  marginTop: '5px',
-  marginBottom: '5px'
-});
-
-const CenterBox = styled(Box)({
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyItems: 'center',
-  justifyContent: 'space-around'
-});
-
-const SettingsButton = styled(Button)({
-  margin: '10px'
-});
-
-const SettingsDeleteButton = styled(Button)({
-  margin: '10px',
-  background: 'rgb(255,89,10)',
-  color: 'white'
-});
 
 export default Settings;
