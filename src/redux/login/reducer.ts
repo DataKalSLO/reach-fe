@@ -1,5 +1,6 @@
 import { LOGIN, LOGOUT, UserActionTypes, User, UPDATE_SETTINGS } from './types';
 import { UNDEFINED_USER } from '../../nav/constants';
+import { Auth } from 'aws-amplify';
 
 const initialState: User = {
   email: '',
@@ -20,6 +21,7 @@ export function userReducer(
       return {
         email: '',
         name: '',
+        token: '',
         'custom:occupation': '',
         'custom:role': UNDEFINED_USER,
         'custom:emailNotif': false

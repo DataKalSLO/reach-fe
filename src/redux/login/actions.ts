@@ -11,21 +11,25 @@ import {
 import { cognitoUserToLocalUser } from '../../common/util/accountTools';
 import { Auth } from 'aws-amplify';
 import { Dispatch } from 'redux';
-
-export function loginAction(user: User): UserActionTypes {
-  return {
-    type: LOGIN,
-    payload: user
-  };
-}
+import { CognitoUser } from 'amazon-cognito-identity-js';
 
 // https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js
 // https://aws-amplify.github.io/amplify-js/api/classes/authclass.html#signin
 export function loginUser(loginData: LoginData) {
   return async (dispatch: Dispatch) => {
-    const cognitoUser = await Auth.signIn(loginData.email, loginData.password);
+    const cognitoUser: CognitoUser = await Auth.signIn(
+      loginData.email,
+      loginData.password
+    );
     const user = cognitoUserToLocalUser(cognitoUser);
     dispatch(loginAction(user));
+  };
+}
+
+export function loginAction(user: User): UserActionTypes {
+  return {
+    type: LOGIN,
+    payload: user
   };
 }
 

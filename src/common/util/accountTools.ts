@@ -1,11 +1,17 @@
 import { User } from '../../redux/login/types';
+import { CognitoUser, CognitoUserAttribute } from 'amazon-cognito-identity-js';
 
-export function cognitoUserToLocalUser(cognitoUser: any): User {
-  return {
-    email: cognitoUser.attributes.email,
-    name: cognitoUser.attributes.name,
-    'custom:role': cognitoUser.attributes['custom:role'],
-    'custom:occupation': cognitoUser.attributes['custom:occupation'],
-    'custom:emailNotif': cognitoUser.attributes['custom:emailNotif']
-  };
+export async function cognitoUserToLocalUser(
+  cognitoUser: CognitoUser
+): Promise<User> {
+  cognitoUser.getUserAttributes((attributes: CognitoUserAttribute[]) => {
+    return {
+      email: attributes.email,
+      name: attributes.name,
+      token: '',
+      'custom:role': cognitoUser.attributes['custom:role'],
+      'custom:occupation': cognitoUser.attributes['custom:occupation'],
+      'custom:emailNotif': cognitoUser.attributes['custom:emailNotif']
+    };
+  });
 }

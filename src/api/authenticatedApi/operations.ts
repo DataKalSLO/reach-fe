@@ -6,6 +6,7 @@ import {
   UnauthorizedAOperationError,
   CONFIRM_REDIRECT_TO_LOGIN_PROMPT
 } from './constants';
+import { Auth } from 'aws-amplify';
 
 export function authenticatedGet(endpoint: string): Promise<object> {
   return performActionWithToken(token => get(endpoint, token));
@@ -43,12 +44,12 @@ export function authenticatedPostForm(
   return performActionWithToken(token => postForm(endpoint, body, token));
 }
 
-function performActionWithToken<T>(
+async function performActionWithToken<T>(
   action: (token: string) => T,
   noTokenAction?: () => T
-): T {
+): Promise<T> {
   //Changed from token to email since token no longer exists
-  const token = store.getState().user.email;
+  const token = (await Auth.currentSession()).getIdToken().getJwtToken();
   if (token === EMPTY_TOKEN) {
     if (window.confirm(CONFIRM_REDIRECT_TO_LOGIN_PROMPT)) {
       history.push(LOGIN);
