@@ -1,5 +1,5 @@
+import { FormControl, MenuItem, styled, TextField } from '@material-ui/core';
 import React from 'react';
-import { styled, FormControl, MenuItem, TextField } from '@material-ui/core';
 
 export type OccupationDropdownProps = {
   occupation: string;
@@ -7,12 +7,15 @@ export type OccupationDropdownProps = {
 };
 
 // Maps an occupation's database representation to its display representation.
-const OCCUPATIONS_BY_KEY: { [key: string]: string } = {
-  '': 'Unspecified',                                      /* eslint-disable-line */
-  'policymaker': 'Policymaker',                           /* eslint-disable-line */
-  'business_representative': 'Business Representative',   /* eslint-disable-line */
-  'current_homeowner': 'Current Homeowner',               /* eslint-disable-line */
-  'future_homeowner': 'Future Homeowner'                  /* eslint-disable-line */
+export const OCCUPATIONS_BY_KEY: { [key: string]: string } = {
+  '': 'Unspecified',
+  policymaker: 'Policymaker',
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  business_representative: 'Business Representative',
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  current_homeowner: 'Current Homeowner',
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  future_homeowner: 'Future Homeowner'
 };
 
 export const OccupationDropdown = (props: OccupationDropdownProps) => {
@@ -22,7 +25,7 @@ export const OccupationDropdown = (props: OccupationDropdownProps) => {
         select
         label="Occupation"
         value={props.occupation}
-        variant="filled"
+        variant="outlined"
         margin="dense"
         onChange={event => props.setOccupation(event.target.value as string)}
       >
